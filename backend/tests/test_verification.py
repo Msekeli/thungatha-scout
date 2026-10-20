@@ -9,16 +9,17 @@ def test_careers_keywords_include_common_variants():
     assert "jobs" in CAREER_KEYWORDS
 
 
-def test_build_queries_includes_location_and_roles():
+def test_build_queries_focuses_on_companies_in_local_region():
     queries = _build_queries(
         None,
         ("software developer", "web developer"),
         "Cape Town, Western Cape, South Africa",
     )
-    assert len(queries) >= 2
-    assert all("Cape Town" in query for query in queries)
-    assert any("software developer" in query for query in queries)
-    assert any("web developer" in query for query in queries)
+    assert len(queries) >= 10
+    assert all("Cape Town" in query or "Western Cape" in query for query in queries)
+    assert any('"software companies"' in query for query in queries)
+    assert any('"fintech company"' in query for query in queries)
+    assert not any('"software developer"' in query for query in queries)
 
 
 def test_custom_query_returns_only_one_query():
