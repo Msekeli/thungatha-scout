@@ -127,3 +127,68 @@ def test_regional_evidence_does_not_assume_unspecified_or_remote_locations_quali
     assert result["regional_evidence_status"] == "no_explicit_regional_job"
     assert result["regional_job_count"] == 0
     assert result["regional_locations"] == []
+
+
+
+def test_discovery_defaults_to_auto_backend(monkeypatch):
+    import app.greenhouse_discovery as discovery
+
+    captured = {}
+
+    class FakeDDGS:
+        def __init__(self, timeout):
+            captured["timeout"] = timeout
+
+        def text(self, query, **kwargs):
+            captured["backend"] = kwargs["backend"]
+            return []
+
+    monkeypatch.setattr(discovery, "DDGS", FakeDDGS)
+    report = discovery.discover_greenhouse_boards(queries=("test query",), page_inspection_limit=0)
+
+    assert captured["backend"] == "auto"
+    assert report["successful_queries"] == 1
+    assert report["empty_queries"] == ["test query"]
+    assert report["search_status"] == "no_results"
+    assert report["failed_queries"] == []
+
+
+def test_discovery_treats_ddgs_no_results_exception_as_empty_query(monkeypatch):
+    import app.greenhouse_discovery as discovery
+
+    class DDGSException(Exception):
+        pass
+
+    class FakeDDGS:
+        def __init__(self, timeout):
+            pass
+
+        def text(self, query, **kwargs):
+            raise DDGSException("No results found.")
+
+    monkeypatch.setattr(discovery, "DDGS", FakeDDGS)
+    report = discovery.discover_greenhouse_boards(queries=("empty query",), page_inspection_limit=0)
+
+    assert report["successful_queries"] == 1
+    assert report["empty_queries"] == ["empty query"]
+    assert report["failed_queries"] == []
+    assert report["search_status"] == "no_results"
+
+
+def test_discovery_reports_backend_failures_without_claiming_no_results(monkeypatch):
+    import app.greenhouse_discovery as discovery
+
+    class FakeDDGS:
+        def __init__(self, timeout):
+            pass
+
+        def text(self, query, **kwargs):
+            raise RuntimeError("backend unavailable")
+
+    monkeypatch.setattr(discovery, "DDGS", FakeDDGS)
+    report = discovery.discover_greenhouse_boards(queries=("failed query",), page_inspection_limit=0)
+
+    assert report["successful_queries"] == 0
+    assert report["empty_queries"] == []
+    assert report["search_status"] == "failed"
+    assert "RuntimeError: backend unavailable" in report["failed_queries"][0]
