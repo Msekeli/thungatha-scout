@@ -1,4 +1,7 @@
+import httpx
+
 from app.site_investigator import (
+    _extract_direct_html_vacancy,
     _detect_ats,
     _greenhouse_board,
     _is_job_detail_link,
@@ -51,3 +54,27 @@ def test_reject_external_and_application_links_for_generic_extraction():
 def test_ordinary_site_does_not_get_an_ats_guess():
     assert _detect_ats("<html><title>Careers</title></html>", "https://example.com/careers", []) == []
     assert _greenhouse_board("<html></html>", "https://example.com/careers") is None
+
+
+
+def test_direct_beingit_vacancy_extracts_one_primary_job():
+    html = """
+    <html><head><title>BeingIT | Careers | Vacancy | Junior .NET Developer</title></head>
+    <body><nav><a href="/Services">Services</a></nav>
+    <main><h1>Junior .NET Developer</h1>
+    <p>We are looking for a Junior .NET Developer to join our software team.</p>
+    <p>Applicants should understand C#, .NET, SQL and web development.</p>
+    </main><footer><a href="/Home/PrivacyPolicy">Privacy Policy</a></footer></body></html>
+    """
+    response = httpx.Response(
+        200,
+        headers={"content-type": "text/html"},
+        text=html,
+        request=httpx.Request("GET", "https://www.beingit.co.za/Careers/Vacancy/DND24100301"),
+    )
+    result = _extract_direct_html_vacancy(response)
+    assert result["success"] is True
+    assert len(result["jobs"]) == 1
+    assert result["jobs"][0]["title"] == "Junior .NET Developer"
+    assert result["jobs"][0]["url"].endswith("/DND24100301")
+    assert "Services" not in result["jobs"][0]["title"]
