@@ -65,15 +65,30 @@ def test_validation_accepts_usable_public_job_feed_and_deduplicates_ids():
     assert result["jobs"][0]["title"] == "Software Engineer"
 
 
-def test_validation_rejects_api_success_with_no_usable_jobs():
+def test_validation_keeps_board_when_api_exists_but_jobs_are_unusable():
     with httpx.Client(transport=httpx.MockTransport(
         lambda request: httpx.Response(200, json={"jobs": [{"id": 1, "title": "", "absolute_url": ""}]})
     )) as client:
         result = validate_greenhouse_board(client, "emptyboard")
 
-    assert result["valid"] is False
+    assert result["valid"] is True
+    assert result["board_exists"] is True
+    assert result["jobs_available"] is False
     assert result["usable_jobs"] == 0
     assert "no usable" in result["error"].lower()
+
+
+def test_validation_keeps_board_when_api_returns_zero_jobs():
+    with httpx.Client(transport=httpx.MockTransport(
+        lambda request: httpx.Response(200, json={"jobs": []})
+    )) as client:
+        result = validate_greenhouse_board(client, "quietboard")
+
+    assert result["valid"] is True
+    assert result["board_exists"] is True
+    assert result["jobs_available"] is False
+    assert result["total_jobs_reported"] == 0
+    assert result["error"] == ""
 
 
 def test_validation_records_http_errors():
@@ -192,3 +207,51 @@ def test_discovery_reports_backend_failures_without_claiming_no_results(monkeypa
     assert report["empty_queries"] == []
     assert report["search_status"] == "failed"
     assert "RuntimeError: backend unavailable" in report["failed_queries"][0]
+
+
+
+def test_company_name_and_board_title_parsing_is_conservative():
+    from app.greenhouse_discovery import _company_name_from_title, _page_title
+
+    assert _company_name_from_title("Acme | Careers") == "Acme"
+    assert _company_name_from_title("Greenhouse") == ""
+    assert _page_title("<html><head><title>Acme Careers</title></head></html>") == "Acme Careers"
+
+
+def test_company_registry_csv_keeps_unverified_and_empty_job_board_leads(tmp_path):
+    from app.greenhouse_discovery import save_greenhouse_discovery_report
+
+    report = {
+        "boards": [{
+            "company_name": "",
+            "company_identity_status": "unresolved_board_identity",
+            "company_name_candidates": [],
+            "greenhouse_connection_status": "board_api_not_verified",
+            "board_token": "candidateboard",
+            "board_url": "https://job-boards.greenhouse.io/candidateboard",
+            "board_page_title": "",
+            "board_page_http_status": 404,
+            "api_url": "https://boards-api.greenhouse.io/v1/boards/candidateboard/jobs?content=true",
+            "board_exists": False,
+            "valid": False,
+            "jobs_available": False,
+            "http_status": 404,
+            "total_jobs_reported": 0,
+            "usable_jobs": 0,
+            "company_evidence": [],
+            "candidate_urls": ["https://job-boards.greenhouse.io/candidateboard"],
+            "search_evidence": [{"query": "site:job-boards.greenhouse.io", "title": "Candidate Careers", "snippet": ""}],
+            "discovery_methods": ["search-result-url"],
+            "error": "HTTP 404",
+            "regional_evidence_status": "no_jobs_returned",
+            "regional_job_count": 0,
+            "regional_locations": [],
+            "regional_job_examples": [],
+        }]
+    }
+
+    _, csv_path = save_greenhouse_discovery_report(report, tmp_path)
+    csv_text = csv_path.read_text(encoding="utf-8-sig")
+
+    assert "candidateboard" in csv_text
+    assert "unresolved_board_identity" in csv_text
