@@ -1,4 +1,4 @@
-""""Automated discovery and validation of public Greenhouse job boards.
+"""Automated discovery and validation of public Greenhouse job boards.
 
 Search results are untrusted leads. A board is registered only after its public
 Greenhouse API returns a valid jobs payload with usable job records. The
@@ -13,7 +13,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import parse_qs, urljoin, urlparse
+from urllib.parse import parse_qs, urlparse
 
 import httpx
 from ddgs import DDGS
