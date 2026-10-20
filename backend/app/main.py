@@ -8,6 +8,7 @@ from pathlib import Path
 
 from app.discovery import DEFAULT_REGION, DEFAULT_ROLES, discover_companies
 from app.exports import export_candidates_csv
+from app.greenhouse_discovery import discover_greenhouse_boards, save_greenhouse_discovery_report
 from app.verification import inspect_careers_page
 from app.site_investigator import investigate_careers_url, save_investigation_report
 
@@ -21,6 +22,18 @@ def build_parser() -> argparse.ArgumentParser:
     discover.add_argument("--region", default=DEFAULT_REGION)
     discover.add_argument("--max-results-per-query", type=int, default=8)
     discover.add_argument("--backend", default="auto", help="DDGS search backend, e.g. auto or brave,google.")
+
+    greenhouse = subparsers.add_parser(
+        "discover-greenhouse",
+        help="Automatically find public Greenhouse boards and validate their job feeds.",
+    )
+    greenhouse.add_argument("--max-results-per-query", type=int, default=20)
+    greenhouse.add_argument("--backend", default="auto", help="DDGS search backend, e.g. auto or brave,google.")
+    greenhouse.add_argument(
+        "--output-dir",
+        default=str(Path(__file__).resolve().parents[1] / "reports" / "greenhouse-discovery"),
+        help="Directory for timestamped JSON evidence and CSV board registry.",
+    )
 
     verify = subparsers.add_parser("verify", help="Run the original lightweight URL check.")
     verify.add_argument("url")
@@ -42,6 +55,28 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
+
+    if args.command == "discover-greenhouse":
+        try:
+            report = discover_greenhouse_boards(
+                max_results_per_query=args.max_results_per_query,
+                backend=args.backend,
+            )
+        except Exception as exc:
+            parser.exit(1, f"Greenhouse discovery failed: {exc}\\n")
+        json_path, csv_path = save_greenhouse_discovery_report(report, args.output_dir)
+        print(json.dumps({
+            "candidate_boards_found": report["candidate_boards_found"],
+            "validated_boards_found": report["validated_boards_found"],
+            "successful_queries": report["successful_queries"],
+            "failed_queries": report["failed_queries"],
+            "json_report": str(json_path),
+            "csv_registry": str(csv_path),
+        }, indent=2, ensure_ascii=False))
+        for board in report["boards"]:
+            if board["valid"]:
+                print(f"- {board['board_token']}: {board['usable_jobs']} usable jobs ({board['board_url']})")
+        return
 
     if args.command == "verify":
         print(json.dumps(inspect_careers_page(args.url), indent=2, ensure_ascii=False))
