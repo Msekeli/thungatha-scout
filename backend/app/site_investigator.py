@@ -41,14 +41,15 @@ def _workday_config(html: str, final_url: str) -> dict[str, str] | None:
 
 
 def _greenhouse_board(html: str, final_url: str) -> str | None:
+    """Identify a Greenhouse board token from observed API or public-board URLs."""
     candidates = re.findall(
-        r"(?:boards-api\.greenhouse\.io/v1/boards/|boards\.greenhouse\.io/)([A-Za-z0-9_-]+)",
+        r"(?:boards-api\\.greenhouse\\.io/v1/boards/|(?:job-)?boards\\.greenhouse\\.io/)([A-Za-z0-9_-]+)",
         html, re.I,
     )
     if candidates:
         return candidates[0]
     host = urlparse(final_url).netloc.lower()
-    if "boards.greenhouse.io" in host:
+    if host in {"boards.greenhouse.io", "job-boards.greenhouse.io"}:
         parts = [part for part in urlparse(final_url).path.split("/") if part]
         return parts[0] if parts else None
     return None
