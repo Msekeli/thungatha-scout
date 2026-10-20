@@ -8,6 +8,7 @@ from app.site_investigator import (
     _workday_config,
     _bamboohr_slug,
     _extract_bamboohr,
+    _extract_breezyhr,
 )
 
 
@@ -117,3 +118,51 @@ def test_bamboohr_adapter_returns_requested_job_only():
     assert result["jobs"][0]["department"] == "Technology"
     assert result["jobs"][0]["location"] == "Cape Town, Western Cape, South Africa"
     assert result["jobs"][0]["description_excerpt"] == "Build and maintain software systems."
+
+
+
+def test_detect_breezyhr_from_redirected_careers_host():
+    ats = _detect_ats("<html><title>Openings</title></html>", "https://travellab.breezy.hr/", [])
+    assert ats == ["breezyhr"]
+
+
+def test_breezyhr_adapter_extracts_only_observed_job_pages():
+    listing_html = """
+    <html><body>
+      <h1>Openings at TravelLab Africa Group</h1>
+      <a href="/p/abc123-java-developer">Java Developer</a>
+      <a href="/p/def456-python-developer">Python Developer</a>
+      <a href="/about">About</a>
+    </body></html>
+    """
+    links = [
+        {"label": "Java Developer", "url": "https://travellab.breezy.hr/p/abc123-java-developer"},
+        {"label": "Python Developer", "url": "https://travellab.breezy.hr/p/def456-python-developer"},
+        {"label": "About", "url": "https://travellab.breezy.hr/about"},
+    ]
+
+    def handler(request):
+        if request.url.path == "/p/abc123-java-developer":
+            return httpx.Response(200, headers={"content-type": "text/html"}, text="""
+                <html><body><main><h1>Java Developer</h1>
+                <p>Join our technology team to build and maintain software services and APIs.</p>
+                <p>Experience with Java, testing, SQL and cloud systems is useful.</p>
+                </main></body></html>
+            """)
+        if request.url.path == "/p/def456-python-developer":
+            return httpx.Response(200, headers={"content-type": "text/html"}, text="""
+                <html><body><main><h1>Python Developer</h1>
+                <p>Build backend applications, integrations and automation for our travel platform.</p>
+                <p>Work with Python, databases and API services in a collaborative team.</p>
+                </main></body></html>
+            """)
+        return httpx.Response(404)
+
+    with httpx.Client(transport=httpx.MockTransport(handler), follow_redirects=True) as client:
+        result = _extract_breezyhr(client, "https://travellab.breezy.hr/", listing_html, links)
+    assert result["success"] is True
+    assert result["candidate_links_found"] == 2
+    assert result["detail_pages_checked"] == 2
+    assert {job["title"] for job in result["jobs"]} == {"Java Developer", "Python Developer"}
+    assert all(job["description_available"] for job in result["jobs"])
+    assert all(job["source_adapter"] == "breezyhr" for job in result["jobs"])
