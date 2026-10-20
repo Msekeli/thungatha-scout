@@ -7,6 +7,7 @@ Python prototype for investigating employer careers pages and recording evidence
 - [x] Free-first web search prototype using the `ddgs` metasearch library.
 - [x] Careers URL inspection and evidence-based ATS detection.
 - [x] Greenhouse public-board API adapter.
+- [x] Automated Greenhouse board discovery from public search results, with API validation and a separate timestamped registry.
 - [x] Workday public CXS adapter using observed tenant/site configuration.
 - [x] Generic same-host vacancy-detail extraction for ordinary careers pages.
 - [x] Separate timestamped JSON and Markdown investigation reports.
@@ -36,6 +37,25 @@ python -m app.main discover --max-results-per-query 5
 ```
 
 Results are written to `company_discovery_results.csv`.
+
+## Automatically discover Greenhouse boards
+
+Run one command to search public web results for Greenhouse boards, validate candidate board tokens against the public Greenhouse API, and save evidence plus a separate CSV registry:
+
+```bash
+python -m app.main discover-greenhouse
+```
+
+Optional controls:
+
+```bash
+python -m app.main discover-greenhouse --max-results-per-query 30
+python -m app.main discover-greenhouse --backend brave,google
+```
+
+Reports are saved under `reports/greenhouse-discovery/`. The JSON report retains search evidence and job records; the CSV registry contains only boards whose API returned usable, uniquely identified jobs. This does not modify `data/companies.csv`.
+
+Discovery is automated but not exhaustive: coverage depends on public search indexing and search-provider rate limits. A validated public board confirms the feed is readable, not that every vacancy is relevant to a target region. Rerun the command periodically to find newly indexed boards.
 
 ## Verify a known careers URL
 
