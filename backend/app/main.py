@@ -70,6 +70,9 @@ def main() -> None:
             "validated_boards_found": report["validated_boards_found"],
             "successful_queries": report["successful_queries"],
             "failed_queries": report["failed_queries"],
+            "search_result_pages_seen": report.get("search_result_pages_seen", 0),
+            "company_pages_inspected": report.get("company_pages_inspected", 0),
+            "company_page_errors": len(report.get("company_page_errors", [])),
             "json_report": str(json_path),
             "csv_registry": str(csv_path),
         }, indent=2, ensure_ascii=False))
