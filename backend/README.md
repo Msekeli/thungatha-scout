@@ -57,6 +57,16 @@ Reports are saved under `reports/greenhouse-discovery/`. The JSON report retains
 
 Discovery is automated but not exhaustive: coverage depends on public search indexing and search-provider rate limits. A validated public board confirms the feed is readable, not that every vacancy is relevant to a target region. Rerun the command periodically to find newly indexed boards.
 
+## Rank discovered Greenhouse jobs for South Africa
+
+Use the JSON report path printed by `discover-greenhouse`:
+
+```bash
+python -m app.main analyze-greenhouse reports/greenhouse-discovery/greenhouse-discovery-YYYYMMDDTHHMMSSZ.json
+```
+
+The command creates `reports/greenhouse-analysis/greenhouse-job-relevance.csv` and `greenhouse-job-relevance.json`. It ranks jobs using the available title, department, and location fields, flags South African locations, separately identifies remote roles whose eligible countries are unconfirmed, and keeps jobs with missing locations for manual review. It deduplicates exact vacancy URLs (ignoring trailing slashes). These are heuristic matches; open the original job page to confirm the vacancy is live and whether applicants in South Africa are eligible.
+
 ## Verify a known careers URL
 
 ```bash
