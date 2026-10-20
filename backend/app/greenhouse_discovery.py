@@ -374,6 +374,14 @@ def discover_greenhouse_boards(
                         token, page["url"], page["query"], page["title"], page["snippet"],
                         method="embedded-reference",
                     )
+                    entry = candidates[token.casefold()]
+                    regional_mentions = [
+                        region for region, pattern in TARGET_LOCATION_PATTERNS.items()
+                        if pattern.search(html)
+                    ]
+                    for evidence in entry["company_evidence"]:
+                        if evidence.get("source_url") == page["url"]:
+                            evidence["regional_mentions_on_page"] = regional_mentions
             except (httpx.HTTPError, UnicodeError) as exc:
                 page_errors.append(f"{page['url']}: {exc}")
 
@@ -418,11 +426,25 @@ def discover_greenhouse_boards(
             else "unresolved_board_identity"
         )
         board["greenhouse_connection_status"] = (
-            "public_board_api_accessible" if board.get("board_exists")
+            "greenhouse_reference_found_on_source_page" if board.get("company_evidence")
+            else "public_board_api_accessible" if board.get("board_exists")
             else "board_api_not_verified"
         )
-        if board.get("company_evidence"):
-            board["greenhouse_connection_status"] = "greenhouse_reference_found_on_source_page"
+        board["regional_company_evidence_status"] = (
+            "regional_reference_found_on_source_page"
+            if any(evidence.get("regional_mentions_on_page") for evidence in board.get("company_evidence", []))
+            else "regional_search_lead_only"
+            if any(
+                pattern.search(" ".join([
+                    str(evidence.get("query") or ""),
+                    str(evidence.get("title") or ""),
+                    str(evidence.get("snippet") or ""),
+                ]))
+                for evidence in board.get("search_evidence", [])
+                for pattern in TARGET_LOCATION_PATTERNS.values()
+            )
+            else "no_regional_evidence_found"
+        )
         board.update(_regional_job_evidence(board.get("jobs", [])))
 
     boards.sort(key=lambda item: (
@@ -458,7 +480,8 @@ def discover_greenhouse_boards(
             if board.get("valid") and board.get("regional_evidence_status") == "explicit_regional_job"
         ),
         "boards_needing_company_identity_review": sum(
-            1 for board in boards if board.get("valid") and not board.get("company_name")
+            1 for board in boards
+            if board.get("company_identity_status") != "verified"
         ),
         "boards": boards,
         "limitations": [
@@ -479,7 +502,7 @@ def save_greenhouse_discovery_report(
     out.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     json_path = out / f"greenhouse-discovery-{stamp}.json"
-    csv_path = out / f"greenhouse-board-registry-{stamp}.csv"
+    csv_path = out / f"greenhouse-company-registry-{stamp}.csv"
     json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     with csv_path.open("w", newline="", encoding="utf-8-sig") as handle:
         fields = [
@@ -488,7 +511,7 @@ def save_greenhouse_discovery_report(
             "board_page_http_status", "api_url", "board_exists", "valid", "jobs_available",
             "http_status", "total_jobs_reported", "usable_jobs", "company_evidence",
             "candidate_urls", "search_evidence", "discovery_methods", "error",
-            "regional_evidence_status", "regional_job_count", "regional_locations",
+            "regional_company_evidence_status", "regional_evidence_status", "regional_job_count", "regional_locations",
             "regional_job_examples",
         ]
         writer = csv.DictWriter(handle, fieldnames=fields)
