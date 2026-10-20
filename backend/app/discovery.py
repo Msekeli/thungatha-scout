@@ -17,16 +17,14 @@ from app.models import CompanyCandidate
 logger = logging.getLogger(__name__)
 
 DEFAULT_REGION = "Cape Town, Western Cape, South Africa"
+# Job roles are retained as future filtering hints; discovery itself is company-first.
 DEFAULT_ROLES = (
-    "software developer",
-    "web developer",
-    "software engineer",
-    "frontend developer",
-    "backend developer",
-    "full stack developer",
-    "data engineer",
-    "cloud engineer",
-    "AI engineer",
+    "software development",
+    "technology",
+    "IT",
+    "data",
+    "AI",
+    "cloud",
 )
 
 AGENCY_HINTS = (
@@ -139,18 +137,36 @@ def _build_queries(
         location_terms.append(f'"{region}"')
     location_clause = " OR ".join(location_terms)
 
+    # Discover employers and their official web presence first. Do not search
+    # individual job titles here: vacancy filtering is a later pipeline stage.
+    company_types = (
+        '"technology companies"',
+        '"software companies"',
+        '"software development company"',
+        '"IT services company"',
+        '"SaaS company"',
+        '"fintech company"',
+        '"AI company"',
+        '"cybersecurity company"',
+        '"data analytics company"',
+        '"digital product company"',
+        '"e-commerce company"',
+        '"technology startup"',
+        '"game development studio"',
+        '"cloud services company"',
+    )
     queries = [
-        (
-            f'"{role}" (careers OR jobs OR vacancies OR "join our team") '
-            f"({location_clause}) South Africa -recruitment -staffing -placement"
-        )
-        for role in roles
+        f'{company_type} ({location_clause}) South Africa -recruitment -staffing -placement -jobs-board'
+        for company_type in company_types
     ]
     queries.extend(
         [
-            f'"software company" ({location_clause}) South Africa careers',
-            f'"technology company" ({location_clause}) South Africa careers jobs',
-            f'"software engineering" ({location_clause}) employer careers',
+            f'"technology companies in Cape Town" -recruitment -staffing',
+            f'"software companies in Cape Town" -recruitment -staffing',
+            f'"tech startups in Cape Town" South Africa -recruitment',
+            f'"technology companies in the Western Cape" South Africa -recruitment',
+            f'"Cape Town" technology company official website',
+            f'"Western Cape" software company official website',
         ]
     )
     return queries
