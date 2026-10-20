@@ -307,7 +307,9 @@ def discover_greenhouse_boards(
         ):
             possible_name = title.strip(" \\t-|:")
         if possible_name and possible_name.casefold() != token.casefold():
-            if possible_name not in entry["company_name_candidates"]:
+            if possible_name.casefold() not in {
+                candidate.casefold() for candidate in entry["company_name_candidates"]
+            }:
                 entry["company_name_candidates"].append(possible_name)
         if method == "embedded-reference":
             company_evidence = {
@@ -421,7 +423,9 @@ def discover_greenhouse_boards(
                     board["board_page_title"] = title
                     possible_name = _company_name_from_title(title)
                     if possible_name and possible_name.casefold() != board["board_token"].casefold():
-                        if possible_name not in board["company_name_candidates"]:
+                        if possible_name.casefold() not in {
+                            candidate.casefold() for candidate in board["company_name_candidates"]
+                        }:
                             board["company_name_candidates"].append(possible_name)
                 else:
                     board["board_page_title"] = ""
