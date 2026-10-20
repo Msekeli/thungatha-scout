@@ -130,7 +130,7 @@ def main() -> None:
 
     print("Thungatha Scout — company discovery")
     print(f"Region: {region}")
-    print(f"Technology focus: {', '.join(DEFAULT_ROLES)}")
+    print("Industry filter: none (all employers are in scope)")
     print("Searching public web sources. Results are candidates and require verification.")
     try:
         candidates = discover_companies(
