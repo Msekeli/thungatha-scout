@@ -4,6 +4,7 @@ from app.site_investigator import (
     _extract_direct_html_vacancy,
     _detect_ats,
     _greenhouse_board,
+    _extract_greenhouse,
     _is_job_detail_link,
     _workday_config,
     _bamboohr_slug,
@@ -166,3 +167,35 @@ def test_breezyhr_adapter_extracts_only_observed_job_pages():
     assert {job["title"] for job in result["jobs"]} == {"Java Developer", "Python Developer"}
     assert all(job["description_available"] for job in result["jobs"])
     assert all(job["source_adapter"] == "breezyhr" for job in result["jobs"])
+
+
+
+def test_greenhouse_board_token_from_public_job_board_url():
+    assert _greenhouse_board("", "https://job-boards.greenhouse.io/ozow") == "ozow"
+    assert _greenhouse_board("", "https://boards.greenhouse.io/ozow/jobs/123") == "ozow"
+
+
+def test_greenhouse_adapter_extracts_structured_public_jobs():
+    def handler(request):
+        assert request.url == "https://boards-api.greenhouse.io/v1/boards/ozow/jobs?content=true"
+        return httpx.Response(200, json={"jobs": [
+            {
+                "id": 123,
+                "title": "Software Engineer",
+                "location": {"name": "Cape Town, South Africa"},
+                "departments": [{"name": "Engineering"}],
+                "absolute_url": "https://job-boards.greenhouse.io/ozow/jobs/123",
+                "content": "<p>Build and maintain software systems.</p>",
+            }
+        ]})
+
+    with httpx.Client(transport=httpx.MockTransport(handler)) as client:
+        result = _extract_greenhouse(client, "ozow")
+
+    assert result["success"] is True
+    assert result["total_jobs_reported"] == 1
+    assert result["jobs"][0]["title"] == "Software Engineer"
+    assert result["jobs"][0]["location"] == "Cape Town, South Africa"
+    assert result["jobs"][0]["department"] == "Engineering"
+    assert result["jobs"][0]["description_available"] is True
+    assert result["jobs"][0]["url"] == "https://job-boards.greenhouse.io/ozow/jobs/123"
