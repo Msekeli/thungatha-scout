@@ -204,6 +204,8 @@ def save_greenhouse_discovery_report(
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         for board in report.get("boards", []):
+            if not board.get("valid"):
+                continue
             writer.writerow({
                 key: json.dumps(board.get(key), ensure_ascii=False)
                 if key == "candidate_urls" else board.get(key, "")
