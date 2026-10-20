@@ -5,3 +5,4 @@ __pycache__/
 .env
 company_test_results.csv
 company_discovery_results.csv
+reports/
