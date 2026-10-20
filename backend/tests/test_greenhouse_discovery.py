@@ -214,6 +214,8 @@ def test_company_name_and_board_title_parsing_is_conservative():
     from app.greenhouse_discovery import _company_name_from_title, _page_title
 
     assert _company_name_from_title("Acme | Careers") == "Acme"
+    assert _company_name_from_title("Careers at Acme") == "Acme"
+    assert _company_name_from_title("Software Engineer - Cape Town") == ""
     assert _company_name_from_title("Greenhouse") == ""
     assert _page_title("<html><head><title>Acme Careers</title></head></html>") == "Acme Careers"
 
