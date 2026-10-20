@@ -1,7 +1,8 @@
 """Evidence-based investigation of a user-supplied careers URL.
 
-This module does not discover URLs. It inspects the supplied page and only tries
-public ATS endpoints when the page provides enough evidence to identify them.
+Only follows links observed on the supplied page, stays on the same corporate
+host for generic vacancy extraction, and uses public ATS endpoints when the
+page provides sufficient evidence. Never submits applications.
 """
 from __future__ import annotations
 
@@ -15,12 +16,10 @@ from urllib.parse import urljoin, urlparse
 import httpx
 from bs4 import BeautifulSoup
 
-USER_AGENT = (
-    "Mozilla/5.0 (compatible; ThungathaScout/0.2; "
-    "+https://github.com/Msekeli/thungatha-scout)"
-)
+USER_AGENT = "Mozilla/5.0 (compatible; ThungathaScout/0.3; +https://github.com/Msekeli/thungatha-scout)"
 TIMEOUT = 20.0
 MAX_JOBS = 100
+MAX_DETAIL_PAGES = 25
 
 
 def _unique(values: list[str]) -> list[str]:
@@ -28,44 +27,39 @@ def _unique(values: list[str]) -> list[str]:
 
 
 def _workday_config(html: str, final_url: str) -> dict[str, str] | None:
-    """Read Workday tenant/site/host only from visible page configuration or URL."""
+    """Read Workday tenant/site/host only from observed page configuration or URL."""
     parsed = urlparse(final_url)
     host = parsed.netloc.lower()
     if "myworkdayjobs.com" not in host and "window.workday" not in html.lower():
         return None
-
     tenant_match = re.search(r'\btenant\s*:\s*["\']([^"\']+)["\']', html, re.I)
     site_match = re.search(r'\bsiteId\s*:\s*["\']([^"\']+)["\']', html, re.I)
     tenant = tenant_match.group(1) if tenant_match else host.split(".")[0]
     site = site_match.group(1) if site_match else ""
-    if not tenant or not site or "myworkdayjobs.com" not in host:
-        return {"host": host, "tenant": tenant, "site": site, "status": "incomplete_config"}
-    return {"host": host, "tenant": tenant, "site": site, "status": "identified"}
+    status = "identified" if tenant and site and "myworkdayjobs.com" in host else "incomplete_config"
+    return {"host": host, "tenant": tenant, "site": site, "status": status}
 
 
 def _greenhouse_board(html: str, final_url: str) -> str | None:
-    """Find a Greenhouse board token only where page evidence exposes it."""
     candidates = re.findall(
         r"(?:boards-api\.greenhouse\.io/v1/boards/|boards\.greenhouse\.io/)([A-Za-z0-9_-]+)",
-        html,
-        re.I,
+        html, re.I,
     )
     if candidates:
         return candidates[0]
     host = urlparse(final_url).netloc.lower()
     if "boards.greenhouse.io" in host:
-        path_parts = [part for part in urlparse(final_url).path.split("/") if part]
-        if path_parts:
-            return path_parts[0]
+        parts = [part for part in urlparse(final_url).path.split("/") if part]
+        return parts[0] if parts else None
     return None
 
 
 def _detect_ats(html: str, final_url: str, links: list[dict[str, str]]) -> list[str]:
-    evidence_text = " ".join([html[:1_500_000], final_url] + [x["url"] for x in links]).lower()
+    evidence = " ".join([html[:1_500_000], final_url] + [x["url"] for x in links]).lower()
     ats: list[str] = []
-    if "greenhouse.io" in evidence_text or "greenhouse" in evidence_text:
+    if "greenhouse.io" in evidence or "greenhouse" in evidence:
         ats.append("greenhouse")
-    if "myworkdayjobs.com" in evidence_text or "window.workday" in evidence_text:
+    if "myworkdayjobs.com" in evidence or "window.workday" in evidence:
         ats.append("workday")
     for name, hints in {
         "lever": ("jobs.lever.co", "api.lever.co"),
@@ -75,7 +69,7 @@ def _detect_ats(html: str, final_url: str, links: list[dict[str, str]]) -> list[
         "successfactors": ("successfactors.com",),
         "teamtailor": ("teamtailor.com",),
     }.items():
-        if any(hint in evidence_text for hint in hints):
+        if any(hint in evidence for hint in hints):
             ats.append(name)
     return _unique(ats)
 
@@ -101,16 +95,14 @@ def _normalise_job(job: dict[str, Any], source: str) -> dict[str, Any]:
         department_text = str(departments.get("name") or departments.get("label") or "")
     else:
         department_text = str(departments)
-    job_url = job.get("absolute_url") or job.get("externalPath") or job.get("url") or job.get("externalUrl") or ""
-    title = job.get("title") or job.get("name") or ""
     description = job.get("content") or job.get("description") or ""
     if isinstance(description, dict):
         description = description.get("text") or description.get("html") or ""
     return {
-        "title": str(title).strip(),
+        "title": str(job.get("title") or job.get("name") or "").strip(),
         "location": location_text.strip(),
         "department": department_text.strip(),
-        "url": str(job_url).strip(),
+        "url": str(job.get("absolute_url") or job.get("externalPath") or job.get("url") or job.get("externalUrl") or "").strip(),
         "description_available": bool(str(description).strip()),
         "source_adapter": source,
     }
@@ -118,50 +110,31 @@ def _normalise_job(job: dict[str, Any], source: str) -> dict[str, Any]:
 
 def _extract_greenhouse(client: httpx.Client, board: str) -> dict[str, Any]:
     endpoint = f"https://boards-api.greenhouse.io/v1/boards/{board}/jobs?content=true"
-    response = client.get(endpoint)
-    result: dict[str, Any] = {
-        "adapter": "greenhouse_public_board_api",
-        "endpoint": endpoint,
-        "http_status": response.status_code,
-        "success": False,
-        "jobs": [],
-        "error": "",
-    }
-    if not response.is_success:
-        result["error"] = f"Endpoint returned HTTP {response.status_code}"
-        return result
+    result: dict[str, Any] = {"adapter": "greenhouse_public_board_api", "endpoint": endpoint,
+                              "http_status": None, "success": False, "jobs": [], "error": ""}
     try:
+        response = client.get(endpoint)
+        result["http_status"] = response.status_code
+        if not response.is_success:
+            result["error"] = f"Endpoint returned HTTP {response.status_code}"
+            return result
         payload = response.json()
-    except ValueError:
-        result["error"] = "Endpoint did not return valid JSON"
-        return result
-    jobs = payload.get("jobs", []) if isinstance(payload, dict) else []
-    result["jobs"] = [
-        _normalise_job(job, "greenhouse")
-        for job in jobs[:MAX_JOBS]
-        if isinstance(job, dict)
-    ]
-    result["total_jobs_reported"] = len(jobs)
-    result["success"] = True
+        jobs = payload.get("jobs", []) if isinstance(payload, dict) else []
+        result["jobs"] = [_normalise_job(job, "greenhouse") for job in jobs[:MAX_JOBS] if isinstance(job, dict)]
+        result["total_jobs_reported"] = len(jobs)
+        result["success"] = True
+    except (httpx.HTTPError, ValueError) as exc:
+        result["error"] = str(exc)
     return result
 
 
 def _extract_workday(client: httpx.Client, config: dict[str, str]) -> dict[str, Any]:
-    """Try Workday's public CXS jobs endpoint for an identified tenant/site."""
-    host = config["host"]
-    tenant = config["tenant"]
-    site = config["site"]
+    host, tenant, site = config["host"], config["tenant"], config["site"]
     endpoint = f"https://{host}/wday/cxs/{tenant}/{site}/jobs"
-    result: dict[str, Any] = {
-        "adapter": "workday_public_cxs_jobs",
-        "endpoint": endpoint,
-        "http_status": None,
-        "success": False,
-        "jobs": [],
-        "error": "",
-    }
+    result: dict[str, Any] = {"adapter": "workday_public_cxs_jobs", "endpoint": endpoint,
+                              "http_status": None, "success": False, "jobs": [], "error": ""}
     if config.get("status") != "identified":
-        result["error"] = "Workday detected, but tenant/site configuration was incomplete; no endpoint request made."
+        result["error"] = "Workday detected, but tenant/site configuration is incomplete; no request made."
         return result
     payload = {"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""}
     try:
@@ -172,60 +145,113 @@ def _extract_workday(client: httpx.Client, config: dict[str, str]) -> dict[str, 
             return result
         data = response.json()
         postings = data.get("jobPostings", []) if isinstance(data, dict) else []
-        result["jobs"] = [
-            _normalise_job(job, "workday")
-            for job in postings[:MAX_JOBS]
-            if isinstance(job, dict)
-        ]
+        jobs = []
+        for item in postings[:MAX_JOBS]:
+            if not isinstance(item, dict):
+                continue
+            job = _normalise_job(item, "workday")
+            path = item.get("externalPath")
+            if path and not job["url"].startswith(("http://", "https://")):
+                job["url"] = urljoin(f"https://{host}", str(path))
+            jobs.append(job)
+        result["jobs"] = jobs
         result["total_jobs_reported"] = data.get("total", len(postings)) if isinstance(data, dict) else len(postings)
         result["success"] = True
-        result["pagination"] = {
-            "limit": payload["limit"],
-            "offset": payload["offset"],
-            "note": "First page only; pagination is not yet implemented.",
-        }
+        result["pagination"] = {"limit": payload["limit"], "offset": 0, "note": "First page only."}
     except (httpx.HTTPError, ValueError) as exc:
         result["error"] = str(exc)
     return result
 
 
+def _page_links(soup: BeautifulSoup, page_url: str) -> list[dict[str, str]]:
+    links = []
+    for anchor in soup.find_all("a", href=True):
+        href = str(anchor["href"]).strip()
+        target = urljoin(page_url, href)
+        if urlparse(target).scheme in ("http", "https"):
+            links.append({"label": anchor.get_text(" ", strip=True), "url": target})
+    return links
+
+
+def _is_job_detail_link(link: dict[str, str], base_url: str) -> bool:
+    target = urlparse(link["url"])
+    base = urlparse(base_url)
+    if target.netloc.lower() != base.netloc.lower() or target.path == base.path:
+        return False
+    label = link["label"].strip().lower()
+    path = target.path.lower()
+    # Explicit vacancy/job path segments are strong signals; otherwise use a
+    # title-like link label on a careers page, excluding navigation/actions.
+    if re.search(r"/(careers?/vacanc(y|ies)|jobs?|vacanc(y|ies)|openings?)(/|$)", path):
+        return True
+    excluded = {"apply", "apply now", "read more", "learn more", "careers", "view all", "login"}
+    return bool(label and len(label) >= 7 and label not in excluded and not label.startswith("http")) and (
+        "career" in base.path.lower() or "job" in base.path.lower() or "vacanc" in base.path.lower()
+    )
+
+
+def _extract_generic_careers(client: httpx.Client, base_url: str, links: list[dict[str, str]]) -> dict[str, Any]:
+    """Extract same-host vacancy links and basic fields from their HTML pages."""
+    result: dict[str, Any] = {"adapter": "same_host_html_vacancies", "success": False,
+                              "jobs": [], "error": "", "detail_pages_checked": 0}
+    candidates = []
+    seen = set()
+    for link in links:
+        if _is_job_detail_link(link, base_url) and link["url"] not in seen:
+            seen.add(link["url"])
+            candidates.append(link)
+    for link in candidates[:MAX_DETAIL_PAGES]:
+        try:
+            response = client.get(link["url"])
+            if not response.is_success or "html" not in response.headers.get("content-type", "").lower():
+                continue
+            detail = BeautifulSoup(response.text, "html.parser")
+            title_node = detail.find("h1") or detail.find("title")
+            title = title_node.get_text(" ", strip=True) if title_node else link["label"]
+            if not title or len(title) > 240:
+                title = link["label"]
+            for node in detail(["script", "style", "noscript", "svg", "nav", "footer"]):
+                node.decompose()
+            text = re.sub(r"\s+", " ", detail.get_text(" ", strip=True)).strip()
+            # Keep the normalized record compact; full source page remains reachable by URL.
+            if len(text) < 80:
+                continue
+            result["jobs"].append({
+                "title": title,
+                "location": "",
+                "department": "",
+                "url": str(response.url),
+                "description_available": len(text) >= 200,
+                "description_excerpt": text[:900],
+                "source_adapter": "same_host_html",
+            })
+            result["detail_pages_checked"] += 1
+        except httpx.HTTPError:
+            continue
+    result["success"] = bool(result["jobs"])
+    result["candidate_links_found"] = len(candidates)
+    if not result["success"]:
+        result["error"] = "No readable same-host vacancy detail pages were extracted from observed links."
+    return result
+
+
 def investigate_careers_url(url: str, *, timeout: float = TIMEOUT) -> dict[str, Any]:
-    """Inspect one supplied URL, detect ATS evidence, and try supported public adapters."""
+    """Inspect one supplied URL, follow observed ATS links, and try supported extractors."""
     if not url.startswith(("https://", "http://")):
         raise ValueError("URL must begin with http:// or https://")
-
     report: dict[str, Any] = {
-        "supplied_url": url,
-        "checked_at_utc": datetime.now(timezone.utc).isoformat(),
-        "http_status": None,
-        "final_url": "",
-        "content_type": "",
-        "response_bytes": 0,
-        "page_title": "",
-        "page_text_excerpt": "",
-        "ats_detected": [],
-        "ats_evidence": [],
-        "job_extraction": {
-            "attempted": False,
-            "success": False,
-            "jobs": [],
-            "adapters": [],
-            "note": "",
-        },
+        "supplied_url": url, "checked_at_utc": datetime.now(timezone.utc).isoformat(),
+        "http_status": None, "final_url": "", "content_type": "", "response_bytes": 0,
+        "page_title": "", "page_text_excerpt": "", "ats_detected": [], "ats_evidence": [],
+        "job_extraction": {"attempted": False, "success": False, "jobs": [], "adapters": [], "note": ""},
         "errors": [],
     }
-
     try:
-        with httpx.Client(
-            follow_redirects=True,
-            timeout=timeout,
-            headers={"User-Agent": USER_AGENT},
-        ) as client:
+        with httpx.Client(follow_redirects=True, timeout=timeout, headers={"User-Agent": USER_AGENT}) as client:
             response = client.get(url)
-            report["http_status"] = response.status_code
-            report["final_url"] = str(response.url)
-            report["content_type"] = response.headers.get("content-type", "")
-            report["response_bytes"] = len(response.content)
+            report.update({"http_status": response.status_code, "final_url": str(response.url),
+                           "content_type": response.headers.get("content-type", ""),
+                           "response_bytes": len(response.content)})
             if not response.is_success:
                 report["errors"].append(f"Careers page returned HTTP {response.status_code}.")
                 return report
@@ -235,99 +261,76 @@ def investigate_careers_url(url: str, *, timeout: float = TIMEOUT) -> dict[str, 
 
             html = response.text
             soup = BeautifulSoup(html, "html.parser")
-            title = soup.find("title")
-            report["page_title"] = title.get_text(" ", strip=True) if title else ""
-            for node in soup(["script", "style", "noscript", "svg"]):
+            title_node = soup.find("title")
+            report["page_title"] = title_node.get_text(" ", strip=True) if title_node else ""
+            links = _page_links(soup, str(response.url))
+            clean_soup = BeautifulSoup(html, "html.parser")
+            for node in clean_soup(["script", "style", "noscript", "svg"]):
                 node.decompose()
-            report["page_text_excerpt"] = soup.get_text(" ", strip=True)[:1200]
+            report["page_text_excerpt"] = clean_soup.get_text(" ", strip=True)[:1200]
 
-            links: list[dict[str, str]] = []
-            for anchor in soup.find_all("a", href=True):
-                link_url = urljoin(str(response.url), str(anchor["href"]).strip())
-                if urlparse(link_url).scheme in ("http", "https"):
-                    links.append({"label": anchor.get_text(" ", strip=True), "url": link_url})
-
+            # Inspect observed Workday links, including links on a corporate
+            # careers page that itself is not hosted by Workday.
             ats = _detect_ats(html, str(response.url), links)
+            config = _workday_config(html, str(response.url)) if "workday" in ats else None
+            workday_links = [x["url"] for x in links if "myworkdayjobs.com" in urlparse(x["url"]).netloc.lower()]
+            if config is None and workday_links:
+                ats = _unique(ats + ["workday"])
+                for workday_url in workday_links[:3]:
+                    try:
+                        wd = client.get(workday_url)
+                        if wd.is_success and "html" in wd.headers.get("content-type", "").lower():
+                            config = _workday_config(wd.text, str(wd.url))
+                            report["workday_landing_url"] = str(wd.url)
+                            if config:
+                                break
+                    except httpx.HTTPError as exc:
+                        report["errors"].append(f"Could not inspect observed Workday link: {exc}")
             report["ats_detected"] = ats
             if "greenhouse" in ats:
                 board = _greenhouse_board(html, str(response.url))
-                if board:
-                    report["ats_evidence"].append(
-                        f"Greenhouse board token '{board}' found in supplied page HTML/URL."
-                    )
-                else:
-                    report["ats_evidence"].append("Greenhouse references found, but no board token was extracted.")
-            if "workday" in ats:
-                config = _workday_config(html, str(response.url))
-                # A corporate careers page may only link to Workday. Fetch that
-                # observed link (never a guessed tenant URL) to read its config.
-                if config is None:
-                    workday_links = [
-                        item["url"] for item in links
-                        if "myworkdayjobs.com" in urlparse(item["url"]).netloc.lower()
-                    ]
-                    if workday_links:
-                        try:
-                            workday_response = client.get(workday_links[0])
-                            if workday_response.is_success and "html" in workday_response.headers.get("content-type", "").lower():
-                                config = _workday_config(workday_response.text, str(workday_response.url))
-                                report["workday_landing_url"] = str(workday_response.url)
-                            else:
-                                report["errors"].append(
-                                    f"Observed Workday link returned HTTP {workday_response.status_code} or non-HTML content."
-                                )
-                        except httpx.HTTPError as exc:
-                            report["errors"].append(f"Could not inspect observed Workday link: {exc}")
-                report["workday_config"] = config
                 report["ats_evidence"].append(
-                    "Workday references found in the careers page or its links."
+                    f"Greenhouse board token '{board}' found in supplied page HTML/URL." if board
+                    else "Greenhouse references found, but no board token was extracted."
                 )
-            else:
-                config = None
+            if "workday" in ats:
+                report["workday_config"] = config
+                report["ats_evidence"].append("Workday referenced by page HTML, configuration, or an observed careers link.")
 
             extraction = report["job_extraction"]
             extraction["attempted"] = True
-            with httpx.Client(
-                follow_redirects=True,
-                timeout=timeout,
-                headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
-            ) as api_client:
+            with httpx.Client(follow_redirects=True, timeout=timeout,
+                              headers={"User-Agent": USER_AGENT, "Accept": "application/json"}) as api_client:
                 if "greenhouse" in ats:
                     board = _greenhouse_board(html, str(response.url))
                     if board:
-                        adapter_result = _extract_greenhouse(api_client, board)
-                        extraction["adapters"].append(adapter_result)
-                        if adapter_result["success"]:
-                            extraction["jobs"].extend(adapter_result["jobs"])
-                    else:
-                        extraction["adapters"].append({
-                            "adapter": "greenhouse_public_board_api",
-                            "success": False,
-                            "jobs": [],
-                            "error": "No board token found; no guessed endpoint request made.",
-                        })
+                        adapter = _extract_greenhouse(api_client, board)
+                        extraction["adapters"].append(adapter)
+                        if adapter["success"]:
+                            extraction["jobs"].extend(adapter["jobs"])
                 if "workday" in ats and config:
-                    adapter_result = _extract_workday(api_client, config)
-                    extraction["adapters"].append(adapter_result)
-                    if adapter_result["success"]:
-                        extraction["jobs"].extend(adapter_result["jobs"])
+                    adapter = _extract_workday(api_client, config)
+                    extraction["adapters"].append(adapter)
+                    if adapter["success"]:
+                        extraction["jobs"].extend(adapter["jobs"])
 
-            extraction["success"] = any(adapter.get("success") for adapter in extraction["adapters"])
+            # For non-ATS company sites, parse the visible listing and detail pages.
+            if not extraction["jobs"]:
+                generic = _extract_generic_careers(client, str(response.url), links)
+                extraction["adapters"].append(generic)
+                if generic["success"]:
+                    extraction["jobs"].extend(generic["jobs"])
+
+            extraction["success"] = bool(extraction["jobs"]) or any(
+                adapter.get("success") and "total_jobs_reported" in adapter
+                for adapter in extraction["adapters"]
+            )
             if extraction["success"]:
-                extraction["note"] = (
-                    "At least one recognised public ATS endpoint returned structured data. "
-                    "Job counts and descriptions still need validation."
-                )
+                extraction["note"] = "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
             elif ats:
-                extraction["note"] = (
-                    "ATS detected, but supported endpoint extraction did not return structured jobs. "
-                    "Review adapter errors; ATS detection alone is not extraction success."
-                )
+                extraction["note"] = "ATS detected, but no jobs were extracted. Review adapter errors and site-specific structure."
             else:
-                extraction["note"] = (
-                    "No supported ATS detected. Ordinary HTML inspection completed; "
-                    "no browser automation or blind endpoint probing was attempted."
-                )
+                extraction["note"] = "No supported ATS detected and no readable vacancy detail pages extracted. No blind endpoint probing or application submission was attempted."
     except (httpx.HTTPError, ValueError) as exc:
         report["errors"].append(str(exc))
     return report
@@ -341,50 +344,43 @@ def save_investigation_report(report: dict[str, Any], output_dir: str | Path) ->
     slug = re.sub(r"[^a-z0-9]+", "-", (parsed.netloc + parsed.path).lower()).strip("-") or "careers-url"
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     base = out_dir / f"{slug[:90]}-{stamp}"
-    json_path = base.with_suffix(".json")
-    markdown_path = base.with_suffix(".md")
+    json_path, markdown_path = base.with_suffix(".json"), base.with_suffix(".md")
     json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
-
     extraction = report.get("job_extraction", {})
     jobs = extraction.get("jobs", []) if isinstance(extraction, dict) else []
     lines = [
-        "# Careers URL Investigation",
-        "",
+        "# Careers URL Investigation", "",
         f"- Supplied URL: {report.get('supplied_url', '')}",
         f"- Final URL: {report.get('final_url', '')}",
         f"- HTTP status: {report.get('http_status', '')}",
         f"- Page title: {report.get('page_title', '')}",
         f"- ATS detected: {', '.join(report.get('ats_detected', [])) or 'none detected'}",
         f"- Extraction success: {bool(extraction.get('success', False))}",
-        f"- Jobs extracted in this response: {len(jobs)}",
-        "",
-        "## Assessment",
-        "",
-        str(extraction.get("note", "")),
-        "",
-        "## ATS evidence",
-        "",
+        f"- Jobs extracted in this response: {len(jobs)}", "",
+        "## Assessment", "", str(extraction.get("note", "")), "", "## ATS evidence", "",
     ]
-    lines.extend([f"- {item}" for item in report.get("ats_evidence", [])] or ["- No ATS evidence recorded."])
+    lines.extend([f"- {x}" for x in report.get("ats_evidence", [])] or ["- No ATS evidence recorded."])
     lines.extend(["", "## Adapter results", ""])
     adapters = extraction.get("adapters", [])
     if adapters:
         for adapter in adapters:
-            lines.append(f"- **{adapter.get('adapter', 'unknown')}**: success={adapter.get('success', False)}; HTTP={adapter.get('http_status', 'n/a')}; reported jobs={adapter.get('total_jobs_reported', 'n/a')}; error={adapter.get('error', '')}")
+            lines.append(f"- **{adapter.get('adapter', 'unknown')}**: success={adapter.get('success', False)}; HTTP={adapter.get('http_status', 'n/a')}; reported jobs={adapter.get('total_jobs_reported', 'n/a')}; candidate links={adapter.get('candidate_links_found', 'n/a')}; error={adapter.get('error', '')}")
     else:
-        lines.append("- No ATS adapter was attempted.")
+        lines.append("- No adapter was attempted.")
     lines.extend(["", "## Extracted jobs", ""])
-    if jobs:
-        for job in jobs:
-            lines.append(f"- **{job.get('title') or '(untitled)'}** — {job.get('location') or 'location not provided'}")
-            if job.get("url"):
-                lines.append(f"  - {job['url']}")
-            lines.append(f"  - Description present in response: {job.get('description_available', False)}")
-    else:
+    for job in jobs:
+        lines.append(f"- **{job.get('title') or '(untitled)'}** — {job.get('location') or 'location not provided'}")
+        if job.get("url"):
+            lines.append(f"  - {job['url']}")
+        lines.append(f"  - Description present: {job.get('description_available', False)}")
+    if not jobs:
         lines.append("- No jobs were extracted.")
     if report.get("errors"):
-        lines.extend(["", "## Errors", ""])
-        lines.extend([f"- {error}" for error in report["errors"]])
-    lines.extend(["", "## Limitations", "", "- This report reflects one inspection run, not a guarantee of completeness or long-term endpoint stability.", "- Only the first page of Workday results is currently requested.", "- No application forms are submitted and no account-protected content is accessed.", ""])
+        lines.extend(["", "## Errors", ""] + [f"- {e}" for e in report["errors"]])
+    lines.extend(["", "## Limitations", "",
+                  "- One run does not guarantee completeness or long-term endpoint stability.",
+                  "- Workday currently requests only the first page.",
+                  "- Generic extraction checks at most 25 observed same-host detail links.",
+                  "- No application forms are submitted and no account-protected content is accessed.", ""])
     markdown_path.write_text("\n".join(lines), encoding="utf-8")
     return json_path, markdown_path
