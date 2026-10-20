@@ -57,7 +57,7 @@ def _greenhouse_board(html: str, final_url: str) -> str | None:
 def _detect_ats(html: str, final_url: str, links: list[dict[str, str]]) -> list[str]:
     evidence = " ".join([html[:1_500_000], final_url] + [x["url"] for x in links]).lower()
     ats: list[str] = []
-    if "greenhouse.io" in evidence or "greenhouse" in evidence:
+    if "greenhouse.io" in evidence:
         ats.append("greenhouse")
     if "myworkdayjobs.com" in evidence or "window.workday" in evidence:
         ats.append("workday")
