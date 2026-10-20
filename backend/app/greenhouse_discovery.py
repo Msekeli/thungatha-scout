@@ -110,17 +110,16 @@ def _regional_job_evidence(jobs: list[dict[str, Any]]) -> dict[str, Any]:
 
 def _company_name_from_title(title: str) -> str:
     """Conservatively extract a possible employer name from a search/page title."""
-    value = re.sub(r"\\s+", " ", title).strip(" \\t\\r\\n-|:")
+    value = re.sub(r"\s+", " ", title).strip(" \t\r\n-|:")
     if not value:
         return ""
-    # Strip common careers-page suffixes, preserving the remaining title as a lead.
     value = re.sub(
-        r"\\s*(?:[-|:]\\s*)?(?:careers?|jobs?|open positions|job openings|"
-        r"work with us|join our team|vacancies)(?:\\s*[-|:].*)?$",
+        r"\s*(?:[-|:]\s*)?(?:careers?|jobs?|open positions|job openings|"
+        r"work with us|join our team|vacancies)(?:\s*[-|:].*)?$",
         "",
         value,
         flags=re.I,
-    ).strip(" \\t-|:")
+    ).strip(" \t-|:")
     if len(value) < 2 or len(value) > 100:
         return ""
     if value.casefold() in {"careers", "jobs", "greenhouse", "job board"}:
@@ -130,16 +129,16 @@ def _company_name_from_title(title: str) -> str:
 
 def _page_title(html: str) -> str:
     """Read a page title without requiring a browser or third-party parser."""
-    match = re.search(r"<title[^>]*>(.*?)</title\\s*>", html, re.I | re.S)
+    match = re.search(r"<title[^>]*>(.*?)</title\s*>", html, re.I | re.S)
     if match:
-        return re.sub(r"\\s+", " ", re.sub(r"<[^>]+>", "", match.group(1))).strip()
+        return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", match.group(1))).strip()
     for pattern in (
-        r'<meta[^>]+property=["\\']og:title["\\'][^>]+content=["\\']([^"\\']+)',
-        r'<meta[^>]+content=["\\']([^"\\']+)["\\'][^>]+property=["\\']og:title["\\']',
+        r'<meta[^>]+property=["\']og:title["\'][^>]+content=["\']([^"\']+)',
+        r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:title["\']',
     ):
         match = re.search(pattern, html, re.I)
         if match:
-            return re.sub(r"\\s+", " ", match.group(1)).strip()
+            return re.sub(r"\s+", " ", match.group(1)).strip()
     return ""
 
 
