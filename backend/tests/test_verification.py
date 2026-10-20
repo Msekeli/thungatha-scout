@@ -9,7 +9,7 @@ def test_careers_keywords_include_common_variants():
     assert "jobs" in CAREER_KEYWORDS
 
 
-def test_build_queries_focuses_on_companies_in_local_region():
+def test_build_queries_discovers_employers_across_industries_by_local_vacancy_evidence():
     queries = _build_queries(
         None,
         ("software developer", "web developer"),
