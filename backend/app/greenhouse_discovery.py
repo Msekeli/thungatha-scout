@@ -454,8 +454,9 @@ def discover_greenhouse_boards(
         board.update(_regional_job_evidence(board.get("jobs", [])))
 
     boards.sort(key=lambda item: (
-        not item["valid"],
-        item.get("regional_evidence_status") != "explicit_regional_job",
+        not bool(item.get("company_evidence")),
+        item.get("regional_company_evidence_status") == "no_regional_evidence_found",
+        not bool(item.get("company_name_candidates")),
         item["board_token"].casefold(),
     ))
     return {
