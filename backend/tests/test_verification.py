@@ -9,12 +9,14 @@ def test_careers_keywords_include_common_variants():
     assert "jobs" in CAREER_KEYWORDS
 
 
-def test_build_queries_discovers_employers_across_industries_by_local_vacancy_evidence():
+def test_legacy_general_discovery_is_not_used_as_greenhouse_workflow():
     queries = _build_queries(
         None,
         ("software developer", "web developer"),
         "Cape Town, Western Cape, South Africa",
     )
+    # This legacy command remains available, but the Greenhouse-only workflow
+    # is tested separately in test_greenhouse_discovery.py.
     assert len(queries) >= 10
     assert all("Cape Town" in query or "Western Cape" in query for query in queries)
     assert any('"software companies"' in query for query in queries)
