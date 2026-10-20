@@ -209,8 +209,8 @@ def _extract_direct_html_vacancy(response: httpx.Response) -> dict[str, Any]:
     title = title_node.get_text(" ", strip=True) if title_node else ""
     for node in soup(["script", "style", "noscript", "svg", "nav", "footer"]):
         node.decompose()
-    text = re.sub(r"\\s+", " ", soup.get_text(" ", strip=True)).strip()
-    title = re.sub(r"^.*?\\|\\s*Careers\\s*\\|\\s*Vacancy\\s*\\|\\s*", "", title, flags=re.I).strip()
+    text = re.sub(r"\s+", " ", soup.get_text(" ", strip=True)).strip()
+    title = re.sub(r"^.*?\|\s*Careers\s*\|\s*Vacancy\s*\|\s*", "", title, flags=re.I).strip()
     job = {
         "title": title, "location": "", "department": "", "url": str(response.url),
         "description_available": len(text) >= 200, "description_excerpt": text[:1200],
@@ -344,7 +344,7 @@ def investigate_careers_url(url: str, *, timeout: float = TIMEOUT) -> dict[str, 
                 if "workday" in ats and config:
                     supplied_path = urlparse(str(response.url)).path
                     is_workday_detail = "/details/" in supplied_path.lower()
-                    requisition_match = re.search(r"_((?:R|r)\\d+(?:-\\d+)?)$", supplied_path)
+                    requisition_match = re.search(r"_((?:R|r)\d+(?:-\d+)?)$", supplied_path)
                     requisition = requisition_match.group(1) if requisition_match else ""
                     adapter = _extract_workday(api_client, config, search_text=requisition if is_workday_detail and requisition else "")
                     if is_workday_detail:
