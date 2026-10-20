@@ -9,6 +9,7 @@ from pathlib import Path
 from app.discovery import DEFAULT_REGION, DEFAULT_ROLES, discover_companies
 from app.exports import export_candidates_csv
 from app.greenhouse_discovery import discover_greenhouse_boards, save_greenhouse_discovery_report
+from app.greenhouse_analysis import analyze_greenhouse_report
 from app.verification import inspect_careers_page
 from app.site_investigator import investigate_careers_url, save_investigation_report
 
@@ -33,6 +34,17 @@ def build_parser() -> argparse.ArgumentParser:
         "--output-dir",
         default=str(Path(__file__).resolve().parents[1] / "reports" / "greenhouse-discovery"),
         help="Directory for timestamped JSON evidence and CSV board registry.",
+    )
+
+    analyze_greenhouse = subparsers.add_parser(
+        "analyze-greenhouse",
+        help="Rank saved Greenhouse vacancies by South African location and software-role relevance.",
+    )
+    analyze_greenhouse.add_argument("report", help="Path to a saved greenhouse-discovery JSON report.")
+    analyze_greenhouse.add_argument(
+        "--output-dir",
+        default=str(Path(__file__).resolve().parents[1] / "reports" / "greenhouse-analysis"),
+        help="Directory for ranked JSON and CSV reports.",
     )
 
     verify = subparsers.add_parser("verify", help="Run the original lightweight URL check.")
@@ -79,6 +91,14 @@ def main() -> None:
         for board in report["boards"]:
             if board["valid"]:
                 print(f"- {board['board_token']}: {board['usable_jobs']} usable jobs ({board['board_url']})")
+        return
+
+    if args.command == "analyze-greenhouse":
+        try:
+            summary = analyze_greenhouse_report(args.report, args.output_dir)
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            parser.exit(1, f"Greenhouse report analysis failed: {exc}\\n")
+        print(json.dumps(summary, indent=2, ensure_ascii=False))
         return
 
     if args.command == "verify":
