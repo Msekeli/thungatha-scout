@@ -216,7 +216,7 @@ def validate_greenhouse_board(
 def discover_greenhouse_boards(
     *,
     max_results_per_query: int = 20,
-    backend: str = "brave,google",
+    backend: str = "auto",
     queries: tuple[str, ...] = DEFAULT_QUERIES,
     timeout: float = 20.0,
     page_inspection_limit: int = DEFAULT_PAGE_INSPECTION_LIMIT,
@@ -234,6 +234,7 @@ def discover_greenhouse_boards(
     candidates: dict[str, dict[str, Any]] = {}
     source_pages: dict[str, dict[str, Any]] = {}
     search_errors: list[str] = []
+    empty_queries: list[str] = []
     successful_queries = 0
     search = DDGS(timeout=timeout)
 
@@ -266,11 +267,21 @@ def discover_greenhouse_boards(
                 max_results=max_results_per_query,
                 backend=backend,
             )
-            successful_queries += 1
         except Exception as exc:
-            search_errors.append(f"{query}: {exc}")
+            # ddgs raises DDGSException("No results found.") for an empty
+            # response on some backends instead of returning an empty list.
+            # Record that separately from an actual request/backend failure.
+            if type(exc).__name__ == "DDGSException" and "no results found" in str(exc).casefold():
+                successful_queries += 1
+                empty_queries.append(query)
+                continue
+            search_errors.append(f"{query}: {type(exc).__name__}: {exc}")
             continue
 
+        if not results:
+            empty_queries.append(query)
+
+        successful_queries += 1
         for item in results or []:
             url = str(item.get("href") or item.get("url") or "").strip()
             if not url.startswith(("http://", "https://")):
@@ -338,7 +349,15 @@ def discover_greenhouse_boards(
     return {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "search_queries": list(dict.fromkeys(queries)),
+        "search_status": (
+            "failed" if successful_queries == 0 and search_errors
+            else "no_results" if not candidates and not source_pages and successful_queries
+            else "partial" if search_errors and successful_queries
+            else "success" if successful_queries
+            else "failed"
+        ),
         "successful_queries": successful_queries,
+        "empty_queries": empty_queries,
         "failed_queries": search_errors,
         "search_result_pages_seen": len(source_pages),
         "company_pages_inspected": inspected_pages,
