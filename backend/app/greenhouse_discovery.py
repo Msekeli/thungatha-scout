@@ -322,4 +322,3 @@ def save_greenhouse_discovery_report(
                 for key in fields
             })
     return json_path, csv_path
-"
