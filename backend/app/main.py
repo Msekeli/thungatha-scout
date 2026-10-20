@@ -80,7 +80,6 @@ def main() -> None:
         print(json.dumps({
             "candidate_boards_found": report["candidate_boards_found"],
             "boards_with_accessible_public_api": report.get("boards_with_accessible_public_api", 0),
-            "boards_with_usable_jobs": report.get("boards_with_usable_jobs", 0),
             "companies_with_candidate_names": report.get("companies_with_candidate_names", 0),
             "boards_needing_company_identity_review": report.get("boards_needing_company_identity_review", 0),
             "search_status": report.get("search_status", "unknown"),
