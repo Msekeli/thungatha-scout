@@ -83,3 +83,15 @@ def test_validation_records_http_errors():
     assert result["valid"] is False
     assert result["http_status"] == 404
     assert "404" in result["error"]
+
+
+
+def test_default_queries_explicitly_cover_cape_town_western_cape_and_stellenbosch():
+    from app.greenhouse_discovery import DEFAULT_QUERIES
+
+    combined = "\\n".join(DEFAULT_QUERIES).casefold()
+    assert "cape town" in combined
+    assert "western cape" in combined
+    assert "stellenbosch" in combined
+    assert any("site:job-boards.greenhouse.io" in query and "stellenbosch" in query.casefold() for query in DEFAULT_QUERIES)
+    assert any("site:boards.greenhouse.io" in query and "stellenbosch" in query.casefold() for query in DEFAULT_QUERIES)
