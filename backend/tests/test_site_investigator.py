@@ -6,6 +6,8 @@ from app.site_investigator import (
     _greenhouse_board,
     _is_job_detail_link,
     _workday_config,
+    _bamboohr_slug,
+    _extract_bamboohr,
 )
 
 
@@ -78,3 +80,31 @@ def test_direct_beingit_vacancy_extracts_one_primary_job():
     assert result["jobs"][0]["title"] == "Junior .NET Developer"
     assert result["jobs"][0]["url"].endswith("/DND24100301")
     assert "Services" not in result["jobs"][0]["title"]
+
+
+def test_detect_bamboohr_from_public_careers_host():
+    ats = _detect_ats("<html><title>Careers</title></html>", "https://aerobotics.bamboohr.com/careers/103", [])
+    assert "bamboohr" in ats
+    assert _bamboohr_slug("https://aerobotics.bamboohr.com/careers/103") == "aerobotics"
+
+
+def test_bamboohr_adapter_returns_requested_job_only():
+    def handler(request):
+        if request.url.path == "/careers/list":
+            return httpx.Response(200, json={"meta": {"totalCount": 2}, "result": [
+                {"id": "103", "jobOpeningName": "Software Engineer", "departmentLabel": "Engineering", "location": {"city": "Cape Town"}},
+                {"id": "104", "jobOpeningName": "Other Role", "departmentLabel": "Operations", "location": {"city": "Remote"}},
+            ]})
+        if request.url.path == "/careers/103/detail":
+            return httpx.Response(200, json={"jobOpeningName": "Software Engineer", "jobDescription": "Build and maintain software systems."})
+        return httpx.Response(404)
+
+    transport = httpx.MockTransport(handler)
+    with httpx.Client(transport=transport) as client:
+        result = _extract_bamboohr(client, "https://aerobotics.bamboohr.com/careers/103")
+    assert result["success"] is True
+    assert result["total_jobs_reported"] == 2
+    assert len(result["jobs"]) == 1
+    assert result["jobs"][0]["title"] == "Software Engineer"
+    assert result["jobs"][0]["url"] == "https://aerobotics.bamboohr.com/careers/103"
+    assert result["jobs"][0]["description_available"] is True
