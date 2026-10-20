@@ -60,3 +60,28 @@ python -m app.main
 - Never infer that a company is hiring solely because it has a careers page.
 - Keep human review available for uncertain employer or source classifications.
 - Do not write to the Thungatha application or publish jobs during this milestone.
+
+
+## Automated Greenhouse discovery
+
+From `backend/` with the virtual environment active:
+
+```bash
+python -m app.main discover-greenhouse
+python -m app.main discover-greenhouse --max-results-per-query 30
+python -m app.main discover-greenhouse --backend brave,google
+```
+
+The command searches several query families for public Greenhouse board URLs and
+company careers pages, then inspects a bounded number of those pages for explicit
+Greenhouse API or embed references. Each discovered token is checked against
+Greenhouse's public jobs API. The JSON report preserves search evidence and
+validation errors; the CSV registry includes only boards whose feeds contain
+usable, uniquely identified jobs. Reports are saved under
+`backend/reports/greenhouse-discovery/` by default.
+
+This is broader discovery, not an exhaustive customer directory: search indexing
+and rate limits constrain coverage. It does not guess board tokens from company
+names, alter `companies.csv`, bypass access controls, or publish jobs into
+Thungatha. Inspect the report's `company_pages_inspected`,
+`company_page_errors`, and query counts when assessing coverage.
