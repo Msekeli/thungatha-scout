@@ -2,6 +2,7 @@ import httpx
 
 from app.greenhouse_discovery import (
     board_token_from_url,
+    greenhouse_tokens_from_html,
     validate_greenhouse_board,
 )
 
@@ -10,6 +11,17 @@ def test_board_token_from_supported_public_urls():
     assert board_token_from_url("https://job-boards.greenhouse.io/ozow") == "ozow"
     assert board_token_from_url("https://boards.greenhouse.io/takealotcom/jobs") == "takealotcom"
     assert board_token_from_url("https://boards.greenhouse.io/embed/job_app?for=bashdotcom") == "bashdotcom"
+
+
+def test_extracts_tokens_from_embedded_api_and_board_urls():
+    html = """
+      <script>
+        const endpoint = "https://boards-api.greenhouse.io/v1/boards/ozow/jobs";
+        const embed = "https://boards.greenhouse.io/embed/job_app?for=takealotgroup";
+      </script>
+      <a href="https://job-boards.greenhouse.io/impact">Careers</a>
+    """
+    assert set(greenhouse_tokens_from_html(html)) == {"ozow", "takealotgroup", "impact"}
 
 
 def test_rejects_non_greenhouse_and_reserved_urls():
