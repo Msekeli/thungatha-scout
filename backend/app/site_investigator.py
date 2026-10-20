@@ -175,7 +175,7 @@ def _extract_workday(client: httpx.Client, config: dict[str, str], *, search_tex
 
 def _bamboohr_slug(final_url: str) -> str | None:
     host = urlparse(final_url).netloc.lower().split(":", 1)[0]
-    match = re.fullmatch(r"([a-z0-9-]+)\\.bamboohr\\.com", host)
+    match = re.fullmatch(r"([a-z0-9-]+)\.bamboohr\.com", host)
     return match.group(1) if match else None
 
 
@@ -198,7 +198,7 @@ def _extract_bamboohr(client: httpx.Client, final_url: str) -> dict[str, Any]:
         payload = response.json()
         items = payload.get("result", []) if isinstance(payload, dict) else []
         result["total_jobs_reported"] = payload.get("meta", {}).get("totalCount", len(items)) if isinstance(payload, dict) else len(items)
-        requested_id = re.search(r"/careers/(\\d+)(?:/|$)", parsed.path)
+        requested_id = re.search(r"/careers/(\d+)(?:/|$)", parsed.path)
         jobs = []
         for item in items[:MAX_JOBS]:
             if not isinstance(item, dict):
