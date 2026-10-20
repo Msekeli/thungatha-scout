@@ -107,6 +107,10 @@ def _company_name_from_title(title: str) -> str:
     value = re.sub(r"\s+", " ", title).strip(" \t\r\n-|:")
     if not value:
         return ""
+    # A vacancy-page title is not a company identity, even when it ends with
+    # "at <company>" or contains the word "job".
+    if re.match(r"^(?:job application|application for|apply for|job posting)\b", value, re.I):
+        return ""
     at_prefix = re.match(r"^(?:careers?|jobs?)\s+(?:at|for|with)\s+(.+)$", value, re.I)
     if at_prefix:
         value = at_prefix.group(1).strip(" \t-|:")
