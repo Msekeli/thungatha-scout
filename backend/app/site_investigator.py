@@ -259,6 +259,25 @@ def investigate_careers_url(url: str, *, timeout: float = TIMEOUT) -> dict[str, 
                     report["ats_evidence"].append("Greenhouse references found, but no board token was extracted.")
             if "workday" in ats:
                 config = _workday_config(html, str(response.url))
+                # A corporate careers page may only link to Workday. Fetch that
+                # observed link (never a guessed tenant URL) to read its config.
+                if config is None:
+                    workday_links = [
+                        item["url"] for item in links
+                        if "myworkdayjobs.com" in urlparse(item["url"]).netloc.lower()
+                    ]
+                    if workday_links:
+                        try:
+                            workday_response = client.get(workday_links[0])
+                            if workday_response.is_success and "html" in workday_response.headers.get("content-type", "").lower():
+                                config = _workday_config(workday_response.text, str(workday_response.url))
+                                report["workday_landing_url"] = str(workday_response.url)
+                            else:
+                                report["errors"].append(
+                                    f"Observed Workday link returned HTTP {workday_response.status_code} or non-HTML content."
+                                )
+                        except httpx.HTTPError as exc:
+                            report["errors"].append(f"Could not inspect observed Workday link: {exc}")
                 report["workday_config"] = config
                 report["ats_evidence"].append(
                     "Workday references found in the careers page or its links."
