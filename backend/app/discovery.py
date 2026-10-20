@@ -127,6 +127,11 @@ def _build_queries(
     if query and query.strip():
         return [query.strip()]
 
+    # Find employers by evidence that they advertise vacancies in the target
+    # geography, not by the industry's label. Employers across every sector
+    # can hire software engineers, analysts, or other roles later filtered by
+    # Thungatha. Keep job boards and agencies in the evidence trail; classify
+    # them for review instead of excluding them from discovery.
     region_lower = region.lower()
     location_terms: list[str] = []
     if "cape town" in region_lower:
@@ -137,38 +142,24 @@ def _build_queries(
         location_terms.append(f'"{region}"')
     location_clause = " OR ".join(location_terms)
 
-    # Discover employers and their official web presence first. Do not search
-    # individual job titles here: vacancy filtering is a later pipeline stage.
-    company_types = (
-        '"technology companies"',
-        '"software companies"',
-        '"software development company"',
-        '"IT services company"',
-        '"SaaS company"',
-        '"fintech company"',
-        '"AI company"',
-        '"cybersecurity company"',
-        '"data analytics company"',
-        '"digital product company"',
-        '"e-commerce company"',
-        '"technology startup"',
-        '"game development studio"',
-        '"cloud services company"',
-    )
     queries = [
-        f'{company_type} ({location_clause}) South Africa -recruitment -staffing -placement -jobs-board'
-        for company_type in company_types
+        f'({location_clause}) company careers vacancies employer -recruitment-agency',
+        f'({location_clause}) "join our team" jobs company',
+        f'({location_clause}) "current vacancies" company careers',
+        f'({location_clause}) "open positions" employer careers',
+        f'({location_clause}) "jobs at" company careers',
+        f'({location_clause}) "posted" "careers" company vacancies',
+        f'site:job-boards.greenhouse.io ({location_clause})',
+        f'site:boards.greenhouse.io ({location_clause})',
+        f'site:jobs.lever.co ({location_clause})',
+        f'site:myworkdayjobs.com ({location_clause})',
+        f'site:jobs.smartrecruiters.com ({location_clause})',
+        f'site:apply.workable.com ({location_clause})',
+        f'site:jobs.ashbyhq.com ({location_clause})',
+        f'site:*.breezy.hr ({location_clause})',
+        f'companies hiring in Cape Town Western Cape careers page',
+        f'employers advertising vacancies in Cape Town South Africa company careers',
     ]
-    queries.extend(
-        [
-            f'"technology companies in Cape Town" -recruitment -staffing',
-            f'"software companies in Cape Town" -recruitment -staffing',
-            f'"tech startups in Cape Town" South Africa -recruitment',
-            f'"technology companies in the Western Cape" South Africa -recruitment',
-            f'"Cape Town" technology company official website',
-            f'"Western Cape" software company official website',
-        ]
-    )
     return queries
 
 
@@ -180,7 +171,7 @@ def discover_companies(
     max_results_per_query: int = 8,
     backend: str = "auto",
 ) -> list[CompanyCandidate]:
-    """Search the public web and return deduplicated employer/careers leads.
+    """Search the public web for employers advertising in the target region.
 
     DDGS is an unaffiliated metasearch library, not a guaranteed search API.
     Public search backends may change, block automation, or rate-limit queries.
