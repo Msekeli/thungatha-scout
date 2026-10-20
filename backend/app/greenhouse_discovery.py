@@ -23,26 +23,43 @@ from app.site_investigator import USER_AGENT, _normalise_job
 # Diverse query patterns are intentional: search engines interpret complex
 # Boolean expressions inconsistently, so use several narrow query families.
 DEFAULT_QUERIES = (
+    # Discover Greenhouse companies broadly first, not just software roles.
     'site:job-boards.greenhouse.io',
     'site:boards.greenhouse.io',
-    'site:job-boards.greenhouse.io "South Africa"',
     'site:job-boards.greenhouse.io "Cape Town"',
-    'site:job-boards.greenhouse.io "Remote"',
+    'site:job-boards.greenhouse.io "Western Cape"',
+    'site:job-boards.greenhouse.io Stellenbosch',
+    'site:job-boards.greenhouse.io "South Africa"',
+    'site:boards.greenhouse.io "Cape Town"',
+    'site:boards.greenhouse.io "Western Cape"',
+    'site:boards.greenhouse.io Stellenbosch',
+    'site:boards.greenhouse.io "South Africa"',
+    # Broader location searches find companies across industries.
+    'site:job-boards.greenhouse.io ("Cape Town" OR "Western Cape" OR Stellenbosch)',
+    'site:boards.greenhouse.io ("Cape Town" OR "Western Cape" OR Stellenbosch)',
+    'site:job-boards.greenhouse.io "Cape Town, South Africa"',
+    'site:job-boards.greenhouse.io "Stellenbosch, South Africa"',
+    'site:job-boards.greenhouse.io "Western Cape, South Africa"',
+    'site:boards.greenhouse.io "Cape Town, South Africa"',
+    'site:boards.greenhouse.io "Stellenbosch, South Africa"',
+    'site:boards.greenhouse.io "Western Cape, South Africa"',
+    # Role-specific queries are supplementary discovery paths, not an industry filter.
     'site:job-boards.greenhouse.io engineer',
     'site:job-boards.greenhouse.io developer',
     'site:job-boards.greenhouse.io software',
-    'site:boards.greenhouse.io "South Africa"',
-    'site:boards.greenhouse.io "Cape Town"',
     'site:boards.greenhouse.io engineer',
     'site:boards.greenhouse.io developer',
+    'site:boards-api.greenhouse.io/v1/boards/',
     '"boards-api.greenhouse.io/v1/boards/"',
     '"boards.greenhouse.io/embed/job_app?for="',
     '"job-boards.greenhouse.io" careers',
-    '"boards.greenhouse.io" careers software jobs',
-    '"Greenhouse" "careers" "South Africa" software company',
-    '"powered by Greenhouse" careers technology',
+    '"boards.greenhouse.io" careers jobs',
+    '"Greenhouse" careers "Cape Town"',
+    '"Greenhouse" careers Stellenbosch',
+    '"Greenhouse" careers "Western Cape"',
+    '"powered by Greenhouse" careers South Africa',
     '"boards-api.greenhouse.io" jobs careers',
-    'site:greenhouse.io "South Africa" jobs',
+    'site:greenhouse.io "Cape Town" jobs',
 )
 BOARD_HOSTS = {"boards.greenhouse.io", "job-boards.greenhouse.io"}
 RESERVED_PATHS = {"embed", "jobs", "job", "search", "login", "signup", "privacy", "terms"}
