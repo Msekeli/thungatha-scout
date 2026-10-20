@@ -95,3 +95,35 @@ def test_default_queries_explicitly_cover_cape_town_western_cape_and_stellenbosc
     assert "stellenbosch" in combined
     assert any("site:job-boards.greenhouse.io" in query and "stellenbosch" in query.casefold() for query in DEFAULT_QUERIES)
     assert any("site:boards.greenhouse.io" in query and "stellenbosch" in query.casefold() for query in DEFAULT_QUERIES)
+
+
+
+def test_regional_evidence_matches_cape_town_western_cape_and_stellenbosch_without_role_filtering():
+    from app.greenhouse_discovery import _regional_job_evidence
+
+    result = _regional_job_evidence([
+        {"title": "Finance Manager", "location": "Cape Town, South Africa", "url": "https://example.com/1"},
+        {"title": "Software Engineer", "location": "Stellenbosch, Western Cape", "url": "https://example.com/2"},
+        {"title": "Operations Lead", "location": "Western Cape, South Africa", "url": "https://example.com/3"},
+        {"title": "Developer", "location": "Remote, South Africa", "url": "https://example.com/4"},
+    ])
+
+    assert result["regional_evidence_status"] == "explicit_regional_job"
+    assert result["regional_job_count"] == 3
+    assert result["regional_locations"] == ["Cape Town", "Stellenbosch", "Western Cape"]
+    assert {job["title"] for job in result["regional_job_examples"]} == {
+        "Finance Manager", "Software Engineer", "Operations Lead"
+    }
+
+
+def test_regional_evidence_does_not_assume_unspecified_or_remote_locations_qualify():
+    from app.greenhouse_discovery import _regional_job_evidence
+
+    result = _regional_job_evidence([
+        {"title": "Engineer", "location": "Remote, South Africa", "url": "https://example.com/1"},
+        {"title": "Analyst", "location": "", "url": "https://example.com/2"},
+    ])
+
+    assert result["regional_evidence_status"] == "no_explicit_regional_job"
+    assert result["regional_job_count"] == 0
+    assert result["regional_locations"] == []
