@@ -47,10 +47,10 @@ DEFAULT_QUERIES = (
 BOARD_HOSTS = {"boards.greenhouse.io", "job-boards.greenhouse.io"}
 RESERVED_PATHS = {"embed", "jobs", "job", "search", "login", "signup", "privacy", "terms"}
 API_TOKEN_RE = re.compile(
-    r"boards-api\\.greenhouse\\.io/v1/boards/([A-Za-z0-9_-]{2,80})", re.I
+    r"boards-api[.]greenhouse[.]io/v1/boards/([A-Za-z0-9_-]{2,80})", re.I
 )
 PUBLIC_BOARD_URL_RE = re.compile(
-    r"https?://(?:job-)?boards\\.greenhouse\\.io/[^\\s\"'<>\\\\]+", re.I
+    r"""https?://(?:job-)?boards[.]greenhouse[.]io/[^ \t\r\n"'<>]+""", re.I
 )
 DEFAULT_PAGE_INSPECTION_LIMIT = 80
 
