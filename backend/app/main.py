@@ -26,7 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     greenhouse = subparsers.add_parser(
         "discover-greenhouse",
-        help="Automatically find public Greenhouse boards and validate their job feeds.",
+        help="Discover Greenhouse-using employers and save an evidence-first company registry.",
     )
     greenhouse.add_argument("--max-results-per-query", type=int, default=20)
     greenhouse.add_argument("--backend", default="auto", help="DDGS search backend (auto is recommended).")
@@ -79,8 +79,9 @@ def main() -> None:
         json_path, csv_path = save_greenhouse_discovery_report(report, args.output_dir)
         print(json.dumps({
             "candidate_boards_found": report["candidate_boards_found"],
-            "validated_boards_found": report["validated_boards_found"],
-            "boards_with_explicit_regional_jobs": report.get("boards_with_explicit_regional_jobs", 0),
+            "boards_with_accessible_public_api": report.get("boards_with_accessible_public_api", 0),
+            "boards_with_usable_jobs": report.get("boards_with_usable_jobs", 0),
+            "companies_with_candidate_names": report.get("companies_with_candidate_names", 0),
             "boards_needing_company_identity_review": report.get("boards_needing_company_identity_review", 0),
             "search_status": report.get("search_status", "unknown"),
             "successful_queries": report["successful_queries"],
