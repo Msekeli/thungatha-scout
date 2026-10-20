@@ -43,12 +43,6 @@ DEFAULT_QUERIES = (
     'site:boards.greenhouse.io "Cape Town, South Africa"',
     'site:boards.greenhouse.io "Stellenbosch, South Africa"',
     'site:boards.greenhouse.io "Western Cape, South Africa"',
-    # Role-specific queries are supplementary discovery paths, not an industry filter.
-    'site:job-boards.greenhouse.io engineer',
-    'site:job-boards.greenhouse.io developer',
-    'site:job-boards.greenhouse.io software',
-    'site:boards.greenhouse.io engineer',
-    'site:boards.greenhouse.io developer',
     'site:boards-api.greenhouse.io/v1/boards/',
     '"boards-api.greenhouse.io/v1/boards/"',
     '"boards.greenhouse.io/embed/job_app?for="',
