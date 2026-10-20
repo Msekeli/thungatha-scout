@@ -298,14 +298,10 @@ def discover_greenhouse_boards(
             entry["search_evidence"].append(evidence)
         if method not in entry["discovery_methods"]:
             entry["discovery_methods"].append(method)
-        # Search titles are leads for identity, not proof of the employer's name.
-        possible_name = _company_name_from_title(title)
-        if (
-            not possible_name and method == "embedded-reference" and title
-            and len(title) <= 100
-            and title.casefold() not in {"home", "careers", "jobs", "greenhouse", "job board"}
-        ):
-            possible_name = title.strip(" \\t-|:")
+        # Search-result headlines frequently describe a vacancy, not its employer.
+        # Only use titles from pages whose HTML actually contained a Greenhouse
+        # reference; board landing-page branding is handled separately below.
+        possible_name = _company_name_from_title(title) if method == "embedded-reference" else ""
         if possible_name and possible_name.casefold() != token.casefold():
             if possible_name.casefold() not in {
                 candidate.casefold() for candidate in entry["company_name_candidates"]
