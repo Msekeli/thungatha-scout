@@ -300,6 +300,12 @@ def discover_greenhouse_boards(
             entry["discovery_methods"].append(method)
         # Search titles are leads for identity, not proof of the employer's name.
         possible_name = _company_name_from_title(title)
+        if (
+            not possible_name and method == "embedded-reference" and title
+            and len(title) <= 100
+            and title.casefold() not in {"home", "careers", "jobs", "greenhouse", "job board"}
+        ):
+            possible_name = title.strip(" \\t-|:")
         if possible_name and possible_name.casefold() != token.casefold():
             if possible_name not in entry["company_name_candidates"]:
                 entry["company_name_candidates"].append(possible_name)
@@ -375,9 +381,10 @@ def discover_greenhouse_boards(
                 if content_type and "html" not in content_type and "text" not in content_type:
                     continue
                 html = response.text
+                actual_page_title = _page_title(html) or page["title"]
                 for token in greenhouse_tokens_from_html(html):
                     add_candidate(
-                        token, page["url"], page["query"], page["title"], page["snippet"],
+                        token, page["url"], page["query"], actual_page_title, page["snippet"],
                         method="embedded-reference",
                     )
                     entry = candidates[token.casefold()]
