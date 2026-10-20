@@ -1,18 +1,20 @@
 """Free-first web search discovery for direct-employer candidates.
 
-Search result records are leads only. This module deliberately does not claim
-that a company is hiring or that a result belongs to a direct employer; those
-claims require source verification.
+Search result records are leads only. This module does not claim a company is
+hiring or that a URL belongs to a direct employer; verification comes later.
 """
 
 from __future__ import annotations
 
+import logging
 import re
 from collections.abc import Iterable
 
 from ddgs import DDGS
 
 from app.models import CompanyCandidate
+
+logger = logging.getLogger(__name__)
 
 DEFAULT_REGION = "Cape Town, Western Cape, South Africa"
 DEFAULT_ROLES = (
@@ -25,12 +27,6 @@ DEFAULT_ROLES = (
     "data engineer",
     "cloud engineer",
     "AI engineer",
-)
-
-ROLE_QUERY_TEMPLATE = (
-    '"{role}" ("careers" OR "jobs" OR "work with us") '
-    '("Cape Town" OR "Western Cape" OR South Africa) '
-    '-recruitment -staffing -placement'
 )
 
 AGENCY_HINTS = (
@@ -68,28 +64,50 @@ ATS_HOST_HINTS = (
     "jobs.personio.com",
 )
 
-CAREERS_HINTS = ("career", "job", "vacanc", "work-with-us", "work-for-us", "opportunit", "talent")
+CAREERS_HINTS = (
+    "career",
+    "job",
+    "vacanc",
+    "work-with-us",
+    "work-for-us",
+    "opportunit",
+    "talent",
+)
 
 
 def _normalise_url(url: str) -> str:
-    return url.strip().rstrip("/")
+    return url.strip().rstrip("/").lower()
 
 
 def _classify_result(url: str, title: str, snippet: str) -> tuple[str, list[str]]:
     lowered_url = url.lower()
     text = f"{title} {snippet}".lower()
-    evidence: list[str] = []
 
     if any(hint in lowered_url for hint in AGGREGATOR_HINTS):
-        return "job_board_or_aggregator", ["Result URL matches a known job-board/aggregator hint."]
+        return "job_board_or_aggregator", [
+            "Result URL matches a known job-board/aggregator hint."
+        ]
 
     if any(hint in text for hint in AGENCY_HINTS):
-        return "possible_recruitment_agency", ["Search title/snippet contains recruitment-agency language."]
+        return "possible_recruitment_agency", [
+            "Search title/snippet contains recruitment-agency language."
+        ]
 
     is_ats = any(hint in lowered_url for hint in ATS_HOST_HINTS)
     has_careers_hint = any(hint in lowered_url for hint in CAREERS_HINTS)
-    mentions_company_careers = any(term in text for term in ("careers", "career opportunities", "join our team", "work with us", "vacancies", "open positions"))
+    mentions_company_careers = any(
+        term in text
+        for term in (
+            "careers",
+            "career opportunities",
+            "join our team",
+            "work with us",
+            "vacancies",
+            "open positions",
+        )
+    )
 
+    evidence: list[str] = []
     if is_ats:
         evidence.append("Result URL matches a known applicant-tracking-system host.")
     if has_careers_hint:
@@ -103,22 +121,36 @@ def _classify_result(url: str, title: str, snippet: str) -> tuple[str, list[str]
     return "unknown", ["Search result requires manual source classification."]
 
 
-def _build_queries(query: str | None, roles: Iterable[str], region: str) -> list[str]:
+def _build_queries(
+    query: str | None,
+    roles: Iterable[str],
+    region: str,
+) -> list[str]:
     if query and query.strip():
         return [query.strip()]
 
-    queries: list[str] = []
-    for role in roles:
-        queries.append(
-            ROLE_QUERY_TEMPLATE.format(role=role)
-            .replace("Cape Town", region.split(",")[0])
-            .replace("Western Cape", "Western Cape")
+    region_lower = region.lower()
+    location_terms: list[str] = []
+    if "cape town" in region_lower:
+        location_terms.append('"Cape Town"')
+    if "western cape" in region_lower:
+        location_terms.append('"Western Cape"')
+    if not location_terms:
+        location_terms.append(f'"{region}"')
+    location_clause = " OR ".join(location_terms)
+
+    queries = [
+        (
+            f'"{role}" (careers OR jobs OR vacancies OR "join our team") '
+            f"({location_clause}) South Africa -recruitment -staffing -placement"
         )
+        for role in roles
+    ]
     queries.extend(
         [
-            f'"software company" "Cape Town" careers South Africa',
-            f'"technology company" "Western Cape" careers jobs South Africa',
-            f'"software engineering" "Cape Town" "careers" employer',
+            f'"software company" ({location_clause}) South Africa careers',
+            f'"technology company" ({location_clause}) South Africa careers jobs',
+            f'"software engineering" ({location_clause}) employer careers',
         ]
     )
     return queries
@@ -129,62 +161,90 @@ def discover_companies(
     *,
     region: str = DEFAULT_REGION,
     roles: tuple[str, ...] = DEFAULT_ROLES,
-    max_results_per_query: int = 10,
+    max_results_per_query: int = 8,
     backend: str = "auto",
 ) -> list[CompanyCandidate]:
-    """Search the public web for employer/careers leads using the DDGS package.
+    """Search the public web and return deduplicated employer/careers leads.
 
-    DDGS is a third-party metasearch wrapper. Results and availability vary by
-    engine and may be rate-limited. No API key is configured or required by
-    this prototype, but this is not a guaranteed uptime service.
+    DDGS is an unaffiliated metasearch library, not a guaranteed search API.
+    Public search backends may change, block automation, or rate-limit queries.
+    This function does not use a paid API key.
+
+    Search result titles can describe a role rather than an employer. Therefore,
+    candidates remain marked as needing review and their source evidence is
+    retained rather than treated as verified company records.
     """
-    candidates: dict[str, CompanyCandidate] = {}
-    queries = _build_queries(query, roles, region)
+    if max_results_per_query < 1:
+        raise ValueError("max_results_per_query must be at least 1")
 
-    with DDGS(timeout=12) as search:
-        for search_query in queries:
-            try:
-                results = search.text(
-                    search_query,
-                    region="za-en",
-                    safesearch="moderate",
-                    max_results=max_results_per_query,
-                    backend=backend,
-                )
-            except Exception as exc:  # preserve other query attempts if one engine fails
+    queries = _build_queries(query, roles, region)
+    candidates: dict[str, CompanyCandidate] = {}
+    successful_queries = 0
+    query_errors: list[str] = []
+
+    search = DDGS(timeout=12)
+    for search_query in queries:
+        try:
+            results = search.text(
+                search_query,
+                region="za-en",
+                safesearch="moderate",
+                max_results=max_results_per_query,
+                backend=backend,
+            )
+            successful_queries += 1
+        except Exception as exc:
+            logger.warning("Search query failed (%s): %s", search_query, exc)
+            query_errors.append(f"{search_query}: {exc}")
+            continue
+
+        for result in results or []:
+            url = str(result.get("href") or result.get("url") or "").strip()
+            title = str(result.get("title") or "").strip()
+            snippet = str(result.get("body") or result.get("snippet") or "").strip()
+            if not url or not title or not url.startswith(("http://", "https://")):
                 continue
 
-            for result in results or []:
-                url = str(result.get("href") or result.get("url") or "").strip()
-                title = str(result.get("title") or "").strip()
-                snippet = str(result.get("body") or result.get("snippet") or "").strip()
-                if not url or not title:
-                    continue
+            key = _normalise_url(url)
+            if key in candidates:
+                candidate = candidates[key]
+                snippet_evidence = f"Search snippet: {snippet}" if snippet else ""
+                if snippet_evidence and snippet_evidence not in candidate.evidence:
+                    candidate.evidence.append(snippet_evidence)
+                continue
 
-                key = _normalise_url(url).lower()
-                if key in candidates:
-                    candidate = candidates[key]
-                    if snippet and snippet not in candidate.evidence:
-                        candidate.evidence.append(f"Search snippet: {snippet}")
-                    continue
+            employer_type, evidence = _classify_result(url, title, snippet)
+            host_match = re.search(r"^https?://([^/]+)", url, re.IGNORECASE)
+            host = host_match.group(1).lower() if host_match else ""
+            is_ats = any(hint in host for hint in ATS_HOST_HINTS)
+            is_aggregator = any(hint in host for hint in AGGREGATOR_HINTS)
+            origin = f"https://{host}" if host and not (is_ats or is_aggregator) else ""
+            careers_url = (
+                url
+                if any(hint in url.lower() for hint in CAREERS_HINTS)
+                else ""
+            )
 
-                employer_type, evidence = _classify_result(url, title, snippet)
-                host_match = re.search(r"^https?://([^/]+)", url, re.IGNORECASE)
-                website_host = host_match.group(1).lower() if host_match else ""
+            candidates[key] = CompanyCandidate(
+                name=title,
+                source_url=url,
+                snippet=snippet,
+                candidate_url=url,
+                region_hint=region,
+                role_hints=list(roles),
+                employer_type=employer_type,
+                official_website_url=origin,
+                careers_url=careers_url,
+                discovery_method=f"ddgs:{search_query}",
+                evidence=evidence
+                + ([f"Search snippet: {snippet}"] if snippet else []),
+                review_status="needs_review",
+            )
 
-                candidates[key] = CompanyCandidate(
-                    name=title,
-                    source_url=url,
-                    snippet=snippet,
-                    candidate_url=url,
-                    region_hint=region,
-                    role_hints=list(roles),
-                    employer_type=employer_type,
-                    official_website_url=f"https://{website_host}" if website_host else "",
-                    careers_url=url if "careers" in url.lower() or "career" in url.lower() else "",
-                    discovery_method=f"ddgs:{search_query}",
-                    evidence=evidence + ([f"Search snippet: {snippet}"] if snippet else []),
-                    review_status="needs_review",
-                )
+    if successful_queries == 0 and query_errors:
+        raise RuntimeError(
+            "All web searches failed. Check connectivity, rate limits, or the "
+            "selected search backend. First error: " + query_errors[0]
+        )
 
     return list(candidates.values())
