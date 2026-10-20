@@ -58,7 +58,7 @@ python -m app.main discover-greenhouse --backend brave,google
 
 Reports are saved under `reports/greenhouse-discovery/`. The JSON report retains search evidence and job records; the CSV registry contains only boards whose API returned usable, uniquely identified jobs. This does not modify `data/companies.csv`.
 
-Discovery is automated but not exhaustive: coverage depends on public search indexing and search-provider rate limits. A validated public board confirms the feed is readable, not that every vacancy is relevant to a target region. Rerun the command periodically to find newly indexed boards.
+The default Greenhouse queries explicitly cover **Cape Town, the wider Western Cape, and Stellenbosch**. Stellenbosch is included separately because search results may not group it under Cape Town. Discovery is automated but not exhaustive: coverage depends on public search indexing and search-provider rate limits. A validated public board confirms the feed is readable, not that every vacancy is relevant to a target region. The next registry improvement is to resolve each board token to the actual employer and record location evidence from its jobs; do not treat a board token as a verified company name.
 
 ## Rank discovered Greenhouse jobs for South Africa
 
