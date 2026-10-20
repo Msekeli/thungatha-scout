@@ -97,7 +97,12 @@ def test_bamboohr_adapter_returns_requested_job_only():
                 {"id": "104", "jobOpeningName": "Other Role", "departmentLabel": "Operations", "location": {"city": "Remote"}},
             ]})
         if request.url.path == "/careers/103/detail":
-            return httpx.Response(200, json={"jobOpeningName": "Software Engineer", "jobDescription": "Build and maintain software systems."})
+            return httpx.Response(200, json={"meta": {}, "result": {"jobOpening": {
+                "jobOpeningName": "Software Engineer",
+                "departmentLabel": "Technology",
+                "location": {"city": "Cape Town", "state": "Western Cape", "addressCountry": "South Africa"},
+                "description": "<p>Build and maintain software systems.</p>"
+            }}})
         return httpx.Response(404)
 
     transport = httpx.MockTransport(handler)
@@ -109,3 +114,6 @@ def test_bamboohr_adapter_returns_requested_job_only():
     assert result["jobs"][0]["title"] == "Software Engineer"
     assert result["jobs"][0]["url"] == "https://aerobotics.bamboohr.com/careers/103"
     assert result["jobs"][0]["description_available"] is True
+    assert result["jobs"][0]["department"] == "Technology"
+    assert result["jobs"][0]["location"] == "Cape Town, Western Cape, South Africa"
+    assert result["jobs"][0]["description_excerpt"] == "Build and maintain software systems."
