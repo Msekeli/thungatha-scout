@@ -526,11 +526,9 @@ def save_greenhouse_discovery_report(
         fields = [
             "company_name", "company_identity_status", "company_name_candidates",
             "greenhouse_connection_status", "board_token", "board_url", "board_page_title",
-            "board_page_http_status", "api_url", "board_exists", "valid", "jobs_available",
-            "http_status", "total_jobs_reported", "usable_jobs", "company_evidence",
-            "candidate_urls", "search_evidence", "discovery_methods", "error",
-            "regional_company_evidence_status", "regional_evidence_status", "regional_job_count", "regional_locations",
-            "regional_job_examples",
+            "board_page_http_status", "api_url", "board_exists", "valid", "http_status",
+            "company_evidence", "candidate_urls", "search_evidence", "discovery_methods",
+            "error", "regional_company_evidence_status",
         ]
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
@@ -541,8 +539,7 @@ def save_greenhouse_discovery_report(
                 key: json.dumps(board.get(key), ensure_ascii=False)
                 if key in {
                     "company_name_candidates", "company_evidence", "candidate_urls",
-                    "search_evidence", "discovery_methods", "regional_locations",
-                    "regional_job_examples",
+                    "search_evidence", "discovery_methods",
                 } else board.get(key, "")
                 for key in fields
             })
