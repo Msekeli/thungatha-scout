@@ -39,7 +39,7 @@ python -m app.main discover --region "Western Cape, South Africa" --max-results-
 python -m app.main discover --query '"technology companies in Cape Town" -recruitment -staffing'
 ```
 
-Results are written to `company_discovery_results.csv`. The default searches company categories such as software, IT services, SaaS, fintech, AI, cybersecurity, data, e-commerce, cloud, and game development. Search indexing can still return aggregators or companies with no local office, so location and official domain need verification before accepting a company into the registry. Existing `data/companies.csv` is not modified.
+Results are written to `company_discovery_results.csv`. Queries target vacancy and careers evidence across industries and search public ATS domains including Greenhouse, Lever, Workday, SmartRecruiters, Workable, Ashby, and Breezy HR. Search results may still be incomplete or ambiguous; retain the source URL and verify the actual employer and Cape Town/Western Cape connection before accepting a company into the registry. Existing `data/companies.csv` is not modified.
 
 ## Automatically discover Greenhouse boards
 
