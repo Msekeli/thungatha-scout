@@ -128,7 +128,7 @@ def _extract_greenhouse(client: httpx.Client, board: str) -> dict[str, Any]:
     return result
 
 
-def _extract_workday(client: httpx.Client, config: dict[str, str]) -> dict[str, Any]:
+def _extract_workday(client: httpx.Client, config: dict[str, str], *, search_text: str = "") -> dict[str, Any]:
     host, tenant, site = config["host"], config["tenant"], config["site"]
     endpoint = f"https://{host}/wday/cxs/{tenant}/{site}/jobs"
     result: dict[str, Any] = {"adapter": "workday_public_cxs_jobs", "endpoint": endpoint,
@@ -136,7 +136,7 @@ def _extract_workday(client: httpx.Client, config: dict[str, str]) -> dict[str, 
     if config.get("status") != "identified":
         result["error"] = "Workday detected, but tenant/site configuration is incomplete; no request made."
         return result
-    payload = {"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""}
+    payload = {"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": search_text}
     try:
         response = client.post(endpoint, json=payload, headers={"Accept": "application/json"})
         result["http_status"] = response.status_code
@@ -154,8 +154,16 @@ def _extract_workday(client: httpx.Client, config: dict[str, str]) -> dict[str, 
             if path and not job["url"].startswith(("http://", "https://")):
                 job["url"] = urljoin(f"https://{host}", str(path))
             jobs.append(job)
+        if search_text:
+            requisition = search_text.lower()
+            jobs = [job for job in jobs if requisition in job.get("url", "").lower()]
         result["jobs"] = jobs
         result["total_jobs_reported"] = data.get("total", len(postings)) if isinstance(data, dict) else len(postings)
+        if search_text and not jobs:
+            result["error"] = f"No feed record matched supplied requisition '{search_text}'."
+            result["success"] = False
+            result["pagination"] = {"limit": payload["limit"], "offset": 0, "search_text": search_text}
+            return result
         result["success"] = True
         result["pagination"] = {"limit": payload["limit"], "offset": 0, "note": "First page only."}
     except (httpx.HTTPError, ValueError) as exc:
@@ -190,8 +198,33 @@ def _is_job_detail_link(link: dict[str, str], base_url: str) -> bool:
     )
 
 
-def _extract_generic_careers(client: httpx.Client, base_url: str, links: list[dict[str, str]]) -> dict[str, Any]:
-    """Extract same-host vacancy links and basic fields from their HTML pages."""
+def _is_direct_vacancy_url(url: str) -> bool:
+    return bool(re.search(r"/careers?/vacanc(y|ies)/[^/]+/?$", urlparse(url).path.lower()))
+
+
+def _extract_direct_html_vacancy(response: httpx.Response) -> dict[str, Any]:
+    """Treat a supplied company-hosted vacancy detail page as one vacancy."""
+    soup = BeautifulSoup(response.text, "html.parser")
+    title_node = soup.find("h1") or soup.find("title")
+    title = title_node.get_text(" ", strip=True) if title_node else ""
+    for node in soup(["script", "style", "noscript", "svg", "nav", "footer"]):
+        node.decompose()
+    text = re.sub(r"\\s+", " ", soup.get_text(" ", strip=True)).strip()
+    title = re.sub(r"^.*?\\|\\s*Careers\\s*\\|\\s*Vacancy\\s*\\|\\s*", "", title, flags=re.I).strip()
+    job = {
+        "title": title, "location": "", "department": "", "url": str(response.url),
+        "description_available": len(text) >= 200, "description_excerpt": text[:1200],
+        "source_adapter": "same_host_html_detail",
+    }
+    return {"adapter": "same_host_html_vacancy_detail", "success": bool(title and len(text) >= 80),
+            "jobs": [job] if title and len(text) >= 80 else [], "error": "",
+            "candidate_links_found": 1, "detail_pages_checked": 1}
+
+
+def _extract_generic_careers(client: httpx.Client, base_url: str, links: list[dict[str, str]], supplied_response: httpx.Response | None = None) -> dict[str, Any]:
+    """Extract the supplied vacancy page directly, or inspect observed listing links."""
+    if supplied_response is not None and _is_direct_vacancy_url(base_url):
+        return _extract_direct_html_vacancy(supplied_response)
     result: dict[str, Any] = {"adapter": "same_host_html_vacancies", "success": False,
                               "jobs": [], "error": "", "detail_pages_checked": 0}
     candidates = []
@@ -309,14 +342,21 @@ def investigate_careers_url(url: str, *, timeout: float = TIMEOUT) -> dict[str, 
                         if adapter["success"]:
                             extraction["jobs"].extend(adapter["jobs"])
                 if "workday" in ats and config:
-                    adapter = _extract_workday(api_client, config)
+                    supplied_path = urlparse(str(response.url)).path
+                    is_workday_detail = "/details/" in supplied_path.lower()
+                    requisition_match = re.search(r"_((?:R|r)\\d+(?:-\\d+)?)$", supplied_path)
+                    requisition = requisition_match.group(1) if requisition_match else ""
+                    adapter = _extract_workday(api_client, config, search_text=requisition if is_workday_detail and requisition else "")
+                    if is_workday_detail:
+                        adapter["requested_detail_url"] = str(response.url)
+                        adapter["requested_requisition"] = requisition
                     extraction["adapters"].append(adapter)
                     if adapter["success"]:
                         extraction["jobs"].extend(adapter["jobs"])
 
             # For non-ATS company sites, parse the visible listing and detail pages.
             if not extraction["jobs"]:
-                generic = _extract_generic_careers(client, str(response.url), links)
+                generic = _extract_generic_careers(client, str(response.url), links, response)
                 extraction["adapters"].append(generic)
                 if generic["success"]:
                     extraction["jobs"].extend(generic["jobs"])
