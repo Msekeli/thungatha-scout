@@ -1,9 +1,9 @@
-"""Automated discovery and validation of public Greenhouse job boards.
+"""Discover employer leads using Greenhouse and build an auditable company registry.
 
-Search results are untrusted leads. A board is registered only after its public
-Greenhouse API returns a valid jobs payload with usable job records. The
-discovery pass also inspects a bounded number of official/company result pages
-for publicly embedded Greenhouse board references.
+A board token is not a company identity. Search results, board pages, public API
+responses, and company-page references are retained as separate evidence. Job
+availability is recorded but is never required for a company to remain in the
+discovery registry.
 """
 from __future__ import annotations
 
@@ -107,6 +107,42 @@ def _regional_job_evidence(jobs: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+
+def _company_name_from_title(title: str) -> str:
+    """Conservatively extract a possible employer name from a search/page title."""
+    value = re.sub(r"\\s+", " ", title).strip(" \\t\\r\\n-|:")
+    if not value:
+        return ""
+    # Strip common careers-page suffixes, preserving the remaining title as a lead.
+    value = re.sub(
+        r"\\s*(?:[-|:]\\s*)?(?:careers?|jobs?|open positions|job openings|"
+        r"work with us|join our team|vacancies)(?:\\s*[-|:].*)?$",
+        "",
+        value,
+        flags=re.I,
+    ).strip(" \\t-|:")
+    if len(value) < 2 or len(value) > 100:
+        return ""
+    if value.casefold() in {"careers", "jobs", "greenhouse", "job board"}:
+        return ""
+    return value
+
+
+def _page_title(html: str) -> str:
+    """Read a page title without requiring a browser or third-party parser."""
+    match = re.search(r"<title[^>]*>(.*?)</title\\s*>", html, re.I | re.S)
+    if match:
+        return re.sub(r"\\s+", " ", re.sub(r"<[^>]+>", "", match.group(1))).strip()
+    for pattern in (
+        r'<meta[^>]+property=["\\']og:title["\\'][^>]+content=["\\']([^"\\']+)',
+        r'<meta[^>]+content=["\\']([^"\\']+)["\\'][^>]+property=["\\']og:title["\\']',
+    ):
+        match = re.search(pattern, html, re.I)
+        if match:
+            return re.sub(r"\\s+", " ", match.group(1)).strip()
+    return ""
+
+
 def _valid_token(token: str) -> str | None:
     token = token.strip().rstrip("/.,;)")
     if token.lower() in RESERVED_PATHS or not re.fullmatch(r"[A-Za-z0-9_-]{2,80}", token):
@@ -161,7 +197,7 @@ def greenhouse_tokens_from_html(html: str) -> list[str]:
 def validate_greenhouse_board(
     client: httpx.Client, token: str, *, max_jobs: int = 100
 ) -> dict[str, Any]:
-    """Validate a board against the public API and reject malformed/empty feeds."""
+    """Check whether a public board API exists; job availability is not a gate."""
     endpoint = f"https://boards-api.greenhouse.io/v1/boards/{token}/jobs?content=true"
     result: dict[str, Any] = {
         "board_token": token,
@@ -170,6 +206,8 @@ def validate_greenhouse_board(
         "validated_at_utc": datetime.now(timezone.utc).isoformat(),
         "http_status": None,
         "valid": False,
+        "board_exists": False,
+        "jobs_available": False,
         "total_jobs_reported": 0,
         "usable_jobs": 0,
         "jobs": [],
@@ -186,6 +224,8 @@ def validate_greenhouse_board(
             result["error"] = "API response did not contain a jobs array."
             return result
         raw_jobs = payload["jobs"]
+        result["board_exists"] = True
+        result["valid"] = True
         result["total_jobs_reported"] = len(raw_jobs)
         jobs: list[dict[str, Any]] = []
         seen_ids: set[str] = set()
@@ -205,9 +245,9 @@ def validate_greenhouse_board(
             jobs.append(job)
         result["jobs"] = jobs[:max_jobs]
         result["usable_jobs"] = len(jobs)
-        result["valid"] = bool(jobs)
-        if not jobs:
-            result["error"] = "API responded successfully but returned no usable, uniquely identified jobs."
+        result["jobs_available"] = bool(jobs)
+        if raw_jobs and not jobs:
+            result["error"] = "Board API exists, but the response contained no usable job records."
     except (httpx.HTTPError, ValueError) as exc:
         result["error"] = str(exc)
     return result
@@ -249,6 +289,8 @@ def discover_greenhouse_boards(
             "candidate_urls": [],
             "search_evidence": [],
             "discovery_methods": [],
+            "company_name_candidates": [],
+            "company_evidence": [],
         })
         if source_url and source_url not in entry["candidate_urls"]:
             entry["candidate_urls"].append(source_url)
@@ -257,6 +299,19 @@ def discover_greenhouse_boards(
             entry["search_evidence"].append(evidence)
         if method not in entry["discovery_methods"]:
             entry["discovery_methods"].append(method)
+        # Search titles are leads for identity, not proof of the employer's name.
+        possible_name = _company_name_from_title(title)
+        if possible_name and possible_name.casefold() != token.casefold():
+            if possible_name not in entry["company_name_candidates"]:
+                entry["company_name_candidates"].append(possible_name)
+        if method == "embedded-reference":
+            company_evidence = {
+                "source_url": source_url,
+                "page_title": title,
+                "evidence_type": "greenhouse_reference_found_in_page_html",
+            }
+            if company_evidence not in entry["company_evidence"]:
+                entry["company_evidence"].append(company_evidence)
 
     for query in dict.fromkeys(queries):
         try:
@@ -335,10 +390,46 @@ def discover_greenhouse_boards(
             validation = validate_greenhouse_board(client, candidate["board_token"])
             boards.append({**candidate, **validation})
 
+    # Inspect the public board pages for their own title/branding. This is useful
+    # identity evidence, but is not treated as proof of the legal employer.
+    board_page_errors: list[str] = []
+    with httpx.Client(
+        follow_redirects=True,
+        timeout=timeout,
+        headers={"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml,*/*;q=0.8"},
+    ) as board_client:
+        for board in boards:
+            try:
+                response = board_client.get(board["board_url"])
+                board["board_page_http_status"] = response.status_code
+                if response.is_success and "html" in response.headers.get("content-type", "text/html").lower():
+                    title = _page_title(response.text)
+                    board["board_page_title"] = title
+                    possible_name = _company_name_from_title(title)
+                    if possible_name and possible_name.casefold() != board["board_token"].casefold():
+                        if possible_name not in board["company_name_candidates"]:
+                            board["company_name_candidates"].append(possible_name)
+                else:
+                    board["board_page_title"] = ""
+                    if not response.is_success:
+                        board_page_errors.append(f"{board['board_url']}: HTTP {response.status_code}")
+            except httpx.HTTPError as exc:
+                board["board_page_title"] = ""
+                board_page_errors.append(f"{board['board_url']}: {exc}")
+
     for board in boards:
-        # A board token is a discovery identifier, not a verified legal/company name.
-        board["company_name"] = ""
-        board["company_identity_status"] = "needs_verification"
+        candidates_for_name = board.get("company_name_candidates", [])
+        board["company_name"] = candidates_for_name[0] if len(candidates_for_name) == 1 else ""
+        board["company_identity_status"] = (
+            "candidate_name_needs_review" if candidates_for_name
+            else "unresolved_board_identity"
+        )
+        board["greenhouse_connection_status"] = (
+            "public_board_api_accessible" if board.get("board_exists")
+            else "board_api_not_verified"
+        )
+        if board.get("company_evidence"):
+            board["greenhouse_connection_status"] = "greenhouse_reference_found_on_source_page"
         board.update(_regional_job_evidence(board.get("jobs", [])))
 
     boards.sort(key=lambda item: (
@@ -363,7 +454,11 @@ def discover_greenhouse_boards(
         "company_pages_inspected": inspected_pages,
         "company_page_inspection_limit": page_inspection_limit,
         "company_page_errors": page_errors,
+        "board_page_errors": board_page_errors,
         "candidate_boards_found": len(candidates),
+        "companies_with_candidate_names": sum(1 for board in boards if board.get("company_name_candidates")),
+        "boards_with_accessible_public_api": sum(1 for board in boards if board.get("board_exists")),
+        "boards_with_usable_jobs": sum(1 for board in boards if board.get("jobs_available")),
         "validated_boards_found": sum(1 for board in boards if board["valid"]),
         "boards_with_explicit_regional_jobs": sum(
             1 for board in boards
@@ -395,19 +490,26 @@ def save_greenhouse_discovery_report(
     json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     with csv_path.open("w", newline="", encoding="utf-8-sig") as handle:
         fields = [
-            "board_token", "board_url", "api_url", "valid", "http_status",
-            "total_jobs_reported", "usable_jobs", "company_name", "company_identity_status",
+            "company_name", "company_identity_status", "company_name_candidates",
+            "greenhouse_connection_status", "board_token", "board_url", "board_page_title",
+            "board_page_http_status", "api_url", "board_exists", "valid", "jobs_available",
+            "http_status", "total_jobs_reported", "usable_jobs", "company_evidence",
+            "candidate_urls", "search_evidence", "discovery_methods", "error",
             "regional_evidence_status", "regional_job_count", "regional_locations",
-            "regional_job_examples", "error", "candidate_urls", "discovery_methods",
+            "regional_job_examples",
         ]
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         for board in report.get("boards", []):
-            if not board.get("valid"):
-                continue
+            # Keep every explicit board lead, including API failures and boards
+            # with zero jobs; those statuses are evidence, not exclusion criteria.
             writer.writerow({
                 key: json.dumps(board.get(key), ensure_ascii=False)
-                if key in {"candidate_urls", "discovery_methods", "regional_locations", "regional_job_examples"} else board.get(key, "")
+                if key in {
+                    "company_name_candidates", "company_evidence", "candidate_urls",
+                    "search_evidence", "discovery_methods", "regional_locations",
+                    "regional_job_examples",
+                } else board.get(key, "")
                 for key in fields
             })
     return json_path, csv_path
