@@ -96,7 +96,7 @@ def greenhouse_tokens_from_html(html: str) -> list[str]:
             found.setdefault(token.casefold(), token)
     # Embed URLs may be relative or stored as a URL fragment in a JS string.
     for match in re.findall(
-        r"(?:boards\\.greenhouse\\.io/)?embed/job_app\\?[^\\s\"'<>]*for=([A-Za-z0-9_-]{2,80})",
+        r"(?:boards[.]greenhouse[.]io/)?embed/job_app[?][^ \t\r\n\"'<>]*for=([A-Za-z0-9_-]{2,80})",
         source,
         re.I,
     ):
