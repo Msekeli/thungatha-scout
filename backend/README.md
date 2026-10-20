@@ -43,7 +43,7 @@ Results are written to `company_discovery_results.csv`. Queries target vacancy a
 
 ## Automatically discover Greenhouse boards
 
-Run one command to search public web results for Greenhouse boards, validate candidate board tokens against the public Greenhouse API, and save evidence plus a separate CSV registry:
+Run one command to discover Greenhouse employer leads across industries and save an evidence-first company registry. The discovery stage does not filter by job title and does not require a board to have current vacancies:
 
 ```bash
 python -m app.main discover-greenhouse
@@ -56,9 +56,11 @@ python -m app.main discover-greenhouse --max-results-per-query 30
 python -m app.main discover-greenhouse --backend brave,google
 ```
 
-Reports are saved under `reports/greenhouse-discovery/`. The JSON report retains search evidence and job records; the CSV registry contains only boards whose API returned usable, uniquely identified jobs. This does not modify `data/companies.csv`.
+Reports are saved under `reports/greenhouse-discovery/`. The JSON report retains search evidence, board/API checks, candidate company names, page titles, source URLs, and any returned jobs as supporting evidence. The CSV keeps **all discovered board leads**, including unresolved identities, API failures, and boards with zero current jobs. This does not modify `data/companies.csv`.
 
-The default Greenhouse queries explicitly cover **Cape Town, the wider Western Cape, and Stellenbosch**. Stellenbosch is included separately because search results may not group it under Cape Town. Discovery is automated but not exhaustive: coverage depends on public search indexing and search-provider rate limits. A validated public board confirms the feed is readable, not that every vacancy is relevant to a target region. The next registry improvement is to resolve each board token to the actual employer and record location evidence from its jobs; do not treat a board token as a verified company name.
+The default searches cover **Cape Town, the wider Western Cape, and Stellenbosch**, and do not restrict discovery to technology employers or specific roles. The report separates three questions: whether a Greenhouse reference was found, whether the public board API is accessible, and whether the employer identity is established. A board token is never treated as the company name. Names inferred from search or board-page titles remain candidates until checked against an employer's official website or careers page. Company-page HTML containing an explicit Greenhouse reference is retained as evidence, but it is not silently treated as proof that the page is official.
+
+A public board/API is evidence of a Greenhouse board endpoint, not proof that the employer operates in the Western Cape. Confirm regional presence from official company/careers information before promoting a lead to the verified-company list. Search coverage is not exhaustive and depends on public indexing and provider availability. Vacancy analysis is a separate downstream stage; an empty job feed does not remove a company lead.
 
 ## Rank discovered Greenhouse jobs for South Africa
 
