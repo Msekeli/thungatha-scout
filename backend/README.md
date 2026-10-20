@@ -1,23 +1,21 @@
 # Thungatha Scout Backend
 
-Python prototype for discovering direct-employer careers sources and recording evidence for human review.
+Python prototype for investigating employer careers pages and recording evidence for human review.
 
 ## Current status
 
-- [x] Candidate model preserves source URLs and evidence.
 - [x] Free-first web search prototype using the `ddgs` metasearch library.
-- [x] Reusable HTTP/HTML inspection for a known careers URL.
-- [x] URL investigation command with evidence-based ATS detection.
-- [x] Greenhouse public-board API adapter and initial Workday public CXS adapter.
-- [x] Separate JSON and Markdown investigation reports.
-- [ ] Validate extraction completeness and endpoint stability across real employer sites.
-- [ ] Add pagination and more ATS adapters only after test evidence supports them.
-- [ ] Evaluate search quality and rate limits across several queries.
+- [x] Careers URL inspection and evidence-based ATS detection.
+- [x] Greenhouse public-board API adapter.
+- [x] Workday public CXS adapter using observed tenant/site configuration.
+- [x] Generic same-host vacancy-detail extraction for ordinary careers pages.
+- [x] Separate timestamped JSON and Markdown investigation reports.
+- [ ] Validate extraction completeness and endpoint stability across more employer sites.
+- [ ] Add Workday pagination and additional ATS adapters after tests justify them.
 - [ ] Add the supplied employer URLs as a deduplicated benchmark dataset.
-- [ ] Improve direct-employer and recruiter classification using verified evidence.
 - [ ] Test JavaScript-rendered sites and add Playwright only if needed.
 
-Search results are leads, not verified employers. Results can be incomplete or rate-limited, and employer type is heuristic. Manually review uncertain entries before adding them to a trusted directory. A careers page does not by itself prove that there are current vacancies.
+Search results are leads, not verified employers. Results can be incomplete or rate-limited, and employer type is heuristic. A careers page does not by itself prove that there are current vacancies.
 
 ## Setup
 
@@ -31,25 +29,13 @@ pip install -r requirements.txt
 
 ## Discover companies
 
-Run the default queries for technology roles in Cape Town / Western Cape:
-
 ```bash
 python -m app.main
-```
-
-Run one custom query:
-
-```bash
 python -m app.main discover --query '"software developer" careers "Cape Town" -recruitment'
-```
-
-Change search result limits:
-
-```bash
 python -m app.main discover --max-results-per-query 5
 ```
 
-The results are written to `company_discovery_results.csv`.
+Results are written to `company_discovery_results.csv`.
 
 ## Verify a known careers URL
 
@@ -57,37 +43,36 @@ The results are written to `company_discovery_results.csv`.
 python -m app.main verify https://careers.capitecbank.co.za/
 ```
 
-This command inspects a known URL; it does not discover new employers.
-
-## Investigate a careers URL (recommended for experiments)
-
-Run one investigation for a URL you supply:
+## Investigate a careers URL
 
 ```bash
 python -m app.main investigate https://ozow.com/jobs
-```
-
-For RELX, supply the corporate careers URL; the investigator follows an observed Workday link to read its public tenant/site configuration:
-
-```bash
+python -m app.main investigate https://www.beingit.co.za/Careers
 python -m app.main investigate https://www.relx.com/careers
 ```
 
-The command automatically:
-- Fetches the supplied page and records HTTP status, final URL, content type, response size, title, and a short text excerpt.
-- Detects ATS platforms only when page HTML, configuration, or links provide evidence.
-- Tries the Greenhouse public-board API when a board token is found in the supplied page.
-- Tries the public Workday CXS jobs endpoint when an observed Workday URL and tenant/site configuration are available.
+The investigator:
+- Records HTTP status, final URL, content type, response size, title, and a short text excerpt.
+- Detects ATS platforms only when page HTML, configuration, or observed links provide evidence.
+- Tries Greenhouse's public board API when the page exposes a board token.
+- Follows an observed Workday careers link to inspect its public tenant/site configuration, then tries the public CXS jobs endpoint.
+- For non-ATS pages, follows up to 25 observed same-host vacancy-detail links and extracts basic title and description evidence.
 - Saves timestamped JSON and Markdown reports under `backend/reports/url-investigations/` by default.
 
-You can choose another report directory with `--output-dir /path/to/reports`.
+To select another report directory:
 
-Important: ATS detection is not the same as successful extraction. Reports distinguish adapter success, HTTP status, returned job count, and errors. Workday currently requests only the first page of jobs. Unsupported platforms are reported without blind endpoint probing; browser automation has not been added. This tool only investigates URLs you explicitly provide, does not edit `data/companies.csv`, and never submits applications.
+```bash
+python -m app.main investigate https://example.com/careers --output-dir /path/to/reports
+```
+
+ATS detection is not the same as successful extraction. Workday currently requests only the first page. Generic HTML extraction is intentionally conservative and may miss listings rendered only by JavaScript or links with unusual structures. Review the report rather than treating zero extracted jobs as proof that no vacancies exist.
+
+The tool investigates only URLs you explicitly provide, does not edit `data/companies.csv`, does not access account-protected content, and never submits applications.
 
 ## Run tests
 
 From the `backend` directory:
 
 ```bash
-pytest
+python -m pytest
 ```
