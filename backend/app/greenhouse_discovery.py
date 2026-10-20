@@ -70,6 +70,41 @@ PUBLIC_BOARD_URL_RE = re.compile(
     r"""https?://(?:job-)?boards[.]greenhouse[.]io/[^ \t\r\n"'<>]+""", re.I
 )
 DEFAULT_PAGE_INSPECTION_LIMIT = 80
+TARGET_LOCATION_PATTERNS = {
+    "Cape Town": re.compile(r"\\bcape\\s+town\\b", re.I),
+    "Western Cape": re.compile(r"\\bwestern\\s+cape\\b", re.I),
+    "Stellenbosch": re.compile(r"\\bstellenbosch\\b", re.I),
+}
+
+
+def _regional_job_evidence(jobs: list[dict[str, Any]]) -> dict[str, Any]:
+    """Summarise explicit target-region evidence without filtering by job title."""
+    matches: list[dict[str, str]] = []
+    locations: set[str] = set()
+    for job in jobs:
+        location = str(job.get("location") or "").strip()
+        matched_regions = [
+            region for region, pattern in TARGET_LOCATION_PATTERNS.items()
+            if pattern.search(location)
+        ]
+        if not matched_regions:
+            continue
+        locations.update(matched_regions)
+        matches.append({
+            "title": str(job.get("title") or ""),
+            "location": location,
+            "url": str(job.get("url") or ""),
+            "matched_regions": ", ".join(matched_regions),
+        })
+    status = "explicit_regional_job" if matches else (
+        "no_jobs_returned" if not jobs else "no_explicit_regional_job"
+    )
+    return {
+        "regional_evidence_status": status,
+        "regional_job_count": len(matches),
+        "regional_locations": sorted(locations),
+        "regional_job_examples": matches[:25],
+    }
 
 
 def _valid_token(token: str) -> str | None:
@@ -289,7 +324,17 @@ def discover_greenhouse_boards(
             validation = validate_greenhouse_board(client, candidate["board_token"])
             boards.append({**candidate, **validation})
 
-    boards.sort(key=lambda item: (not item["valid"], item["board_token"].casefold()))
+    for board in boards:
+        # A board token is a discovery identifier, not a verified legal/company name.
+        board["company_name"] = ""
+        board["company_identity_status"] = "needs_verification"
+        board.update(_regional_job_evidence(board.get("jobs", [])))
+
+    boards.sort(key=lambda item: (
+        not item["valid"],
+        item.get("regional_evidence_status") != "explicit_regional_job",
+        item["board_token"].casefold(),
+    ))
     return {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "search_queries": list(dict.fromkeys(queries)),
@@ -301,6 +346,13 @@ def discover_greenhouse_boards(
         "company_page_errors": page_errors,
         "candidate_boards_found": len(candidates),
         "validated_boards_found": sum(1 for board in boards if board["valid"]),
+        "boards_with_explicit_regional_jobs": sum(
+            1 for board in boards
+            if board.get("valid") and board.get("regional_evidence_status") == "explicit_regional_job"
+        ),
+        "boards_needing_company_identity_review": sum(
+            1 for board in boards if board.get("valid") and not board.get("company_name")
+        ),
         "boards": boards,
         "limitations": [
             "Discovery is limited to public search results and is not an exhaustive list of Greenhouse customers.",
@@ -325,8 +377,9 @@ def save_greenhouse_discovery_report(
     with csv_path.open("w", newline="", encoding="utf-8-sig") as handle:
         fields = [
             "board_token", "board_url", "api_url", "valid", "http_status",
-            "total_jobs_reported", "usable_jobs", "error", "candidate_urls",
-            "discovery_methods",
+            "total_jobs_reported", "usable_jobs", "company_name", "company_identity_status",
+            "regional_evidence_status", "regional_job_count", "regional_locations",
+            "regional_job_examples", "error", "candidate_urls", "discovery_methods",
         ]
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
@@ -335,7 +388,7 @@ def save_greenhouse_discovery_report(
                 continue
             writer.writerow({
                 key: json.dumps(board.get(key), ensure_ascii=False)
-                if key in {"candidate_urls", "discovery_methods"} else board.get(key, "")
+                if key in {"candidate_urls", "discovery_methods", "regional_locations", "regional_job_examples"} else board.get(key, "")
                 for key in fields
             })
     return json_path, csv_path
