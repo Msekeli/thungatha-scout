@@ -103,17 +103,23 @@ def _regional_job_evidence(jobs: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def _company_name_from_title(title: str) -> str:
-    """Conservatively extract a possible employer name from a search/page title."""
+    """Extract a company-name candidate only from recognisable careers branding."""
     value = re.sub(r"\s+", " ", title).strip(" \t\r\n-|:")
     if not value:
         return ""
-    value = re.sub(
-        r"\s*(?:[-|:]\s*)?(?:careers?|jobs?|open positions|job openings|"
-        r"work with us|join our team|vacancies)(?:\s*[-|:].*)?$",
-        "",
-        value,
-        flags=re.I,
-    ).strip(" \t-|:")
+    at_prefix = re.match(r"^(?:careers?|jobs?)\s+(?:at|for|with)\s+(.+)$", value, re.I)
+    if at_prefix:
+        value = at_prefix.group(1).strip(" \t-|:")
+    else:
+        if not re.search(
+            r"\b(?:careers?|jobs?|open positions|job openings|work with us|join our team|vacancies)\b",
+            value,
+            re.I,
+        ) and not re.search(r"\bgreenhouse\b", value, re.I):
+            return ""
+        value = re.sub(r"\s*(?:[-|:]\s*)?(?:careers?|jobs?|open positions|job openings|work with us|join our team|vacancies)(?:\s*[-|:].*)?$", "", value, flags=re.I)
+        value = re.sub(r"\s*[-|:]\s*greenhouse\s*$", "", value, flags=re.I)
+    value = value.strip(" \t-|:")
     if len(value) < 2 or len(value) > 100:
         return ""
     if value.casefold() in {"careers", "jobs", "greenhouse", "job board"}:
