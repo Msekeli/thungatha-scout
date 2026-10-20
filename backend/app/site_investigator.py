@@ -61,6 +61,8 @@ def _detect_ats(html: str, final_url: str, links: list[dict[str, str]]) -> list[
         ats.append("greenhouse")
     if "myworkdayjobs.com" in evidence or "window.workday" in evidence:
         ats.append("workday")
+    if "bamboohr.com" in evidence:
+        ats.append("bamboohr")
     for name, hints in {
         "lever": ("jobs.lever.co", "api.lever.co"),
         "smartrecruiters": ("jobs.smartrecruiters.com",),
@@ -166,6 +168,83 @@ def _extract_workday(client: httpx.Client, config: dict[str, str], *, search_tex
             return result
         result["success"] = True
         result["pagination"] = {"limit": payload["limit"], "offset": 0, "note": "First page only."}
+    except (httpx.HTTPError, ValueError) as exc:
+        result["error"] = str(exc)
+    return result
+
+
+def _bamboohr_slug(final_url: str) -> str | None:
+    host = urlparse(final_url).netloc.lower().split(":", 1)[0]
+    match = re.fullmatch(r"([a-z0-9-]+)\\.bamboohr\\.com", host)
+    return match.group(1) if match else None
+
+
+def _extract_bamboohr(client: httpx.Client, final_url: str) -> dict[str, Any]:
+    """Read BambooHR's public careers list and, for a supplied job URL, its detail endpoint."""
+    parsed = urlparse(final_url)
+    origin = f"{parsed.scheme}://{parsed.netloc}"
+    slug = _bamboohr_slug(final_url)
+    result: dict[str, Any] = {"adapter": "bamboohr_public_careers_json", "endpoint": f"{origin}/careers/list",
+                              "http_status": None, "success": False, "jobs": [], "error": ""}
+    if not slug:
+        result["error"] = "URL host is not a recognized tenant subdomain of bamboohr.com."
+        return result
+    try:
+        response = client.get(f"{origin}/careers/list", headers={"Accept": "application/json"})
+        result["http_status"] = response.status_code
+        if not response.is_success:
+            result["error"] = f"Public careers list returned HTTP {response.status_code}"
+            return result
+        payload = response.json()
+        items = payload.get("result", []) if isinstance(payload, dict) else []
+        result["total_jobs_reported"] = payload.get("meta", {}).get("totalCount", len(items)) if isinstance(payload, dict) else len(items)
+        requested_id = re.search(r"/careers/(\\d+)(?:/|$)", parsed.path)
+        jobs = []
+        for item in items[:MAX_JOBS]:
+            if not isinstance(item, dict):
+                continue
+            job_id = str(item.get("id") or "")
+            job_url = f"{origin}/careers/{job_id}" if job_id else ""
+            loc = item.get("location") or {}
+            ats_loc = item.get("atsLocation") or {}
+            location = ", ".join(str(v) for v in [loc.get("city"), loc.get("state"), ats_loc.get("province"), ats_loc.get("country")] if v)
+            jobs.append({"title": str(item.get("jobOpeningName") or item.get("postingTitle") or "").strip(),
+                         "location": location, "department": str(item.get("departmentLabel") or "").strip(),
+                         "url": job_url, "description_available": False, "source_adapter": "bamboohr"})
+        if requested_id:
+            target_id = requested_id.group(1)
+            result["requested_job_id"] = target_id
+            detail_url = f"{origin}/careers/{target_id}/detail"
+            try:
+                detail_response = client.get(detail_url, headers={"Accept": "application/json"})
+                result["detail_endpoint"] = detail_url
+                result["detail_http_status"] = detail_response.status_code
+                if detail_response.is_success:
+                    detail = detail_response.json()
+                    if isinstance(detail, dict):
+                        detail_title = str(detail.get("jobOpeningName") or detail.get("postingTitle") or "").strip()
+                        description = detail.get("jobDescription") or detail.get("description") or detail.get("descriptionHtml") or ""
+                        if isinstance(description, str) and description.strip():
+                            found = next((job for job in jobs if job["url"].endswith("/" + target_id)), None)
+                            if found:
+                                found["description_available"] = True
+                                found["description_excerpt"] = BeautifulSoup(description, "html.parser").get_text(" ", strip=True)[:1200]
+                            else:
+                                jobs.insert(0, {"title": detail_title, "location": "", "department": "", "url": f"{origin}/careers/{target_id}", "description_available": True, "description_excerpt": BeautifulSoup(description, "html.parser").get_text(" ", strip=True)[:1200], "source_adapter": "bamboohr_detail"})
+                        result["detail_response_keys"] = sorted(detail.keys())
+            except (httpx.HTTPError, ValueError) as exc:
+                result["detail_error"] = str(exc)
+            matched = [job for job in jobs if job["url"].endswith("/" + target_id)]
+            if matched:
+                jobs = matched
+            elif result.get("detail_http_status") and result["detail_http_status"] >= 400:
+                result["error"] = f"Job ID {target_id} was not found in the public list or detail endpoint."
+                result["success"] = False
+                return result
+        result["jobs"] = jobs
+        result["success"] = bool(jobs) or result["total_jobs_reported"] == 0
+        if not result["success"]:
+            result["error"] = "No job records were returned by the public careers list."
     except (httpx.HTTPError, ValueError) as exc:
         result["error"] = str(exc)
     return result
@@ -334,6 +413,11 @@ def investigate_careers_url(url: str, *, timeout: float = TIMEOUT) -> dict[str, 
             extraction["attempted"] = True
             with httpx.Client(follow_redirects=True, timeout=timeout,
                               headers={"User-Agent": USER_AGENT, "Accept": "application/json"}) as api_client:
+                if "bamboohr" in ats:
+                    adapter = _extract_bamboohr(api_client, str(response.url))
+                    extraction["adapters"].append(adapter)
+                    if adapter["success"]:
+                        extraction["jobs"].extend(adapter["jobs"])
                 if "greenhouse" in ats:
                     board = _greenhouse_board(html, str(response.url))
                     if board:
