@@ -4,3 +4,4 @@ __pycache__/
 .pytest_cache/
 .env
 company_test_results.csv
+company_discovery_results.csv
