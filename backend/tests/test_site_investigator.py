@@ -83,8 +83,9 @@ def test_direct_beingit_vacancy_extracts_one_primary_job():
 
 
 def test_detect_bamboohr_from_public_careers_host():
-    ats = _detect_ats("<html><title>Careers</title></html>", "https://aerobotics.bamboohr.com/careers/103", [])
+    ats = _detect_ats("<html><title>Careers</title><p>greenhouse roles and culture</p></html>", "https://aerobotics.bamboohr.com/careers/103", [])
     assert "bamboohr" in ats
+    assert "greenhouse" not in ats
     assert _bamboohr_slug("https://aerobotics.bamboohr.com/careers/103") == "aerobotics"
 
 
