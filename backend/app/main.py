@@ -80,6 +80,8 @@ def main() -> None:
         print(json.dumps({
             "candidate_boards_found": report["candidate_boards_found"],
             "validated_boards_found": report["validated_boards_found"],
+            "boards_with_explicit_regional_jobs": report.get("boards_with_explicit_regional_jobs", 0),
+            "boards_needing_company_identity_review": report.get("boards_needing_company_identity_review", 0),
             "successful_queries": report["successful_queries"],
             "failed_queries": report["failed_queries"],
             "search_result_pages_seen": report.get("search_result_pages_seen", 0),
@@ -88,9 +90,15 @@ def main() -> None:
             "json_report": str(json_path),
             "csv_registry": str(csv_path),
         }, indent=2, ensure_ascii=False))
+        print("\\nBoards with explicit Cape Town / Western Cape / Stellenbosch job evidence:")
         for board in report["boards"]:
-            if board["valid"]:
-                print(f"- {board['board_token']}: {board['usable_jobs']} usable jobs ({board['board_url']})")
+            if board["valid"] and board.get("regional_evidence_status") == "explicit_regional_job":
+                regions = ", ".join(board.get("regional_locations", []))
+                print(
+                    f"- {board['board_token']}: {board['regional_job_count']} regional jobs "
+                    f"[{regions}] ({board['board_url']})"
+                )
+        print("\\nAll validated boards are retained in the CSV, including boards without explicit regional jobs.")
         return
 
     if args.command == "analyze-greenhouse":
