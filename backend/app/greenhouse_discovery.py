@@ -71,9 +71,9 @@ PUBLIC_BOARD_URL_RE = re.compile(
 )
 DEFAULT_PAGE_INSPECTION_LIMIT = 80
 TARGET_LOCATION_PATTERNS = {
-    "Cape Town": re.compile(r"\\bcape\\s+town\\b", re.I),
-    "Western Cape": re.compile(r"\\bwestern\\s+cape\\b", re.I),
-    "Stellenbosch": re.compile(r"\\bstellenbosch\\b", re.I),
+    "Cape Town": re.compile(r"\bcape\s+town\b", re.I),
+    "Western Cape": re.compile(r"\bwestern\s+cape\b", re.I),
+    "Stellenbosch": re.compile(r"\bstellenbosch\b", re.I),
 }
 
 
