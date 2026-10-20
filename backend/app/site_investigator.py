@@ -63,6 +63,8 @@ def _detect_ats(html: str, final_url: str, links: list[dict[str, str]]) -> list[
         ats.append("workday")
     if "bamboohr.com" in evidence:
         ats.append("bamboohr")
+    if "breezy.hr" in evidence:
+        ats.append("breezyhr")
     for name, hints in {
         "lever": ("jobs.lever.co", "api.lever.co"),
         "smartrecruiters": ("jobs.smartrecruiters.com",),
@@ -260,6 +262,67 @@ def _extract_bamboohr(client: httpx.Client, final_url: str) -> dict[str, Any]:
     return result
 
 
+
+def _is_breezy_job_url(url: str) -> bool:
+    parsed = urlparse(url)
+    return "breezy.hr" in parsed.netloc.lower() and bool(re.match(r"^/p/[a-z0-9]+(?:-|$)", parsed.path.lower()))
+
+
+def _extract_breezyhr(client: httpx.Client, page_url: str, html: str, links: list[dict[str, str]]) -> dict[str, Any]:
+    """Extract published openings from observed public Breezy HR listing/detail pages."""
+    parsed = urlparse(page_url)
+    origin = f"{parsed.scheme}://{parsed.netloc}"
+    result: dict[str, Any] = {"adapter": "breezyhr_public_html", "success": False, "jobs": [],
+                              "error": "", "candidate_links_found": 0, "detail_pages_checked": 0}
+    soup = BeautifulSoup(html, "html.parser")
+    if _is_breezy_job_url(page_url):
+        candidates = [{"label": "", "url": page_url}]
+    else:
+        candidates = [link for link in links if _is_breezy_job_url(link["url"])]
+    unique = []
+    seen = set()
+    for link in candidates:
+        normalized = link["url"].split("#", 1)[0]
+        if normalized not in seen:
+            seen.add(normalized)
+            unique.append({"label": link.get("label", ""), "url": normalized})
+    result["candidate_links_found"] = len(unique)
+    for link in unique[:MAX_JOBS]:
+        try:
+            response = client.get(link["url"])
+            if not response.is_success or "html" not in response.headers.get("content-type", "").lower():
+                continue
+            detail = BeautifulSoup(response.text, "html.parser")
+            title_node = detail.find("h1") or detail.find("title")
+            title = title_node.get_text(" ", strip=True) if title_node else link["label"]
+            for node in detail(["script", "style", "noscript", "svg", "nav", "footer", "header"]):
+                node.decompose()
+            main = detail.find("main") or detail.find("article") or detail.find(id=re.compile(r"job|position|description", re.I)) or detail.body or detail
+            text = re.sub(r"\\s+", " ", main.get_text(" ", strip=True)).strip()
+            if not title or len(title) > 240 or len(text) < 80:
+                continue
+            # Remove generic page headings from the title where the page uses a branded title.
+            title = re.sub(r"\\s+at\\s+.+$", "", title, flags=re.I).strip() if title.lower().startswith("apply for ") else title
+            location = ""
+            for node in detail.select("[class*=location], [class*=Location]"):
+                candidate = node.get_text(" ", strip=True)
+                if candidate and len(candidate) < 160:
+                    location = candidate
+                    break
+            result["jobs"].append({
+                "title": title, "location": location, "department": "",
+                "url": str(response.url), "description_available": len(text) >= 200,
+                "description_excerpt": text[:1200], "source_adapter": "breezyhr",
+            })
+            result["detail_pages_checked"] += 1
+        except httpx.HTTPError:
+            continue
+    result["success"] = bool(result["jobs"])
+    if not result["success"]:
+        result["error"] = "No readable public Breezy HR job detail pages were extracted from observed /p/ links."
+    return result
+
+
 def _page_links(soup: BeautifulSoup, page_url: str) -> list[dict[str, str]]:
     links = []
     for anchor in soup.find_all("a", href=True):
@@ -425,6 +488,11 @@ def investigate_careers_url(url: str, *, timeout: float = TIMEOUT) -> dict[str, 
                               headers={"User-Agent": USER_AGENT, "Accept": "application/json"}) as api_client:
                 if "bamboohr" in ats:
                     adapter = _extract_bamboohr(api_client, str(response.url))
+                    extraction["adapters"].append(adapter)
+                    if adapter["success"]:
+                        extraction["jobs"].extend(adapter["jobs"])
+                if "breezyhr" in ats:
+                    adapter = _extract_breezyhr(client, str(response.url), html, links)
                     extraction["adapters"].append(adapter)
                     if adapter["success"]:
                         extraction["jobs"].extend(adapter["jobs"])
