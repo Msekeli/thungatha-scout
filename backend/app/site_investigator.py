@@ -311,7 +311,7 @@ def _extract_breezyhr(client: httpx.Client, page_url: str, html: str, links: lis
                     break
             result["jobs"].append({
                 "title": title, "location": location, "department": "",
-                "url": str(response.url), "description_available": len(text) >= 200,
+                "url": str(response.url), "description_available": len(text) >= 80,
                 "description_excerpt": text[:1200], "source_adapter": "breezyhr",
             })
             result["detail_pages_checked"] += 1
