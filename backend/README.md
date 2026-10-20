@@ -28,15 +28,18 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Discover companies
+## Discover companies first (Cape Town / Western Cape)
+
+Company discovery is deliberately separate from vacancy discovery. The default search finds technology employers and official company/careers web sources in Cape Town and the Western Cape; it does not search individual job titles. Results are candidate companies, not yet verified records, and should be reviewed for an official website and a valid careers URL before job extraction.
 
 ```bash
 python -m app.main
-python -m app.main discover --query '"software developer" careers "Cape Town" -recruitment'
-python -m app.main discover --max-results-per-query 5
+python -m app.main discover --max-results-per-query 15
+python -m app.main discover --region "Western Cape, South Africa" --max-results-per-query 15
+python -m app.main discover --query '"technology companies in Cape Town" -recruitment -staffing'
 ```
 
-Results are written to `company_discovery_results.csv`.
+Results are written to `company_discovery_results.csv`. The default searches company categories such as software, IT services, SaaS, fintech, AI, cybersecurity, data, e-commerce, cloud, and game development. Search indexing can still return aggregators or companies with no local office, so location and official domain need verification before accepting a company into the registry. Existing `data/companies.csv` is not modified.
 
 ## Automatically discover Greenhouse boards
 
