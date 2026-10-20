@@ -29,7 +29,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="Automatically find public Greenhouse boards and validate their job feeds.",
     )
     greenhouse.add_argument("--max-results-per-query", type=int, default=20)
-    greenhouse.add_argument("--backend", default="brave,google", help="Comma-separated DDGS search backends, e.g. brave,google.")
+    greenhouse.add_argument("--backend", default="auto", help="DDGS search backend (auto is recommended).")
     greenhouse.add_argument(
         "--output-dir",
         default=str(Path(__file__).resolve().parents[1] / "reports" / "greenhouse-discovery"),
@@ -82,7 +82,9 @@ def main() -> None:
             "validated_boards_found": report["validated_boards_found"],
             "boards_with_explicit_regional_jobs": report.get("boards_with_explicit_regional_jobs", 0),
             "boards_needing_company_identity_review": report.get("boards_needing_company_identity_review", 0),
+            "search_status": report.get("search_status", "unknown"),
             "successful_queries": report["successful_queries"],
+            "empty_queries": report.get("empty_queries", []),
             "failed_queries": report["failed_queries"],
             "search_result_pages_seen": report.get("search_result_pages_seen", 0),
             "company_pages_inspected": report.get("company_pages_inspected", 0),
