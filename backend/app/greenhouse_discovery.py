@@ -351,8 +351,8 @@ def discover_greenhouse_boards(
         "search_queries": list(dict.fromkeys(queries)),
         "search_status": (
             "failed" if successful_queries == 0 and search_errors
-            else "no_results" if not candidates and not source_pages and successful_queries
             else "partial" if search_errors and successful_queries
+            else "no_results" if not candidates and not source_pages and successful_queries
             else "success" if successful_queries
             else "failed"
         ),
