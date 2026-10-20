@@ -222,16 +222,26 @@ def _extract_bamboohr(client: httpx.Client, final_url: str) -> dict[str, Any]:
                 if detail_response.is_success:
                     detail = detail_response.json()
                     if isinstance(detail, dict):
-                        detail_title = str(detail.get("jobOpeningName") or detail.get("postingTitle") or "").strip()
-                        description = detail.get("jobDescription") or detail.get("description") or detail.get("descriptionHtml") or ""
-                        if isinstance(description, str) and description.strip():
-                            found = next((job for job in jobs if job["url"].endswith("/" + target_id)), None)
-                            if found:
-                                found["description_available"] = True
-                                found["description_excerpt"] = BeautifulSoup(description, "html.parser").get_text(" ", strip=True)[:1200]
-                            else:
-                                jobs.insert(0, {"title": detail_title, "location": "", "department": "", "url": f"{origin}/careers/{target_id}", "description_available": True, "description_excerpt": BeautifulSoup(description, "html.parser").get_text(" ", strip=True)[:1200], "source_adapter": "bamboohr_detail"})
                         result["detail_response_keys"] = sorted(detail.keys())
+                        opening = detail.get("result", {}).get("jobOpening", {}) if isinstance(detail.get("result"), dict) else {}
+                        if not isinstance(opening, dict):
+                            opening = {}
+                        detail_title = str(opening.get("jobOpeningName") or opening.get("postingTitle") or "").strip()
+                        description = opening.get("description") or opening.get("jobDescription") or opening.get("descriptionHtml") or ""
+                        found = next((job for job in jobs if job["url"].endswith("/" + target_id)), None)
+                        if found:
+                            if detail_title:
+                                found["title"] = detail_title
+                            location = opening.get("location") or {}
+                            found["location"] = ", ".join(str(v) for v in [location.get("city"), location.get("state"), location.get("addressCountry")] if v)
+                            found["department"] = str(opening.get("departmentLabel") or found.get("department") or "").strip()
+                        if isinstance(description, str) and description.strip():
+                            description_text = BeautifulSoup(description, "html.parser").get_text(" ", strip=True)
+                            if found:
+                                found["description_available"] = bool(description_text)
+                                found["description_excerpt"] = description_text[:1200]
+                            else:
+                                jobs.insert(0, {"title": detail_title, "location": "", "department": "", "url": f"{origin}/careers/{target_id}", "description_available": bool(description_text), "description_excerpt": description_text[:1200], "source_adapter": "bamboohr_detail"})
             except (httpx.HTTPError, ValueError) as exc:
                 result["detail_error"] = str(exc)
             matched = [job for job in jobs if job["url"].endswith("/" + target_id)]
