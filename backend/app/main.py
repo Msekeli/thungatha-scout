@@ -90,7 +90,7 @@ def main() -> None:
             "json_report": str(json_path),
             "csv_registry": str(csv_path),
         }, indent=2, ensure_ascii=False))
-        print("\\nBoards with explicit Cape Town / Western Cape / Stellenbosch job evidence:")
+        print("\nBoards with explicit Cape Town / Western Cape / Stellenbosch job evidence:")
         for board in report["boards"]:
             if board["valid"] and board.get("regional_evidence_status") == "explicit_regional_job":
                 regions = ", ".join(board.get("regional_locations", []))
@@ -98,7 +98,7 @@ def main() -> None:
                     f"- {board['board_token']}: {board['regional_job_count']} regional jobs "
                     f"[{regions}] ({board['board_url']})"
                 )
-        print("\\nAll validated boards are retained in the CSV, including boards without explicit regional jobs.")
+        print("\nAll validated boards are retained in the CSV, including boards without explicit regional jobs.")
         return
 
     if args.command == "analyze-greenhouse":
