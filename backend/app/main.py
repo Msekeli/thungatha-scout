@@ -29,7 +29,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="Automatically find public Greenhouse boards and validate their job feeds.",
     )
     greenhouse.add_argument("--max-results-per-query", type=int, default=20)
-    greenhouse.add_argument("--backend", default="auto", help="DDGS search backend, e.g. auto or brave,google.")
+    greenhouse.add_argument("--backend", default="brave,google", help="Comma-separated DDGS search backends, e.g. brave,google.")
     greenhouse.add_argument(
         "--output-dir",
         default=str(Path(__file__).resolve().parents[1] / "reports" / "greenhouse-discovery"),
