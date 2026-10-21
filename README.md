@@ -1,62 +1,61 @@
 # Thungatha Scout
 
-Thungatha Scout is a company-first discovery tool for finding direct employers that hire software developers and related technology roles, initially focused on Cape Town and the Western Cape.
+Thungatha Scout is a lightweight job-source feeder for Thungatha. It uses a curated registry of known employers and reusable adapters for their public careers platforms. Company discovery is deliberately out of scope for this milestone.
 
-## Initial goal
+## Current milestone: validate Workday ingestion
 
-Automate the early research process:
+The first adapter targets public Workday careers boards. Workday pages use a different public JSON request pattern from Greenhouse, so the integration must handle its own URL parsing, POST requests, pagination, and optional per-vacancy detail calls.
 
-1. Discover potential direct employers from public sources.
-2. Separate direct employers from recruitment agencies, job boards, and uncertain results.
-3. identify and inspect official company and careers pages.
-4. Record evidence and source URLs so results can be reviewed.
-5. Keep employer discovery distinct from vacancy extraction and job publication.
-
-## Current milestone
-
-The first milestone is a local Python proof of concept to test company discovery using free-first sources and verify discovered careers URLs. A list of manually supplied URLs is useful as a benchmark, but is not the discovery mechanism itself.
-
-No AI provider, paid search API, database, frontend, scheduled job, or integration with Thungatha is required for this first milestone.
-
-## Project layout
+Test against Betway's public careers board:
 
 ```text
-thungatha-scout/
-├── frontend/           # Planned dashboard; not part of the current milestone
-├── backend/
-│   ├── app/            # Python application
-│   ├── tests/           # Automated tests
-│   ├── requirements.txt
-│   └── .env.example
-├── .gitignore
-└── README.md
+https://myhcm.wd3.myworkdayjobs.com/Betway_Africa
 ```
 
-## Current prototype dependencies
-
-- Python 3.14 (local development)
-- httpx
-- Beautiful Soup 4
-
-Playwright can be added only when tests show that JavaScript-rendered pages prevent reliable inspection.
-
-## Run locally
-
-From the `backend` directory:
+From `backend/`:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python -m app.main
+python -m app.main workday "https://myhcm.wd3.myworkdayjobs.com/Betway_Africa" --max-jobs 40
 ```
 
-## Principles
+Fetch full descriptions and additional detail fields only when needed:
 
-- Prefer free approaches and avoid unnecessary paid services.
-- Treat search results as leads, not authoritative evidence.
-- Prioritize direct employers; do not mix recruitment agencies into the direct-employer directory.
-- Preserve evidence and URLs for review.
-- Never infer that a company is hiring solely because it has a careers page.
-- Keep human review available for uncertain employer or source classifications.
-- Do not write to the Thungatha application or publish jobs during this milestone.
+```bash
+python -m app.main workday "https://myhcm.wd3.myworkdayjobs.com/Betway_Africa" --max-jobs 20 --details --output /tmp/betway-workday.json
+```
+
+Workday's public CXS job-list endpoint uses POST requests with a page size of 20. The adapter preserves the initial total, increments the offset by 20, and also stops on an empty page. It does not interpret HTTP 403/429 or malformed responses as evidence that the employer has no vacancies. Detail requests are optional because they add one request per job.
+
+The public CXS interface is undocumented and unsupported by Workday. Handle timeouts, schema changes, and rate limits; do not attempt to bypass access restrictions.
+
+## Tests
+
+Run from `backend/`:
+
+```bash
+python -m pytest
+```
+
+The Workday tests use mocked HTTP responses, so they verify URL parsing, page-size limits, pagination, normalization, and failure handling without relying on a live third-party site.
+
+## Planned architecture
+
+- Python Azure Functions app for manual and scheduled processing.
+- Azure Functions Timer Trigger for a 12-hour refresh cadence.
+- Azure Table Storage for employer sources, vacancy state, approvals, and publication outcomes.
+- Next.js admin dashboard for reviewing candidates.
+- Authenticated Thungatha publication API; only explicitly approved vacancies may be published.
+
+These components are planned, not implemented in this initial adapter milestone. Blob Storage is optional and should be introduced only if larger evidence snapshots are needed.
+
+## Design principles
+
+- Maintain known employers and official careers URLs; do not run company discovery in the feeder.
+- Use one adapter per recruitment platform, reusable across registered employers.
+- Keep source IDs, canonical posting URLs, location and provenance fields for deduplication and review.
+- Treat missing or failed source responses as errors, not as an empty vacancy list.
+- Never publish a vacancy without explicit approval.
+- Keep the implementation small and compatible with Azure Functions.
