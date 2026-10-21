@@ -1,98 +1,185 @@
+"""Thungatha Scout command-line entry point."""
 
-from urllib.parse import urljoin, urlparse
+from __future__ import annotations
 
-import httpx
-from bs4 import BeautifulSoup
+import argparse
+import json
+from pathlib import Path
 
-CAREERS_URL = "https://careers.capitecbank.co.za/"
-
-CAREER_KEYWORDS = (
-    "career",
-    "careers",
-    "job",
-    "jobs",
-    "vacancy",
-    "vacancies",
-    "recruitment",
-    "opportunities",
-)
+from app.discovery import DEFAULT_REGION, DEFAULT_ROLES, discover_companies
+from app.exports import export_candidates_csv
+from app.greenhouse_discovery import discover_greenhouse_boards, save_greenhouse_discovery_report
+from app.greenhouse_analysis import analyze_greenhouse_report
+from app.greenhouse_jobs import extract_greenhouse_jobs
+from app.verification import inspect_careers_page
+from app.site_investigator import investigate_careers_url, save_investigation_report
 
 
-def inspect_careers_page(url: str) -> None:
-    print(f"\nInspecting: {url}")
-    print("-" * 60)
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Discover direct-employer careers sources.")
+    subparsers = parser.add_subparsers(dest="command")
 
-    try:
-        with httpx.Client(
-            follow_redirects=True,
-            timeout=20.0,
-            headers={
-                "User-Agent": "ThungathaScout/0.1 (company verification prototype)"
-            },
-        ) as client:
-            response = client.get(url)
-            print(f"HTTP status: {response.status_code}")
-            print(f"Final URL: {response.url}")
-            print(f"Website reachable: {response.is_success}")
+    discover = subparsers.add_parser("discover", help="Search the public web for employer leads.")
+    discover.add_argument("--query", help="Run one custom search query instead of the default role set.")
+    discover.add_argument("--region", default=DEFAULT_REGION)
+    discover.add_argument("--max-results-per-query", type=int, default=8)
+    discover.add_argument("--backend", default="auto", help="DDGS search backend, e.g. auto or brave,google.")
 
-            response.raise_for_status()
-
-    except httpx.HTTPError as exc:
-        print(f"Request failed: {exc}")
-        return
-
-    soup = BeautifulSoup(response.text, "html.parser")
-
-    title = soup.title.get_text(" ", strip=True) if soup.title else "Not found"
-    description_tag = soup.find("meta", attrs={"name": "description"})
-    description = (
-        description_tag.get("content", "").strip()
-        if description_tag
-        else "Not found"
+    greenhouse = subparsers.add_parser(
+        "discover-greenhouse",
+        help="Discover Greenhouse-using employers and save an evidence-first company registry.",
+    )
+    greenhouse.add_argument("--max-results-per-query", type=int, default=20)
+    greenhouse.add_argument("--backend", default="bing", help="DDGS search backend, e.g. bing or auto.")
+    greenhouse.add_argument(
+        "--output-dir",
+        default=str(Path(__file__).resolve().parents[1] / "reports" / "greenhouse-discovery"),
+        help="Directory for timestamped JSON evidence and CSV board registry.",
     )
 
-    print(f"Page title: {title}")
-    print(f"Meta description: {description or 'Not found'}")
+    analyze_greenhouse = subparsers.add_parser(
+        "analyze-greenhouse",
+        help="Rank saved Greenhouse vacancies by South African location and software-role relevance.",
+    )
+    analyze_greenhouse.add_argument("report", help="Path to a saved greenhouse-discovery JSON report.")
+    analyze_greenhouse.add_argument(
+        "--output-dir",
+        default=str(Path(__file__).resolve().parents[1] / "reports" / "greenhouse-analysis"),
+        help="Directory for ranked JSON and CSV reports.",
+    )
 
-    links = []
-    for anchor in soup.find_all("a", href=True):
-        href = urljoin(str(response.url), anchor["href"])
-        text = anchor.get_text(" ", strip=True)
-        parsed = urlparse(href)
+    extract_greenhouse = subparsers.add_parser(
+        "extract-greenhouse-jobs",
+        help="Export every job captured in a Greenhouse discovery report, without role/location filtering.",
+    )
+    extract_greenhouse.add_argument("report", help="Path to a saved greenhouse-discovery JSON report.")
+    extract_greenhouse.add_argument(
+        "--output-dir",
+        default=str(Path(__file__).resolve().parents[1] / "reports" / "greenhouse-jobs"),
+        help="Directory for all-jobs JSON and CSV exports.",
+    )
 
-        if parsed.scheme in ("http", "https"):
-            searchable = f"{text} {parsed.path}".lower()
-            if any(keyword in searchable for keyword in CAREER_KEYWORDS):
-                links.append((text or "(no link text)", href))
+    verify = subparsers.add_parser("verify", help="Run the original lightweight URL check.")
+    verify.add_argument("url")
 
-    print("\nPotential careers/job links:")
-    if links:
-        for text, href in list(dict.fromkeys(links))[:20]:
-            print(f"- {text}: {href}")
-    else:
-        print("- No matching links found in the returned HTML.")
+    investigate = subparsers.add_parser(
+        "investigate",
+        help="Investigate one supplied careers URL and try supported public ATS endpoints.",
+    )
+    investigate.add_argument("url")
+    investigate.add_argument(
+        "--output-dir",
+        default=str(Path(__file__).resolve().parents[1] / "reports" / "url-investigations"),
+        help="Directory for separate JSON and Markdown reports.",
+    )
 
-    page_text = soup.get_text(" ", strip=True).lower()
-    url_text = str(response.url).lower()
-    title_text = title.lower()
+    return parser
 
-    signals = [
-        any(word in url_text for word in CAREER_KEYWORDS),
-        any(word in title_text for word in CAREER_KEYWORDS),
-        any(word in page_text for word in ("current vacancies", "search jobs")),
-    ]
 
-    print(f"\nCareers-page signals: {sum(signals)}/{len(signals)}")
+def main() -> None:
+    parser = build_parser()
+    args = parser.parse_args()
 
-    if sum(signals) >= 2:
-        print("Preliminary classification: Likely careers page")
-    elif sum(signals) == 1:
-        print("Preliminary classification: Possible careers page")
-    else:
-        print("Preliminary classification: Uncertain")
+    if args.command == "discover-greenhouse":
+        try:
+            report = discover_greenhouse_boards(
+                max_results_per_query=args.max_results_per_query,
+                backend=args.backend,
+            )
+        except Exception as exc:
+            parser.exit(1, f"Greenhouse discovery failed: {exc}\\n")
+        json_path, csv_path = save_greenhouse_discovery_report(report, args.output_dir)
+        print(json.dumps({
+            "candidate_boards_found": report["candidate_boards_found"],
+            "boards_with_accessible_public_api": report.get("boards_with_accessible_public_api", 0),
+            "companies_with_candidate_names": report.get("companies_with_candidate_names", 0),
+            "boards_needing_company_identity_review": report.get("boards_needing_company_identity_review", 0),
+            "search_status": report.get("search_status", "unknown"),
+            "successful_queries": report["successful_queries"],
+            "empty_queries": report.get("empty_queries", []),
+            "failed_queries": report["failed_queries"],
+            "search_result_pages_seen": report.get("search_result_pages_seen", 0),
+            "company_pages_inspected": report.get("company_pages_inspected", 0),
+            "company_page_errors": len(report.get("company_page_errors", [])),
+            "json_report": str(json_path),
+            "csv_registry": str(csv_path),
+        }, indent=2, ensure_ascii=False))
+        print("\nGreenhouse company leads (candidate names require review against official employer sources):")
+        for board in report["boards"]:
+            name = board.get("company_name") or ", ".join(board.get("company_name_candidates", [])) or "Unresolved employer"
+            print(f"- {name} — {board.get('greenhouse_connection_status', 'unverified')}")
+            print(f"  {board['board_url']}")
+        print("\nThe CSV retains all discovered board leads, including unresolved identities and boards with no current jobs.")
+        return
 
-    print("Note: This is a preliminary rule-based result, not verification.")
+    if args.command == "analyze-greenhouse":
+        try:
+            summary = analyze_greenhouse_report(args.report, args.output_dir)
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            parser.exit(1, f"Greenhouse report analysis failed: {exc}\\n")
+        print(json.dumps(summary, indent=2, ensure_ascii=False))
+        return
+
+    if args.command == "extract-greenhouse-jobs":
+        try:
+            summary = extract_greenhouse_jobs(args.report, args.output_dir)
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            parser.exit(1, f"Greenhouse job export failed: {exc}\\n")
+        print(json.dumps(summary, indent=2, ensure_ascii=False))
+        return
+
+    if args.command == "verify":
+        print(json.dumps(inspect_careers_page(args.url), indent=2, ensure_ascii=False))
+        return
+
+    if args.command == "investigate":
+        report = investigate_careers_url(args.url)
+        json_path, markdown_path = save_investigation_report(report, args.output_dir)
+        print(json.dumps({
+            "supplied_url": report.get("supplied_url"),
+            "http_status": report.get("http_status"),
+            "final_url": report.get("final_url"),
+            "page_title": report.get("page_title"),
+            "ats_detected": report.get("ats_detected"),
+            "extraction_success": report.get("job_extraction", {}).get("success"),
+            "jobs_extracted": len(report.get("job_extraction", {}).get("jobs", [])),
+            "json_report": str(json_path),
+            "markdown_report": str(markdown_path),
+            "errors": report.get("errors", []),
+        }, indent=2, ensure_ascii=False))
+        return
+
+    # Default command is company discovery.
+    query = args.query if args.command == "discover" else None
+    region = args.region if args.command == "discover" else DEFAULT_REGION
+    max_results = args.max_results_per_query if args.command == "discover" else 8
+    backend = args.backend if args.command == "discover" else "auto"
+
+    print("Thungatha Scout — company discovery")
+    print(f"Region: {region}")
+    print("Industry filter: none (all employers are in scope)")
+    print("Searching public web sources. Results are candidates and require verification.")
+    try:
+        candidates = discover_companies(
+            query,
+            region=region,
+            max_results_per_query=max_results,
+            backend=backend,
+        )
+    except Exception as exc:
+        parser.exit(1, f"Discovery failed: {exc}\n")
+
+    output_path = export_candidates_csv(
+        [candidate.to_dict() for candidate in candidates],
+        Path(__file__).resolve().parents[1] / "company_discovery_results.csv",
+    )
+    print(f"Unique candidate URLs: {len(candidates)}")
+    print(f"CSV report: {output_path}")
+
+    for candidate in candidates[:15]:
+        print(f"- [{candidate.employer_type}] {candidate.name}")
+        print(f"  {candidate.source_url}")
 
 
 if __name__ == "__main__":
-    inspect_careers_page(CAREERS_URL)
+    main()
