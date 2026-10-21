@@ -53,12 +53,12 @@ Optional controls:
 
 ```bash
 python -m app.main discover-greenhouse --max-results-per-query 30
-python -m app.main discover-greenhouse --backend brave,google
+python -m app.main discover-greenhouse --backend brave
 ```
 
 Reports are saved under `reports/greenhouse-discovery/`. The JSON report retains search evidence, board/API checks, candidate company names, page titles, source URLs, and any returned jobs as supporting evidence. The CSV keeps **all discovered board leads**, including unresolved identities, API failures, and boards with zero current jobs. This does not modify `data/companies.csv`.
 
-Greenhouse discovery defaults to the explicit `brave,google` search backends to avoid relying on the Wikipedia provider selected by some `auto` runs; override with `--backend auto` if desired. The default searches cover **Cape Town, the wider Western Cape, and Stellenbosch**, and do not restrict discovery to technology employers or specific roles. The report separates three questions: whether a Greenhouse reference was found, whether the public board API is accessible, and whether the employer identity is established. A board token is never treated as the company name. Names inferred from search or board-page titles remain candidates until checked against an employer's official website or careers page. Company-page HTML containing an explicit Greenhouse reference is retained as evidence, but it is not silently treated as proof that the page is official.
+Greenhouse discovery defaults to the single `brave` search backend because the `ddgs` library has a reported issue where a failing provider in a multi-backend search can discard results from healthy providers. If Brave is unavailable in your environment, try `--backend auto` or another single backend. The default searches cover **Cape Town, the wider Western Cape, and Stellenbosch**, and do not restrict discovery to technology employers or specific roles. The report separates three questions: whether a Greenhouse reference was found, whether the public board API is accessible, and whether the employer identity is established. A board token is never treated as the company name. Names inferred from search or board-page titles remain candidates until checked against an employer's official website or careers page. Company-page HTML containing an explicit Greenhouse reference is retained as evidence, but it is not silently treated as proof that the page is official.
 
 A public board/API is evidence of a Greenhouse board endpoint, not proof that the employer operates in the Western Cape. Confirm regional presence from official company/careers information before promoting a lead to the verified-company list. Search coverage is not exhaustive and depends on public indexing and provider availability. Vacancy analysis is a separate downstream stage; an empty job feed does not remove a company lead.
 
