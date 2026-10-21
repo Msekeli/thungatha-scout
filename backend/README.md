@@ -62,6 +62,16 @@ Greenhouse discovery defaults to the single `bing` search backend. In this envir
 
 A public board/API is evidence of a Greenhouse board endpoint, not proof that the employer operates in the Western Cape. Confirm regional presence from official company/careers information before promoting a lead to the verified-company list. Search coverage is not exhaustive and depends on public indexing and provider availability. Vacancy analysis is a separate downstream stage; an empty job feed does not remove a company lead.
 
+## Export all captured Greenhouse jobs (no role filter)
+
+The discovery JSON already contains the public jobs returned by each board API. Export every captured vacancy—across all industries and job titles—without running discovery again:
+
+```bash
+python -m app.main extract-greenhouse-jobs reports/greenhouse-discovery/greenhouse-discovery-YYYYMMDDTHHMMSSZ.json
+```
+
+This creates `reports/greenhouse-jobs/greenhouse-jobs.csv` and `greenhouse-jobs.json`. Each job retains its company/board provenance, title, location, department, vacancy URL, description-availability flag, and extraction timestamp. The export deduplicates repeated vacancy URLs and adds simple Western Cape and South Africa location flags. It retains unresolved company identities and jobs outside the region; those flags are clues for filtering, not proof of applicant eligibility. This command exports the saved report only—it does not refresh live board APIs.
+
 ## Rank discovered Greenhouse jobs for South Africa
 
 Use the JSON report path printed by `discover-greenhouse`:
