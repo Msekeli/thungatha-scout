@@ -145,7 +145,7 @@ def test_regional_evidence_does_not_assume_unspecified_or_remote_locations_quali
 
 
 
-def test_discovery_defaults_to_auto_backend(monkeypatch):
+def test_discovery_defaults_to_explicit_search_backends(monkeypatch):
     import app.greenhouse_discovery as discovery
 
     captured = {}
@@ -161,7 +161,7 @@ def test_discovery_defaults_to_auto_backend(monkeypatch):
     monkeypatch.setattr(discovery, "DDGS", FakeDDGS)
     report = discovery.discover_greenhouse_boards(queries=("test query",), page_inspection_limit=0)
 
-    assert captured["backend"] == "auto"
+    assert captured["backend"] == "brave,google"
     assert report["successful_queries"] == 1
     assert report["empty_queries"] == ["test query"]
     assert report["search_status"] == "no_results"
