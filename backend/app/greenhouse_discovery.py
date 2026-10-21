@@ -259,7 +259,7 @@ def validate_greenhouse_board(
 def discover_greenhouse_boards(
     *,
     max_results_per_query: int = 20,
-    backend: str = "brave,google",
+    backend: str = "brave",
     queries: tuple[str, ...] = DEFAULT_QUERIES,
     timeout: float = 20.0,
     page_inspection_limit: int = DEFAULT_PAGE_INSPECTION_LIMIT,
