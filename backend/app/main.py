@@ -1,98 +1,55 @@
+"""Command-line entry point for testing supported careers-board integrations."""
+from __future__ import annotations
 
-from urllib.parse import urljoin, urlparse
+import argparse
+import json
+from pathlib import Path
 
-import httpx
-from bs4 import BeautifulSoup
-
-CAREERS_URL = "https://careers.capitecbank.co.za/"
-
-CAREER_KEYWORDS = (
-    "career",
-    "careers",
-    "job",
-    "jobs",
-    "vacancy",
-    "vacancies",
-    "recruitment",
-    "opportunities",
-)
+from app.workday import fetch_jobs, summarize_jobs
 
 
-def inspect_careers_page(url: str) -> None:
-    print(f"\nInspecting: {url}")
-    print("-" * 60)
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Thungatha Scout source adapter tools")
+    commands = parser.add_subparsers(dest="command", required=True)
 
-    try:
-        with httpx.Client(
-            follow_redirects=True,
-            timeout=20.0,
-            headers={
-                "User-Agent": "ThungathaScout/0.1 (company verification prototype)"
-            },
-        ) as client:
-            response = client.get(url)
-            print(f"HTTP status: {response.status_code}")
-            print(f"Final URL: {response.url}")
-            print(f"Website reachable: {response.is_success}")
-
-            response.raise_for_status()
-
-    except httpx.HTTPError as exc:
-        print(f"Request failed: {exc}")
-        return
-
-    soup = BeautifulSoup(response.text, "html.parser")
-
-    title = soup.title.get_text(" ", strip=True) if soup.title else "Not found"
-    description_tag = soup.find("meta", attrs={"name": "description"})
-    description = (
-        description_tag.get("content", "").strip()
-        if description_tag
-        else "Not found"
+    workday = commands.add_parser(
+        "workday", help="Fetch public vacancies from a Workday careers board"
     )
+    workday.add_argument("careers_url", help="Official Workday careers URL")
+    workday.add_argument("--max-jobs", type=int, default=40, help="Maximum listings to fetch (default: 40)")
+    workday.add_argument("--details", action="store_true", help="Fetch each job's full detail record")
+    workday.add_argument("--delay", type=float, default=0.25, help="Delay between requests in seconds (default: 0.25)")
+    workday.add_argument("--output", type=Path, help="Optional path to save normalized jobs as JSON")
+    return parser
 
-    print(f"Page title: {title}")
-    print(f"Meta description: {description or 'Not found'}")
 
-    links = []
-    for anchor in soup.find_all("a", href=True):
-        href = urljoin(str(response.url), anchor["href"])
-        text = anchor.get_text(" ", strip=True)
-        parsed = urlparse(href)
+def main() -> int:
+    args = build_parser().parse_args()
+    if args.command == "workday":
+        try:
+            jobs = fetch_jobs(
+                args.careers_url,
+                max_jobs=args.max_jobs,
+                include_details=args.details,
+                request_delay_seconds=args.delay,
+            )
+        except (ValueError, RuntimeError) as exc:
+            print(f"Workday fetch failed: {exc}")
+            return 1
 
-        if parsed.scheme in ("http", "https"):
-            searchable = f"{text} {parsed.path}".lower()
-            if any(keyword in searchable for keyword in CAREER_KEYWORDS):
-                links.append((text or "(no link text)", href))
+        summary = summarize_jobs(jobs)
+        print(json.dumps(summary, indent=2, ensure_ascii=False))
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(
+                json.dumps(jobs, indent=2, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+            print(f"Saved normalized jobs to: {args.output}")
+        return 0
 
-    print("\nPotential careers/job links:")
-    if links:
-        for text, href in list(dict.fromkeys(links))[:20]:
-            print(f"- {text}: {href}")
-    else:
-        print("- No matching links found in the returned HTML.")
-
-    page_text = soup.get_text(" ", strip=True).lower()
-    url_text = str(response.url).lower()
-    title_text = title.lower()
-
-    signals = [
-        any(word in url_text for word in CAREER_KEYWORDS),
-        any(word in title_text for word in CAREER_KEYWORDS),
-        any(word in page_text for word in ("current vacancies", "search jobs")),
-    ]
-
-    print(f"\nCareers-page signals: {sum(signals)}/{len(signals)}")
-
-    if sum(signals) >= 2:
-        print("Preliminary classification: Likely careers page")
-    elif sum(signals) == 1:
-        print("Preliminary classification: Possible careers page")
-    else:
-        print("Preliminary classification: Uncertain")
-
-    print("Note: This is a preliminary rule-based result, not verification.")
+    return 2
 
 
 if __name__ == "__main__":
-    inspect_careers_page(CAREERS_URL)
+    raise SystemExit(main())
