@@ -6,12 +6,18 @@ provider data; this module maps it to one source-neutral response contract.
 from __future__ import annotations
 
 import re
+import time
 from typing import Any
 
 import httpx
 from fastapi import FastAPI, HTTPException, Query
 
-from app.workday import WorkdayError, fetch_jobs as fetch_workday_jobs, parse_board_url
+from app.workday import (
+    WorkdayError,
+    fetch_job_detail,
+    fetch_jobs as fetch_workday_jobs,
+    parse_board_url,
+)
 
 app = FastAPI(title="Thungatha Scout Jobs API", version="0.1.0")
 
@@ -163,17 +169,48 @@ def workday_jobs(
     careers_url: str = Query(..., description="Official public Workday careers-board URL"),
     company_name: str | None = Query(default=None, description="Verified employer display name"),
     max_jobs: int = Query(default=40, ge=1, le=200),
-    include_details: bool = Query(default=True),
+    include_details: bool = Query(default=False),
 ) -> dict[str, Any]:
     try:
+        # Scan list records first, then fetch expensive details only for the
+        # Cape Town results we intend to return.
         jobs = fetch_workday_jobs(
             careers_url,
-            # Scan a wider sample, then apply the strict Cape Town filter.
             max_jobs=200,
-            include_details=include_details,
+            include_details=False,
             request_delay_seconds=0.1,
         )
         normalized = [_normalize_workday_job(careers_url, job, company_name) for job in jobs]
+        local_jobs = [job for job in normalized if _is_cape_town(job)][:max_jobs]
+
+        if include_details and local_jobs:
+            board = parse_board_url(careers_url)
+            with httpx.Client(follow_redirects=True, timeout=20.0) as detail_client:
+                for index, job in enumerate(local_jobs):
+                    external_path = next(
+                        (item.get("external_path") for item in jobs
+                         if str(item.get("source_id") or "") == job["source_id"]),
+                        "",
+                    )
+                    if not external_path:
+                        continue
+                    detail = fetch_job_detail(detail_client, board, str(external_path))
+                    job["title"] = str(detail.get("title") or job["title"])
+                    job["location"] = str(detail.get("location") or job["location"])
+                    additional = detail.get("additionalLocations") or []
+                    if isinstance(additional, list):
+                        job["additional_locations"] = [
+                            str(item.get("descriptor") or "")
+                            for item in additional if isinstance(item, dict)
+                        ]
+                    job["description_html"] = detail.get("jobDescription")
+                    job["employment_type"] = detail.get("timeType") or job["employment_type"]
+                    external_url = detail.get("externalUrl")
+                    if external_url:
+                        job["application_url"] = str(external_url)
+                    if index < len(local_jobs) - 1:
+                        time.sleep(0.1)
+        normalized = local_jobs
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except (WorkdayError, RuntimeError) as exc:
