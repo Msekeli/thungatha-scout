@@ -215,4 +215,4 @@ def workday_jobs(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except (WorkdayError, RuntimeError) as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
-    return _response("workday", normalized, len(normalized), max_jobs)
+    return _response("workday", normalized, len(jobs), max_jobs)
