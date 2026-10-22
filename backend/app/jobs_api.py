@@ -120,11 +120,15 @@ def _fetch_greenhouse(
         for item in payload["jobs"]
         if isinstance(item, dict)
     ]
-    return normalized[:max_jobs]
+    # Filter by location before applying the result cap; Cape Town jobs may not
+    # appear near the beginning of a company's board.
+    return normalized
 
 
-def _response(source: str, jobs: list[dict[str, Any]], fetched_count: int) -> dict[str, Any]:
-    local_jobs = [job for job in jobs if _is_cape_town(job)]
+def _response(
+    source: str, jobs: list[dict[str, Any]], fetched_count: int, max_jobs: int
+) -> dict[str, Any]:
+    local_jobs = [job for job in jobs if _is_cape_town(job)][:max_jobs]
     return {
         "source_type": source,
         "location_scope": "Cape Town, South Africa",
@@ -151,7 +155,7 @@ def greenhouse_jobs(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except RuntimeError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
-    return _response("greenhouse", jobs, len(jobs))
+    return _response("greenhouse", jobs, len(jobs), max_jobs)
 
 
 @app.get("/api/jobs/workday")
@@ -164,7 +168,8 @@ def workday_jobs(
     try:
         jobs = fetch_workday_jobs(
             careers_url,
-            max_jobs=max_jobs,
+            # Scan a wider sample, then apply the strict Cape Town filter.
+            max_jobs=200,
             include_details=include_details,
             request_delay_seconds=0.1,
         )
@@ -173,4 +178,4 @@ def workday_jobs(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except (WorkdayError, RuntimeError) as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
-    return _response("workday", normalized, len(normalized))
+    return _response("workday", normalized, len(normalized), max_jobs)
