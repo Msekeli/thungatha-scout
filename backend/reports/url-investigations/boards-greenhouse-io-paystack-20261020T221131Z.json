@@ -1,0 +1,22 @@
+{
+  "supplied_url": "https://boards.greenhouse.io/paystack",
+  "checked_at_utc": "2026-10-20T22:11:29.253859+00:00",
+  "http_status": 404,
+  "final_url": "https://job-boards.greenhouse.io/paystack",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 12249,
+  "page_title": "",
+  "page_text_excerpt": "",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": false,
+    "success": false,
+    "jobs": [],
+    "adapters": [],
+    "note": ""
+  },
+  "errors": [
+    "Careers page returned HTTP 404."
+  ]
+}

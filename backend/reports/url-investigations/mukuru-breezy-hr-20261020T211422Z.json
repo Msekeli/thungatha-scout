@@ -1,0 +1,159 @@
+{
+  "supplied_url": "https://mukuru.breezy.hr/?country=South+Africa",
+  "checked_at_utc": "2026-10-20T21:14:15.026128+00:00",
+  "http_status": 200,
+  "final_url": "https://mukuru.breezy.hr/?country=South+Africa",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 25957,
+  "page_title": "Openings at Mukuru",
+  "page_text_excerpt": "Openings at Mukuru %HEADER_EMPLOYEES% Perks Testimonials A Career with Purpose Awaits Join Us in Shaping Africa's Fintech Frontier with Purpose! %BUTTON_VIEW_OPENINGS% Mukuru is the company of choice for Fintech Talent. Hybrid Working Model​, Games/ Chill out areas, Amazing Coffee Employee Assistance Programmes​, Free Wellness Counselling Services​, Wellness days​ Birthday Leave​, Active and engaging social events​, Diverse and Inclusive Culture Recognition through awards​, Learning and Development Opportunities​, Mentorship and Coaching​ Yemurai Chatapura Commercial Business Developer “ I was born and bred in Zimbabwe but moved to South Africa with my family over 10 years ago in search of greener pastures. My experience of education in Zimbabwe has taught me to work hard, to be responsible and persistent. These lessons have carried ” Suzgo Ngwira People Learning Partner “ During my time at Mukuru, I've embarked on a remarkably captivating journey, having engaged with four distinct portfolios over the past 13 years. This truly underscores the extent of growth achievable when one becomes a part of the Orange Team... ” Andrew Ohlsson People Learning Partner “ Working at Mukuru has be",
+  "ats_detected": [
+    "breezyhr"
+  ],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "BI Analysis Team Lead",
+        "location": "Johannesburg, ZA / Pretoria, ZA / Cape Town, ZA",
+        "department": "",
+        "url": "https://mukuru.breezy.hr/p/8085a0a7bb4b-bi-analysis-team-lead",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% BI Analysis Team Lead %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Turn data into direction. Lead people. Shape smarter decisions. At Mukuru, data is more than a collection of numbers. It helps us understand our customers, solve meaningful business problems and make better decisions. We are looking for an experienced Business Intelligence Analysis Team Lead to join our BI department. You will lead a team responsible for building scalable data models, analytics solutions and reporting tools that give teams easier access to reliable insights. This opportunity is open to applicants based in Cape Town, Johannesburg and Pretoria , with remote work available. What you will be doing Lead and empower your team Lead a team of BI, Data and Analytics specialists. Establish clear expectations and support the team in delivering accurate, scalable and valuable analytics solutions. Remove obstacles that could affect delivery. Encourage collaboration, knowledge sharing and continuous improvement. Mentor team members and help strengthen Mukuru’s overall analytics capabilities. Turn business needs into data solutions Partner with sta",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Compliance Specialist",
+        "location": "Pretoria, ZA / Johannesburg, ZA",
+        "department": "",
+        "url": "https://mukuru.breezy.hr/p/b256dae9c8b9-compliance-specialist",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Compliance Specialist %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Shape Compliance. Enable Growth. Protect What Matters. At Mukuru, compliance isn't just about meeting regulatory requirements. It's about building trust, protecting our customers, and enabling sustainable growth across multiple markets. We're looking for a Compliance Specialist (Financial Services) who is passionate about navigating complex regulatory environments and translating legislation into practical business solutions. If you thrive on solving challenges, influencing stakeholders, and helping organisations operate with integrity, this could be your next opportunity. Why Join Mukuru? As one of Africa's leading fintech businesses, Mukuru operates across multiple jurisdictions, bringing financial inclusion to millions of customers. Joining our Compliance team means becoming part of a business that balances innovation with responsibility while making a meaningful impact in the communities we serve. What You'll Do Provide Trusted Regulatory Guidance Partner with stakeholders across the business to provide practical compliance advice. Interpret legi",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Digital Designer",
+        "location": "Cape Town, ZA",
+        "department": "",
+        "url": "https://mukuru.breezy.hr/p/a2fc14a08d3f-digital-designer",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Digital Designer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Bring Big Ideas to Life! At Mukuru , our visuals don’t just decorate — they communicate, inspire, and connect with millions. We’re on the hunt for a Digital Designer with a flair for creativity, mastery in design, and a talent for breathing life into ideas through animation and video. If you love crafting visuals that make people stop, look, and feel something, this is your stage. The Role As our Digital Designer, you’ll turn concepts into compelling, on-brand assets across print, digital, and motion platforms. You’ll work closely with our Senior Design Manager to ensure every creation aligns with our brand’s visual identity while pushing creative boundaries. Your work will be seen across campaigns, branches, events, and even on the move — making your mark on one of Africa’s fastest-growing fintech brands. Please note that this role requires the incumbent to be based in Cape Town. What You’ll Do Create with Impact: Design and deliver high-quality graphics, animations, and videos for print, web, social media, and more. Bring Brands to Life: Apply your skil",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Junior Market Developer (Wallet)",
+        "location": "Cape Town, ZA",
+        "department": "",
+        "url": "https://mukuru.breezy.hr/p/a04911dfc55a-junior-market-developer-wallet",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Junior Market Developer (Wallet) %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Grow. Innovate. Create Impact . At Mukuru, we're building financial solutions that connect millions of people to opportunities across Africa. We're looking for a commercially minded Junior Market Developer to help grow our Wallet & VAS business, unlock new opportunities, and drive customer adoption in key markets. This is more than a business development role. It's an opportunity to shape market growth, build strategic partnerships, and bring innovative financial products to life. What You'll Do Drive Market Growth Champion the Wallet & VAS strategy within your assigned markets. Identify opportunities to acquire new customers and increase product adoption. Partner with sales and marketing teams to improve market penetration and customer engagement. Enhance distribution channels to maximize accessibility and customer reach. Build Strong Partnerships Develop and maintain relationships with business partners, regulators, service providers, and key stakeholders. Support commercial negotiations and partnership discussions. Contribute to pricing",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Market Developer",
+        "location": "Cape Town, ZA",
+        "department": "",
+        "url": "https://mukuru.breezy.hr/p/1cab26634442-market-developer",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Market Developer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Role Purpose Are you passionate about growth, innovation, and building products that truly impact people’s lives? As a Market Developer , you will play a key role in sustainably growing Mukuru’s Wallet & Value-Added Services (VAS) business. This role is all about expanding market presence, unlocking new opportunities, strengthening partnerships, and driving adoption of Mukuru’s digital financial solutions. You’ll work cross-functionally, think commercially, and be hands-on in executing strategy—turning insights into action and opportunities into results. What You’ll Be Doing Drive Market Growth & Penetration Lead customer acquisition, retention, and increased usage of Wallet & VAS products in assigned markets Act as the Wallet & VAS ambassador—building strong visibility and share of mind Enable and train sales and marketing teams on effective value-based selling Ensure customer benefits and product features are clearly and consistently communicated Strengthen and optimise distribution channels Execute Strategic Projects Coordinate and manage cross-functio",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Market Developer",
+        "location": "Cape Town, ZA",
+        "department": "",
+        "url": "https://mukuru.breezy.hr/p/5092377cdf50-market-developer",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Market Developer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Shape the Future of Insurance Across Africa At Mukuru, we're building financial services that make a real difference in people's lives. As we continue expanding our Wallet and Value-Added Services offering, we're looking for a commercially minded Market Developer: Insurance to help us grow our insurance business across key markets. This is an exciting opportunity for someone who thrives on uncovering new opportunities, building strategic partnerships, and driving business growth. If you're passionate about financial inclusion, customer-focused innovation, and making a measurable impact, we'd love to hear from you. What You'll Be Doing Drive Business Growth Champion the growth of Mukuru's Insurance offering across assigned markets. Increase customer acquisition, retention, and product adoption. Work closely with Sales and Marketing teams to execute market growth strategies. Enhance customer awareness by ensuring teams effectively communicate product benefits and features. Identify opportunities to strengthen and optimize distribution channels. Develop New ",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Treasury Intern",
+        "location": "Cape Town, ZA",
+        "department": "",
+        "url": "https://mukuru.breezy.hr/p/924bafc989d0-treasury-intern",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Treasury Intern %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Start Your Finance Career With Purpose At Mukuru, we're passionate about developing future talent and creating opportunities for people to learn, grow, and make a real impact. If you're curious about finance, enjoy working with numbers, and want to gain hands-on experience in the fast-paced world of fintech, this could be the opportunity you've been waiting for. Why Join Mukuru? Mukuru is one of Africa's leading fintech businesses, helping millions of customers access affordable, reliable, and accessible financial services. Behind every transaction is a team of talented people working together to ensure money moves safely, efficiently, and seamlessly across borders. As a Treasury Intern, you'll gain exposure to the heartbeat of our financial operations while learning from experienced professionals who are committed to your development. What You'll Experience You won't be fetching coffee or sitting on the sidelines. From day one, you'll be involved in meaningful work and gain exposure to: Cash flow and liquidity management Treasury and payment operations Fi",
+        "source_adapter": "breezyhr"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "breezyhr_public_html",
+        "success": true,
+        "jobs": [
+          {
+            "title": "BI Analysis Team Lead",
+            "location": "Johannesburg, ZA / Pretoria, ZA / Cape Town, ZA",
+            "department": "",
+            "url": "https://mukuru.breezy.hr/p/8085a0a7bb4b-bi-analysis-team-lead",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% BI Analysis Team Lead %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Turn data into direction. Lead people. Shape smarter decisions. At Mukuru, data is more than a collection of numbers. It helps us understand our customers, solve meaningful business problems and make better decisions. We are looking for an experienced Business Intelligence Analysis Team Lead to join our BI department. You will lead a team responsible for building scalable data models, analytics solutions and reporting tools that give teams easier access to reliable insights. This opportunity is open to applicants based in Cape Town, Johannesburg and Pretoria , with remote work available. What you will be doing Lead and empower your team Lead a team of BI, Data and Analytics specialists. Establish clear expectations and support the team in delivering accurate, scalable and valuable analytics solutions. Remove obstacles that could affect delivery. Encourage collaboration, knowledge sharing and continuous improvement. Mentor team members and help strengthen Mukuru’s overall analytics capabilities. Turn business needs into data solutions Partner with sta",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Compliance Specialist",
+            "location": "Pretoria, ZA / Johannesburg, ZA",
+            "department": "",
+            "url": "https://mukuru.breezy.hr/p/b256dae9c8b9-compliance-specialist",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Compliance Specialist %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Shape Compliance. Enable Growth. Protect What Matters. At Mukuru, compliance isn't just about meeting regulatory requirements. It's about building trust, protecting our customers, and enabling sustainable growth across multiple markets. We're looking for a Compliance Specialist (Financial Services) who is passionate about navigating complex regulatory environments and translating legislation into practical business solutions. If you thrive on solving challenges, influencing stakeholders, and helping organisations operate with integrity, this could be your next opportunity. Why Join Mukuru? As one of Africa's leading fintech businesses, Mukuru operates across multiple jurisdictions, bringing financial inclusion to millions of customers. Joining our Compliance team means becoming part of a business that balances innovation with responsibility while making a meaningful impact in the communities we serve. What You'll Do Provide Trusted Regulatory Guidance Partner with stakeholders across the business to provide practical compliance advice. Interpret legi",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Digital Designer",
+            "location": "Cape Town, ZA",
+            "department": "",
+            "url": "https://mukuru.breezy.hr/p/a2fc14a08d3f-digital-designer",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Digital Designer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Bring Big Ideas to Life! At Mukuru , our visuals don’t just decorate — they communicate, inspire, and connect with millions. We’re on the hunt for a Digital Designer with a flair for creativity, mastery in design, and a talent for breathing life into ideas through animation and video. If you love crafting visuals that make people stop, look, and feel something, this is your stage. The Role As our Digital Designer, you’ll turn concepts into compelling, on-brand assets across print, digital, and motion platforms. You’ll work closely with our Senior Design Manager to ensure every creation aligns with our brand’s visual identity while pushing creative boundaries. Your work will be seen across campaigns, branches, events, and even on the move — making your mark on one of Africa’s fastest-growing fintech brands. Please note that this role requires the incumbent to be based in Cape Town. What You’ll Do Create with Impact: Design and deliver high-quality graphics, animations, and videos for print, web, social media, and more. Bring Brands to Life: Apply your skil",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Junior Market Developer (Wallet)",
+            "location": "Cape Town, ZA",
+            "department": "",
+            "url": "https://mukuru.breezy.hr/p/a04911dfc55a-junior-market-developer-wallet",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Junior Market Developer (Wallet) %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Grow. Innovate. Create Impact . At Mukuru, we're building financial solutions that connect millions of people to opportunities across Africa. We're looking for a commercially minded Junior Market Developer to help grow our Wallet & VAS business, unlock new opportunities, and drive customer adoption in key markets. This is more than a business development role. It's an opportunity to shape market growth, build strategic partnerships, and bring innovative financial products to life. What You'll Do Drive Market Growth Champion the Wallet & VAS strategy within your assigned markets. Identify opportunities to acquire new customers and increase product adoption. Partner with sales and marketing teams to improve market penetration and customer engagement. Enhance distribution channels to maximize accessibility and customer reach. Build Strong Partnerships Develop and maintain relationships with business partners, regulators, service providers, and key stakeholders. Support commercial negotiations and partnership discussions. Contribute to pricing",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Market Developer",
+            "location": "Cape Town, ZA",
+            "department": "",
+            "url": "https://mukuru.breezy.hr/p/1cab26634442-market-developer",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Market Developer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Role Purpose Are you passionate about growth, innovation, and building products that truly impact people’s lives? As a Market Developer , you will play a key role in sustainably growing Mukuru’s Wallet & Value-Added Services (VAS) business. This role is all about expanding market presence, unlocking new opportunities, strengthening partnerships, and driving adoption of Mukuru’s digital financial solutions. You’ll work cross-functionally, think commercially, and be hands-on in executing strategy—turning insights into action and opportunities into results. What You’ll Be Doing Drive Market Growth & Penetration Lead customer acquisition, retention, and increased usage of Wallet & VAS products in assigned markets Act as the Wallet & VAS ambassador—building strong visibility and share of mind Enable and train sales and marketing teams on effective value-based selling Ensure customer benefits and product features are clearly and consistently communicated Strengthen and optimise distribution channels Execute Strategic Projects Coordinate and manage cross-functio",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Market Developer",
+            "location": "Cape Town, ZA",
+            "department": "",
+            "url": "https://mukuru.breezy.hr/p/5092377cdf50-market-developer",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Market Developer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Shape the Future of Insurance Across Africa At Mukuru, we're building financial services that make a real difference in people's lives. As we continue expanding our Wallet and Value-Added Services offering, we're looking for a commercially minded Market Developer: Insurance to help us grow our insurance business across key markets. This is an exciting opportunity for someone who thrives on uncovering new opportunities, building strategic partnerships, and driving business growth. If you're passionate about financial inclusion, customer-focused innovation, and making a measurable impact, we'd love to hear from you. What You'll Be Doing Drive Business Growth Champion the growth of Mukuru's Insurance offering across assigned markets. Increase customer acquisition, retention, and product adoption. Work closely with Sales and Marketing teams to execute market growth strategies. Enhance customer awareness by ensuring teams effectively communicate product benefits and features. Identify opportunities to strengthen and optimize distribution channels. Develop New ",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Treasury Intern",
+            "location": "Cape Town, ZA",
+            "department": "",
+            "url": "https://mukuru.breezy.hr/p/924bafc989d0-treasury-intern",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Treasury Intern %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Start Your Finance Career With Purpose At Mukuru, we're passionate about developing future talent and creating opportunities for people to learn, grow, and make a real impact. If you're curious about finance, enjoy working with numbers, and want to gain hands-on experience in the fast-paced world of fintech, this could be the opportunity you've been waiting for. Why Join Mukuru? Mukuru is one of Africa's leading fintech businesses, helping millions of customers access affordable, reliable, and accessible financial services. Behind every transaction is a team of talented people working together to ensure money moves safely, efficiently, and seamlessly across borders. As a Treasury Intern, you'll gain exposure to the heartbeat of our financial operations while learning from experienced professionals who are committed to your development. What You'll Experience You won't be fetching coffee or sitting on the sidelines. From day one, you'll be involved in meaningful work and gain exposure to: Cash flow and liquidity management Treasury and payment operations Fi",
+            "source_adapter": "breezyhr"
+          }
+        ],
+        "error": "",
+        "candidate_links_found": 7,
+        "detail_pages_checked": 7
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

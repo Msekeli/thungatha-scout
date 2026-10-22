@@ -1,0 +1,212 @@
+{
+  "supplied_url": "https://ozow.com/jobs",
+  "checked_at_utc": "2026-10-20T20:37:55.205211+00:00",
+  "http_status": 200,
+  "final_url": "https://ozow.com/jobs",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 119167,
+  "page_title": "Ozow Careers | Come Aboard The Rocket Ship!",
+  "page_text_excerpt": "Ozow Careers | Come Aboard The Rocket Ship! Home As an individual As an individual Discover Ozow.ME Find out more about Ozow.ME, our peer-to-peer payment solution POCKET Top up, send, pay, withdraw, all from your pocket How to pay Learn how you can use Ozow for your payments Security We pride ourselves on keeping your data secure Security We pride ourselves on keeping your data secure Integrate your business with Ozow's products today. View As a business As a business Card Payments Pay by bank PayShap Request Crypto Payments One-Blink Payments Refunds Pricing Payouts Integrations & plugins Demo Capitec Pay Nedbank Direct EFT Absa Pay Voucher redemption Google Pay Apple Pay Buy Now, Pay Later (BNPL) Payment Requests FNB/RMB Payment Request Integrate your business with Ozow's products today. View Company Company Life at Ozow Learn more about our culture and how it motivates us to be better View Jobs Check out the open roles to find your next career move Blogs Read through our blogs page to gain insight into our rocket ship, the fintech industry and more. Login Become a Merchant Home As an individual Discover Ozow ME (Beta) How to pay As a Business Ozow PIN Refunds PayShap Request Pri",
+  "ats_detected": [
+    "greenhouse"
+  ],
+  "ats_evidence": [
+    "Greenhouse board token 'ozow' found in supplied page HTML/URL."
+  ],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Agentic AI Engineer",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/8011235003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Content Strategist",
+        "location": "Cape Town",
+        "department": "Marketing",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/8011234003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Enterprise Solutions Lead",
+        "location": "Cape Town",
+        "department": "Commercial",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/7800988003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Fraud Manager",
+        "location": "Cape Town",
+        "department": "Legal",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/7986278003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Junior Integration and Enablement Associate",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/8036568003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Junior Software Engineer (AI-Enabled)",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/8012910003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Marketing Manager",
+        "location": "Cape Town",
+        "department": "Marketing",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/8002228003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Data Engineer",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/7750853003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Software Engineer (AI-Enabled)",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/8012912003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software Engineer",
+        "location": "Cape Town/Johannesburg",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/6922859003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Technical Sales Lead",
+        "location": "Cape Town",
+        "department": "Commercial",
+        "url": "https://job-boards.greenhouse.io/ozow/jobs/7983021003",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "greenhouse_public_board_api",
+        "endpoint": "https://boards-api.greenhouse.io/v1/boards/ozow/jobs?content=true",
+        "http_status": 200,
+        "success": true,
+        "jobs": [
+          {
+            "title": "Agentic AI Engineer",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/8011235003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Content Strategist",
+            "location": "Cape Town",
+            "department": "Marketing",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/8011234003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Enterprise Solutions Lead",
+            "location": "Cape Town",
+            "department": "Commercial",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/7800988003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Fraud Manager",
+            "location": "Cape Town",
+            "department": "Legal",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/7986278003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Junior Integration and Enablement Associate",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/8036568003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Junior Software Engineer (AI-Enabled)",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/8012910003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Marketing Manager",
+            "location": "Cape Town",
+            "department": "Marketing",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/8002228003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Data Engineer",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/7750853003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Software Engineer (AI-Enabled)",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/8012912003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software Engineer",
+            "location": "Cape Town/Johannesburg",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/6922859003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Technical Sales Lead",
+            "location": "Cape Town",
+            "department": "Commercial",
+            "url": "https://job-boards.greenhouse.io/ozow/jobs/7983021003",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          }
+        ],
+        "error": "",
+        "total_jobs_reported": 11
+      }
+    ],
+    "note": "At least one recognised public ATS endpoint returned structured data. Job counts and descriptions still need validation."
+  },
+  "errors": []
+}

@@ -1,0 +1,301 @@
+{
+  "supplied_url": "https://www.beingit.co.za/Careers",
+  "checked_at_utc": "2026-10-20T20:43:44.463722+00:00",
+  "http_status": 200,
+  "final_url": "https://www.beingit.co.za/Careers",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 38859,
+  "page_title": "BeingIT® |  Careers",
+  "page_text_excerpt": "BeingIT® |  Careers Services Domain name lookup Careers Downloads Support Contact Us Home Careers Careers We strive to be Bold, enthusiastic, inspired, needed, genuine! Digital Marketing & Lead Conversion Manager Details Graduate .NET Developer Kick-start your career working with the people who love what they do and know what they are doing... Details Intermediate .NET Developer Develop cutting-edge software using the latest development tools and frameworks... Details Intermediate to Senior .NET Developer Develop cutting-edge software using the latest development tools and frameworks... Details Junior .NET Developer Passionate about programming; so are we and happy to teach you lots more... Details Junior to Intermediate .NET Developer Gain great exposure to the software industry and get hands-on experience working in the technology sector... Details Senior .NET Developer Develop enterprise scale applications using the latest development tools and frameworks... Details Our Culture Work hard, play harder. We make sure to blow off some steam every now and again, everyone needs this! Our enthusiastic and humorous office environment creates an enjoyable daily experience. Since you spen",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Services",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Services",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Services Home Services Services Software development What we do for our clients BeingIT® specialize in developing sophisticated software products and solutions for some of the world’s largest corporations. Our software is designed to be efficient, scalable, and highly reliable. We have expertise in .NET and complementary frameworks, and we architect our solutions from the ground up, creating tailor-made systems for their intended environments. Most of our developers are full-stack engineers, giving us a comprehensive understanding of the entire development process. There is virtually nothing we can’t build or solve. How we do things We believe in doing things properly, with no half-baked actions; getting it right the first time. We pride ourselves on open communication, healthy relationships, and setting clear expectations. All development is done from the ground up and is com",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Domain lookup",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Services/DomainLookup",
+        "description_available": false,
+        "description_excerpt": "BeingIT® | Services | Domain lookup Home Services Domain lookup Enter a domain name to perform a lookup and register if available Warning! Unable to perform action. Loading... Show modal",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Downloads",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Products",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Products | Downloads Home Products Downloads “The BAT” The BeingIT® Automation Tool is used for all sorts of repetitive process or tasks that can be automated. From software builds, releases, deploying, backups, reporting, exporting, etc... Download Description Additional Information The BAT gives you the power to automate repetitive process or tasks. The BAT will help boost efficiency and consistency in what you or your organization does on a day-to-day basis. The BAT is a Robotic Process Automation tool aka an RPA and is free to download. Requirements: .Net 4.6.1 Download Count: 0 Other Products View Details Database Commander View Details SQL Business Object Creator View Details “The BAT” Show modal",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Support",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Support",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Support Home Support Support Have a look at our Help Center Take a look at our FAQs Can't find what you're looking for? Your name * Your email address * Subject IP address Internet Service Provider (ISP) Message * Success! Your message has been sent to us. Error! There was an error sending your message. Your IP - Internet Protocol Fetching IP address... Your ISP - Internet Service Provider Fetching ISP name... Generate a Strong Password Show modal",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Contact Us",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Contact",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Contact Us Home Contact Us Contact Us The Office Physical: Unit 1.3, First Floor, Park Central 2 25 New Street, Durbanville, Cape Town, 7550 Postal: PO Box 938, Durbanville, Cape Town, 7551 Telephone: 086-11-11-424 Business Hours Monday - Friday 8:30am to 5pm Public Holidays - Closed Email Us Our email address is kept private due to spam and email harvesters. Please send us a message and we will respond with our email address. Your name * Your email address * Subject Message * Success! Your message has been sent. Error! There was an error sending your message. Show modal",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Digital Marketing & Lead Conversion Manager",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Careers/Vacancy/DMLC001",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Careers | Vacancy | Digital Marketing & Lead Conversion Manager Home Careers Vacancy Digital Marketing & Lead Conversion Manager Digital Marketing & Lead Conversion Manager position Please use DMLC001 as reference to the position. How to apply? Complete the application form by clicking the “Apply Now” button. Why Us? We follow an Agile process and rely on the full extent of DevOps using this process, if you are familiar with Azure and Agile, you'll know why. We prefer an agile approach that includes a product road map and overall picture of future requirements. We present a unique environment where you can grow, learn, explore and make your mark. We have ample career growth and have the right launch pad to fast track your career in a professional space. You will form part of our dynamic team in Cape Town where we push the limits of possibility, stretch the creative imagination",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Graduate\n.NET Developer",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Careers/Vacancy/GND24112701",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Careers | Vacancy | Graduate .NET Developer Home Careers Vacancy Graduate .NET Developer Graduate .NET Developer position Please use GND24112701 as reference to the position. How to apply? Complete the application form by clicking the “Apply Now” button. Why Us? We follow an Agile process and rely on the full extent of DevOps using this process, if you are familiar with Azure and Agile, you'll know why. We prefer an agile approach that includes a product road map and overall picture of future requirements. We present a unique environment where you can grow, learn, explore and make your mark. We have ample career growth and have the right launch pad to fast track your career in a professional space. You will form part of our dynamic team in Cape Town where we push the limits of possibility, stretch the creative imagination , and strive to impress our clients. We are looking for",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Intermediate\n.NET Developer",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100303",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Careers | Vacancy | Intermediate .NET Developer Home Careers Vacancy Intermediate .NET Developer Intermediate .NET Developer position This is a full-time position based in Durbanville . Please use DND24100303 as reference to the position. What you’d be working on This position will require a magnitude of new exciting development as well as enriching and expanding the current client production systems. We don’t focus on one area of .Net and our solutions dab into a wide range of platforms and environments. This specific position will gain you masterful skills in SQL Server and we are not talking about simple selects or updates. Very few positions out there do the type of data processing we perform inside SQL procedures, unlocking the raw purpose built power of SQL Server. Our frameworks and business controllers are very efficient and hand crafted. We develop slower in order to ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Intermediate to Senior\n.NET Developer",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100304",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Careers | Vacancy | Intermediate to Senior .NET Developer Home Careers Vacancy Intermediate to Senior .NET Developer Intermediate to Senior .NET Developer position This is a full-time position based in Durbanville . Please use DND24100304 as reference to the position. What you’d be working on This position will require a magnitude of new exciting development as well as enriching and expanding the current client production systems. We don’t focus on one area of .Net and our solutions dab into a wide range of platforms and environments. This specific position will gain you masterful skills in Microsoft SQL and we are not talking about simple selects or updates. Very few positions out there do the type of data processing we perform inside SQL procedures, unlocking the raw purpose built power of SQL Server. Our frameworks and business controllers are very efficient and hand crafte",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Junior\n.NET Developer",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100301",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Careers | Vacancy | Junior .NET Developer Home Careers Vacancy Junior .NET Developer Junior .NET Developer position This is a full-time position based in Durbanville . Please use DND24100301 as reference to the position. If you are passionate about software development and design and you are looking to make a long-term career and grow into a software architect, consultant, team leader, development director or even business partner, this is for you. You will form part of our dynamic team where we push the limits of possibility, stretch the creative imagination, and strive to impress our clients. We are looking for an inspired, motivated individual that has high self-esteem and is very ambitious. We need someone that will make it their own, take ownership, and do what is necessary to complete designated assignments, someone that is willing to learn, strive for excellence and tak",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Junior to Intermediate\n.NET Developer",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100302",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Careers | Vacancy | Junior to Intermediate .NET Developer Home Careers Vacancy Junior to Intermediate .NET Developer Junior to Intermediate .NET Developer position This is a full-time position based in Durbanville . Please use DND24100302 as reference to the position. What you’d be working on This position will require a magnitude of new exciting development as well as enriching and expanding the current client production systems. We don’t focus on one area of .Net and our solutions dab into a wide range of platforms and environments. The experience you’d gain will be unmatched and broaden your horizon beyond your grasp. Become a more rounded full-stack engineer that understands every aspect of development. You could become the center of any technical topic around software development as you’d gain hands-on experience in these areas. What we do for our clients We develop sophi",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Senior\n.NET Developer",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100305",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Careers | Vacancy | Senior .NET Developer Home Careers Vacancy Senior .NET Developer Senior .NET Developer position This is a full-time position based in Durbanville . Please use DND24100305 as reference to the position. What you’d be working on This position will require a magnitude of new exciting development as well as enriching and expanding the current client production systems. We don’t focus on one area of .Net and our solutions dab into a wide range of platforms and environments. This specific position will gain you masterful skills in Microsoft SQL and we are not talking about simple selects or updates. Very few positions out there do the type of data processing we perform inside SQL procedures, unlocking the raw purpose built power of SQL Server. Our frameworks and business controllers are very efficient and hand crafted. We develop slower in order to scale faster. Y",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Terms and Conditions",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Home/TermsAndConditions",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Terms and Conditions Home Terms and Conditions Terms and Conditions Terms & Conditions Please read these terms carefully before using or accessing a BeingIT® website or any content or material made accessible through a BeingIT® website (collectively, “the Websites”). By using or accessing a BeingIT® website, you agree to the terms herein. The Websites are maintained by Being IT Solutions (PTY) LTD in order to provide information related to BeingIT®’s products and services. BeingIT® does not make any representations or warranties about the Websites and use of a Website is at your own risk. Please review these terms each time you visit or access a Website to ensure that you are aware of any changes. Electronic Communications You understand that an electronic communication refers to any form of communication that is provided electronically through the use of your desktop, tablet,",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Privacy Policy",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Home/PrivacyPolicy",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Privacy Policy Home Privacy Policy Privacy Policy Statement of Policy - Collection and Use of Personal Information Being IT Solutions (PTY) LTD and/or its affiliated entities (“BeingIT®”) are committed to respecting the privacy of your personal information. To demonstrate its commitment, BeingIT has created this Policy in order to communicate its intention of appropriate handling of such personal information and to comply with applicable legislation that governs the authentication, protection and disclosure of personal information. You should be aware of the company's policy regarding the collection, regulation and protection of your personal information. For the most part, you will be able to browse this website without interception and collection of your personal information. However, for the purpose of business processes and communications, administration and transacting, y",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Sitemap",
+        "location": "",
+        "department": "",
+        "url": "https://www.beingit.co.za/Home/Sitemap",
+        "description_available": true,
+        "description_excerpt": "BeingIT® | Sitemap Home Sitemap Sitemap Services Domain name lookup Careers Downloads Support Contact Us Who We Are BeingIT is an innovative software development company that strives to provide affordable, yet quality software to its customers. We also offer web hosting, domain registration, web design as well as a bulk email and sms solution. We offer: Software Development Web Development Web Hosting Domain Registration Graphic Design Bulk Email & SMS Online Backups Show modal",
+        "source_adapter": "same_host_html"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "same_host_html_vacancies",
+        "success": true,
+        "jobs": [
+          {
+            "title": "Services",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Services",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Services Home Services Services Software development What we do for our clients BeingIT® specialize in developing sophisticated software products and solutions for some of the world’s largest corporations. Our software is designed to be efficient, scalable, and highly reliable. We have expertise in .NET and complementary frameworks, and we architect our solutions from the ground up, creating tailor-made systems for their intended environments. Most of our developers are full-stack engineers, giving us a comprehensive understanding of the entire development process. There is virtually nothing we can’t build or solve. How we do things We believe in doing things properly, with no half-baked actions; getting it right the first time. We pride ourselves on open communication, healthy relationships, and setting clear expectations. All development is done from the ground up and is com",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Domain lookup",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Services/DomainLookup",
+            "description_available": false,
+            "description_excerpt": "BeingIT® | Services | Domain lookup Home Services Domain lookup Enter a domain name to perform a lookup and register if available Warning! Unable to perform action. Loading... Show modal",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Downloads",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Products",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Products | Downloads Home Products Downloads “The BAT” The BeingIT® Automation Tool is used for all sorts of repetitive process or tasks that can be automated. From software builds, releases, deploying, backups, reporting, exporting, etc... Download Description Additional Information The BAT gives you the power to automate repetitive process or tasks. The BAT will help boost efficiency and consistency in what you or your organization does on a day-to-day basis. The BAT is a Robotic Process Automation tool aka an RPA and is free to download. Requirements: .Net 4.6.1 Download Count: 0 Other Products View Details Database Commander View Details SQL Business Object Creator View Details “The BAT” Show modal",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Support",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Support",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Support Home Support Support Have a look at our Help Center Take a look at our FAQs Can't find what you're looking for? Your name * Your email address * Subject IP address Internet Service Provider (ISP) Message * Success! Your message has been sent to us. Error! There was an error sending your message. Your IP - Internet Protocol Fetching IP address... Your ISP - Internet Service Provider Fetching ISP name... Generate a Strong Password Show modal",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Contact Us",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Contact",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Contact Us Home Contact Us Contact Us The Office Physical: Unit 1.3, First Floor, Park Central 2 25 New Street, Durbanville, Cape Town, 7550 Postal: PO Box 938, Durbanville, Cape Town, 7551 Telephone: 086-11-11-424 Business Hours Monday - Friday 8:30am to 5pm Public Holidays - Closed Email Us Our email address is kept private due to spam and email harvesters. Please send us a message and we will respond with our email address. Your name * Your email address * Subject Message * Success! Your message has been sent. Error! There was an error sending your message. Show modal",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Digital Marketing & Lead Conversion Manager",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Careers/Vacancy/DMLC001",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Careers | Vacancy | Digital Marketing & Lead Conversion Manager Home Careers Vacancy Digital Marketing & Lead Conversion Manager Digital Marketing & Lead Conversion Manager position Please use DMLC001 as reference to the position. How to apply? Complete the application form by clicking the “Apply Now” button. Why Us? We follow an Agile process and rely on the full extent of DevOps using this process, if you are familiar with Azure and Agile, you'll know why. We prefer an agile approach that includes a product road map and overall picture of future requirements. We present a unique environment where you can grow, learn, explore and make your mark. We have ample career growth and have the right launch pad to fast track your career in a professional space. You will form part of our dynamic team in Cape Town where we push the limits of possibility, stretch the creative imagination",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Graduate\n.NET Developer",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Careers/Vacancy/GND24112701",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Careers | Vacancy | Graduate .NET Developer Home Careers Vacancy Graduate .NET Developer Graduate .NET Developer position Please use GND24112701 as reference to the position. How to apply? Complete the application form by clicking the “Apply Now” button. Why Us? We follow an Agile process and rely on the full extent of DevOps using this process, if you are familiar with Azure and Agile, you'll know why. We prefer an agile approach that includes a product road map and overall picture of future requirements. We present a unique environment where you can grow, learn, explore and make your mark. We have ample career growth and have the right launch pad to fast track your career in a professional space. You will form part of our dynamic team in Cape Town where we push the limits of possibility, stretch the creative imagination , and strive to impress our clients. We are looking for",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Intermediate\n.NET Developer",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100303",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Careers | Vacancy | Intermediate .NET Developer Home Careers Vacancy Intermediate .NET Developer Intermediate .NET Developer position This is a full-time position based in Durbanville . Please use DND24100303 as reference to the position. What you’d be working on This position will require a magnitude of new exciting development as well as enriching and expanding the current client production systems. We don’t focus on one area of .Net and our solutions dab into a wide range of platforms and environments. This specific position will gain you masterful skills in SQL Server and we are not talking about simple selects or updates. Very few positions out there do the type of data processing we perform inside SQL procedures, unlocking the raw purpose built power of SQL Server. Our frameworks and business controllers are very efficient and hand crafted. We develop slower in order to ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Intermediate to Senior\n.NET Developer",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100304",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Careers | Vacancy | Intermediate to Senior .NET Developer Home Careers Vacancy Intermediate to Senior .NET Developer Intermediate to Senior .NET Developer position This is a full-time position based in Durbanville . Please use DND24100304 as reference to the position. What you’d be working on This position will require a magnitude of new exciting development as well as enriching and expanding the current client production systems. We don’t focus on one area of .Net and our solutions dab into a wide range of platforms and environments. This specific position will gain you masterful skills in Microsoft SQL and we are not talking about simple selects or updates. Very few positions out there do the type of data processing we perform inside SQL procedures, unlocking the raw purpose built power of SQL Server. Our frameworks and business controllers are very efficient and hand crafte",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Junior\n.NET Developer",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100301",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Careers | Vacancy | Junior .NET Developer Home Careers Vacancy Junior .NET Developer Junior .NET Developer position This is a full-time position based in Durbanville . Please use DND24100301 as reference to the position. If you are passionate about software development and design and you are looking to make a long-term career and grow into a software architect, consultant, team leader, development director or even business partner, this is for you. You will form part of our dynamic team where we push the limits of possibility, stretch the creative imagination, and strive to impress our clients. We are looking for an inspired, motivated individual that has high self-esteem and is very ambitious. We need someone that will make it their own, take ownership, and do what is necessary to complete designated assignments, someone that is willing to learn, strive for excellence and tak",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Junior to Intermediate\n.NET Developer",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100302",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Careers | Vacancy | Junior to Intermediate .NET Developer Home Careers Vacancy Junior to Intermediate .NET Developer Junior to Intermediate .NET Developer position This is a full-time position based in Durbanville . Please use DND24100302 as reference to the position. What you’d be working on This position will require a magnitude of new exciting development as well as enriching and expanding the current client production systems. We don’t focus on one area of .Net and our solutions dab into a wide range of platforms and environments. The experience you’d gain will be unmatched and broaden your horizon beyond your grasp. Become a more rounded full-stack engineer that understands every aspect of development. You could become the center of any technical topic around software development as you’d gain hands-on experience in these areas. What we do for our clients We develop sophi",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Senior\n.NET Developer",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Careers/Vacancy/DND24100305",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Careers | Vacancy | Senior .NET Developer Home Careers Vacancy Senior .NET Developer Senior .NET Developer position This is a full-time position based in Durbanville . Please use DND24100305 as reference to the position. What you’d be working on This position will require a magnitude of new exciting development as well as enriching and expanding the current client production systems. We don’t focus on one area of .Net and our solutions dab into a wide range of platforms and environments. This specific position will gain you masterful skills in Microsoft SQL and we are not talking about simple selects or updates. Very few positions out there do the type of data processing we perform inside SQL procedures, unlocking the raw purpose built power of SQL Server. Our frameworks and business controllers are very efficient and hand crafted. We develop slower in order to scale faster. Y",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Terms and Conditions",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Home/TermsAndConditions",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Terms and Conditions Home Terms and Conditions Terms and Conditions Terms & Conditions Please read these terms carefully before using or accessing a BeingIT® website or any content or material made accessible through a BeingIT® website (collectively, “the Websites”). By using or accessing a BeingIT® website, you agree to the terms herein. The Websites are maintained by Being IT Solutions (PTY) LTD in order to provide information related to BeingIT®’s products and services. BeingIT® does not make any representations or warranties about the Websites and use of a Website is at your own risk. Please review these terms each time you visit or access a Website to ensure that you are aware of any changes. Electronic Communications You understand that an electronic communication refers to any form of communication that is provided electronically through the use of your desktop, tablet,",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Privacy Policy",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Home/PrivacyPolicy",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Privacy Policy Home Privacy Policy Privacy Policy Statement of Policy - Collection and Use of Personal Information Being IT Solutions (PTY) LTD and/or its affiliated entities (“BeingIT®”) are committed to respecting the privacy of your personal information. To demonstrate its commitment, BeingIT has created this Policy in order to communicate its intention of appropriate handling of such personal information and to comply with applicable legislation that governs the authentication, protection and disclosure of personal information. You should be aware of the company's policy regarding the collection, regulation and protection of your personal information. For the most part, you will be able to browse this website without interception and collection of your personal information. However, for the purpose of business processes and communications, administration and transacting, y",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Sitemap",
+            "location": "",
+            "department": "",
+            "url": "https://www.beingit.co.za/Home/Sitemap",
+            "description_available": true,
+            "description_excerpt": "BeingIT® | Sitemap Home Sitemap Sitemap Services Domain name lookup Careers Downloads Support Contact Us Who We Are BeingIT is an innovative software development company that strives to provide affordable, yet quality software to its customers. We also offer web hosting, domain registration, web design as well as a bulk email and sms solution. We offer: Software Development Web Development Web Hosting Domain Registration Graphic Design Bulk Email & SMS Online Backups Show modal",
+            "source_adapter": "same_host_html"
+          }
+        ],
+        "error": "",
+        "detail_pages_checked": 15,
+        "candidate_links_found": 15
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

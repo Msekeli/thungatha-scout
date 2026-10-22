@@ -1,0 +1,292 @@
+# Careers URL Investigation
+
+- Supplied URL: https://job-boards.greenhouse.io/takealotcom
+- Final URL: https://job-boards.greenhouse.io/takealotcom
+- HTTP status: 200
+- Page title: Jobs at takealot.com
+- ATS detected: greenhouse
+- Extraction success: True
+- Jobs extracted in this response: 87
+
+## Assessment
+
+Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation.
+
+## ATS evidence
+
+- Greenhouse board token 'takealotcom' found in supplied page HTML/URL.
+
+## Adapter results
+
+- **greenhouse_public_board_api**: success=True; HTTP=200; reported jobs=87; candidate links=n/a; error=
+
+## Extracted jobs
+
+- **Advertising Account Manager, Mandarin & English (Cross-Border)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8094193
+  - Description present: True
+- **Advertising Sales Manager (Retail Media)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7734186
+  - Description present: True
+- **Advertising Sales Manager (Retail Media)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8141593
+  - Description present: True
+- **Affiliate Program Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8221557
+  - Description present: True
+- **Branch Supervisor** — Polokwane - Limpopo
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8222612
+  - Description present: True
+- **Business Development Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8173181
+  - Description present: True
+- **Complaints Administrator Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8190535
+  - Description present: True
+- **Compliance  Auditor** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8210795
+  - Description present: True
+- **Content Marketing Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8184748
+  - Description present: True
+- **Copywriter & Content Producer** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8249182
+  - Description present: True
+- **Courier Controller-FTC 6Months** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8245790
+  - Description present: True
+- **Data Principal Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8059414
+  - Description present: True
+- **DC Finance Admin Manager** — Kwa-Zulu Natal
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8239186
+  - Description present: True
+- **DC Industrial Systems Engineer** — Durban
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8113935
+  - Description present: True
+- **DC Operations Manager** — Johannesburg
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8223317
+  - Description present: True
+- **Digital Account Manager - Retail Media** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8156068
+  - Description present: True
+- **Digital Graphic Designer** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8203584
+  - Description present: True
+- **E-Commerce Beauty Buyer - Cosmetics** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8210340
+  - Description present: True
+- **Facilities Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8152745
+  - Description present: True
+- **Fleet Controller** — Polokwane - Limpopo
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8222597
+  - Description present: True
+- **Franchise Compliance Controller** — Gqeberha
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8203570
+  - Description present: True
+- **Group General Counsel** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8288402
+  - Description present: True
+- **Group Head of Membership & Loyalty (TakealotMORE)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7725781
+  - Description present: True
+- **Head of Customer & Business Support Operations** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8043164
+  - Description present: True
+- **Health and Safety Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8161188
+  - Description present: True
+- **HR Intern** — Johannesburg
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8143560
+  - Description present: True
+- **Hub Manager** — Polokwane - Limpopo
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8098572
+  - Description present: True
+- **Inbound Operations Coordinator** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8098315
+  - Description present: True
+- **Instructional Design Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8161152
+  - Description present: True
+- **Intermediate .NET Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/6654603
+  - Description present: True
+- **iOS Software Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7317035
+  - Description present: True
+- **iOS Software Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/6565059
+  - Description present: True
+- **Key Account Manager - Advertising** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7677121
+  - Description present: True
+- **Learning and Development Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8185430
+  - Description present: True
+- **Marketing Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7988583
+  - Description present: True
+- **Marketplace Onboarding Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7946183
+  - Description present: True
+- **Marketplace Promotions and Merchandising Team Lead** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7946618
+  - Description present: True
+- **Marketplace Sales Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8141422
+  - Description present: True
+- **Mr D - CRM Lead** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/1807258
+  - Description present: True
+- **Mr D - Data Integration Team Leader** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8179489
+  - Description present: True
+- **Mr D - Head of Customer Growth** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7493612
+  - Description present: True
+- **Mr D - Junior E-Commerce Category Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/6590356
+  - Description present: True
+- **Mr D - Mid-level Business Operations Growth Analyst** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7938626
+  - Description present: True
+- **Mr D - Paid Media Lead** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8045864
+  - Description present: True
+- **Mr D Product Manager - Fulfilment** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8188367
+  - Description present: True
+- **Mr D -  Retail Media Key Account Manager_Food** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7938631
+  - Description present: True
+- **Mr D - Retail Media Key Account Manager_Retail** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7938476
+  - Description present: True
+- **Mr D - Sales Associate (Western Cape)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8185584
+  - Description present: True
+- **Mr D - Sales Executive** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8111635
+  - Description present: True
+- **Mr D - Senior Copywriter and Content Strategist** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8171798
+  - Description present: True
+- **Online Fashion Assistant - FTC** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8111596
+  - Description present: True
+- **Order Fulfilment Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8102858
+  - Description present: True
+- **Packaging Optimisation Specialist** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8185586
+  - Description present: True
+- **Paid Media Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8071186
+  - Description present: True
+- **Paid Media Manager (Retail Media)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7633555
+  - Description present: True
+- **Payroll Lead** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7588118
+  - Description present: True
+- **People Analytics Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8267136
+  - Description present: True
+- **People Practitioner** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8220031
+  - Description present: True
+- **Performance Campaign Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7588574
+  - Description present: True
+- **Principal Software Engineer (Group Fulfilment)** — South Africa
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7020975
+  - Description present: True
+- **Product Lead (Dark Store Fulfilment Systems)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8155932
+  - Description present: True
+- **Product Manager (Catalogue)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8045821
+  - Description present: True
+- **Product Manager (Machine Learning)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8184898
+  - Description present: True
+- **Product Manager (On Demand Delivery Execution)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7613780
+  - Description present: True
+- **Python Software Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/6063588
+  - Description present: True
+- **QA Manager - Logistics - FY27** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8113699
+  - Description present: True
+- **QA Manager - Merchant - FY27** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8173325
+  - Description present: True
+- **Retail Buying Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8236563
+  - Description present: True
+- **Retail Media Growth Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7571379
+  - Description present: True
+- **Risk and Safety officer** — Polokwane
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8245669
+  - Description present: True
+- **Risk Management and Safety Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8161195
+  - Description present: True
+- **Search Software Engineer** — South Africa
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7573640
+  - Description present: True
+- **Seller Support Specialist (FTC)** — Capetown
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8077113
+  - Description present: True
+- **Senior Buyer (Toys)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8154703
+  - Description present: True
+- **Senior Data Analyst** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7742377
+  - Description present: True
+- **Senior Database Administrator (MySQL, PostgreSQL) - Takealot** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/2935435
+  - Description present: True
+- **Senior Machine Learning Engineer** — South Africa
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8078851
+  - Description present: True
+- **Senior Marketing Manager  (TakealotMORE)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8266982
+  - Description present: True
+- **Senior Planner (Beauty)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8164171
+  - Description present: True
+- **Senior Site Merchandiser** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8221465
+  - Description present: True
+- **Senior Software Engineer  (Logistics)** — South Africa
+  - https://job-boards.greenhouse.io/takealotcom/jobs/5865503
+  - Description present: True
+- **Software Engineer (Python)** — South Africa
+  - https://job-boards.greenhouse.io/takealotcom/jobs/5865551
+  - Description present: True
+- **Software Engineer (Python) - Supply Chain** — South Africa
+  - https://job-boards.greenhouse.io/takealotcom/jobs/7050505
+  - Description present: True
+- **Software Engineer (Scala)** — South Africa
+  - https://job-boards.greenhouse.io/takealotcom/jobs/5853982
+  - Description present: True
+- **Supply chain Intern** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8185489
+  - Description present: True
+- **Takealot - Senior Capacity Planner (Workforce)** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/5919975
+  - Description present: True
+- **Training and Development Manager** — Cape Town
+  - https://job-boards.greenhouse.io/takealotcom/jobs/8045295
+  - Description present: True
+
+## Limitations
+
+- One run does not guarantee completeness or long-term endpoint stability.
+- Workday currently requests only the first page.
+- Generic extraction checks at most 25 observed same-host detail links.
+- No application forms are submitted and no account-protected content is accessed.

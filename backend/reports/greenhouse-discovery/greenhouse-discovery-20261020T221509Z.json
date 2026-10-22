@@ -1,0 +1,943 @@
+{
+  "generated_at_utc": "2026-10-20T22:15:09.137668+00:00",
+  "search_queries": [
+    "site:job-boards.greenhouse.io software OR engineering",
+    "site:boards.greenhouse.io software OR engineering",
+    "site:job-boards.greenhouse.io \"South Africa\" OR \"Cape Town\"",
+    "\"boards-api.greenhouse.io/v1/boards\" careers jobs"
+  ],
+  "successful_queries": 4,
+  "failed_queries": [],
+  "candidate_boards_found": 1,
+  "validated_boards_found": 1,
+  "boards": [
+    {
+      "board_token": "gleanwork",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/gleanwork/jobs/4006731005"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io software OR engineering",
+          "title": "Job Application for Software Engineer, Backend at Glean",
+          "snippet": "At its core, Glean is redefining how enterprises find, use, and act on knowledge. Its Enterprise Graph and Personal Knowledge Graph map the relationships between people, content, and activity, delivering deeply personalized, context-aware responses for every employee. This foundation powers Glean's agentic capabilities - AI agents that automate real work across teams by accessing the ..."
+        }
+      ],
+      "board_url": "https://job-boards.greenhouse.io/gleanwork",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/gleanwork/jobs?content=true",
+      "validated_at_utc": "2026-10-20T22:15:03.921495+00:00",
+      "http_status": 200,
+      "valid": true,
+      "total_jobs_reported": 118,
+      "usable_jobs": 118,
+      "jobs": [
+        {
+          "title": "Accountant",
+          "location": "Bangalore, India",
+          "department": "G&A",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4739201005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4739201005"
+        },
+        {
+          "title": "AI Data Analyst",
+          "location": "Bangalore, India",
+          "department": "QA",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4739203005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4739203005"
+        },
+        {
+          "title": "AI Success Manager, Central",
+          "location": "Remote - US",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4661884005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4661884005"
+        },
+        {
+          "title": "AI Success Manager, Central",
+          "location": "Nashville, TN",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4661886005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4661886005"
+        },
+        {
+          "title": "AI Success Manager, East",
+          "location": "Remote - US",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4661878005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4661878005"
+        },
+        {
+          "title": "AI Success Manager, East",
+          "location": "New York, NY",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4661879005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4661879005"
+        },
+        {
+          "title": "AI Success Manager (US East Customer Hours)",
+          "location": "Bangalore, India",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4705011005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4705011005"
+        },
+        {
+          "title": "AI Success Manager (US West Customer Hours)",
+          "location": "Bangalore, India",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4705017005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4705017005"
+        },
+        {
+          "title": "AI Success Manager, West",
+          "location": "Mountain View, CA",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4695059005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4695059005"
+        },
+        {
+          "title": "AI Success Manager, West",
+          "location": "San Francisco, CA",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4694340005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4694340005"
+        },
+        {
+          "title": "Application Security Engineer",
+          "location": "Remote - US",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4728513005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4728513005"
+        },
+        {
+          "title": "Commercial Account Executive, Central",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4735493005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4735493005"
+        },
+        {
+          "title": "Content Marketing Manager, Tokyo",
+          "location": "Remote - Japan",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4724225005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4724225005"
+        },
+        {
+          "title": "Content Systems Engineer, Technical Documentation",
+          "location": "Bangalore, India",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4739466005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4739466005"
+        },
+        {
+          "title": "Customer Advocacy Manager",
+          "location": "Mountain View, CA",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4743028005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4743028005"
+        },
+        {
+          "title": "Customer Advocacy Manager",
+          "location": "San Francisco, CA",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4488628005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4488628005"
+        },
+        {
+          "title": "Designated Technical Support Engineer",
+          "location": "New York, NY",
+          "department": "Support",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4735022005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4735022005"
+        },
+        {
+          "title": "Designated Technical Support Engineer",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Support",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4734005005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4734005005"
+        },
+        {
+          "title": "Designated Technical Support Engineer",
+          "location": "Nashville, TN",
+          "department": "Support",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4737707005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4737707005"
+        },
+        {
+          "title": "Designated Technical Support Engineer, Ops",
+          "location": "Mountain View, CA",
+          "department": "Support",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4671775005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4671775005"
+        },
+        {
+          "title": "Enterprise Account Executive",
+          "location": "Mountain View, CA",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4695585005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4695585005"
+        },
+        {
+          "title": "Enterprise Account Executive",
+          "location": "San Francisco, CA",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4619072005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4619072005"
+        },
+        {
+          "title": "Enterprise Account Executive, Chicago",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4723644005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4723644005"
+        },
+        {
+          "title": "Enterprise Account Executive, Denver",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4726168005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4726168005"
+        },
+        {
+          "title": "Enterprise Account Executive, Japan",
+          "location": "Remote - Japan",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4672064005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4672064005"
+        },
+        {
+          "title": "Enterprise Account Executive, Mid-Atlantic",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4724264005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4724264005"
+        },
+        {
+          "title": "Enterprise Account Executive, New York City",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4615117005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4615117005"
+        },
+        {
+          "title": "Enterprise Account Executive, Ohio Valley",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4615635005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4615635005"
+        },
+        {
+          "title": "Enterprise Account Executive, Oregon",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4707231005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4707231005"
+        },
+        {
+          "title": "Enterprise Account Executive, Sacramento",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4693862005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4693862005"
+        },
+        {
+          "title": "Enterprise Account Executive, Southeast",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4719454005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4719454005"
+        },
+        {
+          "title": "Enterprise Account Executive, Texas",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4725320005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4725320005"
+        },
+        {
+          "title": "Enterprise Account Executive, Washington",
+          "location": "Remote - US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4694661005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4694661005"
+        },
+        {
+          "title": "Founding Forward Deployed Engineer",
+          "location": "Remote - US",
+          "department": "Forward Deployment",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4651991005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4651991005"
+        },
+        {
+          "title": "Founding Forward Deployed Engineer",
+          "location": "New York, NY",
+          "department": "Forward Deployment",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4659412005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4659412005"
+        },
+        {
+          "title": "Founding Forward Deployed Engineer",
+          "location": "Mountain View, CA",
+          "department": "Forward Deployment",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4651990005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4651990005"
+        },
+        {
+          "title": "Head of Product Design",
+          "location": "Mountain View, CA",
+          "department": "Design",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4506459005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4506459005"
+        },
+        {
+          "title": "IT Leader",
+          "location": "Bangalore, India",
+          "department": "G&A",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4720634005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4720634005"
+        },
+        {
+          "title": "Lead Salesforce Developer, GTM Systems",
+          "location": "Bangalore, India",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4737533005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4737533005"
+        },
+        {
+          "title": "Lead Site Reliability Engineer",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4654833005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4654833005"
+        },
+        {
+          "title": "Machine Learning Engineer, Assistant Quality",
+          "location": "San Francisco, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4711484005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4711484005"
+        },
+        {
+          "title": "Machine Learning Engineer, Enterprise Brain",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4744818005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4744818005"
+        },
+        {
+          "title": "Machine Learning Engineer, Search Quality",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4006735005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4006735005"
+        },
+        {
+          "title": "Manager, AI Success",
+          "location": "Mountain View, CA",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4633420005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4633420005"
+        },
+        {
+          "title": "Partner Sales Manager, EMEA",
+          "location": "Amsterdam, Netherlands; London, UK",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4741742005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4741742005"
+        },
+        {
+          "title": "Partner Solutions Engineer",
+          "location": "San Francisco, CA",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4729343005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4729343005"
+        },
+        {
+          "title": "Platform Security Engineer",
+          "location": "Remote - US",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4728507005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4728507005"
+        },
+        {
+          "title": "Principal Product Marketing Manager, Enterprise Context",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4736348005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4736348005"
+        },
+        {
+          "title": "Principal Product Marketing Manager, Glean Agents",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4731850005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4731850005"
+        },
+        {
+          "title": "Principal Product Marketing Manager, Glean Intelligence",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4729392005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4729392005"
+        },
+        {
+          "title": "Private Equity Partnerships Manager",
+          "location": "New York, NY",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4673788005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4673788005"
+        },
+        {
+          "title": "Procurement Analyst",
+          "location": "Bangalore, India",
+          "department": "G&A",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4734619005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4734619005"
+        },
+        {
+          "title": "Product Enablement Lead",
+          "location": "New York, NY",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4718549005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4718549005"
+        },
+        {
+          "title": "Product Enablement Lead",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4696203005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4696203005"
+        },
+        {
+          "title": "Product Enablement Lead",
+          "location": "Nashville, TN",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4718548005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4718548005"
+        },
+        {
+          "title": "Product Finance Analyst",
+          "location": "Bangalore, India",
+          "department": "G&A",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4702832005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4702832005"
+        },
+        {
+          "title": "Product Management Lead",
+          "location": "Mountain View, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4559476005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4559476005"
+        },
+        {
+          "title": "Product Manager",
+          "location": "Bangalore, India",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4726336005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4726336005"
+        },
+        {
+          "title": "Product Manager, Agent Security & Governance",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4525297005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4525297005"
+        },
+        {
+          "title": "Product Manager, AI Quality",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4525518005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4525518005"
+        },
+        {
+          "title": "Product Manager, API Platform",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4731388005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4731388005"
+        },
+        {
+          "title": "Product Manager, Connectors",
+          "location": "Bangalore, India",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4629292005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4629292005"
+        },
+        {
+          "title": "Product Manager, Core Experience",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4702147005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4702147005"
+        },
+        {
+          "title": "Product Manager, Enterprise Intelligence",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4701912005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4701912005"
+        },
+        {
+          "title": "Product Manager, Glean Protect (Security & Governance)",
+          "location": "Bangalore, India",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4641940005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4641940005"
+        },
+        {
+          "title": "Product Marketing Manager - Competitive Intelligence",
+          "location": "Bangalore, India",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4734989005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4734989005"
+        },
+        {
+          "title": "Product Operations",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4530062005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4530062005"
+        },
+        {
+          "title": "Quality Assurance Lead",
+          "location": "Bangalore, India",
+          "department": "QA",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4464005005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4464005005"
+        },
+        {
+          "title": "Recruiting Coordinator (Contract)",
+          "location": "San Francisco, CA",
+          "department": "G&A",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4607608005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4607608005"
+        },
+        {
+          "title": "Regional Vice President, New York City",
+          "location": "New York, NY",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4669911005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4669911005"
+        },
+        {
+          "title": "Resident Solutions Architect",
+          "location": "Remote - US",
+          "department": "Customer Outcomes",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4717716005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4717716005"
+        },
+        {
+          "title": "Sales Development Representative",
+          "location": "Nashville, TN",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4740475005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4740475005"
+        },
+        {
+          "title": "Sales Recruiter",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "G&A",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4725515005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4725515005"
+        },
+        {
+          "title": "Senior Data Engineer, Internal Data Platform & Analytics",
+          "location": "Bangalore, India",
+          "department": "Data",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4739975005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4739975005"
+        },
+        {
+          "title": "Senior Data Scientist, Growth",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Data",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4723427005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4723427005"
+        },
+        {
+          "title": "Senior Demand Generation Manager",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4533468005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4533468005"
+        },
+        {
+          "title": "Senior Field Marketing Manager, West",
+          "location": "Mountain View, CA; Remote - US; San Francisco, CA",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4727092005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4727092005"
+        },
+        {
+          "title": "Senior Field Marketing Manager, West",
+          "location": "Mountain View, CA",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4727100005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4727100005"
+        },
+        {
+          "title": "Senior Manager, Technical Accounting",
+          "location": "Bangalore, India",
+          "department": "G&A",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4732667005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4732667005"
+        },
+        {
+          "title": "Senior/Staff Applied Scientist",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Data",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4740088005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4740088005"
+        },
+        {
+          "title": "Senior Technical Program Manager",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4628879005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4628879005"
+        },
+        {
+          "title": "Senior Technical Program Manager, Infrastructure",
+          "location": "Mountain View, CA; San Francisco, CA",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4628714005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4628714005"
+        },
+        {
+          "title": "Software Engineer, Agentic Runtime",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4742953005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4742953005"
+        },
+        {
+          "title": "Software Engineer, Agents",
+          "location": "Bangalore, India",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4712442005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4712442005"
+        },
+        {
+          "title": "Software Engineer, AI/ML Infrastructure",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4501783005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4501783005"
+        },
+        {
+          "title": "Software Engineer, AI & Security",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4605446005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4605446005"
+        },
+        {
+          "title": "Software Engineer, APIs & Context Platform",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4696752005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4696752005"
+        },
+        {
+          "title": "Software Engineer, Backend",
+          "location": "Bangalore, India",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4006731005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4006731005"
+        },
+        {
+          "title": "Software Engineer, Billing & Revenue Platform",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4656281005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4656281005"
+        },
+        {
+          "title": "Software Engineer, Cloud Deployment Infrastructure",
+          "location": "San Francisco, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4711861005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4711861005"
+        },
+        {
+          "title": "Software Engineer, Cloud Infrastructure",
+          "location": "San Francisco, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4709327005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4709327005"
+        },
+        {
+          "title": "Software Engineer, Data Foundations",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4637208005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4637208005"
+        },
+        {
+          "title": "Software Engineer, Developer Productivity",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4614706005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4614706005"
+        },
+        {
+          "title": "Software Engineer, Evals",
+          "location": "Bangalore, India",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4712438005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4712438005"
+        },
+        {
+          "title": "Software Engineer, Frontend",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4006733005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4006733005"
+        },
+        {
+          "title": "Software Engineer, Fullstack",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4006734005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4006734005"
+        },
+        {
+          "title": "Software Engineer, Intern (Summer 2027)",
+          "location": "Mountain View, CA",
+          "department": "University",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4595665005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4595665005"
+        },
+        {
+          "title": "Software Engineer, Machine Learning",
+          "location": "Bangalore, India",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4012745005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4012745005"
+        },
+        {
+          "title": "Software Engineer, Product Backend",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4428090005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4428090005"
+        },
+        {
+          "title": "Software Engineer, Storage",
+          "location": "Mountain View, CA",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/gleanwork/jobs/4610281005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4610281005"
+        }
+      ],
+      "error": ""
+    }
+  ],
+  "limitations": [
+    "Discovery is limited to public search results and is not an exhaustive list of Greenhouse customers.",
+    "A valid public board proves the feed is accessible, not that every job is relevant to a target region.",
+    "Search engines may rate-limit requests or change indexing; rerun periodically to discover newly indexed boards."
+  ]
+}

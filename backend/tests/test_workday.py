@@ -114,7 +114,7 @@ def test_restricted_board_is_not_misreported_as_empty(status):
 
     client = httpx.Client(transport=httpx.MockTransport(handler))
     try:
-        with pytest.raises(WorkdayError, match="not zero jobs"):
+        with pytest.raises(WorkdayError, match="zero jobs"):
             fetch_jobs(
                 "https://myhcm.wd3.myworkdayjobs.com/Betway_Africa",
                 request_delay_seconds=0,

@@ -1,0 +1,59 @@
+{
+  "supplied_url": "https://aerobotics.bamboohr.com/careers/103",
+  "checked_at_utc": "2026-10-20T21:02:41.005678+00:00",
+  "http_status": 200,
+  "final_url": "https://aerobotics.bamboohr.com/careers/103",
+  "content_type": "text/html; charset=UTF-8",
+  "response_bytes": 101709,
+  "page_title": "BambooHR",
+  "page_text_excerpt": "BambooHR",
+  "ats_detected": [
+    "bamboohr"
+  ],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Software Engineer",
+        "location": "Cape Town, Western Cape, South Africa",
+        "department": "Technology",
+        "url": "https://aerobotics.bamboohr.com/careers/103",
+        "description_available": true,
+        "source_adapter": "bamboohr",
+        "description_excerpt": "About Aerobotics Aerobotics is a Vision AI company helping fruit producers get more from every harvest. Our models are trained on the world's largest fruit dataset, creating a flywheel that continuously improves the product for our customers. We started with fruit sizing and expanded into forecasting and grading, and we're now developing full yield estimation. Our platform delivers accurate, transparent insights across the fruit supply chain. To date, we've analysed over 400 million trees from the sky, and more than 300 million fruit up close, helping farmers make critical operational and agricultural decisions that maximise yield and efficiency. Our global team of 50+ professionals is headquartered in Cape Town, with commercial teams in the USA, Australia, Europe, and South America. The Opportunity This is an open application where we are interested in engaging with talented Software Engineers for future openings based in Cape Town (hybrid work setup). We seek highly proactive thinkers who love building or enhancing products in an iterative and fast-moving environment. Your code will influence decisions about actual physical crops growing in actual orchards, and you'll do it with "
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "bamboohr_public_careers_json",
+        "endpoint": "https://aerobotics.bamboohr.com/careers/list",
+        "http_status": 200,
+        "success": true,
+        "jobs": [
+          {
+            "title": "Software Engineer",
+            "location": "Cape Town, Western Cape, South Africa",
+            "department": "Technology",
+            "url": "https://aerobotics.bamboohr.com/careers/103",
+            "description_available": true,
+            "source_adapter": "bamboohr",
+            "description_excerpt": "About Aerobotics Aerobotics is a Vision AI company helping fruit producers get more from every harvest. Our models are trained on the world's largest fruit dataset, creating a flywheel that continuously improves the product for our customers. We started with fruit sizing and expanded into forecasting and grading, and we're now developing full yield estimation. Our platform delivers accurate, transparent insights across the fruit supply chain. To date, we've analysed over 400 million trees from the sky, and more than 300 million fruit up close, helping farmers make critical operational and agricultural decisions that maximise yield and efficiency. Our global team of 50+ professionals is headquartered in Cape Town, with commercial teams in the USA, Australia, Europe, and South America. The Opportunity This is an open application where we are interested in engaging with talented Software Engineers for future openings based in Cape Town (hybrid work setup). We seek highly proactive thinkers who love building or enhancing products in an iterative and fast-moving environment. Your code will influence decisions about actual physical crops growing in actual orchards, and you'll do it with "
+          }
+        ],
+        "error": "",
+        "total_jobs_reported": 1,
+        "requested_job_id": "103",
+        "detail_endpoint": "https://aerobotics.bamboohr.com/careers/103/detail",
+        "detail_http_status": 200,
+        "detail_response_keys": [
+          "meta",
+          "result"
+        ]
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

@@ -1,0 +1,391 @@
+{
+  "supplied_url": "https://pragma.erecruit.co/candidateapp/jobs/browse",
+  "checked_at_utc": "2026-10-20T21:28:29.144512+00:00",
+  "http_status": 200,
+  "final_url": "https://pragma.erecruit.co/candidateapp/jobs/browse",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 58768,
+  "page_title": "Pragma",
+  "page_text_excerpt": "Pragma The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category Administration{cp label : catagory jobs drop count(count)} Business Development{cp label : catagory jobs drop count(count)} Engineering{cp label : catagory jobs drop count(count)} Finance{cp label : catagory jobs drop count(count)} HR{cp label : catagory jobs drop count(count)} ICT{cp label : catagory jobs drop count(count)} Maintenance{cp label : catagory jobs drop count(count)} Management{cp label : catagory jobs drop count(count)} Marketing{cp label : catagory jobs drop count(count)} Operations{cp label : catagory jobs drop count(count)} Skills Development Opportunities{cp label : catagory jobs drop count(count)} Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complet",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Browse by Category",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/jobs/browse/",
+        "description_available": true,
+        "description_excerpt": "Pragma The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complete your profile now? Incomplete Applications You have incomplete applications, view the application to complete Apply Nothing yet! Profile Im",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > All Categories",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/jobs/categories/",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > All Categories The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > All Categories Job Title Town / City Date Closing Business Analyst Bellville 2026/11/02 Project Engineer Gauteng / Cape Town 2026/10/31 Associate Consultant Johannesburg 2026/10/29 DevOps Engineer Bellville, Cape Town 2026/10/26 Project Administration Assistant Gauteng 2026/10/20 Product Support Engineer Bellville 2026/10/29 Channel Manager United Kindom 2026/10/23 Reliability Engineer Bellville / Midrand 2026/11/30 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learners",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Search",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Search",
+        "description_available": true,
+        "description_excerpt": "Search The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Search Category All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) Reference Number Job Title Select .NET Engineer Academy Admin Supervisor Academy Business Development Manager Accountant Administrator Analyst Programmer Asset Care Manager Associate Consultant Brand and Communications Manager Business Analyst Business Area Manager Business Development Executive Business Development Manager - Facilities Management Carpenter Chief Executive Officer Chief Operating Officer Cleaner Cleaning Tea",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Sign up for an account",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/SignUp",
+        "description_available": true,
+        "description_excerpt": "Sign Up The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Sign up for an account Sign Up Options Sign up with LinkedIn Sign up with Email Caps Lock is on! By signing up, you accept our Terms and Conditions . Log In if you already have an account . © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complete your profile now? Incomplete Applications You have incomplete applications, view the application to complete Apply Nothing yet! Profile Import Options Log In Only: Just log in and do not change my profile. Import and Keep: Import my",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Administration (2)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Administration/fdfda5cfcea74431b2648b745fff706e",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Administration (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Administration (2) Job Title Town / City Date Closing Business Analyst Bellville 2026/11/02 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Business Development (3)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Business_Development/e52f83cec1dc4bd3b0d0fdea975eaa04",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Business Development (3) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Business Development (3) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 Channel Manager United Kindom 2026/10/23 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Condition",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Engineering (5)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Engineering/2200c4e2618946308b6e3bc33ed73da2",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Engineering (5) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Engineering (5) Job Title Town / City Date Closing Project Engineer Gauteng / Cape Town 2026/10/31 Associate Consultant Johannesburg 2026/10/29 Project Administration Assistant Gauteng 2026/10/20 Product Support Engineer Bellville 2026/10/29 Reliability Engineer Bellville / Midrand 2026/11/30 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Finance (2)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Finance/25963a7aac904e42aa8330cf8d2b5225",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Finance (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Finance (2) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can mak",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > HR (2)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/HR/93ba8d2f1cd74e3f9c3e852826ffb082",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > HR (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > HR (2) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applicat",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > ICT (4)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/ICT/045ba3d53f4f4fb8b84b7ee64d3a59cf",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > ICT (4) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > ICT (4) Job Title Town / City Date Closing Business Analyst Bellville 2026/11/02 Associate Consultant Johannesburg 2026/10/29 DevOps Engineer Bellville, Cape Town 2026/10/26 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Maintenance (4)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Maintenance/99986de2e57e4804bd50e2c5ccca944c",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Maintenance (4) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Maintenance (4) Job Title Town / City Date Closing Project Engineer Gauteng / Cape Town 2026/10/31 Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 Reliability Engineer Bellville / Midrand 2026/11/30 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remov",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Management (2)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Management/504443e75eec4e1d8cb38001f97a62b5",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Management (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Management (2) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you c",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Marketing (1)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Marketing/fb906d3ac929465487ba810e81cf957b",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Marketing (1) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Marketing (1) Job Title Town / City Date Closing Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complet",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Operations (2)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Operations/0b2a153b09ab4ba7835d3a166035ef6e",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Operations (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Operations (2) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you c",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Skills Development Opportunities (0)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Skills_Development_Opportunities/7ed3f4b9a4644f0aa95da03c8b1b19c9",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Skills Development Opportunities (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Skills Development Opportunities (0) Select a sub-category: Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a comple",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Apprenticeship (0)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Apprenticeship/a3d1ce0666964e1882d29c444ce8d610",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Apprenticeship (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Apprenticeship (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Proce",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Bursaries (0)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Bursaries/487016c46c4b4148b2d842d68457612b",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Bursaries (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Bursaries (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Dele",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Internship (0)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Internship/23280e83c2c04c5b8cd9d75e46676d1a",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Internship (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Internship (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing De",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Learnership (0)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Learnership/288633aa20484b14bb076a37bca194ba",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Learnership (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Learnership (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Browse by Category > Vacation work (0)",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Vacation_work/3d79d24b05654d50bf75aff380a5daae",
+        "description_available": true,
+        "description_excerpt": "Browse by Category > Vacation work (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Vacation work (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Process",
+        "source_adapter": "same_host_html"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "same_host_html_vacancies",
+        "success": true,
+        "jobs": [
+          {
+            "title": "Browse by Category",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/jobs/browse/",
+            "description_available": true,
+            "description_excerpt": "Pragma The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complete your profile now? Incomplete Applications You have incomplete applications, view the application to complete Apply Nothing yet! Profile Im",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > All Categories",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/jobs/categories/",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > All Categories The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > All Categories Job Title Town / City Date Closing Business Analyst Bellville 2026/11/02 Project Engineer Gauteng / Cape Town 2026/10/31 Associate Consultant Johannesburg 2026/10/29 DevOps Engineer Bellville, Cape Town 2026/10/26 Project Administration Assistant Gauteng 2026/10/20 Product Support Engineer Bellville 2026/10/29 Channel Manager United Kindom 2026/10/23 Reliability Engineer Bellville / Midrand 2026/11/30 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learners",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Search",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Search",
+            "description_available": true,
+            "description_excerpt": "Search The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Search Category All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) Reference Number Job Title Select .NET Engineer Academy Admin Supervisor Academy Business Development Manager Accountant Administrator Analyst Programmer Asset Care Manager Associate Consultant Brand and Communications Manager Business Analyst Business Area Manager Business Development Executive Business Development Manager - Facilities Management Carpenter Chief Executive Officer Chief Operating Officer Cleaner Cleaning Tea",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Sign up for an account",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/SignUp",
+            "description_available": true,
+            "description_excerpt": "Sign Up The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Sign up for an account Sign Up Options Sign up with LinkedIn Sign up with Email Caps Lock is on! By signing up, you accept our Terms and Conditions . Log In if you already have an account . © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complete your profile now? Incomplete Applications You have incomplete applications, view the application to complete Apply Nothing yet! Profile Import Options Log In Only: Just log in and do not change my profile. Import and Keep: Import my",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Administration (2)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Administration/fdfda5cfcea74431b2648b745fff706e",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Administration (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Administration (2) Job Title Town / City Date Closing Business Analyst Bellville 2026/11/02 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Business Development (3)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Business_Development/e52f83cec1dc4bd3b0d0fdea975eaa04",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Business Development (3) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Business Development (3) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 Channel Manager United Kindom 2026/10/23 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Condition",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Engineering (5)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Engineering/2200c4e2618946308b6e3bc33ed73da2",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Engineering (5) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Engineering (5) Job Title Town / City Date Closing Project Engineer Gauteng / Cape Town 2026/10/31 Associate Consultant Johannesburg 2026/10/29 Project Administration Assistant Gauteng 2026/10/20 Product Support Engineer Bellville 2026/10/29 Reliability Engineer Bellville / Midrand 2026/11/30 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Finance (2)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Finance/25963a7aac904e42aa8330cf8d2b5225",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Finance (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Finance (2) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can mak",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > HR (2)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/HR/93ba8d2f1cd74e3f9c3e852826ffb082",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > HR (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > HR (2) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applicat",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > ICT (4)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/ICT/045ba3d53f4f4fb8b84b7ee64d3a59cf",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > ICT (4) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > ICT (4) Job Title Town / City Date Closing Business Analyst Bellville 2026/11/02 Associate Consultant Johannesburg 2026/10/29 DevOps Engineer Bellville, Cape Town 2026/10/26 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Maintenance (4)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Maintenance/99986de2e57e4804bd50e2c5ccca944c",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Maintenance (4) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Maintenance (4) Job Title Town / City Date Closing Project Engineer Gauteng / Cape Town 2026/10/31 Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 Reliability Engineer Bellville / Midrand 2026/11/30 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remov",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Management (2)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Management/504443e75eec4e1d8cb38001f97a62b5",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Management (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Management (2) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you c",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Marketing (1)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Marketing/fb906d3ac929465487ba810e81cf957b",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Marketing (1) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Marketing (1) Job Title Town / City Date Closing Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complet",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Operations (2)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Operations/0b2a153b09ab4ba7835d3a166035ef6e",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Operations (2) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Operations (2) Job Title Town / City Date Closing Associate Consultant Johannesburg 2026/10/29 Product Support Engineer Bellville 2026/10/29 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you c",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Skills Development Opportunities (0)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Skills_Development_Opportunities/7ed3f4b9a4644f0aa95da03c8b1b19c9",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Skills Development Opportunities (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Skills Development Opportunities (0) Select a sub-category: Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a comple",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Apprenticeship (0)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Apprenticeship/a3d1ce0666964e1882d29c444ce8d610",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Apprenticeship (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Apprenticeship (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Proce",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Bursaries (0)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Bursaries/487016c46c4b4148b2d842d68457612b",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Bursaries (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Bursaries (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Dele",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Internship (0)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Internship/23280e83c2c04c5b8cd9d75e46676d1a",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Internship (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Internship (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing De",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Learnership (0)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Learnership/288633aa20484b14bb076a37bca194ba",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Learnership (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Learnership (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Browse by Category > Vacation work (0)",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Categories/Vacation_work/3d79d24b05654d50bf75aff380a5daae",
+            "description_available": true,
+            "description_excerpt": "Browse by Category > Vacation work (0) The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > Vacation work (0) Currently, there are no opportunities available. To receive notifications about future openings, please log in to your profile and follow these steps: Browse by Category > Select Category > \"Set alert for this Category.\" You'll need a registered profile to set up alerts. Sign up to create one All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Process",
+            "source_adapter": "same_host_html"
+          }
+        ],
+        "error": "",
+        "detail_pages_checked": 20,
+        "candidate_links_found": 20
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

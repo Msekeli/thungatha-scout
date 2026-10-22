@@ -1,0 +1,85 @@
+{
+  "supplied_url": "https://pragma.erecruit.co/candidateapp/jobs/categories/",
+  "checked_at_utc": "2026-10-20T21:31:19.721758+00:00",
+  "http_status": 200,
+  "final_url": "https://pragma.erecruit.co/candidateapp/jobs/categories/",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 54600,
+  "page_title": "Browse by Category  >  All Categories",
+  "page_text_excerpt": "Browse by Category  >  All Categories The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category > All Categories Job Title Town / City Date Closing Business Analyst Bellville 2026/11/02 Project Engineer Gauteng / Cape Town 2026/10/31 Associate Consultant Johannesburg 2026/10/29 DevOps Engineer Bellville, Cape Town 2026/10/26 Project Administration Assistant Gauteng 2026/10/20 Product Support Engineer Bellville 2026/10/29 Channel Manager United Kindom 2026/10/23 Reliability Engineer Bellville / Midrand 2026/11/30 All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make application",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Browse by Category",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/jobs/browse/",
+        "description_available": true,
+        "description_excerpt": "Pragma The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complete your profile now? Incomplete Applications You have incomplete applications, view the application to complete Apply Nothing yet! Profile Im",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Search",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/Jobs/Search",
+        "description_available": true,
+        "description_excerpt": "Search The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Search Category All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) Reference Number Job Title Select .NET Engineer Academy Admin Supervisor Academy Business Development Manager Accountant Administrator Analyst Programmer Asset Care Manager Associate Consultant Brand and Communications Manager Business Analyst Business Area Manager Business Development Executive Business Development Manager - Facilities Management Carpenter Chief Executive Officer Chief Operating Officer Cleaner Cleaning Tea",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Sign up for an account",
+        "location": "",
+        "department": "",
+        "url": "https://pragma.erecruit.co/candidateapp/SignUp",
+        "description_available": true,
+        "description_excerpt": "Sign Up The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Sign up for an account Sign Up Options Sign up with LinkedIn Sign up with Email Caps Lock is on! By signing up, you accept our Terms and Conditions . Log In if you already have an account . © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complete your profile now? Incomplete Applications You have incomplete applications, view the application to complete Apply Nothing yet! Profile Import Options Log In Only: Just log in and do not change my profile. Import and Keep: Import my",
+        "source_adapter": "same_host_html"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "same_host_html_vacancies",
+        "success": true,
+        "jobs": [
+          {
+            "title": "Browse by Category",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/jobs/browse/",
+            "description_available": true,
+            "description_excerpt": "Pragma The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Browse by Category Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complete your profile now? Incomplete Applications You have incomplete applications, view the application to complete Apply Nothing yet! Profile Im",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Search",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/Jobs/Search",
+            "description_available": true,
+            "description_excerpt": "Search The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Search Category All Categories Administration (2) Business Development (3) Engineering (5) Finance (2) HR (2) ICT (4) Maintenance (4) Management (2) Marketing (1) Operations (2) Skills Development Opportunities (0) Apprenticeship (0) Bursaries (0) Internship (0) Learnership (0) Vacation work (0) Reference Number Job Title Select .NET Engineer Academy Admin Supervisor Academy Business Development Manager Accountant Administrator Analyst Programmer Asset Care Manager Associate Consultant Brand and Communications Manager Business Analyst Business Area Manager Business Development Executive Business Development Manager - Facilities Management Carpenter Chief Executive Officer Chief Operating Officer Cleaner Cleaning Tea",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Sign up for an account",
+            "location": "",
+            "department": "",
+            "url": "https://pragma.erecruit.co/candidateapp/SignUp",
+            "description_available": true,
+            "description_excerpt": "Sign Up The Internet Explorer 11 browser is no longer supported. We recommend the new browser from Microsoft. Download now Browse Jobs Categories Search Sign Up Log In Careers Sign up for an account Sign Up Options Sign up with LinkedIn Sign up with Email Caps Lock is on! By signing up, you accept our Terms and Conditions . Log In if you already have an account . © Pragma. All rights reserved. Powered by graylink recruitment software Processing Delete Account? Remove Personal Information? Cancel Request to Remove Personal Information? Terms & Conditions Incomplete Profile You need a complete profile before you can make applications. Would you like to complete your profile now? Incomplete Applications You have incomplete applications, view the application to complete Apply Nothing yet! Profile Import Options Log In Only: Just log in and do not change my profile. Import and Keep: Import my",
+            "source_adapter": "same_host_html"
+          }
+        ],
+        "error": "",
+        "detail_pages_checked": 3,
+        "candidate_links_found": 3
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

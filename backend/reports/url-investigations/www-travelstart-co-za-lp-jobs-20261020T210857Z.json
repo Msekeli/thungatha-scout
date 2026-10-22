@@ -1,0 +1,141 @@
+{
+  "supplied_url": "https://www.travelstart.co.za/lp/jobs",
+  "checked_at_utc": "2026-10-20T21:08:49.375075+00:00",
+  "http_status": 200,
+  "final_url": "https://travellab.breezy.hr/",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 17610,
+  "page_title": "Openings at TravelLab Africa Group",
+  "page_text_excerpt": "Openings at TravelLab Africa Group %HEADER_COMPANY_WEBSITE% %HEADER_EMPLOYEES% Looking for your next career move? We're looking for talented, passionate, driven, team players to join our amazing team! %BUTTON_VIEW_OPENINGS% TRAVELLAB GROUP IS A TECHNOLOGY AND FINTECH GROUP DISRUPTING THE TRAVEL ECOSYSTEM IN AFRICA The TravelLab Group is Africa’s leading travel and fintech technology group. Our journey began in Sweden over 20 years ago as a pioneer in a nascent OTA industry; with one goal – making travel easier. Today, the TravelLab Group serves the African market from its hub in Cape Town with a diversified portfolio of brands; featuring market leaders in various travel, fintech and technology verticals, geographic markets, distribution models, customer segments, and travel products. With over two decades of travel and technology experience, we are committed to disrupting the travel market and adjacent financial market through innovative technology that captures people’s hearts. %HEADER_OUR_OPENINGS% %LABEL_DEPARTMENTS% %DROPDOWN_ANY_DEPARTMENT% Group Operations: Consumer Group Operations: Customer Service Group Technology Development %LABEL_LOCATIONS% %DROPDOWN_ANY_LOCATION% Garde",
+  "ats_detected": [
+    "breezyhr"
+  ],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Operations Manager - Customer Service",
+        "location": "Gardens - Cape Town, ZA",
+        "department": "",
+        "url": "https://travellab.breezy.hr/p/ca37ef078f6601-operations-manager-customer-service",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Operations Manager - Customer Service %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Group Operations Division is looking for an Operations Manager for the Customer Support Team , which is known as One Team! (This role is based in Gardens, Cape Town (South Africa) ) About the Role The Operations Manager is responsible for driving operational excellence, maximising efficiency, and leading a high-performing team of Team Leaders and Customer Support Agents. This role ensures the consistent delivery of service level agreements (SLAs), key performance indicators (KPIs), and strict compliance with company policies, quality standards, and attendance governance. The ideal candidate balances data-driven leadership with robust people-development strategies. Key Responsibilities Operational Delivery & SLA Management Drive day-to-day operational execution to consistently meet or exceed contractual SLAs and KPIs . Hold Team Leaders accountable to daily, weekly, and monthly performance targets through structured performance reviews. Oversee real-time queue management and agent utilisation across multiple shifts and geographies ",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Senior Travel Operations  Specialist - Operations OneTeam",
+        "location": "Gardens - Cape Town, ZA",
+        "department": "",
+        "url": "https://travellab.breezy.hr/p/43037b6bee2601-senior-travel-operations-specialist-operations-oneteam",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Senior Travel Operations  Specialist - Operations OneTeam %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Group Operations Division is looking for Senior Travel Operations Specialist s for the Customer Support Team , which is known as One Team! (These roles are planned to be based in Gardens, Cape Town (South Africa) ) About the Role The Senior Travel Operations Specialist is responsible for delivering exceptional end-to-end travel support and operational excellence across multiple customer communication channels. The role serves as a subject matter expert in complex ticketing, amendments, schedule changes, refunds, reissues, and airline policies, ensuring seamless customer experiences while minimising operational and financial risk. As a senior member of the Operations team, the incumbent acts as a trusted advisor to customers, colleagues, and airline partners, leveraging advanced Amadeus expertise, NDC knowledge, and industry best practices to resolve complex travel scenarios efficiently and accurately. Key Responsibilities: Customer Experience Excellence Multi-Channel Customer Support Deliver professional and ef",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "IT Manager",
+        "location": "Gardens - Cape Town, ZA",
+        "department": "",
+        "url": "https://travellab.breezy.hr/p/73b66676d5d901-it-manager",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% IT Manager %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Group Technology Team has an opportunity for an IT Manager. The role is responsible for coordinating, planning, and leading all computer-related activities within the organisation. The role ensures the stability, security, scalability, and performance of the company’s IT infrastructure and systems while aligning technology solutions with business objectives. The IT Manager oversees cloud and on-premise environments, drives operational excellence, manages vendor relationships, and leads the IT team to deliver secure, reliable, and efficient technology services that support business continuity and growth. (This role is  based in Cape Town ) Key Responsibilities IT Infrastructure & Operations Ensure all IT systems, platforms, and infrastructure operate effectively with high availability and minimal downtime. Oversee the maintenance, optimisation, and continuous improvement of IT systems and operational processes. Manage and support cloud and on-premise infrastructure environments, including migrations and integrations. Monitor system performance and implement ",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Java Developer",
+        "location": "Gardens - Cape Town, ZA",
+        "department": "",
+        "url": "https://travellab.breezy.hr/p/0618707acde101-java-developer",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Java Developer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Travelstart team is looking for a talented, seasoned Java Developer to join us. This role is suited to candidates who possess a strong understanding of software architecture principles, experience with leading or mentoring development teams, and a proven track record of delivering high-quality, scalable solutions. (This role is planned to be based in Cape Town ) Key Responsibilities Develop and maintain backend systems that handle airline integrations, payment gateways, operational systems, web APIs, and microservices. Design, develop, and modify modules based on functional and system requirements, ensuring responsiveness, stability, and quality of applications. Participate in the testing process through unit tests, integration tests, and bug fixes. Actively contribute to daily scrum meetings and sprint planning sessions. Generate and maintain technical documentation for developed modules. Participate in code reviews to ensure code quality and adherence to standards. Be familiar with CI/CD pipelines using tools like GitHub, Jenkins, GitHub Actions, and ",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Python Developer -Mid/Snr",
+        "location": "Gardens - Cape Town, ZA",
+        "department": "",
+        "url": "https://travellab.breezy.hr/p/1d3a8f076f9101-python-developer-mid-snr",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Python Developer -Mid/Snr %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Travelstart team is looking for an experienced Python Developer to join our Technology team and help build, improve and support the systems that power Travelstart’s products, platforms and operational services. This is a hands-on engineering role with a strong focus on backend development, APIs, integrations and automation . You’ll work as part of a cross-functional technology team, collaborating with Engineering, Product, Data and Operations to turn business and product requirements into reliable, scalable software. We’re open to appointing at either mid or senior level , depending on your experience and technical capability. For a strong mid-level developer, this is an opportunity to broaden your technical ownership and work across increasingly complex systems. For a senior developer, we’re looking for someone comfortable operating independently, influencing technical design and helping raise engineering standards across the team. Location: Cape Town, South Africa (Our office is located in Gardens) What you’ll do In this role, you’ll: Desig",
+        "source_adapter": "breezyhr"
+      },
+      {
+        "title": "Snr FrontEnd & App Developer",
+        "location": "Gardens - Cape Town, ZA",
+        "department": "",
+        "url": "https://travellab.breezy.hr/p/8a07d96840e301-snr-frontend-app-developer",
+        "description_available": true,
+        "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Snr FrontEnd & App Developer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Travelstart team is looking for a Senior Front-End & App Developer to join our Technology team and help build and evolve Travelstart’s customer-facing web and mobile experiences. This is a genuinely blended role for someone equally comfortable working across modern front-end web development and mobile applications. You’ll work closely with Product, UX/UI, back-end engineering and other technology teams to turn customer and business requirements into intuitive, reliable and scalable digital experiences. We’re looking for someone who can take real ownership — from understanding the problem and shaping the technical solution through development, testing, deployment, production support and ongoing optimisation. Location: Cape Town, South Africa (Our office is located in Gardens) What you’ll be doing Build great web and mobile experiences Develop, maintain and enhance responsive customer-facing web applications. Build and improve mobile applications across supported platforms. Translate product requirements and UX/UI designs into polished, high",
+        "source_adapter": "breezyhr"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "breezyhr_public_html",
+        "success": true,
+        "jobs": [
+          {
+            "title": "Operations Manager - Customer Service",
+            "location": "Gardens - Cape Town, ZA",
+            "department": "",
+            "url": "https://travellab.breezy.hr/p/ca37ef078f6601-operations-manager-customer-service",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Operations Manager - Customer Service %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Group Operations Division is looking for an Operations Manager for the Customer Support Team , which is known as One Team! (This role is based in Gardens, Cape Town (South Africa) ) About the Role The Operations Manager is responsible for driving operational excellence, maximising efficiency, and leading a high-performing team of Team Leaders and Customer Support Agents. This role ensures the consistent delivery of service level agreements (SLAs), key performance indicators (KPIs), and strict compliance with company policies, quality standards, and attendance governance. The ideal candidate balances data-driven leadership with robust people-development strategies. Key Responsibilities Operational Delivery & SLA Management Drive day-to-day operational execution to consistently meet or exceed contractual SLAs and KPIs . Hold Team Leaders accountable to daily, weekly, and monthly performance targets through structured performance reviews. Oversee real-time queue management and agent utilisation across multiple shifts and geographies ",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Senior Travel Operations  Specialist - Operations OneTeam",
+            "location": "Gardens - Cape Town, ZA",
+            "department": "",
+            "url": "https://travellab.breezy.hr/p/43037b6bee2601-senior-travel-operations-specialist-operations-oneteam",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Senior Travel Operations  Specialist - Operations OneTeam %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Group Operations Division is looking for Senior Travel Operations Specialist s for the Customer Support Team , which is known as One Team! (These roles are planned to be based in Gardens, Cape Town (South Africa) ) About the Role The Senior Travel Operations Specialist is responsible for delivering exceptional end-to-end travel support and operational excellence across multiple customer communication channels. The role serves as a subject matter expert in complex ticketing, amendments, schedule changes, refunds, reissues, and airline policies, ensuring seamless customer experiences while minimising operational and financial risk. As a senior member of the Operations team, the incumbent acts as a trusted advisor to customers, colleagues, and airline partners, leveraging advanced Amadeus expertise, NDC knowledge, and industry best practices to resolve complex travel scenarios efficiently and accurately. Key Responsibilities: Customer Experience Excellence Multi-Channel Customer Support Deliver professional and ef",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "IT Manager",
+            "location": "Gardens - Cape Town, ZA",
+            "department": "",
+            "url": "https://travellab.breezy.hr/p/73b66676d5d901-it-manager",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% IT Manager %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Group Technology Team has an opportunity for an IT Manager. The role is responsible for coordinating, planning, and leading all computer-related activities within the organisation. The role ensures the stability, security, scalability, and performance of the company’s IT infrastructure and systems while aligning technology solutions with business objectives. The IT Manager oversees cloud and on-premise environments, drives operational excellence, manages vendor relationships, and leads the IT team to deliver secure, reliable, and efficient technology services that support business continuity and growth. (This role is  based in Cape Town ) Key Responsibilities IT Infrastructure & Operations Ensure all IT systems, platforms, and infrastructure operate effectively with high availability and minimal downtime. Oversee the maintenance, optimisation, and continuous improvement of IT systems and operational processes. Manage and support cloud and on-premise infrastructure environments, including migrations and integrations. Monitor system performance and implement ",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Java Developer",
+            "location": "Gardens - Cape Town, ZA",
+            "department": "",
+            "url": "https://travellab.breezy.hr/p/0618707acde101-java-developer",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Java Developer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Travelstart team is looking for a talented, seasoned Java Developer to join us. This role is suited to candidates who possess a strong understanding of software architecture principles, experience with leading or mentoring development teams, and a proven track record of delivering high-quality, scalable solutions. (This role is planned to be based in Cape Town ) Key Responsibilities Develop and maintain backend systems that handle airline integrations, payment gateways, operational systems, web APIs, and microservices. Design, develop, and modify modules based on functional and system requirements, ensuring responsiveness, stability, and quality of applications. Participate in the testing process through unit tests, integration tests, and bug fixes. Actively contribute to daily scrum meetings and sprint planning sessions. Generate and maintain technical documentation for developed modules. Participate in code reviews to ensure code quality and adherence to standards. Be familiar with CI/CD pipelines using tools like GitHub, Jenkins, GitHub Actions, and ",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Python Developer -Mid/Snr",
+            "location": "Gardens - Cape Town, ZA",
+            "department": "",
+            "url": "https://travellab.breezy.hr/p/1d3a8f076f9101-python-developer-mid-snr",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Python Developer -Mid/Snr %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Travelstart team is looking for an experienced Python Developer to join our Technology team and help build, improve and support the systems that power Travelstart’s products, platforms and operational services. This is a hands-on engineering role with a strong focus on backend development, APIs, integrations and automation . You’ll work as part of a cross-functional technology team, collaborating with Engineering, Product, Data and Operations to turn business and product requirements into reliable, scalable software. We’re open to appointing at either mid or senior level , depending on your experience and technical capability. For a strong mid-level developer, this is an opportunity to broaden your technical ownership and work across increasingly complex systems. For a senior developer, we’re looking for someone comfortable operating independently, influencing technical design and helping raise engineering standards across the team. Location: Cape Town, South Africa (Our office is located in Gardens) What you’ll do In this role, you’ll: Desig",
+            "source_adapter": "breezyhr"
+          },
+          {
+            "title": "Snr FrontEnd & App Developer",
+            "location": "Gardens - Cape Town, ZA",
+            "department": "",
+            "url": "https://travellab.breezy.hr/p/8a07d96840e301-snr-frontend-app-developer",
+            "description_available": true,
+            "description_excerpt": "%BREADCRUMB_JOB_OPENINGS% Snr FrontEnd & App Developer %BUTTON_APPLY_TO_POSITION% %BUTTON_APPLY_USING_INDEED% %BUTTON_APPLY_USING_LINKED_IN% Our Travelstart team is looking for a Senior Front-End & App Developer to join our Technology team and help build and evolve Travelstart’s customer-facing web and mobile experiences. This is a genuinely blended role for someone equally comfortable working across modern front-end web development and mobile applications. You’ll work closely with Product, UX/UI, back-end engineering and other technology teams to turn customer and business requirements into intuitive, reliable and scalable digital experiences. We’re looking for someone who can take real ownership — from understanding the problem and shaping the technical solution through development, testing, deployment, production support and ongoing optimisation. Location: Cape Town, South Africa (Our office is located in Gardens) What you’ll be doing Build great web and mobile experiences Develop, maintain and enhance responsive customer-facing web applications. Build and improve mobile applications across supported platforms. Translate product requirements and UX/UI designs into polished, high",
+            "source_adapter": "breezyhr"
+          }
+        ],
+        "error": "",
+        "candidate_links_found": 6,
+        "detail_pages_checked": 6
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

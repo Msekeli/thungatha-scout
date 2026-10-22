@@ -1,0 +1,481 @@
+{
+  "supplied_url": "https://www.relx.com/careers",
+  "checked_at_utc": "2026-10-20T20:43:52.376521+00:00",
+  "http_status": 200,
+  "final_url": "https://www.relx.com/careers",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 66263,
+  "page_title": "Careers – RELX - Information-based analytics and decision tools",
+  "page_text_excerpt": "Careers – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investors Funding strategy Issuing companies and guarantor Term debt Maturity profile Capital structure Commercial paper Back up facilities Credit ratings Debt investor contacts Corporate Responsibility Being a responsible business Unique contributions Governance Customers People Community Supply chain Environmen",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "OUR BUSINESS",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/our-business/our-business-overview",
+        "description_available": true,
+        "description_excerpt": "Our business overview – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Our stories",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/our-business/perspectives",
+        "description_available": true,
+        "description_excerpt": "Our stories: RELX stories and insights – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Strategy",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/our-business/strategy",
+        "description_available": true,
+        "description_excerpt": "Strategy – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investors Fun",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Market segments",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/our-business/market-segments",
+        "description_available": true,
+        "description_excerpt": "Market segments – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt invest",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Scientific, Technical & Medical",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/our-business/market-segments/scientific-technical-and-medical",
+        "description_available": true,
+        "description_excerpt": "Scientific, Technical & Medical – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of associa",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Exhibitions",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/our-business/market-segments/exhibitions",
+        "description_available": true,
+        "description_excerpt": "Exhibitions – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investors ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "BOARD OF DIRECTORS",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/corporate-governance/board-of-directors",
+        "description_available": true,
+        "description_excerpt": "Board of Directors – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inv",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Audit Committee",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/our-business/board-committees/audit-committee",
+        "description_available": true,
+        "description_excerpt": "Audit Committee – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt invest",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "BUSINESS LEADERS",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/our-business/business-leaders",
+        "description_available": true,
+        "description_excerpt": "Business leaders – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inves",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "INVESTORS",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/investor-overview",
+        "description_available": true,
+        "description_excerpt": "Investor overview – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inve",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Investor presentations",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/investor-presentations/2026",
+        "description_available": true,
+        "description_excerpt": "2026 Investor presentations – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Shareholder information",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/shareholder-information",
+        "description_available": true,
+        "description_excerpt": "Shareholder information – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Deb",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Dividend information",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/shareholder-information/dividend-information",
+        "description_available": true,
+        "description_excerpt": "Dividend information – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt i",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "RELX PLC ordinary shareholders",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/shareholder-information/relx-plc-ordinary-shareholders",
+        "description_available": true,
+        "description_excerpt": "RELX PLC ordinary shareholders – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of associat",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "RELX PLC ADR shareholders",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/shareholder-information/relx-plc-adr-shareholders",
+        "description_available": true,
+        "description_excerpt": "RELX PLC ADR shareholders – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association D",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "AGM and General Meeting information for RELX PLC",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/shareholder-information/agm-information-for-relx-plc",
+        "description_available": true,
+        "description_excerpt": "AGM and General Meeting information for RELX PLC – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Ar",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Corporate structure simplification - 2018",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/shareholder-information/corp-simplification",
+        "description_available": true,
+        "description_excerpt": "Corporate structure simplification - 2018 – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Investor contacts",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/shareholder-information/investor-contacts",
+        "description_available": true,
+        "description_excerpt": "Investor contacts – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inve",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Historic information for RELX NV",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/shareholder-information/historic-information-for-relx-nv",
+        "description_available": true,
+        "description_excerpt": "Historic information for RELX NV – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of associ",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Results",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/results/2026",
+        "description_available": true,
+        "description_excerpt": "Results – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investors Fund",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Annual Reports",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/annual-reports/2025",
+        "description_available": true,
+        "description_excerpt": "Annual Reports – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investo",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "RELX PLC - REL (London)",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/share-price/lse",
+        "description_available": true,
+        "description_excerpt": "RELX PLC - REL (London) – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Deb",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Financial calendar",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/financial-calendar",
+        "description_available": true,
+        "description_excerpt": "Financial calendar – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inv",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Key financial data",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/key-financial-data",
+        "description_available": true,
+        "description_excerpt": "Key financial data – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inv",
+        "source_adapter": "same_host_html"
+      },
+      {
+        "title": "Analyst coverage",
+        "location": "",
+        "department": "",
+        "url": "https://www.relx.com/investors/analyst-coverage",
+        "description_available": true,
+        "description_excerpt": "Analyst coverage – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inves",
+        "source_adapter": "same_host_html"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "same_host_html_vacancies",
+        "success": true,
+        "jobs": [
+          {
+            "title": "OUR BUSINESS",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/our-business/our-business-overview",
+            "description_available": true,
+            "description_excerpt": "Our business overview – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Our stories",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/our-business/perspectives",
+            "description_available": true,
+            "description_excerpt": "Our stories: RELX stories and insights – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Strategy",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/our-business/strategy",
+            "description_available": true,
+            "description_excerpt": "Strategy – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investors Fun",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Market segments",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/our-business/market-segments",
+            "description_available": true,
+            "description_excerpt": "Market segments – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt invest",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Scientific, Technical & Medical",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/our-business/market-segments/scientific-technical-and-medical",
+            "description_available": true,
+            "description_excerpt": "Scientific, Technical & Medical – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of associa",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Exhibitions",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/our-business/market-segments/exhibitions",
+            "description_available": true,
+            "description_excerpt": "Exhibitions – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investors ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "BOARD OF DIRECTORS",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/corporate-governance/board-of-directors",
+            "description_available": true,
+            "description_excerpt": "Board of Directors – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inv",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Audit Committee",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/our-business/board-committees/audit-committee",
+            "description_available": true,
+            "description_excerpt": "Audit Committee – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt invest",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "BUSINESS LEADERS",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/our-business/business-leaders",
+            "description_available": true,
+            "description_excerpt": "Business leaders – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inves",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "INVESTORS",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/investor-overview",
+            "description_available": true,
+            "description_excerpt": "Investor overview – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inve",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Investor presentations",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/investor-presentations/2026",
+            "description_available": true,
+            "description_excerpt": "2026 Investor presentations – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Shareholder information",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/shareholder-information",
+            "description_available": true,
+            "description_excerpt": "Shareholder information – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Deb",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Dividend information",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/shareholder-information/dividend-information",
+            "description_available": true,
+            "description_excerpt": "Dividend information – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt i",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "RELX PLC ordinary shareholders",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/shareholder-information/relx-plc-ordinary-shareholders",
+            "description_available": true,
+            "description_excerpt": "RELX PLC ordinary shareholders – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of associat",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "RELX PLC ADR shareholders",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/shareholder-information/relx-plc-adr-shareholders",
+            "description_available": true,
+            "description_excerpt": "RELX PLC ADR shareholders – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association D",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "AGM and General Meeting information for RELX PLC",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/shareholder-information/agm-information-for-relx-plc",
+            "description_available": true,
+            "description_excerpt": "AGM and General Meeting information for RELX PLC – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Ar",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Corporate structure simplification - 2018",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/shareholder-information/corp-simplification",
+            "description_available": true,
+            "description_excerpt": "Corporate structure simplification - 2018 – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Investor contacts",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/shareholder-information/investor-contacts",
+            "description_available": true,
+            "description_excerpt": "Investor contacts – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inve",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Historic information for RELX NV",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/shareholder-information/historic-information-for-relx-nv",
+            "description_available": true,
+            "description_excerpt": "Historic information for RELX NV – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of associ",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Results",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/results/2026",
+            "description_available": true,
+            "description_excerpt": "Results – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investors Fund",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Annual Reports",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/annual-reports/2025",
+            "description_available": true,
+            "description_excerpt": "Annual Reports – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investo",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "RELX PLC - REL (London)",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/share-price/lse",
+            "description_available": true,
+            "description_excerpt": "RELX PLC - REL (London) – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Deb",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Financial calendar",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/financial-calendar",
+            "description_available": true,
+            "description_excerpt": "Financial calendar – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inv",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Key financial data",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/key-financial-data",
+            "description_available": true,
+            "description_excerpt": "Key financial data – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inv",
+            "source_adapter": "same_host_html"
+          },
+          {
+            "title": "Analyst coverage",
+            "location": "",
+            "department": "",
+            "url": "https://www.relx.com/investors/analyst-coverage",
+            "description_available": true,
+            "description_excerpt": "Analyst coverage – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt inves",
+            "source_adapter": "same_host_html"
+          }
+        ],
+        "error": "",
+        "detail_pages_checked": 25,
+        "candidate_links_found": 75
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

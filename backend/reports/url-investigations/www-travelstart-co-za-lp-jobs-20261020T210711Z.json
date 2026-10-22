@@ -1,0 +1,29 @@
+{
+  "supplied_url": "https://www.travelstart.co.za/lp/jobs",
+  "checked_at_utc": "2026-10-20T21:07:09.652469+00:00",
+  "http_status": 200,
+  "final_url": "https://travellab.breezy.hr/",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 17636,
+  "page_title": "Openings at TravelLab Africa Group",
+  "page_text_excerpt": "Openings at TravelLab Africa Group %HEADER_COMPANY_WEBSITE% %HEADER_EMPLOYEES% Looking for your next career move? We're looking for talented, passionate, driven, team players to join our amazing team! %BUTTON_VIEW_OPENINGS% TRAVELLAB GROUP IS A TECHNOLOGY AND FINTECH GROUP DISRUPTING THE TRAVEL ECOSYSTEM IN AFRICA The TravelLab Group is Africa’s leading travel and fintech technology group. Our journey began in Sweden over 20 years ago as a pioneer in a nascent OTA industry; with one goal – making travel easier. Today, the TravelLab Group serves the African market from its hub in Cape Town with a diversified portfolio of brands; featuring market leaders in various travel, fintech and technology verticals, geographic markets, distribution models, customer segments, and travel products. With over two decades of travel and technology experience, we are committed to disrupting the travel market and adjacent financial market through innovative technology that captures people’s hearts. %HEADER_OUR_OPENINGS% %LABEL_DEPARTMENTS% %DROPDOWN_ANY_DEPARTMENT% Group Operations: Consumer Group Operations: Customer Service Group Technology Development %LABEL_LOCATIONS% %DROPDOWN_ANY_LOCATION% Garde",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": false,
+    "jobs": [],
+    "adapters": [
+      {
+        "adapter": "same_host_html_vacancies",
+        "success": false,
+        "jobs": [],
+        "error": "No readable same-host vacancy detail pages were extracted from observed links.",
+        "detail_pages_checked": 0,
+        "candidate_links_found": 0
+      }
+    ],
+    "note": "No supported ATS detected and no readable vacancy detail pages extracted. No blind endpoint probing or application submission was attempted."
+  },
+  "errors": []
+}

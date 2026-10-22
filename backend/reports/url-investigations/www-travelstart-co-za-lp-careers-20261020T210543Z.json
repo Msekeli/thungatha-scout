@@ -1,0 +1,22 @@
+{
+  "supplied_url": "https://www.travelstart.co.za/lp/careers",
+  "checked_at_utc": "2026-10-20T21:05:42.500082+00:00",
+  "http_status": 404,
+  "final_url": "https://www.travelstart.co.za/lp/careers",
+  "content_type": "text/html",
+  "response_bytes": 4413,
+  "page_title": "",
+  "page_text_excerpt": "",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": false,
+    "success": false,
+    "jobs": [],
+    "adapters": [],
+    "note": ""
+  },
+  "errors": [
+    "Careers page returned HTTP 404."
+  ]
+}

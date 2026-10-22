@@ -1,0 +1,262 @@
+# Careers URL Investigation
+
+- Supplied URL: https://job-boards.greenhouse.io/impact
+- Final URL: https://job-boards.greenhouse.io/impact
+- HTTP status: 200
+- Page title: Jobs at impact.com
+- ATS detected: greenhouse
+- Extraction success: True
+- Jobs extracted in this response: 77
+
+## Assessment
+
+Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation.
+
+## ATS evidence
+
+- Greenhouse board token 'impact' found in supplied page HTML/URL.
+
+## Adapter results
+
+- **greenhouse_public_board_api**: success=True; HTTP=200; reported jobs=77; candidate links=n/a; error=
+
+## Extracted jobs
+
+- **Account Executive** — London
+  - https://job-boards.greenhouse.io/impact/jobs/8551697002
+  - Description present: True
+- **Account Executive** — Madrid
+  - https://job-boards.greenhouse.io/impact/jobs/8870463002
+  - Description present: True
+- **Account Executive (Business Development)** — Shanghai
+  - https://job-boards.greenhouse.io/impact/jobs/8653256002
+  - Description present: True
+- **Account Executive, SMB** — New York, New York; Santa Barbara, California
+  - https://job-boards.greenhouse.io/impact/jobs/5828526002
+  - Description present: True
+- **Affiliate Retail Media Growth Lead** — New York, New York; Santa Barbara, California; Seattle Washington; Columbus, Ohio
+  - https://job-boards.greenhouse.io/impact/jobs/8720183002
+  - Description present: True
+- **Associate Customer Success Manager** — Shanghai
+  - https://job-boards.greenhouse.io/impact/jobs/8891284002
+  - Description present: True
+- **Associate Manager, Finance Systems & Data Governance** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8661315002
+  - Description present: True
+- **Associate Manager (Statutory reporting, Acquisitions & Tax)** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8612149002
+  - Description present: True
+- **Associate Product Manager (Contracting/Action Processing)** — Santa Barbara, CA; Seattle, WA
+  - https://job-boards.greenhouse.io/impact/jobs/8871230002
+  - Description present: True
+- **Associate Software Engineer** — Santa Barbara, CA
+  - https://job-boards.greenhouse.io/impact/jobs/8645964002
+  - Description present: True
+- **Associate Solutions Architect** — Remote
+  - https://job-boards.greenhouse.io/impact/jobs/8797755002
+  - Description present: True
+- **Business Development Representative, Inbound** — New York City
+  - https://job-boards.greenhouse.io/impact/jobs/7882953002
+  - Description present: True
+- **Business Development Representative, Inbound** — New York
+  - https://job-boards.greenhouse.io/impact/jobs/7768895002
+  - Description present: True
+- **Channel Partnership Manager - Agency - ANZ** — Sydney
+  - https://job-boards.greenhouse.io/impact/jobs/8576162002
+  - Description present: True
+- **Creator Consulting & Relations Manager** — Kuala Lumpur
+  - https://job-boards.greenhouse.io/impact/jobs/8858155002
+  - Description present: True
+- **Creator Consulting & Relations Manager - Japan** — Tokyo
+  - https://job-boards.greenhouse.io/impact/jobs/8858177002
+  - Description present: True
+- **Creator Marketing Consulting Manager** — New York
+  - https://job-boards.greenhouse.io/impact/jobs/8658822002
+  - Description present: True
+- **Creator Strategy Manager** — New York,New York
+  - https://job-boards.greenhouse.io/impact/jobs/8728538002
+  - Description present: True
+- **Customer Solutions Manager** — Columbus
+  - https://job-boards.greenhouse.io/impact/jobs/8646077002
+  - Description present: True
+- **Customer Solutions Specialist (Technical Support)** — Kuala Lumpur
+  - https://job-boards.greenhouse.io/impact/jobs/8690467002
+  - Description present: True
+- **Customer Success Manager** — New York; Santa Barbara; Seattle; Columbus
+  - https://job-boards.greenhouse.io/impact/jobs/8863721002
+  - Description present: True
+- **Data Platform Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8867903002
+  - Description present: True
+- **Data Scientist, Next Gen Recommendation Systems** — New York City
+  - https://job-boards.greenhouse.io/impact/jobs/8509182002
+  - Description present: True
+- **Early Careers** — Oslo
+  - https://job-boards.greenhouse.io/impact/jobs/8448241002
+  - Description present: True
+- **Early Careers - Cape Town** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/4054047002
+  - Description present: True
+- **Email & Marketing Automation Developer** — Cape Town, SA
+  - https://job-boards.greenhouse.io/impact/jobs/8636502002
+  - Description present: True
+- **Enterprise Account Executive** — US Remote
+  - https://job-boards.greenhouse.io/impact/jobs/5828699002
+  - Description present: True
+- **Enterprise Account Executive** — London
+  - https://job-boards.greenhouse.io/impact/jobs/8527856002
+  - Description present: True
+- **Full Stack Software Engineer** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8879720002
+  - Description present: True
+- **Full Stack Software Engineer** — Seattle, Washington
+  - https://job-boards.greenhouse.io/impact/jobs/8465838002
+  - Description present: True
+- **GenAI Engineer, Marketing** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8870328002
+  - Description present: True
+- **GenAI Engineer - Product Marketing & Adoption** — Capetown
+  - https://job-boards.greenhouse.io/impact/jobs/8583462002
+  - Description present: True
+- **Integration Engineer** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8465082002
+  - Description present: True
+- **Integration Engineer III** — Sydney
+  - https://job-boards.greenhouse.io/impact/jobs/8836551002
+  - Description present: True
+- **Intermediate Full Stack Software Engineer** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8557055002
+  - Description present: True
+- **Internship - German speaking Influencer Specialist** — Stockholm
+  - https://job-boards.greenhouse.io/impact/jobs/7819642002
+  - Description present: True
+- **Lead Technical Services Engineer** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8462546002
+  - Description present: True
+- **Marketing Analytics Manager** — New York; Remote; Columbus, Ohio; Seattle, Washington; Santa Barbara, California
+  - https://job-boards.greenhouse.io/impact/jobs/8870968002
+  - Description present: True
+- **MySQL Database Administrator** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8647400002
+  - Description present: True
+- **Paid Media Campaign Manager** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8786173002
+  - Description present: True
+- **Payroll Analyst** — Kuala Lumpur
+  - https://job-boards.greenhouse.io/impact/jobs/8805514002
+  - Description present: True
+- **Principal Engineer, Quality Platform** — Cape Town, SA
+  - https://job-boards.greenhouse.io/impact/jobs/8863006002
+  - Description present: True
+- **Product Manager (Contracting/Action Processing)** — Santa Barbara, CA; Seattle, WA
+  - https://job-boards.greenhouse.io/impact/jobs/8337799002
+  - Description present: True
+- **Product Manager, Data Products** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8631223002
+  - Description present: True
+- **Product Marketing Manager II** — New York City, NY
+  - https://job-boards.greenhouse.io/impact/jobs/8562225002
+  - Description present: True
+- **Program Compliance Manager** — Remote
+  - https://job-boards.greenhouse.io/impact/jobs/8872461002
+  - Description present: True
+- **Publisher Business Development Manager** — New York
+  - https://job-boards.greenhouse.io/impact/jobs/7839952002
+  - Description present: True
+- **Publisher Development Manager** — Madrid
+  - https://job-boards.greenhouse.io/impact/jobs/8424431002
+  - Description present: True
+- **Publisher Development Manager** — Stockholm
+  - https://job-boards.greenhouse.io/impact/jobs/6929152002
+  - Description present: True
+- **QA Chapter Lead** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8612244002
+  - Description present: True
+- **QA Chapter Lead** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8647247002
+  - Description present: True
+- **QA Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8413160002
+  - Description present: True
+- **RVP of Sales** — Remote
+  - https://job-boards.greenhouse.io/impact/jobs/8191730002
+  - Description present: True
+- **RVP of Sales, SMB** — New York
+  - https://job-boards.greenhouse.io/impact/jobs/7513247002
+  - Description present: True
+- **Senior Business Operations** — New York City
+  - https://job-boards.greenhouse.io/impact/jobs/8335677002
+  - Description present: True
+- **Senior Cloud Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8642851002
+  - Description present: True
+- **Senior Content Marketing Manager, Research & Insights** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8870243002
+  - Description present: True
+- **Senior Data Scientist** — New York City
+  - https://job-boards.greenhouse.io/impact/jobs/8828965002
+  - Description present: True
+- **Senior Data Scientist, Product Data** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8380907002
+  - Description present: True
+- **Senior Fraud Prevention Analyst** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8816380002
+  - Description present: True
+- **Senior MySQL Database Administrator** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8863706002
+  - Description present: True
+- **Senior Revenue Operations Analyst** — New York; Remote
+  - https://job-boards.greenhouse.io/impact/jobs/8863955002
+  - Description present: True
+- **Senior Software Engineer** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8459601002
+  - Description present: True
+- **Senior Software Engineer** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/7772901002
+  - Description present: True
+- **Senior Software Engineer (Shopify)** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8413164002
+  - Description present: True
+- **Software engineer** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8225665002
+  - Description present: True
+- **Software Quality Engineer (Java using Selenium)** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/6256610002
+  - Description present: True
+- **Sr. Data Scientist, Programmatic Algorithms** — New York City, NY
+  - https://job-boards.greenhouse.io/impact/jobs/8427973002
+  - Description present: True
+- **Sr. Data Scientist, Programmatic Algorithms** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8525597002
+  - Description present: True
+- **Sr. Data Scientist, Programmatic Algorithms** — Seattle, WA
+  - https://job-boards.greenhouse.io/impact/jobs/8525233002
+  - Description present: True
+- **Sr. Data Scientist, Programmatic Algorithms** — Vancouver, British Columbia, Canada
+  - https://job-boards.greenhouse.io/impact/jobs/8525610002
+  - Description present: True
+- **Sr. Director, Revenue Operations Planning and Execution** — Remote
+  - https://job-boards.greenhouse.io/impact/jobs/8504804002
+  - Description present: True
+- **Technical Project Manager** — Columbus, OH
+  - https://job-boards.greenhouse.io/impact/jobs/8637531002
+  - Description present: True
+- **Technical Project Manager** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8631011002
+  - Description present: True
+- **Technical Services Engineer III** — Remote
+  - https://job-boards.greenhouse.io/impact/jobs/8338043002
+  - Description present: True
+- **Technical Services Engineer III** — Victoria, BC
+  - https://job-boards.greenhouse.io/impact/jobs/8733535002
+  - Description present: True
+- **Technical Services Engineer III** — Cape Town
+  - https://job-boards.greenhouse.io/impact/jobs/8463934002
+  - Description present: True
+
+## Limitations
+
+- One run does not guarantee completeness or long-term endpoint stability.
+- Workday currently requests only the first page.
+- Generic extraction checks at most 25 observed same-host detail links.
+- No application forms are submitted and no account-protected content is accessed.

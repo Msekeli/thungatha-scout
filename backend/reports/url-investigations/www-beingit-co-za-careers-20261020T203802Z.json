@@ -1,0 +1,20 @@
+{
+  "supplied_url": "https://www.beingit.co.za/Careers",
+  "checked_at_utc": "2026-10-20T20:38:01.919474+00:00",
+  "http_status": 200,
+  "final_url": "https://www.beingit.co.za/Careers",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 38859,
+  "page_title": "BeingIT® |  Careers",
+  "page_text_excerpt": "BeingIT® |  Careers Services Domain name lookup Careers Downloads Support Contact Us Home Careers Careers We strive to be Bold, enthusiastic, inspired, needed, genuine! Digital Marketing & Lead Conversion Manager Details Graduate .NET Developer Kick-start your career working with the people who love what they do and know what they are doing... Details Intermediate .NET Developer Develop cutting-edge software using the latest development tools and frameworks... Details Intermediate to Senior .NET Developer Develop cutting-edge software using the latest development tools and frameworks... Details Junior .NET Developer Passionate about programming; so are we and happy to teach you lots more... Details Junior to Intermediate .NET Developer Gain great exposure to the software industry and get hands-on experience working in the technology sector... Details Senior .NET Developer Develop enterprise scale applications using the latest development tools and frameworks... Details Our Culture Work hard, play harder. We make sure to blow off some steam every now and again, everyone needs this! Our enthusiastic and humorous office environment creates an enjoyable daily experience. Since you spen",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": false,
+    "jobs": [],
+    "adapters": [],
+    "note": "No supported ATS detected. Ordinary HTML inspection completed; no browser automation or blind endpoint probing was attempted."
+  },
+  "errors": []
+}

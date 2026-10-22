@@ -1,0 +1,60 @@
+{
+  "supplied_url": "https://aerobotics.bamboohr.com/careers/103",
+  "checked_at_utc": "2026-10-20T20:59:00.184138+00:00",
+  "http_status": 200,
+  "final_url": "https://aerobotics.bamboohr.com/careers/103",
+  "content_type": "text/html; charset=UTF-8",
+  "response_bytes": 101709,
+  "page_title": "BambooHR",
+  "page_text_excerpt": "BambooHR",
+  "ats_detected": [
+    "greenhouse",
+    "bamboohr"
+  ],
+  "ats_evidence": [
+    "Greenhouse references found, but no board token was extracted."
+  ],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Software Engineer",
+        "location": "Cape Town, Western Cape",
+        "department": "Technology",
+        "url": "https://aerobotics.bamboohr.com/careers/103",
+        "description_available": false,
+        "source_adapter": "bamboohr"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "bamboohr_public_careers_json",
+        "endpoint": "https://aerobotics.bamboohr.com/careers/list",
+        "http_status": 200,
+        "success": true,
+        "jobs": [
+          {
+            "title": "Software Engineer",
+            "location": "Cape Town, Western Cape",
+            "department": "Technology",
+            "url": "https://aerobotics.bamboohr.com/careers/103",
+            "description_available": false,
+            "source_adapter": "bamboohr"
+          }
+        ],
+        "error": "",
+        "total_jobs_reported": 1,
+        "requested_job_id": "103",
+        "detail_endpoint": "https://aerobotics.bamboohr.com/careers/103/detail",
+        "detail_http_status": 200,
+        "detail_response_keys": [
+          "meta",
+          "result"
+        ]
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

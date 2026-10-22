@@ -1,0 +1,1428 @@
+{
+  "supplied_url": "https://job-boards.greenhouse.io/takealotcom",
+  "checked_at_utc": "2026-10-20T22:09:40.890373+00:00",
+  "http_status": 200,
+  "final_url": "https://job-boards.greenhouse.io/takealotcom",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 63831,
+  "page_title": "Jobs at takealot.com",
+  "page_text_excerpt": "Jobs at takealot.com Careers at Takealot Group Create a Job Alert Level-up your career by having opportunities at takealot.com sent directly to your inbox. Create alert Search Department Select... Office Select... 87 jobs Mr D Engineering Job iOS Software Engineer Cape Town Python Software Engineer Cape Town Senior Machine Learning Engineer South Africa Mr D Food Job Mr D - Data Integration Team Leader Cape Town Mr D - Sales Associate (Western Cape) Cape Town Mr D - Sales Executive Cape Town Mr D Marketing Job Mr D - CRM Lead Cape Town Mr D - Head of Customer Growth Cape Town Mr D - Mid-level Business Operations Growth Analyst Cape Town Mr D - Paid Media Lead Cape Town Mr D - Senior Copywriter and Content Strategist Cape Town Mr D Product Job Mr D Product Manager - Fulfilment Cape Town Mr D Retail Job Mr D - Junior E-Commerce Category Manager Cape Town Mr D -  Retail Media Key Account Manager_Food Cape Town Mr D - Retail Media Key Account Manager_Retail Cape Town Takealot.com Marketing Job Affiliate Program Manager Cape Town Copywriter & Content Producer Cape Town Marketing Manager Cape Town Paid Media Manager Cape Town Senior Site Merchandiser Cape Town Takealot.com Marketplace Jo",
+  "ats_detected": [
+    "greenhouse"
+  ],
+  "ats_evidence": [
+    "Greenhouse board token 'takealotcom' found in supplied page HTML/URL."
+  ],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Advertising Account Manager, Mandarin & English (Cross-Border)",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8094193",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Advertising Sales Manager (Retail Media)",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7734186",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Advertising Sales Manager (Retail Media)",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8141593",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Affiliate Program Manager",
+        "location": "Cape Town",
+        "department": "Takealot.com Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8221557",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Branch Supervisor",
+        "location": "Polokwane - Limpopo",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8222612",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Business Development Manager",
+        "location": "Cape Town",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8173181",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Complaints Administrator Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8190535",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Compliance  Auditor",
+        "location": "Cape Town",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8210795",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Content Marketing Manager",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8184748",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Copywriter & Content Producer",
+        "location": "Cape Town",
+        "department": "Takealot.com Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8249182",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Courier Controller-FTC 6Months",
+        "location": "Cape Town",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8245790",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Data Principal Engineer",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8059414",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "DC Finance Admin Manager",
+        "location": "Kwa-Zulu Natal",
+        "department": "Takealot Supply Chain",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8239186",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "DC Industrial Systems Engineer",
+        "location": "Durban",
+        "department": "Takealot Supply Chain",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8113935",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "DC Operations Manager",
+        "location": "Johannesburg",
+        "department": "Takealot Supply Chain",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8223317",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Digital Account Manager - Retail Media",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8156068",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Digital Graphic Designer",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8203584",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "E-Commerce Beauty Buyer - Cosmetics",
+        "location": "Cape Town",
+        "department": "Takealot.com Buying",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8210340",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Facilities Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8152745",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Fleet Controller",
+        "location": "Polokwane - Limpopo",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8222597",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Franchise Compliance Controller",
+        "location": "Gqeberha",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8203570",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Group General Counsel",
+        "location": "Cape Town",
+        "department": "Takealot Group Legal",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8288402",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Group Head of Membership & Loyalty (TakealotMORE)",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7725781",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Head of Customer & Business Support Operations",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8043164",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Health and Safety Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8161188",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "HR Intern",
+        "location": "Johannesburg",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8143560",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Hub Manager",
+        "location": "Polokwane - Limpopo",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8098572",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Inbound Operations Coordinator",
+        "location": "Cape Town",
+        "department": "Takealot Supply Chain",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8098315",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Instructional Design Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8161152",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Intermediate .NET Engineer",
+        "location": "Cape Town",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/6654603",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "iOS Software Engineer",
+        "location": "Cape Town",
+        "department": "Mr D Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7317035",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "iOS Software Engineer",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/6565059",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Key Account Manager - Advertising",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7677121",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Learning and Development Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8185430",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Marketing Manager",
+        "location": "Cape Town",
+        "department": "Takealot.com Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7988583",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Marketplace Onboarding Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7946183",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Marketplace Promotions and Merchandising Team Lead",
+        "location": "Cape Town",
+        "department": "Takealot.com Marketplace",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7946618",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Marketplace Sales Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8141422",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - CRM Lead",
+        "location": "Cape Town",
+        "department": "Mr D Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/1807258",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Data Integration Team Leader",
+        "location": "Cape Town",
+        "department": "Mr D Food",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8179489",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Head of Customer Growth",
+        "location": "Cape Town",
+        "department": "Mr D Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7493612",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Junior E-Commerce Category Manager",
+        "location": "Cape Town",
+        "department": "Mr D Retail",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/6590356",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Mid-level Business Operations Growth Analyst",
+        "location": "Cape Town",
+        "department": "Mr D Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7938626",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Paid Media Lead",
+        "location": "Cape Town",
+        "department": "Mr D Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8045864",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D Product Manager - Fulfilment",
+        "location": "Cape Town",
+        "department": "Mr D Product",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8188367",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D -  Retail Media Key Account Manager_Food",
+        "location": "Cape Town",
+        "department": "Mr D Retail",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7938631",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Retail Media Key Account Manager_Retail",
+        "location": "Cape Town",
+        "department": "Mr D Retail",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7938476",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Sales Associate (Western Cape)",
+        "location": "Cape Town",
+        "department": "Mr D Food",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8185584",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Sales Executive",
+        "location": "Cape Town",
+        "department": "Mr D Food",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8111635",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D - Senior Copywriter and Content Strategist",
+        "location": "Cape Town",
+        "department": "Mr D Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8171798",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Online Fashion Assistant - FTC",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8111596",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Order Fulfilment Manager",
+        "location": "Cape Town",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8102858",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Packaging Optimisation Specialist",
+        "location": "Cape Town",
+        "department": "Takealot Supply Chain",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8185586",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Paid Media Manager",
+        "location": "Cape Town",
+        "department": "Takealot.com Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8071186",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Paid Media Manager (Retail Media)",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7633555",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Payroll Lead",
+        "location": "Cape Town",
+        "department": "Takealot Group HR",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7588118",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "People Analytics Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8267136",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "People Practitioner",
+        "location": "Cape Town",
+        "department": "Takealot Group HR",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8220031",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Performance Campaign Manager",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7588574",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Principal Software Engineer (Group Fulfilment)",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7020975",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Lead (Dark Store Fulfilment Systems)",
+        "location": "Cape Town",
+        "department": "Takealot.com Product",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8155932",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Manager (Catalogue)",
+        "location": "Cape Town",
+        "department": "Takealot.com Product",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8045821",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Manager (Machine Learning)",
+        "location": "Cape Town",
+        "department": "Takealot.com Product",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8184898",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Manager (On Demand Delivery Execution)",
+        "location": "Cape Town",
+        "department": "Takealot.com Product",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7613780",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Python Software Engineer",
+        "location": "Cape Town",
+        "department": "Mr D Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/6063588",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "QA Manager - Logistics - FY27",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8113699",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "QA Manager - Merchant - FY27",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8173325",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Retail Buying Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8236563",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Retail Media Growth Manager",
+        "location": "Cape Town",
+        "department": "Takealot Group Advertising",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7571379",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Risk and Safety officer",
+        "location": "Polokwane",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8245669",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Risk Management and Safety Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8161195",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Search Software Engineer",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7573640",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Seller Support Specialist (FTC)",
+        "location": "Capetown",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8077113",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Buyer (Toys)",
+        "location": "Cape Town",
+        "department": "Takealot.com Buying",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8154703",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Data Analyst",
+        "location": "Cape Town",
+        "department": "TFS",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7742377",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Database Administrator (MySQL, PostgreSQL) - Takealot",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/2935435",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Machine Learning Engineer",
+        "location": "South Africa",
+        "department": "Mr D Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8078851",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Marketing Manager  (TakealotMORE)",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8266982",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Planner (Beauty)",
+        "location": "Cape Town",
+        "department": "Takealot.com Buying",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8164171",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Site Merchandiser",
+        "location": "Cape Town",
+        "department": "Takealot.com Marketing",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8221465",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Software Engineer  (Logistics)",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/5865503",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software Engineer (Python)",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/5865551",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software Engineer (Python) - Supply Chain",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7050505",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software Engineer (Scala)",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/5853982",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Supply chain Intern",
+        "location": "Cape Town",
+        "department": "Takealot Group Skills & Development",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8185489",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Takealot - Senior Capacity Planner (Workforce)",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/5919975",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Training and Development Manager",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8045295",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "greenhouse_public_board_api",
+        "endpoint": "https://boards-api.greenhouse.io/v1/boards/takealotcom/jobs?content=true",
+        "http_status": 200,
+        "success": true,
+        "jobs": [
+          {
+            "title": "Advertising Account Manager, Mandarin & English (Cross-Border)",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8094193",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Advertising Sales Manager (Retail Media)",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7734186",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Advertising Sales Manager (Retail Media)",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8141593",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Affiliate Program Manager",
+            "location": "Cape Town",
+            "department": "Takealot.com Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8221557",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Branch Supervisor",
+            "location": "Polokwane - Limpopo",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8222612",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Business Development Manager",
+            "location": "Cape Town",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8173181",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Complaints Administrator Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8190535",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Compliance  Auditor",
+            "location": "Cape Town",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8210795",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Content Marketing Manager",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8184748",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Copywriter & Content Producer",
+            "location": "Cape Town",
+            "department": "Takealot.com Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8249182",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Courier Controller-FTC 6Months",
+            "location": "Cape Town",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8245790",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Data Principal Engineer",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8059414",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "DC Finance Admin Manager",
+            "location": "Kwa-Zulu Natal",
+            "department": "Takealot Supply Chain",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8239186",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "DC Industrial Systems Engineer",
+            "location": "Durban",
+            "department": "Takealot Supply Chain",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8113935",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "DC Operations Manager",
+            "location": "Johannesburg",
+            "department": "Takealot Supply Chain",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8223317",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Digital Account Manager - Retail Media",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8156068",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Digital Graphic Designer",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8203584",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "E-Commerce Beauty Buyer - Cosmetics",
+            "location": "Cape Town",
+            "department": "Takealot.com Buying",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8210340",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Facilities Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8152745",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Fleet Controller",
+            "location": "Polokwane - Limpopo",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8222597",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Franchise Compliance Controller",
+            "location": "Gqeberha",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8203570",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Group General Counsel",
+            "location": "Cape Town",
+            "department": "Takealot Group Legal",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8288402",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Group Head of Membership & Loyalty (TakealotMORE)",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7725781",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Head of Customer & Business Support Operations",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8043164",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Health and Safety Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8161188",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "HR Intern",
+            "location": "Johannesburg",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8143560",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Hub Manager",
+            "location": "Polokwane - Limpopo",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8098572",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Inbound Operations Coordinator",
+            "location": "Cape Town",
+            "department": "Takealot Supply Chain",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8098315",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Instructional Design Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8161152",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Intermediate .NET Engineer",
+            "location": "Cape Town",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/6654603",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "iOS Software Engineer",
+            "location": "Cape Town",
+            "department": "Mr D Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7317035",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "iOS Software Engineer",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/6565059",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Key Account Manager - Advertising",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7677121",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Learning and Development Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8185430",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Marketing Manager",
+            "location": "Cape Town",
+            "department": "Takealot.com Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7988583",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Marketplace Onboarding Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7946183",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Marketplace Promotions and Merchandising Team Lead",
+            "location": "Cape Town",
+            "department": "Takealot.com Marketplace",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7946618",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Marketplace Sales Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8141422",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - CRM Lead",
+            "location": "Cape Town",
+            "department": "Mr D Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/1807258",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Data Integration Team Leader",
+            "location": "Cape Town",
+            "department": "Mr D Food",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8179489",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Head of Customer Growth",
+            "location": "Cape Town",
+            "department": "Mr D Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7493612",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Junior E-Commerce Category Manager",
+            "location": "Cape Town",
+            "department": "Mr D Retail",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/6590356",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Mid-level Business Operations Growth Analyst",
+            "location": "Cape Town",
+            "department": "Mr D Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7938626",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Paid Media Lead",
+            "location": "Cape Town",
+            "department": "Mr D Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8045864",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D Product Manager - Fulfilment",
+            "location": "Cape Town",
+            "department": "Mr D Product",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8188367",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D -  Retail Media Key Account Manager_Food",
+            "location": "Cape Town",
+            "department": "Mr D Retail",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7938631",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Retail Media Key Account Manager_Retail",
+            "location": "Cape Town",
+            "department": "Mr D Retail",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7938476",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Sales Associate (Western Cape)",
+            "location": "Cape Town",
+            "department": "Mr D Food",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8185584",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Sales Executive",
+            "location": "Cape Town",
+            "department": "Mr D Food",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8111635",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D - Senior Copywriter and Content Strategist",
+            "location": "Cape Town",
+            "department": "Mr D Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8171798",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Online Fashion Assistant - FTC",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8111596",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Order Fulfilment Manager",
+            "location": "Cape Town",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8102858",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Packaging Optimisation Specialist",
+            "location": "Cape Town",
+            "department": "Takealot Supply Chain",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8185586",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Paid Media Manager",
+            "location": "Cape Town",
+            "department": "Takealot.com Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8071186",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Paid Media Manager (Retail Media)",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7633555",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Payroll Lead",
+            "location": "Cape Town",
+            "department": "Takealot Group HR",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7588118",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "People Analytics Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8267136",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "People Practitioner",
+            "location": "Cape Town",
+            "department": "Takealot Group HR",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8220031",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Performance Campaign Manager",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7588574",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Principal Software Engineer (Group Fulfilment)",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7020975",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Lead (Dark Store Fulfilment Systems)",
+            "location": "Cape Town",
+            "department": "Takealot.com Product",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8155932",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Manager (Catalogue)",
+            "location": "Cape Town",
+            "department": "Takealot.com Product",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8045821",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Manager (Machine Learning)",
+            "location": "Cape Town",
+            "department": "Takealot.com Product",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8184898",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Manager (On Demand Delivery Execution)",
+            "location": "Cape Town",
+            "department": "Takealot.com Product",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7613780",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Python Software Engineer",
+            "location": "Cape Town",
+            "department": "Mr D Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/6063588",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "QA Manager - Logistics - FY27",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8113699",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "QA Manager - Merchant - FY27",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8173325",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Retail Buying Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8236563",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Retail Media Growth Manager",
+            "location": "Cape Town",
+            "department": "Takealot Group Advertising",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7571379",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Risk and Safety officer",
+            "location": "Polokwane",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8245669",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Risk Management and Safety Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8161195",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Search Software Engineer",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7573640",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Seller Support Specialist (FTC)",
+            "location": "Capetown",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8077113",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Buyer (Toys)",
+            "location": "Cape Town",
+            "department": "Takealot.com Buying",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8154703",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Data Analyst",
+            "location": "Cape Town",
+            "department": "TFS",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7742377",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Database Administrator (MySQL, PostgreSQL) - Takealot",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/2935435",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Machine Learning Engineer",
+            "location": "South Africa",
+            "department": "Mr D Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8078851",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Marketing Manager  (TakealotMORE)",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8266982",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Planner (Beauty)",
+            "location": "Cape Town",
+            "department": "Takealot.com Buying",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8164171",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Site Merchandiser",
+            "location": "Cape Town",
+            "department": "Takealot.com Marketing",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8221465",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Software Engineer  (Logistics)",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/5865503",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software Engineer (Python)",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/5865551",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software Engineer (Python) - Supply Chain",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/7050505",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software Engineer (Scala)",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/5853982",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Supply chain Intern",
+            "location": "Cape Town",
+            "department": "Takealot Group Skills & Development",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8185489",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Takealot - Senior Capacity Planner (Workforce)",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/5919975",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Training and Development Manager",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotcom/jobs/8045295",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          }
+        ],
+        "error": "",
+        "total_jobs_reported": 87
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

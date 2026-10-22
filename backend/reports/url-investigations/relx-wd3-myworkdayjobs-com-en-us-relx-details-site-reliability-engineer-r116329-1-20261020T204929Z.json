@@ -1,0 +1,367 @@
+{
+  "supplied_url": "https://relx.wd3.myworkdayjobs.com/en-US/relx/details/Site-Reliability-Engineer_R116329-1?locations=fb433fb680a710011d11843ce3380000",
+  "checked_at_utc": "2026-10-20T20:49:24.887008+00:00",
+  "http_status": 200,
+  "final_url": "https://relx.wd3.myworkdayjobs.com/en-US/relx/details/Site-Reliability-Engineer_R116329-1?locations=fb433fb680a710011d11843ce3380000",
+  "content_type": "text/html",
+  "response_bytes": 20310,
+  "page_title": "",
+  "page_text_excerpt": "",
+  "ats_detected": [
+    "workday"
+  ],
+  "ats_evidence": [
+    "Workday referenced by page HTML, configuration, or an observed careers link."
+  ],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Senior Data Analyst II",
+        "location": "2 Locations",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Banglore/Senior-Data-Analyst-II_R116166-1",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Client Manager - Legal & Professional",
+        "location": "Dayton, OH",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Dayton-OH/Client-Manager---Legal---Professional_R116727-1",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Sales Development Representative - Legal & Professional",
+        "location": "Dayton, OH",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Dayton-OH/Sales-Development-Representative---Legal---Professional_R116379",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Technical Implementation Specialist",
+        "location": "Bela Cintra - Sao Paulo",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Bela-Cintra---Sao-Paulo/Technical-Implementation-Specialist_R118664-1",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Field Account Executive",
+        "location": "Washington DC",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Washington-DC/Account-Executive_R118420-1",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Product Lead, Commercial Planning",
+        "location": "London Wall",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/London-Wall/Product-Lead--Commercial-Planning_R119847-2",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Senior Software Engineer I",
+        "location": "5 Locations",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Philadelphia-PA/Senior-Software-Engineer-I_R118682-2",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Manager Data Science",
+        "location": "8 Locations",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Philadelphia-PA/Manager-Data-Science_R114712-2",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Financial Analyst, Global Procurement",
+        "location": "3 Locations",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Dayton-OH/Financial-Analyst--Global-Procurement_R120195",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Software Management Analyst I",
+        "location": "2 Locations",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Dayton-OH/Software-Management-Analyst-I_R119922-1",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Junior Quant Analyst Intern - EU Carbon Markets",
+        "location": "Paris",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Paris/Junior-Quant-Analyst-Intern---EU-Carbon-Markets_R119865-2",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Reporter",
+        "location": "2 Locations",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/New-York-NY/Reporter_R120184-2",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "ServiceNow Developer I",
+        "location": "Manila",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Manila/ServiceNow-Developer-I_R118262",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Regional Sales Manager, Strategic Accounts - Government",
+        "location": "Washington, DC 18th",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Washington-DC-18th/Regional-Sales-Manager--Strategic-Accounts---Government_R119799-1",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Senior Director, Corporate Strategy",
+        "location": "Home based-Georgia",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Home-based-Georgia/Senior-Director--Business-Enablement-and-Strategic-Insights_R110055-6",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Finance Admin",
+        "location": "Iloilo",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Iloilo/Finance-Admin_R118713",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Program Manager",
+        "location": "2 Locations",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Paris-France-Mobelite/Program-Manager_R119429",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Visual Designer I",
+        "location": "Manila",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Manila/Visual-Designer-I_R119848",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "ServiceNow Analyst",
+        "location": "Richmond",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Richmond/ServiceNow-Analyst_R116431-1",
+        "description_available": false,
+        "source_adapter": "workday"
+      },
+      {
+        "title": "Senior Product Manager",
+        "location": "2 Locations",
+        "department": "",
+        "url": "https://relx.wd3.myworkdayjobs.com/job/Cardiff/Senior-Product-Manager_R119084-1",
+        "description_available": false,
+        "source_adapter": "workday"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "workday_public_cxs_jobs",
+        "endpoint": "https://relx.wd3.myworkdayjobs.com/wday/cxs/relx/relx/jobs",
+        "http_status": 200,
+        "success": true,
+        "jobs": [
+          {
+            "title": "Senior Data Analyst II",
+            "location": "2 Locations",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Banglore/Senior-Data-Analyst-II_R116166-1",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Client Manager - Legal & Professional",
+            "location": "Dayton, OH",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Dayton-OH/Client-Manager---Legal---Professional_R116727-1",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Sales Development Representative - Legal & Professional",
+            "location": "Dayton, OH",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Dayton-OH/Sales-Development-Representative---Legal---Professional_R116379",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Technical Implementation Specialist",
+            "location": "Bela Cintra - Sao Paulo",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Bela-Cintra---Sao-Paulo/Technical-Implementation-Specialist_R118664-1",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Field Account Executive",
+            "location": "Washington DC",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Washington-DC/Account-Executive_R118420-1",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Product Lead, Commercial Planning",
+            "location": "London Wall",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/London-Wall/Product-Lead--Commercial-Planning_R119847-2",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Senior Software Engineer I",
+            "location": "5 Locations",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Philadelphia-PA/Senior-Software-Engineer-I_R118682-2",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Manager Data Science",
+            "location": "8 Locations",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Philadelphia-PA/Manager-Data-Science_R114712-2",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Financial Analyst, Global Procurement",
+            "location": "3 Locations",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Dayton-OH/Financial-Analyst--Global-Procurement_R120195",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Software Management Analyst I",
+            "location": "2 Locations",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Dayton-OH/Software-Management-Analyst-I_R119922-1",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Junior Quant Analyst Intern - EU Carbon Markets",
+            "location": "Paris",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Paris/Junior-Quant-Analyst-Intern---EU-Carbon-Markets_R119865-2",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Reporter",
+            "location": "2 Locations",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/New-York-NY/Reporter_R120184-2",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "ServiceNow Developer I",
+            "location": "Manila",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Manila/ServiceNow-Developer-I_R118262",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Regional Sales Manager, Strategic Accounts - Government",
+            "location": "Washington, DC 18th",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Washington-DC-18th/Regional-Sales-Manager--Strategic-Accounts---Government_R119799-1",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Senior Director, Corporate Strategy",
+            "location": "Home based-Georgia",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Home-based-Georgia/Senior-Director--Business-Enablement-and-Strategic-Insights_R110055-6",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Finance Admin",
+            "location": "Iloilo",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Iloilo/Finance-Admin_R118713",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Program Manager",
+            "location": "2 Locations",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Paris-France-Mobelite/Program-Manager_R119429",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Visual Designer I",
+            "location": "Manila",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Manila/Visual-Designer-I_R119848",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "ServiceNow Analyst",
+            "location": "Richmond",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Richmond/ServiceNow-Analyst_R116431-1",
+            "description_available": false,
+            "source_adapter": "workday"
+          },
+          {
+            "title": "Senior Product Manager",
+            "location": "2 Locations",
+            "department": "",
+            "url": "https://relx.wd3.myworkdayjobs.com/job/Cardiff/Senior-Product-Manager_R119084-1",
+            "description_available": false,
+            "source_adapter": "workday"
+          }
+        ],
+        "error": "",
+        "total_jobs_reported": 814,
+        "pagination": {
+          "limit": 20,
+          "offset": 0,
+          "note": "First page only."
+        }
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": [],
+  "workday_config": {
+    "host": "relx.wd3.myworkdayjobs.com",
+    "tenant": "relx",
+    "site": "relx",
+    "status": "identified"
+  }
+}

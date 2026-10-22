@@ -1,0 +1,1268 @@
+{
+  "supplied_url": "https://job-boards.greenhouse.io/impact",
+  "checked_at_utc": "2026-10-20T22:10:32.738405+00:00",
+  "http_status": 200,
+  "final_url": "https://job-boards.greenhouse.io/impact",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 62501,
+  "page_title": "Jobs at impact.com",
+  "page_text_excerpt": "Jobs at impact.com Current openings at impact.com Create a Job Alert Level-up your career by having opportunities at impact.com sent directly to your inbox. Create alert Search Department Select... Office Select... 77 jobs Business Operations Job Data Platform Engineer Cape Town GenAI Engineer - Product Marketing & Adoption Capetown Senior Fraud Prevention Analyst Cape Town Customer Experience Job Creator Marketing Consulting Manager New York Creator Strategy Manager New York,New York Customer Solutions Manager Columbus Customer Solutions Specialist (Technical Support) Kuala Lumpur Customer Success Manager New York; Santa Barbara; Seattle; Columbus Integration Engineer Columbus, OH Integration Engineer III Sydney Lead Technical Services Engineer Columbus, OH Program Compliance Manager New Remote Publisher Business Development Manager New York Senior Business Operations New York City Technical Services Engineer III Remote Technical Services Engineer III Cape Town Technical Services Engineer III Victoria, BC Finance Job Associate Manager, Finance Systems & Data Governance Cape Town Associate Manager (Statutory reporting, Acquisitions & Tax) Cape Town Marketing Analytics Manager New Y",
+  "ats_detected": [
+    "greenhouse"
+  ],
+  "ats_evidence": [
+    "Greenhouse board token 'impact' found in supplied page HTML/URL."
+  ],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "Account Executive",
+        "location": "London",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8551697002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Account Executive",
+        "location": "Madrid",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8870463002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Account Executive (Business Development)",
+        "location": "Shanghai",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8653256002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Account Executive, SMB",
+        "location": "New York, New York; Santa Barbara, California",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/5828526002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Affiliate Retail Media Growth Lead",
+        "location": "New York, New York; Santa Barbara, California; Seattle Washington; Columbus, Ohio",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8720183002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Associate Customer Success Manager",
+        "location": "Shanghai",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8891284002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Associate Manager, Finance Systems & Data Governance",
+        "location": "Cape Town",
+        "department": "Finance",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8661315002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Associate Manager (Statutory reporting, Acquisitions & Tax)",
+        "location": "Cape Town",
+        "department": "Finance",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8612149002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Associate Product Manager (Contracting/Action Processing)",
+        "location": "Santa Barbara, CA; Seattle, WA",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8871230002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Associate Software Engineer",
+        "location": "Santa Barbara, CA",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8645964002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Associate Solutions Architect",
+        "location": "Remote",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8797755002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Business Development Representative, Inbound",
+        "location": "New York City",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/7882953002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Business Development Representative, Inbound",
+        "location": "New York",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/7768895002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Channel Partnership Manager - Agency - ANZ",
+        "location": "Sydney",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8576162002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Creator Consulting & Relations Manager",
+        "location": "Kuala Lumpur",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8858155002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Creator Consulting & Relations Manager - Japan",
+        "location": "Tokyo",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8858177002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Creator Marketing Consulting Manager",
+        "location": "New York",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8658822002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Creator Strategy Manager",
+        "location": "New York,New York",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8728538002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Customer Solutions Manager",
+        "location": "Columbus",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8646077002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Customer Solutions Specialist (Technical Support)",
+        "location": "Kuala Lumpur",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8690467002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Customer Success Manager",
+        "location": "New York; Santa Barbara; Seattle; Columbus",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8863721002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Data Platform Engineer",
+        "location": "Cape Town",
+        "department": "Business Operations",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8867903002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Data Scientist, Next Gen Recommendation Systems",
+        "location": "New York City",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8509182002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Early Careers",
+        "location": "Oslo",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8448241002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Early Careers - Cape Town",
+        "location": "Cape Town",
+        "department": "",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/4054047002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Email & Marketing Automation Developer",
+        "location": "Cape Town, SA",
+        "department": "Marketplace",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8636502002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Enterprise Account Executive",
+        "location": "US Remote",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/5828699002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Enterprise Account Executive",
+        "location": "London",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8527856002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Full Stack Software Engineer",
+        "location": "Columbus, OH",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8879720002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Full Stack Software Engineer",
+        "location": "Seattle, Washington",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8465838002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "GenAI Engineer, Marketing",
+        "location": "Cape Town",
+        "department": "Marketing",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8870328002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "GenAI Engineer - Product Marketing & Adoption",
+        "location": "Capetown",
+        "department": "Business Operations",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8583462002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Integration Engineer",
+        "location": "Columbus, OH",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8465082002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Integration Engineer III",
+        "location": "Sydney",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8836551002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Intermediate Full Stack Software Engineer",
+        "location": "Columbus, OH",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8557055002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Internship - German speaking Influencer Specialist",
+        "location": "Stockholm",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/7819642002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Lead Technical Services Engineer",
+        "location": "Columbus, OH",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8462546002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Marketing Analytics Manager",
+        "location": "New York; Remote; Columbus, Ohio; Seattle, Washington; Santa Barbara, California",
+        "department": "Finance",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8870968002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "MySQL Database Administrator",
+        "location": "Columbus, OH",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8647400002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Paid Media Campaign Manager",
+        "location": "Cape Town",
+        "department": "Marketplace",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8786173002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Payroll Analyst",
+        "location": "Kuala Lumpur",
+        "department": "Finance",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8805514002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Principal Engineer, Quality Platform",
+        "location": "Cape Town, SA",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8863006002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Manager (Contracting/Action Processing)",
+        "location": "Santa Barbara, CA; Seattle, WA",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8337799002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Manager, Data Products",
+        "location": "Cape Town",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8631223002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Marketing Manager II",
+        "location": "New York City, NY",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8562225002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Program Compliance Manager",
+        "location": "Remote",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8872461002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Publisher Business Development Manager",
+        "location": "New York",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/7839952002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Publisher Development Manager",
+        "location": "Madrid",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8424431002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Publisher Development Manager",
+        "location": "Stockholm",
+        "department": "",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/6929152002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "QA Chapter Lead",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8612244002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "QA Chapter Lead",
+        "location": "Columbus, OH",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8647247002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "QA Engineer",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8413160002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "RVP of Sales",
+        "location": "Remote",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8191730002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "RVP of Sales, SMB",
+        "location": "New York",
+        "department": "Sales",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/7513247002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Business Operations",
+        "location": "New York City",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8335677002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Cloud Engineer",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8642851002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Content Marketing Manager, Research & Insights",
+        "location": "Cape Town",
+        "department": "Marketing",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8870243002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Data Scientist",
+        "location": "New York City",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8828965002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Data Scientist, Product Data",
+        "location": "Cape Town",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8380907002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Fraud Prevention Analyst",
+        "location": "Cape Town",
+        "department": "Business Operations",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8816380002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior MySQL Database Administrator",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8863706002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Revenue Operations Analyst",
+        "location": "New York; Remote",
+        "department": "Finance",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8863955002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Software Engineer",
+        "location": "Columbus, OH",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8459601002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Software Engineer",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/7772901002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Software Engineer (Shopify)",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8413164002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software engineer",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8225665002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software Quality Engineer (Java using Selenium)",
+        "location": "Cape Town",
+        "department": "Technology",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/6256610002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Sr. Data Scientist, Programmatic Algorithms",
+        "location": "New York City, NY",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8427973002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Sr. Data Scientist, Programmatic Algorithms",
+        "location": "Columbus, OH",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8525597002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Sr. Data Scientist, Programmatic Algorithms",
+        "location": "Seattle, WA",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8525233002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Sr. Data Scientist, Programmatic Algorithms",
+        "location": "Vancouver, British Columbia, Canada",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8525610002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Sr. Director, Revenue Operations Planning and Execution",
+        "location": "Remote",
+        "department": "Finance",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8504804002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Technical Project Manager",
+        "location": "Columbus, OH",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8637531002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Technical Project Manager",
+        "location": "Cape Town",
+        "department": "Product",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8631011002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Technical Services Engineer III",
+        "location": "Remote",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8338043002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Technical Services Engineer III",
+        "location": "Victoria, BC",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8733535002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Technical Services Engineer III",
+        "location": "Cape Town",
+        "department": "Customer Experience",
+        "url": "https://job-boards.greenhouse.io/impact/jobs/8463934002",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "greenhouse_public_board_api",
+        "endpoint": "https://boards-api.greenhouse.io/v1/boards/impact/jobs?content=true",
+        "http_status": 200,
+        "success": true,
+        "jobs": [
+          {
+            "title": "Account Executive",
+            "location": "London",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8551697002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Account Executive",
+            "location": "Madrid",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8870463002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Account Executive (Business Development)",
+            "location": "Shanghai",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8653256002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Account Executive, SMB",
+            "location": "New York, New York; Santa Barbara, California",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/5828526002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Affiliate Retail Media Growth Lead",
+            "location": "New York, New York; Santa Barbara, California; Seattle Washington; Columbus, Ohio",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8720183002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Associate Customer Success Manager",
+            "location": "Shanghai",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8891284002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Associate Manager, Finance Systems & Data Governance",
+            "location": "Cape Town",
+            "department": "Finance",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8661315002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Associate Manager (Statutory reporting, Acquisitions & Tax)",
+            "location": "Cape Town",
+            "department": "Finance",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8612149002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Associate Product Manager (Contracting/Action Processing)",
+            "location": "Santa Barbara, CA; Seattle, WA",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8871230002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Associate Software Engineer",
+            "location": "Santa Barbara, CA",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8645964002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Associate Solutions Architect",
+            "location": "Remote",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8797755002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Business Development Representative, Inbound",
+            "location": "New York City",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/7882953002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Business Development Representative, Inbound",
+            "location": "New York",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/7768895002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Channel Partnership Manager - Agency - ANZ",
+            "location": "Sydney",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8576162002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Creator Consulting & Relations Manager",
+            "location": "Kuala Lumpur",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8858155002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Creator Consulting & Relations Manager - Japan",
+            "location": "Tokyo",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8858177002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Creator Marketing Consulting Manager",
+            "location": "New York",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8658822002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Creator Strategy Manager",
+            "location": "New York,New York",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8728538002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Customer Solutions Manager",
+            "location": "Columbus",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8646077002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Customer Solutions Specialist (Technical Support)",
+            "location": "Kuala Lumpur",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8690467002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Customer Success Manager",
+            "location": "New York; Santa Barbara; Seattle; Columbus",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8863721002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Data Platform Engineer",
+            "location": "Cape Town",
+            "department": "Business Operations",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8867903002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Data Scientist, Next Gen Recommendation Systems",
+            "location": "New York City",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8509182002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Early Careers",
+            "location": "Oslo",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8448241002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Early Careers - Cape Town",
+            "location": "Cape Town",
+            "department": "",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/4054047002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Email & Marketing Automation Developer",
+            "location": "Cape Town, SA",
+            "department": "Marketplace",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8636502002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Enterprise Account Executive",
+            "location": "US Remote",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/5828699002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Enterprise Account Executive",
+            "location": "London",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8527856002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Full Stack Software Engineer",
+            "location": "Columbus, OH",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8879720002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Full Stack Software Engineer",
+            "location": "Seattle, Washington",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8465838002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "GenAI Engineer, Marketing",
+            "location": "Cape Town",
+            "department": "Marketing",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8870328002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "GenAI Engineer - Product Marketing & Adoption",
+            "location": "Capetown",
+            "department": "Business Operations",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8583462002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Integration Engineer",
+            "location": "Columbus, OH",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8465082002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Integration Engineer III",
+            "location": "Sydney",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8836551002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Intermediate Full Stack Software Engineer",
+            "location": "Columbus, OH",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8557055002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Internship - German speaking Influencer Specialist",
+            "location": "Stockholm",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/7819642002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Lead Technical Services Engineer",
+            "location": "Columbus, OH",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8462546002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Marketing Analytics Manager",
+            "location": "New York; Remote; Columbus, Ohio; Seattle, Washington; Santa Barbara, California",
+            "department": "Finance",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8870968002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "MySQL Database Administrator",
+            "location": "Columbus, OH",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8647400002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Paid Media Campaign Manager",
+            "location": "Cape Town",
+            "department": "Marketplace",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8786173002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Payroll Analyst",
+            "location": "Kuala Lumpur",
+            "department": "Finance",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8805514002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Principal Engineer, Quality Platform",
+            "location": "Cape Town, SA",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8863006002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Manager (Contracting/Action Processing)",
+            "location": "Santa Barbara, CA; Seattle, WA",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8337799002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Manager, Data Products",
+            "location": "Cape Town",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8631223002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Marketing Manager II",
+            "location": "New York City, NY",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8562225002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Program Compliance Manager",
+            "location": "Remote",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8872461002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Publisher Business Development Manager",
+            "location": "New York",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/7839952002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Publisher Development Manager",
+            "location": "Madrid",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8424431002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Publisher Development Manager",
+            "location": "Stockholm",
+            "department": "",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/6929152002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "QA Chapter Lead",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8612244002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "QA Chapter Lead",
+            "location": "Columbus, OH",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8647247002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "QA Engineer",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8413160002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "RVP of Sales",
+            "location": "Remote",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8191730002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "RVP of Sales, SMB",
+            "location": "New York",
+            "department": "Sales",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/7513247002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Business Operations",
+            "location": "New York City",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8335677002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Cloud Engineer",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8642851002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Content Marketing Manager, Research & Insights",
+            "location": "Cape Town",
+            "department": "Marketing",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8870243002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Data Scientist",
+            "location": "New York City",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8828965002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Data Scientist, Product Data",
+            "location": "Cape Town",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8380907002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Fraud Prevention Analyst",
+            "location": "Cape Town",
+            "department": "Business Operations",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8816380002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior MySQL Database Administrator",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8863706002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Revenue Operations Analyst",
+            "location": "New York; Remote",
+            "department": "Finance",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8863955002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Software Engineer",
+            "location": "Columbus, OH",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8459601002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Software Engineer",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/7772901002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Software Engineer (Shopify)",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8413164002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software engineer",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8225665002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software Quality Engineer (Java using Selenium)",
+            "location": "Cape Town",
+            "department": "Technology",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/6256610002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Sr. Data Scientist, Programmatic Algorithms",
+            "location": "New York City, NY",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8427973002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Sr. Data Scientist, Programmatic Algorithms",
+            "location": "Columbus, OH",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8525597002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Sr. Data Scientist, Programmatic Algorithms",
+            "location": "Seattle, WA",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8525233002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Sr. Data Scientist, Programmatic Algorithms",
+            "location": "Vancouver, British Columbia, Canada",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8525610002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Sr. Director, Revenue Operations Planning and Execution",
+            "location": "Remote",
+            "department": "Finance",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8504804002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Technical Project Manager",
+            "location": "Columbus, OH",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8637531002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Technical Project Manager",
+            "location": "Cape Town",
+            "department": "Product",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8631011002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Technical Services Engineer III",
+            "location": "Remote",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8338043002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Technical Services Engineer III",
+            "location": "Victoria, BC",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8733535002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Technical Services Engineer III",
+            "location": "Cape Town",
+            "department": "Customer Experience",
+            "url": "https://job-boards.greenhouse.io/impact/jobs/8463934002",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          }
+        ],
+        "error": "",
+        "total_jobs_reported": 77
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}

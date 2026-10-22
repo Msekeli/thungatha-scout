@@ -1,0 +1,4393 @@
+{
+  "generated_at_utc": "2026-10-21T00:02:40.557477+00:00",
+  "search_queries": [
+    "site:job-boards.greenhouse.io",
+    "site:boards.greenhouse.io",
+    "site:job-boards.greenhouse.io \"Cape Town\"",
+    "site:job-boards.greenhouse.io \"Western Cape\"",
+    "site:job-boards.greenhouse.io Stellenbosch",
+    "site:job-boards.greenhouse.io \"South Africa\"",
+    "site:boards.greenhouse.io \"Cape Town\"",
+    "site:boards.greenhouse.io \"Western Cape\"",
+    "site:boards.greenhouse.io Stellenbosch",
+    "site:boards.greenhouse.io \"South Africa\"",
+    "site:job-boards.greenhouse.io (\"Cape Town\" OR \"Western Cape\" OR Stellenbosch)",
+    "site:boards.greenhouse.io (\"Cape Town\" OR \"Western Cape\" OR Stellenbosch)",
+    "site:job-boards.greenhouse.io \"Cape Town, South Africa\"",
+    "site:job-boards.greenhouse.io \"Stellenbosch, South Africa\"",
+    "site:job-boards.greenhouse.io \"Western Cape, South Africa\"",
+    "site:boards.greenhouse.io \"Cape Town, South Africa\"",
+    "site:boards.greenhouse.io \"Stellenbosch, South Africa\"",
+    "site:boards.greenhouse.io \"Western Cape, South Africa\"",
+    "site:boards-api.greenhouse.io/v1/boards/",
+    "\"boards-api.greenhouse.io/v1/boards/\"",
+    "\"boards.greenhouse.io/embed/job_app?for=\"",
+    "\"job-boards.greenhouse.io\" careers",
+    "\"boards.greenhouse.io\" careers jobs",
+    "\"Greenhouse\" careers \"Cape Town\"",
+    "\"Greenhouse\" careers Stellenbosch",
+    "\"Greenhouse\" careers \"Western Cape\"",
+    "\"powered by Greenhouse\" careers South Africa",
+    "\"boards-api.greenhouse.io\" jobs careers",
+    "site:greenhouse.io \"Cape Town\" jobs"
+  ],
+  "search_status": "partial",
+  "successful_queries": 2,
+  "empty_queries": [],
+  "failed_queries": [
+    "site:boards.greenhouse.io: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards.greenhouse.io) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:job-boards.greenhouse.io \"Cape Town\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Ajob-boards.greenhouse.io%20%22Cape%20Town%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:job-boards.greenhouse.io \"Western Cape\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Ajob-boards.greenhouse.io%20%22Western%20Cape%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:job-boards.greenhouse.io Stellenbosch: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Ajob-boards.greenhouse.io%20Stellenbosch) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:job-boards.greenhouse.io \"South Africa\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Ajob-boards.greenhouse.io%20%22South%20Africa%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:boards.greenhouse.io \"Cape Town\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards.greenhouse.io%20%22Cape%20Town%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:boards.greenhouse.io \"Western Cape\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards.greenhouse.io%20%22Western%20Cape%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:boards.greenhouse.io Stellenbosch: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards.greenhouse.io%20Stellenbosch) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:boards.greenhouse.io \"South Africa\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards.greenhouse.io%20%22South%20Africa%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:job-boards.greenhouse.io (\"Cape Town\" OR \"Western Cape\" OR Stellenbosch): DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Ajob-boards.greenhouse.io%20%28%22Cape%20Town%22%20OR%20%22Western%20Cape%22%20OR%20Stellenbosch%29) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:boards.greenhouse.io (\"Cape Town\" OR \"Western Cape\" OR Stellenbosch): DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards.greenhouse.io%20%28%22Cape%20Town%22%20OR%20%22Western%20Cape%22%20OR%20Stellenbosch%29) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:job-boards.greenhouse.io \"Cape Town, South Africa\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Ajob-boards.greenhouse.io%20%22Cape%20Town%2C%20South%20Africa%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:job-boards.greenhouse.io \"Stellenbosch, South Africa\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Ajob-boards.greenhouse.io%20%22Stellenbosch%2C%20South%20Africa%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:job-boards.greenhouse.io \"Western Cape, South Africa\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Ajob-boards.greenhouse.io%20%22Western%20Cape%2C%20South%20Africa%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:boards.greenhouse.io \"Cape Town, South Africa\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards.greenhouse.io%20%22Cape%20Town%2C%20South%20Africa%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:boards.greenhouse.io \"Western Cape, South Africa\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards.greenhouse.io%20%22Western%20Cape%2C%20South%20Africa%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:boards-api.greenhouse.io/v1/boards/: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Aboards-api.greenhouse.io/v1/boards/) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"boards-api.greenhouse.io/v1/boards/\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22boards-api.greenhouse.io/v1/boards/%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"boards.greenhouse.io/embed/job_app?for=\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22boards.greenhouse.io/embed/job_app%3Ffor%3D%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"job-boards.greenhouse.io\" careers: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22job-boards.greenhouse.io%22%20careers) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"boards.greenhouse.io\" careers jobs: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22boards.greenhouse.io%22%20careers%20jobs) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"Greenhouse\" careers \"Cape Town\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22Greenhouse%22%20careers%20%22Cape%20Town%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"Greenhouse\" careers Stellenbosch: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22Greenhouse%22%20careers%20Stellenbosch) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"Greenhouse\" careers \"Western Cape\": DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22Greenhouse%22%20careers%20%22Western%20Cape%22) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"powered by Greenhouse\" careers South Africa: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22powered%20by%20Greenhouse%22%20careers%20South%20Africa) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "\"boards-api.greenhouse.io\" jobs careers: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=%22boards-api.greenhouse.io%22%20jobs%20careers) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')",
+    "site:greenhouse.io \"Cape Town\" jobs: DDGSException: DNSError: DNSError('error sending request for url (https://wt.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=site%3Agreenhouse.io%20%22Cape%20Town%22%20jobs) > error resolving DNS > DNS error: no records found for Query { name: Name(\"wt.wikipedia.org.\"), query_type: A, query_class: IN }')"
+  ],
+  "search_result_pages_seen": 0,
+  "company_pages_inspected": 0,
+  "company_page_inspection_limit": 80,
+  "company_page_errors": [],
+  "board_page_errors": [
+    "https://job-boards.greenhouse.io/remotecom: HTTP 500"
+  ],
+  "candidate_boards_found": 10,
+  "companies_with_candidate_names": 4,
+  "boards_with_accessible_public_api": 9,
+  "boards_with_usable_jobs": 9,
+  "validated_boards_found": 9,
+  "boards_with_explicit_regional_jobs": 0,
+  "boards_needing_company_identity_review": 10,
+  "boards": [
+    {
+      "board_token": "agency",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/agency"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at Meridial",
+          "snippet": "Explore career opportunities at Invisible Agency and join their innovative team in a variety of remote roles worldwide."
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [
+        "Meridial"
+      ],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/agency",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/agency/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:14.588441+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 833,
+      "usable_jobs": 833,
+      "jobs": [
+        {
+          "title": "3D Modeling & Python Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Engineering & Technology",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4857878101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4857878101"
+        },
+        {
+          "title": "Accounting Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Finance & Mathematics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4589003101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4589003101"
+        },
+        {
+          "title": "Actuarial Science Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Sciences",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4589004101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4589004101"
+        },
+        {
+          "title": "Afrikaans Language Specialist - Freelance AI Trainer Project",
+          "location": "South Africa",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4635213101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4635213101"
+        },
+        {
+          "title": "Afrikaans Trilingual Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4678403101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4678403101"
+        },
+        {
+          "title": "Afrikaans Voice Acting Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4658027101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4658027101"
+        },
+        {
+          "title": "Agentic Audio Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4856900101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4856900101"
+        },
+        {
+          "title": "AI-Assisted Developer Workflows (Trace) AI Task Auditor - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "STEM",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4969250101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4969250101"
+        },
+        {
+          "title": "AI Generalist (No Experience Required)",
+          "location": "United States of America",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4758627101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4758627101"
+        },
+        {
+          "title": "AI Generalist (No Experience Required) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4754242101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4754242101"
+        },
+        {
+          "title": "AI Generalist (No Experience Required) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Early Career",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4819324101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4819324101"
+        },
+        {
+          "title": "AI Generalist (No Experience Required) (US Only) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4677212101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4677212101"
+        },
+        {
+          "title": "AI QA Trainer - Freelance Project",
+          "location": "Singapore",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4832602101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4832602101"
+        },
+        {
+          "title": "AI QA Trainer - LLM Evaluation - Freelance Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4676601101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4676601101"
+        },
+        {
+          "title": "AI Training Generalist (No Prior Experience Needed) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Early Career",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4864010101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4864010101"
+        },
+        {
+          "title": "AI Training Generalist (No Prior Experience Needed) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Early Career",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4864014101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4864014101"
+        },
+        {
+          "title": "AI Training Generalist (No Prior Experience Needed) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Early Career",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4864011101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4864011101"
+        },
+        {
+          "title": "AI Training Generalist (No Prior Experience Needed) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Early Career",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4864005101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4864005101"
+        },
+        {
+          "title": "AI Training Generalist (No Prior Experience Needed) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Early Career",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4864006101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4864006101"
+        },
+        {
+          "title": "AI Training Generalist (No Prior Experience Needed) - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Early Career",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4864009101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4864009101"
+        },
+        {
+          "title": "Albanian Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4786673101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4786673101"
+        },
+        {
+          "title": "Alentejano Dialect Specialist - Freelance AI Trainer Project",
+          "location": "Portugal",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4809672101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4809672101"
+        },
+        {
+          "title": "Alexandrian Dialect Specialist - Freelance AI Trainer Project",
+          "location": "Egypt",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4809660101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4809660101"
+        },
+        {
+          "title": "American Sign Language (ASL) - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4605284101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4605284101"
+        },
+        {
+          "title": "Amharic Language Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660173101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660173101"
+        },
+        {
+          "title": "Amharic Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4787196101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4787196101"
+        },
+        {
+          "title": "Analytical Chemistry Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Sciences",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4631544101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4631544101"
+        },
+        {
+          "title": "Anthropology Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Sciences",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4589006101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4589006101"
+        },
+        {
+          "title": "Antibiotic Resistance Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Medical/Healthcare",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4645481101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4645481101"
+        },
+        {
+          "title": "Arabic (Egyptian) Language Expert - Freelance AI Trainer Project",
+          "location": "Egypt",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655030101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655030101"
+        },
+        {
+          "title": "Arabic (Emirati) Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4681603101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4681603101"
+        },
+        {
+          "title": "Arabic (Gulf) Language Expert - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655026101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655026101"
+        },
+        {
+          "title": "Arabic (Gulf) Language Specialist - Freelance AI Trainer Project",
+          "location": "Saudi Arabia",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655891101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655891101"
+        },
+        {
+          "title": "Arabic (Iraqi) Language Expert - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655031101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655031101"
+        },
+        {
+          "title": "Arabic (Iraqi) Language Specialist - Freelance AI Trainer Project",
+          "location": "Kuwait",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655894101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655894101"
+        },
+        {
+          "title": "Arabic Language Specialist - Freelance AI Trainer Project",
+          "location": "Egypt",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4603921101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4603921101"
+        },
+        {
+          "title": "Arabic (Levantine) Language Expert - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655029101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655029101"
+        },
+        {
+          "title": "Arabic (Levantine) Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655892101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655892101"
+        },
+        {
+          "title": "Arabic Voice Actor - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4788688101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4788688101"
+        },
+        {
+          "title": "Arabic (Yemeni) Language Expert - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655042101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655042101"
+        },
+        {
+          "title": "Arabic (Yemeni) Language Specialist - Freelance AI Trainer Project",
+          "location": "Saudi Arabia",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655898101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655898101"
+        },
+        {
+          "title": "Armenian Language Expert - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655039101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655039101"
+        },
+        {
+          "title": "Armenian Language Expert - Freelance AI Trainer Project",
+          "location": "Lebanon",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4699706101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4699706101"
+        },
+        {
+          "title": "Armenian Language Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655897101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655897101"
+        },
+        {
+          "title": "Art History Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Creative & Multi-Media",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4589008101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4589008101"
+        },
+        {
+          "title": "Assamese Language Specialist - Freelance AI Trainer Project",
+          "location": "India",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660174101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660174101"
+        },
+        {
+          "title": "Asturian Language Specialist - Freelance AI Trainer Project",
+          "location": "Spain",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4699711101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4699711101"
+        },
+        {
+          "title": "Asturian Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660178101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660178101"
+        },
+        {
+          "title": "Attorney Specialist - Freelance AI Trainer Project",
+          "location": "United Kingdom",
+          "department": "Law",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4654184101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4654184101"
+        },
+        {
+          "title": "Attorney Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Law",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4654183101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4654183101"
+        },
+        {
+          "title": "Audio Editing Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Creative & Multi-Media",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4611934101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4611934101"
+        },
+        {
+          "title": "Audio Editing Specialist - Freelance AI Trainer Project",
+          "location": "United Kingdom",
+          "department": "Creative & Multi-Media",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4703525101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4703525101"
+        },
+        {
+          "title": "Audio Editing Specialist - Freelance AI Trainer Project",
+          "location": "North America - Remote",
+          "department": "Creative & Multi-Media",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4703526101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4703526101"
+        },
+        {
+          "title": "Audio Editing Specialist - Freelance AI Trainer Project",
+          "location": "Poland",
+          "department": "Creative & Multi-Media",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4703557101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4703557101"
+        },
+        {
+          "title": "Audio Editor for Dialogue / Audio Post-Production - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Creative & Multi-Media",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4755075101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4755075101"
+        },
+        {
+          "title": "Audio Specialist- Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4787632101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4787632101"
+        },
+        {
+          "title": "AWS Serverless & IaC AI Task Auditor - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "STEM",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4969253101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4969253101"
+        },
+        {
+          "title": "AWS Trainium/NKI (TRN) AI Task Auditor - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "STEM",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4969246101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4969246101"
+        },
+        {
+          "title": "Aymara Language Expert - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655018101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655018101"
+        },
+        {
+          "title": "Aymara Language Specialist - Freelance AI Trainer Project",
+          "location": "Peru",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655885101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655885101"
+        },
+        {
+          "title": "Azerbaijani (Azeri) Language Expert - Freelance AI Trainer Project",
+          "location": "Turkey",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655044101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655044101"
+        },
+        {
+          "title": "Azerbaijani (Azeri) Language Specialist - Freelance AI Trainer Project",
+          "location": "Turkey",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4655900101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4655900101"
+        },
+        {
+          "title": "Backend Engineering Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Engineering & Technology",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4661538101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4661538101"
+        },
+        {
+          "title": "Bash Coding Specialist - Freelance AI Trainer Project",
+          "location": "India",
+          "department": "Coding",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4633548101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4633548101"
+        },
+        {
+          "title": "Bash Coding Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Coding",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4633538101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4633538101"
+        },
+        {
+          "title": "Basque Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4636537101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4636537101"
+        },
+        {
+          "title": "Basque Trilingual Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4678404101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4678404101"
+        },
+        {
+          "title": "Bedawi Dialect Specialist - Freelance AI Trainer Project",
+          "location": "Egypt",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4809661101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4809661101"
+        },
+        {
+          "title": "Belarusian Language Specialist - Freelance AI Trainer Project",
+          "location": "Poland",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660179101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660179101"
+        },
+        {
+          "title": "Bengali Language Specialist - Freelance AI Trainer Project",
+          "location": "Bangladesh",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4607763101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4607763101"
+        },
+        {
+          "title": "Bengali Language Specialist (India) - Freelance AI Trainer Project",
+          "location": "India",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4685537101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4685537101"
+        },
+        {
+          "title": "Bhojpuri Dialect Specialist - Freelance AI Trainer Project",
+          "location": "India",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4809643101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4809643101"
+        },
+        {
+          "title": "Biology Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Sciences",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4644647101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4644647101"
+        },
+        {
+          "title": "Bosnian Language Specialist - Freelance AI Trainer Project",
+          "location": "Bosnia and Herzegovina",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660180101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660180101"
+        },
+        {
+          "title": "British Sign Language (BSL) - Freelance AI Trainer Project",
+          "location": "United Kingdom",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4714829101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4714829101"
+        },
+        {
+          "title": "British Sign Language (BSL) - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4713636101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4713636101"
+        },
+        {
+          "title": "Bulgarian Language Specialist - Freelance AI Trainer Project",
+          "location": "North Macedonia",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4635217101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4635217101"
+        },
+        {
+          "title": "Bulgarian Language Specialist - Freelance AI Trainer Project",
+          "location": "Bulgaria",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4835721101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4835721101"
+        },
+        {
+          "title": "Bulgarian Trilingual Language Specialist - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4678393101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4678393101"
+        },
+        {
+          "title": "Burmese Language Specialist - Freelance AI Trainer Project",
+          "location": "Thailand",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660181101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660181101"
+        },
+        {
+          "title": "Business and Management Specialist – Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Business & Professions",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4784908101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4784908101"
+        },
+        {
+          "title": "Business Owners - Freelance AI Trainer Project",
+          "location": "Indonesia",
+          "department": "Business & Professions",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4868455101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4868455101"
+        },
+        {
+          "title": "Business Owners - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Business & Professions",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4864072101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4864072101"
+        },
+        {
+          "title": "Cantonese Language Specialist - Freelance AI Trainer Project",
+          "location": "Vietnam",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660182101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660182101"
+        },
+        {
+          "title": "Cantonese Language Specialist - Freelance AI Trainer Project",
+          "location": "Malaysia",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660183101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660183101"
+        },
+        {
+          "title": "Carioca Dialect Specialist - Freelance AI Trainer Project",
+          "location": "Brazil",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4809675101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4809675101"
+        },
+        {
+          "title": "Catalan Language Specialist - Freelance AI Trainer Project",
+          "location": "Spain",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660184101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660184101"
+        },
+        {
+          "title": "C# Coding Specialist - Freelance AI Trainer Project",
+          "location": "India",
+          "department": "Coding",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4633544101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4633544101"
+        },
+        {
+          "title": "C# Coding Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Coding",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4633533101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4633533101"
+        },
+        {
+          "title": "Cebuano Language Specialist - Freelance AI Trainer Project",
+          "location": "Philippines",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660185101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660185101"
+        },
+        {
+          "title": "Chemical Engineering Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Sciences",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4628970101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4628970101"
+        },
+        {
+          "title": "Chemistry Specialist (Fluent in Egyptian Arabic) - Freelance AI Trainer Project",
+          "location": "World Wide - Remote",
+          "department": "Sciences",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4664178101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4664178101"
+        },
+        {
+          "title": "Chemistry Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Medical/Healthcare",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4577600101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4577600101"
+        },
+        {
+          "title": "Chichewa Language Specialist - Freelance AI Trainer Project",
+          "location": "Malawi",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4660186101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4660186101"
+        },
+        {
+          "title": "Chief Executives - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Business & Professions",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4605294101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4605294101"
+        },
+        {
+          "title": "Chinese Language Specialist - Freelance AI Trainer Project",
+          "location": "United States of America",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4701984101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4701984101"
+        },
+        {
+          "title": "Chinese Language Specialist - Freelance AI Trainer Project",
+          "location": "Thailand",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4701983101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4701983101"
+        },
+        {
+          "title": "Chinese Language Specialist - Freelance AI Trainer Project",
+          "location": "Singapore",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4603927101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4603927101"
+        },
+        {
+          "title": "Chinese Language Specialist - Freelance AI Trainer Project",
+          "location": "Indonesia",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4702053101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4702053101"
+        },
+        {
+          "title": "Chinese Language Specialist - Freelance AI Trainer Project",
+          "location": "Malaysia",
+          "department": "Language & Linguistics",
+          "url": "https://job-boards.eu.greenhouse.io/agency/jobs/4701980101",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4701980101"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at Meridial",
+      "company_name": "Meridial",
+      "company_identity_status": "candidate_name_needs_review",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "globalizationpartners",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/globalizationpartners"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at G-P - Greenhouse Software",
+          "snippet": "G-P helps growing companies unlock their full potential by making it possible to build highly skilled global teams in days instead of months. Through our SaaS-based platform, we help find, hire, onboard, pay, and manage team members, quickly and compliantly, to expand growth opportunities for everyone, everywhere - without the hassle of setting up local subsidiaries or branch offices ..."
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [
+        "G-P"
+      ],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/globalizationpartners",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/globalizationpartners/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:18.268576+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 55,
+      "usable_jobs": 55,
+      "jobs": [
+        {
+          "title": "AI Engineer I",
+          "location": "United Kingdom (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8034413003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8034413003"
+        },
+        {
+          "title": "AI Engineer I",
+          "location": "Ireland (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8034410003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8034410003"
+        },
+        {
+          "title": "Business Development Representative",
+          "location": "Hong Kong (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7979694003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7979694003"
+        },
+        {
+          "title": "Business Development Representative",
+          "location": "Malaysia (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8030735003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8030735003"
+        },
+        {
+          "title": "Business Development Representative - Japanese",
+          "location": "Malaysia (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8002760003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8002760003"
+        },
+        {
+          "title": "Field Account Executive",
+          "location": "United States (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7989237003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7989237003"
+        },
+        {
+          "title": "Field Account Executive",
+          "location": "United Kingdom (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8032886003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8032886003"
+        },
+        {
+          "title": "Field Account Executive - EMEA",
+          "location": "Ireland (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7653122003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7653122003"
+        },
+        {
+          "title": "Front End AI Engineer",
+          "location": "United States (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7979219003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7979219003"
+        },
+        {
+          "title": "General Talent Community - Taiwan (Disability Inclusion Initiative)",
+          "location": "Taiwan (Remote-First)",
+          "department": "",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7419621003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7419621003"
+        },
+        {
+          "title": "Global Mobility Associate - 1 year fixed term contract",
+          "location": "Philippines (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8006905003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8006905003"
+        },
+        {
+          "title": "Head of Reseller & Embedded Solutions",
+          "location": "United States (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8009961003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8009961003"
+        },
+        {
+          "title": "HR Project Delivery Manager",
+          "location": "Malaysia (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8009464003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8009464003"
+        },
+        {
+          "title": "HR Project Delivery Manager",
+          "location": "Colombia (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8009449003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8009449003"
+        },
+        {
+          "title": "HR Project Delivery Manager",
+          "location": "Mexico (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8009453003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8009453003"
+        },
+        {
+          "title": "HR Project Delivery Manager",
+          "location": "Singapore (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8018764003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8018764003"
+        },
+        {
+          "title": "HR Project Delivery Manager",
+          "location": "Ireland (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8009475003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8009475003"
+        },
+        {
+          "title": "HR Specialist",
+          "location": "Czech Republic (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8006886003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8006886003"
+        },
+        {
+          "title": "HR Specialist",
+          "location": "Italy (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8006869003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8006869003"
+        },
+        {
+          "title": "HR Specialist",
+          "location": "Australia (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7994501003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7994501003"
+        },
+        {
+          "title": "HR Specialist - 1 year Fixed Term Contract",
+          "location": "Canada - Ontario (Remote- First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7994476003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7994476003"
+        },
+        {
+          "title": "HR Specialist - 1 Year fixed term (French Speaker)",
+          "location": "Italy (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8008270003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8008270003"
+        },
+        {
+          "title": "HR Specialist with German",
+          "location": "Romania (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8019987003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8019987003"
+        },
+        {
+          "title": "Payroll & Billing Specialist",
+          "location": "Mexico (Remote-First)",
+          "department": "Finance",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7982107003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7982107003"
+        },
+        {
+          "title": "Principal Product Program Manager",
+          "location": "Ireland (Remote-First)",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7992582003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7992582003"
+        },
+        {
+          "title": "Principal Product Program Manager",
+          "location": "United Kingdom - Northern Ireland (Remote-First)",
+          "department": "Product",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7992586003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7992586003"
+        },
+        {
+          "title": "Principal/Senior Technical Program Manager",
+          "location": "Ireland (Remote-First)",
+          "department": "IT",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8012719003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8012719003"
+        },
+        {
+          "title": "Principal Software Engineer - AI Platform",
+          "location": "India (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7782392003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7782392003"
+        },
+        {
+          "title": "Senior Application Security engineer",
+          "location": "Ireland (Remote-First)",
+          "department": "IT",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7997048003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7997048003"
+        },
+        {
+          "title": "Senior Application Security Engineer",
+          "location": "United Kingdom (Remote-First)",
+          "department": "IT",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7997051003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7997051003"
+        },
+        {
+          "title": "Senior Director – Global Shared Services",
+          "location": "Ireland (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8008255003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8008255003"
+        },
+        {
+          "title": "Senior Human Resource Associate, Shared Service Centre - 9 month fixed term contract",
+          "location": "Philippines (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8001520003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8001520003"
+        },
+        {
+          "title": "Senior Human Resource Associate, Shared Service Centre -9 month fixed term contract",
+          "location": "India (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8001509003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8001509003"
+        },
+        {
+          "title": "Senior Sales Executive - GIA",
+          "location": "United States (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7985421003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7985421003"
+        },
+        {
+          "title": "Senior Software Engineer - AI Platform",
+          "location": "India (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8004330003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8004330003"
+        },
+        {
+          "title": "Software Architect - Data Platform",
+          "location": "India (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7985150003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7985150003"
+        },
+        {
+          "title": "Sr. Business Development Representative - Gia",
+          "location": "United States (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7985395003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7985395003"
+        },
+        {
+          "title": "Sr. Director & Head of Architecture",
+          "location": "India (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7762378003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7762378003"
+        },
+        {
+          "title": "Sr. Director & Head of Architecture",
+          "location": "United Kingdom - Northern Ireland (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7762383003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7762383003"
+        },
+        {
+          "title": "Sr. Director & Head of Architecture",
+          "location": "United States (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7762376003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7762376003"
+        },
+        {
+          "title": "Sr. Director & Head of Architecture",
+          "location": "Ireland (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7762379003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7762379003"
+        },
+        {
+          "title": "Sr HR Associate, Shared Services ( 9 month Fixed Term Contract)",
+          "location": "Philippines (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8001439003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8001439003"
+        },
+        {
+          "title": "Sr Human Resources Associate, Shared Service Centre",
+          "location": "India (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8001497003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8001497003"
+        },
+        {
+          "title": "Sr Human Resources Associate, Shared Service Centre",
+          "location": "Philippines (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8001495003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8001495003"
+        },
+        {
+          "title": "Sr Human Resources Associate, Shared Service Centre",
+          "location": "India (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8001435003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8001435003"
+        },
+        {
+          "title": "Sr Human Resources Associate, Shared Service Centre  ( 9 month fixed term contract)",
+          "location": "Philippines (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8001548003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8001548003"
+        },
+        {
+          "title": "Sr Human Resources Associate, Shared Service Centre ( 9 month fixed term contract)",
+          "location": "India (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8001539003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8001539003"
+        },
+        {
+          "title": "Sr Sales Executive - GIA",
+          "location": "United Kingdom (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7985416003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7985416003"
+        },
+        {
+          "title": "Sr Sales Executive - GIA",
+          "location": "Ireland (Remote-First)",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8005122003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8005122003"
+        },
+        {
+          "title": "Staff AI Engineer",
+          "location": "India (Remote-First)",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7704105003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7704105003"
+        },
+        {
+          "title": "Talent Acquisition Partner (Temporary 6 month Contract)",
+          "location": "United Kingdom (Remote-First)",
+          "department": "People Team",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7989459003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7989459003"
+        },
+        {
+          "title": "Talent Acquisition Partner (Temporary 6 month Contract)",
+          "location": "Ireland (Remote-First)",
+          "department": "People Team",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7989848003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7989848003"
+        },
+        {
+          "title": "Talent Acquisition Partner,( Temporary 6 month Contract)",
+          "location": "Northern Ireland (Remote-First)",
+          "department": "People Team",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/7989849003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7989849003"
+        },
+        {
+          "title": "TUPE HR Specialist",
+          "location": "Ireland (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8006892003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8006892003"
+        },
+        {
+          "title": "TUPE HR Specialist",
+          "location": "United Kingdom (Remote-First)",
+          "department": "Global Ops",
+          "url": "https://job-boards.greenhouse.io/globalizationpartners/jobs/8018739003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8018739003"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at G-P",
+      "company_name": "G-P",
+      "company_identity_status": "candidate_name_needs_review",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "greenthumbindustries",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/greenthumbindustries"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at Green Thumb - Greenhouse Software",
+          "snippet": "Green Thumb Industries Inc. (\"Green Thumb\"), a national cannabis consumer packaged goods company and retailer, promotes well-being through the power of cannabis while giving back to the communities in which it serves. Green Thumb manufactures and distributes a portfolio of branded cannabis products including &Shine, Beboe, Dogwalkers, Doctor Solomon's, Good Green, incredibles and RYTHM ..."
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [
+        "Green Thumb"
+      ],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/greenthumbindustries",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/greenthumbindustries/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:11.396317+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 241,
+      "usable_jobs": 241,
+      "jobs": [
+        {
+          "title": "Account Executive (Annapolis, Maryland)",
+          "location": "Maryland, United States",
+          "department": "Revenue - Sales",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8084184",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8084184"
+        },
+        {
+          "title": "Account Executive, New York",
+          "location": "Manhattan, New York, United States",
+          "department": "Revenue - Sales",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8240860",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8240860"
+        },
+        {
+          "title": "Account Executive (Westminster, Maryland)",
+          "location": "Maryland, United States",
+          "department": "Revenue - Sales",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8265725",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8265725"
+        },
+        {
+          "title": "Administrative Coordinator",
+          "location": "Rock Island, Illinois, United States",
+          "department": "Administration - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8277385",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8277385"
+        },
+        {
+          "title": "Asset Protection Specialist (Full Time)",
+          "location": "Warwick, Rhode Island, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8160296",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8160296"
+        },
+        {
+          "title": "Asset Protection Specialist (Full Time)",
+          "location": "Whitehall, Ohio, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8140223",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8140223"
+        },
+        {
+          "title": "Asset Protection Specialist (Full Time)",
+          "location": "Paterson, New Jersey, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8238359",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8238359"
+        },
+        {
+          "title": "Asset Protection Specialist (Full Time)",
+          "location": "Dracut, Massachusetts, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8205169",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8205169"
+        },
+        {
+          "title": "Asset Protection Specialist (Full Time)",
+          "location": "Joppa, Maryland, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8289595",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8289595"
+        },
+        {
+          "title": "Asset Protection Specialist (Full Time)",
+          "location": "York, Pennsylvania, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8260178",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8260178"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time)",
+          "location": "Bethesda, Maryland, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8285168",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8285168"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time)",
+          "location": "Reno, Nevada, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259166",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259166"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time)",
+          "location": "Silver Spring, Maryland, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8256707",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8256707"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time)",
+          "location": "Warwick, Rhode Island, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8234502",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8234502"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time)",
+          "location": "Pasadena, California, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8162661",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8162661"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time)",
+          "location": "Cranberry Township, Pennsylvania, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8221246",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8221246"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time)",
+          "location": "Whitehall, Ohio, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8190866",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8190866"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time)",
+          "location": "York, Pennsylvania, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8199018",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8199018"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time), Carson City (Clearview)",
+          "location": "Carson City, Nevada, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8263357",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8263357"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time), Carson City (US HWY 50)",
+          "location": "Carson City, Nevada, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8301861",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8301861"
+        },
+        {
+          "title": "Asset Protection Specialist (Part Time), Rise on the Strip",
+          "location": "Las Vegas, Nevada, United States",
+          "department": "Asset Protection",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8261468",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8261468"
+        },
+        {
+          "title": "Assistant General Manager",
+          "location": "Mankato, Minnesota, United States",
+          "department": "Assistant General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8130266",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8130266"
+        },
+        {
+          "title": "Assistant General Manager",
+          "location": "Dracut, Massachusetts, United States",
+          "department": "Assistant General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8239836",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8239836"
+        },
+        {
+          "title": "Assistant General Manager",
+          "location": "Saint Paul, Minnesota, United States",
+          "department": "Assistant General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8107116",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8107116"
+        },
+        {
+          "title": "Assistant Head Grower",
+          "location": "Homestead, Florida, United States",
+          "department": "Cultivation & Harvest",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8227212",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8227212"
+        },
+        {
+          "title": "Associate HR Business Partner",
+          "location": "Centreville, Maryland, United States",
+          "department": "People",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8211595",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8211595"
+        },
+        {
+          "title": "Associate IT Operations Engineer",
+          "location": "Remote",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8227636",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8227636"
+        },
+        {
+          "title": "Breakdown Technician",
+          "location": "Oglesby, Illinois, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8224437",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8224437"
+        },
+        {
+          "title": "Breakdown Technician",
+          "location": "Rock Island, Illinois, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8179958",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8179958"
+        },
+        {
+          "title": "Cultivation Technician",
+          "location": "Hackettstown, New Jersey, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8156201",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8156201"
+        },
+        {
+          "title": "Cultivation Technician",
+          "location": "Cottage Grove, Minnesota, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/7908439",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7908439"
+        },
+        {
+          "title": "Cultivation Technician",
+          "location": "West Haven, Connecticut, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/7773792",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7773792"
+        },
+        {
+          "title": "Cultivation Technician",
+          "location": "Paterson, New Jersey, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8278392",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8278392"
+        },
+        {
+          "title": "Cultivation Technician",
+          "location": "Las Vegas, Nevada, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8287801",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8287801"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Kendall, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8261359",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8261359"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Mulberry, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259583",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259583"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Danville, Pennsylvania, United States",
+          "department": "Drivers - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8161952",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8161952"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Cottage Grove, Minnesota, United States",
+          "department": "Drivers - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8214448",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8214448"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Spring Hill, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259611",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259611"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Davenport, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259550",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259550"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Port Charlotte, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259597",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259597"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Cape Coral, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259539",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259539"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Yulee, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8274943",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8274943"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Pensacola, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259589",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259589"
+        },
+        {
+          "title": "Delivery Driver",
+          "location": "Port St. Lucie, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259604",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259604"
+        },
+        {
+          "title": "Delivery Driver (Full Time)",
+          "location": "Orange, Connecticut, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8016336",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8016336"
+        },
+        {
+          "title": "Delivery Driver (Full Time)",
+          "location": "Bloomfield, New Jersey, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8047352",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8047352"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Hagerstown, Maryland, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8210703",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8210703"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Bloomfield, New Jersey, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8047361",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8047361"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Reno, Nevada, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8212243",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8212243"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Paterson, New Jersey, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8237537",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8237537"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Branford, Connecticut, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8249726",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8249726"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Orange, Connecticut, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8204098",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8204098"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Pinellas Park, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8170566",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8170566"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Port Orange, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8300966",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8300966"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Chelsea, Massachusetts, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8171765",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8171765"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Bethesda, Maryland, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8192064",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8192064"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Brooklyn Park, Minnesota, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8175187",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8175187"
+        },
+        {
+          "title": "Delivery Driver (Part Time)",
+          "location": "Hallandale Beach, Florida, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8250123",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8250123"
+        },
+        {
+          "title": "Delivery Driver (Part Time), Carson City (Clearview)",
+          "location": "Carson City, Nevada, United States",
+          "department": "Drivers",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8263305",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8263305"
+        },
+        {
+          "title": "Director, Product Development - Edibles",
+          "location": "Remote",
+          "department": "Revenue - Innovation & Commercial Strategy",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8214136",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8214136"
+        },
+        {
+          "title": "Director, Production Optimization",
+          "location": "Chicago, Illinois, United States",
+          "department": "Production Corporate",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259940",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259940"
+        },
+        {
+          "title": "Director, Product Science & Development",
+          "location": "Chicago, Illinois, United States",
+          "department": "Extraction & Processing",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8096722",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8096722"
+        },
+        {
+          "title": "Director, Site Operations Opportunities",
+          "location": "Remote",
+          "department": "Director, Site Operations",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8019027",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8019027"
+        },
+        {
+          "title": "District Manager, Virginia",
+          "location": "Virginia, United States",
+          "department": "District Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8274413",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8274413"
+        },
+        {
+          "title": "Employment Counsel",
+          "location": "Chicago, Illinois, United States",
+          "department": "Legal & Compliance",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8096253",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8096253"
+        },
+        {
+          "title": "Flower Technician",
+          "location": "Danville, Pennsylvania, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8179512",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8179512"
+        },
+        {
+          "title": "Flower Technician",
+          "location": "Oglesby, Illinois, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259677",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259677"
+        },
+        {
+          "title": "Fulfillment & Logistics Supervisor",
+          "location": "Abingdon, Virginia, United States",
+          "department": "Warehouse & Order Fulfillment",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8141426",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8141426"
+        },
+        {
+          "title": "Fulfillment & Logistics Supervisor",
+          "location": "Cottage Grove, Minnesota, United States",
+          "department": "Warehouse & Order Fulfillment",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8224544",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8224544"
+        },
+        {
+          "title": "General Manager",
+          "location": "Hallandale Beach, Florida, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8286398",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8286398"
+        },
+        {
+          "title": "General Manager",
+          "location": "Deerfield Beach, Florida, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8195784",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8195784"
+        },
+        {
+          "title": "General Manager",
+          "location": "Normal, Illinois, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8274000",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8274000"
+        },
+        {
+          "title": "General Manager",
+          "location": "Sun City Center, Florida, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8095587",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8095587"
+        },
+        {
+          "title": "General Manager",
+          "location": "Lebanon, Pennsylvania, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8274254",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8274254"
+        },
+        {
+          "title": "General Manager",
+          "location": "Cape Coral, Florida, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8237294",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8237294"
+        },
+        {
+          "title": "General Manager",
+          "location": "Saint Cloud, Minnesota, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8203212",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8203212"
+        },
+        {
+          "title": "General Manager - New Store Opening!",
+          "location": "Belleview, Florida, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8201916",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8201916"
+        },
+        {
+          "title": "General Manager - New Store Opening!",
+          "location": "Pensacola, Florida, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8121389",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8121389"
+        },
+        {
+          "title": "General Manager - New Store Opening!",
+          "location": "Yulee, Florida, United States",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8121383",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8121383"
+        },
+        {
+          "title": "Harvest Technician",
+          "location": "Oglesby, Illinois, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8148105",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8148105"
+        },
+        {
+          "title": "Harvest Technician",
+          "location": "Centreville, Maryland, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8249811",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8249811"
+        },
+        {
+          "title": "Human Resource Business Partner",
+          "location": "Danville, Pennsylvania, United States",
+          "department": "People",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8237169",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8237169"
+        },
+        {
+          "title": "Illinois Leadership Opportunities",
+          "location": "Illinois - East; Illinois - West",
+          "department": "General Manager",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8237322",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8237322"
+        },
+        {
+          "title": "Implementation Specialist - Preroll",
+          "location": "Chicago, Illinois, United States; Remote",
+          "department": "Production - Engineering & Project Management",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8160550",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8160550"
+        },
+        {
+          "title": "Integrated Pest Management Technician",
+          "location": "Oglesby, Illinois, United States",
+          "department": "Cultivation & Harvest - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8256033",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8256033"
+        },
+        {
+          "title": "IT Field Operations Engineer",
+          "location": "Remote",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8257427",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8257427"
+        },
+        {
+          "title": "Lab Technician",
+          "location": "West Haven, Connecticut, United States",
+          "department": "Extraction & Processing - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8242957",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8242957"
+        },
+        {
+          "title": "Lab Technician",
+          "location": "Danville, Pennsylvania, United States",
+          "department": "Extraction & Processing - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8282616",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8282616"
+        },
+        {
+          "title": "Lab Technician",
+          "location": "Hackettstown, New Jersey, United States",
+          "department": "Extraction & Processing - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8259799",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8259799"
+        },
+        {
+          "title": "Lab Technician",
+          "location": "Centreville, Maryland, United States",
+          "department": "Extraction & Processing - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8303747",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8303747"
+        },
+        {
+          "title": "Lab Technician",
+          "location": "Ocala, Florida, United States",
+          "department": "Extraction & Processing - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8230486",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8230486"
+        },
+        {
+          "title": "Lab Technician",
+          "location": "Las Vegas, Nevada, United States",
+          "department": "Extraction & Processing - Hourly",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8109244",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8109244"
+        },
+        {
+          "title": "Leader in Training",
+          "location": "Joppa, Maryland, United States",
+          "department": "Leader in Training",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8296098",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8296098"
+        },
+        {
+          "title": "Leader in Training",
+          "location": "Pensacola, Florida, United States",
+          "department": "Leader in Training",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8256933",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8256933"
+        },
+        {
+          "title": "Leader in Training",
+          "location": "Willmar, Minnesota, United States",
+          "department": "Leader in Training",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8274836",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8274836"
+        },
+        {
+          "title": "Leader in Training",
+          "location": "Brooklyn Park, Minnesota, United States",
+          "department": "Leader in Training",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8120117",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8120117"
+        },
+        {
+          "title": "Leader in Training",
+          "location": "Apopka, Florida, United States",
+          "department": "Leader in Training",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8256961",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8256961"
+        },
+        {
+          "title": "Leader in Training",
+          "location": "Kendall, Florida, United States",
+          "department": "Leader in Training",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8173938",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8173938"
+        },
+        {
+          "title": "Leader in Training",
+          "location": "Philadelphia, Pennsylvania, United States",
+          "department": "Leader in Training",
+          "url": "https://job-boards.greenhouse.io/greenthumbindustries/jobs/8215689",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8215689"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at Green Thumb",
+      "company_name": "Green Thumb",
+      "company_identity_status": "candidate_name_needs_review",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "internshiplist2000",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/internshiplist2000"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at Internship List",
+          "snippet": "Create a Job Alert Level-up your career by having opportunities at Internship List sent directly to your inbox. Create alert"
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [
+        "Internship List"
+      ],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/internshiplist2000",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/internshiplist2000/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:05.638532+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 17,
+      "usable_jobs": 17,
+      "jobs": [
+        {
+          "title": "Campus Talent Acquisition Intern (Summer/May 2027, 12 Months)",
+          "location": "Oakville, Ontario - Canada; Toronto, Ontario - Canada; Waterloo, Ontario - Canada",
+          "department": "Talent Acquisition",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5309667008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5309667008"
+        },
+        {
+          "title": "Competitive Intelligence and Market Research Intern (Winter/January 2027, 12 Months)",
+          "location": "Oakville, Ontario - Canada; Toronto, Ontario - Canada",
+          "department": "Product Marketing",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5413032008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5413032008"
+        },
+        {
+          "title": "Content Marketing Coordinator Intern (Winter/January 2027, 8 Months)",
+          "location": "Oakville, Ontario - Canada; Toronto, Ontario - Canada",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5384593008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5384593008"
+        },
+        {
+          "title": "Corporate Compliance Intern (Winter/January 2027, 12 Months)",
+          "location": "Oakville, Ontario - Canada; Toronto, Ontario - Canada; Waterloo, Ontario - Canada",
+          "department": "Corporate Compliance",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5309952008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5309952008"
+        },
+        {
+          "title": "Customer Marketing Intern (Winter/January 2027, 8 Months)",
+          "location": "Oakville, Ontario - Canada; Toronto, Ontario - Canada; Waterloo, Ontario - Canada",
+          "department": "Customer Marketing",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5383289008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5383289008"
+        },
+        {
+          "title": "Embedded Developer Intern, Engine Data Reliability ( Winter/ January 2027, 12-16 months)",
+          "location": "Oakville, Ontario - Canada",
+          "department": "Embedded Engineering",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5396891008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5396891008"
+        },
+        {
+          "title": "Events Intern (Winter/January 2027, 12 Months)",
+          "location": "Oakville, Ontario - Canada",
+          "department": "Events",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5452423008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5452423008"
+        },
+        {
+          "title": "Integrated Marketing Intern (Winter/ January 2027, 8-12 Months)",
+          "location": "Oakville, Ontario - Canada; Waterloo, Ontario - Canada",
+          "department": "Marketing",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5368704008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5368704008"
+        },
+        {
+          "title": "Legal Summer Student (Summer/May 2027, 4 Months)",
+          "location": "Atlanta, Georgia - USA; Oakville, Ontario - Canada; Toronto, Ontario - Canada",
+          "department": "Legal",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5441309008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5441309008"
+        },
+        {
+          "title": "Marketing Intern, Latin America (Winter/January 2027, 12 Months)",
+          "location": "Oakville, Ontario - Canada",
+          "department": "Regional Marketing",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5358560008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5358560008"
+        },
+        {
+          "title": "Software Developer Intern, Geotab Vitality (Winter/January 2027, 4 Months)",
+          "location": "Oakville, Ontario - Canada; Toronto, Ontario - Canada; Waterloo, Ontario - Canada",
+          "department": "Geotab Vitality",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5376578008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5376578008"
+        },
+        {
+          "title": "Software Developer Intern, MyAdmin (Winter/January 2027, 8+ Months)",
+          "location": "Oakville, Ontario - Canada; Waterloo, Ontario - Canada",
+          "department": "Software Development",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5361630008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5361630008"
+        },
+        {
+          "title": "Software Developer Intern, MyGeotab (Winter/January 2027, 4-8 Months)",
+          "location": "Oakville, Ontario - Canada; Toronto, Ontario - Canada; Waterloo, Ontario - Canada",
+          "department": "Software Development",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5383412008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5383412008"
+        },
+        {
+          "title": "Software Developer Intern (Winter/January 2027, 8 Months)",
+          "location": "Oakville, Ontario - Canada; Toronto, Ontario - Canada",
+          "department": "Software Development",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5350915008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5350915008"
+        },
+        {
+          "title": "Solutions Delivery Intern, Maintenance Domain, (Winter/ January 2027, 12 Months)",
+          "location": "Oakville, Ontario - Canada",
+          "department": "Product Management Core",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5367565008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5367565008"
+        },
+        {
+          "title": "Total Rewards Intern (Winter/January 2027, 8+ Months)",
+          "location": "Oakville, Ontario - Canada",
+          "department": "Benefits & Wellness",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5385281008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5385281008"
+        },
+        {
+          "title": "Vehicle Systems Engineering Intern (Winter/January 2027, 4- 8 Months)",
+          "location": "Waterloo, Ontario - Canada",
+          "department": "Vehicle Data Engineering",
+          "url": "https://job-boards.greenhouse.io/internshiplist2000/jobs/5381043008",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5381043008"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at Internship List",
+      "company_name": "Internship List",
+      "company_identity_status": "candidate_name_needs_review",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "blend",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/blend"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at Blend - Greenhouse Software",
+          "snippet": "Create a Job Alert Level-up your career by having opportunities at Blend sent directly to your inbox. Create alert"
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/blend",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/blend/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:06.869599+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 15,
+      "usable_jobs": 15,
+      "jobs": [
+        {
+          "title": "Business Automation Engineer",
+          "location": "United States",
+          "department": "Information Security- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6222384004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6222384004"
+        },
+        {
+          "title": "Client Sales Executive - Named Accounts",
+          "location": "United States",
+          "department": "Growth Team- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6177609004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6177609004"
+        },
+        {
+          "title": "Consultant, Professional Services",
+          "location": "United States",
+          "department": "Deployment Leads- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6207985004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6207985004"
+        },
+        {
+          "title": "Head of Product - Autopilot",
+          "location": "United States",
+          "department": "Product- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6186352004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6186352004"
+        },
+        {
+          "title": "Product Architect",
+          "location": "United States",
+          "department": "Product- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6208751004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6208751004"
+        },
+        {
+          "title": "Sales Executive - New Logo (Named Accounts)",
+          "location": "United States",
+          "department": "Growth Team- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6141507004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6141507004"
+        },
+        {
+          "title": "Security Engineering Manager",
+          "location": "United States",
+          "department": "Information Security- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6132178004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6132178004"
+        },
+        {
+          "title": "Senior Helpdesk Engineer",
+          "location": "United States",
+          "department": "Information Technology- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6220332004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6220332004"
+        },
+        {
+          "title": "Senior Manager, Technical Accounting",
+          "location": "United States",
+          "department": "Finance- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6219753004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6219753004"
+        },
+        {
+          "title": "Software Engineer",
+          "location": "United States",
+          "department": "Engineering- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6203084004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6203084004"
+        },
+        {
+          "title": "Software Engineer - AI Native (Full Stack)",
+          "location": "Raleigh, NC",
+          "department": "Engineering- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6141420004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6141420004"
+        },
+        {
+          "title": "Software Engineer - Infrastructure",
+          "location": "United States",
+          "department": "Engineering- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6123761004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6123761004"
+        },
+        {
+          "title": "Software Engineer - Platform Foundation",
+          "location": "United States",
+          "department": "Engineering- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6190338004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6190338004"
+        },
+        {
+          "title": "Strategic Customer Success Manager",
+          "location": "United States",
+          "department": "Customer Success- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6207994004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6207994004"
+        },
+        {
+          "title": "Tier 1 Support Manager",
+          "location": "United States",
+          "department": "Client Support- Blend Labs",
+          "url": "https://job-boards.greenhouse.io/blend/jobs/6224663004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6224663004"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at Blend",
+      "company_name": "",
+      "company_identity_status": "unresolved_board_identity",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "branch",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/branch"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at Branch - Greenhouse Software",
+          "snippet": "At Branch, we value a diversity of opinions and working styles, but there are three practices we try to collectively put in action: Think Big, Move Fast, Win Together. We're looking for talented individuals to help us build and deliver more inclusive, transparent, and frictionless financial products. Explore our open positions to see how your skills might contribute to Branch's mission of ..."
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/branch",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/branch/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:20.393881+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 2,
+      "usable_jobs": 2,
+      "jobs": [
+        {
+          "title": "Enterprise Account Executive, Marketplaces",
+          "location": "Remote, US",
+          "department": "Sales",
+          "url": "https://job-boards.greenhouse.io/branch/jobs/7902608003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7902608003"
+        },
+        {
+          "title": "Senior Software Engineer, Platform",
+          "location": "Remote, US",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/branch/jobs/7771615003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7771615003"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at Branch",
+      "company_name": "",
+      "company_identity_status": "unresolved_board_identity",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "givedirectly",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/givedirectly"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at GiveDirectly - Greenhouse Software",
+          "snippet": "GiveDirectly aims to reshape international giving. We provide an end-to-end platform that enables funders to provide direct cash transfers to people living in poverty. We are among the fastest-growing international development non-profits and are recipients of a Google Global Impact Award and a top rating from GiveWell. Our unorthodox approach - allowing recipients ..."
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/givedirectly",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/givedirectly/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:21.713330+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 32,
+      "usable_jobs": 32,
+      "jobs": [
+        {
+          "title": "002-09-2026 SUPERVISEUR TERRAIN & CONTRÔLEUR DE RISQUE / BUKAVU et KINSHASA",
+          "location": "RDC : BUKAVU et KINSHASA",
+          "department": "Internal Audit",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4736976005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4736976005"
+        },
+        {
+          "title": "004-09-2026/GD-RDC CHAUFFEUR JOURNALIER",
+          "location": "DRC GOMA",
+          "department": "DRC Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4738875005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4738875005"
+        },
+        {
+          "title": "Administration Operations Manager",
+          "location": "Lilongwe",
+          "department": "Administrative",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4740348005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4740348005"
+        },
+        {
+          "title": "Chief Technology Officer",
+          "location": "Remote",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4725861005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4725861005"
+        },
+        {
+          "title": "Consultant, Strategic Initiatives [Limited Term]",
+          "location": "Remote",
+          "department": "CEO's Office",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4739025005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4739025005"
+        },
+        {
+          "title": "Director, Revenue Operations (Fundraising)",
+          "location": "Remote",
+          "department": "Partnerships",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4734612005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4734612005"
+        },
+        {
+          "title": "Field Manager  - External Relations",
+          "location": "Zomba",
+          "department": "Malawi Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4740361005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4740361005"
+        },
+        {
+          "title": "Field Officer",
+          "location": "Karamoja, Uganda.",
+          "department": "Uganda Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4690900005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4690900005"
+        },
+        {
+          "title": "General Interest",
+          "location": "Remote",
+          "department": "",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4129255005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4129255005"
+        },
+        {
+          "title": "Growth Manager, Paid Media",
+          "location": "Remote",
+          "department": "Growth",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4739969005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4739969005"
+        },
+        {
+          "title": "Human Resources Manager",
+          "location": "Lilongwe, Malawi",
+          "department": "Malawi Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4694064005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4694064005"
+        },
+        {
+          "title": "Legal Counsel, Corporate & Business Affairs",
+          "location": "Remote",
+          "department": "Legal and Compliance",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4735030005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4735030005"
+        },
+        {
+          "title": "Legal Counsel, Emergency Cash & U.S. Programs",
+          "location": "Remote",
+          "department": "Legal and Compliance",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4735047005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4735047005"
+        },
+        {
+          "title": "N° 001-10-2026/GD-RDC/MANAGER RESSOURCES HUMAINES",
+          "location": "DRC",
+          "department": "Administrative",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4740762005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4740762005"
+        },
+        {
+          "title": "Operations Lead (Senior Manager)",
+          "location": "Maputo",
+          "department": "Mozambique Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4723621005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4723621005"
+        },
+        {
+          "title": "Program Manager (2)",
+          "location": "Zomba, Malawi",
+          "department": "Malawi Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4736178005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4736178005"
+        },
+        {
+          "title": "Risk Management Program Manager (DRC)",
+          "location": "Goma/Bukavu/Kinshasa, DRC",
+          "department": "Internal Audit",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4729525005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4729525005"
+        },
+        {
+          "title": "Risk Management Program Manager (Mozambique)",
+          "location": "Maputo/Nampula, Mozambique",
+          "department": "Internal Audit",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4729535005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4729535005"
+        },
+        {
+          "title": "Rwanda External Relations Senior Manager",
+          "location": "Rwanda",
+          "department": "Rwanda Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4571692005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4571692005"
+        },
+        {
+          "title": "Rwanda Field Manager",
+          "location": "Rwanda",
+          "department": "Rwanda Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4724199005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4724199005"
+        },
+        {
+          "title": "Rwanda HR Manager",
+          "location": "Rwanda",
+          "department": "Rwanda Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4731623005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4731623005"
+        },
+        {
+          "title": "Safeguarding Associate Field Manager",
+          "location": "Zomba",
+          "department": "Safeguarding",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4740260005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4740260005"
+        },
+        {
+          "title": "Senior Manager, Emergency Cash Delivery",
+          "location": "Remote",
+          "department": "Emergency Cash",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4737029005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4737029005"
+        },
+        {
+          "title": "Senior Manager, Operations (DRC)",
+          "location": "Goma, DRC",
+          "department": "DRC Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4731094005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4731094005"
+        },
+        {
+          "title": "Senior Manager, People Operations",
+          "location": "Remote",
+          "department": "People",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4735375005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4735375005"
+        },
+        {
+          "title": "Senior Manager, Programs (DRC)",
+          "location": "Goma, DRC",
+          "department": "DRC Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4731089005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4731089005"
+        },
+        {
+          "title": "Senior Software Engineer (Fundraising) — Remote",
+          "location": "Remote",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4738257005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4738257005"
+        },
+        {
+          "title": "Senior Software Engineer (Remote)",
+          "location": "Remote",
+          "department": "Technology",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4558349005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4558349005"
+        },
+        {
+          "title": "Technical Program Associate or Manager",
+          "location": "Remote",
+          "department": "Program Tech",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4745659005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4745659005"
+        },
+        {
+          "title": "Technical Program Associate or Manager",
+          "location": "New York, United States",
+          "department": "Program Tech",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4745660005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4745660005"
+        },
+        {
+          "title": "Technical Program Associate or Manager",
+          "location": "London, United Kingdom",
+          "department": "Program Tech",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4745662005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4745662005"
+        },
+        {
+          "title": "US Program Associate",
+          "location": "Mississippi",
+          "department": "US Programs",
+          "url": "https://job-boards.greenhouse.io/givedirectly/jobs/4734118005",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "4734118005"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at GiveDirectly",
+      "company_name": "",
+      "company_identity_status": "unresolved_board_identity",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "natera",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/natera"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at Natera",
+          "snippet": "Explore exciting career opportunities at Natera, a global leader in cell-free DNA testing, dedicated to advancing oncology, women's health, and organ health."
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/natera",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/natera/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:07.892205+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 229,
+      "usable_jobs": 229,
+      "jobs": [
+        {
+          "title": "Accessioning Team Runner - Pleasanton, CA",
+          "location": "Pleasanton, CA",
+          "department": "Accessioning",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6187351004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6187351004"
+        },
+        {
+          "title": "Account Sales Representative",
+          "location": "Dallas, TX",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6215738004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6215738004"
+        },
+        {
+          "title": "Account Sales Representative",
+          "location": "Jacksonville, FL",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6205193004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6205193004"
+        },
+        {
+          "title": "Account Sales Representative",
+          "location": "Atlanta, GA",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6211377004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6211377004"
+        },
+        {
+          "title": "Account Sales Representative",
+          "location": "Lafayette, LA; Lake Charles, LA",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6223352004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6223352004"
+        },
+        {
+          "title": "Account Sales Representative",
+          "location": "Salt Lake City, UT",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6192302004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6192302004"
+        },
+        {
+          "title": "Area Medical Director - Oncology",
+          "location": "US Remote",
+          "department": "Medical Affairs - Oncology",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6098931004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6098931004"
+        },
+        {
+          "title": "Assistant Laboratory Director",
+          "location": "Austin, TX",
+          "department": "Laboratory Affairs",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/5688076004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5688076004"
+        },
+        {
+          "title": "Associate Clinical Oncology Spec",
+          "location": "Providence, RI",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6220813004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6220813004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Evansville, IN",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6222122004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6222122004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Westchester, NY",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6100071004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6100071004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Billings, MT",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6220804004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6220804004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Shreveport, LA; Tyler, TX",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6227028004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6227028004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Baltimore, MD",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6218376004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6218376004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Dallas, TX",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6227407004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6227407004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Los Angeles, CA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6227405004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6227405004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "San Jose, CA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6227034004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6227034004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Portland, OR",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6190435004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6190435004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Seattle, WA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6218763004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6218763004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Las Vegas, NV",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6210285004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6210285004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Mission Viejo, CA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6209698004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6209698004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Jacksonville, FL",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6218374004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6218374004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Houston, TX",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6017918004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6017918004"
+        },
+        {
+          "title": "Associate Clinical Oncology Specialist",
+          "location": "Memphis, TN",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6190533004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6190533004"
+        },
+        {
+          "title": "Associate Director, Laboratory Operations",
+          "location": "Austin, TX",
+          "department": "Signatera CLIA",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/5828546004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5828546004"
+        },
+        {
+          "title": "Associate Director of Bioinformatics (Women's Health and Organ Health)",
+          "location": "San Carlos, CA",
+          "department": "Molecular Biology Informatics & Statistics",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6139063004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6139063004"
+        },
+        {
+          "title": "Associate Director of Bioinformatics (Women's Health and Organ Health)",
+          "location": "US Remote",
+          "department": "Molecular Biology Informatics & Statistics",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6138809004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6138809004"
+        },
+        {
+          "title": "Associate Director, Service Engineering",
+          "location": "Austin, TX",
+          "department": "Product Engineering & Service",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6201363004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6201363004"
+        },
+        {
+          "title": "Associate Director/Sr. Manager, Health Economics & Outcomes Research-Oncology",
+          "location": "US Remote",
+          "department": "Business Development",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6163803004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6163803004"
+        },
+        {
+          "title": "Associate Laboratory Director",
+          "location": "San Carlos, CA",
+          "department": "Laboratory Affairs",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6128916004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6128916004"
+        },
+        {
+          "title": "Associate/Laboratory Director",
+          "location": "San Carlos, CA",
+          "department": "Laboratory Affairs",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6026582004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6026582004"
+        },
+        {
+          "title": "Associate Medical Director, Gynecologic Oncology",
+          "location": "US Remote",
+          "department": "Medical Affairs - Oncology",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6020976004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6020976004"
+        },
+        {
+          "title": "Associate Medical Director - Oncology (West Coast)",
+          "location": "US Remote",
+          "department": "Medical Affairs - Oncology",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6183733004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6183733004"
+        },
+        {
+          "title": "Automation Engineer",
+          "location": "Austin, TX",
+          "department": "Product Engineering & Service",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6177810004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6177810004"
+        },
+        {
+          "title": "Automation Engineer",
+          "location": "Boulder, CO",
+          "department": "Foresight Research & Development",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6217254004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6217254004"
+        },
+        {
+          "title": "Bioinformatics Scientist",
+          "location": "San Carlos, CA",
+          "department": "Molecular Biology Informatics & Statistics",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6226520004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6226520004"
+        },
+        {
+          "title": "Bioinformatics Scientist",
+          "location": "US Remote",
+          "department": "Molecular Biology Informatics & Statistics",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6223720004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6223720004"
+        },
+        {
+          "title": "Buyer 2",
+          "location": "Austin, TX",
+          "department": "Planning & Procurement",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6018681004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6018681004"
+        },
+        {
+          "title": "Clinical Data Operator - Austin, TX",
+          "location": "Austin, TX",
+          "department": "Accessioning",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6131253004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6131253004"
+        },
+        {
+          "title": "Clinical Data Operator - Pleasanton, CA",
+          "location": "Pleasanton, CA",
+          "department": "Accessioning",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6196291004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6196291004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "Atlanta, GA",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6215746004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6215746004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "San Diego, CA",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6179619004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6179619004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "San Diego, CA",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6183195004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6183195004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "Annapolis, MD; Wilmington, DE",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6222140004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6222140004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "Naperville, IL",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6211388004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6211388004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "Nashville, TN",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6209130004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6209130004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "Chicago, IL",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/5987555004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5987555004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "Huntsville, AL",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6136449004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6136449004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "Austin, TX",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6206617004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6206617004"
+        },
+        {
+          "title": "Clinical Field Specialist",
+          "location": "Pittsburgh, PA",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6139975004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6139975004"
+        },
+        {
+          "title": "Clinical Lab Operator I",
+          "location": "Austin, TX",
+          "department": "Horizon",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6223291004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6223291004"
+        },
+        {
+          "title": "Clinical Lab Operator I-Temp",
+          "location": "Austin, TX",
+          "department": "Horizon",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6146421004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6146421004"
+        },
+        {
+          "title": "Clinical Laboratory Scientist II",
+          "location": "Boulder, CO",
+          "department": "Foresight Operations",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6184739004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6184739004"
+        },
+        {
+          "title": "Clinical Laboratory Supervisor",
+          "location": "Boulder, CO",
+          "department": "Foresight Operations",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6211285004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6211285004"
+        },
+        {
+          "title": "Clinical Lab Scientist I",
+          "location": "San Carlos, CA",
+          "department": "Signatera CLIA",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6183565004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6183565004"
+        },
+        {
+          "title": "Clinical Oncology Specialist",
+          "location": "Shreveport, LA; Tyler, TX",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6206596004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6206596004"
+        },
+        {
+          "title": "Clinical Oncology Specialist",
+          "location": "Kansas City, MO",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6134206004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6134206004"
+        },
+        {
+          "title": "Clinical Oncology Specialist",
+          "location": "Hartford, CT; Springfield, MA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6145403004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6145403004"
+        },
+        {
+          "title": "Clinical Oncology Specialist",
+          "location": "Harrisburg, PA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6179608004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6179608004"
+        },
+        {
+          "title": "Clinical Oncology Specialist",
+          "location": "Miami, FL",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6190531004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6190531004"
+        },
+        {
+          "title": "Clinical Oncology Specialist",
+          "location": "Austin, TX; San Antonio, TX",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6218378004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6218378004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Breast",
+          "location": "Dallas, TX; Fort Worth, TX",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6227030004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6227030004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Breast",
+          "location": "Philadelphia, PA; South Jersey",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6227411004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6227411004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Breast",
+          "location": "Cincinnati, OH; Cleveland, OH; Lexington, KY; Louisville, KY",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6227032004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6227032004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Breast",
+          "location": "Portland, OR; Seattle, WA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6008648004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6008648004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Cutaneous",
+          "location": "Los Angeles, CA; San Diego, CA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6215736004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6215736004"
+        },
+        {
+          "title": "Clinical Oncology Specialist , GI",
+          "location": "Atlanta, GA; Nashville, TN",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6134221004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6134221004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, GU",
+          "location": "Denver, CO; Phoenix, AZ",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6219360004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6219360004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, GU",
+          "location": "Philadelphia, PA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6219362004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6219362004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, GU",
+          "location": "Boston, MA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6134208004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6134208004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, GU",
+          "location": "Detroit, MI; Indianapolis, IN",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6219364004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6219364004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, GU",
+          "location": "Orlando, FL",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6219358004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6219358004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, GU",
+          "location": "Washington D.C",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6219368004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6219368004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, GYN Oncology",
+          "location": "Richmond, VA; Washington D.C",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6119589004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6119589004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Head & Neck",
+          "location": "Portland, OR; Seattle, WA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6119610004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6119610004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Head & Neck",
+          "location": "Chicago, IL",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6119626004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6119626004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Head & Neck",
+          "location": "Houston, TX",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6119622004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6119622004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Head & Neck",
+          "location": "Atlanta, GA; Nashville, TN",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6119620004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6119620004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, Head & Neck",
+          "location": "Philadelphia, PA",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6119591004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6119591004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, H&N",
+          "location": "Washington D.C",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6119593004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6119593004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, H&N",
+          "location": "New England US Region",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6111278004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6111278004"
+        },
+        {
+          "title": "Clinical Oncology Specialist, H&N",
+          "location": "Cleveland, OH",
+          "department": "Oncology Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6119624004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6119624004"
+        },
+        {
+          "title": "Contract Design Control Scientist",
+          "location": "South San Francisco",
+          "department": "Platform",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6207283004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6207283004"
+        },
+        {
+          "title": "Contract Software Engineer, Full Stack",
+          "location": "San Carlos, CA",
+          "department": "Bio Development",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/5993307004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "5993307004"
+        },
+        {
+          "title": "Data Privacy Director",
+          "location": "US Remote",
+          "department": "Legal",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6224695004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6224695004"
+        },
+        {
+          "title": "Data Privacy Manager",
+          "location": "US Remote",
+          "department": "Legal",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6224697004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6224697004"
+        },
+        {
+          "title": "Digital Product Manager, Tissue Acquisition Experience",
+          "location": "US Remote",
+          "department": "Engineering UX Product",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6223183004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6223183004"
+        },
+        {
+          "title": "Director, ECD Development",
+          "location": "San Carlos, CA",
+          "department": "Bio Development",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6220044004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6220044004"
+        },
+        {
+          "title": "Director, Field Translational Science - Oncology",
+          "location": "US Remote",
+          "department": "Translational Medicine",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6010825004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6010825004"
+        },
+        {
+          "title": "Director of Bioinformatics and Machine Learning",
+          "location": "San Carlos, CA",
+          "department": "Molecular Biology Informatics & Statistics",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6226991004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6226991004"
+        },
+        {
+          "title": "Director of Data Science and Bioinformatics",
+          "location": "US Remote",
+          "department": "Molecular Biology Informatics & Statistics",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6135539004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6135539004"
+        },
+        {
+          "title": "Director of Data Science and Bioinformatics",
+          "location": "San Carlos, CA",
+          "department": "Molecular Biology Informatics & Statistics",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6142472004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6142472004"
+        },
+        {
+          "title": "District Manager, Women's Health Sales",
+          "location": "Fresno, CA; Oakland, CA; Sacramento, CA; San Francisco, CA; San Jose, CA",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6123329004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6123329004"
+        },
+        {
+          "title": "Email Marketing Specialist-Temp",
+          "location": "US Remote",
+          "department": "Corporate Marketing & Communications",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6225025004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6225025004"
+        },
+        {
+          "title": "Enterprise Strategic Accounts Manager",
+          "location": "Chicago, IL; Madison, WI; Milwaukee, WI",
+          "department": "Women's Health Sales",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6227013004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6227013004"
+        },
+        {
+          "title": "Equipment Associate",
+          "location": "Austin, TX",
+          "department": "Bio Development",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6138187004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6138187004"
+        },
+        {
+          "title": "Finance Functional Lead, Oracle Fusion Cloud",
+          "location": "US Remote",
+          "department": "Information Services & Technology",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6214624004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6214624004"
+        },
+        {
+          "title": "Forward Deployed AI Solutions Engineer",
+          "location": "US Remote",
+          "department": "Engineering Data & AI",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6115022004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6115022004"
+        },
+        {
+          "title": "Histology Lab Operator I",
+          "location": "San Carlos, CA",
+          "department": "Histology",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6208665004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6208665004"
+        },
+        {
+          "title": "Histology Lab Operator I",
+          "location": "Austin, TX",
+          "department": "Histology",
+          "url": "https://job-boards.greenhouse.io/natera/jobs/6181258004",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "6181258004"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at Natera",
+      "company_name": "",
+      "company_identity_status": "unresolved_board_identity",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "oddball",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/oddball"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at Oddball - Greenhouse Software",
+          "snippet": "Oddball believes that the best products are built when companies understand and value the things they are working on. We value learning and growth and the ability to make a big impact at a small company. We believe that we can make big changes happen and improve the daily lives of millions of people by bringing quality software to the federal space. We're looking for a Digital Solutions ..."
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/oddball",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/oddball/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:23.869707+00:00",
+      "http_status": 200,
+      "valid": true,
+      "board_exists": true,
+      "jobs_available": true,
+      "total_jobs_reported": 12,
+      "usable_jobs": 12,
+      "jobs": [
+        {
+          "title": "Applied AI/ML Engineer",
+          "location": "Washington DC area",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/7990328003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7990328003"
+        },
+        {
+          "title": "Capture Manager",
+          "location": "Remote",
+          "department": "Business Development",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8038990003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8038990003"
+        },
+        {
+          "title": "Delivery Manager",
+          "location": "Remote",
+          "department": "Product Management",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8033586003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8033586003"
+        },
+        {
+          "title": "Digital Solutions Architect",
+          "location": "Remote",
+          "department": "Business Development",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/7866264003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7866264003"
+        },
+        {
+          "title": "Full Stack Engineer",
+          "location": "Remote",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8015176003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8015176003"
+        },
+        {
+          "title": "Power Platform Developer",
+          "location": "Remote",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8015174003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8015174003"
+        },
+        {
+          "title": "Program Manager",
+          "location": "Remote",
+          "department": "Management",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8017273003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8017273003"
+        },
+        {
+          "title": "Proposal Writer",
+          "location": "Remote",
+          "department": "Business Development",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/7824634003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "7824634003"
+        },
+        {
+          "title": "Senior DevOps/SRE Engineer",
+          "location": "Remote",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8028769003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8028769003"
+        },
+        {
+          "title": "Senior Full Stack Engineer",
+          "location": "Washington DC area",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8012571003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8012571003"
+        },
+        {
+          "title": "System Architect",
+          "location": "Remote",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8017303003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8017303003"
+        },
+        {
+          "title": "VP of Engineering (Oddball Labs)",
+          "location": "Washington DC area",
+          "department": "Engineering",
+          "url": "https://job-boards.greenhouse.io/oddball/jobs/8005651003",
+          "description_available": true,
+          "source_adapter": "greenhouse",
+          "id": "8005651003"
+        }
+      ],
+      "error": "",
+      "board_page_http_status": 200,
+      "board_page_title": "Jobs at Oddball",
+      "company_name": "",
+      "company_identity_status": "unresolved_board_identity",
+      "greenhouse_connection_status": "public_board_api_accessible",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_explicit_regional_job",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    },
+    {
+      "board_token": "remotecom",
+      "candidate_urls": [
+        "https://job-boards.greenhouse.io/remotecom?error=true"
+      ],
+      "search_evidence": [
+        {
+          "query": "site:job-boards.greenhouse.io",
+          "title": "Jobs at Remote",
+          "snippet": "Remote is a true global company. We do not have an office anywhere in the world. What we offer is the flexibility to work when and where you want, which means you can plan your schedule around your life (and not around meetings). Most of our jobs are globally remote! Job boards often require us to select a location though, so the location you see under the job titles are for ..."
+        }
+      ],
+      "discovery_methods": [
+        "search-result-url"
+      ],
+      "company_name_candidates": [],
+      "company_evidence": [],
+      "board_url": "https://job-boards.greenhouse.io/remotecom",
+      "api_url": "https://boards-api.greenhouse.io/v1/boards/remotecom/jobs?content=true",
+      "validated_at_utc": "2026-10-21T00:02:04.243761+00:00",
+      "http_status": 404,
+      "valid": false,
+      "board_exists": false,
+      "jobs_available": false,
+      "total_jobs_reported": 0,
+      "usable_jobs": 0,
+      "jobs": [],
+      "error": "Public board API returned HTTP 404",
+      "board_page_http_status": 500,
+      "board_page_title": "",
+      "company_name": "",
+      "company_identity_status": "unresolved_board_identity",
+      "greenhouse_connection_status": "board_api_not_verified",
+      "regional_company_evidence_status": "no_regional_evidence_found",
+      "regional_evidence_status": "no_jobs_returned",
+      "regional_job_count": 0,
+      "regional_locations": [],
+      "regional_job_examples": []
+    }
+  ],
+  "limitations": [
+    "Discovery is limited to public search results and is not an exhaustive list of Greenhouse customers.",
+    "Company-page inspection is bounded and may miss pages beyond the inspection limit.",
+    "A valid public board proves the feed is accessible, not that every job is relevant to a target region.",
+    "Search engines may rate-limit requests or change indexing; rerun periodically to discover newly indexed boards.",
+    "Only public pages and the public Greenhouse jobs API are requested; no authentication or access controls are bypassed."
+  ]
+}

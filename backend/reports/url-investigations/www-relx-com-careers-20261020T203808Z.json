@@ -1,0 +1,20 @@
+{
+  "supplied_url": "https://www.relx.com/careers",
+  "checked_at_utc": "2026-10-20T20:38:03.259253+00:00",
+  "http_status": 200,
+  "final_url": "https://www.relx.com/careers",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 66263,
+  "page_title": "Careers – RELX - Information-based analytics and decision tools",
+  "page_text_excerpt": "Careers – RELX - Information-based analytics and decision tools skip to main content Our Business Our business overview Our stories Strategy Market segments Risk Scientific, Technical & Medical Legal Exhibitions Board of Directors Board Committees Business leaders Investors Investor overview Investor presentations Shareholder information Dividend information RELX PLC ordinary shareholders RELX PLC ADR shareholders AGM and General Meeting information for RELX PLC Corporate structure simplification - 2018 Investor contacts Historic information for RELX NV Results Annual reports Share price Financial calendar Key financial data Analyst coverage Regulatory news Corporate governance Corporate Governance and structure Board of Directors Board Committees Code of Ethics and Reporting Concerns Relations with shareholders Internal controls Tax principles Articles of association Debt investors Funding strategy Issuing companies and guarantor Term debt Maturity profile Capital structure Commercial paper Back up facilities Credit ratings Debt investor contacts Corporate Responsibility Being a responsible business Unique contributions Governance Customers People Community Supply chain Environmen",
+  "ats_detected": [],
+  "ats_evidence": [],
+  "job_extraction": {
+    "attempted": true,
+    "success": false,
+    "jobs": [],
+    "adapters": [],
+    "note": "No supported ATS detected. Ordinary HTML inspection completed; no browser automation or blind endpoint probing was attempted."
+  },
+  "errors": []
+}

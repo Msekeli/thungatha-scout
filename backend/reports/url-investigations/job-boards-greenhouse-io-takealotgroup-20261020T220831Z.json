@@ -1,0 +1,420 @@
+{
+  "supplied_url": "https://job-boards.greenhouse.io/takealotgroup",
+  "checked_at_utc": "2026-10-20T22:08:27.608075+00:00",
+  "http_status": 200,
+  "final_url": "https://job-boards.greenhouse.io/takealotgroup",
+  "content_type": "text/html; charset=utf-8",
+  "response_bytes": 42539,
+  "page_title": "Jobs at Takealot Group",
+  "page_text_excerpt": "Jobs at Takealot Group Careers at Takealot Group Create a Job Alert Level-up your career by having opportunities at Takealot Group sent directly to your inbox. Create alert Search Department Select... Office Select... 24 jobs Mr D Engineering Job iOS Software Engineer Cape Town Python Software Engineer Cape Town Senior Machine Learning Engineer South Africa Mr D Product Job Mr D Product Manager - Fulfilment Cape Town Takealot.com Product Job Product Lead (Dark Store Fulfilment Systems) Cape Town Product Manager (Catalogue) Cape Town Product Manager (Machine Learning) Cape Town Product Manager (On Demand Delivery Execution) Cape Town Takealot Engineering Job iOS Software Engineer Cape Town Principal Software Engineer (Group Fulfilment) South Africa QA Manager - Logistics - FY27 Cape Town QA Manager - Merchant - FY27 Cape Town Search Software Engineer South Africa Senior Database Administrator (MySQL, PostgreSQL) - Takealot Cape Town Senior Software Engineer (Logistics) South Africa Software Engineer (Python) South Africa Software Engineer (Python) - Supply Chain South Africa Software Engineer (Scala) South Africa Takealot Group Customer Service and Insights Job Group Head of Members",
+  "ats_detected": [
+    "greenhouse"
+  ],
+  "ats_evidence": [
+    "Greenhouse board token 'takealotgroup' found in supplied page HTML/URL."
+  ],
+  "job_extraction": {
+    "attempted": true,
+    "success": true,
+    "jobs": [
+      {
+        "title": "DC Industrial Systems Engineer",
+        "location": "Durban",
+        "department": "Takealot Supply Chain",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8129968",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Group General Counsel",
+        "location": "Cape Town",
+        "department": "Takealot Group Legal",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8288401",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Group Head of Membership & Loyalty (TakealotMORE)",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/7742430",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "iOS Software Engineer",
+        "location": "Cape Town",
+        "department": "Mr D Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8132206",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "iOS Software Engineer",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8222566",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Mr D Product Manager - Fulfilment",
+        "location": "Cape Town",
+        "department": "Mr D Product",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8207382",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Online Fashion Assistant - FTC",
+        "location": "Cape Town",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8111597",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "People Practitioner",
+        "location": "Cape Town",
+        "department": "Takealot Group HR",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8220020",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Principal Software Engineer (Group Fulfilment)",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8264495",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Lead (Dark Store Fulfilment Systems)",
+        "location": "Cape Town",
+        "department": "Takealot.com Product",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8155939",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Manager (Catalogue)",
+        "location": "Cape Town",
+        "department": "Takealot.com Product",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8045823",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Manager (Machine Learning)",
+        "location": "Cape Town",
+        "department": "Takealot.com Product",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8184928",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Product Manager (On Demand Delivery Execution)",
+        "location": "Cape Town",
+        "department": "Takealot.com Product",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8249006",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Python Software Engineer",
+        "location": "Cape Town",
+        "department": "Mr D Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/6068367",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "QA Manager - Logistics - FY27",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8113700",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "QA Manager - Merchant - FY27",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8184745",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Search Software Engineer",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8161166",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Seller Support Specialist (FTC)",
+        "location": "Capetown",
+        "department": "Takealot Group Customer Service and Insights",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8108643",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Database Administrator (MySQL, PostgreSQL) - Takealot",
+        "location": "Cape Town",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8203833",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Machine Learning Engineer",
+        "location": "South Africa",
+        "department": "Mr D Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8079500",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Senior Software Engineer (Logistics)",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/5865505",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software Engineer (Python)",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/5865553",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software Engineer (Python) - Supply Chain",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8167058",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      },
+      {
+        "title": "Software Engineer (Scala)",
+        "location": "South Africa",
+        "department": "Takealot Engineering",
+        "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/5853989",
+        "description_available": true,
+        "source_adapter": "greenhouse"
+      }
+    ],
+    "adapters": [
+      {
+        "adapter": "greenhouse_public_board_api",
+        "endpoint": "https://boards-api.greenhouse.io/v1/boards/takealotgroup/jobs?content=true",
+        "http_status": 200,
+        "success": true,
+        "jobs": [
+          {
+            "title": "DC Industrial Systems Engineer",
+            "location": "Durban",
+            "department": "Takealot Supply Chain",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8129968",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Group General Counsel",
+            "location": "Cape Town",
+            "department": "Takealot Group Legal",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8288401",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Group Head of Membership & Loyalty (TakealotMORE)",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/7742430",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "iOS Software Engineer",
+            "location": "Cape Town",
+            "department": "Mr D Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8132206",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "iOS Software Engineer",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8222566",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Mr D Product Manager - Fulfilment",
+            "location": "Cape Town",
+            "department": "Mr D Product",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8207382",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Online Fashion Assistant - FTC",
+            "location": "Cape Town",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8111597",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "People Practitioner",
+            "location": "Cape Town",
+            "department": "Takealot Group HR",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8220020",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Principal Software Engineer (Group Fulfilment)",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8264495",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Lead (Dark Store Fulfilment Systems)",
+            "location": "Cape Town",
+            "department": "Takealot.com Product",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8155939",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Manager (Catalogue)",
+            "location": "Cape Town",
+            "department": "Takealot.com Product",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8045823",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Manager (Machine Learning)",
+            "location": "Cape Town",
+            "department": "Takealot.com Product",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8184928",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Product Manager (On Demand Delivery Execution)",
+            "location": "Cape Town",
+            "department": "Takealot.com Product",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8249006",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Python Software Engineer",
+            "location": "Cape Town",
+            "department": "Mr D Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/6068367",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "QA Manager - Logistics - FY27",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8113700",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "QA Manager - Merchant - FY27",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8184745",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Search Software Engineer",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8161166",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Seller Support Specialist (FTC)",
+            "location": "Capetown",
+            "department": "Takealot Group Customer Service and Insights",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8108643",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Database Administrator (MySQL, PostgreSQL) - Takealot",
+            "location": "Cape Town",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8203833",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Machine Learning Engineer",
+            "location": "South Africa",
+            "department": "Mr D Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8079500",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Senior Software Engineer (Logistics)",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/5865505",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software Engineer (Python)",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/5865553",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software Engineer (Python) - Supply Chain",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/8167058",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          },
+          {
+            "title": "Software Engineer (Scala)",
+            "location": "South Africa",
+            "department": "Takealot Engineering",
+            "url": "https://job-boards.greenhouse.io/takealotgroup/jobs/5853989",
+            "description_available": true,
+            "source_adapter": "greenhouse"
+          }
+        ],
+        "error": "",
+        "total_jobs_reported": 24
+      }
+    ],
+    "note": "Structured ATS data or readable same-host vacancy pages were extracted; completeness still requires validation."
+  },
+  "errors": []
+}
