@@ -76,3 +76,25 @@ def test_workday_normalization_keeps_listing_and_application_urls_separate():
         "https://myhcm.wd3.myworkdayjobs.com/en-US/Betway_Africa/job/Cape-Town/Engineer_JR123"
     )
     assert job["application_url"] == "https://apply.example.com/job/JR123"
+
+
+def test_greenhouse_normalizer_uses_shared_job_contract():
+    job = jobs_api._normalize_greenhouse_job(
+        "ozow",
+        {
+            "id": 123,
+            "title": "Software Engineer",
+            "location": {"name": "Cape Town, South Africa"},
+            "departments": [{"name": "Engineering"}],
+            "absolute_url": "https://job-boards.greenhouse.io/ozow/jobs/123",
+            "content": "<p>Build software</p>",
+        },
+        "Ozow",
+    )
+    assert job["source_type"] == "greenhouse"
+    assert job["company_name"] == "Ozow"
+    assert job["source_id"] == "123"
+    assert job["location"] == "Cape Town, South Africa"
+    assert job["department"] == "Engineering"
+    assert job["job_url"] == job["application_url"]
+    assert job["description_html"] == "<p>Build software</p>"
