@@ -1,6 +1,7 @@
 """Offline unit tests for bounded employer discovery."""
 import json
 import unittest
+from pathlib import Path
 from datetime import timezone
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -28,6 +29,15 @@ class FakeSearchProvider:
 
 
 class EmployerDiscoveryTests(unittest.TestCase):
+    def test_application_modules_stay_within_100_lines(self):
+        app_dir = Path(__file__).resolve().parents[2] / "app" / "application"
+        oversized = {
+            path.name: len(path.read_text(encoding="utf-8").splitlines())
+            for path in app_dir.glob("*.py")
+            if len(path.read_text(encoding="utf-8").splitlines()) > 100
+        }
+        self.assertEqual(oversized, {}, f"Application modules exceed 100 lines: {oversized}")
+
     def test_default_queries_are_company_first_and_bounded(self):
         self.assertLessEqual(len(DEFAULT_QUERIES), 20)
         self.assertTrue(all("Cape Town" in query for query in DEFAULT_QUERIES))
@@ -82,7 +92,8 @@ class EmployerDiscoveryTests(unittest.TestCase):
                 status="success_with_results",
                 query_reports=[
                     SimpleNamespace(
-                        run=SimpleNamespace(outcome=SimpleNamespace(value="success_with_results")),
+                        run=SimpleNamespace(outcome=SimpleNamespace(value="success_with_results"),
+                                           error_code=None, error_message=None),
                         raw_result_count=2,
                         excluded_aggregator_count=1,
                         discarded_result_count=0,
