@@ -413,6 +413,42 @@ def _pagination_urls(page: Page, current_url: str) -> list[str]:
     return list(dict.fromkeys(found))
 
 
+
+def _sanlam_listing_links(page: Page, source_url: str) -> list[dict[str, str]]:
+    """Extract Sanlam vacancy cards only; do not interact with application controls."""
+    return page.evaluate(
+        """(sourceUrl) => {
+          const ignored = new Set([
+            'careers', 'working at sanlam', 'how we recruit', 'join talent community',
+            'get job alerts for this search', 'log-in', 'login', 'search jobs'
+          ]);
+          const seen = new Set();
+          return Array.from(document.querySelectorAll('a[href]')).flatMap(a => {
+            const text = (a.innerText || a.getAttribute('aria-label') || a.title || '')
+              .replace(/\\s+/g, ' ').trim();
+            const url = new URL(a.href, location.href);
+            if (!text || text.length < 8 || text.length > 180 ||
+                ignored.has(text.toLowerCase()) || seen.has(url.href) ||
+                url.origin !== location.origin || !/^\\/go\\//i.test(url.pathname)) return [];
+            let card = a.closest('article, li, [class*="job"], [class*="result"], [class*="card"]');
+            if (!card || card.innerText.trim().length < 20) card = a.parentElement;
+            const cardText = (card?.innerText || '').replace(/\\s+/g, ' ').trim();
+            if (!cardText || cardText.length < 20) return [];
+            seen.add(url.href);
+            const locationMatch = cardText.match(/(?:Cape Town|Western Cape|South Africa|Remote|Hybrid)[^•]*/i);
+            return [{
+              text,
+              href: url.href,
+              job_title: text,
+              location: locationMatch ? locationMatch[0].trim().slice(0, 180) : '',
+              card_text: cardText.slice(0, 1200)
+            }];
+          });
+        }""",
+        source_url,
+    )
+
+
 def scan_company(
     browser: Browser, company: dict[str, str], *, max_jobs: int, max_pages: int
 ) -> dict:
@@ -429,9 +465,15 @@ def scan_company(
     try:
         page.set_default_navigation_timeout(12000)
         page.set_default_timeout(1800)
-        page.goto(company["url"], wait_until="domcontentloaded", timeout=12000)
-        page.wait_for_timeout(500)
-        location_filtered = _try_location_search(page)
+        is_sanlam = company["name"].casefold() == "sanlam"
+        source_url = (
+            "https://careers.sanlamcloud.co.za/search/?q=&locationsearch=Cape+Town&searchResultView=LIST"
+            if is_sanlam else company["url"]
+        )
+        page.goto(source_url, wait_until="domcontentloaded", timeout=12000)
+        # Sanlam renders its search results in a dedicated results view; allow it to settle.
+        page.wait_for_timeout(1600 if is_sanlam else 500)
+        location_filtered = False if is_sanlam else _try_location_search(page)
         result["location_filter_attempted"] = location_filtered
         result["page_title"] = page.title().strip()
         page_text = _page_text(page)
@@ -440,8 +482,8 @@ def scan_company(
             phrase in page_text.lower() for phrase in NO_JOBS_PHRASES
         )
         # Follow explicit job-search entry points, not every career-site link.
-        listing_pages = [company["url"]]
-        initial_links = _page_links(page)
+        listing_pages = [source_url]
+        initial_links = _sanlam_listing_links(page, source_url) if is_sanlam else _page_links(page)
         for link in initial_links:
             href = link.get("href", "")
             path = urlsplit(href).path.lower()
@@ -517,8 +559,13 @@ def scan_company(
                     _clean_url(next_url) != _clean_url(item) for item in listing_pages
                 ):
                     listing_pages.append(next_url)
-            for link in _page_links(page):
-                if not _is_job_link(link, current):
+            page_links = _sanlam_listing_links(page, current) if is_sanlam else _page_links(page)
+            for link in page_links:
+                if is_sanlam:
+                    link_path = urlsplit(link.get("href", "")).path.lower()
+                    if not link_path.startswith("/go/"):
+                        continue
+                elif not _is_job_link(link, current):
                     continue
                 href = _clean_url(urljoin(current, link["href"]))
                 label = (link.get("job_title") or link.get("text") or "").strip()
@@ -528,7 +575,7 @@ def scan_company(
                 path = urlsplit(href).path.lower()
                 if any(token in path for token in ("/team/portal", "/m/portal")):
                     continue
-                if not re.search(r"/p/|/job|/jobs|/position|/vacan|/go/", path) and label.lower() in {"apply", "apply now"}:
+                if not is_sanlam and not re.search(r"/p/|/job|/jobs|/position|/vacan|/go/", path) and label.lower() in {"apply", "apply now"}:
                     continue
                 if label.lower() in {"apply", "apply now", "powered by breezy"}:
                     slug = path.rsplit("/", 1)[-1]
