@@ -32,7 +32,8 @@ def compare_search_backends(*, backends: tuple[str, ...] = COMPARISON_SEARCH_BAC
             "query_outcomes": [{"query": r.query, "outcome": r.run.outcome.value,
                 "raw_result_count": r.raw_result_count,
                 "excluded_aggregator_count": r.excluded_aggregator_count,
-                "error_code": r.run.error_code, "error_message": r.run.error_message}
+                "error_code": getattr(r.run, "error_code", None),
+                "error_message": getattr(r.run, "error_message", None)}
                 for r in rows],
         })
     return {"comparison_scope": {"region": region, "queries": list(queries),
