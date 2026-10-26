@@ -191,13 +191,22 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
         # Listing links often say only "View role"; infer a readable title from
         # the nearby card, then fall back to the detail URL slug.
         title = ""
-        for candidate in re.findall(
-            r"([A-Z][^.!?]{3,90}?)(?=\\s+(?:View role|Apply|Department|Location|Closing date|Closes)\\b)",
+        card_title = re.split(
+            r"\\s+(?:Software Engineering|Operations|Engineering|Department)\\s*[·|]",
             card,
-        ):
-            candidate = candidate.strip(" :-|")
-            if candidate and not NAV_TITLE.fullmatch(candidate):
-                title = candidate
+            maxsplit=1,
+            flags=re.I,
+        )[0].strip(" :-|")
+        if 4 <= len(card_title) <= 150 and not NAV_TITLE.fullmatch(card_title):
+            title = card_title
+        if not title:
+            for candidate in re.findall(
+                r"([A-Z][^.!?]{3,90}?)(?=\\s+(?:View role|Apply|Department|Location|Closing date|Closes)\\b)",
+                card,
+            ):
+                candidate = candidate.strip(" :-|")
+                if candidate and not NAV_TITLE.fullmatch(candidate):
+                    title = candidate
         if not title and link_text and not re.fullmatch(r"(view role|apply|apply for this role|learn more)", link_text, re.I):
             title = link_text
         if not title:
