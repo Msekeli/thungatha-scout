@@ -52,7 +52,7 @@ def _load_local_env() -> None:
         if not line or line.startswith("#") or "=" not in line:
             continue
         key, value = line.split("=", 1)
-        key, value = key.strip(), value.strip().strip("\\"' ")
+        key, value = key.strip(), value.strip()
         if key and key not in os.environ:
             os.environ[key] = value
 
