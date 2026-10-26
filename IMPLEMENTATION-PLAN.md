@@ -38,7 +38,7 @@ Initial geographic scope: **Cape Town only**. Do not expand to the whole Western
 
 | Milestone | Name | Status |
 |---|---|---|
-| M0 | Repository Audit and Scope Lock | Not started |
+| M0 | Repository Audit and Scope Lock | Blocked |
 | M1 | Employer Discovery and Source Registry | Not started |
 | M2 | Adapter Contract and Greenhouse Baseline | Not started |
 | M3 | Additional Career-Site/ATS Adapters | Not started |
@@ -53,7 +53,7 @@ Statuses are provisional until the live repository has been audited against each
 ## 5. Milestone summaries
 
 ### M0 — Repository Audit and Scope Lock
-**Outcome:** An evidence-based inventory of existing code, data, tests, reports, branches and gaps; scope and unresolved decisions are reviewed before further implementation.
+**Outcome:** An evidence-based inventory of existing code, data, tests, reports, branches and gaps; scope and unresolved decisions are reviewed before further implementation. Current audit evidence is recorded in `milestones/M0-AUDIT-REPORT.md`. M0 is blocked by the missing required source-of-truth document and the absence of an executable baseline in the current environment.
 
 ### M1 — Employer Discovery and Source Registry
 **Outcome:** A repeatable discovery workflow records candidate employers, official careers pages, source evidence, geography, source type and review status without inventing identities or treating failed searches as empty results.
@@ -101,4 +101,4 @@ A status must reflect verified work. “Accepted” requires:
 
 ## 8. Current focus
 
-Begin with M0. Reconcile the live default branch and the known `setup/backend-prototype` branch with the existing source-of-truth document, preserve the Greenhouse experiment and reports, establish a real test baseline, and list the evidence required for later milestones. Do not start broad implementation until the audit is reviewed.
+M0 is **Blocked**, not Accepted. The audit report records branch heads, artifact inventory, research preservation notes, scope findings and verification gaps. Restore/resolve the missing `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` authority and run the baseline in a working checkout. Review M0 evidence and decisions before starting M1 or implementing shared contracts.
