@@ -4,6 +4,8 @@ from datetime import timezone
 
 from app.application.employer_discovery import (
     DEFAULT_QUERIES,
+    DDGSSearchProvider,
+    SearchProviderError,
     run_discovery,
 )
 
@@ -34,6 +36,81 @@ class EmployerDiscoveryTests(unittest.TestCase):
     def test_custom_queries_cannot_expand_geographic_scope(self):
         with self.assertRaises(ValueError):
             run_discovery(FakeSearchProvider({}), queries=("Johannesburg employers",))
+
+    def test_successful_empty_response_is_reported_as_empty(self):
+        query = DEFAULT_QUERIES[0]
+        report = run_discovery(FakeSearchProvider({query: []}), queries=(query,))
+
+        self.assertEqual(report.status, "success_empty")
+        self.assertEqual(report.query_reports[0].run.outcome.value, "success_empty")
+
+    def test_known_job_aggregators_are_excluded_but_official_leads_remain(self):
+        query = DEFAULT_QUERIES[0]
+        provider = FakeSearchProvider({query: [
+            {
+                "title": "Indeed Cape Town jobs",
+                "href": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+                "body": "Vacancies in Cape Town",
+            },
+            {
+                "title": "Impact careers",
+                "href": "https://impact.com/careers/cape-town-jobs/",
+                "body": "Join our software company in Cape Town",
+            },
+        ]})
+        report = run_discovery(provider, queries=(query,))
+
+        self.assertEqual(len(report.candidates), 1)
+        query_report = report.query_reports[0]
+        self.assertEqual(query_report.raw_result_count, 2)
+        self.assertEqual(query_report.excluded_aggregator_count, 1)
+        self.assertEqual(query_report.discarded_result_count, 0)
+        excerpt = report.candidates[0].evidence[0].excerpt
+        self.assertIn("Title: Impact careers", excerpt)
+        self.assertIn("Join our software company", excerpt)
+
+    def test_ddgs_provider_falls_back_after_backend_error(self):
+        calls = []
+        responses = {
+            "brave": RuntimeError("No results found."),
+            "duckduckgo": [{"title": "Impact careers", "href": "https://impact.com/careers"}],
+        }
+
+        class FakeClient:
+            def __init__(self, timeout):
+                self.timeout = timeout
+
+            def text(self, query, **kwargs):
+                backend = kwargs["backend"]
+                calls.append(backend)
+                response = responses[backend]
+                if isinstance(response, Exception):
+                    raise response
+                return response
+
+        provider = DDGSSearchProvider(
+            backends=("brave", "duckduckgo"),
+            client_factory=FakeClient,
+        )
+        results = provider.search("Cape Town careers", limit=5, region="za-en")
+
+        self.assertEqual(calls, ["brave", "duckduckgo"])
+        self.assertEqual(len(results), 1)
+
+    def test_ddgs_all_backend_errors_remain_provider_failure(self):
+        class FakeClient:
+            def __init__(self, timeout):
+                pass
+
+            def text(self, query, **kwargs):
+                raise RuntimeError("No results found.")
+
+        provider = DDGSSearchProvider(
+            backends=("brave", "duckduckgo"),
+            client_factory=FakeClient,
+        )
+        with self.assertRaises(SearchProviderError):
+            provider.search("Cape Town careers", limit=5, region="za-en")
 
     def test_results_remain_unresolved_and_retain_search_evidence(self):
         query = DEFAULT_QUERIES[0]

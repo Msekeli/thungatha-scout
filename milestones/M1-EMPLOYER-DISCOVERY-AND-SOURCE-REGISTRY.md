@@ -60,8 +60,17 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 **Implementation progress (26 October 2026)**
 - Added a bounded query plan and replaceable search-provider interface in
   `backend/app/application/employer_discovery.py`.
-- Reused the DDGS metasearch approach from the research prototype, with a
-  12-second request timeout, a maximum of 20 queries and 10 results per query.
+- Reused the DDGS metasearch approach from the research prototype. The live
+  report showed that `backend="auto"` returned the ambiguous `No results found.`
+  exception for multiple queries. The adapter now tries configured backends
+  sequentially and reports all-backend errors as failures rather than claiming
+  a successful empty search. Each backend attempt has an 8-second timeout.
+- Known job aggregators and search-ad redirect URLs are excluded from the
+  employer-candidate queue and counted separately; search titles are retained
+  in evidence instead of being promoted to employer names.
+- The current committed baseline report showed 3 queries with results and 7
+  reported failures; those results included multiple job aggregators. The fix
+  has been added but still requires local unit tests and a new live report.
 - Candidate titles are not promoted to employer names. Official URLs, identity,
   organization type and Cape Town location remain unresolved until verified.
 - Duplicate observations merge only on the existing C01 stable observation ID;
@@ -73,8 +82,11 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 
 **Open issues**
 - DDGS is an unaffiliated metasearch library; backend availability, terms and
-  operational suitability still need review. This is a discovery lead generator,
-  not proof of source permission or a verified employer registry.
+  operational suitability still need review. Backend fallback is not proof that
+  the provider is reliable or that a failed query was truly empty.
+- The current report is a baseline, not an authoritative registry. Aggregator
+  filtering is intentionally conservative and must be reviewed against new
+  results; official employer ownership and Cape Town presence remain unverified.
 - Search snippets do not establish Cape Town presence or official source ownership.
   M1-C03 must verify those claims against employer-owned pages.
 - Results are emitted as JSON to stdout; durable registry persistence and CSV

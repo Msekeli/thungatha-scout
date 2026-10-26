@@ -8,7 +8,8 @@ from __future__ import annotations
 import argparse
 import json
 from datetime import datetime, timezone
-from typing import Protocol
+from typing import Callable, Protocol
+from urllib.parse import urlsplit
 
 from pydantic import BaseModel, Field, HttpUrl, ValidationError
 
@@ -37,6 +38,20 @@ DEFAULT_QUERIES = (
 )
 MAX_QUERIES = 20
 MAX_RESULTS_PER_QUERY = 10
+DEFAULT_SEARCH_BACKENDS = ("brave", "duckduckgo", "mojeek")
+EXCLUDED_AGGREGATOR_DOMAINS = (
+    "indeed.com",
+    "careers24.com",
+    "simplyhired.com",
+    "jobssouthafrica.co.za",
+    "jvrjobs.co.za",
+    "capetownjobs.co.za",
+    "jobleads.com",
+)
+
+
+class SearchProviderError(RuntimeError):
+    """No configured search backend produced a trustworthy response."""
 
 
 class SearchHit(BaseModel):
@@ -55,21 +70,66 @@ class SearchProvider(Protocol):
 
 
 class DDGSSearchProvider:
-    """Free-first adapter for the metasearch library used in the experiment."""
+    """Free-first adapter with sequential backend fallback.
+
+    DDGS can raise "No results found" when a backend fails, not only when a
+    query genuinely has no matches. Such exceptions are treated as backend
+    failures and are never silently converted to a successful-empty run.
+    """
+
+    def __init__(
+        self,
+        *,
+        backends: tuple[str, ...] = DEFAULT_SEARCH_BACKENDS,
+        timeout: float = 8.0,
+        client_factory: Callable[..., object] | None = None,
+    ) -> None:
+        if not backends:
+            raise ValueError("At least one DDGS backend must be configured")
+        self.backends = backends
+        self.timeout = timeout
+        self.client_factory = client_factory
 
     def search(
         self, query: str, *, limit: int, region: str
     ) -> list[dict[str, object]]:
-        from ddgs import DDGS
+        client_factory = self.client_factory
+        if client_factory is None:
+            from ddgs import DDGS
 
-        client = DDGS(timeout=12)
-        return list(client.text(
-            query,
-            region=region,
-            safesearch="moderate",
-            max_results=limit,
-            backend="auto",
-        ))
+            client_factory = DDGS
+
+        failures: list[str] = []
+        received_empty_response = False
+        for backend in self.backends:
+            try:
+                client = client_factory(timeout=self.timeout)
+                results = list(client.text(
+                    query,
+                    region=region,
+                    safesearch="moderate",
+                    max_results=limit,
+                    backend=backend,
+                ))
+            except Exception as exc:
+                failures.append(
+                    f"{backend}: {type(exc).__name__}: {str(exc)[:180]}"
+                )
+                continue
+
+            if results:
+                return results
+            received_empty_response = True
+
+        if failures:
+            details = "; ".join(failures)
+            if received_empty_response:
+                details = f"At least one backend returned empty; {details}"
+            raise SearchProviderError(
+                "No backend returned search results. Backend errors are not "
+                f"treated as proof of an empty search. {details}"
+            )
+        return []
 
 
 class DiscoveryQueryReport(BaseModel):
@@ -77,6 +137,7 @@ class DiscoveryQueryReport(BaseModel):
     run: DiscoveryRunResult
     raw_result_count: int = 0
     discarded_result_count: int = 0
+    excluded_aggregator_count: int = 0
 
 
 class DiscoveryBatchReport(BaseModel):
@@ -104,16 +165,37 @@ def _validate_run_bounds(queries: list[str], limit: int) -> None:
         raise ValueError("Every query must retain the Cape Town geographic scope")
 
 
+def _is_aggregator_result(url: HttpUrl) -> bool:
+    """Exclude known job aggregators from the employer-candidate queue."""
+    parsed = urlsplit(str(url))
+    host = (parsed.hostname or "").lower().rstrip(".")
+    if any(
+        host == domain or host.endswith(f".{domain}")
+        for domain in EXCLUDED_AGGREGATOR_DOMAINS
+    ):
+        return True
+    if host == "bing.com" and parsed.path.lower().startswith("/aclick"):
+        return True
+    if (
+        host == "linkedin.com" or host.endswith(".linkedin.com")
+    ) and parsed.path.lower().startswith("/jobs"):
+        return True
+    return False
+
+
 def _candidate_from_hit(
     hit: SearchHit, query: str, observed_at: datetime
 ) -> EmployerCandidate:
     url = str(hit.url)
+    excerpt = f"Title: {hit.title}"
+    if hit.snippet:
+        excerpt += f"\nSnippet: {hit.snippet}"
     evidence = DiscoveryEvidence(
         method="ddgs_public_web_search",
         query=query,
         observed_url=url,
         observed_at=observed_at,
-        excerpt=hit.snippet or hit.title,
+        excerpt=excerpt[:2000],
         note=(
             "Search lead only. The result title and snippet do not verify "
             "employer identity, Cape Town presence, or source authority."
@@ -170,6 +252,7 @@ def run_discovery(
         finished = datetime.now(timezone.utc)
         query_candidates: dict[str, EmployerCandidate] = {}
         discarded = 0
+        excluded_aggregators = 0
         for raw in raw_results:
             try:
                 hit = SearchHit.model_validate({
@@ -177,8 +260,12 @@ def run_discovery(
                     "url": raw.get("href") or raw.get("url"),
                     "snippet": raw.get("body") or raw.get("snippet"),
                 })
-            except (ValidationError, AttributeError):
+            except (ValidationError, AttributeError, TypeError):
                 discarded += 1
+                continue
+
+            if _is_aggregator_result(hit.url):
+                excluded_aggregators += 1
                 continue
 
             candidate = _candidate_from_hit(hit, query, finished)
@@ -206,6 +293,7 @@ def run_discovery(
             run=run,
             raw_result_count=len(raw_results),
             discarded_result_count=discarded,
+            excluded_aggregator_count=excluded_aggregators,
         ))
 
         for candidate in query_candidates.values():
