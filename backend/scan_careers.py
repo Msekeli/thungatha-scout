@@ -630,15 +630,33 @@ def main() -> None:
         finally:
             browser.close()
 
+    all_jobs = [
+        job for company_result in results for job in company_result.get("jobs", [])
+    ]
+    source_counts: dict[str, int] = {}
+    for job in all_jobs:
+        source_type = job.get("source_type", "dom_link")
+        source_counts[source_type] = source_counts.get(source_type, 0) + 1
+
     summary = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "input_file": str(args.input),
         "companies_scanned": len(results),
-        "jobs_found_total": sum(item["jobs_found"] for item in results),
+        "jobs_found_total": len(all_jobs),
         "status_counts": {
             status: sum(item["status"] == status for item in results)
             for status in ("jobs_found", "page_says_no_jobs", "no_jobs_detected", "failed")
         },
+        "job_quality_counts": {
+            "with_description": sum(bool(job.get("description")) for job in all_jobs),
+            "with_location": sum(bool(job.get("location")) for job in all_jobs),
+            "with_application_url": sum(bool(job.get("application_url")) for job in all_jobs),
+            "requiring_review": sum(bool(
+                not job.get("description") or not job.get("location")
+                or not job.get("application_url")
+            ) for job in all_jobs),
+        },
+        "extraction_source_counts": source_counts,
         "results": results,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
