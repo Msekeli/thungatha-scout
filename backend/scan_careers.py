@@ -194,9 +194,10 @@ def scan_company(
             pass
         page.wait_for_timeout(900)
         result["page_title"] = page.title().strip()
-        result["page_text_excerpt"] = _page_text(page)[:1000]
+        page_text = _page_text(page)
+        result["page_text_excerpt"] = page_text[:1000]
         result["explicit_no_jobs_message"] = any(
-            phrase in result["page_text_excerpt"].lower() for phrase in NO_JOBS_PHRASES
+            phrase in page_text.lower() for phrase in NO_JOBS_PHRASES
         )
         listing_pages = [company["url"]]
         listing_pages.extend(_pagination_urls(page, company["url"])[: max_pages - 1])
