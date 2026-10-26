@@ -238,7 +238,10 @@ def _is_job_link(item: dict[str, str], source_url: str) -> bool:
     text = re.sub(r"\s+", " ", item.get("text", "")).strip()
     href = item.get("href", "")
     card = item.get("card_text", "")
-    if not text or text.lower() in GENERIC_LINKS or len(text) > 180:
+    generic_action = text.lower() == "apply now"
+    if not text or len(text) > 180:
+        return False
+    if text.lower() in GENERIC_LINKS and not (generic_action and card):
         return False
     if re.search(
         r"screen readers cannot|searchable map|talent community|how we recruit|"
