@@ -189,7 +189,7 @@ def _candidate_from_hit(
     if hit.snippet:
         excerpt += f"\nSnippet: {hit.snippet}"
     evidence = DiscoveryEvidence(
-        method="public_web_search",
+        method="ddgs_public_web_search",
         query=query,
         observed_url=url,
         observed_at=observed_at,
