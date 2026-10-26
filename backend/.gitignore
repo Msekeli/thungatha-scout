@@ -16,3 +16,6 @@ local.settings.json
 .env
 .env.*
 !.env.example
+
+# Local careers-page scan output
+career_page_scan_results.json
