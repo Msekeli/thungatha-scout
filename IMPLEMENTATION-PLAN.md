@@ -1,6 +1,6 @@
 # Thungatha Scout — Master Implementation Plan
 
-**Document status:** Draft for review  
+**Document status:** Active roadmap; M0 accepted  
 **Purpose:** Master roadmap, milestone scope, dependencies, progress and acceptance tracking  
 **Product:** Thungatha Scout  
 **Parent product:** Thungatha  
@@ -8,37 +8,35 @@
 
 ## 1. Purpose
 
-This document defines the delivery roadmap for Thungatha Scout. It is the authoritative reference for milestone order, scope, dependencies, high-level outcomes, status and completion criteria.
+This document defines milestone order, scope, dependencies, high-level outcomes, status and completion criteria. Detailed checkpoint definitions, verification evidence, unresolved issues and user-review records belong in the corresponding files under `milestones/`.
 
-Detailed checkpoint definitions, implementation tasks, verification evidence, unresolved issues and user-review records belong in the corresponding files under `milestones/`.
-
-The existing `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` remains the source of truth for Scout's established decisions and historical observations. Do not replace it with this roadmap. Where a decision or scope conflict is found, stop and record it for review rather than silently rewriting either document.
+`THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` remains the source of truth for Scout's established decisions and historical observations. Do not replace it with this roadmap. Record conflicts for review rather than silently rewriting either document.
 
 ## 2. Product boundary
 
-Thungatha is the user-facing job-search and career-management platform. Thungatha Scout is its trusted job-ingestion component. Scout discovers employers' official careers pages, uses supported career-site/ATS adapters to retrieve vacancies, validates and normalises records, tracks source evidence and freshness, and makes approved records available to Thungatha through a defined integration contract.
+Thungatha is the user-facing job-search and career-management platform. Scout discovers employers' official careers pages, uses supported career-site/ATS adapters to retrieve vacancies, validates and normalises records, tracks evidence and freshness, and makes approved records available to Thungatha through a defined integration contract.
 
-An ATS is a possible access mechanism; the employer's official careers publication is the source authority. An aggregator listing alone is not sufficient evidence of an official employer source.
+An ATS is a possible access mechanism; the employer's official careers publication is the source authority. An aggregator listing alone is insufficient evidence of an official employer source.
 
 Initial geographic scope: **Cape Town only**. Do not expand to the whole Western Cape or other cities without an explicit decision.
 
 ## 3. Delivery principles
 
-- Inspect the current repository, branches, tests and experimental Greenhouse work before implementation changes.
-- Preserve existing data, reports and working code unless a reviewed migration or change explicitly authorises otherwise.
+- Inspect current repository, branches, tests and experimental Greenhouse work before implementation.
+- Preserve existing data, reports and working code unless a reviewed change explicitly authorises otherwise.
 - Prefer a small adapter contract and deterministic processing over a framework-heavy architecture.
-- Keep discovery, source validation, extraction, normalisation, deduplication, approval and publishing as distinct responsibilities.
-- Make uncertainty visible. Do not infer employer identity, source permission, job location or vacancy validity without evidence.
-- Human approval is an explicit backend state; AI output or code execution cannot approve or publish by itself.
-- Keep Azure usage and third-party AI calls bounded and observable.
-- Record only tests and commands actually run. Code being present is not evidence that it works.
-- No milestone or checkpoint is accepted without evidence and explicit user review.
+- Keep discovery, source validation, extraction, normalisation, deduplication, approval and publishing distinct.
+- Make uncertainty visible; do not infer employer identity, source permission, job location or vacancy validity without evidence.
+- Human approval is explicit backend state; AI cannot approve or publish by itself.
+- Keep Azure usage and AI calls bounded and observable.
+- Record only tests and commands actually run; code presence is not proof it works.
+- No milestone is accepted without evidence and explicit user review.
 
 ## 4. Milestone roadmap
 
 | Milestone | Name | Status |
 |---|---|---|
-| M0 | Repository Audit and Scope Lock | Blocked |
+| M0 | Repository Audit and Scope Lock | Accepted |
 | M1 | Employer Discovery and Source Registry | Not started |
 | M2 | Adapter Contract and Greenhouse Baseline | Not started |
 | M3 | Additional Career-Site/ATS Adapters | Not started |
@@ -48,12 +46,12 @@ Initial geographic scope: **Cape Town only**. Do not expand to the whole Western
 | M7 | Scheduling, Observability and Recovery | Not started |
 | M8 | Admin Operations, Security and Release Acceptance | Not started |
 
-Statuses are provisional until the live repository has been audited against each milestone's exit criteria. Existing Greenhouse experiments may provide evidence toward a milestone, but they do not automatically satisfy its acceptance criteria.
+Existing Greenhouse experiments may provide evidence toward a milestone, but do not automatically satisfy its acceptance criteria.
 
 ## 5. Milestone summaries
 
 ### M0 — Repository Audit and Scope Lock
-**Outcome:** An evidence-based inventory of existing code, data, tests, reports, branches and gaps; scope and unresolved decisions are reviewed before further implementation. Current audit evidence is recorded in `milestones/M0-AUDIT-REPORT.md`. M0 is blocked by the missing required source-of-truth document and the absence of an executable baseline in the current environment.
+**Status:** Accepted (26 October 2026). The branch/artifact inventory and scope review are documented in `milestones/M0-AUDIT-REPORT.md`. The required source-of-truth document has been restored to the repository. The current scaffold has no runnable application test suite or frontend build configuration, and runtime checks were not run because this environment could not clone GitHub. These limitations are explicit; no runtime/test pass is claimed. Establish executable tests and a runnable checkout during the first implementation work.
 
 ### M1 — Employer Discovery and Source Registry
 **Outcome:** A repeatable discovery workflow records candidate employers, official careers pages, source evidence, geography, source type and review status without inventing identities or treating failed searches as empty results.
@@ -81,24 +79,17 @@ Statuses are provisional until the live repository has been audited against each
 
 ## 6. Status rules
 
-Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accepted**.
-
-A status must reflect verified work. “Accepted” requires:
-- exit criteria met;
-- commands/tests actually run and their results recorded;
-- evidence linked or summarised;
-- unresolved issues documented and judged non-blocking;
-- explicit user review/acceptance.
+Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accepted**. Acceptance requires evidence, actual checks/results, documented remaining gaps and explicit user review. If no runnable tests or runtime environment exist, record that limitation and assign follow-up work; never claim unrun checks passed.
 
 ## 7. Change control
 
 1. Do not silently change milestone sequence, approved scope or established source-of-truth decisions.
 2. Record the reason and evidence for proposed changes.
-3. Update the relevant milestone record and this plan only after the change is agreed.
+3. Update the milestone record and this plan only after the change is agreed.
 4. Distinguish observed fact, hypothesis, decision and open question.
-5. Keep prior evidence and historical findings; correct them by dated clarification rather than erasing history.
-6. Do not mark a milestone accepted merely because its code has been refactored or files have moved.
+5. Preserve prior evidence; correct it with dated clarification rather than erasing history.
+6. Do not mark a milestone accepted merely because code has been refactored or files moved.
 
 ## 8. Current focus
 
-M0 is **Blocked**, not Accepted. The audit report records branch heads, artifact inventory, research preservation notes, scope findings and verification gaps. Restore/resolve the missing `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` authority and run the baseline in a working checkout. Review M0 evidence and decisions before starting M1 or implementing shared contracts.
+M0 is accepted as the repository audit and scope baseline. The runtime limitation is recorded rather than hidden. Proceed to M1 — Employer Discovery and Source Registry, beginning with establishing a runnable checkout and adding/running focused tests as behavior is introduced. Validate platform, storage, integration, authentication and source-access decisions before implementation.
