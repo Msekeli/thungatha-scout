@@ -92,8 +92,8 @@ def _gemini_extract_jobs(page_text: str, links: list[dict[str, str]]) -> list[di
                     "Copy job_url exactly from an observed link; never invent URLs or jobs. "
                     "Do not return navigation links, categories, talent communities, or generic "
                     "apply links. If uncertain, return an empty jobs array. "
-                    "\\nPAGE TEXT:\\n" + page_text[:10000] +
-                    "\\nOBSERVED LINKS JSON:\\n" + json.dumps(observed_links, ensure_ascii=False)
+                    "\nPAGE TEXT:\n" + page_text[:10000] +
+                    "\nOBSERVED LINKS JSON:\n" + json.dumps(observed_links, ensure_ascii=False)
                 )
             }]
         }],
@@ -145,7 +145,7 @@ def _gemini_extract_jobs(page_text: str, links: list[dict[str, str]]) -> list[di
         if not isinstance(job, dict):
             continue
         url = job.get("job_url", "")
-        title = re.sub(r"\\s+", " ", str(job.get("title", ""))).strip()[:180]
+        title = re.sub(r"\s+", " ", str(job.get("title", ""))).strip()[:180]
         source = observed.get(url)
         if not source or not title or url in seen:
             continue
@@ -158,12 +158,12 @@ def _gemini_extract_jobs(page_text: str, links: list[dict[str, str]]) -> list[di
             "job_url": url,
             "application_url": "",
             "description": "",
-            "location": re.sub(r"\\s+", " ", str(job.get("location", ""))).strip()[:180],
-            "employment_type": re.sub(r"\\s+", " ", str(job.get("employment_type", ""))).strip()[:80],
+            "location": re.sub(r"\s+", " ", str(job.get("location", ""))).strip()[:180],
+            "employment_type": re.sub(r"\s+", " ", str(job.get("employment_type", ""))).strip()[:80],
             "company": "",
             "detail_checked": False,
             "ai_assisted": True,
-            "ai_evidence": re.sub(r"\\s+", " ", str(job.get("evidence", ""))).strip()[:300],
+            "ai_evidence": re.sub(r"\s+", " ", str(job.get("evidence", ""))).strip()[:300],
         })
     return validated
 
