@@ -5,6 +5,10 @@ from __future__ import annotations
 import argparse
 import json
 import re
+
+import os
+import urllib.error
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urldefrag, urljoin, urlsplit
@@ -35,6 +39,133 @@ DESCRIPTION_SELECTORS = (
     "[id*='job-description']", "[class*='job-detail']",
     "[class*='jobDetail']", "article", "main", "[role='main']",
 )
+
+
+
+def _load_local_env() -> None:
+    """Load simple KEY=VALUE settings from backend/.env without overriding shell vars."""
+    env_path = ROOT / ".env"
+    if not env_path.exists():
+        return
+    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key, value = key.strip(), value.strip().strip("\\"' ")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+def _gemini_extract_jobs(page_text: str, links: list[dict[str, str]]) -> list[dict[str, str]]:
+    """Use Gemini as a bounded fallback to classify observed links as vacancy listings."""
+    if os.getenv("AI_EXTRACTION_ENABLED", "false").lower() != "true":
+        return []
+    if os.getenv("AI_PROVIDER", "gemini").lower() != "gemini":
+        return []
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    if not api_key:
+        return []
+
+    model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
+    # Only send a compact page snapshot and links already observed by Playwright.
+    observed_links = []
+    for item in links[:250]:
+        href = item.get("href", "")
+        if href.startswith(("https://", "http://")):
+            observed_links.append({
+                "text": item.get("text", "")[:180],
+                "href": href[:1000],
+                "job_title": item.get("job_title", "")[:180],
+                "location": item.get("location", "")[:180],
+                "card_text": item.get("card_text", "")[:700],
+            })
+    payload = {
+        "contents": [{
+            "parts": [{
+                "text": (
+                    "Identify actual vacancy listings on this employer careers page. "
+                    "Return JSON only in the shape "
+                    '{"jobs":[{"title":"...","job_url":"...","location":"",'
+                    '"employment_type":"","evidence":"..."}]}. '
+                    "Only return jobs supported by the supplied observed links. "
+                    "Copy job_url exactly from an observed link; never invent URLs or jobs. "
+                    "Do not return navigation links, categories, talent communities, or generic "
+                    "apply links. If uncertain, return an empty jobs array. "
+                    "\\nPAGE TEXT:\\n" + page_text[:10000] +
+                    "\\nOBSERVED LINKS JSON:\\n" + json.dumps(observed_links, ensure_ascii=False)
+                )
+            }]
+        }],
+        "generationConfig": {
+            "temperature": 0,
+            "responseMimeType": "application/json",
+            "responseSchema": {
+                "type": "OBJECT",
+                "properties": {
+                    "jobs": {
+                        "type": "ARRAY",
+                        "items": {
+                            "type": "OBJECT",
+                            "properties": {
+                                "title": {"type": "STRING"},
+                                "job_url": {"type": "STRING"},
+                                "location": {"type": "STRING"},
+                                "employment_type": {"type": "STRING"},
+                                "evidence": {"type": "STRING"}
+                            },
+                            "required": ["title", "job_url", "location", "employment_type", "evidence"]
+                        }
+                    }
+                },
+                "required": ["jobs"]
+            }
+        }
+    }
+    request = urllib.request.Request(
+        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=12) as response:
+            data = json.loads(response.read(1_000_000).decode("utf-8"))
+        text = data["candidates"][0]["content"]["parts"][0]["text"]
+        parsed = json.loads(text)
+        if not isinstance(parsed, dict) or not isinstance(parsed.get("jobs"), list):
+            return []
+    except (urllib.error.URLError, TimeoutError, KeyError, IndexError, ValueError, TypeError):
+        return []
+
+    observed = {item.get("href", ""): item for item in observed_links}
+    validated = []
+    seen = set()
+    for job in parsed["jobs"][:50]:
+        if not isinstance(job, dict):
+            continue
+        url = job.get("job_url", "")
+        title = re.sub(r"\\s+", " ", str(job.get("title", ""))).strip()[:180]
+        source = observed.get(url)
+        if not source or not title or url in seen:
+            continue
+        if not url.startswith(("https://", "http://")):
+            continue
+        seen.add(url)
+        validated.append({
+            "title": title,
+            "listing_title": str(source.get("text", ""))[:180],
+            "job_url": url,
+            "application_url": "",
+            "description": "",
+            "location": re.sub(r"\\s+", " ", str(job.get("location", ""))).strip()[:180],
+            "employment_type": re.sub(r"\\s+", " ", str(job.get("employment_type", ""))).strip()[:80],
+            "company": "",
+            "detail_checked": False,
+            "ai_assisted": True,
+            "ai_evidence": re.sub(r"\\s+", " ", str(job.get("evidence", ""))).strip()[:300],
+        })
+    return validated
 
 
 def read_companies(path: Path) -> list[dict[str, str]]:
@@ -297,6 +428,18 @@ def scan_company(
                 if len(jobs_by_url) >= max_jobs:
                     break
         result["jobs"] = list(jobs_by_url.values())
+        if not result["jobs"] and os.getenv("AI_EXTRACTION_ENABLED", "false").lower() == "true":
+            _load_local_env()
+            try:
+                ai_jobs = _gemini_extract_jobs(_page_text(page), _page_links(page))
+                for job in ai_jobs:
+                    job["company"] = company["name"]
+                result["jobs"] = ai_jobs[:max_jobs]
+                result["ai_fallback_attempted"] = True
+                result["ai_fallback_jobs"] = len(result["jobs"])
+            except Exception as exc:
+                result["ai_fallback_attempted"] = True
+                result["ai_fallback_error"] = f"{type(exc).__name__}: {str(exc)[:250]}"
         result["jobs_found"] = len(result["jobs"])
         if result["jobs_found"]:
             result["status"] = "jobs_found"
