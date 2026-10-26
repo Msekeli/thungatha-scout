@@ -217,7 +217,7 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
             page_evidence.append({
                 "url": page.url, "http_status": status_code,
                 "title": page_title[:200], "h1": heading[:200],
-                "body_excerpt": re.sub(r"\\s+", " ", body_text)[:600],
+                "body_excerpt": re.sub(r"\s+", " ", body_text)[:600],
             })
             if status_code in {404, 410}:
                 result["status"] = "dead_url"
