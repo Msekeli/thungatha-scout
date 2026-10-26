@@ -1,6 +1,6 @@
 # M1-C01 — Discovery Candidate and Evidence Contract
 
-**Status:** In progress  
+**Status:** In review  
 **Scope:** Data contract only. This does not select a search provider or authorize scraping.
 
 ## Candidate identity
@@ -38,8 +38,14 @@ Failed outcomes require an error code or message. Successful outcomes cannot car
 
 ## Verification
 
-Tests use unittest and cover successful empty results, non-empty results, request failure, total discovery failure, identity validation, timezone validation and stable identity keys. Execute from backend/ with:
+From `backend/`, dependencies were installed in an activated virtual environment with:
+
+    python -m pip install -r requirements.txt
+
+The following test command was run after the enum compatibility fix and again after commit `8202978` was created:
 
     python -m unittest discover -s tests/unit -v
 
-The test command has not yet been executed in this environment because a runnable local checkout is unavailable.
+**Observed result:** 10 tests passed, 0 failures, on Python 3.14.7. The test suite covers successful empty results, non-empty results, request failure, total discovery failure, identity validation, timezone validation and stable identity keys.
+
+This verifies the current unit-test scope only. It does not verify live discovery, a search provider, source permissions, persistence, or end-to-end integration. C01 remains in review pending explicit user acceptance.
