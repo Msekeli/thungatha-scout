@@ -19,3 +19,6 @@ local.settings.json
 
 # Local careers-page scan output
 career_page_scan_results.json
+
+# Career-source investigation output
+investigation_report.json
