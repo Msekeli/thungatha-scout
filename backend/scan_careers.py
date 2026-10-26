@@ -466,13 +466,16 @@ def scan_company(
         page.set_default_navigation_timeout(12000)
         page.set_default_timeout(1800)
         is_sanlam = company["name"].casefold() == "sanlam"
+        is_specno = company["name"].casefold() == "specno"
+        is_dvt = company["name"].casefold() == "dvt"
         source_url = (
             "https://careers.sanlamcloud.co.za/search/?q=&locationsearch=Cape+Town&searchResultView=LIST"
             if is_sanlam else company["url"]
         )
         page.goto(source_url, wait_until="domcontentloaded", timeout=12000)
         # Sanlam renders its search results in a dedicated results view; allow it to settle.
-        page.wait_for_timeout(1600 if is_sanlam else 500)
+        # Specno's careers content can hydrate after DOMContentLoaded; give it extra time.
+        page.wait_for_timeout(1600 if is_sanlam or is_specno else 500)
         location_filtered = False if is_sanlam else _try_location_search(page)
         result["location_filter_attempted"] = location_filtered
         result["page_title"] = page.title().strip()
@@ -580,6 +583,16 @@ def scan_company(
                 if label.lower() in {"apply", "apply now", "powered by breezy"}:
                     slug = path.rsplit("/", 1)[-1]
                     label = re.sub(r"^[0-9a-f-]{8,}-", "", slug).replace("-", " ").strip().title()
+                # Recruitee's DVT cards use a generic "View job" action; derive a
+                # provisional title from the public offer slug, never from the button.
+                if is_dvt and label.casefold() in {"view job", "view offer"}:
+                    offer_match = re.search(r"/o/([^/?#]+)", path, re.I)
+                    if offer_match:
+                        label = re.sub(
+                            r"-[0-9a-f]{8,}$", "", offer_match.group(1), flags=re.I
+                        ).replace("-", " ").strip().title()
+                    else:
+                        continue
                 if not label or label.lower() in {"powered by breezy", "shopritex referral portal"}:
                     continue
                 location, employment_type = _split_location_and_employment_type(
