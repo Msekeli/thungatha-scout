@@ -428,8 +428,8 @@ def scan_company(
                 if len(jobs_by_url) >= max_jobs:
                     break
         result["jobs"] = list(jobs_by_url.values())
+        _load_local_env()
         if not result["jobs"] and os.getenv("AI_EXTRACTION_ENABLED", "false").lower() == "true":
-            _load_local_env()
             try:
                 ai_jobs = _gemini_extract_jobs(_page_text(page), _page_links(page))
                 for job in ai_jobs:
