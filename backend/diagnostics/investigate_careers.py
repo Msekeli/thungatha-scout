@@ -200,17 +200,22 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
         if cleaned_link and not re.fullmatch(r"(apply|apply for this role|learn more)", cleaned_link, re.I):
             title = cleaned_link
 
+        # Prefer explicit location labels / department separators. Otherwise
+        # match known city names so the job title is not swallowed as a location.
+        location_pattern = (
+            r"(Stellenbosch|Cape Town|Johannesburg|Pretoria|Durban|"
+            r"Port Elizabeth|Gqeberha|East London|Bloemfontein|"
+            r"George|Paarl|Midrand|Sandton|Centurion)"
+            r"\s*,\s*South\s*Africa(?:\s*\([^)]*\))?"
+        )
         location_match = re.search(
             r"(?:Location\s*:?\s*|"
             r"(?:Operations|Software Engineering|Engineering)\s*·\s*)"
-            r"([A-Z][A-Za-z .'-]+,\s*South Africa(?:\s*\([^)]*\))?)",
+            + location_pattern,
             card, re.I,
         )
         if not location_match:
-            location_match = re.search(
-                r"\b([A-Z][A-Za-z .'-]+,\s*South Africa(?:\s*\([^)]*\))?)",
-                card, re.I,
-            )
+            location_match = re.search(location_pattern, card, re.I)
         close_match = re.search(
             r"(?:Closes?\s+|Closing date\s*:?\s*)"
             r"(\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})",
@@ -218,7 +223,7 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
         )
         found[href] = {
             "company": company, "title": title[:150],
-            "location": location_match.group(1).strip() if location_match else None,
+            "location": re.sub(r"\s+", " ", location_match.group(0)).strip() if location_match else None,
             "url": href, "closing_date_text": close_match.group(1) if close_match else None,
             "source_url": page_url, "extraction_method": "visible_html_link_and_context",
             "needs_review": True,
