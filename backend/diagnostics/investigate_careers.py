@@ -17,7 +17,7 @@ from playwright.sync_api import sync_playwright
 from app.application.structured_job_extraction import extract_job_postings
 
 ROOT = Path(__file__).resolve().parents[1]
-TITLE_KEYS = {"title", "jobtitle", "job_title", "positiontitle"}
+TITLE_KEYS = {"title", "jobtitle", "job_title", "positiontitle", "name"}
 URL_KEYS = {"url", "joburl", "link", "absolute_url", "applyurl", "detailurl"}
 ID_KEYS = {"id", "jobid", "reqid", "requisitionid", "referencenumber"}
 LOCATION_KEYS = {"location", "locations", "city", "joblocation", "primarylocation"}
@@ -236,7 +236,10 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
                     replayed=replayed, job_count=len(best["jobs"]), jobs=best["jobs"][:30],
                 )
                 break
-            body = page.locator("body").inner_text(timeout=3000)
+            try:
+                body = page.locator("body").inner_text(timeout=3000)
+            except Exception:
+                body = ""
             if NO_JOBS.search(body[:20000]):
                 result["status"] = "page_says_no_jobs"
                 break
