@@ -1,0 +1,267 @@
+{
+  "started_at": "2026-10-26T10:40:56.261694Z",
+  "finished_at": "2026-10-26T10:41:29.993647Z",
+  "status": "partial",
+  "query_reports": [
+    {
+      "query": "\"Cape Town\" companies official website careers",
+      "run": {
+        "outcome": "success_with_results",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" companies official website careers",
+        "started_at": "2026-10-26T10:40:56.262140Z",
+        "finished_at": "2026-10-26T10:41:00.116634Z",
+        "candidates": [
+          {
+            "candidate_id": "cand_6f170ad95018be71442fad72a3e5dc7a",
+            "display_name": null,
+            "observed_url": "https://impact.com/careers/cape-town-jobs/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://impact.com/careers/cape-town-jobs/",
+                "observed_at": "2026-10-26T10:41:00.116634Z",
+                "reference_url": null,
+                "excerpt": "Title: We're hiring! View job openings in Cape Town & apply today - impact.com\nSnippet: impact.com is hiring! View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:41:00.116634Z",
+            "last_checked_at": "2026-10-26T10:41:00.116634Z"
+          },
+          {
+            "candidate_id": "cand_3ac04cfadcedccff9d558250e1c1000e",
+            "display_name": null,
+            "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/",
+                "observed_at": "2026-10-26T10:41:00.116634Z",
+                "reference_url": null,
+                "excerpt": "Title: Find a job or develop skills | City of Cape Town\nSnippet: Find a job or develop skills Top City Connect services City map viewer e-Services Film permits Jobs search Open Data Portal Procurement portal Service Requests/Report a Fault (C3) Tender portal Collaboration platform All City online services and applications",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:41:00.116634Z",
+            "last_checked_at": "2026-10-26T10:41:00.116634Z"
+          }
+        ],
+        "error_code": null,
+        "error_message": null
+      },
+      "raw_result_count": 8,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 6
+    },
+    {
+      "query": "\"Cape Town\" businesses \"careers\" \"join our team\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" businesses \"careers\" \"join our team\"",
+        "started_at": "2026-10-26T10:41:00.117300Z",
+        "finished_at": "2026-10-26T10:41:03.470030Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "\"Cape Town\" employers \"current vacancies\" company",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" employers \"current vacancies\" company",
+        "started_at": "2026-10-26T10:41:03.470286Z",
+        "finished_at": "2026-10-26T10:41:07.051474Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "\"Cape Town\" companies \"work with us\" careers",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" companies \"work with us\" careers",
+        "started_at": "2026-10-26T10:41:07.051927Z",
+        "finished_at": "2026-10-26T10:41:10.356235Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "site:job-boards.greenhouse.io \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:job-boards.greenhouse.io \"Cape Town\"",
+        "started_at": "2026-10-26T10:41:10.356785Z",
+        "finished_at": "2026-10-26T10:41:13.700078Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "site:jobs.lever.co \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:jobs.lever.co \"Cape Town\"",
+        "started_at": "2026-10-26T10:41:13.700300Z",
+        "finished_at": "2026-10-26T10:41:16.995809Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "site:myworkdayjobs.com \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:myworkdayjobs.com \"Cape Town\"",
+        "started_at": "2026-10-26T10:41:16.995965Z",
+        "finished_at": "2026-10-26T10:41:20.262225Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "site:jobs.smartrecruiters.com \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:jobs.smartrecruiters.com \"Cape Town\"",
+        "started_at": "2026-10-26T10:41:20.262527Z",
+        "finished_at": "2026-10-26T10:41:23.358162Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "site:apply.workable.com \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:apply.workable.com \"Cape Town\"",
+        "started_at": "2026-10-26T10:41:23.358465Z",
+        "finished_at": "2026-10-26T10:41:26.611345Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+        "started_at": "2026-10-26T10:41:26.611590Z",
+        "finished_at": "2026-10-26T10:41:29.993258Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found.; duckduckgo: DDGSException: No results found.; mojeek: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "cand_6f170ad95018be71442fad72a3e5dc7a",
+      "display_name": null,
+      "observed_url": "https://impact.com/careers/cape-town-jobs/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://impact.com/careers/cape-town-jobs/",
+          "observed_at": "2026-10-26T10:41:00.116634Z",
+          "reference_url": null,
+          "excerpt": "Title: We're hiring! View job openings in Cape Town & apply today - impact.com\nSnippet: impact.com is hiring! View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:41:00.116634Z",
+      "last_checked_at": "2026-10-26T10:41:00.116634Z"
+    },
+    {
+      "candidate_id": "cand_3ac04cfadcedccff9d558250e1c1000e",
+      "display_name": null,
+      "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/",
+          "observed_at": "2026-10-26T10:41:00.116634Z",
+          "reference_url": null,
+          "excerpt": "Title: Find a job or develop skills | City of Cape Town\nSnippet: Find a job or develop skills Top City Connect services City map viewer e-Services Film permits Jobs search Open Data Portal Procurement portal Service Requests/Report a Fault (C3) Tender portal Collaboration platform All City online services and applications",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:41:00.116634Z",
+      "last_checked_at": "2026-10-26T10:41:00.116634Z"
+    }
+  ],
+  "coverage_note": "Search coverage is incomplete by design; results are leads, not verified employers or proof of Cape Town presence."
+}
