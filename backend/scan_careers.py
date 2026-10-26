@@ -154,7 +154,7 @@ def _job_details(page: Page, url: str, listing_text: str) -> dict[str, str]:
     return {
         "title": title or listing_text,
         "job_url": url,
-        "application_url": apply_url or url,
+        "application_url": apply_url,
         "application_link_text": apply_text,
         "description": text[:30000],
         "description_truncated": len(text) > 30000,
@@ -232,7 +232,7 @@ def scan_company(
                     jobs_by_url[href] = detail
                 except Exception as exc:
                     jobs_by_url[href] = {
-                        "title": label, "job_url": href, "application_url": href,
+                        "title": label, "job_url": href, "application_url": "",
                         "description": "", "detail_error": f"{type(exc).__name__}: {str(exc)[:300]}",
                         "company": company["name"], "location": "",
                     }
@@ -240,7 +240,10 @@ def scan_company(
         result["jobs_found"] = len(result["jobs"])
         if result["jobs_found"]:
             result["status"] = "jobs_found"
-            result["requires_review"] = any(not job.get("description") for job in result["jobs"])
+            result["requires_review"] = any(
+                not job.get("description") or not job.get("location")
+                or not job.get("application_url") for job in result["jobs"]
+            )
         elif result["explicit_no_jobs_message"]:
             result["status"] = "page_says_no_jobs"
         else:
