@@ -165,7 +165,7 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
             let node = a;
             let best = '';
             for (let depth = 0; node && depth < 6; depth++, node = node.parentElement) {
-              const value = (node.innerText || '').replace(/\\s+/g, ' ').trim();
+              const value = (node.innerText || '').replace(/\s+/g, ' ').trim();
               if (value.length >= 35 && value.length <= 1400 &&
                   /(close|closing|location|hybrid|remote|apply|view role)/i.test(value)) {
                 best = value;
@@ -192,7 +192,7 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
         # the nearby card, then fall back to the detail URL slug.
         title = ""
         card_title = re.split(
-            r"\s+(?:Software Engineering|Operations|Engineering|Department)\\s*[·|]",
+            r"\s+(?:Software Engineering|Operations|Engineering|Department)\s*[·|]",
             card,
             maxsplit=1,
             flags=re.I,
@@ -201,28 +201,28 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
             title = card_title
         if not title:
             for candidate in re.findall(
-                r"([A-Z][^.!?]{3,90}?)(?=\\s+(?:View role|Apply|Department|Location|Closing date|Closes)\\b)",
+                r"([A-Z][^.!?]{3,90}?)(?=\s+(?:View role|Apply|Department|Location|Closing date|Closes)\b)",
                 card,
             ):
                 candidate = candidate.strip(" :-|")
                 if candidate and not NAV_TITLE.fullmatch(candidate):
                     title = candidate
         if link_text:
-            cleaned_link_text = re.sub(r"^view role\\s*:?\\s*", "", link_text, flags=re.I)
+            cleaned_link_text = re.sub(r"^view role\s*:?\s*", "", link_text, flags=re.I)
             cleaned_link_text = re.sub(r"^apply for this role$", "", cleaned_link_text, flags=re.I).strip()
             if cleaned_link_text and not NAV_TITLE.fullmatch(cleaned_link_text):
                 title = cleaned_link_text
         if not title:
             title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
         location_match = re.search(
-            r"(?:Location\\s*:?\\s*|"
-            r"(?:Operations|Software Engineering|Engineering)\\s*·\\s*)"
-            r"([A-Z][A-Za-z .'-]+,\\s*South Africa(?:\\s*\\([^)]*\\))?)",
+            r"(?:Location\s*:?\s*|"
+            r"(?:Operations|Software Engineering|Engineering)\s*·\s*)"
+            r"([A-Z][A-Za-z .'-]+,\s*South Africa(?:\s*\([^)]*\))?)",
             card,
             re.I,
         )
         close_match = re.search(
-            r"(?:Closes?|Closing date)\\s*:?\\s*(\\d{1,2}\\s+[A-Za-z]+\\s+\\d{4}|[A-Za-z]+\\s+\\d{1,2},?\\s+\\d{4})",
+            r"(?:Closes?|Closing date)\s*:?\s*(\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})",
             card,
             re.I,
         )
