@@ -64,7 +64,7 @@ def validate_job_list(data) -> list[dict]:
 
     def walk(value):
         if isinstance(value, list):
-            if len(value) >= 2 and all(isinstance(item, dict) for item in value[:5]):
+            if value and all(isinstance(item, dict) for item in value[:5]):
                 candidates.append(value)
             for item in value[:100]:
                 walk(item)
@@ -87,9 +87,16 @@ def validate_job_list(data) -> list[dict]:
                 signals += 1
             jobs.append({"title": title, "location": location, "url": url, "id": ref})
         unique_titles = {job["title"].casefold() for job in jobs}
-        if (len(jobs) >= 2 and len(unique_titles) >= .7 * len(jobs)
-                and len(jobs) >= .6 * len(items) and signals >= .4 * len(jobs)
-                and len(jobs) > len(best)):
+        # A single well-shaped record is useful evidence too; requiring two
+        # records misses small employers and filtered search results.
+        enough_evidence = (
+            len(jobs) == 1 and signals == 1
+            or len(jobs) >= 2
+            and len(unique_titles) >= .7 * len(jobs)
+            and len(jobs) >= .6 * len(items)
+            and signals >= .4 * len(jobs)
+        )
+        if enough_evidence and len(jobs) > len(best):
             best = jobs
     return best
 
