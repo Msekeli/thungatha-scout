@@ -78,8 +78,8 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
   search evidence from each query is retained.
 - Query failures, successful empty results, malformed results and partial batch
   failures remain distinguishable in the JSON report.
-- Added offline unit tests with a fake provider. They have not been run by the
-  assistant under the agreed workflow; local verification is pending.
+- Added offline unit tests with a fake provider. The user reported the updated
+  suite passed (22 tests, 0 failures); this was not independently run by the assistant.
 
 **Open issues**
 - The current live search provider is unreliable: the latest recorded run failed on 9 of 10 queries. Do not add more DDGS fallback complexity without evidence that it improves distinct, relevant employers found.
@@ -89,10 +89,7 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Results are emitted as JSON to stdout; durable registry persistence and CSV
   reporting remain M1-C04 work.
 
-**Next action:** Pull `dev`, install the updated backend requirements, run the
-unit tests and inspect one bounded discovery report. Review provider behavior and
-sample candidate evidence before deciding whether to proceed with source
-verification in M1-C03.
+**Next action:** Run a bounded comparison of available search approaches using the same broad careers-page queries. Compare distinct direct employers with credible official recruitment routes, query failures, and duplicate/aggregator noise. Then review sample candidate evidence. M1-C02 remains unaccepted until this is useful and repeatable.
 
 ## M1-C03 — Official careers page and source classification
 
