@@ -21,7 +21,7 @@ class SearchProvider(Protocol):
 
 
 class DDGSSearchProvider:
-    """Free-first search adapter with sequential backend fallback."""
+    """DDGS adapter with configurable backend selection."""
     def __init__(self, *, backends: tuple[str, ...] = DEFAULT_SEARCH_BACKENDS,
                  timeout: float = 8.0, client_factory: Callable[..., object] | None = None) -> None:
         if not backends:
