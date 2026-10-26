@@ -98,7 +98,7 @@ class EmployerDiscoveryTests(unittest.TestCase):
             )
 
         queries = DEFAULT_QUERIES[:2]
-        with patch("app.application.employer_discovery.run_discovery", side_effect=fake_run_discovery):
+        with patch("app.application.discovery_comparison.run_discovery", side_effect=fake_run_discovery):
             report = compare_search_backends(
                 backends=("bing", "brave"),
                 queries=queries,
