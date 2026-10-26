@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 import pytest
 
@@ -6,7 +7,7 @@ from scan_careers import _clean_url, _is_job_link, read_companies
 
 
 def test_reads_the_company_registry():
-    companies = read_companies(__import__("pathlib").Path("cape_town_tech_companies.json"))
+    companies = read_companies(Path("cape_town_tech_companies.json"))
     assert len(companies) == 79
     assert companies[0]["name"] == "Specno"
     assert companies[-1]["name"] == "Kagiso Media"
