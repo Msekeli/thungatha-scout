@@ -1,4 +1,5 @@
 """Offline unit tests for bounded employer discovery."""
+import json
 import unittest
 from datetime import timezone
 from types import SimpleNamespace
@@ -112,6 +113,7 @@ class EmployerDiscoveryTests(unittest.TestCase):
         self.assertEqual([item["backend"] for item in report["backends"]], ["bing", "brave"])
         self.assertTrue(all(item["failed_queries"] == 0 for item in report["backends"]))
         self.assertTrue(all(item["distinct_candidate_urls"] == 1 for item in report["backends"]))
+        self.assertIsInstance(json.dumps(report), str)
     def test_ddgs_provider_falls_back_after_backend_error(self):
         calls = []
         responses = {
