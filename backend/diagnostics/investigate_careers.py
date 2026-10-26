@@ -256,7 +256,8 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
             start_url = nxt
         if result["status"] == "unresolved" and result.get("search"):
             result["status"] = (
-                "search_failed" if result["search"].get("submitted") else "search_not_found"
+                "search_failed" if result["search"].get("submitted")
+                else "search_control_not_found"
             )
     finally:
         context.close()
@@ -269,10 +270,21 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=ROOT / "investigation_report.json")
     parser.add_argument("--max-pages", type=int, default=3)
     parser.add_argument("--delay", type=float, default=1.0, help="Seconds between companies")
+    parser.add_argument(
+        "--company",
+        help="Investigate only the company whose name matches this text (case-insensitive).",
+    )
     args = parser.parse_args()
     if not 1 <= args.max_pages <= 3:
         parser.error("--max-pages must be between 1 and 3")
     companies = json.loads(args.input.read_text(encoding="utf-8"))
+    if args.company:
+        companies = [
+            company for company in companies
+            if args.company.casefold() in company["name"].casefold()
+        ]
+        if not companies:
+            parser.error(f"No company name matched: {args.company}")
     report, counts = [], {}
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True)
