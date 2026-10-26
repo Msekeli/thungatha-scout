@@ -97,14 +97,14 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 
 ## Progress record
 
-**Changes made:** M1 activated. M1-C01 selected as the first bounded checkpoint.
+**Changes made:** Added `backend/app/domain/discovery.py` with typed candidate, evidence, identity, organization, review and run-outcome models; added `backend/tests/unit/test_discovery.py`; added `milestones/M1-C01-DISCOVERY-CONTRACT.md`; and added Pydantic to backend requirements. The model keeps identity uncertain unless evidence supports it and separates successful empty searches from request and discovery failures.
 
-**Verification commands/tests actually run:** Repository file retrieval through GitHub connector; no application tests run yet.
+**Verification commands/tests actually run:** GitHub connector file reads and writes succeeded. The unittest suite has been authored but not executed because a runnable checkout is unavailable; the earlier clone failed due to GitHub DNS resolution. No test pass is claimed.
 
-**Observed results/evidence:** M0 accepted. Current backend is a scaffold with no domain model or runnable test suite. The local clone attempt failed due to DNS resolution, so implementation must be committed in small reviewable steps and tests run in a working checkout as soon as available.
+**Observed results/evidence:** The contract validates timezone-aware timestamps, failure details, candidate/result consistency and deterministic candidate IDs. Tests cover empty success, non-empty success, request failure, discovery failure, identity validation and stable IDs.
 
-**Open issues or decisions:** Choose the initial discovery/search mechanism only after the evidence contract is established. Source terms and registry persistence remain later checkpoint decisions.
+**Open issues or decisions:** Execute the suite in a working checkout and review any failures before accepting C01. Search provider, source terms and registry persistence remain later checkpoint decisions.
 
-**Next action:** Implement the discovery candidate/evidence schema and tests for distinct run outcomes.
+**Next action:** Run `python -m unittest discover -s tests/unit -v` from `backend/`, fix any failures, then review C01.
 
-**Reviewed/accepted by user:** M1 started on user instruction, 26 October 2026; M1-C01 is not yet accepted.
+**Reviewed/accepted by user:** M1 started on user instruction, 26 October 2026; M1-C01 remains In progress.
