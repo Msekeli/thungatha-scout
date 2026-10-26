@@ -6,7 +6,7 @@
 
 ## Purpose and scope
 
-Discover employers across industries and company sizes, identify their official careers pages, classify the source relationship, and preserve evidence for verification and review. Company discovery must not be filtered by job title or industry. Companies may be retained even when no current vacancy is found.
+Discover direct employers across industries and company sizes that have a credible Cape Town connection and an official careers, jobs, vacancies, Join Us, Work With Us or equivalent recruitment page. The page may be company-hosted or an external portal clearly linked from the employer's official website. Do not require an ATS or filter by job title or industry. Exclude recruitment agencies and staffing firms from the direct-employer registry. Companies may qualify even when no current vacancy is found.
 
 ## Checkpoint status rules
 
@@ -43,12 +43,13 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 
 **Status:** In progress
 
-**Goal:** discover candidates without narrowing the employer universe by role or industry.
+**Goal:** discover direct employers and their official recruitment entry points without narrowing the employer universe by role, industry, or ATS provider.
 
 **Work**
-- Use bounded, reproducible discovery queries and inspect result URLs.
-- Keep Cape Town as the initial geographic scope.
-- Record source evidence rather than relying only on snippets or titles.
+- Use bounded, reproducible, search-provider-independent queries for careers pages and recruitment entry points.
+- Keep Cape Town as the initial geographic scope and record the evidence for the employer's Cape Town connection.
+- Discover company-built pages and employer-linked external portals, not only ATS-hosted boards.
+- Record search results as leads; do not treat snippets or titles as proof of employer identity or source ownership.
 - Avoid treating a single query or search backend as exhaustive.
 - Retain discovery run metadata and report coverage limitations.
 
@@ -68,11 +69,11 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Known job aggregators and search-ad redirect URLs are excluded from the
   employer-candidate queue and counted separately; search titles are retained
   in evidence instead of being promoted to employer names.
-- The current committed baseline report showed 3 queries with results and 7
-  reported failures; those results included multiple job aggregators. The fix
-  has been added but still requires local unit tests and a new live report.
-- Candidate titles are not promoted to employer names. Official URLs, identity,
-  organization type and Cape Town location remain unresolved until verified.
+- The first live baseline showed 3 queries with results and 7 reported failures.
+- The follow-up report `backend/employer-discovery-report-fixed.json` showed 1 query with retained candidates and 9 failed queries. Two URLs remained: an Impact.com careers page and a City of Cape Town public employment resource. The latter is not sufficient evidence of the City's own recruitment page. No verified employer registry was produced by that run.
+- User reported that the updated offline suite passed: 22 tests, 0 failures. The assistant has not run these tests.
+- The default query plan was changed to eight broad careers-page queries. ATS-specific site queries were removed from discovery because they bias discovery toward known ATS platforms.
+- Candidate titles are not promoted to employer names. Official URLs, identity, organization type, Cape Town connection and official recruitment-page relationship remain unverified until checked.
 - Duplicate observations merge only on the existing C01 stable observation ID;
   search evidence from each query is retained.
 - Query failures, successful empty results, malformed results and partial batch
@@ -81,14 +82,10 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
   assistant under the agreed workflow; local verification is pending.
 
 **Open issues**
-- DDGS is an unaffiliated metasearch library; backend availability, terms and
-  operational suitability still need review. Backend fallback is not proof that
-  the provider is reliable or that a failed query was truly empty.
-- The current report is a baseline, not an authoritative registry. Aggregator
-  filtering is intentionally conservative and must be reviewed against new
-  results; official employer ownership and Cape Town presence remain unverified.
-- Search snippets do not establish Cape Town presence or official source ownership.
-  M1-C03 must verify those claims against employer-owned pages.
+- The current live search provider is unreliable: the latest recorded run failed on 9 of 10 queries. Do not add more DDGS fallback complexity without evidence that it improves distinct, relevant employers found.
+- The current research branch contains source investigations and ATS adapters, but no reusable Bing search-provider implementation was identified in the branch files inspected. Do not claim a Bing comparison has been completed.
+- The current report is a baseline, not an authoritative registry. Aggregator filtering is intentionally conservative and must be reviewed against new results; official employer ownership, direct-employer classification, Cape Town connection and recruitment-page linkage remain unverified.
+- Search snippets do not establish Cape Town presence or official source ownership. The discovery stage must collect candidate recruitment-page URLs; M1-C03 verifies the employer identity, source ownership/linkage and organization classification.
 - Results are emitted as JSON to stdout; durable registry persistence and CSV
   reporting remain M1-C04 work.
 
@@ -101,7 +98,7 @@ verification in M1-C03.
 
 **Status:** Not started
 
-**Goal:** establish whether a candidate's recruitment source is official and identify the relationship.
+**Goal:** verify the candidate employer, Cape Town connection, direct-employer classification and official recruitment-page relationship; identify the source relationship without requiring a particular ATS.
 
 **Work**
 - Verify the employer's own website and careers page where possible.
@@ -164,9 +161,6 @@ again after commit `8202978`; all 10 tests passed on Python 3.14.7.
 `git diff --check` was not confirmed and is not recorded as verified.
 
 **Current status:** C01 was explicitly accepted by the user on 26 October 2026.
-C02 implementation is in progress. No tests or builds have been run by the
-assistant for C02; local verification and review are pending.
+C02 remains in progress. The user reported 22 unit tests passing after the latest implementation fix. The latest recorded live report is still poor (1 query with retained candidates, 9 failed queries) and does not establish a useful, verified employer set. The default queries now target official careers-page discovery rather than ATS-specific domains. The assistant has not run tests or a live search.
 
-**Next action:** User pulls `dev`, runs the backend unit tests, and reviews one
-bounded discovery run. M1-C02 remains unaccepted until evidence and user review
-support its exit criteria.
+**Next action:** Establish a reliable search provider using a bounded comparison, then review a sample of distinct direct employers and their official recruitment pages. M1-C02 remains unaccepted until the discovery yield, evidence quality and failure reporting meet the exit criteria.
