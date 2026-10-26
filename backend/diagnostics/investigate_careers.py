@@ -181,8 +181,8 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
     found = {}
     for item in candidates:
         href = item.get("href", "").split("#", 1)[0]
-        link_text = re.sub(r"\\s+", " ", item.get("text", "")).strip()
-        card = re.sub(r"\\s+", " ", item.get("card", "")).strip()
+        link_text = re.sub(r"\s+", " ", item.get("text", "")).strip()
+        card = re.sub(r"\s+", " ", item.get("card", "")).strip()
         path = urlparse(href).path.rstrip("/")
         if not path or path == urlparse(page_url).path.rstrip("/"):
             continue
@@ -192,7 +192,7 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
         # the nearby card, then fall back to the detail URL slug.
         title = ""
         card_title = re.split(
-            r"\\s+(?:Software Engineering|Operations|Engineering|Department)\\s*[·|]",
+            r"\s+(?:Software Engineering|Operations|Engineering|Department)\\s*[·|]",
             card,
             maxsplit=1,
             flags=re.I,
@@ -207,8 +207,11 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
                 candidate = candidate.strip(" :-|")
                 if candidate and not NAV_TITLE.fullmatch(candidate):
                     title = candidate
-        if not title and link_text and not re.fullmatch(r"(view role|apply|apply for this role|learn more)", link_text, re.I):
-            title = link_text
+        if link_text:
+            cleaned_link_text = re.sub(r"^view role\\s*:?\\s*", "", link_text, flags=re.I)
+            cleaned_link_text = re.sub(r"^apply for this role$", "", cleaned_link_text, flags=re.I).strip()
+            if cleaned_link_text and not NAV_TITLE.fullmatch(cleaned_link_text):
+                title = cleaned_link_text
         if not title:
             title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
         location_match = re.search(
