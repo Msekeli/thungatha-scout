@@ -31,6 +31,10 @@ class EmployerDiscoveryTests(unittest.TestCase):
             for term in ("software engineer", "developer", "data analyst")
         ))
 
+    def test_custom_queries_cannot_expand_geographic_scope(self):
+        with self.assertRaises(ValueError):
+            run_discovery(FakeSearchProvider({}), queries=("Johannesburg employers",))
+
     def test_results_remain_unresolved_and_retain_search_evidence(self):
         query = DEFAULT_QUERIES[0]
         provider = FakeSearchProvider({query: [{

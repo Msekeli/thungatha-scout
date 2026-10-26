@@ -100,6 +100,8 @@ def _validate_run_bounds(queries: list[str], limit: int) -> None:
         )
     if any(not query.strip() or len(query) > 1000 for query in queries):
         raise ValueError("Queries must be non-empty and at most 1000 characters")
+    if any("cape town" not in query.lower() for query in queries):
+        raise ValueError("Every query must retain the Cape Town geographic scope")
 
 
 def _candidate_from_hit(
@@ -241,7 +243,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--query", action="append", dest="queries",
-        help="Optional custom query; repeat to run several bounded queries.",
+        help="Optional query containing Cape Town; repeat to run several queries.",
     )
     parser.add_argument(
         "--max-results-per-query", type=int, default=8,
