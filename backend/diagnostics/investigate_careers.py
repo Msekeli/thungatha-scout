@@ -156,11 +156,11 @@ def _next_link(page, visited: set[str]):
 def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> dict:
     context = browser.new_context(user_agent="ThungathaScout-diagnostic/0.2")
     page = context.new_page()
-    hits, path, visited = [], [], set()
+    hits, path, visited, page_evidence = [], [], set(), []
     result = {
         "company": company, "start_url": start_url, "status": "unresolved",
-        "path": path, "platform": [], "search": None, "endpoint": None,
-        "job_count": 0, "jobs": [], "jsonld": False,
+        "path": path, "pages": page_evidence, "platform": [], "search": None,
+        "endpoint": None, "job_count": 0, "jobs": [], "jsonld": False,
     }
 
     def on_response(response):
@@ -202,6 +202,23 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
                 break
             status_code = response.status if response else None
             html = page.content()
+            try:
+                heading = page.locator("h1").first.inner_text(timeout=1000).strip()
+            except Exception:
+                heading = ""
+            try:
+                page_title = page.title()
+            except Exception:
+                page_title = ""
+            try:
+                body_text = page.locator("body").inner_text(timeout=2000)
+            except Exception:
+                body_text = ""
+            page_evidence.append({
+                "url": page.url, "http_status": status_code,
+                "title": page_title[:200], "h1": heading[:200],
+                "body_excerpt": re.sub(r"\\s+", " ", body_text)[:600],
+            })
             if status_code in {404, 410}:
                 result["status"] = "dead_url"
                 break
@@ -254,11 +271,25 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
             if not nxt:
                 break
             start_url = nxt
-        if result["status"] == "unresolved" and result.get("search"):
-            result["status"] = (
-                "search_failed" if result["search"].get("submitted")
-                else "search_control_not_found"
-            )
+        if result["status"] == "unresolved":
+            detail_pages = [
+                item for item in page_evidence
+                if re.search(r"/careers?/[^/?#]+", urlparse(item["url"]).path, re.I)
+                and (item["h1"] or item["title"])
+            ]
+            if detail_pages:
+                result["status"] = "job_detail_pages_detected_no_structured_jobs"
+                result["job_detail_pages"] = [
+                    {"url": item["url"], "title": item["title"], "h1": item["h1"]}
+                    for item in detail_pages
+                ]
+            elif result.get("search"):
+                result["status"] = (
+                    "search_failed" if result["search"].get("submitted")
+                    else "search_control_not_found"
+                )
+            else:
+                result["status"] = "unresolved_no_job_evidence"
     finally:
         context.close()
     return result
