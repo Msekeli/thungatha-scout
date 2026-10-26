@@ -59,8 +59,10 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - No unsupported claim of exhaustive coverage is made.
 
 **Implementation progress (26 October 2026)**
-- Added a bounded query plan and replaceable search-provider interface in
-  `backend/app/application/employer_discovery.py`.
+- Added a bounded query plan and replaceable search-provider interface. The
+  implementation is now split into focused modules under
+  `backend/app/application/discovery_*.py`; `employer_discovery.py` is a small
+  compatibility/CLI entry point.
 - Reused the DDGS metasearch approach from the research prototype. The live
   report showed that `backend="auto"` returned the ambiguous `No results found.`
   exception for multiple queries. The adapter now tries configured backends
