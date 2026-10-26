@@ -119,6 +119,28 @@ def _job_details(page: Page, url: str, listing_text: str) -> dict[str, str]:
     body = _page_text(page)
     if len(body) > len(text):
         text = body
+    location = ""
+    for selector in (
+        "[class*='location']", "[data-automation-id*='location']",
+        "[data-testid*='location']", "[aria-label*='location' i]",
+    ):
+        try:
+            candidate = page.locator(selector).first.inner_text(timeout=800).strip()
+            if candidate and len(candidate) < 180:
+                location = candidate
+                break
+        except Exception:
+            continue
+    if not location:
+        for line in text.splitlines():
+            line = re.sub(r"\\s+", " ", line).strip()
+            if line and len(line) < 120 and re.search(
+                r"\\b(cape town|south africa|remote|hybrid| johannesburg|durban|pretoria|"
+                r"london|new york|san francisco|global|multiple locations)\\b",
+                line, re.I,
+            ):
+                location = line
+                break
     apply_url = ""
     apply_text = ""
     for link in _page_links(page):
@@ -136,6 +158,7 @@ def _job_details(page: Page, url: str, listing_text: str) -> dict[str, str]:
         "application_link_text": apply_text,
         "description": text[:30000],
         "description_truncated": len(text) > 30000,
+        "location": location,
     }
 
 
@@ -204,7 +227,6 @@ def scan_company(
                     detail = _job_details(page, href, label)
                     detail["listing_title"] = label
                     detail["company"] = company["name"]
-                    detail["location"] = ""
                     jobs_by_url[href] = detail
                 except Exception as exc:
                     jobs_by_url[href] = {
