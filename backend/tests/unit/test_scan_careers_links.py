@@ -39,6 +39,20 @@ class JobLinkClassificationTests(unittest.TestCase):
             "card_text": "Software Engineer Cape Town Full-time Apply now",
         }, "https://example.com/careers"))
 
+    def test_rejects_generic_apply_action_without_vacancy_evidence(self):
+        self.assertFalse(_is_job_link({
+            "text": "Apply now",
+            "href": "https://example.com/apply",
+            "card_text": "",
+        }, "https://example.com/careers"))
+
+    def test_rejects_apply_action_in_card_without_employment_evidence(self):
+        self.assertFalse(_is_job_link({
+            "text": "Apply now",
+            "href": "https://example.com/role/123",
+            "card_text": "Learn more about our culture",
+        }, "https://example.com/careers"))
+
 
 if __name__ == "__main__":
     unittest.main()
