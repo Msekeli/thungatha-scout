@@ -155,13 +155,11 @@ def _next_link(page, visited: set[str]):
 
 
 def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
-    """Extract conservative vacancy records from visible career listings/details."""
+    """Extract vacancy links and field values from their nearest visible card."""
     try:
-        candidates = page.evaluate("""() => {
+        candidates = page.evaluate(r"""() => {
           const links = [...document.querySelectorAll('a[href]')];
           return links.map(a => {
-            const text = (a.innerText || '').trim();
-            const href = a.href;
             let node = a;
             let best = '';
             for (let depth = 0; node && depth < 6; depth++, node = node.parentElement) {
@@ -169,10 +167,10 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
               if (value.length >= 35 && value.length <= 1400 &&
                   /(close|closing|location|hybrid|remote|apply|view role)/i.test(value)) {
                 best = value;
-                if (/(close|closing date)/i.test(value) && /location/i.test(value)) break;
+                if (/closing date/i.test(value) && /location/i.test(value)) break;
               }
             }
-            return {text, href, card: best};
+            return {text:(a.innerText || '').trim(), href:a.href, card:best};
           });
         }""")
     except Exception:
@@ -188,55 +186,37 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
             continue
         if not re.search(r"/careers?/[^/]+$", path, re.I):
             continue
-        # Listing links often say only "View role"; infer a readable title from
-        # the nearby card, then fall back to the detail URL slug.
-        title = ""
-        card_title = re.split(
-            r"\s+(?:Software Engineering|Operations|Engineering|Department)\s*[·|]",
+
+        # The slug is a stable fallback; "View role" is never a job title.
+        title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
+        title_match = re.search(
+            r"([A-Z][A-Za-z0-9()& /-]{3,100}?)\s+(?:Software Engineering|Operations|Engineering)\s*[·|]",
             card,
-            maxsplit=1,
-            flags=re.I,
-        )[0].strip(" :-|")
-        if 4 <= len(card_title) <= 150 and not NAV_TITLE.fullmatch(card_title):
-            title = card_title
-        if not title:
-            for candidate in re.findall(
-                r"([A-Z][^.!?]{3,90}?)(?=\s+(?:View role|Apply|Department|Location|Closing date|Closes)\b)",
-                card,
-            ):
-                candidate = candidate.strip(" :-|")
-                if candidate and not NAV_TITLE.fullmatch(candidate):
-                    title = candidate
-        if link_text:
-            cleaned_link_text = re.sub(r"^view role\s*:?\s*", "", link_text, flags=re.I)
-            cleaned_link_text = re.sub(r"^apply for this role$", "", cleaned_link_text, flags=re.I).strip()
-            if cleaned_link_text and not NAV_TITLE.fullmatch(cleaned_link_text):
-                title = cleaned_link_text
-        if not title:
-            title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
+        )
+        if title_match:
+            title = title_match.group(1).strip(" :-|")
+        cleaned_link = re.sub(r"^view role\s*:?", "", link_text, flags=re.I).strip()
+        if cleaned_link and not re.fullmatch(r"(apply|apply for this role|learn more)", cleaned_link, re.I):
+            title = cleaned_link
+
         location_match = re.search(
             r"(?:Location\s*:?\s*|"
             r"(?:Operations|Software Engineering|Engineering)\s*·\s*)"
             r"([A-Z][A-Za-z .'-]+,\s*South Africa(?:\s*\([^)]*\))?)",
-            card,
-            re.I,
+            card, re.I,
         )
         close_match = re.search(
-            r"(?:Closes?|Closing date)\s*:?\s*(\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})",
-            card,
-            re.I,
+            r"(?:Closes?\s+|Closing date\s*:?\s*)"
+            r"(\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})",
+            card, re.I,
         )
-        record = {
-            "company": company,
-            "title": title[:150],
+        found[href] = {
+            "company": company, "title": title[:150],
             "location": location_match.group(1).strip() if location_match else None,
-            "url": href,
-            "closing_date_text": close_match.group(1) if close_match else None,
-            "source_url": page_url,
-            "extraction_method": "visible_html_link_and_context",
+            "url": href, "closing_date_text": close_match.group(1) if close_match else None,
+            "source_url": page_url, "extraction_method": "visible_html_link_and_context",
             "needs_review": True,
         }
-        found[href] = record
     return list(found.values())
 
 def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> dict:
