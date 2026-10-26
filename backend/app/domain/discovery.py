@@ -16,13 +16,13 @@ class DiscoveryOutcome(str, Enum):
     DISCOVERY_FAILED = "discovery_failed"
 
 
-class IdentityStatus(StrEnum):
+class IdentityStatus(str, Enum):
     CANDIDATE = "candidate"
     VERIFIED = "verified"
     UNRESOLVED = "unresolved"
 
 
-class OrganizationType(StrEnum):
+class OrganizationType(str, Enum):
     DIRECT_EMPLOYER = "direct_employer"
     RECRUITMENT_AGENCY = "recruitment_agency"
     STAFFING_COMPANY = "staffing_company"
@@ -31,7 +31,7 @@ class OrganizationType(StrEnum):
     UNRESOLVED = "unresolved"
 
 
-class ReviewState(StrEnum):
+class ReviewState(str, Enum):
     DISCOVERED = "discovered"
     PENDING_REVIEW = "pending_review"
     APPROVED = "approved"
