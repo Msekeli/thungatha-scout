@@ -1,0 +1,515 @@
+{
+  "comparison_scope": {
+    "region": "za-en",
+    "queries": [
+      "\"Cape Town\" company careers page",
+      "\"Cape Town\" companies \"careers\" \"join our team\"",
+      "\"Cape Town\" employers official careers page",
+      "\"Cape Town\" companies \"work with us\"",
+      "\"Cape Town\" company \"join us\" jobs",
+      "\"Cape Town\" company website vacancies careers",
+      "\"Cape Town\" employers \"current vacancies\" official website",
+      "\"Cape Town\" companies \"life at\" careers"
+    ],
+    "max_results_per_query": 8,
+    "note": "Counts are raw leads after known-aggregator exclusion, not verified direct employers. Review candidate URLs and official careers-page linkage manually."
+  },
+  "backends": [
+    {
+      "backend": "bing",
+      "status": "partial",
+      "query_count": 8,
+      "successful_queries": 5,
+      "failed_queries": 3,
+      "raw_result_count": 38,
+      "excluded_aggregator_count": 18,
+      "discarded_result_count": 0,
+      "distinct_candidate_urls": 15,
+      "candidate_urls": [
+        {
+          "url": "https://impact.com/careers/cape-town-jobs/",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" company careers page",
+              "title_and_snippet": "Title: We're hiring! View job openings in Cape Town & apply today - impact.com\nSnippet: impact.com is hiring! View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry."
+            },
+            {
+              "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+              "title_and_snippet": "Title: We're hiring! View job openings in Cape Town & apply today\nSnippet: Check out the current opportunities at impact.com to find your place on our team. impact.com is hiring! View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry."
+            },
+            {
+              "query": "\"Cape Town\" company website vacancies careers",
+              "title_and_snippet": "Title: We're hiring! View job openings in Cape Town & apply today\nSnippet: View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry."
+            }
+          ]
+        },
+        {
+          "url": "https://www.capetown.gov.za/city-connect/apply/jobs-and-opportunities/apply-for-a-job/",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" company careers page",
+              "title_and_snippet": "Title: Apply for a job - City of Cape Town\nSnippet: Apply for a job with the City of Cape Town and explore opportunities to contribute to the city's development and community services."
+            },
+            {
+              "query": "\"Cape Town\" employers official careers page",
+              "title_and_snippet": "Title: Apply for a job - City of Cape Town\nSnippet: The City employs over 22 000 staff who perform a wide range of tasks and jobs. If you are interested in applying to work with us, you can follow an online or offline process. All job applications to the City are free of charge."
+            }
+          ]
+        },
+        {
+          "url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/apply-for-a-job-with-the-city/apply-for-a-job/",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" company careers page",
+              "title_and_snippet": "Title: Apply for a job - City of Cape Town\nSnippet: If you are already a City employee, you must apply for available jobs internally. Step 1: To apply for a job online, you will first need to register for e-Services and activate the careers service. Step 2: Once you have activated the service, create an online CV and fill in your personal details, education and training, work experience, and qualifications."
+            },
+            {
+              "query": "\"Cape Town\" employers official careers page",
+              "title_and_snippet": "Title: Apply for a job - City of Cape Town\nSnippet: The City employs over 22 000 staff who perform a wide range of tasks and jobs. If you are interested in applying to work with us, you can follow an online or offline process."
+            }
+          ]
+        },
+        {
+          "url": "https://companypartners.co.za/careers/",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+              "title_and_snippet": "Title: Careers - Join Our Team - Company Partners\nSnippet: We’re a team of over 50 dedicated experts which offers over 120 Company Services, including Company Registration, Shelf Companies, Tax Clearance, VAT Registration, Letter of Good Standing, COID Registration and many other essential Business Compliance Documents."
+            }
+          ]
+        },
+        {
+          "url": "https://www.pnet.co.za/jobs/cape-careers/in-cape-town",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+              "title_and_snippet": "Title: Cape-careers Jobs in Cape Town | Pnet\nSnippet: Goodwood, Cape Town - Mac Weighing Solutions is looking for an experienced, energetic and self-motivated Sales Representative to join our team in Cape Town. * Develop new business throughout Cape Town and surrounding areas."
+            }
+          ]
+        },
+        {
+          "url": "https://www.pnet.co.za/jobs/cape-town-careers/in-cape-town",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+              "title_and_snippet": "Title: Cape Town Careers Jobs in Cape Town - PNet\nSnippet: Cape Town Careers jobs in Cape Town. Find the best Cape Town Careers job in Cape Town with Pnet. Love your next job."
+            }
+          ]
+        },
+        {
+          "url": "https://www.kalgroup.co.za/careers/join-our-team",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+              "title_and_snippet": "Title: Job Opportunities | Careers | KAL Group - South Africa\nSnippet: We invest in capable, humble and hungry individuals who will thrive in a complex, systems-driven organisation. By joining our team, you’ll form part of a community of over 6,800 employees that serve a diverse customer base across multiple sectors and operating environments."
+            }
+          ]
+        },
+        {
+          "url": "https://www.shopriteholdings.co.za/careers.html",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+              "title_and_snippet": "Title: Careers - Shoprite Holdings\nSnippet: We offer a range of exciting career opportunities where individuals can thrive at our various divisional offices across Africa, as well as home office departments and Shoprite X in Cape Town."
+            }
+          ]
+        },
+        {
+          "url": "https://www.bing.com/aclick?ld=e8EMypJdjlqH_zJo41jPfdrDVUCUx6bdgGVH8U_x_1LlwMB2oM6fbwDQJ0W7riB1HDKG-A6-ecMbef4GHp9pLL4rZS0CSseBtI9wu04x0Jnq6uYjNjwO8JOwFnv5furDF5EVObXgRhPhNV-6tp0QOPLfGfs9gRqbMJmiSJ89GfkqbDXgclqE52z5CpaQTqz7kgfgjYcg&u=aHR0cHMlM2ElMmYlMmZ3d3cuam9ibGVhZHMuY29tJTJmcmVnaXN0cmF0aW9uJTJmOTklMmZqb2JzJTJmZW4lMmZnbG9iYWwlMmZTdGFmZmluZy1DYXBlLVRvd24lMmZjYXBlLXRvd24lMmZhbGwlM2Z1dG1fc291cmNlJTNkbWljcm9zb2Z0LWFkc196YS1zZWFyY2hfWkFfY2FwZS10b3duXyUyNnV0bV9jb250ZW50JTNkQUxMJTdjRU4lN2NaQSU3YzJfU3RhZmZpbmctQ2FwZS1Ub3duX3NlYXJjaC1oZWFkaHVudGVyXzk5JTI2dXRtX21lZGl1bSUzZHNlYS1hZCUyNnV0bV9jYW1wYWlnbiUzZEFMTCU3Y0VOJTdjWkElN2MyJTI2bXNjbGtpZCUzZDg5YzE5MDJkNWNjMTEyZTkwYTg2ZmFmMjY1ZjE2N2Y5&rlid=89c1902d5cc112e90a86faf265f167f9",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+              "title_and_snippet": "Title: Staffing Cape Town - Headhunters Looking for You\nSnippet: 80% of top jobs aren’t on major job sites. Access hidden opportunities with JobLeads! Most senior roles stay off job boards. We unlock them for you."
+            },
+            {
+              "query": "\"Cape Town\" employers official careers page",
+              "title_and_snippet": "Title: Jobs Cape Town - Access Hidden Jobs - Apply Before Others\nSnippet: 80% of top jobs aren’t on major job sites. Access hidden opportunities with JobLeads! Skip irrelevant jobs and reach the right ones fast. Spend your time applying, not hunting."
+            }
+          ]
+        },
+        {
+          "url": "https://careers.dsltelecom.co.za/",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+              "title_and_snippet": "Title: DSL Telecom: We're Hiring!\nSnippet: DSL Telecom is located in Somerset West, Cape Town. We primarily connect customers to leading Internet, PBX and VoIP technologies throughout Africa. Competitive Packages. We offer a competitive base salary, with performance-based rewards and fringe benefits."
+            }
+          ]
+        },
+        {
+          "url": "https://careers.capetown.gov.za/sap/bc/webdynpro/SAP/hrrcf_a_unreg_job_search;sap-ext-sid=RvaXpKAhkun1CZyPixPn9A--1ylZ9csrTM02etn5e7dDbQ--",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" employers official careers page",
+              "title_and_snippet": "Title: careers.capetown.gov.za\nSnippet: Job Search Are you looking for an interesting new job? We are constantly looking for talented and motivated new employees who can contribute to the success of our company. Take a look at our employment opportunities! You can restrict the search result by specifying search criteria."
+            }
+          ]
+        },
+        {
+          "url": "https://za.jobeka.com/jobs-cape-town",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" company website vacancies careers",
+              "title_and_snippet": "Title: Jobs in Cape Town - latest job vacancies in Cape Town | Jobeka\nSnippet: Easy apply to 36 946 job openings in Cape Town on Jobeka. Explore latest job vacancies in Cape Town across top companies now."
+            }
+          ]
+        },
+        {
+          "url": "https://www.sasol.com/careers",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" company website vacancies careers",
+              "title_and_snippet": "Title: Careers | CAREERS - Sasol\nSnippet: Explore existing opportunities to energise your career to the next level. Whether you are seeking a Learnership or you are Student or Graduate or Experienced Hire."
+            }
+          ]
+        },
+        {
+          "url": "https://www.jobmail.co.za/jobs/cape-town",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" employers \"current vacancies\" official website",
+              "title_and_snippet": "Title: View the latest jobs available in Cape Town | Job Mail\nSnippet: 11 hours ago · View the latest jobs advertised in Cape Town on Job Mail. Register your CV today and set up job alerts, so you dont miss out on job opportunities."
+            }
+          ]
+        },
+        {
+          "url": "https://www.pnet.co.za/jobs/all/in-cape-town",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" employers \"current vacancies\" official website",
+              "title_and_snippet": "Title: All Jobs in Cape Town | Pnet\nSnippet: iqbusiness is seeking to employ a QA Specialist on a 12-month contract to collaborate with an international partner from our offices in Welgemoed, Cape Town, Northern Suburbs."
+            }
+          ]
+        }
+      ],
+      "query_outcomes": [
+        {
+          "query": "\"Cape Town\" company careers page",
+          "outcome": "success_with_results",
+          "raw_result_count": 8,
+          "excluded_aggregator_count": 5,
+          "error_code": null,
+          "error_message": null
+        },
+        {
+          "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+          "outcome": "success_with_results",
+          "raw_result_count": 8,
+          "excluded_aggregator_count": 0,
+          "error_code": null,
+          "error_message": null
+        },
+        {
+          "query": "\"Cape Town\" employers official careers page",
+          "outcome": "success_with_results",
+          "raw_result_count": 8,
+          "excluded_aggregator_count": 4,
+          "error_code": null,
+          "error_message": null
+        },
+        {
+          "query": "\"Cape Town\" companies \"work with us\"",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. bing: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" company \"join us\" jobs",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. bing: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" company website vacancies careers",
+          "outcome": "success_with_results",
+          "raw_result_count": 7,
+          "excluded_aggregator_count": 4,
+          "error_code": null,
+          "error_message": null
+        },
+        {
+          "query": "\"Cape Town\" employers \"current vacancies\" official website",
+          "outcome": "success_with_results",
+          "raw_result_count": 7,
+          "excluded_aggregator_count": 5,
+          "error_code": null,
+          "error_message": null
+        },
+        {
+          "query": "\"Cape Town\" companies \"life at\" careers",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. bing: DDGSException: No results found."
+        }
+      ]
+    },
+    {
+      "backend": "brave",
+      "status": "discovery_failed",
+      "query_count": 8,
+      "successful_queries": 0,
+      "failed_queries": 8,
+      "raw_result_count": 0,
+      "excluded_aggregator_count": 0,
+      "discarded_result_count": 0,
+      "distinct_candidate_urls": 0,
+      "candidate_urls": [],
+      "query_outcomes": [
+        {
+          "query": "\"Cape Town\" company careers page",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" employers official careers page",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"work with us\"",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" company \"join us\" jobs",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" company website vacancies careers",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" employers \"current vacancies\" official website",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"life at\" careers",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. brave: DDGSException: No results found."
+        }
+      ]
+    },
+    {
+      "backend": "duckduckgo",
+      "status": "partial",
+      "query_count": 8,
+      "successful_queries": 1,
+      "failed_queries": 7,
+      "raw_result_count": 8,
+      "excluded_aggregator_count": 5,
+      "discarded_result_count": 0,
+      "distinct_candidate_urls": 3,
+      "candidate_urls": [
+        {
+          "url": "https://www.jobsearchsa.co.za/job/location/1/jobs-cape-town/",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" company website vacancies careers",
+              "title_and_snippet": "Title: Latest Jobs in Cape Town, South Africa Today - JobSearch SA\nSnippet: Explore the latest job vacancies in Cape Town, South Africa. Find high-paying, remote, full-time, and part-time opportunities across industries. Start your career today! Page"
+            }
+          ]
+        },
+        {
+          "url": "https://westerncaperecruitment.co.za/vacancies/",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" company website vacancies careers",
+              "title_and_snippet": "Title: View Our Vacancies in the Western Cape: Cape Town Job Vacancies\nSnippet: Find the best vacancies in the Western Cape. Find a job in Western Cape from Cape Town, South Africa. Submit your CV, and search career opportunities!"
+            }
+          ]
+        },
+        {
+          "url": "https://za.jobeka.com/jobs-cape-town",
+          "evidence": [
+            {
+              "query": "\"Cape Town\" company website vacancies careers",
+              "title_and_snippet": "Title: Jobs in Cape Town - latest job vacancies in Cape Town | Jobeka\nSnippet: Easy apply to 37 109 job openings in Cape Town on Jobeka. Explore latest job vacancies in Cape Town across top companies now."
+            }
+          ]
+        }
+      ],
+      "query_outcomes": [
+        {
+          "query": "\"Cape Town\" company careers page",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. duckduckgo: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. duckduckgo: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" employers official careers page",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. duckduckgo: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"work with us\"",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. duckduckgo: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" company \"join us\" jobs",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. duckduckgo: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" company website vacancies careers",
+          "outcome": "success_with_results",
+          "raw_result_count": 8,
+          "excluded_aggregator_count": 5,
+          "error_code": null,
+          "error_message": null
+        },
+        {
+          "query": "\"Cape Town\" employers \"current vacancies\" official website",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. duckduckgo: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"life at\" careers",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. duckduckgo: DDGSException: No results found."
+        }
+      ]
+    },
+    {
+      "backend": "mojeek",
+      "status": "discovery_failed",
+      "query_count": 8,
+      "successful_queries": 0,
+      "failed_queries": 8,
+      "raw_result_count": 0,
+      "excluded_aggregator_count": 0,
+      "discarded_result_count": 0,
+      "distinct_candidate_urls": 0,
+      "candidate_urls": [],
+      "query_outcomes": [
+        {
+          "query": "\"Cape Town\" company careers page",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. mojeek: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. mojeek: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" employers official careers page",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. mojeek: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"work with us\"",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. mojeek: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" company \"join us\" jobs",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. mojeek: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" company website vacancies careers",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. mojeek: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" employers \"current vacancies\" official website",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. mojeek: DDGSException: No results found."
+        },
+        {
+          "query": "\"Cape Town\" companies \"life at\" careers",
+          "outcome": "request_failed",
+          "raw_result_count": 0,
+          "excluded_aggregator_count": 0,
+          "error_code": "SearchProviderError",
+          "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. mojeek: DDGSException: No results found."
+        }
+      ]
+    }
+  ]
+}
