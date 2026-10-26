@@ -1,7 +1,7 @@
 """Offline tests for careers investigation candidate validation."""
 import unittest
 
-from diagnostics.investigate_careers import validate_job_list
+from diagnostics.investigate_careers import _extract_visible_jobs, validate_job_list
 
 
 class NetworkJobValidationTests(unittest.TestCase):
@@ -44,6 +44,26 @@ class NetworkJobValidationTests(unittest.TestCase):
         ])
         self.assertEqual(len(jobs), 1)
         self.assertEqual(jobs[0]["location"], "Cape Town")
+
+
+class VisibleHtmlExtractionTests(unittest.TestCase):
+    def test_extracts_vacancy_from_listing_link_and_context(self):
+        class FakePage:
+            def evaluate(self, _script):
+                return [{
+                    "text": "View role",
+                    "href": "https://example.com/careers/software-engineer-junior",
+                    "card": "Software Engineer (Junior) Software Engineering · Stellenbosch, South Africa (Hybrid) Closes 30 Nov 2026 View role",
+                }]
+
+        jobs = _extract_visible_jobs(
+            FakePage(), "https://example.com/careers", "Example"
+        )
+        self.assertEqual(len(jobs), 1)
+        self.assertIn("Software Engineer", jobs[0]["title"])
+        self.assertIn("Stellenbosch", jobs[0]["location"])
+        self.assertEqual(jobs[0]["closing_date_text"], "30 Nov 2026")
+        self.assertTrue(jobs[0]["needs_review"])
 
 
 if __name__ == "__main__":
