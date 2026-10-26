@@ -13,7 +13,7 @@ Discover employers across industries and company sizes, identify their official 
 Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accepted**. Each checkpoint record includes changes made, commands/tests actually run, observed evidence, unresolved issues, next action and user review status.
 
 ## M1-C01 — Discovery inputs and evidence model
-**Status:** In review
+**Status:** Accepted (26 October 2026)
 
 **Goal:** define the candidate/evidence contract and make success-empty distinct from failures.
 
@@ -28,17 +28,18 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Unknown and failure states are explicit.
 - Automated tests distinguish empty results from request/discovery failures.
 
-**Checkpoint evidence**
+**Acceptance evidence**
 - Added `backend/app/domain/discovery.py` with typed candidate, evidence, identity, organization, review and run-outcome models.
 - Added `backend/tests/unit/test_discovery.py` and Pydantic to `backend/requirements.txt`.
 - Added `milestones/M1-C01-DISCOVERY-CONTRACT.md`.
 - Fixed enum declarations for Python compatibility in commit `8202978` (`Fix discovery enum compatibility`).
-- From `backend/`, installed requirements inside a virtual environment using `python -m pip install -r requirements.txt`.
-- Ran `python -m unittest discover -s tests/unit -v` after the fix; **10 tests passed, 0 failures**. The user reran the suite after committing and reported `Ran 10 tests ... OK`.
+- Installed dependencies in a virtual environment from `backend/` using `python -m pip install -r requirements.txt`.
+- Ran `python -m unittest discover -s tests/unit -v` after the fix and again after committing; **10 tests passed, 0 failures** on Python 3.14.7.
 - Pushed commit `8202978` to `origin/dev`.
+- User explicitly accepted C01 on 26 October 2026.
 
 ## M1-C02 — Cape Town employer discovery
-**Status:** Not started
+**Status:** In progress
 
 **Goal:** discover candidates without narrowing the employer universe by role or industry.
 
@@ -106,14 +107,14 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 
 ## Progress record
 
-**Changes made:** Added typed candidate, evidence, identity, organization, review and run-outcome models; added unit tests and Pydantic dependency; documented the C01 contract. Fixed the three enum declarations that referenced undefined `StrEnum` names by using `str, Enum`.
+**Changes made:** Added typed candidate, evidence, identity, organization, review and run-outcome models; added unit tests and Pydantic dependency; documented the C01 contract. Fixed three enum declarations that referenced undefined `StrEnum` names by using `str, Enum`.
 
-**Verification commands/tests actually run:** From `backend/`, installed dependencies using `python -m pip install -r requirements.txt` in an activated virtual environment. Ran `python -m unittest discover -s tests/unit -v` after the fix and again after committing; all 10 tests passed. `git diff --check` was previously requested but its output was not provided, so it is not recorded as verified. Commit `8202978` was pushed to `origin/dev`.
+**Verification commands/tests actually run:** From `backend/`, installed dependencies in an activated virtual environment with `python -m pip install -r requirements.txt`. Ran `python -m unittest discover -s tests/unit -v` after the fix and again after committing; all 10 tests passed. `git diff --check` was requested but its output was not provided, so it is not recorded as verified. Commit `8202978` was pushed to `origin/dev`.
 
-**Observed results/evidence:** Tests cover successful empty results, non-empty results, request failure, discovery failure, identity validation, timezone validation and stable IDs. The test suite passed locally on Python 3.14.7 with the dependencies installed from `backend/requirements.txt`.
+**Observed results/evidence:** Tests cover successful empty results, non-empty results, request failure, discovery failure, identity validation, timezone validation and stable IDs. The test suite passed locally on Python 3.14.7.
 
-**Open issues or decisions:** The C01 contract is data-model scope only; no discovery provider, source terms/approval workflow, registry persistence, or end-to-end discovery run is implemented by this checkpoint. These belong to later checkpoints. User review of the C01 acceptance criteria is still pending.
+**Open issues or decisions:** C01 is a data-model checkpoint only; no discovery provider, source terms/approval workflow, registry persistence, or end-to-end discovery run is implemented. These belong to later checkpoints.
 
-**Next action:** Review the C01 contract and test evidence, then explicitly accept C01 or request changes. After acceptance, begin C02 planning.
+**Next action:** Begin M1-C02 planning and implement bounded, reproducible Cape Town employer discovery while preserving evidence and clearly reporting coverage limitations.
 
-**Reviewed/accepted by user:** M1 started on user instruction, 26 October 2026. C01 is in review pending explicit user acceptance.
+**Reviewed/accepted by user:** C01 explicitly accepted on 26 October 2026. M1 remains in progress.
