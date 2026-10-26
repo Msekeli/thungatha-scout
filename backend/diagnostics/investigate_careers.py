@@ -166,8 +166,10 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
               const value = (node.innerText || '').replace(/\s+/g, ' ').trim();
               if (value.length >= 35 && value.length <= 1400 &&
                   /(close|closing|location|hybrid|remote|apply|view role)/i.test(value)) {
-                best = value;
-                if (/closing date/i.test(value) && /location/i.test(value)) break;
+                if (!best) best = value;
+                const hasDate = /(?:closes?|closing date)\s*:?\s*\d{1,2}\s+[a-z]+\s+\d{4}/i.test(value);
+                const hasLocation = /south africa|cape town|stellenbosch|hybrid|remote/i.test(value);
+                if (hasDate && hasLocation) { best = value; break; }
               }
             }
             return {text:(a.innerText || '').trim(), href:a.href, card:best};
@@ -187,7 +189,6 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
         if not re.search(r"/careers?/[^/]+$", path, re.I):
             continue
 
-        # The slug is a stable fallback; "View role" is never a job title.
         title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
         title_match = re.search(
             r"([A-Z][A-Za-z0-9()& /-]{3,100}?)\s+(?:Software Engineering|Operations|Engineering)\s*[·|]",
@@ -205,6 +206,11 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
             r"([A-Z][A-Za-z .'-]+,\s*South Africa(?:\s*\([^)]*\))?)",
             card, re.I,
         )
+        if not location_match:
+            location_match = re.search(
+                r"\b([A-Z][A-Za-z .'-]+,\s*South Africa(?:\s*\([^)]*\))?)",
+                card, re.I,
+            )
         close_match = re.search(
             r"(?:Closes?\s+|Closing date\s*:?\s*)"
             r"(\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})",
