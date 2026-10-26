@@ -25,16 +25,14 @@ from app.domain.discovery import (
 )
 
 DEFAULT_QUERIES = (
-    '"Cape Town" companies official website careers',
-    '"Cape Town" businesses "careers" "join our team"',
-    '"Cape Town" employers "current vacancies" company',
-    '"Cape Town" companies "work with us" careers',
-    'site:job-boards.greenhouse.io "Cape Town"',
-    'site:jobs.lever.co "Cape Town"',
-    'site:myworkdayjobs.com "Cape Town"',
-    'site:jobs.smartrecruiters.com "Cape Town"',
-    'site:apply.workable.com "Cape Town"',
-    'site:jobs.ashbyhq.com "Cape Town"',
+    '"Cape Town" company careers page',
+    '"Cape Town" companies "careers" "join our team"',
+    '"Cape Town" employers official careers page',
+    '"Cape Town" companies "work with us"',
+    '"Cape Town" company "join us" jobs',
+    '"Cape Town" company website vacancies careers',
+    '"Cape Town" employers "current vacancies" official website',
+    '"Cape Town" companies "life at" careers',
 )
 MAX_QUERIES = 20
 MAX_RESULTS_PER_QUERY = 10
@@ -191,7 +189,7 @@ def _candidate_from_hit(
     if hit.snippet:
         excerpt += f"\nSnippet: {hit.snippet}"
     evidence = DiscoveryEvidence(
-        method="ddgs_public_web_search",
+        method="public_web_search",
         query=query,
         observed_url=url,
         observed_at=observed_at,
@@ -327,7 +325,7 @@ def run_discovery(
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Discover Cape Town employer leads; results require review."
+        description="Discover Cape Town employers and official careers-page leads; results require review."
     )
     parser.add_argument(
         "--query", action="append", dest="queries",
