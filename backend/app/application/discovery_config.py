@@ -14,7 +14,7 @@ DEFAULT_QUERIES = (
 )
 MAX_QUERIES = 20
 MAX_RESULTS_PER_QUERY = 10
-DEFAULT_SEARCH_BACKENDS = ("brave", "duckduckgo", "mojeek")
+DEFAULT_SEARCH_BACKENDS = ("auto",)
 COMPARISON_SEARCH_BACKENDS = ("bing", "brave", "duckduckgo", "mojeek")
 EXCLUDED_AGGREGATOR_DOMAINS = (
     "indeed.com", "careers24.com", "simplyhired.com",
