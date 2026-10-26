@@ -133,10 +133,10 @@ def _job_details(page: Page, url: str, listing_text: str) -> dict[str, str]:
             continue
     if not location:
         for line in text.splitlines():
-            line = re.sub(r"\\s+", " ", line).strip()
+            line = re.sub(r"\s+", " ", line).strip()
             if line and len(line) < 120 and re.search(
-                r"\\b(cape town|south africa|remote|hybrid| johannesburg|durban|pretoria|"
-                r"london|new york|san francisco|global|multiple locations)\\b",
+                r"\b(cape town|south africa|remote|hybrid|johannesburg|durban|pretoria|
+                r"london|new york|san francisco|global|multiple locations)\b",
                 line, re.I,
             ):
                 location = line
