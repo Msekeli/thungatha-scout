@@ -21,10 +21,11 @@ The source-of-truth document must not be overwritten or silently reconciled with
 3. Make the smallest change that meets the agreed checkpoint.
 4. Preserve existing experimental Greenhouse work, historical reports, company data and user changes.
 5. Add or update tests for changed behavior.
-6. Run the relevant tests and quality checks. Never claim a command passed unless it was actually run.
-7. Report changed files, commands/results, evidence, unresolved issues and the next action.
-8. Update checkpoint progress records only with verified facts.
-9. Stop for user review when a checkpoint requires an explicit product, architecture, source-permission, security or cost decision.
+6. Keep every Python module directly in `backend/app/application/` at 100 lines or fewer. The automated line-limit test is a required quality gate. Do not evade it by minifying code; split by responsibility. If a larger module appears necessary, stop and request explicit review.
+7. Run the relevant tests and quality checks. Never claim a command passed unless it was actually run.
+8. Report changed files, commands/results, evidence, unresolved issues and the next action.
+9. Update checkpoint progress records only with verified facts.
+10. Stop for user review when a checkpoint requires an explicit product, architecture, source-permission, security or cost decision.
 
 ## Non-negotiable product rules
 
