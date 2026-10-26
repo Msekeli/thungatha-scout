@@ -388,19 +388,28 @@ def main() -> int:
     parser.add_argument("--delay", type=float, default=1.0, help="Seconds between companies")
     parser.add_argument(
         "--company",
-        help="Investigate only the company whose name matches this text (case-insensitive).",
+        action="append",
+        help="Investigate companies whose names contain this text (repeat for a batch).",
     )
     args = parser.parse_args()
     if not 1 <= args.max_pages <= 3:
         parser.error("--max-pages must be between 1 and 3")
     companies = json.loads(args.input.read_text(encoding="utf-8"))
     if args.company:
+        filters = [name.casefold() for name in args.company]
         companies = [
             company for company in companies
-            if args.company.casefold() in company["name"].casefold()
+            if any(name in company["name"].casefold() for name in filters)
         ]
+        matched = {company["name"].casefold() for company in companies}
+        missing = [
+            name for name in args.company
+            if not any(name.casefold() in company_name for company_name in matched)
+        ]
+        if missing:
+            parser.error("No company name matched: " + ", ".join(missing))
         if not companies:
-            parser.error(f"No company name matched: {args.company}")
+            parser.error("No company names matched the supplied filters")
     report, counts = [], {}
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True)
