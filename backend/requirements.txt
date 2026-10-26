@@ -1,1 +1,2 @@
 azure-functions
+pydantic>=2.7,<3
