@@ -153,6 +153,79 @@ def _next_link(page, visited: set[str]):
     return max(ranked, default=(False, None))[1]
 
 
+
+def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
+    """Extract conservative vacancy records from visible career listings/details."""
+    try:
+        candidates = page.evaluate("""() => {
+          const links = [...document.querySelectorAll('a[href]')];
+          return links.map(a => {
+            const text = (a.innerText || '').trim();
+            const href = a.href;
+            let node = a;
+            let best = '';
+            for (let depth = 0; node && depth < 6; depth++, node = node.parentElement) {
+              const value = (node.innerText || '').replace(/\\s+/g, ' ').trim();
+              if (value.length >= 35 && value.length <= 1400 &&
+                  /(close|closing|location|hybrid|remote|apply|view role)/i.test(value)) {
+                best = value;
+                if (/(close|closing date)/i.test(value) && /location/i.test(value)) break;
+              }
+            }
+            return {text, href, card: best};
+          });
+        }""")
+    except Exception:
+        return []
+
+    found = {}
+    for item in candidates:
+        href = item.get("href", "").split("#", 1)[0]
+        link_text = re.sub(r"\\s+", " ", item.get("text", "")).strip()
+        card = re.sub(r"\\s+", " ", item.get("card", "")).strip()
+        path = urlparse(href).path.rstrip("/")
+        if not path or path == urlparse(page_url).path.rstrip("/"):
+            continue
+        if not re.search(r"/careers?/[^/]+$", path, re.I):
+            continue
+        # Listing links often say only "View role"; infer a readable title from
+        # the nearby card, then fall back to the detail URL slug.
+        title = ""
+        for candidate in re.findall(
+            r"([A-Z][^.!?]{3,90}?)(?=\\s+(?:View role|Apply|Department|Location|Closing date|Closes)\\b)",
+            card,
+        ):
+            candidate = candidate.strip(" :-|")
+            if candidate and not NAV_TITLE.fullmatch(candidate):
+                title = candidate
+        if not title and link_text and not re.fullmatch(r"(view role|apply|apply for this role|learn more)", link_text, re.I):
+            title = link_text
+        if not title:
+            title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
+        location_match = re.search(
+            r"(?:Location|\\b(?:Operations|Software Engineering|Engineering)\\s*·)\\s*[:·]?\\s*"
+            r"([A-Z][A-Za-z .'-]+,\\s*South Africa(?:\\s*\\([^)]*\\))?)",
+            card,
+            re.I,
+        )
+        close_match = re.search(
+            r"(?:Closes?|Closing date)\\s*:?\\s*(\\d{1,2}\\s+[A-Za-z]+\\s+\\d{4}|[A-Za-z]+\\s+\\d{1,2},?\\s+\\d{4})",
+            card,
+            re.I,
+        )
+        record = {
+            "company": company,
+            "title": title[:150],
+            "location": location_match.group(1).strip() if location_match else None,
+            "url": href,
+            "closing_date_text": close_match.group(1) if close_match else None,
+            "source_url": page_url,
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": True,
+        }
+        found[href] = record
+    return list(found.values())
+
 def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> dict:
     context = browser.new_context(user_agent="ThungathaScout-diagnostic/0.2")
     page = context.new_page()
@@ -233,6 +306,14 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
             if jobs:
                 result.update(status="jobs_in_jsonld", jsonld=True,
                               job_count=len(jobs), jobs=jobs[:30])
+                break
+            visible_jobs = _extract_visible_jobs(page, page.url, company)
+            if visible_jobs:
+                result.update(
+                    status="jobs_in_visible_html",
+                    job_count=len(visible_jobs),
+                    jobs=visible_jobs[:30],
+                )
                 break
             if not hits:
                 result["search"] = _try_search(page)
