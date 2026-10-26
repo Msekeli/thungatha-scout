@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Azure Functions local/deployment artifacts
+local.settings.json
+.python_packages/
+.azurefunctions/
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
