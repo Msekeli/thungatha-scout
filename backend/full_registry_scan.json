@@ -1,0 +1,2183 @@
+{
+  "generated_at": "2026-10-26T22:14:20.832375+00:00",
+  "input_file": "/Users/admin/Documents/Projects/thungatha-scout/backend/cape_town_tech_companies.json",
+  "companies_scanned": 79,
+  "jobs_found_total": 38,
+  "status_counts": {
+    "jobs_found": 30,
+    "page_says_no_jobs": 0,
+    "no_jobs_detected": 45,
+    "failed": 4
+  },
+  "job_quality_counts": {
+    "with_description": 5,
+    "with_location": 12,
+    "with_application_url": 0,
+    "requiring_review": 38
+  },
+  "extraction_source_counts": {
+    "dom_link": 33,
+    "schema_job_posting": 5
+  },
+  "results": [
+    {
+      "company": "Specno",
+      "careers_url": "https://www.specno.com/careers",
+      "scanned_at": "2026-10-26T22:04:39.388346+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.specno.com/careers"
+      ],
+      "error": null,
+      "page_title": "Careers | Specno",
+      "page_text_excerpt": "Skip to main content\nOur Services\nProduct Assessment\nA 4–6 week product, UX, and engineering assessment. Find out what stands between prototype and production-ready.\nRisk Validation Sprint\nA 2–6 week sprint that proves or disproves the highest-risk assumptions in your product through real execution.\nLaunch Pod\nThree senior operators across product strategy, design, and engineering, deployed within a week. One accountability line.\nScale Pod\nFour senior operators covering architecture, engineering, product strategy, and design. Built for complex platforms.\nEnterprise Pod\nA custom-configured team of senior operators for initiatives with board-level visibility and cross-functional dependencies.\nFree Assessment\nPortfolio\nResources\nBlog\nFrameworks, lessons, and hard-won clarity from inside real product teams.\nSpeak With a Specialist\n\nOPEN ROLES\n\nWork with a team\nthat ships.\n\nWe’re a small, senior team helping startups, scale-ups, and large corporates build product that actually goes to marke",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Sintrex",
+      "careers_url": "https://www.sintrex.com/careers",
+      "scanned_at": "2026-10-26T22:04:43.585824+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.sintrex.com/careers"
+      ],
+      "error": null,
+      "page_title": "Careers | Sintrex",
+      "page_text_excerpt": "Home\nSolutions\nAbout\nCareers\nContact\n\nCareers\n\nBUILD YOUR FUTURE\nWITH SINTREX\n\nWe attract and empower people with inspirational work experience, world-class software and globally renowned partners. If you're passionate about IT and driven to make an impact, there's a place for you here.\n\nVIEW OPEN POSITIONS\nINTERNSHIP PROGRAMME\n\nCulture\n\nA PLACE WHERE\nEXCELLENCE MEETS PURPOSE\n\nThrough a culture of excellence, partnership and fun, Sintrex creates an environment where talented people thrive. We believe that great technology is built by empowered people who are supported, challenged and inspired every day.\n\nVacancies\n\nBUILD YOUR\nFUTURE WITH US\nPERMANENT\nCAPE TOWN (BELLVILLE)\nJunior Technical Test Analyst\n\nSintrex is passionate about the innovative pursuit of excellence in providing end to end IT management and consultative IT services that create reliable robust and user-friendly solutions.\n\nVIEW\nAPPLY\nPERMANENT\nCAPE TOWN (BELLVILLE)\nDeveloper Intern\n\nSintrex is passionate about the innov",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Octoco",
+      "careers_url": "https://www.octoco.ltd/careers",
+      "scanned_at": "2026-10-26T22:04:46.822346+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Software Engineer (Intermediate)",
+          "listing_title": "View role\n: Software Engineer (Intermediate)",
+          "job_url": "https://www.octoco.ltd/careers/software-engineer-intermediate",
+          "application_url": "",
+          "description": "",
+          "location": "Stellenbosch, South Africa (Hybrid)",
+          "employment_type": "",
+          "company": "Octoco",
+          "detail_checked": false,
+          "ai_assisted": true,
+          "ai_evidence": "Software Engineer Intermediate Stellenbosch, South Africa (Hybrid) Closes 31 Oct 2026 View role: Software Engineer (Intermediate)"
+        }
+      ],
+      "pages_visited": [
+        "https://www.octoco.ltd/careers"
+      ],
+      "error": null,
+      "page_title": "Work at Octoco | Octoco",
+      "page_text_excerpt": "Skip to content\nServices\nProjects\nTeam\nCareers\nInsights\nYenza\nContact us\nWork at Octoco\n\nWe are a team of engineers building software, hardware and connected products for clients across industries. These are the roles open at the moment.\n\nFind the perfect position\n\nOpen roles across operations, software and embedded engineering.\n\nSoftware Engineering\n\nSoftware Engineer\nIntermediate\nStellenbosch, South Africa (Hybrid)\nCloses 31 Oct 2026\nView role\n: Software Engineer (Intermediate)\nSoftware Engineer\nJunior\nStellenbosch, South Africa (Hybrid)\nCloses 30 Nov 2026\nView role\n: Software Engineer (Junior)\n\nOperations\n\nProject Manager (Software)\nJunior\nStellenbosch, South Africa\nCloses 30 Nov 2026\nView role\n: Project Manager (Software) (Junior)\nTalent Coordinator\nStellenbosch, South Africa\nCloses 30 Oct 2026\nView role\n: Talent Coordinator\nLife at Octoco\nTell us what you are building\n\nYour technology is the foundation of your business. Work with a team that understands every layer of it, from the",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 1,
+      "ai_fallback_status": "success",
+      "ai_fallback_diagnostics": {
+        "status": "success",
+        "jobs_returned": 4,
+        "jobs_validated": 4
+      }
+    },
+    {
+      "company": "Entelect",
+      "careers_url": "https://culture.entelect.co.za/current-available-positions/",
+      "scanned_at": "2026-10-26T22:04:56.180541+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Java Team Lead",
+          "listing_title": "Java Team Lead",
+          "job_url": "https://culture.entelect.co.za/position/java-team-lead",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Entelect",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://culture.entelect.co.za/current-available-positions/"
+      ],
+      "error": null,
+      "page_title": "Current Available Jobs - Entelect",
+      "page_text_excerpt": "WORKING AT ENTELECT\nHOW YOU’LL GROW\nTHE ROLES WE OFFER\nNEWS\nTHE ENTELECT FOUNDATION\nCONTACT US\nAPPLY NOW\nHome|Current Available Jobs\nWE ARE ALWAYS HIRING\n\nAt Entelect, we're always on the lookout for talented professionals who are ready to make an impact. Browse through our current job openings below to find a position that matches your skills and passion. We're committed to fostering a culture of innovation, growth, and collaboration – so take a look and see where you could fit in!\n\nSoftware Engineering Positions   |   Business Analyst Positions   |   Data Solutions Engineer Positions   |   Quality Assurance Engineer Positions\n\nSOFTWARE ENGINEER POSITIONS\nTEAM LEAD POSITIONS\nJava Team Lead\n\nJoin Entelect as a Java Team Lead – Exciting Opportunities Await!\n\nMobile Team Lead\n\nTake Your Career to the Next Level – Mobile Team Lead at Entelect\n\nJavaScript Team Lead\n\nReady for a New Challenge? Apply for the JavaScript Team Lead Role at Entelect\n\nTECH LEAD POSITIONS\nJava Technical Lead\n\nExci",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "DVT",
+      "careers_url": "https://dvtcareers.recruitee.com/",
+      "scanned_at": "2026-10-26T22:04:58.729375+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Principal Java Engineer Ai Augmentation And Engineering Systems",
+          "listing_title": "View job",
+          "job_url": "https://dvtcareers.recruitee.com/o/principal-java-engineer-ai-augmentation-and-engineering-systems",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "DVT",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://dvtcareers.recruitee.com/"
+      ],
+      "error": null,
+      "page_title": "Careers homepage",
+      "page_text_excerpt": "Skip to content\nHomepage\nHomepage\nhttp://dvt.co.za/\nWhy Join DVT?\nJoin our Global Team of \nExpert-led, AI-driven Software Professionals\n\n﻿\n\n\n#BuildBeyondYourself\n\nOur mission is to create a seamless process for potential DVT'ers. We have a recruitment team dedicated to the various clusters within the business. Together, our team of Talent Acquisition Specialists has close to 100 years of collective experience within the IT field, specialising in different niches.\n\nFrom the initial screening call to the technical challenge, interview, and offer stage; you will be provided with feedback at every turn.\n\nHow we hire...\nOpen positions\nAll departments\n.NET\nArtificial intelligence\nBusiness Analysis\nCloud\nData Engineering & AI\nDelivery\nJava\nMobile\nFilters\nAll countries\nAll cities\n19 jobs\nShare\nCape Town\nJob title\tWork model\tLocation\t\nPrincipal Java Engineer: AI Augmentation and Engineering Systems\tHybrid\tCape Town, Western Cape, South Africa\tView job\nSenior AWS Cloud Consultant - NM\tRemote\tRem",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Ontec",
+      "careers_url": "https://ontec.co.za/careers/",
+      "scanned_at": "2026-10-26T22:05:00.804885+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Ontec has a diverse team made up of innovative and competent individuals. The company not only drives performance in order for employees to excel on a professional and personal level, but rewards this performance. People here are satisfied, challenged and happy, which makes it a perfect working environment.",
+          "listing_title": "Download Job Description",
+          "job_url": "https://ontec.co.za/wp-content/uploads/2020/01/Job-Post_Full-Stack-Software-Developer.pdf",
+          "application_url": "",
+          "description": "",
+          "location": "CAPE TOWN REGION",
+          "employment_type": "",
+          "company": "Ontec",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://ontec.co.za/careers/"
+      ],
+      "error": null,
+      "page_title": "Ontec Careers, apply here for available current positions advertised.",
+      "page_text_excerpt": "Buy Electricity Online+27 (0) 21 928 1700info@ontec.co.za\n \n\t\nABOUT US\n \nSERVICES\n \nTECHNOLOGY\n \nSUBMETERING\n \nSUSTAINABILITY\n \nNEWS\n \nCONTACT US\n \nONTEC ENERGY\n \nCAREERS\n\nOntec has a diverse team made up of innovative and competent individuals. The company not only drives performance in order for employees to excel on a professional and personal level, but rewards this performance. People here are satisfied, challenged and happy, which makes it a perfect working environment.\n\nFULL STACK SOFTWARE DEVELOPER\nCAPE TOWN REGION\n\nJob Title: Full Stack Software Developer\n\nDepartment: Solutions\n\nLocation: Cape Town Region\n\nClosing Date:  N/A\n\nEmail: recruitment@ontec.co.za\n\nINTRODUCTION\n\nWe are looking for passionate full stack Software Engineer with a C# background with front-end frameworks experience to design, develop and install software solutions and mobile applications for our clients. The successful candidates will be able to build high-quality, innovative and fully performing software ",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Stanchion Payments",
+      "careers_url": "https://www.stanchionpayments.com/work-with-us/",
+      "scanned_at": "2026-10-26T22:05:08.153490+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.stanchionpayments.com/work-with-us/"
+      ],
+      "error": null,
+      "page_title": "Work With Us | Careers and Opportunities at Stanchion",
+      "page_text_excerpt": "OUR OFFERINGS\nVERTO\nVerto simplifies complex payment ecosystems, accelerating integration and enabling banks and providers to launch modern payment capabilities quickly and efficiently.\nSOLUTIONS & SERVICES\nSWITCHCARE\nSwitchCare delivers proactive monitoring and expert support, ensuring resilient payment switch environments with faster issue resolution and optimised transaction performance.\nPROFESSIONAL SERVICES\nSpecialist integration and delivery services that modernise legacy payment systems, reduce project risk, and accelerate deployments across complex financial environments.\nPARTNER SOLUTIONS\nIntegrated partner technologies enhance resilience, security and scalability, helping organisations streamline payments, reduce integration overhead and accelerate time-to-market.\nABOUT US\nRESOURCES\nCAREERS\nINSIGHTS\nCONTACT\nWork with us\n\nStanchion’s approach is to hire team members who contribute both on a technical level and who will be a natural fit for the team.\n\nWe strive for excellence b",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "BBD",
+      "careers_url": "https://www.bbd.co.za/careers/",
+      "scanned_at": "2026-10-26T22:05:13.622770+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Pune, Maharashtra, India",
+          "listing_title": "VIEW ROLE DETAILS",
+          "job_url": "https://bbdsoftware.com/jobs/java-engineer-ind26",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "BBD",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.bbd.co.za/careers/"
+      ],
+      "error": null,
+      "page_title": "Open Positions",
+      "page_text_excerpt": "We value your privacy\n\nWe use cookies to enhance your browsing experience, serve personalised ads or content, and analyse our traffic. By clicking \"Accept All\", you consent to our use of cookies.\n\nReject All\nAccept All\nSkip to content\nHOME\nSERVICES AND SOLUTIONS\nOUTSOURCED DEVELOPMENT\nMEDIA HUB\nABOUT US\nCAREERS\nCONTACT\nExplore software development & tech careers at BBD\nCAREERS\n\nWe are always on the hunt for top talent across various levels of knowledge, expertise and experience in our different locations. Check out our available positions below.\n\nPune, Maharashtra, India\nPermanent\nJava Engineer (IND26)\nWe’re looking for Java engineers with experience in Angular, Spring Boot, and Node.\nVIEW ROLE DETAILS\nPune, Maharashtra, India\nPermanent\nJavaScript Engineer (IND26)\nWe’re looking for JavaScript engineers with solid exposure and experience in tech such as Angular, React, Vue and Svelte.\nVIEW ROLE DETAILS\nJohannesburg, Gauteng, South Africa\nPermanent\nPython & Django Backend Engineer (SA26)",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Dariel",
+      "careers_url": "https://www.dariel.co.za/careers",
+      "scanned_at": "2026-10-26T22:05:19.645067+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.dariel.co.za/careers"
+      ],
+      "error": null,
+      "page_title": "Our Team - Dariel: Bespoke Software Solutions",
+      "page_text_excerpt": "Skip to content\nOur Services\nTrack Record\nWhat We Think\nJoin Our Team\nWho We Are\nGet In Touch\nDariel DNA.\n\nBe a part of our dynamic and diverse team engineering the future\n\nCAREERS\nGRADUATES\nDariel Careers\nWHERE EXPERTISE MEETS PASSION.\n\nDarielian - Noun\n\ndar -ie -lian\n\nDarielian: A smart, creative individual who embodies a commitment to excellence, innovation, and collaboration. Darielians thrive in an environment that encourages growth, embraces challenges, and fosters a sense of community.\n\nDarielianing - (verb)\n\ndar -ie -lian-ing\n\nThe act of approaching software development with a meticulous and innovative mindset, ensuring solutions are engineered right first time and deliver exceptional value.\n\nBuild Meaningful Software.\nGrow With Purpose.\n\nAt Dariel, experienced developers are trusted to solve hard problems – not in isolation, but as part of a team that values both technical depth and big-picture thinking. We design and build high-performance, business-critical systems for clien",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "SovTech",
+      "careers_url": "https://www.sovtech.com/careers/",
+      "scanned_at": "2026-10-26T22:05:27.690225+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Senior Product Manager",
+          "listing_title": "Senior Product Manager",
+          "job_url": "https://www.scrums.com/jobs/senior-product-manager",
+          "application_url": "",
+          "description": "",
+          "location": "Senior Product Manager· Johannesburg",
+          "employment_type": "",
+          "company": "SovTech",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.sovtech.com/careers/",
+        "https://www.scrums.com/catalog/search",
+        "https://www.google.com/search?udm=50&aep=11&q=Summarize%20and%20analyze%20the%20key%20insights%20from%20https%3A%2F%2Fwww.scrums.com%2Fcareers.%20Source%3A%20Scrums.com."
+      ],
+      "error": null,
+      "page_title": "Careers at Scrums.com | Work with Frontier AI",
+      "page_text_excerpt": "Skip to content\nSOFTWARE ENGINEERING. SORTED.\nDelivery metrics synced for an enterprise workstream\nNEW\nSoftware Factory: Delivery Plans →\nEnterprise AI\nPlatform\nSolutions\nResources\nCompany\nPricing\nLOGIN\nTALK TO SALES\nGet Started →\nHIRING\nSenior Product Manager· Johannesburg\nSenior AI Transformation Software Engineer· Johannesburg\nSenior Full-Stack Engineer· USA\nSenior AI Platform Engineer· USA\nSenior C#.Net Software Engineer· USA\nSenior QA Automation Engineer· USA\nGraduate Programme· Johannesburg\nForward Deployed Engineer in London (Principal)· London, United Kingdom\nForward Deployed Engineer in Lagos (Principal)· Lagos, Nigeria\nForward Deployed Engineer in Lagos (Senior)· Lagos, Nigeria\nSenior Product Manager· Johannesburg\nSenior AI Transformation Software Engineer· Johannesburg\nSenior Full-Stack Engineer· USA\nSenior AI Platform Engineer· USA\nSenior C#.Net Software Engineer· USA\nSenior QA Automation Engineer· USA\nGraduate Programme· Johannesburg\nForward Deployed Engineer in London (Pr",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Codehesion",
+      "careers_url": "https://codehesion.careers-page.com/",
+      "scanned_at": "2026-10-26T22:05:38.003330+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Intermediate Business Analyst",
+          "listing_title": "Intermediate Business Analyst",
+          "job_url": "https://codehesion.careers-page.com/jobs/ba6d26c9-3a4a-4437-a75c-133c2bb6e06c",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Codehesion",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://codehesion.careers-page.com/"
+      ],
+      "error": null,
+      "page_title": "",
+      "page_text_excerpt": "Company website\nCareers with Codehesion\n\n\nWe're looking for awesome, talented people to join our growing team!\n\n\nView Openings\n\nWhen joining the Codehesion crew, you are not only joining one of South Africa’s top development companies, but you become a part of a that is to its core passionate about coding, building great things togerther and maintaining our unique open, transparent, and tight-knit culture. Your work will directly impact the final product when it goes to market.\n\nJobs at Codehesion\n\n4 Open Positions\n\nSearch\nIntermediate Business Analyst\nRefer\nApply now\nCenturion, South Africa\nTechnical Recruiter\nRefer\nApply now\nCenturion, South Africa\n(React/Node) Intermediate - Advanced Software Engineer\nRefer\nApply now\nCenturion, South Africa\n(C# .NET) Intermediate - Advanced Software Engineer\nRefer\nApply now\nCenturion, Gauteng, South Africa\nOpen application\n\nWe are always looking for bright minds and enthusiastic people from diverse backgrounds, who want to be part of an outstanding ",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Exclr8",
+      "careers_url": "https://www.exclr8.co.za/juniorengineer.php",
+      "scanned_at": "2026-10-26T22:05:43.503388+00:00",
+      "status": "jobs_found",
+      "jobs_found": 2,
+      "jobs": [
+        {
+          "title": "Junior Software Engineer",
+          "listing_title": "Junior Software Engineer",
+          "job_url": "https://www.exclr8.co.za/juniorengineer.php",
+          "application_url": "",
+          "description": "Start your software engineering career at Exclr8. Learn alongside senior engineers on real production systems — CloudCore, .NET, SQL Server, Azure.",
+          "location": "Cape Town, Western Cape, ZA",
+          "employment_type": "FULL_TIME",
+          "company": "Exclr8",
+          "detail_checked": false,
+          "source_type": "schema_job_posting",
+          "source_page_url": "https://www.exclr8.co.za/juniorengineer.php",
+          "evidence": "Schema.org JobPosting JSON-LD",
+          "date_posted": "2026-01-01",
+          "valid_through": "2026-12-31"
+        },
+        {
+          "title": "The spec.",
+          "listing_title": "APPLY FOR THIS ROLE\n→",
+          "job_url": "https://www.exclr8.co.za/contactus.php",
+          "application_url": "",
+          "description": "",
+          "location": "Cape Town, hybrid",
+          "employment_type": "",
+          "company": "Exclr8",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.exclr8.co.za/juniorengineer.php"
+      ],
+      "error": null,
+      "page_title": "Junior Software Engineer | Careers at Exclr8",
+      "page_text_excerpt": "services\n▾\nwork\n▾\ncloudcore\n▾\nhow we work\n▾\ncareers\n▾\ncontact\n$ start a project\nJunior Software Engineer\n\nExclr8, a leading digital solution provider, is seeking a Junior Software Engineer to join our dynamic team. We're looking for a passionate and motivated individual eager to learn and grow into complex enterprise-systems work.\n\nAPPLY FOR THIS ROLE\n→\nALL OPEN ROLES\n→\nThe spec.\n\nExclr8, a leading digital solution provider, is seeking a Junior Software Engineer to join our dynamic team. We're looking for a passionate and motivated individual eager to learn and grow into complex enterprise-systems work.\n\nROLE\nEngineering\nLEVEL\nJunior\nSTACK\nC#, .NET, SQL Server on Azure\nBASE\nCape Town, hybrid\nAPPLY FOR THIS ROLE\n→\nWHAT YOU'LL DO\n01\n\nWork with senior engineers on real production systems from day one\n\n02\n\nBuild features on CloudCore, our own enterprise platform on Azure\n\n03\n\nWrite, review and test C# / .NET / SQL Server code\n\n04\n\nParticipate in sprint planning, stand-ups, reviews and retr",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "AppGurus",
+      "careers_url": "https://appgurus.co.za/careers",
+      "scanned_at": "2026-10-26T22:05:45.338787+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Junior/Mid-Level AI-Native Developer",
+          "listing_title": "Junior/Mid-Level AI-Native Developer",
+          "job_url": "https://appgurus.co.za/careers",
+          "application_url": "",
+          "description": "We're looking for a developer who lives and breathes modern JavaScript/TypeScript, knows their way around React or Vue, and isn't afraid to let AI do the heavy lifting. You should be comfortable with GitHub Copilot, UX Pilot, and other AI coding assistants.",
+          "location": "Pretoria, ZA",
+          "employment_type": "CONTRACTOR",
+          "company": "AppGurus",
+          "detail_checked": false,
+          "source_type": "schema_job_posting",
+          "source_page_url": "https://appgurus.co.za/careers",
+          "evidence": "Schema.org JobPosting JSON-LD",
+          "date_posted": "",
+          "valid_through": ""
+        }
+      ],
+      "pages_visited": [
+        "https://appgurus.co.za/careers"
+      ],
+      "error": null,
+      "page_title": "App Developer Careers in Pretoria | AppGurus",
+      "page_text_excerpt": "Home\nServices\nProcess\nContact Us\nGet Started\nWe're hiring AI-native talent\nCode at the\nspeed of\nthought.\n\nJoin the Gurus.\n\nWe don't do boring. We build prototypes in days and apps in weeks. If you love modern tech, AI-assisted development, and fast-paced shipping, you belong here.\n\nTHE APPGURUS WAY\nWhy you'll love working here\n\nWe're not your typical agency. We're a crew of tech-obsessed builders who move fast and break... deadlines (in a good way).\n\nAI is our Co-pilot\n\nWe're not afraid of AI—we embrace it. From GitHub Copilot to UX Pilot, we use every tool in the book to code smarter, faster, and cleaner. If you're still writing boilerplate from scratch, you're already behind. Here, AI handles the grunt work so you can focus on architecture, logic, and creativity. We want developers who know how to dance with AI, not fight it.\n\nShip Fast, Learn Faster\n\nForget 6-month roadmaps. We move in sprints, iterate daily, and ship weekly. You'll see your code in production faster than you can sa",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Scriptex",
+      "careers_url": "https://scriptex.co.za/careers",
+      "scanned_at": "2026-10-26T22:05:48.395002+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://scriptex.co.za/careers"
+      ],
+      "error": null,
+      "page_title": "Careers",
+      "page_text_excerpt": "Home\nPlatforms\nServices\nCareers\nAbout Us\nContact us\nWork on real systems. Ship real value.\n\nWe're engineers, not hype artists. At Scriptex, you'll build systems that matter: modular frameworks, platforms, and the infrastructure that scale-ups and enterprises rely on to move quickly and with confidence.\n\nOpen Roles\n.NET Team Lead / Architect\n\nLocation: Hybrid (Remote + Stellenbosch, South Africa)  |  Type: Full-time\n\nLead the design and delivery of critical systems and projects; and help evolve our core platforms. You'll own architecture decisions, mentor others, and contribute hands-on when needed.\n\n7+ years in .NET Core / C#\nExperience designing distributed systems (queues, retries, actor models)\nComfort balancing code quality with delivery pace\nLeadership that's more doer than delegator\n.NET Full Stack Developer\n\nLocation: Hybrid (Remote + Stellenbosch, South Africa)  |  Type: Full-time\n\nYou'll work across our product stack, including APIs, auth flows, admin tools; and help implement",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Full Stack",
+      "careers_url": "https://wearefullstack.com/careers-page/",
+      "scanned_at": "2026-10-26T22:05:53.426127+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://wearefullstack.com/careers-page/"
+      ],
+      "error": null,
+      "page_title": "Careers Page",
+      "page_text_excerpt": "About Us\nServices\nCareers\nPortfolio\nPress\nBlog\nContact Us\nRequest a Quote\nContact Us\nName*\nEmail address*\nContact number*\nGet in Touch\nJoin Our Team: Innovate, Impact, Inspire Together\n\nFull Stack prides itself on a unique and fulfilling career journey for our staff. The development of quality software requires quality people. Our greatest asset is our staff operating effectively within a team. Teamwork is core to our ability to deliver on our promise to build high-quality software. At Full Stack, all our developers have a computer science, information systems and/or engineering background. We are beloved generalists, and while we may be accomplished musicians, artists, psychologists, debaters or philosophers, we come together at Full Stack to create great software.\n\n< QUALITIES >\nPeople We Have On Our Team\nInnovative Thinkers\n\nPioneering solutions with creativity, turning complex problems into groundbreaking digital products.\n\nDedicated Professionals\n\nCommitted to excellence, consiste",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Hapo Group",
+      "careers_url": "https://hapogroup.co.za/careers",
+      "scanned_at": "2026-10-26T22:05:56.515128+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://hapogroup.co.za/careers",
+        "https://hapogroup.co.za/companies/hapo-payments"
+      ],
+      "error": null,
+      "page_title": "Careers — Hapo Group",
+      "page_text_excerpt": "HOME\nABOUT\nOUR COMPANIES\nSOLUTIONS\nPARTNERSHIPS\nCAREERS\nCONTACT\nGET IN TOUCH\n\nCAREERS AT HAPO GROUP\n\nBuilding today's team\nfor the future.\n\nWe're hiring across sales, leadership, finance, engineering and technical teams — find your place in the group.\n\nNINE COMPANIES, ONE GROUP\n\nWhere you could make your mark.\nHapo Technology\nOur founding company — South Africa's trusted B2B technology partner.\nHapo Cloud\nCloud infrastructure, data, and Vision AI — the technical backbone of the group.\nHapo Intelligence\nAfrican consumer and market intelligence — know your audience, understand your market.\nHapo Media\nAd-tech and vision-powered media, turning screens into measurable advertising.\nHapo Sound\nBusiness music streaming — licensed, curated and controlled.\nHapo Payment Solutions\nFintech, built for South Africa's next generation of digital payments.\nHapo Electronics\nManufacturing and assembly of LED displays and electronic components.\nHapo Energy\nGreen energy and power, including mobile and EV-ch",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Entersekt",
+      "careers_url": "https://www.entersekt.com/why-entersekt/careers",
+      "scanned_at": "2026-10-26T22:06:06.611248+00:00",
+      "status": "failed",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [],
+      "error": "TimeoutError: Page.goto: Timeout 12000ms exceeded.\nCall log:\n  - navigating to \"https://www.entersekt.com/why-entersekt/careers\", waiting until \"domcontentloaded\"\n",
+      "page_title": "",
+      "page_text_excerpt": "",
+      "explicit_no_jobs_message": false,
+      "requires_review": true
+    },
+    {
+      "company": "Amazon",
+      "careers_url": "https://www.amazon.jobs/content/en/locations/south-africa/cape-town",
+      "scanned_at": "2026-10-26T22:06:18.922516+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.amazon.jobs/content/en/locations/south-africa/cape-town"
+      ],
+      "error": null,
+      "page_title": "Cape Town, South Africa",
+      "page_text_excerpt": "Search\nLanguage: en-US\n \nCape Town, South Africa\n\nAt Amazon, we’re looking for passionate innovators across the world to create the next best thing for our customers. Explore open roles at each of our locations and apply today.\n\nEqual opportunity\n\nAmazon is an equal opportunity employer and does not discriminate on the basis of protected veteran status, disability, or other legally protected status. Veterans, military spouses, and people with disabilities are encouraged to apply.\n\nCareer areas\nTeams\nLocations\nJob categories\nHourly jobs\nMilitary hiring\nUniversity talent\nResources\nAccommodations\nBenefits\nInclusive experiences\nInterviewing at Amazon\nLeadership Principles\nWorking at Amazon\nFAQ\nStart your Amazon journey\n\nShare your resume and basic info to get personalized job recommendations and more.\n\nCreate an account\nAmazon sites\nAmazon.com\nAbout Amazon\nAmazon Web Services\nAmazon Ads\nAmazon Design\nAmazon Science\nSocial\nLinkedIn\nInstagram\nFacebook\nYouTube\nX\nPrivacy\nConditions of use\nCook",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Theodo",
+      "careers_url": "https://jobs.lever.co/theodo",
+      "scanned_at": "2026-10-26T22:06:22.657206+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Jobs powered by",
+          "listing_title": "Jobs powered by",
+          "job_url": "https://www.lever.co/job-seeker-support",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Theodo",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://jobs.lever.co/theodo"
+      ],
+      "error": null,
+      "page_title": "Theodo",
+      "page_text_excerpt": "LOCATION TYPE\nLOCATION\nTEAM\nWORK TYPE\nADVISORY AI\nCONSULTANT\nAPPLY\nAI Enabling Manager - CDI Paris - Theodo Data & AI\nON-SITE — CDIPARIS\nAPPLY\nConsultant Senior AI Advisory - CDI Paris - Theodo Data & AI\nHYBRID — CDIPARIS\nCONSULTING MANAGER\nAPPLY\nManager AI Advisory - CDI Paris - Theodo Data & AI\nON-SITE — CDIPARIS\nAI-BUILD\nPRODUCT MANAGEMENT\nAPPLY\nDirecteur de programme - CDI Paris - Theodo\nON-SITE — CDIPARIS\nAPPLY\nProgram Director - CDI Paris - Theodo\nON-SITE — CDIPARIS\nSOFTWARE ENGINEERING\nAPPLY\nSoftware Engineer Fullstack - CDI Paris - Theodo\nHYBRID — CDIPARIS\nAPPLY\nSoftware Engineer Fullstack - Stage de fin d'études Paris - Theodo\nHYBRID — STAGE DE FIN D'ÉTUDESPARIS\nAI-MODERNISATION\nPRODUCT MANAGEMENT\nAPPLY\nLead Product Manager - CDI Paris - Theodo AI-Modernization\nON-SITE — CDIPARIS\nAPPLY\nProduct Manager - CDI Paris - Theodo AI-Modernisation\nON-SITE — CDIPARIS\nSALES\nAPPLY\nAI-Modernisation - Key Account Manager - CDI Paris - Theodo\nHYBRID — CDIPARIS\nSOFTWARE ENGINEERING\nAPPLY\nAI A",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Electrum",
+      "careers_url": "https://www.electrumsoftware.com/careers",
+      "scanned_at": "2026-10-26T22:06:27.158960+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.electrumsoftware.com/careers"
+      ],
+      "error": null,
+      "page_title": "Electrum Careers",
+      "page_text_excerpt": "Okay\n\nWe use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it.\n\nSchemes\n\nSolutions\n\nDevelopers\n\nResources\n\nTrust\n\nContact\n\nJobs and Opportunities\n\nCareers at Electrum\nJoin our team today!\n\nWe build high-performance software for the country’s leading institutions to make transacting cheaper and more accessible. At Electrum, your work directly contributes to our goal of driving global financial inclusion through powerful technology.\n\nAvailable positions\n\nElectrum benefits and perks\n\nCareer Opportunities\n\nAvailable positions\n\nWe're growing quickly so recommend that you check back often to see what opportunities there are in our Cape Town offices.\n\nOur interview process\n\n2027 Summer Software Developer Internship\nDepartment: Engineering\nJava Engineer - Platform (Pipeline)\nDepartment: Engineering Platforms\nProject Release Manager - Fixed Term Contract\nDepartment: Engineering\nSoftware Developer - ",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Yoco",
+      "careers_url": "https://www.yoco.com/za/careers/",
+      "scanned_at": "2026-10-26T22:06:31.858357+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.yoco.com/za/careers/"
+      ],
+      "error": null,
+      "page_title": "Careers at Yoco - Become A Yoconaut!",
+      "page_text_excerpt": "New lower rates & up to 40% off on POS bundles.\n\nSee bundles\n\nOverview\nLife at Yoco\nLogin\nSupport\n\nThe mission\n\nWhy Yoco\n\nBenefits\n\nFAQ\n\nSee open roles\n\nCAREERS AT YOCO\n\nLet's grow together\n\nBuild the tools that level the playing field for independent business — and grow your craft, your scope and your career while you do it.\n\nSee open roles\n\nLIFE AT YOCO\n\nThe mission\n\nEnabling people to thrive.\n\nFor over a decade, we've helped businesses do what once seemed impossible. First, we made getting paid easy. Now we're building the tools that help them run and grow. Same mission. Bigger ambition.\n\n2013\n\nFounded\n\n200,000+\n\nMerchants\n\n30 million+\n\nPeople paid through a Yoco device\n\n350+\n\nPeople across South Africa & the Netherlands\n\nThe most meaningful problems are ahead of us.\n\nWHAT YOU'LL BUILD NOW\n\nWe're building what's next: smart guidance, tools for every trade, and financial products that work as one. Big challenges. Bigger opportunity.\n\nExplore our products\n\nSmarter tools. More for merc",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Ozow",
+      "careers_url": "https://job-boards.greenhouse.io/ozow",
+      "scanned_at": "2026-10-26T22:06:35.029502+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Fraud Manager\n\nCape Town",
+          "listing_title": "Fraud Manager\n\nCape Town",
+          "job_url": "https://job-boards.greenhouse.io/ozow/jobs/7986278003",
+          "application_url": "",
+          "description": "",
+          "location": "Cape Town",
+          "employment_type": "",
+          "company": "Ozow",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://job-boards.greenhouse.io/ozow"
+      ],
+      "error": null,
+      "page_title": "Jobs at Ozow",
+      "page_text_excerpt": "Current openings at Ozow\n\nCreate a Job Alert\n\nLevel-up your career by having opportunities at Ozow sent directly to your inbox.\n\nCreate alert\nSearch\n9 jobs\nLegal\n\nJob\n\n\n\n\nFraud Manager\n\nCape Town\n\nMarketing\n\nJob\n\n\n\n\nContent Strategist\n\nCape Town\n\n\n\n\nMarketing Manager\n\nCape Town\n\nTechnology\n\nJob\n\n\n\n\nAgentic AI Engineer\n\nCape Town\n\n\n\n\nJunior Integration and Enablement Associate\n\nCape Town\n\n\n\n\nJunior Software Engineer (AI-Enabled)\n\nCape Town\n\n\n\n\nSenior Data Engineer\n\nCape Town\n\n\n\n\nSenior Software Engineer (AI-Enabled)\n\nCape Town\n\n\n\n\nSoftware Engineer\n\nCape Town/Johannesburg\n\nPowered by",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Capitec",
+      "careers_url": "https://www.capitecbank.co.za/careers/",
+      "scanned_at": "2026-10-26T22:06:36.999601+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.capitecbank.co.za/careers/"
+      ],
+      "error": null,
+      "page_title": "Just a moment...",
+      "page_text_excerpt": "www.capitecbank.co.za\nPerforming security verification\n\nThis website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.\n\nRay ID: a50cc4ee7a363fe2\nPerformance and Security by Cloudflare\nPrivacy",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Sanlam",
+      "careers_url": "https://careers.sanlamcloud.co.za/search/?q=&locationsearch=Cape+Town&searchResultView=LIST",
+      "scanned_at": "2026-10-26T22:06:39.470544+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://careers.sanlamcloud.co.za/search/?q=&locationsearch=Cape+Town&searchResultView=LIST"
+      ],
+      "error": null,
+      "page_title": "Cape Town - Sanlam Group Jobs",
+      "page_text_excerpt": "Careers\nWorking at Sanlam\nHow we recruit\nJoin Talent Community\nLog-In\n\t\n\t\nSearch Jobs\nOpens in a new tab.\nOpens in a new tab.\nOpens in a new tab.",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Old Mutual",
+      "careers_url": "https://www.oldmutual.co.za/careers/",
+      "scanned_at": "2026-10-26T22:06:48.656543+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.oldmutual.co.za/careers/"
+      ],
+      "error": null,
+      "page_title": "Careers – Learnerships & Opportunities | Old Mutual",
+      "page_text_excerpt": "",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Discovery",
+      "careers_url": "https://www.discovery.co.za/corporate/careers",
+      "scanned_at": "2026-10-26T22:06:51.479785+00:00",
+      "status": "jobs_found",
+      "jobs_found": 5,
+      "jobs": [
+        {
+          "title": "Opportunities at discovery.co.za",
+          "listing_title": "Opportunities at discovery.co.za",
+          "job_url": "https://careers.discovery.co.za/go/All-Jobs/4509301",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Discovery",
+          "detail_checked": false
+        },
+        {
+          "title": "Pre Auth Service Consultant - Inhouse",
+          "listing_title": "Pre Auth Service Consultant - Inhouse",
+          "job_url": "https://careers.discovery.co.za/job/Cape-Town-Sable-Park-Pre-Auth-Service-Consultant-Inhouse-WC-7446/1382759533",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Discovery",
+          "detail_checked": false
+        },
+        {
+          "title": "DC - Health (Medical Aid) Telesales Consultant - Sable Park",
+          "listing_title": "DC - Health (Medical Aid) Telesales Consultant - Sable Park",
+          "job_url": "https://careers.discovery.co.za/job/Cape-Town-Sable-Park-DC-Health-%28Medical-Aid%29-Telesales-Consultant-Sable-Park-WC-7446/1420834533",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Discovery",
+          "detail_checked": false
+        },
+        {
+          "title": "Hospital Benefit Specialist",
+          "listing_title": "Hospital Benefit Specialist",
+          "job_url": "https://careers.discovery.co.za/job/Cape-Town-Sable-Park-Hospital-Benefit-Specialist-WC-7446/1427972233",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Discovery",
+          "detail_checked": false
+        },
+        {
+          "title": "Regional Manager",
+          "listing_title": "Regional Manager",
+          "job_url": "https://careers.discovery.co.za/job/Cape-Town-Sable-Park-Regional-Manager-WC-7446/1449864433",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Discovery",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.discovery.co.za/corporate/careers",
+        "https://careers.discovery.co.za/search/?createNewAlert=false&q=&locationsearch=Cape+Town&optionsFacetsDD_city=&optionsFacetsDD_department=&optionsFacetsDD_customfield1=#content",
+        "https://careers.discovery.co.za/search/?q=&locationsearch=Cape+Town&sortColumn=sort_title&sortDirection=desc#hdrTitleButton",
+        "https://careers.discovery.co.za/search/?q=&locationsearch=Cape+Town&sortColumn=sort_location&sortDirection=desc#hdrLocationButton",
+        "https://careers.discovery.co.za/search/?q=&locationsearch=Cape+Town&sortColumn=referencedate&sortDirection=desc#hdrDateButton"
+      ],
+      "error": null,
+      "page_title": "Loading https://careers.discovery.co.za/search/?createNewAlert=false&q=&locationsearch=Cape+Town&optionsFacetsDD_city=&optionsFacetsDD_department=&optionsFacetsDD_customfield1=",
+      "page_text_excerpt": "ABOUT DISCOVERY \n \nLIFE AT DISCOVERY \n \nOPPORTUNITIES \n \nCORPORATE WEBSITE\n\t\n\t\t\t\n \nSign In / My Profile\n \nEmployee Login\n\t\nHome | Cape Town at Discovery\n(current page)\nSearch results for \"Cape Town\".\nShow More Options\nSelect how often (in days) to receive an alert:   Create Alert\nResults 1 – 5 of 5 Page 1 of 1\nTitle\n\tLocation\tDate\t\n\t\t\t\n Reset\n\n\nPre Auth Service Consultant - Inhouse\n\tCape Town - Sable Park, WC, ZA, 7446\t10 Oct 2026\t\n\nDC - Health (Medical Aid) Telesales Consultant - Sable Park\n\tCape Town - Sable Park, WC, ZA, 7446\t25 Oct 2026\t\n\nHospital Benefit Specialist\n\tCape Town - Sable Park, WC, ZA, 7446\t3 Oct 2026\t\n\nRegional Manager\n\tCape Town - Sable Park, WC, ZA, 7446\t21 Oct 2026\t\n\nPre Auth Service Consultant - Talent Pool\n\tPort Elizabeth - Coega BPO Bui, Eastern Cape, ZA\t7 Oct 2026",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Mukuru",
+      "careers_url": "https://www.mukuru.com/careers/",
+      "scanned_at": "2026-10-26T22:07:20.958439+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.mukuru.com/careers/"
+      ],
+      "error": null,
+      "page_title": "Just a moment...",
+      "page_text_excerpt": "www.mukuru.com\nPerforming security verification\n\nThis website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.\n\nRay ID: a50cc60209dd4bcb\nPerformance and Security by Cloudflare\nPrivacy",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Peach Payments",
+      "careers_url": "https://www.peachpayments.com/careers/",
+      "scanned_at": "2026-10-26T22:07:23.294913+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.peachpayments.com/careers/",
+        "https://www.peachpayments.com/plugins/shopify/"
+      ],
+      "error": null,
+      "page_title": "Careers | Peach Payments",
+      "page_text_excerpt": "Skip to content\nThe 2026 Online Retail Report is here. See what's shaping South African e-commerce.\nRead the report\nProducts\nSolutions\nDevelopers\nFees\nResources\nDASHBOARD\nSIGN UP\nJoin the team\n that is changing online commerce in Africa\n\nYou’ll thrive at Peach if you have a growth mindset and understand the power of community and collaboration.\n\nOPEN POSITIONS\n\nWe believe that our people are our strength, and that our emphasis on diversity and inclusion is a tangible competitive advantage for us in the market. When we celebrate our differences, we come together to create an unstoppable culture of constant learning and growth that will enable our success as a business far into the future.\n\n- Rahul Jain, CEO & Co-Founder, Peach Payments\nCOMMITTED TO YOUR CONTINUOUS GROWTH\nPeach concludes a $30M funding round\nPLAY VIDEO\nThink\nBigger\n\nabout your career.\n\n01.\n02.\n03.\n04.\n05.\n06.\nOur Values\nWe Commit to our Customers\nWe Win as One\nWe Respect People\nWe Deliver Results\nWe Learn, Continuously\nH",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Lula",
+      "careers_url": "https://lula.co.za/careers/",
+      "scanned_at": "2026-10-26T22:07:30.642592+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://lula.co.za/careers/"
+      ],
+      "error": null,
+      "page_title": "All-digital business funding for SMEs",
+      "page_text_excerpt": "Skip to content\n\nLulalend is now Lula. We have a new name, a new look, but we're still your friends in funding 😃.\n\n✕\nBusiness Funding\nTrade Capital\nAbout us\nResources\nContact us\nLogin Get Started\nFast,\nsimple business funding\n\nApply for up to R5 million and receive your funds in as little as 24 hours. It's fast, simple, Lula.\n\nGet Started\nUp to R5 million in business funding, fast.\n\nWe've been working with SMEs like you since 2014 and we've turned our insights into two funding solutions, a Lula Cash Flow Facility and a Fixed-Term Funding.\n\nCash Flow Facility\n\nFlexible funding that gives you fast, easy access to working capital when you need it. Our Cash Flow Facility works just like a revolving loan, but better. No monthly account or admin fees. Only pay for what you use, if you use it.\n\nGet a quick quote\n\nFixed-Term Funding\n\nFixed-Term Funding that gives you a crystal clear repayment period. Our Fixed-Term Funding is a once-off lump sum that gets repaid over 3, 6, 9 or 12 months. Fixe",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Stitch",
+      "careers_url": "https://www.stitch.money/careers",
+      "scanned_at": "2026-10-26T22:07:39.542433+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.stitch.money/careers"
+      ],
+      "error": null,
+      "page_title": "Not Found",
+      "page_text_excerpt": "Business\nPersonal\nProducts\nSolutions\nCompany\nResources\nDocs\nCONTACT SALES\nThe page you’re looking for doesn’t exist\nHOME",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Kuda",
+      "careers_url": "https://apply.workable.com/kuda/",
+      "scanned_at": "2026-10-26T22:07:46.550346+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://apply.workable.com/kuda/"
+      ],
+      "error": null,
+      "page_title": "Kuda Technologies Ltd - Current Openings",
+      "page_text_excerpt": "",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Karat Dollar",
+      "careers_url": "https://karatdollar.com/careers",
+      "scanned_at": "2026-10-26T22:07:49.491149+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://karatdollar.com/careers"
+      ],
+      "error": null,
+      "page_title": "Karat Dollar | Resource-Backed Financial Super-App",
+      "page_text_excerpt": "Products\nPlatforms\nCompany\nUse Cases\nMerchants\nDevelopers\nSign In\nGet Started\nBuild the Future of African Finance\n\nJoin a team of engineers, designers, and operators building commodity-backed digital currency infrastructure for 1.4 billion people.\n\nOur Values\nBuild for Africa\n\nEvery product decision starts with the question: does this serve the continent? We build infrastructure that empowers 1.4 billion people.\n\nUbuntu Spirit\n\nI am because we are. We operate as a collective, celebrate each other's wins, and lift each other up through challenges.\n\nShip With Purpose\n\nWe move fast but never recklessly. Every release is tested, secure, and compliant. Quality and speed are not trade-offs.\n\nRadical Transparency\n\nOur reserves are audited publicly, our roadmap is open, and our team communicates with honesty and directness.\n\nBenefits & Perks\nRemote-First\n\nWork from anywhere in Africa or the UK. We trust our people to deliver from wherever they do their best work.\n\nEquity Participation\n\nAll ful",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Debito Pay",
+      "careers_url": "https://debitopay.com/careers/",
+      "scanned_at": "2026-10-26T22:07:51.900737+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://debitopay.com/careers/"
+      ],
+      "error": null,
+      "page_title": "Careers — Debito Pay | Join Our Team & Build African Fintech",
+      "page_text_excerpt": "Skip to main content\nIr para conteúdo principal\nHome\nAbout Us\nPayment Links\nRecurring Payments\nSplit Payments\nContact\n🇬🇧 EN\nLog in\nGet Started\nCOMPANY\nCareers at Debito Pay\n\nWe're building the payment infrastructure Africa deserves. Join a passionate team working on meaningful problems across the continent.\n\nOpen Positions\nSenior Backend Engineer\nSandton, SA / Remote\nFull-time\nApply\nProduct Designer\nCape Town, SA / Remote\nFull-time\nApply\nBusiness Development Manager\nMaputo, MZ\nFull-time\nApply\nDevOps Engineer\nRemote — Africa\nFull-time\nApply\nCustomer Success Lead\nSandton, SA\nFull-time\nApply\nMobile Developer (React Native)\nRemote — Africa\nFull-time\nApply\nDon't see your role?\n\nWe're always looking for talented people. Send us your CV and tell us how you'd like to contribute.\n\nSend your CV\n\nSimple, fast payment infrastructure for businesses across Africa.\n\nHead Office:\n90 Rivonia Road, 2nd Floor,\nWebber Wentzel Building,\nSandton, 2097\nWakkermans Office Tower Building\nSouth Africa\nTel. 063 5",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Takealot Group",
+      "careers_url": "https://www.takealot.com/careers",
+      "scanned_at": "2026-10-26T22:07:55.074106+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.takealot.com/careers"
+      ],
+      "error": null,
+      "page_title": "Careers - Takealot Group",
+      "page_text_excerpt": "Skip to content\nOur Story\nOur People\nOur Companies\nOur Impact\nNewsroom\nCAREERS\n Careers \n1\n2\n3\n4\n5\n6\n7\nExplore\nOur Story\nOur People\nOur Impact\nNewsroom\nCareers\nDocuments\nPrivacy Policy\nHuman Rights Statement\nSpeak Up Policy\nBEEE certificate\nConnect With Us\ncontactus@takealot.group\nTakealot.com\nMr D\nTFS\n\n© Takealot Group all rights reserved\n\nWebsite by Woww",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Woolworths",
+      "careers_url": "https://www.woolworths.co.za/careers",
+      "scanned_at": "2026-10-26T22:08:03.117790+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.woolworths.co.za/careers"
+      ],
+      "error": null,
+      "page_title": "Woolworths | Food, Home, Clothing & General Merchandise available online!",
+      "page_text_excerpt": "FINANCIAL SERVICESMYDIFFERENCECUSTOMER SUPPORT\nSAFE & SECUREEASY RETURNS\nSign In/Register\nDelivery Address\n0\nMY ACCOUNT\nSign in/Register\nOrders\nShopping Lists\nAccount Details\nIN-STORE SERVICES\nConnect\nWCafe\nNow Now\nCUSTOMER SERVICE\nFAQs\nUsing Woolworths Online\nDelivery Options\nReturns and Exchanges\nTerms and Conditions\nCorporate Sales\nABOUT WOOLWORTHS\nContact Us\nAbout Us\nCareers\nPress and News\nSustainability\nGET THE CARD\nStore Card\nCredit Card\nPersonal Loan\nGET REWARDED WITH\nBe the first to know!\nSign up for our newsletter to know about our latest deals and what’s new!\nHow do we use your information? Read our Privacy Policy\n\nWoolworths Financial Services (Pty) Ltd (Reg. No 2000/009327/07) An authorised financial services (FSP15289) and registered credit provider (NCRCP49)\n© 2026 Woolworths. All Rights Reserved.Privacy Policy\n\nWe use cookies to ensure you get the best possible experience. Learn about our privacy policy here.\nAccept",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Pepkor",
+      "careers_url": "https://www.pepkor.co.za/careers/",
+      "scanned_at": "2026-10-26T22:08:09.218393+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Pepkor Speciality",
+          "listing_title": "Pepkor Speciality",
+          "job_url": "https://speciality.erecruit.co/candidateapp/jobs/browse/?Source=Pepkor%20Website",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Pepkor",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.pepkor.co.za/careers/",
+        "http://www.tenacityinc.co.za/vacancies/index.html"
+      ],
+      "error": null,
+      "page_title": "Careers - Pepkor",
+      "page_text_excerpt": "Skip to content\nRegister for investor alerts\nSearch for:\nGROUP\nRETAIL\nFINANCIAL SERVICES\nINFORMAL MARKET\nINVESTORS\nGOVERNANCE\nSUSTAINABILITY\nCONTACT\nVacancies\n\nCurrent vacancies across the Pepkor group\n\nCORPORATE AND SUPPORT SERVICES\n\nGroup Strategic Services\nPepkor IT\nPepClo\n\nRETAIL\n\nPEP\nAckermans\nPepkor Speciality\nPEP Africa\nAvenida\nPepkor Lifestyle\n\nFINTECH\n\nFlash\nCapfin\nTenacity (A+ card)\nCAREERS AT PEPKOR\n\nWorking at Pepkor offers employees the chance to make a meaningful impact in the lives of our customers. By providing affordable products and services that meet their needs and aspirations, our employees play a vital role in serving our communities.\n\nOur customer-focused culture is driven by core values that empower employees to deliver exceptional service while fostering personal growth and career development.\n\nAcross Pepkor’s diverse businesses, we value individuals whose personal qualities align with the unique culture of each brand. At group level, our employment practices a",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Pick n Pay",
+      "careers_url": "https://www.pnp.co.za/careers",
+      "scanned_at": "2026-10-26T22:08:25.858635+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.pnp.co.za/careers"
+      ],
+      "error": null,
+      "page_title": "Pick n Pay Online Shopping",
+      "page_text_excerpt": "",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Ackermans",
+      "careers_url": "https://www.ackermans.co.za/careers/",
+      "scanned_at": "2026-10-26T22:08:33.860788+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.ackermans.co.za/careers/",
+        "https://www.ackermans.co.za/collections/women-clothing-dresses-jumpsuits?p=category_handle%3A%22women-clothing-dresses-jumpsuits%22&rows=48&start=0",
+        "https://www.ackermans.co.za/collections/kids-older-boys",
+        "https://www.ackermans.co.za/collections/kids-older-boys-tops-t-shirts",
+        "https://www.ackermans.co.za/collections/kids-older-boys-bottoms-jeans"
+      ],
+      "error": null,
+      "page_title": "Ackermans | No.1 for Value | Ackermans",
+      "page_text_excerpt": "We use cookies to improve your online experience. If you continue to use our site, you are agreeing to our Cookie Policy.\n\nOK\nDecline\n\nOpen an A+ account Today! Apply Now\n\nMen\nWomen\nBeauty\nBaby\nKids\nCUBE\nSchool\nHomeware\nCell & Tech\nSale\nPromotions\nSummer Starts With You!\nWomen\nKids\nBaby\nMen\nSchool\nCell & Tech\nBaby New Arrivals\nNew season styles for your little one.\nShop All\nQuick Add\nTommee Tippee Insulated Pink Straw Toddler Cup\nRegular price\nR 199.95\nQuick Add\nPalm Print Woven Shorts 2 Pack\nRegular price\nR 129.95\nQuick Add\n2 Pack Festive Christmas Baby Bibs\nRegular price\nR 59.95\nQuick Add\nPeter Pan Collar Denim Dress\nRegular price\nR 159.95\nQuick Add\nPink Tiered Tulle Party Dress\nRegular price\nR 199.95\nQuick Add\nStone Twill Dungaree and Golfer Set\nRegular price\nR 179.95\nQuick Add\nLooney Tunes Christmas Romper\nRegular price\nR 79.95\nQuick Add\nSun and Moon Sleepsuit\nRegular price\nR 79.95\nQuick Add\nWhite Infant Double Strap Sneakers\nRegular price\nR 99.95\nQuick Add\nWoven Striped Set\nRegula",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Bash",
+      "careers_url": "https://bash.com/careers",
+      "scanned_at": "2026-10-26T22:09:26.031552+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://bash.com/careers"
+      ],
+      "error": null,
+      "page_title": "Bash: Online Shopping - Shop Clothing, Sports, Home & Electronics Online in SA",
+      "page_text_excerpt": "SHOPFEST\nWomen\nMen\nSports\nHome\nKids\nBeauty\nJewellery\nTech\nWorld of Sneakers\nSale\nBrands\nOnline Exclusive\nGift Cards\nShop our stores\nPay your TFG Money account online\nTrack your order\nLog a return\nFind your nearest store\nGet the Bash app\nSHOPFEST\nWomen\nDiscover\nNew In\nFit Finder\nFestival Looks\nWorld of Sneakers\nLocally Made\nClothing\nShoes\nAccessories\nJewellery\nWomens Sport\nBeauty\nSale\nFeatured Brands\nMen\nDiscover\nNew In\nFit Finder\nFestival Looks\nWorld of Sneakers\nLocally Made\nClothing\nShoes\nMens Sport\nAccessories\nMens Jewellery\nGrooming\nFeatured Brands\nSale\nSports\nDiscover\nNew In\nShop by Sport\nEquipment & Accessories\nOutdoor\nShoes\nWomens Sport\nMens Sport\nKids Sports\nFan Gear\nFeatured Brands\nSale\nHome\nDiscover\nNew In\nFurniture\nAppliances\nKitchen & Dining\nBed & Bath\nDecor\nHome Furnishings\nGarden & Outdoor\nTravel\nPets\nFeatured Brands\nSale\nKids\nDiscover\nNew In\nLocally Made\nBaby\nGirls\nBoys\nAll Shoes\nAll Clothing\nAll Accessories\nSchool\nSport\nToys & Games\nFeatured Brands\nSale\nBeauty\nDiscover\nN",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Naspers",
+      "careers_url": "https://www.naspers.com/careers",
+      "scanned_at": "2026-10-26T22:09:30.845208+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.naspers.com/careers"
+      ],
+      "error": null,
+      "page_title": "Page not found – Naspers",
+      "page_text_excerpt": "We use cookies to personalise content and to analyse our traffic. We also share information about your use of our site with our analytics partners. View our cookies page.\n\nAccept all cookiesDecline cookiesChange cookie preferences\nSkip to main content\nNaspers-Link to Homepage\nLink to\nThe Group\npage\nLink to\nDigital growth\npage\nLink to\nDigital horizon report\npage\nLink to\nOur impact\npage\nLink to\nNews & insights\npage\nLink to\nInvestors\npage\nLink to\nSouth African businesses\npage\nLink to\nNaspers Labs\npage\nLink to\nProsus\npage\nClick here to open search box\nPage Not Found\n\nYou've come to a page of the  Naspers website that doesn't currently exist.\n\nIf you entered a web address please check it was correct. Or maybe you followed a link to a page that we've removed.\n\nSuggestions\n\nTo find what you're looking for you might try:\n\nThe site map\nSite search\nThe home page\n\nClick here to go to the home page OR you will be automatically redirected to the home page in: 30 seconds\n\n\n\n\n\n\n\nSign up for alerts\n\nS",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Prosus",
+      "careers_url": "https://www.prosus.com/careers",
+      "scanned_at": "2026-10-26T22:09:36.900002+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Download report",
+          "listing_title": "Download report",
+          "job_url": "https://www.prosus.com/~/media/Files/P/prosus-corp-v2/results-reports-and-events-archive/annual-report/2026/fy2026-annual-report.pdf",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Prosus",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.prosus.com/careers"
+      ],
+      "error": null,
+      "page_title": "Page not found – Prosus",
+      "page_text_excerpt": "We use cookies to personalise content and to analyse our traffic. We also share information about your use of our site with our analytics partners. View our cookies page.\n\nAccept all cookiesDecline cookiesChange cookie preferences\nSkip to main content\nProsus-Link to Homepage\nLink to\nAbout us\npage\nLink to\nEcosystems\npage\nLink to\nProduct\npage\nLink to\nThe Prosus Way\npage\nLink to\nNews & insights\npage\nLink to\nInvestors\npage\nLink to\nProsus Ventures\npage\nClick here to open search box\n\nYou've come to a page of the Prosus website that doesn't currently exist.\n\nIf you entered a web address please check it was correct. Or maybe you followed a link to a page that we've removed.\n\nSuggestions\n\nTo find what you're looking for you might try:\n\nThe site map\nSite search\nThe home page\n\nClick here to go to the home page OR you will be automatically redirected to the home page in: 30 seconds\n\n\n\n\nReceive email alerts on the latest content from Prosus\n\nSubscribe here\nLink to homepage\nQuick links\nImpact\nPortfo",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Euphoria Telecom",
+      "careers_url": "https://euphoria.co.za/careers/",
+      "scanned_at": "2026-10-26T22:09:41.220105+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Not job-hunting? Refer a business, get a R1,000 voucher from Takealot →",
+          "listing_title": "Not job-hunting? Refer a business, get a R1,000 voucher from Takealot →",
+          "job_url": "https://euphoria.co.za/campaigns/takealot/?ref=careers-hero",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Euphoria Telecom",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://euphoria.co.za/careers/",
+        "https://www.google.com/search?sca_esv=69b89b82830faa31&sxsrf=ANbL-n6cq2oPKeia1KWKxmWXX7VC2_rLfQ:1775123629298&si=AL3DRZFIhG6pAqfNLal55wUTwygCG0fClF3UxiOmgw9Hq7nbWWFqKMcMSrgA7G-WR1iN1KhwWP7fwSXkk2CxiU8VaiaXfqTOiXlGaakV6xFQJP6ilQr2wd8F1GJN2qiIT7NMw81bFvvkya5WyaIpmVLmX52Yvrt-R-DATB9Dzk9Elbtxss6Cs9s%3D&q=Euphoria+Telecom:+We+go+the+extra+smile+Reviews&sa=X&ved=2ahUKEwjL9-zq8s6TAxUdVUEAHbgsCZ0Q0bkNegQIKRAH&biw=1920&bih=929&dpr=1"
+      ],
+      "error": null,
+      "page_title": "Careers — Join Our Growing Team | Euphoria Telecom",
+      "page_text_excerpt": "Skip to content\nSubmit support ticket\nClient Login\nSolutions\nPricing\nPartners\nMore\nContact\n087 222 9911\nGet a Quote\nHome\n/\nAbout Us\n/\nCareers\n\nSAAS · CLOUD TELECOMS · CAPE TOWN & JOHANNESBURG\n\nJoin our growing\nteam today\n\nWe're a South African B2B SaaS company building the country's leading cloud-based business phone platform — used by 6,000+ South African businesses. We hire across engineering, product, customer success, sales, support, marketing and operations, in our Cape Town and Johannesburg offices.\n\nNot job-hunting? Refer a business, get a R1,000 voucher from Takealot →\n\nAbout Us\nWhy Euphoria\nCareers\nBlog\nCustomer reviews\n\nFor new staff announcements and up-to-date job postings, keep an eye on our\n\nLinkedIn page →\n\nOUR BRAND REEL\n\nGet to the heart of Brand Euphoria\n\nThis is Euphoria Telecom’s brand reel — almost a decade of brand work, distilled into two minutes and fifty seconds. Every campaign in it was created in-house by a small team: proof positive that B2B brands don’t hav",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Rain",
+      "careers_url": "https://www.rain.co.za/careers",
+      "scanned_at": "2026-10-26T22:09:48.308549+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.rain.co.za/careers"
+      ],
+      "error": null,
+      "page_title": "rain | uncapped 5G home internet & mobile, South Africa — no contracts",
+      "page_text_excerpt": "Oops!\nSomething Went Wrong\n\nYou didn’t break the internet, but we can’t find what you’re looking for.\n\ngo to homepage\n\nWe use cookies to make your experience on the rain website better. By using our website you agree to our cookie policy.\n\ncookie settings\naccept cookies\nClose",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Clickatell",
+      "careers_url": "https://www.clickatell.com/company/careers/",
+      "scanned_at": "2026-10-26T22:09:51.307382+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.clickatell.com/company/careers/"
+      ],
+      "error": null,
+      "page_title": "404: Not found | Clickatell",
+      "page_text_excerpt": "Log In\nContact Support\nPlatform\nSolutions\nPricing\nResources\nAbout Us\nContact Sales\nSorry, page not found...\n\nGo back to previous page or try searching through our site.\n\nChat-Powered Customer Connections\nContact us\nTalk to Sales\nConnect with us\nPlatform\nConnect\nInteract\nTransact\nAdvanced Messaging\nClickatell AI\nAutomation\nChat Desk\nBroadcasts\nPayments\nResources and Help\nResource Library\nHelp Center\nDemo Center\nDeveloper Docs\nSMS Pricing\nContact Support\nSMS Country Regulations\nSolutions\n🛍️ Retail\n✈️ Airline\n🧳 Travel\n🏦 Banking\n💻 Technology\n🩺 Health and Wellness\n💡 Education\n📡 Telecom\n🛡️ Insurance\n🚘 Automotive\nCompany\nAbout Us\nCareers\nPress and Media\nContact\nChannels\nSMS\nSMS Country Regulations\nSMS Pricing\nLong Numbers\nShort Codes\n10DLC\nWhatsApp\nWeb Chat\nUSSD\n© Copyright 2026 Clickatell. All rights reserved.\n\n\nLegal Terms\nSitemap",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Luno",
+      "careers_url": "https://www.luno.com/careers",
+      "scanned_at": "2026-10-26T22:09:54.795304+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.luno.com/careers"
+      ],
+      "error": null,
+      "page_title": "Luno Careers - Bigger picture thinking by bigger picture people",
+      "page_text_excerpt": "Individual\n\nBusiness\n\nMarket\n\nSign in\nSign up\nBuy and sell crypto\nInvest in tokenised stocks\nDiversify with bundles\nSpend with crypto\nStake & grow crypto\nEarn with crypto\nMarket snapshot:\n\nBitcoin\n\nBTC\n\nLoading…\nBuy\n\nEthereum\n\nETH\n\nLoading…\nBuy\n\nRipple\n\nXRP\n\nLoading…\nBuy\n\nNear Protocol\n\nNEAR\n\nLoading…\nBuy\n\nSolana\n\nSOL\n\nLoading…\nBuy\n\nStellar\n\nXLM\n\nLoading…\nBuy\n\nApple\n\nAAPLx\n\nLoading…\nBuy\n\nNVIDIA\n\nNVDAx\n\nLoading…\nBuy\n\nTesla\n\nTSLAx\n\nLoading…\nBuy\n\nBuy Tether Gold (XAUT) with 0% fees this October.\n\nCareers\n\nJobs\n\nWho we are\n\nTeams\n\nLocations\n\nLife at Luno\n\nBlog\n\nEvents\n\nThis is bigger picture thinking by bigger picture people\n\nThink fast, act fast, learn fast and grow fast with Luno\n\nSee latest jobs\nRemote but reachable\n\nThe world’s changing, and how we work is too. Work no longer has to be confined to an office. At Luno, we trust everyone to make decisions on where and how they work to help them grow, succeed and deliver. Because we know you can make a meaningful, positive impact when work",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "2U",
+      "careers_url": "https://2u.com/careers/",
+      "scanned_at": "2026-10-26T22:09:59.375253+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "View All Openings",
+          "listing_title": "View All Openings",
+          "job_url": "https://2u.com/careers/jobs",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "2U",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://2u.com/careers/"
+      ],
+      "error": null,
+      "page_title": "Mission-Driven EdTech Job Opportunities | Careers | 2U",
+      "page_text_excerpt": "Skip to content\nLet’s transform lives together.\n\nVision. Passion. Purpose. Our global employee base is powering 5,300+ digital education offerings — from free courses to full degrees — and helping unlock human potential. Be a part of transforming higher education.\n\nSearch Jobs\nJoin our team.\n\nWe’re a diverse collection of innovators, dreamers, and doers working to improve lives through higher education. We combine mission-driven culture, excellent work/life balance, and competitive benefits (unique per country). Full-time, U.S. benefits include:\n\nMedical, Vision, and Dental\nParental Leave\nWellness Programs\nLeadership Training\nVolunteer Time Off\nedX Subscription\nMilitary Leave\nView All Openings\nI can really get behind the mission here of trying to bring everyone around the world online.\nDiversity, Equity, and Inclusion.\n\nWe are committed to our journey and proud of the meaningful steps we’ve taken towards building a culture of belonging and inclusivity for our communities of employees, ",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "GetSmarter",
+      "careers_url": "https://www.getsmarter.com/",
+      "scanned_at": "2026-10-26T22:10:04.234850+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.getsmarter.com/"
+      ],
+      "error": null,
+      "page_title": "403 Forbidden",
+      "page_text_excerpt": "403 Forbidden",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "OfferZen",
+      "careers_url": "https://www.offerzen.com/careers",
+      "scanned_at": "2026-10-26T22:10:06.654998+00:00",
+      "status": "jobs_found",
+      "jobs_found": 4,
+      "jobs": [
+        {
+          "title": "Find a software developer job",
+          "listing_title": "Find a software developer job",
+          "job_url": "https://www.offerzen.com/software-engineer-jobs",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "OfferZen",
+          "detail_checked": false
+        },
+        {
+          "title": "I want tofind a developer job",
+          "listing_title": "I want tofind a developer job",
+          "job_url": "https://www.offerzen.com/candidates/signup",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "OfferZen",
+          "detail_checked": false
+        },
+        {
+          "title": "Job search guide for developers",
+          "listing_title": "Job search guide for developersGet all the job search tools and tricks to help you secure your next opportunityclicked job search guide",
+          "job_url": "https://www.offerzen.com/software-engineer-jobs/resources/job-search",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "OfferZen",
+          "detail_checked": false
+        },
+        {
+          "title": "I want tofind a developer job",
+          "listing_title": "I want tofind a developer job",
+          "job_url": "https://www.offerzen.com/candidate/signup",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "OfferZen",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.offerzen.com/careers",
+        "https://www.offerzen.com/software-engineer-jobs/resources/job-search",
+        "https://www.offerzen.com/resources/ai-engineering-hiring-playbook",
+        "https://www.offerzen.com/marketing/tools/Next-Gen-Engineer.png",
+        "https://www.offerzen.com/software-engineer-jobs"
+      ],
+      "error": null,
+      "page_title": "Work at OfferZen",
+      "page_text_excerpt": "Hire developers\nFind a dev job\nCommunity\nAbout\nSign up\nSign up as a developer or company member\nI want to\nfind a developer job\nI want to\nhire developers\nLog in\nCAREERS AT OFFERZEN\nWe are on a mission to connect every developer with opportunities to build an awesome future\nJoin the OfferZen team\nWe want to help thousands of people find their dream job\nWe believe developers are everywhere. With access to the right opportunities they can build an awesome future. The more people that are building software, the faster we get there.\nWe’re looking for talented people to join us on our journey\nHelping someone find their dream job is the fastest way of changing their life. If this - along with the opportunity to solve some interesting problems - excites you, OfferZen might be just the place for you.\nRead more about our mission\nWhat we value\nThe OfferZen team has a unique way of creating value for our customers and helping each other grow. If our values resonate with you, then you know you are i",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Microsoft",
+      "careers_url": "https://careers.microsoft.com/",
+      "scanned_at": "2026-10-26T22:10:24.645900+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://careers.microsoft.com/"
+      ],
+      "error": null,
+      "page_title": "Loading https://apply.careers.microsoft.com/careers?query=&location=Cape%20Town&start=0",
+      "page_text_excerpt": "",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Google",
+      "careers_url": "https://www.google.com/about/careers/applications/",
+      "scanned_at": "2026-10-26T22:10:39.722319+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "View LinkedIn (Opens in a new tab)",
+          "listing_title": "View LinkedIn (Opens in a new tab)",
+          "job_url": "https://www.linkedin.com/company/google/jobs",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Google",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.google.com/about/careers/applications/"
+      ],
+      "error": null,
+      "page_title": "Search for your career at Google.",
+      "page_text_excerpt": "Careers\nSkip navigation links\nhome\nHome\nHome\nwork_outline\nJobs\nJobs\nnoogler_hat\nStudents\nStudents\ngoogle\nHow we work\nHow we work\nhandyman\nHow we hire\nHow we hire\nperson_outline\nYour career\nYour career\n\t\nhelp_outline\nHelp link\nfeedback\nSend feedback\nSign in",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "IBM",
+      "careers_url": "https://www.ibm.com/careers",
+      "scanned_at": "2026-10-26T22:10:43.486763+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Turn on Job Alerts",
+          "listing_title": "Turn on Job Alerts",
+          "job_url": "https://careers.ibm.com/en_US/careers/JobAlerts?source=WEB_Search_NA",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "IBM",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.ibm.com/careers",
+        "https://www.ibm.com/careers/search"
+      ],
+      "error": null,
+      "page_title": "Define your career with IBM",
+      "page_text_excerpt": "My profile\nHome\nCareers\nSearch jobs\n\nJoin us and create incredible things that alter the future for us, for each other, for our clients and for the world.\n\nSearch Jobs\nCareer Areas\n\nFrom Research and Consulting to Software Engineering, bring your skills to any of our career areas and grow beyond limits. Careers here don’t follow a script. IBMers create real impact for clients, communities and each other, from innovation in quantum to Hybrid Cloud, mainframe to AI and beyond.\n\nExplore our Career Areas\nEntry Level\n\nLearn about our entry-level programs, including internships, and how you can shape your career and contribute to impactful projects.\n\nExplore Entry Level Opportunities\n\nApplication Steps and Tips \n\nFind out what to expect every step of the way, and get helpful career guidance directly from recruiters and expert IBMers. \n\nExplore our Application Steps and Tips\nLife@IBM\nCulture\nCareers Blog\nLocations\nAlumni\nCulture\n\nGet to know life at IBM, including all the ways we celebrate in",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Accenture",
+      "careers_url": "https://www.accenture.com/za-en/careers",
+      "scanned_at": "2026-10-26T22:10:50.100916+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Job Search",
+          "listing_title": "Job Search",
+          "job_url": "https://www.accenture.com/za-en/careers/jobsearch",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Accenture",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.accenture.com/za-en/careers",
+        "https://www.accenture.com/za-en/search"
+      ],
+      "error": null,
+      "page_title": "Accenture Careers & Job Opportunities",
+      "page_text_excerpt": "Skip to main content\nSkip to footer\nServices\nProducts\nInsights\nAbout Us\nCareers\nSearch\nSouth Africa\nCareers\nJob Search\nSaved Jobs\nAccess Application\nBelong. Grow. Thrive. Reinvent with Accenture\n\nJoin a great place to work for reinventors who drive meaningful change for our clients, communities, and the world.\n\nSearch open roles\nWhatever you want to do\npause automatic slide show\nshow previous slide\nslideText\n1\nofText\n/\n8\nshow next slide\nGrow your career\n\nFrom developers and designers to strategists and SAP pros, there are endless opportunities for you to learn, grow and make a difference.\n\nLearn more\nArtificial intelligence (AI) & data science\n\nUnlock the power of AI and data to reinvent all facets of business–responsibly. \n\nLearn more\nConsulting\n\nIndustry understanding. Deep insights. Big ideas. You’ll help clients understand what they need to reinvent for the future. \n\nLearn more\nEngineering & manufacturing\n\nUse data, insights, and emerging technology to help clients reimagine what t",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Deloitte South Africa",
+      "careers_url": "https://www.deloitte.com/za/en/careers.html",
+      "scanned_at": "2026-10-26T22:10:54.841417+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Job search",
+          "listing_title": "Job search",
+          "job_url": "https://www.deloitte.com/za/en/careers/job-search.html?icid=top_job-search",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Deloitte South Africa",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.deloitte.com/za/en/careers.html"
+      ],
+      "error": null,
+      "page_title": "Careers | Deloitte Global",
+      "page_text_excerpt": "Skip to main content\nWho we are \nWhat we do \nOur Thinking \nCareers \nSearch\nZA - EN\n\nSelect your location\n\nWelcome to Deloitte\nIf we have selected the wrong experience for you, please change it above.\nContact Us\nSubmit RFP\nCareers\nChoose your impact.\n\nBecome part of a global organisation that is making an impact every day. A workplace where you can immerse yourself in a dynamic culture of inclusion, collaboration, continuous development and high performance—all while being you.\n\nSearch Deloitte jobs\nWhy join Deloitte?\nBenefits and beyond\nAround the globe, Deloitte member firms offer comprehensive rewards and benefits to support the whole you. \n\nInitiatives to better the future\nWe are committed to making an impact that matters—not only for our clients, for society and our people. Our WorldImpact initiatives are helping to solve some of society’s most complex challenges. \n\nA culture of diversity, equity, and inclusion\nWe support and empower our people to achieve their full potential by fo",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "PwC South Africa",
+      "careers_url": "https://www.pwc.co.za/en/careers.html",
+      "scanned_at": "2026-10-26T22:11:00.516385+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Experienced careers job search",
+          "listing_title": "Experienced careers job search",
+          "job_url": "https://www.pwc.co.za/en/careers/experienced-professionals/vacancies.html",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "PwC South Africa",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.pwc.co.za/en/careers.html"
+      ],
+      "error": null,
+      "page_title": "Careers | PwC South Africa",
+      "page_text_excerpt": "Skip to content\nSkip to footer\nIndustries\nServices\nImportant problems\nAbout us\nCareers\nProducts\nSouth Africa\nSearch\nPwC South Africa\nCareers\n\nAre you ready to make a difference?\n\nJoin our community of solvers\n\nAt PwC, you’ll find people coming together in unexpected ways, to build trust in society and to solve the world's important problems. If you’re up to the challenge, why not join our community of solvers?\n\nFeatured\nStudents\n\nFind information on why a career at PwC might be right for you.\n\nGraduates\n\nYour career is just that; yours. You choose it. You make it.\n\nExperienced\n\nA position with PwC can be career defining.\n\nWe welcome the responsible use of generative AI to support research, preparation, and communication during the application process. However, your application should remain an authentic reflection of your own skills, experience, and potential. AI should not be used to complete assessments or generate responses during interviews, as we want to understand the real person",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "EY South Africa",
+      "careers_url": "https://www.ey.com/en_za/careers",
+      "scanned_at": "2026-10-26T22:11:03.434491+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Job search",
+          "listing_title": "Job search",
+          "job_url": "https://www.ey.com/en_za/careers/job-search",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "EY South Africa",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.ey.com/en_za/careers",
+        "https://www.ey.com/en_za/careers/job-search",
+        "https://careers.ey.com/ey/search/?createNewAlert=false&q=&locationsearch=&optionsFacetsDD_country=&optionsFacetsDD_customfield1=Strategy%20and%20Transactions",
+        "https://careers.ey.com/ey/search/?createNewAlert=false&q=&locationsearch&local=en_US"
+      ],
+      "error": null,
+      "page_title": "Careers at EY | EY - South Africa",
+      "page_text_excerpt": "Skip to content\nEY Logo\nInsights\nServices\nIndustries\nCareers\nAbout us\nSearch\nMy EY\nSouth Africa\nEnglish\n\nCareers at EY\n\nShape your future with confidence\n\nWe’re shapers of the future. We’re change agents and cyber professionals. Performance improvers and problem solvers. Data scientists and growth hackers. Risk managers and confidence builders. We’re nearly 400,000 perspectives.\nTogether, all in, to build a better working world.  \n\nAt EY, we develop you with future-focused skills, and equip you with world-class experiences. We empower you in a flexible environment, and fuel you and your extraordinary talents in a diverse and inclusive culture of globally connected teams.\n\nWe work together across our full spectrum of services and skills powered by technology and AI, so that business, people and the planet can thrive together.\n\nWe’re all in, are you?\n\nJoin EY and shape your future with confidence.\n\n\nAre you ready to shape your future with confidence?\nExperienced professionals\nFind jobs\nE",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "MTN",
+      "careers_url": "https://www.mtn.com/careers/",
+      "scanned_at": "2026-10-26T22:11:31.870375+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.mtn.com/careers/"
+      ],
+      "error": null,
+      "page_title": "Page not found |",
+      "page_text_excerpt": "Cookie Notice\n\nWe use cookies to provide you with the best possible web experience. Clearing cookies may limit the website functionality. Some cookies are strictly necessary for our website to function properly and cannot be switched off.\n\nRead our Privacy Notice\n \nRead our Cookie Notice\n\nManage Cookie Preferences\nReject All Non-Essential Cookies\nAccept All Cookies\nAbout Us\nSustainability\nInvestors\nNews\nFoundation\nPeople & Culture\nLegal\n \n404 ERROR\nOut of signal?\nThis page cannot be found\nBACK TO HOME\nAbout\nOverview\nGrowth platforms\nGovernance Structure\nBoard of directors\nExecutive commitee\nOur Journey\nSupply chain\nContact Us\nSustainability\nOverview\nDoing for planet\nDoing for people\nDoing it right\nDoing for growth\nReports\nPositions and certifications\nB-BBEE Certificate\nInvestors\nOverview\nFinancial results\nAnnual reports\nShareholders\nSENS\nOpCo investors\nCapital Markets Day\nZakhele Futhi\nNewsroom\nOverview\nMedia releases\nSpotlight stories\nY'ello Chair Vodcast\nFoundation\nAbout Foundation\nO",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Vodacom",
+      "careers_url": "https://opportunities.vodafone.com/Vodacom/",
+      "scanned_at": "2026-10-26T22:11:36.545071+00:00",
+      "status": "failed",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [],
+      "error": "Error: Page.evaluate: Execution context was destroyed, most likely because of a navigation",
+      "page_title": "Loading https://career5.successfactors.eu/careers?company=vodafoneprP",
+      "page_text_excerpt": "",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": true
+    },
+    {
+      "company": "Standard Bank",
+      "careers_url": "https://www.standardbank.com/sbg/standard-bank-group/careers",
+      "scanned_at": "2026-10-26T22:11:49.791794+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Search jobs",
+          "listing_title": "Search jobs",
+          "job_url": "https://www.standardbank.com/sbg/standard-bank-group/careers/apply/jobs/view-all-jobs",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Standard Bank",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.standardbank.com/sbg/standard-bank-group/careers"
+      ],
+      "error": null,
+      "page_title": "Careers at Standard Bank Group | Standard Bank",
+      "page_text_excerpt": "Standard Bank Group\nContact us\nStandard Bank Group\nOur group\nInvestor relations\nOur impact\nNewsroom\nCareers\nLogin\n \nHome \nCareers\n\nAt Standard Bank Group, growth is something we do together. We bring the scale, support and opportunity. You bring your ambition, curiosity and commitment to keep growing. Here, your growth helps Africa grow.\n\nYour growth journey starts here\n\nCareers are shaped by moments of growth. The first step. The next challenge. Here, we open doors. Step through and see what is possible.\n\nLife at Standard Bank\n\nWhat is it like to build a career here? It’s about being part of a culture that supports your growth and potential.\n\nFIND OUT MORE\nOur teams\n\nWe offer meaningful career opportunities designed to help you grow. Explore our diverse teams and see where your skills can make the biggest impact.\n\nFIND OUT MORE\nStudents and graduates\nWe champion young talent. Our bursaries,  learnerships, internships, and graduate programmes create opportunities for you to build skill",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Absa",
+      "careers_url": "https://www.absa.africa/careers/",
+      "scanned_at": "2026-10-26T22:11:54.210880+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.absa.africa/careers/"
+      ],
+      "error": null,
+      "page_title": "Jobs - Absa Group | Welcome to Absa Group Limited",
+      "page_text_excerpt": "Skip to the content\nAbsa Group | Welcome to Absa Group Limited\nAbout us\nNews and Insights\nInvestors\nCareers\nSustainability\nCorporate Citizenship\nSearch Select Country\nA small business owner prepares her leather, making fine handbags for sale in her store and online.\n\n Jobs\n\nOwn your career\n\nAbsa is all about our people. We celebrate diversity, encourage individuality and believe the best people produce the best work - find out how you will learn and grow with us.\n\nscroll for more\n\nJobs\nJob opportunities\n\nVisit our jobs portal to search and apply for available positions across Africa.                                                                                                                                                        .\n\nSee more\n\nJobs\nGrad programmes, internships, bursaries\n\nStep into your future with an organisation that understands the power of collaborative minds in the Fourth Industrial Revolution.                                                                      ",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "FNB",
+      "careers_url": "https://www.fnb.co.za/careers/",
+      "scanned_at": "2026-10-26T22:11:57.371381+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.fnb.co.za/careers/"
+      ],
+      "error": null,
+      "page_title": "Radware Bot Manager Captcha",
+      "page_text_excerpt": "FNB apologises for the inconvenience...\n\nBefore granting access to www.fnb.co.za we want to verify your connectivity.\n\n\n\nIncident ID: 622703a1-bumj-4c13-9a1c-874c467b356a\n\n\n\nPlease solve this CAPTCHA  in order to be granted access to the site www.fnb.co.za\n\n\n\n\n\n\n\n\n\nYou reached this page while trying to access https://www.fnb.co.za/careers/, 102.249.66.25, October 26 2026, 22:11:58 UTC, Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Nedbank",
+      "careers_url": "https://www.nedbank.co.za/content/nedbank/desktop/gt/en/careers.html",
+      "scanned_at": "2026-10-26T22:12:02.755758+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Apply for a job",
+          "listing_title": "Apply for a job",
+          "job_url": "https://group.nedbank.co.za/careers/join-us.html",
+          "application_url": "",
+          "description": "",
+          "location": "",
+          "employment_type": "",
+          "company": "Nedbank",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://www.nedbank.co.za/content/nedbank/desktop/gt/en/careers.html",
+        "https://www.instagram.com/accounts/login/?next=https%3A%2F%2Fwww.instagram.com%2Fnedbank&is_from_rle",
+        "https://www.instagram.com/accounts/password/reset/?next=https%3A%2F%2Fwww.instagram.com%2Fnedbank",
+        "https://www.instagram.com/accounts/emailsignup/?next=https%3A%2F%2Fwww.instagram.com%2Fnedbank",
+        "https://www.instagram.com/legal/privacy/?next=https%3A%2F%2Fwww.instagram.com%2Fnedbank"
+      ],
+      "error": null,
+      "page_title": "Careers | Nedbank",
+      "page_text_excerpt": "Personal\nPrivate\nBusiness\nCorporate\nGroup\nSearch\nCountry\nLog in\nNedbank Group\nInvestor Relations\nSustainability\nCareers\nNews & Insights\nStep into greatness with a career at Nedbank\nSearch opportunities\nWhy Nedbank?\n\nWe believe that money is really nothing if it cannot bring about the positive change the world so needs. And, with the right support, passion can be turned into purpose. If you believe this too, then the question really should be, why not Nedbank?\n\nBe the difference that impacts our world\n\nAbout us\n\nAt Nedbank, we believe in meaningful work that places people, our planet and prosperity first. From the moment you step through our doors, you will understand that culture, excellence, diversity, and purpose are not just ideas, but the principles we choose to live and work by. It shows in our reputation as financial experts who do good in the communities we serve, and in our most valued assets, the people who help us make everything happen.\n\nExplore our world \nGraduates and burs",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "iDbase Software",
+      "careers_url": "https://www.idbasesoftware.com/careers/",
+      "scanned_at": "2026-10-26T22:12:18.975205+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.idbasesoftware.com/careers/"
+      ],
+      "error": null,
+      "page_title": "Careers - iDbase Software",
+      "page_text_excerpt": "Skip to content\nHome\niDbase360\niDbase Digital\nAbout Us\nCareers\nContact Us\nCareer Opportunities\nJOIN A TEAM OF CURIOUS MINDS, PROBLEM-SOLVERS, AND INNOVATORS DRIVING HIGH-IMPACT CHANGE FOR OUR CLIENTS, COMMUNITIES, AND THE WORLD.\nWe’re Excited For New Talent!\n\nOur goal is to recruit and build an exceptional cadre of professionals who are passionate about doing work that matters. Successful candidates are placed into a niche practice area that best suits their skill set, interests and personal capability. \n\nOpportunities do not follow a set timeline. Instead, opportunities at this level are advertised when they become available on an ongoing basis.\n\nYour application must consist of:\n\nA comprehensive CV\nA copy of your identity document or passport\nCopies of all academic certificates obtained.\n\nProcess:\n\nThe application is received and screened against required skills, competencies and experience\nThe candidate is required to complete a technical case study\nFace-to-face and online psychomet",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Rank Group",
+      "careers_url": "https://www.rank.com/careers/",
+      "scanned_at": "2026-10-26T22:12:29.578938+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.rank.com/careers/"
+      ],
+      "error": null,
+      "page_title": "Careers - Rank Group Plc",
+      "page_text_excerpt": "Skip to content\nRank Group Plc\nABOUT US\nOUR BUSINESSES\nINVESTORS\nSUSTAINABILITY\nMEDIA\nCAREERS\nCONTACT US\nCareers\n\nRANK GROUP IN NUMBERS\n\nYears in business\n\nColleagues globally\n\nVenues across the UK and Spain\n\nColleague engagement score\n\nGlobal offices\n\nCharity fundraising – Carers Trust since 2014\n\nFind out more about our commitments to supporting our colleagues career progression in our Sustainability pages\n\nOUR RESPONSIBILITY\nFIND OUR BRANDS ONLINE\ngrosvenorcasinos.com\ngukpt.com\nmeccabingo.com\nbellacasino.com\nenracha.es\nyobingo.es\nDOWNLOAD OUR APPS\nBingo\nCasino\nGrosvenor Poker Live\nSitemap\nGlossary of terms\nAccessibility\nLegal information\nModern slavery policy statement\nAffordability profiling\nUseful links\nCookie Information\nSUBSCRIBE TO OUR EMAIL ALERTS\nCONTACT US\nLink to X profile for Rank Group Plc\nLink to LinkedIn profile for Rank Group Plc\n\n© 2026 The Rank Group Plc\n\nDesign by Burson Buchanan Development by Proactive Digital Solutions",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Pinewood.AI",
+      "careers_url": "https://pinewood.ai/careers/",
+      "scanned_at": "2026-10-26T22:12:34.461047+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://pinewood.ai/careers/"
+      ],
+      "error": null,
+      "page_title": "Jobs | Pinewood.AI Careers",
+      "page_text_excerpt": "Automotive Intelligence\nAbout Us\nResources\nWorking Together\nContact us\nBook a demo\nCareers\nAt Pinewood.AI you’re not an employee, you’re a Team Member.\nYou’re part of something much bigger, where we are all collectively responsible for our success.\nLife at Pinewood\n\nWe’re made up of teams who continuously work closely together to find the best solutions for our customers, to lead our industry, and help us grow. Start your career with Pinewood.\n\n22 Nationalities\n\nA wide range of cultural backgrounds allow us to continue to focus on International projects and best practices.\n\n30% Female\n\nProud to have an above-industry average representation of females company-wide, well represented within our development teams.\n\nOn-site Gym\n\nOlympic-grade bikes with more data outputs for analysis than you can imagine, rowing machines, treadmills, and weights for your workout.\n\nCulture of Collaboration\n\nThe secret to our success? Our team create a passionate and diverse environment, delivering high-quali",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Clicks Group",
+      "careers_url": "https://clicksgroup.co.za/careers/",
+      "scanned_at": "2026-10-26T22:12:39.468493+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://clicksgroup.co.za/careers/"
+      ],
+      "error": null,
+      "page_title": "Page not found - Clicks Group",
+      "page_text_excerpt": "MEDIA CENTREDOWNLOAD REPORTSCONTACT USSEARCH\nAbout Clicks Group\nInvestors\nGovernance\nSustainability\n \nPage not found\nSorry, the content you were looking for doesn't seem to exist.\nContact us\n\nHead office\n\nCnr. Searle and Pontac Streets\nPO Box 5142\nCape Town, 8000\nSouth Africa\nCall +27 21 460 1911\nEmail service@clicks.co.za\n\n \nOur brands\n\nClicks\nClicks Baby\nThe Body Shop\nUPD\nSorbet\nKwaMakhi\n\n \nResources\n\nClicks Group BBBEE certificate\n\nUPD BBBEE certificate\n\n \n\n \n\n© Clicks Group Limited 2026\n\nLegal Privacy policy PAIA Manual  Website terms and conditions",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "ShopriteX",
+      "careers_url": "https://shopritex.breezy.hr/",
+      "scanned_at": "2026-10-26T22:12:45.963324+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Application Support Specialist III",
+          "listing_title": "Application Support Specialist III\nCape Town, Brackenfell, ZAFull-Time",
+          "job_url": "https://shopritex.breezy.hr/p/022df00db8b8-application-support-specialist-iii",
+          "application_url": "",
+          "description": "",
+          "location": "Cape Town, Brackenfell, ZA",
+          "employment_type": "Full Time",
+          "company": "ShopriteX",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://shopritex.breezy.hr/"
+      ],
+      "error": null,
+      "page_title": "Openings at ShopriteX",
+      "page_text_excerpt": "Company WebsiteEmployees\nPerksGalleryTestimonials\nJoin ShopriteX\n\nIf you’re interested in using innovation to solve real retail problems at scale, get in touch!\n\nView Openings\n\nShopriteX is the digital innovation unit for Africa's largest retailer, the Shoprite Group of Companies. We boast two industry leading innovations, namely Xtra Savings, South Africa’s largest retail rewards programme, and Sixty60, Checkers’ pioneering 60-minute grocery delivery service.\n\nWe believe in a customer first culture and by marrying the best of talent, tech and data, ShopriteX saves customers time and money through innovation and more personalised shopping experiences. With some of the brightest minds in data science, technology, retail media, e-commerce and personalisation, ShopriteX is re-imagining retail, removing friction and driving a tech-led future for the Shoprite Group.\n\nAll the benefits of the Shoprite Group, including retirement savings, group risk, employee discounts and medical aid\n\nContemp",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Being IT Solutions",
+      "careers_url": "https://www.beingit.co.za/",
+      "scanned_at": "2026-10-26T22:12:49.004137+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.beingit.co.za/"
+      ],
+      "error": null,
+      "page_title": "BeingIT® { Software Development, Web & Server Hosting, DNS Registration }",
+      "page_text_excerpt": "SERVICES\nCAREERS\nDOWNLOADS\nSUPPORT\nCONTACT US\nSoftware Development\n\nWe develop sophisticated products and solutions for some of the world's biggest corporations.\n\nOur software is efficient, scalable and highly reliable. We specialise in Microsoft .Net and our development is architected from the ground up and designed for its intended environment.\n\nWeb Design\n\nWe adapt to your budget and requirements. We are capable of designing websites from the ground up or use well-tested templates to help you define your corporate identity.\n\n\n\nDomain Registration\n\nWe are an official accredited registrar, which allows us to register domain names directly, timeously and affordably.\n\nWe are able to register all official domain suffixes including .com, .co.za, .net.za, .org.za, .web.za, .africa, .capetown, .durban, .joburg\n\n\n\nWeb and Server Hosting\n\nWe provide secure, fast and unlimited web hosting! Our shared web hosting services offer the latest SmarterMail Enterprise Mail Servers, daily backups, 24/7",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Bitcube",
+      "careers_url": "https://bitcube.tech/careers",
+      "scanned_at": "2026-10-26T22:12:56.557599+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Senior Software Engineer — AI-Accelerated Delivery",
+          "listing_title": "Senior Software Engineer — AI-Accelerated Delivery",
+          "job_url": "https://bitcube.tech/careers",
+          "application_url": "",
+          "description": "<p>Work as an Orchestrator in a small, senior-weighted AI-accelerated pod — directing AI tooling, validating output rigorously, and peer-reviewing a fellow senior engineer. This is not a conventional developer role.</p><p>This is not a conventional senior developer role. We're hiring Senior Software Engineers into our new AI-accelerated delivery pods — a small, senior-weighted team that delivers complex software engagements differently to how the industry has done it for the past decade.</p><p>Inside the pod, this role is called an Orchestrator. We're not hiring engineers to write code in the traditional sense — we're hiring senior engineers to use AI tooling to amplify their own judgement and experience, build substantive output through that direction, and peer-review the work of another senior engineer alongside structured tooling support. The skill is specification, judgement, and validation.</p><p>You'll work as one of two Orchestrators in a pod of four, supported by a Client Lead. Pod work is judged on outcomes, not just hours, and compensation sits on a different track: a higher base salary than equivalent senior roles, plus quarterly outcome-based variable compensation tied to pod-level delivery and client satisfaction. This is a hybrid role in our Cape Town office — Tuesday to Friday in office, Mondays remote.</p><p>If you want clear instructions, short feedback loops, story points to count, and a project manager telling you what to do every day, this role will be uncomfortable. If you've been using AI tools seriously and have developed an instinct for when they're right and when they're subtly wrong, it's built for you.</p><p>All AI use in Bitcube delivery operates within our AI Acceptable Use Policy and AI Development Standard, governed by our ISO 42001 management system.</p><p><strong>Responsibilities</strong></p><ul><li>Direct AI tooling (Claude Code, Gemini, CodeRabbit, and our internal CLI) to produce substantive software output, then review and validate it rigorously before it ships</li><li>Peer-review the other Orchestrator's work with structured tooling support — every meaningful piece of output is reviewed by a second senior engineer before it reaches the client</li><li>Translate written specifications into executable architecture and design decisions</li><li>Engage directly with clients during demo cycles and milestone reviews</li><li>Contribute to the orchestration playbook — the documented patterns, prompt templates, and review checklists that compound across engagements</li></ul><p><strong>Requirements</strong></p><ul><li>Minimum 5 years of professional software engineering experience in production environments</li><li>Strong proficiency across at least two of: modern JavaScript/TypeScript (Node.js, React, Angular, or Vue), Python, C#, or comparable production languages</li><li>Deep understanding of software architecture, system design, and the trade-offs involved in production engineering at scale</li><li>Genuine, current, hands-on experience using AI coding tools (Claude Code, GitHub Copilot, Cursor, Aider, or similar) in real production work</li><li>The ability to read AI-generated code critically</li><li>Strong written communication and the maturity to operate without daily supervision</li></ul><p><strong>Nice to have</strong></p><ul><li>Experience with cloud platforms (AWS, GCP, or Azure) and modern deployment practices — containerisation, infrastructure as code, CI/CD</li><li>Familiarity with backend API development, frontend architecture, mobile, data engineering, or AI/ML integration</li><li>Experience in agency, consultancy, or product-team environments with direct client engagement</li><li>Familiarity with ISO 27001 or ISO 42001 frameworks</li></ul><p><strong>What we offer</strong></p><ul><li>Competitive salary</li><li>Generous leave policy</li><li>Private medical aid</li><li>Company pension contribution</li><li>Continuous learning allowance</li><li>Life coach access</li><li>Fitness allowance</li><li>Group life and disability insurance</li><li>All-day breakfast, bean-to-cup coffee, Friday drinks</li><li>Gaming areas in every office</li></ul>",
+          "location": "Cape Town, Western Cape, ZA",
+          "employment_type": "FULL_TIME",
+          "company": "Bitcube",
+          "detail_checked": false,
+          "source_type": "schema_job_posting",
+          "source_page_url": "https://bitcube.tech/careers",
+          "evidence": "Schema.org JobPosting JSON-LD",
+          "date_posted": "2026-06-19",
+          "valid_through": "2026-08-21"
+        }
+      ],
+      "pages_visited": [
+        "https://bitcube.tech/careers"
+      ],
+      "error": null,
+      "page_title": "Careers at Bitcube | Bespoke Software Development Agency",
+      "page_text_excerpt": "Services\nHow We Deliver\nCase Studies\nInsights\nAbout Us\nCareers\nContact Us\nStart a conversation\n\nOUR SERVICES\n\nBespoke Software Development\n\nCustom web apps, APIs & cloud architecture\n\nMobile App Development\n\niOS, Android & cross-platform with Flutter\n\neCommerce Solutions\n\nHeadless, subscriptions & custom billing\n\nAI-Accelerated Delivery\n\nSenior-led pods. Outcomes over hours.\n\nView all services\nTechnology\nIndustries\n\nFEATURED\n\nAI Automation\n\nAgents and workflows that take on your team's repetitive work — and know when to hand over to a person.\n\nExplore AI Automation\n\nJOIN THE TEAM\n\nBuild things that\nmatter, with people\nwho care.\n\nWe're a close-knit team of engineers, designers, and builders spread across London, Cape Town, Bloemfontein, and Pirot. We work hard, learn constantly, and look after each other.\n\nWHY BITCUBE\n\nA place to do\nyour best work.\nWe're good friends.\n\nApart from working hard together in the office, we genuinely enjoy each other's company. Burger and beer Fridays, whisk",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Tsolo",
+      "careers_url": "https://www.tsolo.io/careers",
+      "scanned_at": "2026-10-26T22:12:59.870570+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Internship",
+          "listing_title": "Internship",
+          "job_url": "https://www.tsolo.io/careers",
+          "application_url": "",
+          "description": "Join Tsolo's Cape Town engineering team to solve PiB-scale data storage and AI compute challenges. Full-stack work across hardware, software-defined platforms and UI. Work with pioneers who spent 12 years solving high volume data challenges at scale.",
+          "location": "Cape Town, ZA",
+          "employment_type": "INTERN",
+          "company": "Tsolo",
+          "detail_checked": false,
+          "source_type": "schema_job_posting",
+          "source_page_url": "https://www.tsolo.io/careers",
+          "evidence": "Schema.org JobPosting JSON-LD",
+          "date_posted": "2025-01-01",
+          "valid_through": ""
+        }
+      ],
+      "pages_visited": [
+        "https://www.tsolo.io/careers"
+      ],
+      "error": null,
+      "page_title": "Careers at Tsolo | Build Data & AI Infrastructure in SA",
+      "page_text_excerpt": "About\nProducts\n\nServices\nProjects\nTsolo News\nCareers\nBook A Demo\n\n\n\n\nWe're a small, hands-on engineering team solving PiB-scale storage and AI compute challenges, from the rack up. Based in Cape Town, working across the continent.\n\nView Open Roles\n\n\n\nBUILD WITH US\n\nWe exist to unleash the potential of South African enterprises and that starts with the engineers who build it. Tsolo is built by pioneers, the engineers who spent 12 years solving high volume data challenges at scale. Now we're growing the next generation alongside them. A small, diverse team doing full-stack work across an entire continent. High-stakes engineering and the mentorship to match.\n\nWHY TSOLO\nOUR GUIDING PRINCIPLES\nBELIEVE IN LOCAL\n\nWe have the talent and the ingenuity in South Africa to build world-class technology. What we can source, build and code locally, we do. We aim to spend 70% of our costs in South Africa.\n\nEMBRACE DIFFERENCE\n\nCreate a team that reflects and relishes different perspectives, cult",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    },
+    {
+      "company": "Inference Group",
+      "careers_url": "https://www.inferencegroup.com/careers/automation-developer",
+      "scanned_at": "2026-10-26T22:13:02.027161+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Automation Developer",
+          "listing_title": "Automation Developer",
+          "job_url": "https://www.inferencegroup.com/careers/automation-developer",
+          "application_url": "",
+          "description": "Build practical applications, integrations and AI-enabled automation across Python, APIs, data and cloud — using Claude to accelerate delivery and turn manual processes into reliable solutions. We're looking for hands-on Automation Developers to build practical applications, integrations and AI-enabled automation solutions for our clients. You'll work across Python development, APIs, data and cloud services to automate business processes, connect systems and turn operational requirements into reliable, maintainable solutions. A key part of the role is using Claude and other AI development tools to accelerate delivery, build intelligent workflows and solve complex technical problems. This is a delivery-focused consulting role, so you'll be comfortable working closely with technical teams and business stakeholders, developing iteratively and taking ownership from requirements through to testing, deployment and support. Your first projects will involve Python, REST APIs, SQL and Microsoft Azure services. Location: hybrid, based in Cape Town, with a minimum of three days per week in our Woodstock office. Candidates looking to relocate to Cape Town are welcome to apply (relocation costs would need to be covered personally).",
+          "location": "Cape Town",
+          "employment_type": "Full-time",
+          "company": "Inference Group",
+          "detail_checked": false,
+          "source_type": "schema_job_posting",
+          "source_page_url": "https://www.inferencegroup.com/careers/automation-developer",
+          "evidence": "Schema.org JobPosting JSON-LD",
+          "date_posted": "",
+          "valid_through": ""
+        }
+      ],
+      "pages_visited": [
+        "https://www.inferencegroup.com/careers/automation-developer"
+      ],
+      "error": null,
+      "page_title": "Automation Developer — Careers at Inference Group | Inference Group",
+      "page_text_excerpt": "Products\nCase studies\nTeam\nCareers\nInsights\nAbout\nFAQ\nShip today\n← All open roles\nAutomation Developer\nCape Town\nFull-time\nMid\n\nBuild practical applications, integrations and AI-enabled automation across Python, APIs, data and cloud — using Claude to accelerate delivery and turn manual processes into reliable solutions.\n\nThe role\n\nWe're looking for hands-on Automation Developers to build practical applications, integrations and AI-enabled automation solutions for our clients.\n\nYou'll work across Python development, APIs, data and cloud services to automate business processes, connect systems and turn operational requirements into reliable, maintainable solutions. A key part of the role is using Claude and other AI development tools to accelerate delivery, build intelligent workflows and solve complex technical problems.\n\nThis is a delivery-focused consulting role, so you'll be comfortable working closely with technical teams and business stakeholders, developing iteratively and taking ",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": true
+    },
+    {
+      "company": "Tej Outsource",
+      "careers_url": "https://tejoutsource.com/",
+      "scanned_at": "2026-10-26T22:13:06.707238+00:00",
+      "status": "failed",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [],
+      "error": "Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://tejoutsource.com/\nCall log:\n  - navigating to \"https://tejoutsource.com/\", waiting until \"domcontentloaded\"\n",
+      "page_title": "",
+      "page_text_excerpt": "",
+      "explicit_no_jobs_message": false,
+      "requires_review": true
+    },
+    {
+      "company": "The Gemini Solution",
+      "careers_url": "https://www.thegeminisolution.com/",
+      "scanned_at": "2026-10-26T22:13:07.267213+00:00",
+      "status": "failed",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [],
+      "error": "Error: Page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://www.thegeminisolution.com/\nCall log:\n  - navigating to \"https://www.thegeminisolution.com/\", waiting until \"domcontentloaded\"\n",
+      "page_title": "",
+      "page_text_excerpt": "",
+      "explicit_no_jobs_message": false,
+      "requires_review": true
+    },
+    {
+      "company": "Global Kinetic",
+      "careers_url": "https://globalkinetic.com/",
+      "scanned_at": "2026-10-26T22:13:08.093076+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://globalkinetic.com/",
+        "https://globalkinetic.com/what-we-do",
+        "https://globalkinetic.com/services/legacy-reboot"
+      ],
+      "error": null,
+      "page_title": "Global Kinetic | Software. Intelligence. Engineered.",
+      "page_text_excerpt": "FutureBank selected for Mastercard Start Path 2025, one of 8 from thousands of applicants. Read more →\nHome\nWhat We Do\nOur Work\nOur Thinking\nAbout\nLet's Talk\nSOFTWARE ENGINEERING · EST. 2005\nSoftware. Intelligence.\nEngineered.\n\nOur founders built the Southern Hemisphere's first digital bank in 2001, four years before Global Kinetic existed. They started this company in 2005 with the same team and the same engineering standard. The tools change. The standard does not.\n\nWe are not a software house that adopted AI. We are a 20-year enterprise software engineering firm, forged in the performance, scalability, and security demands of global banking, that now delivers at AI velocity. The governance and quality standard has not moved.\n\nLet's talk →\nSee our delivery record →\n<AI />\nfn() => {}\n0x1A2B\nTRUSTED BY\nAsk our clients. Without us in the room.\nTwenty years. 120+ major projects. We are happy to let our clients speak to our quality record directly, without us on the call. If you want to s",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Khanyisa Real Systems (KRS)",
+      "careers_url": "https://www.krs.co.za/",
+      "scanned_at": "2026-10-26T22:13:17.911580+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.krs.co.za/"
+      ],
+      "error": null,
+      "page_title": "KRS - Custom Business Software Development in Cape Town",
+      "page_text_excerpt": "Skip to content\nDevelopment\nPeople\nExpertise\nProducts\nInsights\nAbout\nContact Us\nAward-Winning\nAI-Accelerated Custom Software Development\n\nThe success of your systems must be built from deep understanding of your business needs. Code is commoditised, and rapid prototyping with AI-accelerated development gives you early results.\n\nContact Us\nSee How We Use AI\nCustom Business Software Development Services\nLearn about our approach to AI\n18 Things to ask your Software Developer\nHighlighted posts\nView more\nWho is KRS?\n\nKRS is a fully remote South African custom business software development company with hubs in both Cape Town and Johannesburg. We’re a team of just over 70 professional IT staff, covering roles such as Cloud Engineer, UI/UX Designer and Software Engineers.\n\nFor more than 35 years, we’ve delivered software designed to last. We augment that engineering discipline with modern AI tools and ongoing learning initiatives, including in-person technical bootcamps focused on everything f",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "NTT DATA",
+      "careers_url": "https://www.nttdata.com/global/en/careers",
+      "scanned_at": "2026-10-26T22:13:26.152772+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.nttdata.com/global/en/careers"
+      ],
+      "error": null,
+      "page_title": "NTT DATA Careers",
+      "page_text_excerpt": "Skip to main content\n-\nAccelerate your career\nMake this the place where you grow\n\n\nWho we are​\nAt NTT DATA, you have endless opportunities to think big, act bold and take ownership. As a\n$30+ billion business and technology services, AI and digital infrastructure leader, we co-innovate solutions with clients and partners globally for business and societal impact. Serving 75% of the Fortune Global 100, with experts in over 70 countries, we encourage experimentation and recognize great work. Proudly a Global Top Employer, NTT DATA is part of NTT Group, which invests over $3 billion annually in R&D. Make this the place where you belong, learn, and build your network. Make this the place where you grow.\nTop 10\nGlobal IT​ services provider​\n$30B+​\nAnnual revenue\n75%\nof Fortune Global 100 companies\nwe serve\n190K+\nInnovative colleagues\n70+\nCountries\n37\nCountries in which ​\nwe’re a Top Employer​\nSales jobs\nConsulting jobs\nTechnical jobs\nCybersecurity jobs\nAI jobs\nSAP jobs\nData center jobs\nIT c",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Flash",
+      "careers_url": "https://www.flash.co.za/",
+      "scanned_at": "2026-10-26T22:13:41.395762+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.flash.co.za/"
+      ],
+      "error": null,
+      "page_title": "Flash | Payments, Airtime, Data & Vouchers in South Africa",
+      "page_text_excerpt": "Personal\n\nBusiness\n\nPlatform\n\nContact Us\n\nONE PLATFORM. UNLIMITED REACH.\n\nAn integrated payments and distribution platform that connects people, businesses and services.\n\nLearn more\n\nContact us\n\nWORKING WITH SA’S BEST\nGET STARTED WITH FLASH\nFOR YOU\n\nEverything you need. \nRight around the corner.\n\nBUSINESS\n\nTools and services to optimise your business and help you grow.\n\nPLATFORM\n\nIntegrated payments and product distribution.\n\nFLASH ENABLES SEAMLESS TRANSACTIONS THROUGH A NETWORK OF MERCHANTS, DEVICES AND DIGITAL SERVICES\n\nDriven by a vision for a more connected economy, we expand opportunities for entrepreneurs, businesses and cash customers by providing innovative payment solutions and services.\n\nView Platform\n\nCONNECTING YOU TO MORE\n\nWe’re more than just a Fintech company. We build bridges between people, businesses and opportunity. We help communities thrive. We help businesses grow.\nWe offer people the chance to share in a more open   and inclusive financial future.\n\nAbout us\n\nLATE",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Zapper",
+      "careers_url": "https://www.zapper.com/",
+      "scanned_at": "2026-10-26T22:13:52.450247+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://www.zapper.com/"
+      ],
+      "error": null,
+      "page_title": "Marketing platform enabled by payments | Zapper",
+      "page_text_excerpt": "Products\nResources\nPricing\nSupport\nLogin\nSign Up\nLet's grow fast\n\nWith over a decade of experience and the potential to reach more than 15 million customers, we don’t just process payments, we use payments data to target *new* customers for you in your area, and keep *existing* customers coming back. On repeat.\n\nGet started\nRequest a call back\n\nPayments. Plus marketing.\n\nWant more revenue?\n\nYou’re sitting on a gold mine; in a tough economy, with fierce competition, most customers require a nudge, a reminder, perhaps a voucher, or some reward for their loyalty. We’ll bring them to your door, all from the data you already have!\n\nWatch the Zapper brand video\n\nA payments ecosystem\n\nIt doesn’t matter which partner you choose, the more ways to pay mean more revenue. Use us for QR codes, or for ECommerce, or even a Tap on Phone solution. We can do one for you – or them all – using our Tap-on-Phone feature in our mobile app. Smart, simple, affordable.\n\nGet paid\nIn-person\nLearn more\n\nThe whole ",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Embelo",
+      "careers_url": "https://embelo.co.za/careers/",
+      "scanned_at": "2026-10-26T22:14:08.730089+00:00",
+      "status": "no_jobs_detected",
+      "jobs_found": 0,
+      "jobs": [],
+      "pages_visited": [
+        "https://embelo.co.za/careers/"
+      ],
+      "error": null,
+      "page_title": "Explore Your Career Opportunities at Embelo",
+      "page_text_excerpt": "Keep up to date with our latest news on LinkedIn\nEmail us: enquiries@embelo.co.za\nHome\nOur Services\nAbout Us\nCareers\nContact Us\nCareers at Embelo.\nJoin the Future of Consulting.\n\n\nAt Embelo, we believe great people build great businesses. If you're curious, driven, and ready to shape what's next, you’ll thrive here.\n\nWe're growing fast and looking for exceptional talent across consulting, delivery, and shared services. Whether you're just starting out or bringing years of experience, we offer a platform to grow your career and make a difference.\n\nWhy Work at Embelo?\nA Team That Supports You.\nPeople-first culture rooted in trust and collaboration\nHigh-impact work with UK and global clients\nCape Town-based team with international reach\nOpportunity to work at the intersection of consulting and AI\nSupportive leadership, flexible working, and career development\nExposure to fast-moving professional services and scaling businesses\nAt Embelo, we believe diverse teams build better solutions. We",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false,
+      "ai_fallback_attempted": true,
+      "ai_fallback_jobs": 0,
+      "ai_fallback_status": "api_error",
+      "ai_fallback_diagnostics": {
+        "status": "api_error",
+        "http_status": 429
+      }
+    },
+    {
+      "company": "Kagiso Media",
+      "careers_url": "https://kagisomedia.hire.trakstar.com/",
+      "scanned_at": "2026-10-26T22:14:14.113823+00:00",
+      "status": "jobs_found",
+      "jobs_found": 1,
+      "jobs": [
+        {
+          "title": "Android Developer",
+          "listing_title": "Android Developer\nCape Town, Western Cape, South Africa",
+          "job_url": "https://kagisomedia.hire.trakstar.com/jobs/fk0a2t",
+          "application_url": "",
+          "description": "",
+          "location": "Cape Town, Western Cape, South Africa",
+          "employment_type": "",
+          "company": "Kagiso Media",
+          "detail_checked": false
+        }
+      ],
+      "pages_visited": [
+        "https://kagisomedia.hire.trakstar.com/"
+      ],
+      "error": null,
+      "page_title": "Kagiso Media (Innovation Team) jobs | Kagiso Media (Innovation Team) openings | Kagiso Media (Innovation Team) careers",
+      "page_text_excerpt": "kagisomedia.co.za\nJobs at Kagiso Media (Innovation Team)\nView 7 Openings\n\nWelcome to our Careers section. Please review the positions we are currently hiring for and apply to the ones that interest you.\n\nCountry\nSouth Africa (7)\nState\nWestern Cape (7)\nCity\nCape Town (7)\nClear Filters\n7 Jobs|\nSort By\nName\nAndroid Developer\nCape Town, Western Cape, South Africa\nBackend Developer (Ruby, Node JS, or Python)\nCape Town, Western Cape, South Africa\nDevops Manager\nCape Town, Western Cape, South Africa\niOS Developer\nCape Town, Western Cape, South Africa\nPHP Developer\nCape Town, Western Cape, South Africa\nWeb Front-End Developer\nCape Town, Western Cape, South Africa\nWindows Phone Developer\nCape Town, Western Cape, South Africa\nJobs Per Page\n25\nPrev\n1 - 7 of 7 Jobs\nNext\nCouldn't find the opening you were looking for?\n\nGet updates about new opportunities straight to your inbox\n\nEmail address\nKeep me posted\n Jobs RSS Feed\nPOWERED BY\nTrakstar Hire",
+      "explicit_no_jobs_message": false,
+      "requires_review": true,
+      "location_filter_attempted": false
+    }
+  ]
+}
