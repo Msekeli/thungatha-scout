@@ -57,14 +57,24 @@ def _load_local_env() -> None:
             os.environ[key] = value
 
 
-def _gemini_extract_jobs(page_text: str, links: list[dict[str, str]]) -> list[dict[str, str]]:
-    """Use Gemini as a bounded fallback to classify observed links as vacancy listings."""
+def _gemini_extract_jobs(
+    page_text: str,
+    links: list[dict[str, str]],
+    diagnostics: dict[str, object] | None = None,
+) -> list[dict[str, str]]:
+    """Use Gemini as a bounded fallback and record a safe diagnostic outcome."""
+    diagnostic = diagnostics if diagnostics is not None else {}
+    diagnostic["status"] = "not_started"
+
     if os.getenv("AI_EXTRACTION_ENABLED", "false").lower() != "true":
+        diagnostic["status"] = "disabled"
         return []
     if os.getenv("AI_PROVIDER", "gemini").lower() != "gemini":
+        diagnostic["status"] = "unsupported_provider"
         return []
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
     if not api_key:
+        diagnostic["status"] = "missing_api_key"
         return []
 
     model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
@@ -128,16 +138,31 @@ def _gemini_extract_jobs(page_text: str, links: list[dict[str, str]]) -> list[di
         headers={"Content-Type": "application/json"},
         method="POST",
     )
+    diagnostic["status"] = "request_started"
     try:
         with urllib.request.urlopen(request, timeout=12) as response:
             data = json.loads(response.read(1_000_000).decode("utf-8"))
         text = data["candidates"][0]["content"]["parts"][0]["text"]
         parsed = json.loads(text)
         if not isinstance(parsed, dict) or not isinstance(parsed.get("jobs"), list):
+            diagnostic["status"] = "invalid_response"
             return []
-    except (urllib.error.URLError, TimeoutError, KeyError, IndexError, ValueError, TypeError):
+    except urllib.error.HTTPError as exc:
+        diagnostic["status"] = "api_error"
+        diagnostic["http_status"] = exc.code
+        return []
+    except urllib.error.URLError as exc:
+        diagnostic["status"] = "network_error"
+        diagnostic["error_type"] = type(exc.reason).__name__
+        return []
+    except TimeoutError:
+        diagnostic["status"] = "timeout"
+        return []
+    except (KeyError, IndexError, ValueError, TypeError):
+        diagnostic["status"] = "invalid_response"
         return []
 
+    diagnostic["jobs_returned"] = len(parsed["jobs"])
     observed = {item.get("href", ""): item for item in observed_links}
     validated = []
     seen = set()
@@ -165,6 +190,13 @@ def _gemini_extract_jobs(page_text: str, links: list[dict[str, str]]) -> list[di
             "ai_assisted": True,
             "ai_evidence": re.sub(r"\s+", " ", str(job.get("evidence", ""))).strip()[:300],
         })
+    diagnostic["jobs_validated"] = len(validated)
+    if validated:
+        diagnostic["status"] = "success"
+    elif parsed["jobs"]:
+        diagnostic["status"] = "jobs_rejected_by_validation"
+    else:
+        diagnostic["status"] = "no_jobs_returned"
     return validated
 
 
@@ -430,15 +462,23 @@ def scan_company(
         result["jobs"] = list(jobs_by_url.values())
         _load_local_env()
         if not result["jobs"] and os.getenv("AI_EXTRACTION_ENABLED", "false").lower() == "true":
+            diagnostics: dict[str, object] = {}
             try:
-                ai_jobs = _gemini_extract_jobs(_page_text(page), _page_links(page))
+                ai_jobs = _gemini_extract_jobs(
+                    _page_text(page), _page_links(page), diagnostics
+                )
                 for job in ai_jobs:
                     job["company"] = company["name"]
                 result["jobs"] = ai_jobs[:max_jobs]
-                result["ai_fallback_attempted"] = True
+                result["ai_fallback_attempted"] = diagnostics.get("status") not in {
+                    "disabled", "unsupported_provider", "missing_api_key", "not_started"
+                }
                 result["ai_fallback_jobs"] = len(result["jobs"])
+                result["ai_fallback_status"] = diagnostics.get("status", "unknown")
+                result["ai_fallback_diagnostics"] = diagnostics
             except Exception as exc:
                 result["ai_fallback_attempted"] = True
+                result["ai_fallback_status"] = "unexpected_error"
                 result["ai_fallback_error"] = f"{type(exc).__name__}: {str(exc)[:250]}"
         result["jobs_found"] = len(result["jobs"])
         if result["jobs_found"]:
