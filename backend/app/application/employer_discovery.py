@@ -37,6 +37,7 @@ DEFAULT_QUERIES = (
 MAX_QUERIES = 20
 MAX_RESULTS_PER_QUERY = 10
 DEFAULT_SEARCH_BACKENDS = ("brave", "duckduckgo", "mojeek")
+COMPARISON_SEARCH_BACKENDS = ("bing", "brave", "duckduckgo", "mojeek")
 EXCLUDED_AGGREGATOR_DOMAINS = (
     "indeed.com",
     "careers24.com",
@@ -323,6 +324,90 @@ def run_discovery(
     )
 
 
+def compare_search_backends(
+    *,
+    backends: tuple[str, ...] = COMPARISON_SEARCH_BACKENDS,
+    queries: tuple[str, ...] = DEFAULT_QUERIES,
+    max_results_per_query: int = 8,
+    region: str = "za-en",
+) -> dict[str, object]:
+    """Run the same bounded query set independently against each DDGS backend.
+
+    Counts are search-result leads, not verified employers. This comparison
+    deliberately disables cross-backend fallback so each backend's behavior
+    remains visible.
+    """
+    if not backends or len(set(backends)) != len(backends):
+        raise ValueError("Provide one or more unique search backends")
+    comparisons: list[dict[str, object]] = []
+    for backend in backends:
+        report = run_discovery(
+            provider=DDGSSearchProvider(backends=(backend,)),
+            queries=queries,
+            max_results_per_query=max_results_per_query,
+            region=region,
+        )
+        query_reports = report.query_reports
+        comparisons.append({
+            "backend": backend,
+            "status": report.status,
+            "query_count": len(query_reports),
+            "successful_queries": sum(
+                item.run.outcome != DiscoveryOutcome.REQUEST_FAILED
+                for item in query_reports
+            ),
+            "failed_queries": sum(
+                item.run.outcome == DiscoveryOutcome.REQUEST_FAILED
+                for item in query_reports
+            ),
+            "raw_result_count": sum(item.raw_result_count for item in query_reports),
+            "excluded_aggregator_count": sum(
+                item.excluded_aggregator_count for item in query_reports
+            ),
+            "discarded_result_count": sum(
+                item.discarded_result_count for item in query_reports
+            ),
+            "distinct_candidate_urls": len(report.candidates),
+            "candidate_urls": [
+                {
+                    "url": candidate.observed_url,
+                    "evidence": [
+                        {
+                            "query": evidence.query,
+                            "title_and_snippet": evidence.excerpt,
+                        }
+                        for evidence in candidate.evidence
+                    ],
+                }
+                for candidate in report.candidates
+            ],
+            "query_outcomes": [
+                {
+                    "query": item.query,
+                    "outcome": item.run.outcome.value,
+                    "raw_result_count": item.raw_result_count,
+                    "excluded_aggregator_count": item.excluded_aggregator_count,
+                    "error_code": item.run.error_code,
+                    "error_message": item.run.error_message,
+                }
+                for item in query_reports
+            ],
+        })
+    return {
+        "comparison_scope": {
+            "region": region,
+            "queries": list(queries),
+            "max_results_per_query": max_results_per_query,
+            "note": (
+                "Backend counts are raw discovery leads after known-aggregator "
+                "exclusion. They are not counts of verified direct employers. "
+                "Review candidate URLs and official career-page linkage manually."
+            ),
+        },
+        "backends": comparisons,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Discover Cape Town employers and official careers-page leads; results require review."
@@ -335,9 +420,29 @@ def main() -> None:
         "--max-results-per-query", type=int, default=8,
         help="Results per query (1-10; default: 8).",
     )
+    parser.add_argument(
+        "--compare-backends", action="store_true",
+        help="Run the same queries independently against Bing, Brave, DuckDuckGo and Mojeek.",
+    )
+    parser.add_argument(
+        "--backends", default=",".join(COMPARISON_SEARCH_BACKENDS),
+        help="Comma-separated DDGS backend names used with --compare-backends.",
+    )
     args = parser.parse_args()
+    queries = tuple(args.queries) if args.queries else DEFAULT_QUERIES
+    if args.compare_backends:
+        report = compare_search_backends(
+            backends=tuple(item.strip() for item in args.backends.split(",") if item.strip()),
+            queries=queries,
+            max_results_per_query=args.max_results_per_query,
+        )
+        print(json.dumps(report, indent=2, ensure_ascii=False))
+        if all(item["failed_queries"] == item["query_count"] for item in report["backends"]):
+            raise SystemExit(1)
+        return
+
     report = run_discovery(
-        queries=tuple(args.queries) if args.queries else DEFAULT_QUERIES,
+        queries=queries,
         max_results_per_query=args.max_results_per_query,
     )
     print(json.dumps(report.model_dump(mode="json"), indent=2, ensure_ascii=False))
