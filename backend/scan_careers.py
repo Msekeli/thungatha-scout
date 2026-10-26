@@ -15,6 +15,7 @@ from urllib.parse import urldefrag, urljoin, urlsplit
 
 from playwright.sync_api import Browser, Page, TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
+from app.application.structured_job_extraction import extract_job_postings
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_INPUT = ROOT / "cape_town_tech_companies.json"
@@ -470,6 +471,47 @@ def scan_company(
                 _try_location_search(page, "Cape Town")
                 page.wait_for_timeout(700)
             current = page.url
+            # Structured data is the first extraction layer; keep the page URL as provenance.
+            try:
+                structured_jobs = extract_job_postings(
+                    page.content(), current, company["name"]
+                )
+            except Exception as exc:
+                structured_jobs = []
+                result.setdefault("extraction_warnings", []).append(
+                    f"structured_data:{type(exc).__name__}"
+                )
+            for structured in structured_jobs:
+                href = _clean_url(structured["job_url"])
+                if not href:
+                    continue
+                candidate = {
+                    "title": structured["title"],
+                    "listing_title": structured["title"],
+                    "job_url": href,
+                    "application_url": "",
+                    "description": structured.get("description", ""),
+                    "location": ", ".join(structured.get("locations", [])),
+                    "employment_type": structured.get("employment_type", ""),
+                    "company": company["name"],
+                    "detail_checked": False,
+                    "source_type": structured["source_type"],
+                    "source_page_url": structured["source_page_url"],
+                    "evidence": structured["evidence"],
+                    "date_posted": structured.get("date_posted", ""),
+                    "valid_through": structured.get("valid_through", ""),
+                }
+                existing = jobs_by_url.get(href)
+                if existing:
+                    for key, value in candidate.items():
+                        if value and not existing.get(key):
+                            existing[key] = value
+                else:
+                    jobs_by_url[href] = candidate
+                    print(
+                        f"        Structured listing {len(jobs_by_url)}: {candidate['title']}",
+                        flush=True,
+                    )
             for next_url in _pagination_urls(page, current):
                 if _clean_url(next_url) not in visited_pages and all(
                     _clean_url(next_url) != _clean_url(item) for item in listing_pages
