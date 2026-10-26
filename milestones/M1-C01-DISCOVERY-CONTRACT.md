@@ -1,6 +1,6 @@
 # M1-C01 — Discovery Candidate and Evidence Contract
 
-**Status:** In review  
+**Status:** Accepted (26 October 2026)  
 **Scope:** Data contract only. This does not select a search provider or authorize scraping.
 
 ## Candidate identity
@@ -48,4 +48,6 @@ The following test command was run after the enum compatibility fix and again af
 
 **Observed result:** 10 tests passed, 0 failures, on Python 3.14.7. The test suite covers successful empty results, non-empty results, request failure, total discovery failure, identity validation, timezone validation and stable identity keys.
 
-This verifies the current unit-test scope only. It does not verify live discovery, a search provider, source permissions, persistence, or end-to-end integration. C01 remains in review pending explicit user acceptance.
+The user reviewed and explicitly accepted this checkpoint on 26 October 2026.
+
+This verifies the current unit-test scope only. It does not verify live discovery, a search provider, source permissions, persistence, or end-to-end integration. These remain outside C01 and are addressed by later checkpoints.
