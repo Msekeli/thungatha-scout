@@ -19,7 +19,7 @@
 - Use Pydantic or equivalent validation at external-data boundaries where it adds value.
 - Use Ruff for linting/formatting if confirmed by the repository setup; target an 88-character line length unless existing tooling establishes another standard.
 - Prefer small, single-purpose functions. As a guideline, aim for 10–30 lines and review functions exceeding roughly 40 lines; do not split code artificially to meet a number.
-- Keep Python source modules under 100 lines by default. Split files by cohesive responsibility rather than compressing code; if a module genuinely needs more than 100 lines, stop and get explicit review before expanding it.
+- Keep Python application modules under 100 lines by default. Split files by cohesive responsibility rather than compressing code; if an application module genuinely needs more than 100 lines, stop and get explicit review before expanding it. Test files may be longer when the cases remain cohesive.
 - Use explicit exceptions and structured error reporting; do not swallow errors silently.
 - Add pytest coverage for normal, empty, malformed, duplicate, timeout, provider-failure and retry cases as applicable.
 
