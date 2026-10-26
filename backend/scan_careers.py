@@ -234,22 +234,47 @@ def _split_location_and_employment_type(value: str) -> tuple[str, str]:
     return location, employment_type
 
 def _is_job_link(item: dict[str, str], source_url: str) -> bool:
+    """Conservatively identify vacancy links without scoring the careers host itself."""
     text = re.sub(r"\s+", " ", item.get("text", "")).strip()
     href = item.get("href", "")
     card = item.get("card_text", "")
     if not text or text.lower() in GENERIC_LINKS or len(text) > 180:
         return False
-    if not href.startswith(("http://", "https://")):
+    if re.search(
+        r"screen readers cannot|searchable map|talent community|how we recruit|"
+        r"working at|cookie policy|privacy policy|terms of use",
+        text,
+        re.I,
+    ):
+        return False
+    parts = urlsplit(href)
+    if parts.scheme not in {"http", "https"} or not parts.netloc:
         return False
     if _clean_url(href) == _clean_url(source_url):
         return False
-    if any(href.lower().startswith(f"{scheme}:") for scheme in ("mailto", "tel", "javascript")):
+    # Never score the hostname: every link on a careers host otherwise looks like a job.
+    path = parts.path.lower()
+    if re.search(r"/(search|content|about|team|locations?)(/|$)", path):
         return False
-    score = int(bool(JOB_WORDS.search(href)))
-    score += int(bool(JOB_WORDS.search(text)))
-    score += int(bool(re.search(r"\b(remote|hybrid|onsite|full[- ]time|permanent)\b", card, re.I)))
-    score += int(bool(re.search(r"\b(apply|view job|job details|read more)\b", text, re.I)))
-    return score >= 1 and not re.search(r"\b(cookie policy|privacy policy|terms of use)\b", text, re.I)
+    if any(token in path for token in ("/content/", "/talent-community", "/join-talent")):
+        return False
+    job_path = bool(re.search(
+        r"/(job|jobs|position|vacanc|opening|requisition)(/|-|$)|/p/|/go/",
+        path,
+        re.I,
+    ))
+    job_text = bool(re.search(
+        r"\b(job|vacanc|position|requisition|opening)\b", text, re.I
+    ))
+    card_evidence = bool(re.search(
+        r"\b(remote|hybrid|onsite|full[- ]time|part[- ]time|permanent|"
+        r"fixed[- ]term|contract|internship)\b",
+        card,
+        re.I,
+    ))
+    action_text = bool(re.search(r"\b(apply|view job|job details)\b", text, re.I))
+    # A vacancy needs a job-specific path or a specific title in a job-like card.
+    return job_path or (len(text) >= 8 and (job_text or (card_evidence and action_text)))
 
 
 def _page_links(page: Page) -> list[dict[str, str]]:
@@ -410,20 +435,43 @@ def scan_company(
         result["explicit_no_jobs_message"] = any(
             phrase in page_text.lower() for phrase in NO_JOBS_PHRASES
         )
+        # Follow explicit job-search entry points, not every career-site link.
         listing_pages = [company["url"]]
-        listing_pages.extend(_pagination_urls(page, company["url"])[: max_pages - 1])
+        initial_links = _page_links(page)
+        for link in initial_links:
+            href = link.get("href", "")
+            path = urlsplit(href).path.lower()
+            if re.search(r"(^|/)(search|jobs-search|job-search|vacancies)(/|$)", path):
+                if href.startswith(("https://", "http://")) and all(
+                    _clean_url(href) != _clean_url(item) for item in listing_pages
+                ):
+                    listing_pages.append(href)
+        for url in _pagination_urls(page, company["url"]):
+            if all(_clean_url(url) != _clean_url(item) for item in listing_pages):
+                listing_pages.append(url)
         jobs_by_url: dict[str, dict] = {}
         visited_pages = set()
-        for listing_url in listing_pages[:max_pages]:
+        page_index = 0
+        while page_index < min(len(listing_pages), max_pages):
+            listing_url = listing_pages[page_index]
+            page_index += 1
             if _clean_url(listing_url) in visited_pages:
                 continue
             visited_pages.add(_clean_url(listing_url))
             result["pages_visited"].append(listing_url)
             if _clean_url(listing_url) != _clean_url(page.url):
                 page.goto(listing_url, wait_until="domcontentloaded", timeout=12000)
-                page.wait_for_timeout(300)
+                page.wait_for_timeout(500)
+            # Search pages often hold vacancies behind a keyword/location form.
+            if _clean_url(page.url) != _clean_url(company["url"]):
+                _try_location_search(page, "Cape Town")
+                page.wait_for_timeout(700)
             current = page.url
-            candidates = []
+            for next_url in _pagination_urls(page, current):
+                if _clean_url(next_url) not in visited_pages and all(
+                    _clean_url(next_url) != _clean_url(item) for item in listing_pages
+                ):
+                    listing_pages.append(next_url)
             for link in _page_links(page):
                 if not _is_job_link(link, current):
                     continue
