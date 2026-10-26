@@ -1,0 +1,1156 @@
+{
+  "started_at": "2026-10-26T10:30:56.226397Z",
+  "finished_at": "2026-10-26T10:32:11.234485Z",
+  "status": "partial",
+  "query_reports": [
+    {
+      "query": "\"Cape Town\" companies official website careers",
+      "run": {
+        "outcome": "success_with_results",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" companies official website careers",
+        "started_at": "2026-10-26T10:30:56.226679Z",
+        "finished_at": "2026-10-26T10:31:01.920040Z",
+        "candidates": [
+          {
+            "candidate_id": "cand_5b7b26395f1a0d73a81496ef90fbb98f",
+            "display_name": null,
+            "observed_url": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+                "observed_at": "2026-10-26T10:31:01.920040Z",
+                "reference_url": null,
+                "excerpt": "Available Vacancies jobs now available in Cape Town, Western Cape. Administrative Clerk, Executive, Administrator and more on Indeed.com",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              },
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "Available Vacancies jobs now available in Cape Town, Western Cape. Administrative Clerk, Executive, Administrator and more on Indeed.com",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:01.920040Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          },
+          {
+            "candidate_id": "cand_569fcbd0c665cd679ff0d221a792108b",
+            "display_name": null,
+            "observed_url": "https://za.indeed.com/all-jobs-in-Cape-Town,-Western-Cape",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://za.indeed.com/all-jobs-in-Cape-Town,-Western-Cape",
+                "observed_at": "2026-10-26T10:31:01.920040Z",
+                "reference_url": null,
+                "excerpt": "All jobs now available in Cape Town, Western Cape. Administrative Assistant, Shop Assistant, Administrative Clerk and more on Indeed.com",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:01.920040Z",
+            "last_checked_at": "2026-10-26T10:31:01.920040Z"
+          },
+          {
+            "candidate_id": "cand_6f170ad95018be71442fad72a3e5dc7a",
+            "display_name": null,
+            "observed_url": "https://impact.com/careers/cape-town-jobs/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://impact.com/careers/cape-town-jobs/",
+                "observed_at": "2026-10-26T10:31:01.920040Z",
+                "reference_url": null,
+                "excerpt": "impact.com is hiring! View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:01.920040Z",
+            "last_checked_at": "2026-10-26T10:31:01.920040Z"
+          },
+          {
+            "candidate_id": "cand_12b76c7255387d540482de6fd4c7b896",
+            "display_name": null,
+            "observed_url": "https://www.careers24.com/jobs/kw-cape-town/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://www.careers24.com/jobs/kw-cape-town/",
+                "observed_at": "2026-10-26T10:31:01.920040Z",
+                "reference_url": null,
+                "excerpt": "Looking for jobs related to Cape Town? Search through all Cape Town Jobs listed on careers24 and don't forget to upload your CV to get more exposure",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:01.920040Z",
+            "last_checked_at": "2026-10-26T10:31:01.920040Z"
+          },
+          {
+            "candidate_id": "cand_5d44b2485871b6306f72f15d2a68c07d",
+            "display_name": null,
+            "observed_url": "https://za.linkedin.com/jobs/(-)-jobs-cape-town",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://za.linkedin.com/jobs/(-)-jobs-cape-town",
+                "observed_at": "2026-10-26T10:31:01.920040Z",
+                "reference_url": null,
+                "excerpt": "Today's top 4,000+ ( ) jobs in Cape Town. Leverage your professional network, and get hired. New ( ) jobs added daily.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:01.920040Z",
+            "last_checked_at": "2026-10-26T10:31:01.920040Z"
+          },
+          {
+            "candidate_id": "cand_ccb4abedf83a862c79b30ae5c83f7c8a",
+            "display_name": null,
+            "observed_url": "https://za.linkedin.com/jobs/cape-town-jobs",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://za.linkedin.com/jobs/cape-town-jobs",
+                "observed_at": "2026-10-26T10:31:01.920040Z",
+                "reference_url": null,
+                "excerpt": "Today's top 4,000+ Cape Town jobs in South Africa. Leverage your professional network, and get hired. New Cape Town jobs added daily.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:01.920040Z",
+            "last_checked_at": "2026-10-26T10:31:01.920040Z"
+          },
+          {
+            "candidate_id": "cand_9da982a338310ddb2355e34d2721e441",
+            "display_name": null,
+            "observed_url": "https://za.simplyhired.com/search?q=companies%20in%20cape%20town&l=cape%20town%2c%20wc",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://za.simplyhired.com/search?q=companies%20in%20cape%20town&l=cape%20town%2c%20wc",
+                "observed_at": "2026-10-26T10:31:01.920040Z",
+                "reference_url": null,
+                "excerpt": "0 companies in cape town jobs available in cape town, wc. See salaries, compare reviews, easily apply, and get hired. New companies in cape town careers in cape town, wc are added daily on SimplyHired.com. The low-stress way to find your next companies in cape town job opportunity is on SimplyHired.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              },
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://za.simplyhired.com/search?l=cape+town+western+cape",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "Discover 4319 job opportunities in Cape Town Western Cape. Apply today to advance your career with top employers.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              },
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://za.simplyhired.com/search?q=vacancies&l=cape+town,+western+cape",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "Discover 4342 Vacancies job opportunities in Cape Town, Western Cape. Apply today to advance your career with top employers.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:01.920040Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          },
+          {
+            "candidate_id": "cand_3ac04cfadcedccff9d558250e1c1000e",
+            "display_name": null,
+            "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies official website careers",
+                "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/",
+                "observed_at": "2026-10-26T10:31:01.920040Z",
+                "reference_url": null,
+                "excerpt": "Find a job or develop skills Top City Connect services City map viewer e-Services Film permits Jobs search Open Data Portal Procurement portal Service Requests/Report a Fault (C3) Tender portal Collaboration platform All City online services and applications",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:01.920040Z",
+            "last_checked_at": "2026-10-26T10:31:01.920040Z"
+          }
+        ],
+        "error_code": null,
+        "error_message": null
+      },
+      "raw_result_count": 8,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "\"Cape Town\" businesses \"careers\" \"join our team\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" businesses \"careers\" \"join our team\"",
+        "started_at": "2026-10-26T10:31:01.920869Z",
+        "finished_at": "2026-10-26T10:31:10.547154Z",
+        "candidates": [],
+        "error_code": "DDGSException",
+        "error_message": "No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "\"Cape Town\" employers \"current vacancies\" company",
+      "run": {
+        "outcome": "success_with_results",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" employers \"current vacancies\" company",
+        "started_at": "2026-10-26T10:31:10.547843Z",
+        "finished_at": "2026-10-26T10:31:17.061470Z",
+        "candidates": [
+          {
+            "candidate_id": "cand_e32741e73d878f4be2a101fcd2d14b13",
+            "display_name": null,
+            "observed_url": "https://za.indeed.com/Now-Hiring-jobs-in-Cape-Town,-Western-Cape",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://za.indeed.com/Now-Hiring-jobs-in-Cape-Town,-Western-Cape",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "Now Hiring jobs now available in Cape Town, Western Cape. Customer Service Representative, Sales, Office Coordinator and more on Indeed.com.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:17.061470Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          },
+          {
+            "candidate_id": "cand_5b7b26395f1a0d73a81496ef90fbb98f",
+            "display_name": null,
+            "observed_url": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "Available Vacancies jobs now available in Cape Town, Western Cape. Administrative Clerk, Executive, Administrator and more on Indeed.com",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:17.061470Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          },
+          {
+            "candidate_id": "cand_9da982a338310ddb2355e34d2721e441",
+            "display_name": null,
+            "observed_url": "https://za.simplyhired.com/search?l=cape+town+western+cape",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://za.simplyhired.com/search?l=cape+town+western+cape",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "Discover 4319 job opportunities in Cape Town Western Cape. Apply today to advance your career with top employers.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              },
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://za.simplyhired.com/search?q=vacancies&l=cape+town,+western+cape",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "Discover 4342 Vacancies job opportunities in Cape Town, Western Cape. Apply today to advance your career with top employers.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:17.061470Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          },
+          {
+            "candidate_id": "cand_bd99a5c1dcf7f33647d74e22c07fee59",
+            "display_name": null,
+            "observed_url": "https://www.jobssouthafrica.co.za/jobsin/jobs-in-the-western-cape/cape-town/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://www.jobssouthafrica.co.za/jobsin/jobs-in-the-western-cape/cape-town/",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "6 days ago · Jobs in Cape Town are available across more sectors and experience levels than any other city in the Western Cape. This page lists the latest vacancies from employers across the metro, updated regularly so job seekers always find current opportunities.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:17.061470Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          },
+          {
+            "candidate_id": "cand_ee12edbaf14a28838550f748cb266dd0",
+            "display_name": null,
+            "observed_url": "https://jvrjobs.co.za/jobs-in-cape-town/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://jvrjobs.co.za/jobs-in-cape-town/",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "2 days ago · Browse current jobs in Cape Town on JVR Jobs. Find local vacancies by job title, review the details and apply through the listed application route.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:17.061470Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          },
+          {
+            "candidate_id": "cand_45d756aa80c0d4139359e1faf6263be9",
+            "display_name": null,
+            "observed_url": "https://www.capetownjobs.co.za/jobs",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://www.capetownjobs.co.za/jobs",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "Browse all jobs in Cape Town. Filter by category, suburb and job type. Hundreds of current vacancies from verified employers. Apply free today.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:17.061470Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          },
+          {
+            "candidate_id": "cand_61704bc24634fb29a14984941f076c97",
+            "display_name": null,
+            "observed_url": "https://www.bing.com/aclick?ld=e8UgGADyS6gsxTUy2oJ-YuyzVUCUwas1t_ehZI0VLmV-R0qk3UUSL4oFJCweB0iz2XaOHS854Vpc7qvdqYXiBm8MZdVAART8k-W8WFEK_ut20VyYcum2TIh5YFF_jJN5L948NUz3o7ZIMgK9ntQ7i93P0lFLq8kKeJ_eJa280ETii8vHWsKOmbTdJ5IIWAtI58KwA0x7tPH-uxKEjArPqCLEKVD2Q&u=aHR0cHMlM2ElMmYlMmZ3d3cuam9ibGVhZHMuY29tJTJmcmVnaXN0cmF0aW9uJTJmOTklMmZqb2JzJTJmZW4lMmZnbG9iYWwlMmZFeGNsdXNpdmUtSm9icy1DYXBlLVRvd24lMmZjYXBlLXRvd24lMmZhbGwlM2Z1dG1fc291cmNlJTNkbWljcm9zb2Z0LWFkc196YS1zZWFyY2hfWkFfY2FwZS10b3duXyUyNnV0bV9jb250ZW50JTNkQUxMJTdjRU4lN2NaQSU3YzJfSm9icy1DYXBlLVRvd25fc2VhcmNoLWpvYnNlYXJjaF85OSUyNnV0bV9tZWRpdW0lM2RzZWEtYWQlMjZ1dG1fY2FtcGFpZ24lM2RBTEwlN2NFTiU3Y1pBJTdjMiUyNm1zY2xraWQlM2RhYmFmZGVjNzY1NjQxNWI5MDRkMmI0MTg0ZTkwNDgzZQ&rlid=abafdec7656415b904d2b4184e90483e",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" employers \"current vacancies\" company",
+                "observed_url": "https://www.bing.com/aclick?ld=e8UgGADyS6gsxTUy2oJ-YuyzVUCUwas1t_ehZI0VLmV-R0qk3UUSL4oFJCweB0iz2XaOHS854Vpc7qvdqYXiBm8MZdVAART8k-W8WFEK_ut20VyYcum2TIh5YFF_jJN5L948NUz3o7ZIMgK9ntQ7i93P0lFLq8kKeJ_eJa280ETii8vHWsKOmbTdJ5IIWAtI58KwA0x7tPH-uxKEjArPqCLEKVD2Q&u=aHR0cHMlM2ElMmYlMmZ3d3cuam9ibGVhZHMuY29tJTJmcmVnaXN0cmF0aW9uJTJmOTklMmZqb2JzJTJmZW4lMmZnbG9iYWwlMmZFeGNsdXNpdmUtSm9icy1DYXBlLVRvd24lMmZjYXBlLXRvd24lMmZhbGwlM2Z1dG1fc291cmNlJTNkbWljcm9zb2Z0LWFkc196YS1zZWFyY2hfWkFfY2FwZS10b3duXyUyNnV0bV9jb250ZW50JTNkQUxMJTdjRU4lN2NaQSU3YzJfSm9icy1DYXBlLVRvd25fc2VhcmNoLWpvYnNlYXJjaF85OSUyNnV0bV9tZWRpdW0lM2RzZWEtYWQlMjZ1dG1fY2FtcGFpZ24lM2RBTEwlN2NFTiU3Y1pBJTdjMiUyNm1zY2xraWQlM2RhYmFmZGVjNzY1NjQxNWI5MDRkMmI0MTg0ZTkwNDgzZQ&rlid=abafdec7656415b904d2b4184e90483e",
+                "observed_at": "2026-10-26T10:31:17.061470Z",
+                "reference_url": null,
+                "excerpt": "80% of top jobs aren’t on major job sites. Access hidden opportunities with JobLeads! Skip irrelevant jobs and reach the right ones fast. Spend your time applying, not hunting.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:31:17.061470Z",
+            "last_checked_at": "2026-10-26T10:31:17.061470Z"
+          }
+        ],
+        "error_code": null,
+        "error_message": null
+      },
+      "raw_result_count": 8,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "\"Cape Town\" companies \"work with us\" careers",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" companies \"work with us\" careers",
+        "started_at": "2026-10-26T10:31:17.064564Z",
+        "finished_at": "2026-10-26T10:31:25.122323Z",
+        "candidates": [],
+        "error_code": "DDGSException",
+        "error_message": "No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "site:job-boards.greenhouse.io \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:job-boards.greenhouse.io \"Cape Town\"",
+        "started_at": "2026-10-26T10:31:25.122900Z",
+        "finished_at": "2026-10-26T10:31:32.161560Z",
+        "candidates": [],
+        "error_code": "DDGSException",
+        "error_message": "No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "site:jobs.lever.co \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:jobs.lever.co \"Cape Town\"",
+        "started_at": "2026-10-26T10:31:32.163070Z",
+        "finished_at": "2026-10-26T10:31:40.970121Z",
+        "candidates": [],
+        "error_code": "DDGSException",
+        "error_message": "No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "site:myworkdayjobs.com \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:myworkdayjobs.com \"Cape Town\"",
+        "started_at": "2026-10-26T10:31:40.971112Z",
+        "finished_at": "2026-10-26T10:31:48.294475Z",
+        "candidates": [],
+        "error_code": "DDGSException",
+        "error_message": "No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "site:jobs.smartrecruiters.com \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:jobs.smartrecruiters.com \"Cape Town\"",
+        "started_at": "2026-10-26T10:31:48.300121Z",
+        "finished_at": "2026-10-26T10:31:56.393447Z",
+        "candidates": [],
+        "error_code": "DDGSException",
+        "error_message": "No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "site:apply.workable.com \"Cape Town\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "site:apply.workable.com \"Cape Town\"",
+        "started_at": "2026-10-26T10:31:56.394177Z",
+        "finished_at": "2026-10-26T10:32:03.838623Z",
+        "candidates": [],
+        "error_code": "DDGSException",
+        "error_message": "No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0
+    },
+    {
+      "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+      "run": {
+        "outcome": "success_with_results",
+        "method": "ddgs_public_web_search",
+        "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+        "started_at": "2026-10-26T10:32:03.840079Z",
+        "finished_at": "2026-10-26T10:32:11.234027Z",
+        "candidates": [
+          {
+            "candidate_id": "cand_8ae9340427c7a3668cba37eb23a79810",
+            "display_name": null,
+            "observed_url": "https://jobs.ashbyhq.com/anyvan",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+                "observed_url": "https://jobs.ashbyhq.com/anyvan",
+                "observed_at": "2026-10-26T10:32:11.234027Z",
+                "reference_url": null,
+                "excerpt": "Supply - Territories • Cape Town • Full time • On-site Operations Manager - Supply, France",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              },
+              {
+                "method": "ddgs_public_web_search",
+                "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+                "observed_url": "https://jobs.ashbyhq.com/anyvan?locationId=714b764d-563f-4acb-bb7f-11cfc0619b22",
+                "observed_at": "2026-10-26T10:32:11.234027Z",
+                "reference_url": null,
+                "excerpt": "Supply - Territories • Cape Town • Full time • On-site AnyVan Jobs",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:32:11.234027Z",
+            "last_checked_at": "2026-10-26T10:32:11.234027Z"
+          },
+          {
+            "candidate_id": "cand_24dc4e5f8d65bed2c476b02539f3cc07",
+            "display_name": null,
+            "observed_url": "https://jobs.ashbyhq.com/tillo",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+                "observed_url": "https://jobs.ashbyhq.com/tillo",
+                "observed_at": "2026-10-26T10:32:11.234027Z",
+                "reference_url": null,
+                "excerpt": "Tillo Jobs Product Engineering • Cape Town Office • Full time • Hybrid",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:32:11.234027Z",
+            "last_checked_at": "2026-10-26T10:32:11.234027Z"
+          },
+          {
+            "candidate_id": "cand_a6cf80414a3efe85aeb73ee999ae33b5",
+            "display_name": null,
+            "observed_url": "https://jobs.ashbyhq.com/share",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+                "observed_url": "https://jobs.ashbyhq.com/share",
+                "observed_at": "2026-10-26T10:32:11.234027Z",
+                "reference_url": null,
+                "excerpt": "Systems Engineering • Spain; Cape Town; Johannesburg; London; Nairobi; Netherlands; New Zealand; Poland • Full time • Remote",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:32:11.234027Z",
+            "last_checked_at": "2026-10-26T10:32:11.234027Z"
+          },
+          {
+            "candidate_id": "cand_9758a3de2c51a6c0bb852dcae1ab93af",
+            "display_name": null,
+            "observed_url": "https://jobs.ashbyhq.com/easygenerator",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+                "observed_url": "https://jobs.ashbyhq.com/easygenerator",
+                "observed_at": "2026-10-26T10:32:11.234027Z",
+                "reference_url": null,
+                "excerpt": "Head of Business Development - South Africa Business Development • Cape Town • Full time • Hybrid",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:32:11.234027Z",
+            "last_checked_at": "2026-10-26T10:32:11.234027Z"
+          },
+          {
+            "candidate_id": "cand_b3610541e7f6b9aeea93c2005f67016e",
+            "display_name": null,
+            "observed_url": "https://jobs.ashbyhq.com/xero",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+                "observed_url": "https://jobs.ashbyhq.com/xero",
+                "observed_at": "2026-10-26T10:32:11.234027Z",
+                "reference_url": null,
+                "excerpt": "Small Business Onboarding Specialist Revenue • ZA: Cape Town (Willowbridge Centre) • Full time • Hybrid",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T10:32:11.234027Z",
+            "last_checked_at": "2026-10-26T10:32:11.234027Z"
+          }
+        ],
+        "error_code": null,
+        "error_message": null
+      },
+      "raw_result_count": 6,
+      "discarded_result_count": 0
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "cand_5b7b26395f1a0d73a81496ef90fbb98f",
+      "display_name": null,
+      "observed_url": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+          "observed_at": "2026-10-26T10:31:01.920040Z",
+          "reference_url": null,
+          "excerpt": "Available Vacancies jobs now available in Cape Town, Western Cape. Administrative Clerk, Executive, Administrator and more on Indeed.com",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        },
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" employers \"current vacancies\" company",
+          "observed_url": "https://za.indeed.com/available-vacancies-jobs-in-cape-town",
+          "observed_at": "2026-10-26T10:31:17.061470Z",
+          "reference_url": null,
+          "excerpt": "Available Vacancies jobs now available in Cape Town, Western Cape. Administrative Clerk, Executive, Administrator and more on Indeed.com",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:01.920040Z",
+      "last_checked_at": "2026-10-26T10:31:17.061470Z"
+    },
+    {
+      "candidate_id": "cand_569fcbd0c665cd679ff0d221a792108b",
+      "display_name": null,
+      "observed_url": "https://za.indeed.com/all-jobs-in-Cape-Town,-Western-Cape",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://za.indeed.com/all-jobs-in-Cape-Town,-Western-Cape",
+          "observed_at": "2026-10-26T10:31:01.920040Z",
+          "reference_url": null,
+          "excerpt": "All jobs now available in Cape Town, Western Cape. Administrative Assistant, Shop Assistant, Administrative Clerk and more on Indeed.com",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:01.920040Z",
+      "last_checked_at": "2026-10-26T10:31:01.920040Z"
+    },
+    {
+      "candidate_id": "cand_6f170ad95018be71442fad72a3e5dc7a",
+      "display_name": null,
+      "observed_url": "https://impact.com/careers/cape-town-jobs/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://impact.com/careers/cape-town-jobs/",
+          "observed_at": "2026-10-26T10:31:01.920040Z",
+          "reference_url": null,
+          "excerpt": "impact.com is hiring! View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:01.920040Z",
+      "last_checked_at": "2026-10-26T10:31:01.920040Z"
+    },
+    {
+      "candidate_id": "cand_12b76c7255387d540482de6fd4c7b896",
+      "display_name": null,
+      "observed_url": "https://www.careers24.com/jobs/kw-cape-town/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://www.careers24.com/jobs/kw-cape-town/",
+          "observed_at": "2026-10-26T10:31:01.920040Z",
+          "reference_url": null,
+          "excerpt": "Looking for jobs related to Cape Town? Search through all Cape Town Jobs listed on careers24 and don't forget to upload your CV to get more exposure",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:01.920040Z",
+      "last_checked_at": "2026-10-26T10:31:01.920040Z"
+    },
+    {
+      "candidate_id": "cand_5d44b2485871b6306f72f15d2a68c07d",
+      "display_name": null,
+      "observed_url": "https://za.linkedin.com/jobs/(-)-jobs-cape-town",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://za.linkedin.com/jobs/(-)-jobs-cape-town",
+          "observed_at": "2026-10-26T10:31:01.920040Z",
+          "reference_url": null,
+          "excerpt": "Today's top 4,000+ ( ) jobs in Cape Town. Leverage your professional network, and get hired. New ( ) jobs added daily.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:01.920040Z",
+      "last_checked_at": "2026-10-26T10:31:01.920040Z"
+    },
+    {
+      "candidate_id": "cand_ccb4abedf83a862c79b30ae5c83f7c8a",
+      "display_name": null,
+      "observed_url": "https://za.linkedin.com/jobs/cape-town-jobs",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://za.linkedin.com/jobs/cape-town-jobs",
+          "observed_at": "2026-10-26T10:31:01.920040Z",
+          "reference_url": null,
+          "excerpt": "Today's top 4,000+ Cape Town jobs in South Africa. Leverage your professional network, and get hired. New Cape Town jobs added daily.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:01.920040Z",
+      "last_checked_at": "2026-10-26T10:31:01.920040Z"
+    },
+    {
+      "candidate_id": "cand_9da982a338310ddb2355e34d2721e441",
+      "display_name": null,
+      "observed_url": "https://za.simplyhired.com/search?q=companies%20in%20cape%20town&l=cape%20town%2c%20wc",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://za.simplyhired.com/search?q=companies%20in%20cape%20town&l=cape%20town%2c%20wc",
+          "observed_at": "2026-10-26T10:31:01.920040Z",
+          "reference_url": null,
+          "excerpt": "0 companies in cape town jobs available in cape town, wc. See salaries, compare reviews, easily apply, and get hired. New companies in cape town careers in cape town, wc are added daily on SimplyHired.com. The low-stress way to find your next companies in cape town job opportunity is on SimplyHired.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        },
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" employers \"current vacancies\" company",
+          "observed_url": "https://za.simplyhired.com/search?l=cape+town+western+cape",
+          "observed_at": "2026-10-26T10:31:17.061470Z",
+          "reference_url": null,
+          "excerpt": "Discover 4319 job opportunities in Cape Town Western Cape. Apply today to advance your career with top employers.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        },
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" employers \"current vacancies\" company",
+          "observed_url": "https://za.simplyhired.com/search?q=vacancies&l=cape+town,+western+cape",
+          "observed_at": "2026-10-26T10:31:17.061470Z",
+          "reference_url": null,
+          "excerpt": "Discover 4342 Vacancies job opportunities in Cape Town, Western Cape. Apply today to advance your career with top employers.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:01.920040Z",
+      "last_checked_at": "2026-10-26T10:31:17.061470Z"
+    },
+    {
+      "candidate_id": "cand_3ac04cfadcedccff9d558250e1c1000e",
+      "display_name": null,
+      "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies official website careers",
+          "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/",
+          "observed_at": "2026-10-26T10:31:01.920040Z",
+          "reference_url": null,
+          "excerpt": "Find a job or develop skills Top City Connect services City map viewer e-Services Film permits Jobs search Open Data Portal Procurement portal Service Requests/Report a Fault (C3) Tender portal Collaboration platform All City online services and applications",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:01.920040Z",
+      "last_checked_at": "2026-10-26T10:31:01.920040Z"
+    },
+    {
+      "candidate_id": "cand_e32741e73d878f4be2a101fcd2d14b13",
+      "display_name": null,
+      "observed_url": "https://za.indeed.com/Now-Hiring-jobs-in-Cape-Town,-Western-Cape",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" employers \"current vacancies\" company",
+          "observed_url": "https://za.indeed.com/Now-Hiring-jobs-in-Cape-Town,-Western-Cape",
+          "observed_at": "2026-10-26T10:31:17.061470Z",
+          "reference_url": null,
+          "excerpt": "Now Hiring jobs now available in Cape Town, Western Cape. Customer Service Representative, Sales, Office Coordinator and more on Indeed.com.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:17.061470Z",
+      "last_checked_at": "2026-10-26T10:31:17.061470Z"
+    },
+    {
+      "candidate_id": "cand_bd99a5c1dcf7f33647d74e22c07fee59",
+      "display_name": null,
+      "observed_url": "https://www.jobssouthafrica.co.za/jobsin/jobs-in-the-western-cape/cape-town/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" employers \"current vacancies\" company",
+          "observed_url": "https://www.jobssouthafrica.co.za/jobsin/jobs-in-the-western-cape/cape-town/",
+          "observed_at": "2026-10-26T10:31:17.061470Z",
+          "reference_url": null,
+          "excerpt": "6 days ago · Jobs in Cape Town are available across more sectors and experience levels than any other city in the Western Cape. This page lists the latest vacancies from employers across the metro, updated regularly so job seekers always find current opportunities.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:17.061470Z",
+      "last_checked_at": "2026-10-26T10:31:17.061470Z"
+    },
+    {
+      "candidate_id": "cand_ee12edbaf14a28838550f748cb266dd0",
+      "display_name": null,
+      "observed_url": "https://jvrjobs.co.za/jobs-in-cape-town/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" employers \"current vacancies\" company",
+          "observed_url": "https://jvrjobs.co.za/jobs-in-cape-town/",
+          "observed_at": "2026-10-26T10:31:17.061470Z",
+          "reference_url": null,
+          "excerpt": "2 days ago · Browse current jobs in Cape Town on JVR Jobs. Find local vacancies by job title, review the details and apply through the listed application route.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:17.061470Z",
+      "last_checked_at": "2026-10-26T10:31:17.061470Z"
+    },
+    {
+      "candidate_id": "cand_45d756aa80c0d4139359e1faf6263be9",
+      "display_name": null,
+      "observed_url": "https://www.capetownjobs.co.za/jobs",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" employers \"current vacancies\" company",
+          "observed_url": "https://www.capetownjobs.co.za/jobs",
+          "observed_at": "2026-10-26T10:31:17.061470Z",
+          "reference_url": null,
+          "excerpt": "Browse all jobs in Cape Town. Filter by category, suburb and job type. Hundreds of current vacancies from verified employers. Apply free today.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:17.061470Z",
+      "last_checked_at": "2026-10-26T10:31:17.061470Z"
+    },
+    {
+      "candidate_id": "cand_61704bc24634fb29a14984941f076c97",
+      "display_name": null,
+      "observed_url": "https://www.bing.com/aclick?ld=e8UgGADyS6gsxTUy2oJ-YuyzVUCUwas1t_ehZI0VLmV-R0qk3UUSL4oFJCweB0iz2XaOHS854Vpc7qvdqYXiBm8MZdVAART8k-W8WFEK_ut20VyYcum2TIh5YFF_jJN5L948NUz3o7ZIMgK9ntQ7i93P0lFLq8kKeJ_eJa280ETii8vHWsKOmbTdJ5IIWAtI58KwA0x7tPH-uxKEjArPqCLEKVD2Q&u=aHR0cHMlM2ElMmYlMmZ3d3cuam9ibGVhZHMuY29tJTJmcmVnaXN0cmF0aW9uJTJmOTklMmZqb2JzJTJmZW4lMmZnbG9iYWwlMmZFeGNsdXNpdmUtSm9icy1DYXBlLVRvd24lMmZjYXBlLXRvd24lMmZhbGwlM2Z1dG1fc291cmNlJTNkbWljcm9zb2Z0LWFkc196YS1zZWFyY2hfWkFfY2FwZS10b3duXyUyNnV0bV9jb250ZW50JTNkQUxMJTdjRU4lN2NaQSU3YzJfSm9icy1DYXBlLVRvd25fc2VhcmNoLWpvYnNlYXJjaF85OSUyNnV0bV9tZWRpdW0lM2RzZWEtYWQlMjZ1dG1fY2FtcGFpZ24lM2RBTEwlN2NFTiU3Y1pBJTdjMiUyNm1zY2xraWQlM2RhYmFmZGVjNzY1NjQxNWI5MDRkMmI0MTg0ZTkwNDgzZQ&rlid=abafdec7656415b904d2b4184e90483e",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" employers \"current vacancies\" company",
+          "observed_url": "https://www.bing.com/aclick?ld=e8UgGADyS6gsxTUy2oJ-YuyzVUCUwas1t_ehZI0VLmV-R0qk3UUSL4oFJCweB0iz2XaOHS854Vpc7qvdqYXiBm8MZdVAART8k-W8WFEK_ut20VyYcum2TIh5YFF_jJN5L948NUz3o7ZIMgK9ntQ7i93P0lFLq8kKeJ_eJa280ETii8vHWsKOmbTdJ5IIWAtI58KwA0x7tPH-uxKEjArPqCLEKVD2Q&u=aHR0cHMlM2ElMmYlMmZ3d3cuam9ibGVhZHMuY29tJTJmcmVnaXN0cmF0aW9uJTJmOTklMmZqb2JzJTJmZW4lMmZnbG9iYWwlMmZFeGNsdXNpdmUtSm9icy1DYXBlLVRvd24lMmZjYXBlLXRvd24lMmZhbGwlM2Z1dG1fc291cmNlJTNkbWljcm9zb2Z0LWFkc196YS1zZWFyY2hfWkFfY2FwZS10b3duXyUyNnV0bV9jb250ZW50JTNkQUxMJTdjRU4lN2NaQSU3YzJfSm9icy1DYXBlLVRvd25fc2VhcmNoLWpvYnNlYXJjaF85OSUyNnV0bV9tZWRpdW0lM2RzZWEtYWQlMjZ1dG1fY2FtcGFpZ24lM2RBTEwlN2NFTiU3Y1pBJTdjMiUyNm1zY2xraWQlM2RhYmFmZGVjNzY1NjQxNWI5MDRkMmI0MTg0ZTkwNDgzZQ&rlid=abafdec7656415b904d2b4184e90483e",
+          "observed_at": "2026-10-26T10:31:17.061470Z",
+          "reference_url": null,
+          "excerpt": "80% of top jobs aren’t on major job sites. Access hidden opportunities with JobLeads! Skip irrelevant jobs and reach the right ones fast. Spend your time applying, not hunting.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:31:17.061470Z",
+      "last_checked_at": "2026-10-26T10:31:17.061470Z"
+    },
+    {
+      "candidate_id": "cand_8ae9340427c7a3668cba37eb23a79810",
+      "display_name": null,
+      "observed_url": "https://jobs.ashbyhq.com/anyvan",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+          "observed_url": "https://jobs.ashbyhq.com/anyvan",
+          "observed_at": "2026-10-26T10:32:11.234027Z",
+          "reference_url": null,
+          "excerpt": "Supply - Territories • Cape Town • Full time • On-site Operations Manager - Supply, France",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        },
+        {
+          "method": "ddgs_public_web_search",
+          "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+          "observed_url": "https://jobs.ashbyhq.com/anyvan?locationId=714b764d-563f-4acb-bb7f-11cfc0619b22",
+          "observed_at": "2026-10-26T10:32:11.234027Z",
+          "reference_url": null,
+          "excerpt": "Supply - Territories • Cape Town • Full time • On-site AnyVan Jobs",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:32:11.234027Z",
+      "last_checked_at": "2026-10-26T10:32:11.234027Z"
+    },
+    {
+      "candidate_id": "cand_24dc4e5f8d65bed2c476b02539f3cc07",
+      "display_name": null,
+      "observed_url": "https://jobs.ashbyhq.com/tillo",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+          "observed_url": "https://jobs.ashbyhq.com/tillo",
+          "observed_at": "2026-10-26T10:32:11.234027Z",
+          "reference_url": null,
+          "excerpt": "Tillo Jobs Product Engineering • Cape Town Office • Full time • Hybrid",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:32:11.234027Z",
+      "last_checked_at": "2026-10-26T10:32:11.234027Z"
+    },
+    {
+      "candidate_id": "cand_a6cf80414a3efe85aeb73ee999ae33b5",
+      "display_name": null,
+      "observed_url": "https://jobs.ashbyhq.com/share",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+          "observed_url": "https://jobs.ashbyhq.com/share",
+          "observed_at": "2026-10-26T10:32:11.234027Z",
+          "reference_url": null,
+          "excerpt": "Systems Engineering • Spain; Cape Town; Johannesburg; London; Nairobi; Netherlands; New Zealand; Poland • Full time • Remote",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:32:11.234027Z",
+      "last_checked_at": "2026-10-26T10:32:11.234027Z"
+    },
+    {
+      "candidate_id": "cand_9758a3de2c51a6c0bb852dcae1ab93af",
+      "display_name": null,
+      "observed_url": "https://jobs.ashbyhq.com/easygenerator",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+          "observed_url": "https://jobs.ashbyhq.com/easygenerator",
+          "observed_at": "2026-10-26T10:32:11.234027Z",
+          "reference_url": null,
+          "excerpt": "Head of Business Development - South Africa Business Development • Cape Town • Full time • Hybrid",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:32:11.234027Z",
+      "last_checked_at": "2026-10-26T10:32:11.234027Z"
+    },
+    {
+      "candidate_id": "cand_b3610541e7f6b9aeea93c2005f67016e",
+      "display_name": null,
+      "observed_url": "https://jobs.ashbyhq.com/xero",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "site:jobs.ashbyhq.com \"Cape Town\"",
+          "observed_url": "https://jobs.ashbyhq.com/xero",
+          "observed_at": "2026-10-26T10:32:11.234027Z",
+          "reference_url": null,
+          "excerpt": "Small Business Onboarding Specialist Revenue • ZA: Cape Town (Willowbridge Centre) • Full time • Hybrid",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T10:32:11.234027Z",
+      "last_checked_at": "2026-10-26T10:32:11.234027Z"
+    }
+  ],
+  "coverage_note": "Search coverage is incomplete by design; results are leads, not verified employers or proof of Cape Town presence."
+}
