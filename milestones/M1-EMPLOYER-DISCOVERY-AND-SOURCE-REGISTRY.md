@@ -83,13 +83,13 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 
 **Open issues**
 - The current live search provider is unreliable: the latest recorded run failed on 9 of 10 queries. Do not add more DDGS fallback complexity without evidence that it improves distinct, relevant employers found.
-- The current research branch contains source investigations and ATS adapters, but no reusable Bing search-provider implementation was identified in the branch files inspected. Do not claim a Bing comparison has been completed.
+- No reusable standalone Bing search-provider implementation was found in the inspected research branch. A bounded comparison mode was added to run the same queries independently against the supported DDGS `bing`, `brave`, `duckduckgo` and `mojeek` backends. This compares engine behavior without introducing a separate scraper. The live comparison has not yet been run.
 - The current report is a baseline, not an authoritative registry. Aggregator filtering is intentionally conservative and must be reviewed against new results; official employer ownership, direct-employer classification, Cape Town connection and recruitment-page linkage remain unverified.
 - Search snippets do not establish Cape Town presence or official source ownership. The discovery stage must collect candidate recruitment-page URLs; M1-C03 verifies the employer identity, source ownership/linkage and organization classification.
 - Results are emitted as JSON to stdout; durable registry persistence and CSV
   reporting remain M1-C04 work.
 
-**Next action:** Run a bounded comparison of available search approaches using the same broad careers-page queries. Compare distinct direct employers with credible official recruitment routes, query failures, and duplicate/aggregator noise. Then review sample candidate evidence. M1-C02 remains unaccepted until this is useful and repeatable.
+**Next action:** From `backend/`, run `python -m app.application.employer_discovery --compare-backends --max-results-per-query 8` and save the JSON output for review. The comparison reports per-backend query failures, raw hits, known aggregators excluded and distinct candidate URLs; these are still leads, not verified employer counts. Review candidate URLs for direct-employer relevance and credible official careers/application routes before choosing a default provider. M1-C02 remains unaccepted until the live comparison is useful and repeatable.
 
 ## M1-C03 — Official careers page and source classification
 
