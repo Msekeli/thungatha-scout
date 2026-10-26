@@ -1,0 +1,1 @@
+"""Ashby source adapter."""

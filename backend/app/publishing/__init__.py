@@ -1,0 +1,1 @@
+"""Supabase publishing integration."""
