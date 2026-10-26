@@ -1,0 +1,375 @@
+{
+  "started_at": "2026-10-26T11:49:39.873848Z",
+  "finished_at": "2026-10-26T11:50:37.621870Z",
+  "status": "partial",
+  "query_reports": [
+    {
+      "query": "\"Cape Town\" company careers page",
+      "run": {
+        "outcome": "success_with_results",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" company careers page",
+        "started_at": "2026-10-26T11:49:39.874123Z",
+        "finished_at": "2026-10-26T11:49:46.846646Z",
+        "candidates": [
+          {
+            "candidate_id": "cand_2c6efcdf37d58560f76773a5782869fe",
+            "display_name": null,
+            "observed_url": "https://www.capetown.gov.za/city-connect/apply/jobs-and-opportunities/apply-for-a-job/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" company careers page",
+                "observed_url": "https://www.capetown.gov.za/city-connect/apply/jobs-and-opportunities/apply-for-a-job/",
+                "observed_at": "2026-10-26T11:49:46.846646Z",
+                "reference_url": null,
+                "excerpt": "Title: Apply for a job - City of Cape Town\nSnippet: Apply for a job with the City of Cape Town and explore opportunities to contribute to the city's development and community services.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T11:49:46.846646Z",
+            "last_checked_at": "2026-10-26T11:49:46.846646Z"
+          },
+          {
+            "candidate_id": "cand_6f170ad95018be71442fad72a3e5dc7a",
+            "display_name": null,
+            "observed_url": "https://impact.com/careers/cape-town-jobs/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" company careers page",
+                "observed_url": "https://impact.com/careers/cape-town-jobs/",
+                "observed_at": "2026-10-26T11:49:46.846646Z",
+                "reference_url": null,
+                "excerpt": "Title: We're hiring! View job openings in Cape Town & apply today - impact.com\nSnippet: impact.com is hiring! View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              },
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" company website vacancies careers",
+                "observed_url": "https://impact.com/careers/cape-town-jobs/",
+                "observed_at": "2026-10-26T11:50:22.464576Z",
+                "reference_url": null,
+                "excerpt": "Title: We're hiring! View job openings in Cape Town & apply today\nSnippet: View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T11:49:46.846646Z",
+            "last_checked_at": "2026-10-26T11:50:22.464576Z"
+          },
+          {
+            "candidate_id": "cand_d1ee48049e91feb867e1bb816fe892a7",
+            "display_name": null,
+            "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/apply-for-a-job-with-the-city/apply-for-a-job/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" company careers page",
+                "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/apply-for-a-job-with-the-city/apply-for-a-job/",
+                "observed_at": "2026-10-26T11:49:46.846646Z",
+                "reference_url": null,
+                "excerpt": "Title: Apply for a job - City of Cape Town\nSnippet: If you are already a City employee, you must apply for available jobs internally. Step 1: To apply for a job online, you will first need to register for e-Services and activate the careers service. Step 2: Once you have activated the service, create an online CV and fill in your personal details, education and training, work experience, and qualifications.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T11:49:46.846646Z",
+            "last_checked_at": "2026-10-26T11:49:46.846646Z"
+          }
+        ],
+        "error_code": null,
+        "error_message": null
+      },
+      "raw_result_count": 5,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 2
+    },
+    {
+      "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" companies \"careers\" \"join our team\"",
+        "started_at": "2026-10-26T11:49:46.847636Z",
+        "finished_at": "2026-10-26T11:49:54.301547Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. auto: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "\"Cape Town\" employers official careers page",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" employers official careers page",
+        "started_at": "2026-10-26T11:49:54.302068Z",
+        "finished_at": "2026-10-26T11:50:02.308652Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. auto: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "\"Cape Town\" companies \"work with us\"",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" companies \"work with us\"",
+        "started_at": "2026-10-26T11:50:02.309476Z",
+        "finished_at": "2026-10-26T11:50:12.325384Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. auto: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "\"Cape Town\" company \"join us\" jobs",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" company \"join us\" jobs",
+        "started_at": "2026-10-26T11:50:12.326254Z",
+        "finished_at": "2026-10-26T11:50:19.597620Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. auto: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "\"Cape Town\" company website vacancies careers",
+      "run": {
+        "outcome": "success_with_results",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" company website vacancies careers",
+        "started_at": "2026-10-26T11:50:19.598139Z",
+        "finished_at": "2026-10-26T11:50:22.464576Z",
+        "candidates": [
+          {
+            "candidate_id": "cand_6f170ad95018be71442fad72a3e5dc7a",
+            "display_name": null,
+            "observed_url": "https://impact.com/careers/cape-town-jobs/",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" company website vacancies careers",
+                "observed_url": "https://impact.com/careers/cape-town-jobs/",
+                "observed_at": "2026-10-26T11:50:22.464576Z",
+                "reference_url": null,
+                "excerpt": "Title: We're hiring! View job openings in Cape Town & apply today\nSnippet: View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T11:50:22.464576Z",
+            "last_checked_at": "2026-10-26T11:50:22.464576Z"
+          }
+        ],
+        "error_code": null,
+        "error_message": null
+      },
+      "raw_result_count": 5,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 4
+    },
+    {
+      "query": "\"Cape Town\" employers \"current vacancies\" official website",
+      "run": {
+        "outcome": "request_failed",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" employers \"current vacancies\" official website",
+        "started_at": "2026-10-26T11:50:22.465129Z",
+        "finished_at": "2026-10-26T11:50:29.832816Z",
+        "candidates": [],
+        "error_code": "SearchProviderError",
+        "error_message": "No backend returned search results. Backend errors are not treated as proof of an empty search. auto: DDGSException: No results found."
+      },
+      "raw_result_count": 0,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 0
+    },
+    {
+      "query": "\"Cape Town\" companies \"life at\" careers",
+      "run": {
+        "outcome": "success_with_results",
+        "method": "ddgs_public_web_search",
+        "query": "\"Cape Town\" companies \"life at\" careers",
+        "started_at": "2026-10-26T11:50:29.833796Z",
+        "finished_at": "2026-10-26T11:50:37.621515Z",
+        "candidates": [
+          {
+            "candidate_id": "cand_ffed9d3c55753a8ff99754547d6b265f",
+            "display_name": null,
+            "observed_url": "https://www.pnet.co.za/jobs/companies-in-cape-town/in-cape-town",
+            "official_website_url": null,
+            "official_careers_url": null,
+            "identity_status": "unresolved",
+            "organization_type": "unresolved",
+            "review_state": "discovered",
+            "location_evidence": [],
+            "evidence": [
+              {
+                "method": "ddgs_public_web_search",
+                "query": "\"Cape Town\" companies \"life at\" careers",
+                "observed_url": "https://www.pnet.co.za/jobs/companies-in-cape-town/in-cape-town",
+                "observed_at": "2026-10-26T11:50:37.621515Z",
+                "reference_url": null,
+                "excerpt": "Title: Companies In Cape Town Jobs in Cape Town | Pnet\nSnippet: We are recruiting on behalf of a well-established manufacturing company in Maitland, CapeTown, for an experienced, hands-on, and results-driven Production Line Manager – 2nd Ops to join their dynamic manufacturing team.",
+                "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+              }
+            ],
+            "first_seen_at": "2026-10-26T11:50:37.621515Z",
+            "last_checked_at": "2026-10-26T11:50:37.621515Z"
+          }
+        ],
+        "error_code": null,
+        "error_message": null
+      },
+      "raw_result_count": 5,
+      "discarded_result_count": 0,
+      "excluded_aggregator_count": 4
+    }
+  ],
+  "candidates": [
+    {
+      "candidate_id": "cand_2c6efcdf37d58560f76773a5782869fe",
+      "display_name": null,
+      "observed_url": "https://www.capetown.gov.za/city-connect/apply/jobs-and-opportunities/apply-for-a-job/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" company careers page",
+          "observed_url": "https://www.capetown.gov.za/city-connect/apply/jobs-and-opportunities/apply-for-a-job/",
+          "observed_at": "2026-10-26T11:49:46.846646Z",
+          "reference_url": null,
+          "excerpt": "Title: Apply for a job - City of Cape Town\nSnippet: Apply for a job with the City of Cape Town and explore opportunities to contribute to the city's development and community services.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T11:49:46.846646Z",
+      "last_checked_at": "2026-10-26T11:49:46.846646Z"
+    },
+    {
+      "candidate_id": "cand_6f170ad95018be71442fad72a3e5dc7a",
+      "display_name": null,
+      "observed_url": "https://impact.com/careers/cape-town-jobs/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" company careers page",
+          "observed_url": "https://impact.com/careers/cape-town-jobs/",
+          "observed_at": "2026-10-26T11:49:46.846646Z",
+          "reference_url": null,
+          "excerpt": "Title: We're hiring! View job openings in Cape Town & apply today - impact.com\nSnippet: impact.com is hiring! View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        },
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" company website vacancies careers",
+          "observed_url": "https://impact.com/careers/cape-town-jobs/",
+          "observed_at": "2026-10-26T11:50:22.464576Z",
+          "reference_url": null,
+          "excerpt": "Title: We're hiring! View job openings in Cape Town & apply today\nSnippet: View all our open job positions in Cape Town and apply today. Join one of the fastest growing software companies in the marketing industry.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T11:49:46.846646Z",
+      "last_checked_at": "2026-10-26T11:50:22.464576Z"
+    },
+    {
+      "candidate_id": "cand_d1ee48049e91feb867e1bb816fe892a7",
+      "display_name": null,
+      "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/apply-for-a-job-with-the-city/apply-for-a-job/",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" company careers page",
+          "observed_url": "https://www.capetown.gov.za/city-connect/find-a-job-or-develop-skills/apply-for-a-job-with-the-city/apply-for-a-job/",
+          "observed_at": "2026-10-26T11:49:46.846646Z",
+          "reference_url": null,
+          "excerpt": "Title: Apply for a job - City of Cape Town\nSnippet: If you are already a City employee, you must apply for available jobs internally. Step 1: To apply for a job online, you will first need to register for e-Services and activate the careers service. Step 2: Once you have activated the service, create an online CV and fill in your personal details, education and training, work experience, and qualifications.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T11:49:46.846646Z",
+      "last_checked_at": "2026-10-26T11:49:46.846646Z"
+    },
+    {
+      "candidate_id": "cand_ffed9d3c55753a8ff99754547d6b265f",
+      "display_name": null,
+      "observed_url": "https://www.pnet.co.za/jobs/companies-in-cape-town/in-cape-town",
+      "official_website_url": null,
+      "official_careers_url": null,
+      "identity_status": "unresolved",
+      "organization_type": "unresolved",
+      "review_state": "discovered",
+      "location_evidence": [],
+      "evidence": [
+        {
+          "method": "ddgs_public_web_search",
+          "query": "\"Cape Town\" companies \"life at\" careers",
+          "observed_url": "https://www.pnet.co.za/jobs/companies-in-cape-town/in-cape-town",
+          "observed_at": "2026-10-26T11:50:37.621515Z",
+          "reference_url": null,
+          "excerpt": "Title: Companies In Cape Town Jobs in Cape Town | Pnet\nSnippet: We are recruiting on behalf of a well-established manufacturing company in Maitland, CapeTown, for an experienced, hands-on, and results-driven Production Line Manager – 2nd Ops to join their dynamic manufacturing team.",
+          "note": "Search lead only. The result title and snippet do not verify employer identity, Cape Town presence, or source authority."
+        }
+      ],
+      "first_seen_at": "2026-10-26T11:50:37.621515Z",
+      "last_checked_at": "2026-10-26T11:50:37.621515Z"
+    }
+  ],
+  "coverage_note": "Search coverage is incomplete by design; results are leads, not verified employers or proof of Cape Town presence."
+}
