@@ -13,13 +13,14 @@ Discover employers across industries and company sizes, identify their official 
 Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accepted**. Each checkpoint record includes changes made, commands/tests actually run, observed evidence, unresolved issues, next action and user review status.
 
 ## M1-C01 — Discovery inputs and evidence model
+
 **Status:** Accepted (26 October 2026)
 
 **Goal:** define the candidate/evidence contract and make success-empty distinct from failures.
 
 **Work**
 - Define candidate identity and conservative deduplication rules.
-- Capture discovery method/query, observed URL, UTC timestamp, official careers URL when verified, location evidence and evidence references.
+- Capture discovery method/query, observed URL, timezone-aware observation time, official careers URL when verified, location evidence and evidence references.
 - Distinguish unknown identity from verified identity; an ATS token alone never proves employer identity.
 - Represent successful results, successful empty results, request failure and total discovery failure as separate outcomes.
 
@@ -39,6 +40,7 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - User explicitly accepted C01 on 26 October 2026.
 
 ## M1-C02 — Cape Town employer discovery
+
 **Status:** In progress
 
 **Goal:** discover candidates without narrowing the employer universe by role or industry.
@@ -55,7 +57,36 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Discovery records can be reproduced from recorded evidence.
 - No unsupported claim of exhaustive coverage is made.
 
+**Implementation progress (26 October 2026)**
+- Added a bounded query plan and replaceable search-provider interface in
+  `backend/app/application/employer_discovery.py`.
+- Reused the DDGS metasearch approach from the research prototype, with a
+  12-second request timeout, a maximum of 20 queries and 10 results per query.
+- Candidate titles are not promoted to employer names. Official URLs, identity,
+  organization type and Cape Town location remain unresolved until verified.
+- Duplicate observations merge only on the existing C01 stable observation ID;
+  search evidence from each query is retained.
+- Query failures, successful empty results, malformed results and partial batch
+  failures remain distinguishable in the JSON report.
+- Added offline unit tests with a fake provider. They have not been run by the
+  assistant under the agreed workflow; local verification is pending.
+
+**Open issues**
+- DDGS is an unaffiliated metasearch library; backend availability, terms and
+  operational suitability still need review. This is a discovery lead generator,
+  not proof of source permission or a verified employer registry.
+- Search snippets do not establish Cape Town presence or official source ownership.
+  M1-C03 must verify those claims against employer-owned pages.
+- Results are emitted as JSON to stdout; durable registry persistence and CSV
+  reporting remain M1-C04 work.
+
+**Next action:** Pull `dev`, install the updated backend requirements, run the
+unit tests and inspect one bounded discovery report. Review provider behavior and
+sample candidate evidence before deciding whether to proceed with source
+verification in M1-C03.
+
 ## M1-C03 — Official careers page and source classification
+
 **Status:** Not started
 
 **Goal:** establish whether a candidate's recruitment source is official and identify the relationship.
@@ -73,6 +104,7 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Technical accessibility is not mistaken for permission to use data.
 
 ## M1-C04 — Registry persistence and reporting
+
 **Status:** Not started
 
 **Goal:** persist discovery outcomes without losing provenance or damaging existing data.
@@ -89,6 +121,7 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Existing data is preserved and schema changes are documented.
 
 ## M1-C05 — Verification and review
+
 **Status:** Not started
 
 **Goal:** establish the discovery workflow's reliability.
@@ -107,14 +140,21 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 
 ## Progress record
 
-**Changes made:** Added typed candidate, evidence, identity, organization, review and run-outcome models; added unit tests and Pydantic dependency; documented the C01 contract. Fixed three enum declarations that referenced undefined `StrEnum` names by using `str, Enum`.
+**C01 changes:** Added typed candidate, evidence, identity, organization, review and
+run-outcome models; added unit tests and Pydantic; documented the C01 contract.
+Fixed enum declarations that referenced undefined `StrEnum` names by using
+`str, Enum`.
 
-**Verification commands/tests actually run:** From `backend/`, installed dependencies in an activated virtual environment with `python -m pip install -r requirements.txt`. Ran `python -m unittest discover -s tests/unit -v` after the fix and again after committing; all 10 tests passed. `git diff --check` was requested but its output was not provided, so it is not recorded as verified. Commit `8202978` was pushed to `origin/dev`.
+**C01 verification history:** Dependencies were installed from `backend/` using
+`python -m pip install -r requirements.txt`. The command
+`python -m unittest discover -s tests/unit -v` was run after the enum fix and
+again after commit `8202978`; all 10 tests passed on Python 3.14.7.
+`git diff --check` was not confirmed and is not recorded as verified.
 
-**Observed results/evidence:** Tests cover successful empty results, non-empty results, request failure, discovery failure, identity validation, timezone validation and stable IDs. The test suite passed locally on Python 3.14.7.
+**Current status:** C01 was explicitly accepted by the user on 26 October 2026.
+C02 implementation is in progress. No tests or builds have been run by the
+assistant for C02; local verification and review are pending.
 
-**Open issues or decisions:** C01 is a data-model checkpoint only; no discovery provider, source terms/approval workflow, registry persistence, or end-to-end discovery run is implemented. These belong to later checkpoints.
-
-**Next action:** Begin M1-C02 planning and implement bounded, reproducible Cape Town employer discovery while preserving evidence and clearly reporting coverage limitations.
-
-**Reviewed/accepted by user:** C01 explicitly accepted on 26 October 2026. M1 remains in progress.
+**Next action:** User pulls `dev`, runs the backend unit tests, and reviews one
+bounded discovery run. M1-C02 remains unaccepted until evidence and user review
+support its exit criteria.
