@@ -180,6 +180,7 @@ def scan_company(
 ) -> dict:
     started = datetime.now(timezone.utc).isoformat()
     page = browser.new_page()
+    detail_page = browser.new_page()
     result = {
         "company": company["name"], "careers_url": company["url"],
         "scanned_at": started, "status": "failed", "jobs_found": 0, "jobs": [],
@@ -225,7 +226,7 @@ def scan_company(
                 if len(jobs_by_url) >= max_jobs:
                     break
                 try:
-                    detail = _job_details(page, href, label)
+                    detail = _job_details(detail_page, href, label)
                     detail["listing_title"] = label
                     detail["company"] = company["name"]
                     jobs_by_url[href] = detail
@@ -235,7 +236,6 @@ def scan_company(
                         "description": "", "detail_error": f"{type(exc).__name__}: {str(exc)[:300]}",
                         "company": company["name"], "location": "",
                     }
-                page.goto(listing_url, wait_until="domcontentloaded", timeout=30000)
         result["jobs"] = list(jobs_by_url.values())
         result["jobs_found"] = len(result["jobs"])
         if result["jobs_found"]:
@@ -249,6 +249,7 @@ def scan_company(
         result["error"] = f"{type(exc).__name__}: {str(exc)[:500]}"
         result["status"] = "failed"
     finally:
+        detail_page.close()
         page.close()
     return result
 
