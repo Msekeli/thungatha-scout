@@ -57,6 +57,19 @@ def _clean_url(url: str) -> str:
     return urldefrag(url.strip())[0].rstrip("/")
 
 
+def _split_location_and_employment_type(value: str) -> tuple[str, str]:
+    """Separate an employment type joined to the end of listing location text."""
+    value = re.sub(r"\s+", " ", value).strip()
+    match = re.search(
+        r"\s*(Full[- ]Time|Part[- ]Time|Permanent|Contract(?:or)?|Temporary|Internship|Fixed[- ]Term|Casual)\s*$",
+        value, re.IGNORECASE,
+    )
+    if not match:
+        return value, ""
+    location = value[:match.start()].strip(" ,|-")
+    employment_type = match.group(1).replace("-", " ").title()
+    return location, employment_type
+
 def _is_job_link(item: dict[str, str], source_url: str) -> bool:
     text = re.sub(r"\s+", " ", item.get("text", "")).strip()
     href = item.get("href", "")
@@ -266,13 +279,17 @@ def scan_company(
                     label = re.sub(r"^[0-9a-f-]{8,}-", "", slug).replace("-", " ").strip().title()
                 if not label or label.lower() in {"powered by breezy", "shopritex referral portal"}:
                     continue
+                location, employment_type = _split_location_and_employment_type(
+                    link.get("location", "")
+                )
                 jobs_by_url[href] = {
                     "title": label,
                     "listing_title": link.get("text", "").strip(),
                     "job_url": href,
                     "application_url": "",
                     "description": "",
-                    "location": link.get("location", ""),
+                    "location": location,
+                    "employment_type": employment_type,
                     "company": company["name"],
                     "detail_checked": False,
                 }
