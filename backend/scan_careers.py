@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent
 DEFAULT_INPUT = ROOT / "cape_town_tech_companies.json"
 DEFAULT_OUTPUT = ROOT / "career_page_scan_results.json"
 JOB_WORDS = re.compile(
-    r"job|vacanc|position|opening|requisition|opportunit|apply|workday|"
+    r"job|career|vacanc|position|opening|requisition|opportunit|apply|workday|"
     r"greenhouse|lever\.co|ashby|workable|breezy|/go/|/job[s]?/",
     re.IGNORECASE,
 )
