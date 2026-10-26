@@ -77,20 +77,56 @@ def _is_job_link(item: dict[str, str], source_url: str) -> bool:
 
 
 def _page_links(page: Page) -> list[dict[str, str]]:
+    """Read links with nearby card heading and location; never click links here."""
     return page.evaluate(
         """() => Array.from(document.querySelectorAll('a[href]')).map(a => {
           const card = a.closest(
             'article, li, [class*="job"], [class*="position"], ' +
-            '[class*="vacan"], [class*="opening"], [class*="listing"]'
-          );
+            '[class*="vacan"], [class*="opening"], [class*="listing"], [class*="card"]'
+          ) || a.parentElement;
+          const heading = card?.querySelector('h1,h2,h3,h4,[class*="title"],[class*="name"]');
+          const lines = (card?.innerText || '').split('\\n').map(x => x.trim()).filter(Boolean);
+          const location = lines.find(x => /cape town|brackenfell|south africa|remote|hybrid|johannesburg|durban|pretoria/i.test(x)) || '';
           return {
             text: (a.innerText || a.getAttribute('aria-label') || a.title || '').trim(),
             href: a.href,
-            card_text: (card ? card.innerText : a.parentElement?.innerText || '').trim()
-              .slice(0, 1200)
+            job_title: (heading?.innerText || '').trim(),
+            location,
+            card_text: (card?.innerText || a.parentElement?.innerText || '').trim().slice(0, 1200)
           };
         })"""
     )
+
+
+def _try_location_search(page: Page, location: str = "Cape Town") -> bool:
+    """Use a visible location search only when a matching field is present."""
+    fields = page.locator(
+        'input[placeholder*="location" i], input[aria-label*="location" i], '
+        'input[name*="location" i], input[id*="location" i]'
+    )
+    try:
+        for index in range(min(fields.count(), 5)):
+            field = fields.nth(index)
+            if not field.is_visible():
+                continue
+            field.fill(location, timeout=1500)
+            # Prefer an explicit search/filter submit control; do not click Apply.
+            buttons = page.locator(
+                'button[type="submit"], input[type="submit"], button:has-text("Search"), '
+                'button:has-text("Filter")'
+            )
+            for button_index in range(min(buttons.count(), 5)):
+                button = buttons.nth(button_index)
+                if button.is_visible() and button.is_enabled():
+                    button.click(timeout=1500)
+                    page.wait_for_timeout(500)
+                    return True
+            field.press("Enter", timeout=1000)
+            page.wait_for_timeout(500)
+            return True
+    except Exception:
+        return False
+    return False
 
 
 def _page_text(page: Page) -> str:
@@ -101,12 +137,9 @@ def _page_text(page: Page) -> str:
 
 
 def _job_details(page: Page, url: str, listing_text: str) -> dict[str, str]:
-    page.goto(url, wait_until="domcontentloaded", timeout=30000)
-    try:
-        page.wait_for_load_state("networkidle", timeout=5000)
-    except PlaywrightTimeoutError:
-        pass
-    page.wait_for_timeout(500)
+    page.goto(url, wait_until="domcontentloaded", timeout=10000)
+    page.set_default_timeout(1500)
+    page.wait_for_timeout(250)
     title = page.title().strip()
     text = ""
     for selector in DESCRIPTION_SELECTORS:
@@ -180,7 +213,8 @@ def scan_company(
 ) -> dict:
     started = datetime.now(timezone.utc).isoformat()
     page = browser.new_page()
-    detail_page = browser.new_page()
+    page.set_default_navigation_timeout(12000)
+    page.set_default_timeout(1800)
     result = {
         "company": company["name"], "careers_url": company["url"],
         "scanned_at": started, "status": "failed", "jobs_found": 0, "jobs": [],
@@ -188,12 +222,12 @@ def scan_company(
         "explicit_no_jobs_message": False, "requires_review": True,
     }
     try:
-        page.goto(company["url"], wait_until="domcontentloaded", timeout=30000)
-        try:
-            page.wait_for_load_state("networkidle", timeout=7000)
-        except PlaywrightTimeoutError:
-            pass
-        page.wait_for_timeout(900)
+        page.set_default_navigation_timeout(12000)
+        page.set_default_timeout(1800)
+        page.goto(company["url"], wait_until="domcontentloaded", timeout=12000)
+        page.wait_for_timeout(500)
+        location_filtered = _try_location_search(page)
+        result["location_filter_attempted"] = location_filtered
         result["page_title"] = page.title().strip()
         page_text = _page_text(page)
         result["page_text_excerpt"] = page_text[:1000]
@@ -210,32 +244,41 @@ def scan_company(
             visited_pages.add(_clean_url(listing_url))
             result["pages_visited"].append(listing_url)
             if _clean_url(listing_url) != _clean_url(page.url):
-                page.goto(listing_url, wait_until="domcontentloaded", timeout=30000)
-                try:
-                    page.wait_for_load_state("networkidle", timeout=5000)
-                except PlaywrightTimeoutError:
-                    pass
+                page.goto(listing_url, wait_until="domcontentloaded", timeout=12000)
+                page.wait_for_timeout(300)
             current = page.url
             candidates = []
             for link in _page_links(page):
-                if _is_job_link(link, current):
-                    href = _clean_url(urljoin(current, link["href"]))
-                    if href and href not in jobs_by_url:
-                        candidates.append((href, link.get("text", "").strip()))
-            for href, label in candidates:
+                if not _is_job_link(link, current):
+                    continue
+                href = _clean_url(urljoin(current, link["href"]))
+                label = (link.get("job_title") or link.get("text") or "").strip()
+                if not href or href in jobs_by_url:
+                    continue
+                # Exclude platform/navigation links and generic Apply buttons without a job-like URL.
+                path = urlsplit(href).path.lower()
+                if any(token in path for token in ("/team/portal", "/m/portal")):
+                    continue
+                if not re.search(r"/p/|/job|/jobs|/position|/vacan|/go/", path) and label.lower() in {"apply", "apply now"}:
+                    continue
+                if label.lower() in {"apply", "apply now", "powered by breezy"}:
+                    slug = path.rsplit("/", 1)[-1]
+                    label = re.sub(r"^[0-9a-f-]{8,}-", "", slug).replace("-", " ").strip().title()
+                if not label or label.lower() in {"powered by breezy", "shopritex referral portal"}:
+                    continue
+                jobs_by_url[href] = {
+                    "title": label,
+                    "listing_title": link.get("text", "").strip(),
+                    "job_url": href,
+                    "application_url": "",
+                    "description": "",
+                    "location": link.get("location", ""),
+                    "company": company["name"],
+                    "detail_checked": False,
+                }
+                print(f"        Listing {len(jobs_by_url)}: {label}", flush=True)
                 if len(jobs_by_url) >= max_jobs:
                     break
-                try:
-                    detail = _job_details(detail_page, href, label)
-                    detail["listing_title"] = label
-                    detail["company"] = company["name"]
-                    jobs_by_url[href] = detail
-                except Exception as exc:
-                    jobs_by_url[href] = {
-                        "title": label, "job_url": href, "application_url": "",
-                        "description": "", "detail_error": f"{type(exc).__name__}: {str(exc)[:300]}",
-                        "company": company["name"], "location": "",
-                    }
         result["jobs"] = list(jobs_by_url.values())
         result["jobs_found"] = len(result["jobs"])
         if result["jobs_found"]:
@@ -252,7 +295,6 @@ def scan_company(
         result["error"] = f"{type(exc).__name__}: {str(exc)[:500]}"
         result["status"] = "failed"
     finally:
-        detail_page.close()
         page.close()
     return result
 
@@ -263,7 +305,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--company", help="Scan one company by name (case-insensitive).")
     parser.add_argument("--limit", type=int, help="Scan only the first N companies.")
-    parser.add_argument("--max-jobs", type=int, default=100, help="Maximum jobs per company.")
+    parser.add_argument("--max-jobs", type=int, default=20, help="Maximum listing records per company (default: 20).")
     parser.add_argument("--max-pages", type=int, default=5, help="Maximum listing/pagination pages per company.")
     parser.add_argument("--headed", action="store_true", help="Show the browser while scanning.")
     args = parser.parse_args()
