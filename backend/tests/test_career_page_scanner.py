@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from scan_careers import _clean_url, _is_job_link, read_companies
+from scan_careers import _clean_url, _is_job_link, _split_location_and_employment_type, read_companies
 
 
 def test_reads_the_company_registry():
@@ -50,3 +50,25 @@ def test_ignores_generic_careers_navigation_link():
         "card_text": "Careers",
     }
     assert not _is_job_link(item, "https://example.com")
+
+@pytest.mark.parametrize(
+    ("raw", "location", "employment_type"),
+    [
+        ("Cape Town, Brackenfell, ZAFull-Time", "Cape Town, Brackenfell, ZA", "Full Time"),
+        ("Brackenfell, ZAFull-Time", "Brackenfell, ZA", "Full Time"),
+        ("Cape Town, South Africa", "Cape Town, South Africa", ""),
+        ("RemoteContract", "Remote", "Contract"),
+        ("", "", ""),
+    ],
+)
+def test_splits_location_and_employment_type(raw, location, employment_type):
+    assert _split_location_and_employment_type(raw) == (location, employment_type)
+
+
+def test_ignores_non_job_link_with_location_text():
+    item = {
+        "text": "Privacy Policy",
+        "href": "https://example.com/privacy",
+        "card_text": "Cape Town Full-Time",
+    }
+    assert not _is_job_link(item, "https://example.com/careers")
