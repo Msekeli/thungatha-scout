@@ -212,7 +212,8 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
         if not title:
             title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
         location_match = re.search(
-            r"(?:Location|\\b(?:Operations|Software Engineering|Engineering)\\s*·)\\s*[:·]?\\s*"
+            r"(?:Location\\s*:?\\s*|"
+            r"(?:Operations|Software Engineering|Engineering)\\s*·\\s*)"
             r"([A-Z][A-Za-z .'-]+,\\s*South Africa(?:\\s*\\([^)]*\\))?)",
             card,
             re.I,
