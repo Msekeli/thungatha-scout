@@ -24,10 +24,11 @@ For each checkpoint:
 3. Identify the smallest safe implementation.
 4. Implement only the approved scope.
 5. Add/update tests.
-6. Run tests and quality gates, recording actual results.
-7. Review the diff for unrelated edits, secrets and destructive changes.
-8. Update the checkpoint record with evidence and unresolved work.
-9. Stop for user review where required.
+6. Keep every Python module in `backend/app/application/` at 100 lines or fewer. The unit suite must enforce this limit; do not evade it through code compression. Split by cohesive responsibility, and request explicit review before exceeding the limit.
+7. Run tests and quality gates, recording actual results.
+8. Review the diff for unrelated edits, secrets and destructive changes.
+9. Update the checkpoint record with evidence and unresolved work.
+10. Stop for user review where required.
 
 Do not combine multiple checkpoints just because an AI tool can implement them in one prompt. Keep changes reviewable and reversible.
 
