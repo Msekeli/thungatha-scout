@@ -3,13 +3,13 @@ from __future__ import annotations
 
 import hashlib
 from datetime import datetime, timezone
-from enum import StrEnum
+from enum import Enum
 from urllib.parse import urlsplit, urlunsplit
 
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl, field_validator, model_validator
 
 
-class DiscoveryOutcome(StrEnum):
+class DiscoveryOutcome(str, Enum):
     SUCCESS_WITH_RESULTS = "success_with_results"
     SUCCESS_EMPTY = "success_empty"
     REQUEST_FAILED = "request_failed"
