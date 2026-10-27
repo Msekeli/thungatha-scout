@@ -214,14 +214,29 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
             continue
 
         title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
+        # Some sites wrap the entire card in the anchor, so anchor text can
+        # include the title, category, employment type, location and CTA.
+        # Prefer the title portion of the card when a category separator is present.
         title_match = re.search(
-            r"([A-Z][A-Za-z0-9()& /-]{3,100}?)\s+(?:Software Engineering|Operations|Engineering)\s*[·|]",
+            r"([A-Z][A-Za-z0-9()& /-]{3,100}?)\s+"
+            r"(?:Software Engineering|Operations|Engineering|Developer|"
+            r"UX/UI Designer|Product Owner)\s*[·|]",
             card,
         )
         if title_match:
             title = title_match.group(1).strip(" :-|")
         cleaned_link = re.sub(r"^view role\s*:?", "", link_text, flags=re.I).strip()
-        if cleaned_link and not re.fullmatch(r"(apply|apply for this role|learn more)", cleaned_link, re.I):
+        link_has_card_metadata = bool(re.search(
+            r"[·|]|\b(full[- ]time|part[- ]time|permanent|contract|"
+            r"cape town|stellenbosch|south africa|hybrid|remote|closes?)\b",
+            cleaned_link, re.I,
+        ))
+        if (
+            cleaned_link
+            and len(cleaned_link) <= 120
+            and not link_has_card_metadata
+            and not re.fullmatch(r"(apply|apply for this role|learn more)", cleaned_link, re.I)
+        ):
             title = cleaned_link
 
         # Prefer explicit location labels / department separators. Otherwise
