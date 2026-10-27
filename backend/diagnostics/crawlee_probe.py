@@ -57,7 +57,7 @@ def capture(content, url: str, company: str) -> dict:
         "vacancy_candidate_count": len(vacancy_candidates),
         "vacancy_candidates": vacancy_candidates,
         "job_signal_count": len(re.findall(
-            r"\b(vacanc(?:y|ies)|job openings|open positions|apply now|software engineer|developer)\\b",
+            r"\b(vacanc(?:y|ies)|job openings|open positions|apply now|software engineer|developer)\b",
             text, re.I,
         )),
     }
