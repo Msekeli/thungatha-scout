@@ -11,7 +11,7 @@ import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 
 from crawlee.crawlers import AdaptivePlaywrightCrawler, AdaptivePlaywrightCrawlingContext
 
@@ -24,11 +24,22 @@ def capture(content, url: str, company: str) -> dict:
     title = content.title.get_text(" ", strip=True)[:300] if content.title else ""
     text = re.sub(r"\\s+", " ", content.get_text(" ", strip=True))[:MAX_TEXT]
     links = []
+    seen_urls = set()
     for anchor in content.select("a[href]")[:MAX_LINKS]:
-        href = anchor.get("href", "")
+        href = urljoin(url, anchor.get("href", "")).split("#", 1)[0]
         label = re.sub(r"\\s+", " ", anchor.get_text(" ", strip=True))[:180]
-        if href:
+        if href and href not in seen_urls:
+            seen_urls.add(href)
             links.append({"text": label, "href": href})
+
+    # Explicit /position/ routes are vacancy candidates; other career links
+    # remain evidence, not job records.
+    vacancy_candidates = [
+        link for link in links
+        if re.search(r"/position/[^/]+/?$", urlparse(link["href"]).path, re.I)
+        and link["text"]
+        and link["text"].casefold() not in {"read more", "apply now", "learn more"}
+    ]
     career_links = [
         link for link in links
         if re.search(r"career|jobs?|vacanc|position|opening|apply", link["text"] + " " + link["href"], re.I)
@@ -43,12 +54,13 @@ def capture(content, url: str, company: str) -> dict:
         "links": links,
         "career_link_count": len(career_links),
         "career_links": career_links[:40],
+        "vacancy_candidate_count": len(vacancy_candidates),
+        "vacancy_candidates": vacancy_candidates,
         "job_signal_count": len(re.findall(
             r"\\b(vacanc(?:y|ies)|job openings|open positions|apply now|software engineer|developer)\\b",
             text, re.I,
         )),
     }
-
 
 async def run_probe(targets: list[dict], output: Path, max_requests: int) -> int:
     results: list[dict] = []
@@ -86,6 +98,12 @@ async def run_probe(targets: list[dict], output: Path, max_requests: int) -> int
         })
 
     await crawler.run([item["url"] for item in targets])
+    # Deduplicate results if a retry or handler replay captures the same page.
+    unique_results = {}
+    for item in results:
+        key = (item.get("company"), item.get("url"), item.get("status"))
+        unique_results[key] = item
+    results = list(unique_results.values())
     output.write_text(json.dumps({
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "crawler": "Crawlee AdaptivePlaywrightCrawler",
@@ -97,7 +115,8 @@ async def run_probe(targets: list[dict], output: Path, max_requests: int) -> int
     for item in results:
         print(f"{item['status']:<18} {item['company']:<24} "
               f"links={len(item.get('links', [])):<3} "
-              f"career_links={item.get('career_link_count', 0)}")
+              f"career_links={item.get('career_link_count', 0)} "
+              f"vacancy_candidates={item.get('vacancy_candidate_count', 0)}")
     return 0
 
 
