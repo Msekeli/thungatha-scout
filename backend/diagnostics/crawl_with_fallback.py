@@ -13,8 +13,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from crawlee_probe import run_probe
-from investigate_careers import investigate
+from diagnostics.crawlee_probe import run_probe
+from diagnostics.investigate_careers import investigate
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
