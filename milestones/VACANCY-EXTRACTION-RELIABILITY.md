@@ -1,7 +1,7 @@
 # Vacancy Extraction Reliability
 
 **Status:** In progress  
-**Branch:** \`dev\`  
+**Branch:** `dev`  
 **Scope:** Improve deterministic vacancy extraction from the existing employer careers sources. This work does not expand employer discovery, change source approval, or publish records.
 
 ## Goal
@@ -10,8 +10,8 @@ Retain the existing Playwright primary crawler and use Crawlee only as the fallb
 
 ## Implementation
 
-- Add shared deterministic extraction rules for \`/position/<slug>\`, \`/o/<slug>\`, \`/jobs/<slug>\`, and role-like \`/careers/<slug>\` routes.
-- Use surrounding card context to resolve generic calls to action such as \`View Role Details\`; reject generic navigation such as Library and Skill Hub.
+- Add shared deterministic extraction rules for `/position/<slug>`, `/o/<slug>`, `/jobs/<slug>`, and role-like `/careers/<slug>` routes.
+- Use surrounding card context to resolve generic calls to action such as `View Role Details`; reject generic navigation such as Library and Skill Hub.
 - Preserve linked vacancy pages, job-description PDFs, mailto links, and visible application email addresses as evidence.
 - Inspect at most three linked vacancy detail pages per primary-crawler result; this adds evidence but does not mark a candidate verified.
 - Distinguish primary extraction, fallback extraction, email-based recruitment, vacancy evidence without extractable records, successful no-vacancy evidence, blocked/inaccessible pages, and unresolved outcomes.
@@ -25,13 +25,13 @@ Offline tests cover supported route patterns, generic CTA/card-context title ext
 
 **Not yet verified by execution in this environment.** The repository connection can read and update the GitHub branch, but the current execution environment cannot clone the repository or run the Python unit suite. Do not treat this checkpoint as accepted until the user or a runnable development environment executes:
 
-\`\`\`bash
+```bash
 cd backend
 python -m unittest discover -s tests/unit -v
 python -m compileall -q diagnostics tests/unit
-\`\`\`
+```
 
-Then rerun the same ten-company primary/fallback diagnostic and compare extracted vacancy records with the preserved snapshots in \`backend/storage/datasets/default/\`. Preserve those stored captures unchanged.
+Then rerun the same ten-company primary/fallback diagnostic and compare extracted vacancy records with the preserved snapshots in `backend/storage/datasets/default/`. Preserve those stored captures unchanged.
 
 ## Remaining checks
 

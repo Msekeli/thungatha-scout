@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
 from app.application.structured_job_extraction import extract_job_postings
-from diagnostics.vacancy_extraction import extract_vacancy_candidate
+from diagnostics.vacancy_extraction import extract_vacancy_candidate, is_vacancy_detail_url
 
 ROOT = Path(__file__).resolve().parents[1]
 TITLE_KEYS = {"title", "jobtitle", "job_title", "positiontitle", "name"}
@@ -195,8 +195,8 @@ def _career_link_evidence(page) -> list[dict]:
         if not (
             re.search(r"\.pdf(?:$|[?#])", href, re.I)
             or href.startswith("mailto:")
-            or re.search(r"/(?:position|o|jobs|careers?)/[^/?#]+", href, re.I)
-            or re.search(r"vacanc|current (?:openings|positions)|view role|apply", lowered, re.I)
+            or is_vacancy_detail_url(href, "", label)
+            or re.search(r"vacanc|current (?:vacanc(?:y|ies)|openings|positions)|view role|apply", lowered, re.I)
         ):
             continue
         seen.add(href)
