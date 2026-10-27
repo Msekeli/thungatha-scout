@@ -25,6 +25,38 @@ def needs_fallback(primary: dict) -> bool:
     return not primary.get("jobs") and not primary.get("job_count", 0)
 
 
+
+def classify_outcome(primary: dict, fallback: dict | None) -> str:
+    """Classify extraction results without confusing access failures with empty results."""
+    if primary.get("jobs"):
+        return "primary_found_jobs"
+    if fallback and fallback.get("vacancy_candidates"):
+        return "fallback_found_vacancy_candidates"
+    if primary.get("status") in {"blocked", "load_failed", "dead_url"} or (
+        fallback and fallback.get("status") == "request_failed"
+    ):
+        return "blocked_or_inaccessible"
+
+    pages = primary.get("pages", [])
+    evidence = [
+        link
+        for page in pages
+        for link in page.get("link_evidence", [])
+    ]
+    if any(link.get("kind") == "application_email" for link in evidence) or any(
+        page.get("application_emails") for page in pages
+    ):
+        return "email_based_recruitment"
+    if (
+        fallback and fallback.get("job_signal_count", 0) > 0
+        or any(link.get("kind") in {"vacancy_or_careers_link", "job_description_pdf"}
+               for link in evidence)
+    ):
+        return "vacancy_evidence_no_extractable_records"
+    if primary.get("status") == "page_says_no_jobs":
+        return "successful_no_vacancy_evidence"
+    return "unresolved"
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=ROOT / "cape_town_tech_companies.json")
@@ -79,20 +111,7 @@ def main() -> int:
             "primary": primary,
             "fallback_used": fallback is not None,
             "fallback": fallback,
-            "outcome": (
-                "primary_found_jobs" if primary.get("jobs")
-                else "fallback_found_vacancy_candidates"
-                if fallback and fallback.get("vacancy_candidates")
-                else "blocked"
-                if primary.get("status") == "blocked"
-                or (fallback and fallback.get("status") in {"request_failed", "empty_page"})
-                else "successful_no_vacancy_evidence"
-                if primary.get("status") == "page_says_no_jobs"
-                else "vacancy_evidence_no_extractable_records"
-                if (fallback and fallback.get("job_signal_count", 0) > 0)
-                or any(page.get("link_evidence") for page in primary.get("pages", []))
-                else "unresolved"
-            ),
+"outcome": classify_outcome(primary, fallback),
         })
 
     report = {

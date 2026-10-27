@@ -196,7 +196,7 @@ def _career_link_evidence(page) -> list[dict]:
             re.search(r"\.pdf(?:$|[?#])", href, re.I)
             or href.startswith("mailto:")
             or re.search(r"/(?:position|o|jobs|careers?)/[^/?#]+", href, re.I)
-            or re.search(r"vacanc|current opening|view role|apply|career|job", lowered, re.I)
+            or re.search(r"vacanc|current (?:openings|positions)|view role|apply", lowered, re.I)
         ):
             continue
         seen.add(href)
@@ -335,6 +335,7 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
                 "title": page_title[:200], "h1": heading[:200],
                 "body_excerpt": re.sub(r"\s+", " ", body_text)[:600],
                 "link_evidence": _career_link_evidence(page),
+                "application_emails": sorted(set(re.findall(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}", body_text, re.I)))[:10],
             })
             if status_code in {404, 410}:
                 result["status"] = "dead_url"
