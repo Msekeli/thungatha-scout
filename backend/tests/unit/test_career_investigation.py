@@ -88,6 +88,36 @@ class VisibleHtmlExtractionTests(unittest.TestCase):
         self.assertEqual(jobs[0]["closing_date_text"], "30 Nov 2026")
         self.assertTrue(jobs[0]["needs_review"])
 
+    def test_uses_card_title_when_anchor_text_contains_full_specno_card(self):
+        cases = [
+            (
+                "Junior Front-End/Full Stack Software Engineer",
+                "Junior Front-End/Full Stack Software Engineer Developer·Full-time·Cape Town View role",
+                "https://www.specno.com/careers/junior-front-end-full-stack-software-engineer",
+            ),
+            (
+                "Intermediate UX/UI Designer",
+                "Intermediate UX/UI Designer UX/UI Designer·Full-time·Cape Town View role",
+                "https://www.specno.com/careers/intermediate-ux-ui-designer-2",
+            ),
+            (
+                "Intermediate Product Manager",
+                "Intermediate Product Manager Product Owner·Full-time·Cape Town View role",
+                "https://www.specno.com/careers/intermediate-product-manager",
+            ),
+        ]
+        for expected_title, card, href in cases:
+            with self.subTest(expected_title=expected_title):
+                class FakePage:
+                    def evaluate(self, _script):
+                        return [{"text": card, "href": href, "card": card}]
+
+                jobs = _extract_visible_jobs(
+                    FakePage(), "https://www.specno.com/careers", "Specno"
+                )
+                self.assertEqual(len(jobs), 1)
+                self.assertEqual(jobs[0]["title"], expected_title)
+
 
 if __name__ == "__main__":
     unittest.main()
