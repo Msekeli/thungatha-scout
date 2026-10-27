@@ -1,0 +1,16 @@
+{
+  "unique_key": "https://dvtcareers.recruitee.com",
+  "url": "https://dvtcareers.recruitee.com/",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    }
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": "https://dvtcareers.recruitee.com/",
+  "handled_at": "2026-10-27 00:39:52.632326+00:00"
+}

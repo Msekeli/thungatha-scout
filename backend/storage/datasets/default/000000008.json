@@ -1,0 +1,105 @@
+{
+  "company": "Ontec",
+  "url": "https://ontec.co.za/careers/",
+  "host": "ontec.co.za",
+  "status": "captured",
+  "title": "Ontec Careers, apply here for available current positions advertised.",
+  "text_excerpt": "Ontec Careers, apply here for available current positions advertised. Buy Electricity Online +27 (0) 21 928 1700 info@ontec.co.za Primary Menu Close About Us Services Technology Submetering Property Management Tenant / Sectional Title Sustainability News Contact Us Careers Ontec Energy Careers Ontec has a diverse team made up of innovative and competent individuals. The company not only drives performance in order for employees to excel on a professional and personal level, but rewards this performance. People here are satisfied, challenged and happy, which makes it a perfect working environment. Full Stack Software Developer Cape Town Region Job Title: Full Stack Software Developer Department: Solutions Location: Cape Town Region Closing Date: N/A Email: recruitment@ontec.co.za Introduction We are looking for passionate full stack Software Engineer with a C# background with front-end frameworks experience to design, develop and install software solutions and mobile applications for our clients. The successful candidates will be able to build high-quality, innovative and fully performing software in compliance with best practice coding standards, current technology stack and technical design. Key Roles and Responsibilities Develop new software applications from concept to finish, with regular tests and maintenance. Write reusable, testable, and efficient code. Design and implementation of low-latency, high-availability, and performance applications. Collaborate with other team members and from time to time with stakeholders. Participate in planning and estimating of user stories at the beginning of each development iteration. Work and thrive in a fast-paced environment, learn rapidly and master diverse web technologies and techniques. Have a self-motivated work mentality. Demonstrates success in a small team environment. Expresses excitement in continuous software improvement, software architecture and development practices. Skills and Experience Develop software and applications with an expectancy of delivery using C#, .NET Core, Entity Framework, MVC. Extensive experience the design and use of relational databases with SQL including Stored Procedures. SQL Server experience would be an advantage. Solid experience building and debugging responsive web applications using ASP.Net, HTML5, CSS, JavaScript (Blazer would be an advantage). Experience using RESTful web services, JSON in particular. Experience with a testing framework. Experience with continuous integration and devops tools. Experience with version control (preferably git). Experience performing code reviews for team members. Experience with Agile Software Development Life Cycle. A background in Metrology will be an advantage. Qualifications Tertiary Qualification in Computer Science, Computer Engineering, Information Systems or related technical discipline. Minimum of 3-5 years’ experience in software development. Competencies Must display an ability to be deadline and results driven. Must display an ability to interact directly with end users. Must be able to work well under pressure. Must display problem-solving skills and techniques. Must be able to analyse and map business requirements into workable code. Must be inquisitive about new technologies, tools and trends within the development community. Standard Microsoft Office efficiencies are required. Background in Metrology will be an advantage. Download Job Description Contact Us Telephone +27 (0) 21 928 1700 FAX +27 (0)21 928 1701 EMAIL info@ontec.co.za Social Media Copyright © 2026 Ontec. All Rights Reserved.",
+  "links": [
+    {
+      "text": "",
+      "href": "https://ontec.co.za/careers/"
+    },
+    {
+      "text": "Buy Electricity Online",
+      "href": "https://home.ontec.co.za/EnergyInsight/index.html"
+    },
+    {
+      "text": "info@ontec.co.za",
+      "href": "mailto:info@ontec.co.za"
+    },
+    {
+      "text": "",
+      "href": "https://www.facebook.com/ontecsystems/"
+    },
+    {
+      "text": "",
+      "href": "https://www.linkedin.com/company/ontec-systems"
+    },
+    {
+      "text": "",
+      "href": "https://ontec.co.za"
+    },
+    {
+      "text": "About Us",
+      "href": "https://ontec.co.za/ontec-history/"
+    },
+    {
+      "text": "Services",
+      "href": "https://ontec.co.za/services/"
+    },
+    {
+      "text": "Technology",
+      "href": "https://ontec.co.za/technology/"
+    },
+    {
+      "text": "Submetering",
+      "href": "https://ontec.co.za/what-we-do/"
+    },
+    {
+      "text": "Property Management",
+      "href": "https://ontec.co.za/property-management/"
+    },
+    {
+      "text": "Tenant / Sectional Title",
+      "href": "https://ontec.co.za/tenant-sectional-title/"
+    },
+    {
+      "text": "Sustainability",
+      "href": "https://ontec.co.za/sustainability/"
+    },
+    {
+      "text": "News",
+      "href": "https://ontec.co.za/newsroom/"
+    },
+    {
+      "text": "Contact Us",
+      "href": "https://ontec.co.za/contact-us/"
+    },
+    {
+      "text": "Careers",
+      "href": "https://careers.ontec.co.za/jobs/Careers"
+    },
+    {
+      "text": "Ontec Energy",
+      "href": "https://ontec.co.za/ontec-energy/"
+    },
+    {
+      "text": "recruitment@ontec.co.za",
+      "href": "mailto:recruitment@ontec.co.za"
+    },
+    {
+      "text": "Download Job Description",
+      "href": "https://ontec.co.za/wp-content/uploads/2020/01/Job-Post_Full-Stack-Software-Developer.pdf"
+    }
+  ],
+  "career_link_count": 3,
+  "career_links": [
+    {
+      "text": "",
+      "href": "https://ontec.co.za/careers/"
+    },
+    {
+      "text": "Careers",
+      "href": "https://careers.ontec.co.za/jobs/Careers"
+    },
+    {
+      "text": "Download Job Description",
+      "href": "https://ontec.co.za/wp-content/uploads/2020/01/Job-Post_Full-Stack-Software-Developer.pdf"
+    }
+  ],
+  "vacancy_candidate_count": 0,
+  "vacancy_candidates": [],
+  "job_signal_count": 3,
+  "crawler": "crawlee_adaptive_playwright"
+}

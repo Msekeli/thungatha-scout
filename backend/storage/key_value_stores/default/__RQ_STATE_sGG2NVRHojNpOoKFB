@@ -1,10 +1,17 @@
 {
-  "sequence_counter": 1,
+  "sequence_counter": 8,
   "forefront_sequence_counter": 0,
   "forefront_requests": {},
   "regular_requests": {},
   "in_progress_requests": [],
   "handled_requests": [
-    "https://culture.entelect.co.za/current-available-positions"
+    "https://dvtcareers.recruitee.com",
+    "https://www.sintrex.com/careers",
+    "https://www.stanchionpayments.com/work-with-us",
+    "https://www.sovtech.com/careers",
+    "https://ontec.co.za/careers",
+    "https://culture.entelect.co.za/current-available-positions",
+    "https://www.dariel.co.za/careers",
+    "https://www.bbd.co.za/careers"
   ]
 }

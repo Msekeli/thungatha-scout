@@ -1,0 +1,16 @@
+{
+  "unique_key": "https://www.dariel.co.za/careers",
+  "url": "https://www.dariel.co.za/careers",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    }
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": "https://www.dariel.co.za/our-team/",
+  "handled_at": "2026-10-27 00:40:03.781993+00:00"
+}

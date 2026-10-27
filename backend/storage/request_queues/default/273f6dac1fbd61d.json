@@ -1,0 +1,16 @@
+{
+  "unique_key": "https://www.sovtech.com/careers",
+  "url": "https://www.sovtech.com/careers/",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    }
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": "https://www.scrums.com/careers",
+  "handled_at": "2026-10-27 00:40:03.465774+00:00"
+}

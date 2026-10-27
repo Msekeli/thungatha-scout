@@ -1,0 +1,2093 @@
+{
+  "generated_at": "2026-10-27T00:40:06.414109+00:00",
+  "mode": "primary_then_fallback",
+  "ai_enabled": false,
+  "companies_requested": 10,
+  "primary_jobs_found": 2,
+  "fallback_attempted": 8,
+  "fallback_candidates_found": 1,
+  "results": [
+    {
+      "company": "Specno",
+      "url": "https://www.specno.com/careers",
+      "primary": {
+        "company": "Specno",
+        "start_url": "https://www.specno.com/careers",
+        "status": "jobs_in_visible_html",
+        "path": [
+          "https://www.specno.com/careers"
+        ],
+        "pages": [
+          {
+            "url": "https://www.specno.com/careers",
+            "http_status": 200,
+            "title": "Careers | Specno",
+            "h1": "Work with a team\nthat ships.",
+            "body_excerpt": "Skip to main content Our Services Product Assessment A 4\u20136 week product, UX, and engineering assessment. Find out what stands between prototype and production-ready. Risk Validation Sprint A 2\u20136 week sprint that proves or disproves the highest-risk assumptions in your product through real execution. Launch Pod Three senior operators across product strategy, design, and engineering, deployed within a week. One accountability line. Scale Pod Four senior operators covering architecture, engineering, product strategy, and design. Built for complex platforms. Enterprise Pod A custom-configured team"
+          }
+        ],
+        "platform": [],
+        "search": null,
+        "endpoint": null,
+        "job_count": 5,
+        "jobs": [
+          {
+            "company": "Specno",
+            "title": "Junior Front-End/Full Stack Software Engineer",
+            "location": null,
+            "url": "https://www.specno.com/careers/junior-front-end-full-stack-software-engineer",
+            "closing_date_text": null,
+            "source_url": "https://www.specno.com/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          },
+          {
+            "company": "Specno",
+            "title": "Intermediate Front-End/Full Stack Software Engineer",
+            "location": null,
+            "url": "https://www.specno.com/careers/intermediate-front-end-full-stack-software-engineer",
+            "closing_date_text": null,
+            "source_url": "https://www.specno.com/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          },
+          {
+            "company": "Specno",
+            "title": "Senior Front-End Software Developer",
+            "location": null,
+            "url": "https://www.specno.com/careers/senior-front-end-software-developer",
+            "closing_date_text": null,
+            "source_url": "https://www.specno.com/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          },
+          {
+            "company": "Specno",
+            "title": "Intermediate UX/UI Designer",
+            "location": null,
+            "url": "https://www.specno.com/careers/intermediate-ux-ui-designer-2",
+            "closing_date_text": null,
+            "source_url": "https://www.specno.com/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          },
+          {
+            "company": "Specno",
+            "title": "Intermediate Product Manager",
+            "location": null,
+            "url": "https://www.specno.com/careers/intermediate-product-manager",
+            "closing_date_text": null,
+            "source_url": "https://www.specno.com/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          }
+        ],
+        "jsonld": false
+      },
+      "fallback_used": false,
+      "fallback": null,
+      "outcome": "primary_found_jobs"
+    },
+    {
+      "company": "Sintrex",
+      "url": "https://www.sintrex.com/careers",
+      "primary": {
+        "company": "Sintrex",
+        "start_url": "https://www.sintrex.com/careers",
+        "status": "blocked",
+        "path": [
+          "https://www.sintrex.com/careers"
+        ],
+        "pages": [
+          {
+            "url": "https://www.sintrex.com/careers",
+            "http_status": 200,
+            "title": "Careers | Sintrex",
+            "h1": "BUILD YOUR FUTURE\nWITH SINTREX",
+            "body_excerpt": "Skip to Main Content Home Solutions About Careers Contact Careers BUILD YOUR FUTURE WITH SINTREX We attract and empower people with inspirational work experience, world-class software and globally renowned partners. If you're passionate about IT and driven to make an impact, there's a place for you here. VIEW OPEN POSITIONS INTERNSHIP PROGRAMME Culture A PLACE WHERE EXCELLENCE MEETS PURPOSE Through a culture of excellence, partnership and fun, Sintrex creates an environment where talented people thrive. We believe that great technology is built by empowered people who are supported, challenged"
+          }
+        ],
+        "platform": [],
+        "search": null,
+        "endpoint": null,
+        "job_count": 0,
+        "jobs": [],
+        "jsonld": false
+      },
+      "fallback_used": true,
+      "fallback": {
+        "company": "Sintrex",
+        "url": "https://www.sintrex.com/careers",
+        "host": "www.sintrex.com",
+        "status": "captured",
+        "title": "Careers | Sintrex",
+        "text_excerpt": "Careers | Sintrex top of page Home Solutions About Careers Contact Menu Close Careers BUILD YOUR future WITH SINTREX We attract and empower people with inspirational work experience, world-class software and globally renowned partners. If you're passionate about IT and driven to make an impact, there's a place for you here. VIEW OPEN POSITIONS INTERNSHIP PROGRAMME Culture A PLACE WHERE EXCELLENCE MEETS PURPOSE Through a culture of excellence, partnership and fun, Sintrex creates an environment where talented people thrive. We believe that great technology is built by empowered people who are supported, challenged and inspired every day. Vacancies build Your future with us Permanent Cape Town (Bellville) Junior Technical Test Analyst Sintrex is passionate about the innovative pursuit of excellence in providing end to end IT management and consultative IT services that create reliable robust and user-friendly solutions. VIEW APPLY Permanent Cape Town (Bellville) Developer Intern Sintrex is passionate about the innovative pursuit of excellence in providing end to end IT management and consultative IT services that create reliable robust and user-friendly solutions. VIEW APPLY Permanent Cape Town (Bellville) Mid-Level Developer Sintrex is passionate about the innovative pursuit of excellence in providing end to end IT management and consultative IT services that create reliable robust and user-friendly solutions. VIEW APPLY Permanent Cape Town (Bellville) Network Operator (ITOC Services) Sintrex is passionate about the innovative pursuit of excellence in providing end to end IT management and consultative IT services that create reliable robust and user-friendly solutions. VIEW APPLY Permanent Cape Town (Bellville) Senior DevOps Engineer Sintrex is passionate about the innovative pursuit of excellence in providing end-to-end IT management and consultative IT services that create reliable, robust and user friendly solutions. VIEW APPLY Permanent Cape Town (Bellville) CoE AFN Junior Engineer Sintrex is passionate about the innovative pursuit of excellence in providing end-to-end IT management and consultative IT services that create reliable, robust and user friendly solutions. VIEW APPLY INTERNSHIP & LEARNERSHIP PROGRAMMES For nearly a decade Sintrex has invested in the next generation of IT professionals and we've retained more than 80% of them. internship PROGRAMME A hands-on internship experience within a live enterprise environment. EXPOSURE TO: Infrastructure Management ITOC Operations Security Software Development Interns work alongside senior specialists, contributing to real client projects from day one. High performers are offered permanent positions upon completion. LEARNERSHIP PROGRAMME Designed for school leavers, our learnership partners with accredited technical colleges to provide structured qualifications alongside on-the-job training at Sintrex. Learners gain nationally recognised IT qualifications, equipping them to pursue further study or employment in the IT sector, contributing directly to South Africa's skills pipeline. Grow With Us 12 MONTH PROGRAMME 80%+ CONVERTED TO FULL-TIME NQF ACCREDITED QUALIFICATION 45%+ OF WORKFORCE ALUMNI Contact Us Solutions About Careers Contact Legal Documents Observability Security Services Network Services Managed Operations Data Integration Intelligent Automation Privacy Notice: Sintrex is committed to protecting the personal information that we receive, in compliance with POPIA and other Data Protection legislation.\u00a9 Copyright 2026. All Rights Reserved. Home Solutions About Careers Contact bottom of page",
+        "links": [
+          {
+            "text": "",
+            "href": "https://www.sintrex.com"
+          },
+          {
+            "text": "Solutions",
+            "href": "https://www.sintrex.com/sintrex-solutions"
+          },
+          {
+            "text": "About",
+            "href": "https://www.sintrex.com/about"
+          },
+          {
+            "text": "Careers",
+            "href": "https://www.sintrex.com/careers"
+          },
+          {
+            "text": "Contact",
+            "href": "https://www.sintrex.com/contact"
+          },
+          {
+            "text": "VIEW",
+            "href": "https://www.sintrex.com/_files/ugd/6e60c2_5a2f5c2ebd9e4b0ea2e8f3c0acdd7b3d.pdf"
+          },
+          {
+            "text": "VIEW",
+            "href": "https://www.sintrex.com/_files/ugd/6e60c2_762bc650ab6447d98deb62b4b0711483.pdf"
+          },
+          {
+            "text": "VIEW",
+            "href": "https://www.sintrex.com/_files/ugd/6e60c2_49ac87ec0b1249cca7791de63b1c6ac8.pdf"
+          },
+          {
+            "text": "VIEW",
+            "href": "https://www.sintrex.com/_files/ugd/6e60c2_e43269e60ee24e0593e69bb98f0ae2fb.pdf"
+          },
+          {
+            "text": "VIEW",
+            "href": "https://www.sintrex.com/_files/ugd/6e60c2_b1601e0769604014b8828589694afcda.pdf"
+          },
+          {
+            "text": "VIEW",
+            "href": "https://www.sintrex.com/_files/ugd/6e60c2_05a49e556d8948e183aa29c2f3072b79.pdf"
+          },
+          {
+            "text": "Legal Documents",
+            "href": "https://www.sintrex.com/legal-documents"
+          },
+          {
+            "text": "",
+            "href": "https://youtube.com/@sintrexintegrationservices4252?si=wgu7yk1KUiHJ2SaA"
+          },
+          {
+            "text": "",
+            "href": "https://www.facebook.com/SintrexIS"
+          },
+          {
+            "text": "",
+            "href": "https://www.linkedin.com/company/sintrex/?viewAsMember=true"
+          }
+        ],
+        "career_link_count": 1,
+        "career_links": [
+          {
+            "text": "Careers",
+            "href": "https://www.sintrex.com/careers"
+          }
+        ],
+        "vacancy_candidate_count": 0,
+        "vacancy_candidates": [],
+        "job_signal_count": 4,
+        "crawler": "crawlee_adaptive_playwright"
+      },
+      "outcome": "unresolved_no_vacancy_evidence"
+    },
+    {
+      "company": "Octoco",
+      "url": "https://www.octoco.ltd/careers",
+      "primary": {
+        "company": "Octoco",
+        "start_url": "https://www.octoco.ltd/careers",
+        "status": "jobs_in_visible_html",
+        "path": [
+          "https://www.octoco.ltd/careers"
+        ],
+        "pages": [
+          {
+            "url": "https://www.octoco.ltd/careers",
+            "http_status": 200,
+            "title": "Work at Octoco | Octoco",
+            "h1": "Work at Octoco",
+            "body_excerpt": "Skip to content Services Projects Team Careers Insights Yenza Contact us Work at Octoco We are a team of engineers building software, hardware and connected products for clients across industries. These are the roles open at the moment. Find the perfect position Open roles across operations, software and embedded engineering. Software Engineering Software Engineer Intermediate Stellenbosch, South Africa (Hybrid) Closes 31 Oct 2026 View role : Software Engineer (Intermediate) Software Engineer Junior Stellenbosch, South Africa (Hybrid) Closes 30 Nov 2026 View role : Software Engineer (Junior) O"
+          }
+        ],
+        "platform": [],
+        "search": null,
+        "endpoint": null,
+        "job_count": 4,
+        "jobs": [
+          {
+            "company": "Octoco",
+            "title": "Software Engineer (Intermediate)",
+            "location": "Stellenbosch, South Africa (Hybrid)",
+            "url": "https://www.octoco.ltd/careers/software-engineer-intermediate",
+            "closing_date_text": "31 Oct 2026",
+            "source_url": "https://www.octoco.ltd/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          },
+          {
+            "company": "Octoco",
+            "title": "Software Engineer (Junior)",
+            "location": "Stellenbosch, South Africa (Hybrid)",
+            "url": "https://www.octoco.ltd/careers/software-engineer-junior",
+            "closing_date_text": "30 Nov 2026",
+            "source_url": "https://www.octoco.ltd/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          },
+          {
+            "company": "Octoco",
+            "title": "Project Manager (Software) (Junior)",
+            "location": "Stellenbosch, South Africa",
+            "url": "https://www.octoco.ltd/careers/project-manager-software",
+            "closing_date_text": "30 Nov 2026",
+            "source_url": "https://www.octoco.ltd/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          },
+          {
+            "company": "Octoco",
+            "title": "Talent Coordinator",
+            "location": "Stellenbosch, South Africa",
+            "url": "https://www.octoco.ltd/careers/talent-coordinator",
+            "closing_date_text": "30 Oct 2026",
+            "source_url": "https://www.octoco.ltd/careers",
+            "extraction_method": "visible_html_link_and_context",
+            "needs_review": true
+          }
+        ],
+        "jsonld": false
+      },
+      "fallback_used": false,
+      "fallback": null,
+      "outcome": "primary_found_jobs"
+    },
+    {
+      "company": "Entelect",
+      "url": "https://culture.entelect.co.za/current-available-positions/",
+      "primary": {
+        "company": "Entelect",
+        "start_url": "https://culture.entelect.co.za/current-available-positions/",
+        "status": "search_control_not_found",
+        "path": [
+          "https://culture.entelect.co.za/current-available-positions/",
+          "https://careers.entelect.co.za/lore-of-entelect"
+        ],
+        "pages": [
+          {
+            "url": "https://culture.entelect.co.za/current-available-positions/",
+            "http_status": 200,
+            "title": "Current Available Jobs - Entelect",
+            "h1": "SOFTWARE ENGINEER POSITIONS",
+            "body_excerpt": "WORKING AT ENTELECT HOW YOU\u2019LL GROW THE ROLES WE OFFER NEWS THE ENTELECT FOUNDATION CONTACT US APPLY NOW Home|Current Available Jobs WE ARE ALWAYS HIRING At Entelect, we're always on the lookout for talented professionals who are ready to make an impact. Browse through our current job openings below to find a position that matches your skills and passion. We're committed to fostering a culture of innovation, growth, and collaboration \u2013 so take a look and see where you could fit in! Software Engineering Positions | Business Analyst Positions | Data Solutions Engineer Positions | Quality Assuran"
+          },
+          {
+            "url": "https://online.flippingbook.com/view/158335443/",
+            "http_status": 200,
+            "title": "The Lore of Entelect",
+            "h1": "The Lore of Entelect",
+            "body_excerpt": "1 Table of contents 2-3 92 The Lore of Entelect At Entelect, we grow the people who build technology that matters. Join a global software engineering consultancy with 25+ years of experience. Hello and welcome! < ARE YOU PREPARED TO BECOME MORE? Like the na\u00efve teenager who becomes the saviour of an entire galaxy, you too have the potential for greatness when you work with us at Entelect. Through constant training, development and mentorship, we are fully equipped to give you everything that you need to become more (whatever your more is). Should you choose to start your journey with us, you ar"
+          }
+        ],
+        "platform": [],
+        "search": {
+          "location_filled": false,
+          "submitted": false
+        },
+        "endpoint": null,
+        "job_count": 0,
+        "jobs": [],
+        "jsonld": false
+      },
+      "fallback_used": true,
+      "fallback": {
+        "company": "Entelect",
+        "url": "https://culture.entelect.co.za/current-available-positions/",
+        "host": "culture.entelect.co.za",
+        "status": "captured",
+        "title": "Current Available Jobs - Entelect",
+        "text_excerpt": "Current Available Jobs - Entelect Working at Entelect What We Do Work Life Explained The DNA Of An Entelectual Our Code Work Hard Play Hard Perks How you\u2019ll grow Career Growth and Mentorship The Entelect Way Knowledge Sharing & Learning Training Forums ElevateHer The Roles We Offer Current Available Jobs Development Manager | The Centurion Team Lead | The Commodore Tech Lead | The Technologist Software Engineer | The Commando QA Engineer | The Sentinel Product Designer | The Pathfinder Data Solutions Engineer | The Scout Business Analyst | The Agent The Entelect Graduate Programme News The Entelect Foundation Contact Us Apply Now Working at Entelect What We Do Work Life Explained The DNA Of An Entelectual Our Code Work Hard Play Hard Perks How you\u2019ll grow Career Growth and Mentorship The Entelect Way Knowledge Sharing & Learning Training Forums ElevateHer The Roles We Offer Current Available Jobs Development Manager | The Centurion Team Lead | The Commodore Tech Lead | The Technologist Software Engineer | The Commando QA Engineer | The Sentinel Product Designer | The Pathfinder Data Solutions Engineer | The Scout Business Analyst | The Agent The Entelect Graduate Programme News The Entelect Foundation Contact Us Apply Now Home | Current Available Jobs We are always Hiring At Entelect, we're always on the lookout for talented professionals who are ready to make an impact. Browse through our current job openings below to find a position that matches your skills and passion. We're committed to fostering a culture of innovation, growth, and collaboration \u2013 so take a look and see where you could fit in! Software Engineering Positions | Business Analyst Positions | Data Solutions Engineer Positions | Quality Assurance Engineer Positions Software Engineer Positions Team Lead positions Java Team Lead Join Entelect as a Java Team Lead \u2013 Exciting Opportunities Await! Read More Mobile Team Lead Take Your Career to the Next Level \u2013 Mobile Team Lead at Entelect Read More JavaScript Team Lead Ready for a New Challenge? Apply for the JavaScript Team Lead Role at Entelect Read More Tech Lead Positions Java Technical Lead Exciting Java Technical Lead Role Open at Entelect \u2013 Apply Now! Read More Mobile Technical Lead Advance Your Career as a Mobile Technical Lead with Entelect Read More JavaScript Technical Lead We're Looking for Talented JavaScript Technical Leads \u2013 Join Us! Read More Senior Software Engineering Positions Senior Java Software Engineer Join Us as a Senior Java Software Engineer \u2013 Exciting Opportunities Await! Read More Senior Mobile Software Engineer Shape the Future with Entelect \u2013 Senior Mobile Software Engineer Opportunities Available Read More Senior JavaScript Software Engineer Step into an Exciting Senior JavaScript Software Engineer Position Read More Senior .NET Software Engineer Unleash Your Potential as a Senior .NET Software Engineer at Entelect Read More Senior Salesforce Software Engineer Take Your Career to the Next Level \u2013 Senior Salesforce Software Engineer Read More Intermediate Software Engineering Positions Intermediate Java Software Engineer Ready for a New Challenge? Apply for the Intermediate Java Software Engineer Role at Entelect Read More Intermediate Mobile Software Engineer Exciting Intermediate Mobile Software Engineer Role Open \u2013 Apply Now! Read More Intermediate JavaScript Software Engineer Advance Your Career as a Intermediate JavaScript Software Engineer Read More Intermediate .NET Software Engineer Ready for a New Challenge? Apply for the Intermediate .NET Software Engineer Role at Entelect Read More Intermediate Salesforce Software Engineer Step into an Exciting Intermediate Salesforce Software Engineer Position at Entelect Read More Business Analyst Positions Senior Business Analyst Entelect is Looking for Talented Senior Business Analysts \u2013 Join Us! Read More Intermediate Business Analyst Unleash Your Potential as a Intermediate Business Analyst Read More Data Solutions Engineer Positions Senior Data Solutions Engineer Advance Your Career as a Senior Data Solutions Engineer with Entelect Read More Intermediate Data Solutions Engineer Shape the Future with Entelect \u2013 Intermediate Data Solutions Engineer Opportunities Available Read More Quality Assurance Engineer Positions Senior Quality Assurance Engineer Exciting Opportunity for a Senior Quality Assurance Engineer at Entelect Elevate your career at Entelect, where we prioritise people and Read More Quick Links Find Out More View Our Lore Apply Now Available Positions Ask A Question Chat with us Customer? Corporate website Follow Us Legal Privacy Policy PAIA Manual careers Tel: +27(0)11 994 3300 Email: careers@entelect.co.za \u00a9 2026 Entelect. All Rights Reserved.",
+        "links": [
+          {
+            "text": "What We Do",
+            "href": "https://culture.entelect.co.za/what-we-do/"
+          },
+          {
+            "text": "Work Life Explained",
+            "href": "https://culture.entelect.co.za/work-life-explained/"
+          },
+          {
+            "text": "The DNA Of An Entelectual",
+            "href": "https://culture.entelect.co.za/the-dna-of-an-entelectual/"
+          },
+          {
+            "text": "Our Code",
+            "href": "https://culture.entelect.co.za/our-code/"
+          },
+          {
+            "text": "Work Hard Play Hard",
+            "href": "https://culture.entelect.co.za/work-hard-play-hard/"
+          },
+          {
+            "text": "Perks",
+            "href": "https://culture.entelect.co.za/what-else-we-offer/"
+          },
+          {
+            "text": "Career Growth and Mentorship",
+            "href": "https://culture.entelect.co.za/career-growth-and-mentorship/"
+          },
+          {
+            "text": "The Entelect Way",
+            "href": "https://culture.entelect.co.za/the-entelect-way/"
+          },
+          {
+            "text": "Knowledge Sharing & Learning",
+            "href": "https://culture.entelect.co.za/knowledge-sharing-learning/"
+          },
+          {
+            "text": "Training",
+            "href": "https://culture.entelect.co.za/training/"
+          },
+          {
+            "text": "Forums",
+            "href": "https://culture.entelect.co.za/forums/"
+          },
+          {
+            "text": "ElevateHer",
+            "href": "https://culture.entelect.co.za/elevateher/"
+          },
+          {
+            "text": "Current Available Jobs",
+            "href": "https://culture.entelect.co.za/current-available-positions/"
+          },
+          {
+            "text": "Development Manager | The Centurion",
+            "href": "https://culture.entelect.co.za/careerpath/the-centurion/"
+          },
+          {
+            "text": "Team Lead | The Commodore",
+            "href": "https://culture.entelect.co.za/careerpath/the-commodore/"
+          },
+          {
+            "text": "Tech Lead | The Technologist",
+            "href": "https://culture.entelect.co.za/careerpath/the-technologist/"
+          },
+          {
+            "text": "Software Engineer | The Commando",
+            "href": "https://culture.entelect.co.za/careerpath/the-commando/"
+          },
+          {
+            "text": "QA Engineer | The Sentinel",
+            "href": "https://culture.entelect.co.za/careerpath/the-sentinel/"
+          },
+          {
+            "text": "Product Designer | The Pathfinder",
+            "href": "https://culture.entelect.co.za/careerpath/the-pathfinder/"
+          },
+          {
+            "text": "Data Solutions Engineer | The Scout",
+            "href": "https://culture.entelect.co.za/careerpath/the-scout/"
+          },
+          {
+            "text": "Business Analyst | The Agent",
+            "href": "https://culture.entelect.co.za/careerpath/the-agent/"
+          },
+          {
+            "text": "The Entelect Graduate Programme",
+            "href": "https://culture.entelect.co.za/the-entelect-graduate-programme/"
+          },
+          {
+            "text": "",
+            "href": "https://culture.entelect.co.za/"
+          },
+          {
+            "text": "News",
+            "href": "https://culture.entelect.co.za/news/"
+          },
+          {
+            "text": "The Entelect Foundation",
+            "href": "https://culture.entelect.co.za/the-entelect-foundation/"
+          },
+          {
+            "text": "Contact Us",
+            "href": "https://culture.entelect.co.za/contact-us/"
+          },
+          {
+            "text": "Apply Now",
+            "href": "https://culture.entelect.co.za/apply-now"
+          },
+          {
+            "text": "",
+            "href": "https://www.glassdoor.com/Overview/Working-at-Entelect-EI_IE619596.11,19.htm"
+          },
+          {
+            "text": "Java Team Lead",
+            "href": "https://culture.entelect.co.za/position/java-team-lead/"
+          },
+          {
+            "text": "Mobile Team Lead",
+            "href": "https://culture.entelect.co.za/position/mobile-team-lead/"
+          },
+          {
+            "text": "JavaScript Team Lead",
+            "href": "https://culture.entelect.co.za/position/javascript-team-lead/"
+          },
+          {
+            "text": "Java Technical Lead",
+            "href": "https://culture.entelect.co.za/position/java-technical-lead/"
+          },
+          {
+            "text": "Mobile Technical Lead",
+            "href": "https://culture.entelect.co.za/position/mobile-technical-lead/"
+          },
+          {
+            "text": "JavaScript Technical Lead",
+            "href": "https://culture.entelect.co.za/position/javascript-technical-lead/"
+          },
+          {
+            "text": "Senior Java Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-java-software-engineer/"
+          },
+          {
+            "text": "Senior Mobile Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-mobile-software-engineer/"
+          },
+          {
+            "text": "Senior JavaScript Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-javascript-software-engineer/"
+          },
+          {
+            "text": "Senior .NET Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-net-software-engineer/"
+          },
+          {
+            "text": "Senior Salesforce Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-salesforce-software-engineer/"
+          },
+          {
+            "text": "Intermediate Java Software Engineer",
+            "href": "https://culture.entelect.co.za/position/intermediate-java-software-engineer/"
+          },
+          {
+            "text": "Intermediate Mobile Software Engineer",
+            "href": "https://culture.entelect.co.za/position/intermediate-mobile-software-engineer/"
+          }
+        ],
+        "career_link_count": 24,
+        "career_links": [
+          {
+            "text": "Career Growth and Mentorship",
+            "href": "https://culture.entelect.co.za/career-growth-and-mentorship/"
+          },
+          {
+            "text": "Current Available Jobs",
+            "href": "https://culture.entelect.co.za/current-available-positions/"
+          },
+          {
+            "text": "Development Manager | The Centurion",
+            "href": "https://culture.entelect.co.za/careerpath/the-centurion/"
+          },
+          {
+            "text": "Team Lead | The Commodore",
+            "href": "https://culture.entelect.co.za/careerpath/the-commodore/"
+          },
+          {
+            "text": "Tech Lead | The Technologist",
+            "href": "https://culture.entelect.co.za/careerpath/the-technologist/"
+          },
+          {
+            "text": "Software Engineer | The Commando",
+            "href": "https://culture.entelect.co.za/careerpath/the-commando/"
+          },
+          {
+            "text": "QA Engineer | The Sentinel",
+            "href": "https://culture.entelect.co.za/careerpath/the-sentinel/"
+          },
+          {
+            "text": "Product Designer | The Pathfinder",
+            "href": "https://culture.entelect.co.za/careerpath/the-pathfinder/"
+          },
+          {
+            "text": "Data Solutions Engineer | The Scout",
+            "href": "https://culture.entelect.co.za/careerpath/the-scout/"
+          },
+          {
+            "text": "Business Analyst | The Agent",
+            "href": "https://culture.entelect.co.za/careerpath/the-agent/"
+          },
+          {
+            "text": "Apply Now",
+            "href": "https://culture.entelect.co.za/apply-now"
+          },
+          {
+            "text": "Java Team Lead",
+            "href": "https://culture.entelect.co.za/position/java-team-lead/"
+          },
+          {
+            "text": "Mobile Team Lead",
+            "href": "https://culture.entelect.co.za/position/mobile-team-lead/"
+          },
+          {
+            "text": "JavaScript Team Lead",
+            "href": "https://culture.entelect.co.za/position/javascript-team-lead/"
+          },
+          {
+            "text": "Java Technical Lead",
+            "href": "https://culture.entelect.co.za/position/java-technical-lead/"
+          },
+          {
+            "text": "Mobile Technical Lead",
+            "href": "https://culture.entelect.co.za/position/mobile-technical-lead/"
+          },
+          {
+            "text": "JavaScript Technical Lead",
+            "href": "https://culture.entelect.co.za/position/javascript-technical-lead/"
+          },
+          {
+            "text": "Senior Java Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-java-software-engineer/"
+          },
+          {
+            "text": "Senior Mobile Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-mobile-software-engineer/"
+          },
+          {
+            "text": "Senior JavaScript Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-javascript-software-engineer/"
+          },
+          {
+            "text": "Senior .NET Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-net-software-engineer/"
+          },
+          {
+            "text": "Senior Salesforce Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-salesforce-software-engineer/"
+          },
+          {
+            "text": "Intermediate Java Software Engineer",
+            "href": "https://culture.entelect.co.za/position/intermediate-java-software-engineer/"
+          },
+          {
+            "text": "Intermediate Mobile Software Engineer",
+            "href": "https://culture.entelect.co.za/position/intermediate-mobile-software-engineer/"
+          }
+        ],
+        "vacancy_candidate_count": 13,
+        "vacancy_candidates": [
+          {
+            "text": "Java Team Lead",
+            "href": "https://culture.entelect.co.za/position/java-team-lead/"
+          },
+          {
+            "text": "Mobile Team Lead",
+            "href": "https://culture.entelect.co.za/position/mobile-team-lead/"
+          },
+          {
+            "text": "JavaScript Team Lead",
+            "href": "https://culture.entelect.co.za/position/javascript-team-lead/"
+          },
+          {
+            "text": "Java Technical Lead",
+            "href": "https://culture.entelect.co.za/position/java-technical-lead/"
+          },
+          {
+            "text": "Mobile Technical Lead",
+            "href": "https://culture.entelect.co.za/position/mobile-technical-lead/"
+          },
+          {
+            "text": "JavaScript Technical Lead",
+            "href": "https://culture.entelect.co.za/position/javascript-technical-lead/"
+          },
+          {
+            "text": "Senior Java Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-java-software-engineer/"
+          },
+          {
+            "text": "Senior Mobile Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-mobile-software-engineer/"
+          },
+          {
+            "text": "Senior JavaScript Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-javascript-software-engineer/"
+          },
+          {
+            "text": "Senior .NET Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-net-software-engineer/"
+          },
+          {
+            "text": "Senior Salesforce Software Engineer",
+            "href": "https://culture.entelect.co.za/position/senior-salesforce-software-engineer/"
+          },
+          {
+            "text": "Intermediate Java Software Engineer",
+            "href": "https://culture.entelect.co.za/position/intermediate-java-software-engineer/"
+          },
+          {
+            "text": "Intermediate Mobile Software Engineer",
+            "href": "https://culture.entelect.co.za/position/intermediate-mobile-software-engineer/"
+          }
+        ],
+        "job_signal_count": 29,
+        "crawler": "crawlee_adaptive_playwright"
+      },
+      "outcome": "fallback_found_vacancy_candidates"
+    },
+    {
+      "company": "DVT",
+      "url": "https://dvtcareers.recruitee.com/",
+      "primary": {
+        "company": "DVT",
+        "start_url": "https://dvtcareers.recruitee.com/",
+        "status": "blocked",
+        "path": [
+          "https://dvtcareers.recruitee.com/"
+        ],
+        "pages": [
+          {
+            "url": "https://dvtcareers.recruitee.com/",
+            "http_status": 200,
+            "title": "Careers homepage",
+            "h1": "Expert-led, AI-driven Software Professionals",
+            "body_excerpt": "Skip to content Homepage Homepage http://dvt.co.za/ Why Join DVT? Join our Global Team of Expert-led, AI-driven Software Professionals \ufeff #BuildBeyondYourself Our mission is to create a seamless process for potential DVT'ers. We have a recruitment team dedicated to the various clusters within the business. Together, our team of Talent Acquisition Specialists has close to 100 years of collective experience within the IT field, specialising in different niches. From the initial screening call to the technical challenge, interview, and offer stage; you will be provided with feedback at every turn."
+          }
+        ],
+        "platform": [],
+        "search": null,
+        "endpoint": null,
+        "job_count": 0,
+        "jobs": [],
+        "jsonld": false
+      },
+      "fallback_used": true,
+      "fallback": {
+        "company": "DVT",
+        "url": "https://dvtcareers.recruitee.com/",
+        "host": "dvtcareers.recruitee.com",
+        "status": "captured",
+        "title": "Careers homepage",
+        "text_excerpt": "Careers homepage Skip to content DVT Homepage DVT Homepage http://dvt.co.za/ Why Join DVT? DVT Homepage DVT Homepage DVT Homepage DVT Homepage http://dvt.co.za/ Why Join DVT? DVT Homepage DVT Homepage Join our Global Team of Expert-led, AI-driven Software Professionals \ufeff #BuildBeyondYourself Our mission is to create a seamless process for potential DVT'ers. We have a recruitment team dedicated to the various clusters within the business. Together, our team of Talent Acquisition Specialists has close to 100 years of collective experience within the IT field, specialising in different niches. From the initial screening call to the technical challenge, interview, and offer stage; you will be provided with feedback at every turn. How we hire... Open positions All departments .NET Artificial intelligence Business Analysis Cloud Data Engineering & AI Delivery Java Mobile Show filters Filters All countries Kenya South Africa All cities Cape Town Centurion Gauteng Johannesburg Melrose Arch Nairobi Remote 19 jobs Share Filters All countries Kenya South Africa All cities Cape Town Centurion Gauteng Johannesburg Melrose Arch Nairobi Remote 19 jobs Share Cape Town Job title Work model Location Principal Java Engineer: AI Augmentation and Engineering Systems Hybrid Cape Town , Western Cape , South Africa View job Senior AWS Cloud Consultant - NM Remote Remote , Gauteng , South Africa \u2022 +1 more View job Principal Java Engineer: AI Augmentation and Engineering Systems Hybrid Cape Town , Western Cape , South Africa View job Senior AWS Cloud Consultant - NM Remote Remote , Gauteng , South Africa \u2022 +1 more View job Centurion Job title Work model Location AI Lead SDLC - TC Hybrid Centurion , Gauteng , South Africa View job AI Specialist SDLC - TC Hybrid Centurion , Gauteng , South Africa View job Data Analytics Engineer - JHB On-site, Hybrid Centurion , Gauteng , South Africa View job Data Engineering Lead \u2013 Data Science and AI Hybrid Centurion , Gauteng , South Africa View job Intermediate iOS Developer - JHB North Hybrid Johannesburg , Gauteng , South Africa \u2022 +2 more View job Java Software Engineering - Competency Lead Hybrid Centurion , Gauteng , South Africa View job Lead Full Stack Ai, Python Developer Hybrid Centurion , Gauteng , South Africa View job Senior .Net Developers Centurion - TR On-site, Hybrid Centurion , Gauteng , South Africa View job Senior Data Engineer (Fabric, Databricks & Cloud Data Platforms) On-site, Hybrid Centurion , Gauteng , South Africa View job Senior iOS Developer - Hybrid JHB Hybrid Melrose Arch , Gauteng , South Africa \u2022 +1 more View job Showing 10 of 11 Show more jobs AI Lead SDLC - TC Hybrid Centurion , Gauteng , South Africa View job AI Specialist SDLC - TC Hybrid Centurion , Gauteng , South Africa View job Data Analytics Engineer - JHB On-site, Hybrid Centurion , Gauteng , South Africa View job Data Engineering Lead \u2013 Data Science and AI Hybrid Centurion , Gauteng , South Africa View job Intermediate iOS Developer - JHB North Hybrid Johannesburg , Gauteng , South Africa \u2022 +2 more View job Java Software Engineering - Competency Lead Hybrid Centurion , Gauteng , South Africa View job Lead Full Stack Ai, Python Developer Hybrid Centurion , Gauteng , South Africa View job Senior .Net Developers Centurion - TR On-site, Hybrid Centurion , Gauteng , South Africa View job Senior Data Engineer (Fabric, Databricks & Cloud Data Platforms) On-site, Hybrid Centurion , Gauteng , South Africa View job Senior iOS Developer - Hybrid JHB Hybrid Melrose Arch , Gauteng , South Africa \u2022 +1 more View job Showing 10 of 11 Show more jobs Gauteng Job title Work model Location Project Managers: Specialized Consulting Recruitment board Remote Gauteng , Gauteng , South Africa View job Senior C++ Developer Remote, Hybrid Gauteng , Gauteng , South Africa \u2022 +1 more View job Project Managers: Specialized Consulting Recruitment board Remote Gauteng , Gauteng , South Africa View job Senior C++ Developer Remote, Hybrid Gauteng , Gauteng , South Africa \u2022 +1 more View job Johannesburg Job title Work model Location Business Analysis Recruitment board (BUS) Remote, Hybrid Johannesburg , Gauteng , South Africa View job Intermediate iOS Developer - JHB North Hybrid Johannesburg , Gauteng , South Africa \u2022 +2 more View job Senior AI Engineer (OZ) Hybrid Johannesburg , Gauteng , South Africa View job Business Analysis Recruitment board (BUS) Remote, Hybrid Johannesburg , Gauteng , South Africa View job Intermediate iOS Developer - JHB North Hybrid Johannesburg , Gauteng , South Africa \u2022 +2 more View job Senior AI Engineer (OZ) Hybrid Johannesburg , Gauteng , South Africa View job Melrose Arch Job title Work model Location Intermediate iOS Developer - JHB North Hybrid Johannesburg , Gauteng , South Africa \u2022 +2 more View job Senior iOS Developer - Hybrid JHB Hybrid Melrose Arch , Gauteng , South Africa \u2022 +1 more View job Intermediate iOS Developer - JHB North Hybrid Johannesburg , Gauteng , South Africa \u2022 +2 more View job Senior iO",
+        "links": [
+          {
+            "text": "Skip to content",
+            "href": "https://dvtcareers.recruitee.com/"
+          },
+          {
+            "text": "",
+            "href": "https://www.youtube.com/user/DVTPRMedia"
+          },
+          {
+            "text": "",
+            "href": "https://www.facebook.com/DVTSoftware"
+          },
+          {
+            "text": "",
+            "href": "https://twitter.com/DVTSoftware"
+          },
+          {
+            "text": "",
+            "href": "https://www.linkedin.com/company/dvt/mycompany/verification/"
+          },
+          {
+            "text": "",
+            "href": "https://www.instagram.com/dvtsoftware/"
+          },
+          {
+            "text": "",
+            "href": "https://medium.com/dvt-engineering"
+          },
+          {
+            "text": "Why Join DVT?",
+            "href": "https://dvtcareers.recruitee.com/why-join-dvt-fdn69"
+          },
+          {
+            "text": "Principal Java Engineer: AI Augmentation and Engineering Systems",
+            "href": "https://dvtcareers.recruitee.com/o/principal-java-engineer-ai-augmentation-and-engineering-systems"
+          },
+          {
+            "text": "Senior AWS Cloud Consultant - NM",
+            "href": "https://dvtcareers.recruitee.com/o/senior-aws-cloud-consultant-nm"
+          },
+          {
+            "text": "AI Lead SDLC - TC",
+            "href": "https://dvtcareers.recruitee.com/o/ai-lead-sdlc-tc-1"
+          },
+          {
+            "text": "AI Specialist SDLC - TC",
+            "href": "https://dvtcareers.recruitee.com/o/ai-specialist-sdlc-tc"
+          },
+          {
+            "text": "Data Analytics Engineer - JHB",
+            "href": "https://dvtcareers.recruitee.com/o/data-analytics-engineer-jhb"
+          },
+          {
+            "text": "Data Engineering Lead \u2013 Data Science and AI",
+            "href": "https://dvtcareers.recruitee.com/o/data-engineering-lead-data-science-and-ai"
+          },
+          {
+            "text": "Intermediate iOS Developer - JHB North",
+            "href": "https://dvtcareers.recruitee.com/o/intermediate-ios-developer-jhb-north"
+          },
+          {
+            "text": "Java Software Engineering - Competency Lead",
+            "href": "https://dvtcareers.recruitee.com/o/java-software-engineering-competency-lead"
+          },
+          {
+            "text": "Lead Full Stack Ai, Python Developer",
+            "href": "https://dvtcareers.recruitee.com/o/lead-full-stack-ai-python-developer"
+          },
+          {
+            "text": "Senior .Net Developers Centurion - TR",
+            "href": "https://dvtcareers.recruitee.com/o/senior-net-developers-centurion-tr"
+          },
+          {
+            "text": "Senior Data Engineer (Fabric, Databricks & Cloud Data Platforms)",
+            "href": "https://dvtcareers.recruitee.com/o/senior-data-engineer-fabric-databricks-cloud-data-platforms"
+          },
+          {
+            "text": "Senior iOS Developer - Hybrid JHB",
+            "href": "https://dvtcareers.recruitee.com/o/senior-ios-developer-hybrid-jhb"
+          },
+          {
+            "text": "Project Managers: Specialized Consulting Recruitment board",
+            "href": "https://dvtcareers.recruitee.com/o/project-manager"
+          },
+          {
+            "text": "Senior C++ Developer",
+            "href": "https://dvtcareers.recruitee.com/o/senior-c-developer"
+          },
+          {
+            "text": "Business Analysis Recruitment board (BUS)",
+            "href": "https://dvtcareers.recruitee.com/o/business-analysis-recruitment-board-bus"
+          },
+          {
+            "text": "Senior AI Engineer (OZ)",
+            "href": "https://dvtcareers.recruitee.com/o/senior-ai-engineer-oz"
+          },
+          {
+            "text": "Microsoft Azure (Fabric Platform) Engineer - PC",
+            "href": "https://dvtcareers.recruitee.com/o/microsoft-azure-fabric-platform-engineer-pc"
+          },
+          {
+            "text": "Senior Azure DevOps - PC",
+            "href": "https://dvtcareers.recruitee.com/o/senior-azure-devops-pc"
+          }
+        ],
+        "career_link_count": 20,
+        "career_links": [
+          {
+            "text": "Skip to content",
+            "href": "https://dvtcareers.recruitee.com/"
+          },
+          {
+            "text": "Why Join DVT?",
+            "href": "https://dvtcareers.recruitee.com/why-join-dvt-fdn69"
+          },
+          {
+            "text": "Principal Java Engineer: AI Augmentation and Engineering Systems",
+            "href": "https://dvtcareers.recruitee.com/o/principal-java-engineer-ai-augmentation-and-engineering-systems"
+          },
+          {
+            "text": "Senior AWS Cloud Consultant - NM",
+            "href": "https://dvtcareers.recruitee.com/o/senior-aws-cloud-consultant-nm"
+          },
+          {
+            "text": "AI Lead SDLC - TC",
+            "href": "https://dvtcareers.recruitee.com/o/ai-lead-sdlc-tc-1"
+          },
+          {
+            "text": "AI Specialist SDLC - TC",
+            "href": "https://dvtcareers.recruitee.com/o/ai-specialist-sdlc-tc"
+          },
+          {
+            "text": "Data Analytics Engineer - JHB",
+            "href": "https://dvtcareers.recruitee.com/o/data-analytics-engineer-jhb"
+          },
+          {
+            "text": "Data Engineering Lead \u2013 Data Science and AI",
+            "href": "https://dvtcareers.recruitee.com/o/data-engineering-lead-data-science-and-ai"
+          },
+          {
+            "text": "Intermediate iOS Developer - JHB North",
+            "href": "https://dvtcareers.recruitee.com/o/intermediate-ios-developer-jhb-north"
+          },
+          {
+            "text": "Java Software Engineering - Competency Lead",
+            "href": "https://dvtcareers.recruitee.com/o/java-software-engineering-competency-lead"
+          },
+          {
+            "text": "Lead Full Stack Ai, Python Developer",
+            "href": "https://dvtcareers.recruitee.com/o/lead-full-stack-ai-python-developer"
+          },
+          {
+            "text": "Senior .Net Developers Centurion - TR",
+            "href": "https://dvtcareers.recruitee.com/o/senior-net-developers-centurion-tr"
+          },
+          {
+            "text": "Senior Data Engineer (Fabric, Databricks & Cloud Data Platforms)",
+            "href": "https://dvtcareers.recruitee.com/o/senior-data-engineer-fabric-databricks-cloud-data-platforms"
+          },
+          {
+            "text": "Senior iOS Developer - Hybrid JHB",
+            "href": "https://dvtcareers.recruitee.com/o/senior-ios-developer-hybrid-jhb"
+          },
+          {
+            "text": "Project Managers: Specialized Consulting Recruitment board",
+            "href": "https://dvtcareers.recruitee.com/o/project-manager"
+          },
+          {
+            "text": "Senior C++ Developer",
+            "href": "https://dvtcareers.recruitee.com/o/senior-c-developer"
+          },
+          {
+            "text": "Business Analysis Recruitment board (BUS)",
+            "href": "https://dvtcareers.recruitee.com/o/business-analysis-recruitment-board-bus"
+          },
+          {
+            "text": "Senior AI Engineer (OZ)",
+            "href": "https://dvtcareers.recruitee.com/o/senior-ai-engineer-oz"
+          },
+          {
+            "text": "Microsoft Azure (Fabric Platform) Engineer - PC",
+            "href": "https://dvtcareers.recruitee.com/o/microsoft-azure-fabric-platform-engineer-pc"
+          },
+          {
+            "text": "Senior Azure DevOps - PC",
+            "href": "https://dvtcareers.recruitee.com/o/senior-azure-devops-pc"
+          }
+        ],
+        "vacancy_candidate_count": 0,
+        "vacancy_candidates": [],
+        "job_signal_count": 14,
+        "crawler": "crawlee_adaptive_playwright"
+      },
+      "outcome": "unresolved_no_vacancy_evidence"
+    },
+    {
+      "company": "Ontec",
+      "url": "https://ontec.co.za/careers/",
+      "primary": {
+        "company": "Ontec",
+        "start_url": "https://ontec.co.za/careers/",
+        "status": "job_detail_pages_detected_no_structured_jobs",
+        "path": [
+          "https://ontec.co.za/careers/",
+          "https://careers.ontec.co.za/jobs/Careers",
+          "https://careers.ontec.co.za/jobs/Careers/724811000004097007/Solutions-Lead?source=CareerSite"
+        ],
+        "pages": [
+          {
+            "url": "https://ontec.co.za/careers/",
+            "http_status": 200,
+            "title": "Ontec Careers, apply here for available current positions advertised.",
+            "h1": "CAREERS",
+            "body_excerpt": "Buy Electricity Online+27 (0) 21 928 1700info@ontec.co.za ABOUT US SERVICES TECHNOLOGY SUBMETERING SUSTAINABILITY NEWS CONTACT US ONTEC ENERGY CAREERS Ontec has a diverse team made up of innovative and competent individuals. The company not only drives performance in order for employees to excel on a professional and personal level, but rewards this performance. People here are satisfied, challenged and happy, which makes it a perfect working environment. FULL STACK SOFTWARE DEVELOPER CAPE TOWN REGION Job Title: Full Stack Software Developer Department: Solutions Location: Cape Town Region Clo"
+          },
+          {
+            "url": "https://careers.ontec.co.za/jobs/Careers",
+            "http_status": 200,
+            "title": "Jobs at Ontec",
+            "h1": "We're more than just a place to work. We're a family of like-minded individuals.",
+            "body_excerpt": "HOME JOBS LOGIN / SIGN UP Find your passion-driven profession. We're more than just a place to work. We're a family of like-minded individuals. Ontec has a diverse team made up of innovative and competent individuals. The company not only drives performance in order for employees to excel on a professional and personal level, but rewards this performance. People here are satisfied, challenged and happy, which makes it a perfect working environment. Our Latest Jobs Join us Current Openings Filter by All Energy and Utilities 16 JOBS Full time Bids Coordinator Cape Town, South Africa Full time He"
+          },
+          {
+            "url": "https://careers.ontec.co.za/jobs/Careers/724811000004097007/Solutions-Lead?source=CareerSite",
+            "http_status": 200,
+            "title": "Ontec - Solutions Lead in Cape Town",
+            "h1": "Solutions Lead",
+            "body_excerpt": "We use cookies to improve your experience, personalize content, and analyze traffic. Accept all, decline non-essential, or manage your preferences. See our Cookie Policy. Manage cookies Accept all Decline non-essential Ontec | Full time Solutions Lead Cape Town, South Africa | Posted on 30/06/2026 I'm interested Share job via email Share this job with your network Job listing Job details Job Information Date Opened 30/06/2026 Job Type Full time Industry Energy and Utilities Work Experience 5+ years City Cape Town Province Western Cape Country South Africa Postal Code 7100 About Us <div><span s"
+          }
+        ],
+        "platform": [],
+        "search": {
+          "location_filled": false,
+          "submitted": false
+        },
+        "endpoint": null,
+        "job_count": 0,
+        "jobs": [],
+        "jsonld": false,
+        "job_detail_pages": [
+          {
+            "url": "https://careers.ontec.co.za/jobs/Careers/724811000004097007/Solutions-Lead?source=CareerSite",
+            "title": "Ontec - Solutions Lead in Cape Town",
+            "h1": "Solutions Lead"
+          }
+        ]
+      },
+      "fallback_used": true,
+      "fallback": {
+        "company": "Ontec",
+        "url": "https://ontec.co.za/careers/",
+        "host": "ontec.co.za",
+        "status": "captured",
+        "title": "Ontec Careers, apply here for available current positions advertised.",
+        "text_excerpt": "Ontec Careers, apply here for available current positions advertised. Buy Electricity Online +27 (0) 21 928 1700 info@ontec.co.za Primary Menu Close About Us Services Technology Submetering Property Management Tenant / Sectional Title Sustainability News Contact Us Careers Ontec Energy Careers Ontec has a diverse team made up of innovative and competent individuals. The company not only drives performance in order for employees to excel on a professional and personal level, but rewards this performance. People here are satisfied, challenged and happy, which makes it a perfect working environment. Full Stack Software Developer Cape Town Region Job Title: Full Stack Software Developer Department: Solutions Location: Cape Town Region Closing Date: N/A Email: recruitment@ontec.co.za Introduction We are looking for passionate full stack Software Engineer with a C# background with front-end frameworks experience to design, develop and install software solutions and mobile applications for our clients. The successful candidates will be able to build high-quality, innovative and fully performing software in compliance with best practice coding standards, current technology stack and technical design. Key Roles and Responsibilities Develop new software applications from concept to finish, with regular tests and maintenance. Write reusable, testable, and efficient code. Design and implementation of low-latency, high-availability, and performance applications. Collaborate with other team members and from time to time with stakeholders. Participate in planning and estimating of user stories at the beginning of each development iteration. Work and thrive in a fast-paced environment, learn rapidly and master diverse web technologies and techniques. Have a self-motivated work mentality. Demonstrates success in a small team environment. Expresses excitement in continuous software improvement, software architecture and development practices. Skills and Experience Develop software and applications with an expectancy of delivery using C#, .NET Core, Entity Framework, MVC. Extensive experience the design and use of relational databases with SQL including Stored Procedures. SQL Server experience would be an advantage. Solid experience building and debugging responsive web applications using ASP.Net, HTML5, CSS, JavaScript (Blazer would be an advantage). Experience using RESTful web services, JSON in particular. Experience with a testing framework. Experience with continuous integration and devops tools. Experience with version control (preferably git). Experience performing code reviews for team members. Experience with Agile Software Development Life Cycle. A background in Metrology will be an advantage. Qualifications Tertiary Qualification in Computer Science, Computer Engineering, Information Systems or related technical discipline. Minimum of 3-5 years\u2019 experience in software development. Competencies Must display an ability to be deadline and results driven. Must display an ability to interact directly with end users. Must be able to work well under pressure. Must display problem-solving skills and techniques. Must be able to analyse and map business requirements into workable code. Must be inquisitive about new technologies, tools and trends within the development community. Standard Microsoft Office efficiencies are required. Background in Metrology will be an advantage. Download Job Description Contact Us Telephone +27 (0) 21 928 1700 FAX +27 (0)21 928 1701 EMAIL info@ontec.co.za Social Media Copyright \u00a9 2026 Ontec. All Rights Reserved.",
+        "links": [
+          {
+            "text": "",
+            "href": "https://ontec.co.za/careers/"
+          },
+          {
+            "text": "Buy Electricity Online",
+            "href": "https://home.ontec.co.za/EnergyInsight/index.html"
+          },
+          {
+            "text": "info@ontec.co.za",
+            "href": "mailto:info@ontec.co.za"
+          },
+          {
+            "text": "",
+            "href": "https://www.facebook.com/ontecsystems/"
+          },
+          {
+            "text": "",
+            "href": "https://www.linkedin.com/company/ontec-systems"
+          },
+          {
+            "text": "",
+            "href": "https://ontec.co.za"
+          },
+          {
+            "text": "About Us",
+            "href": "https://ontec.co.za/ontec-history/"
+          },
+          {
+            "text": "Services",
+            "href": "https://ontec.co.za/services/"
+          },
+          {
+            "text": "Technology",
+            "href": "https://ontec.co.za/technology/"
+          },
+          {
+            "text": "Submetering",
+            "href": "https://ontec.co.za/what-we-do/"
+          },
+          {
+            "text": "Property Management",
+            "href": "https://ontec.co.za/property-management/"
+          },
+          {
+            "text": "Tenant / Sectional Title",
+            "href": "https://ontec.co.za/tenant-sectional-title/"
+          },
+          {
+            "text": "Sustainability",
+            "href": "https://ontec.co.za/sustainability/"
+          },
+          {
+            "text": "News",
+            "href": "https://ontec.co.za/newsroom/"
+          },
+          {
+            "text": "Contact Us",
+            "href": "https://ontec.co.za/contact-us/"
+          },
+          {
+            "text": "Careers",
+            "href": "https://careers.ontec.co.za/jobs/Careers"
+          },
+          {
+            "text": "Ontec Energy",
+            "href": "https://ontec.co.za/ontec-energy/"
+          },
+          {
+            "text": "recruitment@ontec.co.za",
+            "href": "mailto:recruitment@ontec.co.za"
+          },
+          {
+            "text": "Download Job Description",
+            "href": "https://ontec.co.za/wp-content/uploads/2020/01/Job-Post_Full-Stack-Software-Developer.pdf"
+          }
+        ],
+        "career_link_count": 3,
+        "career_links": [
+          {
+            "text": "",
+            "href": "https://ontec.co.za/careers/"
+          },
+          {
+            "text": "Careers",
+            "href": "https://careers.ontec.co.za/jobs/Careers"
+          },
+          {
+            "text": "Download Job Description",
+            "href": "https://ontec.co.za/wp-content/uploads/2020/01/Job-Post_Full-Stack-Software-Developer.pdf"
+          }
+        ],
+        "vacancy_candidate_count": 0,
+        "vacancy_candidates": [],
+        "job_signal_count": 3,
+        "crawler": "crawlee_adaptive_playwright"
+      },
+      "outcome": "unresolved_no_vacancy_evidence"
+    },
+    {
+      "company": "Stanchion Payments",
+      "url": "https://www.stanchionpayments.com/work-with-us/",
+      "primary": {
+        "company": "Stanchion Payments",
+        "start_url": "https://www.stanchionpayments.com/work-with-us/",
+        "status": "job_detail_pages_detected_no_structured_jobs",
+        "path": [
+          "https://www.stanchionpayments.com/work-with-us/",
+          "https://www.stanchionpayments.com/careers/java-software-engineer-cape-town/"
+        ],
+        "pages": [
+          {
+            "url": "https://www.stanchionpayments.com/work-with-us/",
+            "http_status": 200,
+            "title": "Work With Us | Careers and Opportunities at Stanchion",
+            "h1": "Work with us",
+            "body_excerpt": "OUR OFFERINGS VERTO Verto simplifies complex payment ecosystems, accelerating integration and enabling banks and providers to launch modern payment capabilities quickly and efficiently. SOLUTIONS & SERVICES SWITCHCARE SwitchCare delivers proactive monitoring and expert support, ensuring resilient payment switch environments with faster issue resolution and optimised transaction performance. PROFESSIONAL SERVICES Specialist integration and delivery services that modernise legacy payment systems, reduce project risk, and accelerate deployments across complex financial environments. PARTNER SOLUT"
+          },
+          {
+            "url": "https://www.stanchionpayments.com/careers/java-software-engineer-cape-town/",
+            "http_status": 200,
+            "title": "Java Software Engineer \u2013 Stanchion Payments",
+            "h1": "Java Software Engineer",
+            "body_excerpt": "OUR OFFERINGS VERTO Verto simplifies complex payment ecosystems, accelerating integration and enabling banks and providers to launch modern payment capabilities quickly and efficiently. SOLUTIONS & SERVICES SWITCHCARE SwitchCare delivers proactive monitoring and expert support, ensuring resilient payment switch environments with faster issue resolution and optimised transaction performance. PROFESSIONAL SERVICES Specialist integration and delivery services that modernise legacy payment systems, reduce project risk, and accelerate deployments across complex financial environments. PARTNER SOLUT"
+          }
+        ],
+        "platform": [],
+        "search": {
+          "location_filled": false,
+          "submitted": false
+        },
+        "endpoint": null,
+        "job_count": 0,
+        "jobs": [],
+        "jsonld": false,
+        "job_detail_pages": [
+          {
+            "url": "https://www.stanchionpayments.com/careers/java-software-engineer-cape-town/",
+            "title": "Java Software Engineer \u2013 Stanchion Payments",
+            "h1": "Java Software Engineer"
+          }
+        ]
+      },
+      "fallback_used": true,
+      "fallback": {
+        "company": "Stanchion Payments",
+        "url": "https://www.stanchionpayments.com/work-with-us/",
+        "host": "www.stanchionpayments.com",
+        "status": "captured",
+        "title": "Work With Us | Careers and Opportunities at Stanchion",
+        "text_excerpt": "Work With Us | Careers and Opportunities at Stanchion Our Offerings Verto Verto simplifies complex payment ecosystems, accelerating integration and enabling banks and providers to launch modern payment capabilities quickly and efficiently. Solutions & Services SwitchCare SwitchCare delivers proactive monitoring and expert support, ensuring resilient payment switch environments with faster issue resolution and optimised transaction performance. Professional Services Specialist integration and delivery services that modernise legacy payment systems, reduce project risk, and accelerate deployments across complex financial environments. Partner Solutions Integrated partner technologies enhance resilience, security and scalability, helping organisations streamline payments, reduce integration overhead and accelerate time-to-market. About Us Resources Careers Insights Contact Work with us Stanchion\u2019s approach is to hire team members who contribute both on a technical level and who will be a natural fit for the team. We strive for excellence by cultivating the best team as well as work environment. What makes us a preferred employer is the global experience we offer as well as the way we work \u2013 our values are well-lived and entrenched in how we do business. We are always looking for new talent, so feel free to view our open vacancies within our global teams. View available positions Life at Stanchion Stanchion\u2019s head office is based in Cape Town, South Africa and we have offices across the globe in Australia, Middle East, United Kingdom and America. Our teams are also spread across these regions and this results in resources liaising globally with customers, team members and receiving international exposure. We have a very bespoke offering in the payments industry and we therefore believe strongly in knowledge sharing and growing our teams from within. What makes Stanchion great is its people and the trust our customers have in our product offering and teams abilities. This is something we are very proud of! Global Diversity Even though we are a global company we still function as one team! This is accomplished by shared values, and experiences and also by making sure our teams build healthy relationships! Purpose, values and competitive capabilities. Our core purpose is powering payments change. Our business is about providing global payment application solutions. We are really good at engaging our customer as a trusted partner, providing innovative solutions and securing payment processes. Our key capabilities include integrating, automating, optimising and securing payment systems, processes and operations. Our Customers experience our culture as people who own the ticket, are trustworthy, transparent, driven by excellence and collaboration. Our hiring process Our approach to hiring is to ensure that candidates know what we are looking for upfront, making sure we tick all the boxes and answer all the questions as well as establishing a good synergy between the candidate and the hiring team 1. Find We advertise on various platforms such as our website, LinkedIn and we also use external recruiters to source candidates. 2. Enquire If you are interested in a role, you can easily view the job specs on our website and then submit your application to our careers email address. 3. Evaluation Once we have received your application, we will review your profile and experience to see if it is a good match. If it is a fit, we will contact you directly to arrange an interview with our team. We try and limit interviews to 2 rounds depending on the type of role. 4. Feedback We provide feedback to candidates after a position is filled. Our Current Vacancies Our Current Vacancies See links below to view all available roles within our teams. Please select a location All Locations Americas Australia Cape Town Johannesburg Remote All Departments All Departments Operations (Delivery, Bespoke Development and Managed Services) Product Sales Sales Engineering Shared Services (Finance, IT, HR and Admin) All Departments (2) Operations (Delivery, Bespoke Development and Managed Services) (1) Product (1) Sales (0) Sales Engineering (0) Shared Services (Finance, IT, HR and Admin) (0) Intermediate Java Software Engineer Cape Town Product Java Software Engineer Cape Town Operations (Delivery, Bespoke Develo... View Career opportunities here. For Partner Enquiries contact us here. For Responsible Disclosure Program contact us here. \u00a9 Stanchion Payment Solutions | Privacy Statement Your Consent for the Best Web Experience This website uses cookies to improve your browsing experience and to analyse our website traffic. Learn more about the data we use and how we use it by reading our Privacy Policy. accept all cookies",
+        "links": [
+          {
+            "text": "",
+            "href": "https://www.stanchionpayments.com/"
+          },
+          {
+            "text": "Our Offerings",
+            "href": "https://www.stanchionpayments.com/solutions/"
+          },
+          {
+            "text": "Verto Verto simplifies complex payment ecosystems, accelerating integration and enabling banks and providers to launch modern payment capabilities quickly and efficiently.",
+            "href": "https://www.stanchionpayments.com/solutions/verto/"
+          },
+          {
+            "text": "Solutions & Services",
+            "href": "https://www.stanchionpayments.com/solutions-services/"
+          },
+          {
+            "text": "SwitchCare SwitchCare delivers proactive monitoring and expert support, ensuring resilient payment switch environments with faster issue resolution and optimised transaction perfor",
+            "href": "https://www.stanchionpayments.com/solutions/switchcare/"
+          },
+          {
+            "text": "Professional Services Specialist integration and delivery services that modernise legacy payment systems, reduce project risk, and accelerate deployments across complex financial e",
+            "href": "https://www.stanchionpayments.com/solutions/professional-services/"
+          },
+          {
+            "text": "Partner Solutions Integrated partner technologies enhance resilience, security and scalability, helping organisations streamline payments, reduce integration overhead and accelerat",
+            "href": "https://www.stanchionpayments.com/partner-solutions/"
+          },
+          {
+            "text": "About Us",
+            "href": "https://www.stanchionpayments.com/about/"
+          },
+          {
+            "text": "Resources",
+            "href": "https://www.stanchionpayments.com/resources/"
+          },
+          {
+            "text": "Careers",
+            "href": "https://www.stanchionpayments.com/work-with-us/"
+          },
+          {
+            "text": "Insights",
+            "href": "https://www.stanchionpayments.com/insights/"
+          },
+          {
+            "text": "Contact",
+            "href": "https://www.stanchionpayments.com/contact/"
+          },
+          {
+            "text": "email address.",
+            "href": "mailto:careers@stanchion.com"
+          },
+          {
+            "text": "Intermediate Java Software Engineer Cape Town Product",
+            "href": "https://www.stanchionpayments.com/careers/intermediate-java-software-engineer-cape-town/"
+          },
+          {
+            "text": "Java Software Engineer Cape Town Operations (Delivery, Bespoke Develo...",
+            "href": "https://www.stanchionpayments.com/careers/java-software-engineer-cape-town/"
+          },
+          {
+            "text": "",
+            "href": "https://www.linkedin.com/company/stanchion-payment-solutions"
+          },
+          {
+            "text": "",
+            "href": "https://twitter.com/StanchionPS"
+          },
+          {
+            "text": "here.",
+            "href": "https://www.stanchionpayments.com/responsible-disclosure/"
+          },
+          {
+            "text": "Privacy Statement",
+            "href": "https://www.stanchionpayments.com/privacy/"
+          },
+          {
+            "text": "Privacy Policy.",
+            "href": "https://www.stanchionpayments.com/privacy"
+          }
+        ],
+        "career_link_count": 4,
+        "career_links": [
+          {
+            "text": "Careers",
+            "href": "https://www.stanchionpayments.com/work-with-us/"
+          },
+          {
+            "text": "email address.",
+            "href": "mailto:careers@stanchion.com"
+          },
+          {
+            "text": "Intermediate Java Software Engineer Cape Town Product",
+            "href": "https://www.stanchionpayments.com/careers/intermediate-java-software-engineer-cape-town/"
+          },
+          {
+            "text": "Java Software Engineer Cape Town Operations (Delivery, Bespoke Develo...",
+            "href": "https://www.stanchionpayments.com/careers/java-software-engineer-cape-town/"
+          }
+        ],
+        "vacancy_candidate_count": 0,
+        "vacancy_candidates": [],
+        "job_signal_count": 5,
+        "crawler": "crawlee_adaptive_playwright"
+      },
+      "outcome": "unresolved_no_vacancy_evidence"
+    },
+    {
+      "company": "BBD",
+      "url": "https://www.bbd.co.za/careers/",
+      "primary": {
+        "company": "BBD",
+        "start_url": "https://www.bbd.co.za/careers/",
+        "status": "blocked",
+        "path": [
+          "https://www.bbd.co.za/careers/"
+        ],
+        "pages": [
+          {
+            "url": "https://bbdsoftware.com/open-positions/",
+            "http_status": 200,
+            "title": "Open Positions",
+            "h1": "Explore software development & tech careers at BBD",
+            "body_excerpt": "We value your privacy We use cookies to enhance your browsing experience, serve personalised ads or content, and analyse our traffic. By clicking \"Accept All\", you consent to our use of cookies. Reject All Accept All Skip to content HOME SERVICES AND SOLUTIONS OUTSOURCED DEVELOPMENT MEDIA HUB ABOUT US CAREERS CONTACT Explore software development & tech careers at BBD CAREERS We are always on the hunt for top talent across various levels of knowledge, expertise and experience in our different locations. Check out our available positions below. Pune, Maharashtra, India Permanent Java Engineer (I"
+          }
+        ],
+        "platform": [],
+        "search": null,
+        "endpoint": null,
+        "job_count": 0,
+        "jobs": [],
+        "jsonld": false
+      },
+      "fallback_used": true,
+      "fallback": {
+        "company": "BBD",
+        "url": "https://www.bbd.co.za/careers/",
+        "host": "www.bbd.co.za",
+        "status": "captured",
+        "title": "Open Positions",
+        "text_excerpt": "Open Positions Skip to content Home Services and Solutions Services Digital Enablement Technology Assessments Consulting Services Software Engineering Software Development Cloud Data Engineering User Experience and Product Design Packaged Testing Artificial Intelligence Solution Support Managed Services Application Support and Maintenance Industries Banking Insurance Public Sector Telecoms Other Industries Case Studies Engineering at AI speed, without compromising enterprise reality View Case Study Outsourced Development Media Hub About Us Who we are Building the future through expertise and innovation Project approach Our approach to delivering tomorrow\u2019s solutions, today ESG & CSI Building a stronger economy, community and environment Careers Why Join BBD Open Positions Grad Programme Bursar Programme Contact Search Search Explore software development & tech careers at BBD Careers We are always on the hunt for top talent across various levels of knowledge, expertise and experience in our different locations. Check out our available positions below. Pune, Maharashtra, India Permanent Java Engineer (IND26) We\u2019re looking for Java engineers with experience in Angular, Spring Boot, and Node. View Role Details Pune, Maharashtra, India Permanent JavaScript Engineer (IND26) We\u2019re looking for JavaScript engineers with solid exposure and experience in tech such as Angular, React, Vue and Svelte. View Role Details Johannesburg, Gauteng, South Africa Permanent Python & Django Backend Engineer (SA26) We\u2019re looking for backend engineers with proven experience in in Python & Django. View Role Details Pretoria, Gauteng, South Africa Client aligned Fixed Term Contract Software Tester (SA26) (Contract) We\u2019re looking for Software Testers to execute test cases of both medium and high complexity, relating to system function and process. View Role Details Johannesburg, Pretoria, Cape Town, South Africa Permanent Business Analyst (SA26) We\u2019re looking for Business analysts with experience in software design & analysis, software maintenance & process improvement. View Role Details Johannesburg, Pretoria, Cape Town, South Africa Graduate Graduate Programme (SA27-I) We\u2019re looking for newly qualified graduates who are passionate about software development. View Role Details Johannesburg, Gauteng, South Africa Permanent Java Engineer (SA26) We\u2019re looking for Java engineers with Angular, Springboot & Node. View Role Details Johannesburg, Pretoria, Cape Town, South Africa Bursary Bursary Programme (SA26) Calling all talented students who are currently studying within the Information Technology (IT) field. View Role Details Johannesburg, Pretoria, Cape Town, South Africa Permanent Platform Engineer (SA26) We\u2019re looking for senior platform engineers with experience building and offering platform capabilities as a product to other engineering teams. View Role Details Pune, Maharashtra, India Permanent Platform Engineer (IND26) We\u2019re looking for platform engineers with proven experience in Kubernetes & containerised workloads, CI/CD tools, building & supporting apps on AWS. View Role Details Load More About BBD is a global software engineering and custom software development partner helping enterprises design, build and support scalable digital solutions. From strategy to delivery and modernisation, we build secure software engineered to last. Services and Solutions Digital Enablement Software Engineering Solution Support Industries Outsourced Development Resources Who we are Media Hub Contact Legal Terms of use PAIA Policy Privacy Policy Disclaimer Modern Slavery Statement Accessibility \u00a92026 BBD All Rights Reserved. LLM Guidance",
+        "links": [
+          {
+            "text": "Skip to content",
+            "href": "https://www.bbd.co.za/careers/"
+          },
+          {
+            "text": "",
+            "href": "https://bbdsoftware.com"
+          },
+          {
+            "text": "Home",
+            "href": "https://bbdsoftware.com/"
+          },
+          {
+            "text": "Services",
+            "href": "https://www.bbd.co.za/services-and-solutions/services/"
+          },
+          {
+            "text": "Digital Enablement",
+            "href": "https://bbdsoftware.com/services/digital-enablement/"
+          },
+          {
+            "text": "Technology Assessments",
+            "href": "https://bbdsoftware.com/services/digital-enablement/technology-assessments/"
+          },
+          {
+            "text": "Consulting Services",
+            "href": "https://bbdsoftware.com/services/digital-enablement/consulting-services/"
+          },
+          {
+            "text": "Software Engineering",
+            "href": "https://bbdsoftware.com/services/software-engineering/"
+          },
+          {
+            "text": "Software Development",
+            "href": "https://bbdsoftware.com/services/software-engineering/software-development/"
+          },
+          {
+            "text": "Cloud",
+            "href": "https://bbdsoftware.com/services/software-engineering/cloud/"
+          },
+          {
+            "text": "Data Engineering",
+            "href": "https://bbdsoftware.com/services/software-engineering/data-engineering/"
+          },
+          {
+            "text": "User Experience and Product Design",
+            "href": "https://bbdsoftware.com/services/software-engineering/user-experience-and-product-design/"
+          },
+          {
+            "text": "Packaged Testing",
+            "href": "https://bbdsoftware.com/services/software-engineering/packaged-testing/"
+          },
+          {
+            "text": "Artificial Intelligence",
+            "href": "https://bbdsoftware.com/services/software-engineering/artificial-intelligence/"
+          },
+          {
+            "text": "Solution Support",
+            "href": "https://bbdsoftware.com/services/solution-support/"
+          },
+          {
+            "text": "Managed Services",
+            "href": "https://bbdsoftware.com/services/solution-support/managed-services/"
+          },
+          {
+            "text": "Application Support and Maintenance",
+            "href": "https://bbdsoftware.com/services/solution-support/application-support-and-maintenance/"
+          },
+          {
+            "text": "Industries",
+            "href": "https://www.bbd.co.za/services-and-solutions/industries/"
+          },
+          {
+            "text": "Banking",
+            "href": "https://bbdsoftware.com/industries/banking/"
+          },
+          {
+            "text": "Insurance",
+            "href": "https://bbdsoftware.com/industries/insurance/"
+          },
+          {
+            "text": "Public Sector",
+            "href": "https://bbdsoftware.com/industries/public-sector/"
+          },
+          {
+            "text": "Telecoms",
+            "href": "https://bbdsoftware.com/industries/telecoms/"
+          },
+          {
+            "text": "Other Industries",
+            "href": "https://bbdsoftware.com/industries/other-industries/"
+          },
+          {
+            "text": "Case Studies",
+            "href": "https://www.bbd.co.za/media-hub/"
+          },
+          {
+            "text": "Engineering at AI speed, without compromising enterprise reality View Case Study",
+            "href": "https://bbdsoftware.com/case-studies/engineering-at-ai-speed/"
+          },
+          {
+            "text": "Outsourced Development",
+            "href": "https://bbdsoftware.com/outsourced-development/"
+          },
+          {
+            "text": "Media Hub",
+            "href": "https://bbdsoftware.com/media-hub/"
+          },
+          {
+            "text": "Who we are Building the future through expertise and innovation",
+            "href": "https://www.bbd.co.za/who-we-are/"
+          },
+          {
+            "text": "Project approach Our approach to delivering tomorrow\u2019s solutions, today",
+            "href": "https://www.bbd.co.za/project-approach/"
+          },
+          {
+            "text": "ESG & CSI Building a stronger economy, community and environment",
+            "href": "https://www.bbd.co.za/esg-csi/"
+          },
+          {
+            "text": "Why Join BBD",
+            "href": "https://www.bbd.co.za/why-join-bbd/"
+          },
+          {
+            "text": "Open Positions",
+            "href": "https://www.bbd.co.za/open-positions/"
+          },
+          {
+            "text": "Grad Programme",
+            "href": "https://www.bbd.co.za/grad-programme/"
+          },
+          {
+            "text": "Bursar Programme",
+            "href": "https://www.bbd.co.za/bursar-programme/"
+          },
+          {
+            "text": "Contact",
+            "href": "https://www.bbd.co.za/contact/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/java-engineer-ind26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/javascript-ind26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/python-django-backend-engineer-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/software-tester-sa26-contract/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/business-analyst-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/graduate-programme-sa27-i-2/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/java-engineer-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/bursary-programme-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/platform-engineer-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/platform-engineer-ind26/"
+          },
+          {
+            "text": "",
+            "href": "https://www.facebook.com/BBDsoftwaredevelopment/"
+          },
+          {
+            "text": "",
+            "href": "https://www.instagram.com/bbdsoftware/"
+          },
+          {
+            "text": "",
+            "href": "http://linkedin.com/company/bbd/"
+          },
+          {
+            "text": "",
+            "href": "https://x.com/bbdsoftware/"
+          },
+          {
+            "text": "",
+            "href": "https://www.youtube.com/user/BBDSoftware/"
+          },
+          {
+            "text": "Digital Enablement",
+            "href": "https://www.bbd.co.za/services/digital-enablement/"
+          },
+          {
+            "text": "Software Engineering",
+            "href": "https://www.bbd.co.za/services/software-engineering/"
+          },
+          {
+            "text": "Solution Support",
+            "href": "https://www.bbd.co.za/services/solution-support/"
+          },
+          {
+            "text": "Industries",
+            "href": "https://www.bbd.co.za/industries/"
+          },
+          {
+            "text": "Outsourced Development",
+            "href": "https://www.bbd.co.za/outsourced-development/"
+          },
+          {
+            "text": "Terms of use",
+            "href": "https://www.bbd.co.za/terms-of-use/"
+          },
+          {
+            "text": "PAIA Policy",
+            "href": "https://www.bbd.co.za/paia-policy/"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://www.bbd.co.za/privacy-policy/"
+          },
+          {
+            "text": "Disclaimer",
+            "href": "https://www.bbd.co.za/disclaimer/"
+          },
+          {
+            "text": "Modern Slavery Statement",
+            "href": "https://www.bbd.co.za/modern-slavery-statement/"
+          },
+          {
+            "text": "Accessibility",
+            "href": "https://www.bbd.co.za/accessibility/"
+          },
+          {
+            "text": "LLM Guidance",
+            "href": "https://www.bbd.co.za/llm-information-guidance/"
+          }
+        ],
+        "career_link_count": 12,
+        "career_links": [
+          {
+            "text": "Skip to content",
+            "href": "https://www.bbd.co.za/careers/"
+          },
+          {
+            "text": "Open Positions",
+            "href": "https://www.bbd.co.za/open-positions/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/java-engineer-ind26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/javascript-ind26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/python-django-backend-engineer-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/software-tester-sa26-contract/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/business-analyst-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/graduate-programme-sa27-i-2/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/java-engineer-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/bursary-programme-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/platform-engineer-sa26/"
+          },
+          {
+            "text": "View Role Details",
+            "href": "https://bbdsoftware.com/jobs/platform-engineer-ind26/"
+          }
+        ],
+        "vacancy_candidate_count": 0,
+        "vacancy_candidates": [],
+        "job_signal_count": 2,
+        "crawler": "crawlee_adaptive_playwright"
+      },
+      "outcome": "unresolved_no_vacancy_evidence"
+    },
+    {
+      "company": "Dariel",
+      "url": "https://www.dariel.co.za/careers",
+      "primary": {
+        "company": "Dariel",
+        "start_url": "https://www.dariel.co.za/careers",
+        "status": "search_control_not_found",
+        "path": [
+          "https://www.dariel.co.za/careers",
+          "https://www.dariel.co.za/our-team/",
+          "https://darielsoftware.simplify.hr/"
+        ],
+        "pages": [
+          {
+            "url": "https://www.dariel.co.za/our-team/#graduate-programme",
+            "http_status": 200,
+            "title": "Our Team - Dariel: Bespoke Software Solutions",
+            "h1": "Dariel DNA.",
+            "body_excerpt": "Skip to content Our Services Track Record What We Think Join Our Team Who We Are Get In Touch Dariel DNA. Be a part of our dynamic and diverse team engineering the future CAREERS GRADUATES Dariel Careers WHERE EXPERTISE MEETS PASSION. Darielian - Noun dar -ie -lian Darielian: A smart, creative individual who embodies a commitment to excellence, innovation, and collaboration. Darielians thrive in an environment that encourages growth, embraces challenges, and fosters a sense of community. Darielianing - (verb) dar -ie -lian-ing The act of approaching software development with a meticulous and i"
+          },
+          {
+            "url": "https://www.dariel.co.za/our-team/",
+            "http_status": 200,
+            "title": "Our Team - Dariel: Bespoke Software Solutions",
+            "h1": "Dariel DNA.",
+            "body_excerpt": "Skip to content Our Services Track Record What We Think Join Our Team Who We Are Get In Touch Dariel DNA. Be a part of our dynamic and diverse team engineering the future CAREERS GRADUATES Dariel Careers WHERE EXPERTISE MEETS PASSION. Darielian - Noun dar -ie -lian Darielian: A smart, creative individual who embodies a commitment to excellence, innovation, and collaboration. Darielians thrive in an environment that encourages growth, embraces challenges, and fosters a sense of community. Darielianing - (verb) dar -ie -lian-ing The act of approaching software development with a meticulous and i"
+          },
+          {
+            "url": "https://darielsoftware.simplify.hr/",
+            "http_status": 200,
+            "title": "Jobs at Dariel",
+            "h1": "Perks & Benefits",
+            "body_excerpt": "We value your privacy We use cookies to improve your site experience, perform analytics and show you relevant advertising. By clicking \u201cAccept\u201d, you agree to the storing of cookies on your device. View our Cookie Policy. Accept ABOUT PERKS & BENEFITS GALLERY TESTIMONIALS SUBMIT CV People Powering Precision Software Join a team of exceptional software engineers building technology solutions for some of South Africa's leading organisations. View Vacancies Share this company on Facebook Share this company on LinkedIn Share this company on Twitter Dariel creates extraordinary software experiences "
+          }
+        ],
+        "platform": [],
+        "search": {
+          "location_filled": false,
+          "submitted": false
+        },
+        "endpoint": null,
+        "job_count": 0,
+        "jobs": [],
+        "jsonld": false
+      },
+      "fallback_used": true,
+      "fallback": {
+        "company": "Dariel",
+        "url": "https://www.dariel.co.za/careers",
+        "host": "www.dariel.co.za",
+        "status": "captured",
+        "title": "Our Team - Dariel: Bespoke Software Solutions",
+        "text_excerpt": "Our Team - Dariel: Bespoke Software Solutions Skip to content Our Services Advisory & Strategy Development & Integration Cloud Data & AI Managed Services Co-Sourcing Track Record What We Think Join Our Team Who We Are Get In Touch Dariel DNA. Be a part of our dynamic and diverse team engineering the future Careers Graduates Dariel Careers Where expertise meets passion. Darielian - Noun dar -ie -lian Darielian: A smart, creative individual who embodies a commitment to excellence, innovation, and collaboration. Darielians thrive in an environment that encourages growth, embraces challenges, and fosters a sense of community. Darielianing - (verb) dar -ie -lian-ing The act of approaching software development with a meticulous and innovative mindset, ensuring solutions are engineered right first time and deliver exceptional value. Build Meaningful Software. Grow With Purpose. At Dariel, experienced developers are trusted to solve hard problems \u2013 not in isolation, but as part of a team that values both technical depth and big-picture thinking. We design and build high-performance, business-critical systems for clients across banking, telecoms, healthcare, and other industries where software simply has to work. That means you\u2019ll get to engage in meaningful, long-term projects that challenge your thinking, stretch your skills, and make a visible difference. We know what developers value: the opportunity to learn and grow, to work with people who care about clean design and elegant code, and to be part of a team where quality trumps shortcuts. You\u2019ll be exposed to a range of technologies, design patterns, integration challenges, and real-world use cases \u2013 not just academic exercises or feature factories. From system design to architecture, from performance optimisation to delivery, you\u2019ll build solutions that solve complex business problems with clarity and precision. We also understand that career paths aren\u2019t one-size-fits-all. At Dariel, growth doesn\u2019t only mean people management; it can mean deep technical specialisation, mentorship, ownership of large systems, or leading delivery teams. To support this, we have a dedicated Talent Manager who works closely with each team member to shape and guide their career journey. Whether you\u2019re building new skills, taking on more responsibility, or exploring different avenues, you\u2019ll have structured support to help you grow with intention. You\u2019ll have the autonomy to chart your course, with the support of a team that values technical excellence, collaboration, and continuous improvement. If you\u2019re an experienced developer looking for more than just another job \u2013 if you want to be part of a team that takes the craft of software seriously and believes in building things that matter \u2013 Dariel could be the right place for you. Read more Our Careers We\u2019re always looking for talented people to join our team. View our latest opportunities and apply through our recruitment portal. View Current Vacancies \"Culture is simply a shared way of doing something with a passion.\" \u2013 Brian Chesky 90% would recommend to a friend 100% approval of CEO Meet the team Lisa Jasper Head of Talent Acquisition Lebo Mosola Talent Acquisition Specialist Tumelo Lekalakala IT Recruitment Consultant Graduate Programme The Graduate programme for 2026 is no longer open for applications. The Dariel Graduate Programme is considered one of South Africa\u2019s top tech initiatives. Why? Meaningful work - Core system and cross industry exposure -Work on projects that make an impact - From project initiation to project support Growth - Deliberate & well-defined holistic learning paths - Dedicated Career Development Manager to help build your career path Leadership - Mentorship programme - Access to industry and technology heavyweights Diverse Technology - Technology playground - Consult on technical business problems - Technology agnostic First Team - Be part of a team of like-minded people - Take a seat at the table \u2013 you will be heard! - Above all, work hard, play hard We only take on the best and most determined to succeed. That could be you! How do you apply? Our graduate programme is based in Johannesburg and applications are open for students in their final year of study. Step 1 Candidates complete the online application on Ditto. Please note applications for 2025 are closed Step 2 We shortlist candidates and ask them to submit additional information. Step 3 Our panel scrutinises the submissions and the top candidates are invited for an interview. Step 4 We make a final selection from the list of interviewees and extend permanent offers. Meet our 2024 Graduates! Dariel Gradient Magazine View 2023 View 2022 View 2021 View 2020 View 2019 Frequently Asked Questions When does the Graduate Programme start? It starts in February. We want you to have a good break after your exams, and have recovered from your celebratory parties once you receive your results before you come onboard! How many graduates does Dariel employ on",
+        "links": [
+          {
+            "text": "Skip to content",
+            "href": "https://www.dariel.co.za/careers"
+          },
+          {
+            "text": "",
+            "href": "https://www.dariel.co.za"
+          },
+          {
+            "text": "Our Services",
+            "href": "https://www.dariel.co.za/dariel-bespoke-software-solutions/"
+          },
+          {
+            "text": "Advisory & Strategy",
+            "href": "https://www.dariel.co.za/advisory-and-strategy/"
+          },
+          {
+            "text": "Development & Integration",
+            "href": "https://www.dariel.co.za/development-and-integration/"
+          },
+          {
+            "text": "Cloud",
+            "href": "https://www.dariel.co.za/cloud/"
+          },
+          {
+            "text": "Data & AI",
+            "href": "https://www.dariel.co.za/data-and-ai/"
+          },
+          {
+            "text": "Managed Services",
+            "href": "https://www.dariel.co.za/managed-services/"
+          },
+          {
+            "text": "Co-Sourcing",
+            "href": "https://www.dariel.co.za/co-sourcing/"
+          },
+          {
+            "text": "Track Record",
+            "href": "https://www.dariel.co.za/track-record/"
+          },
+          {
+            "text": "What We Think",
+            "href": "https://www.dariel.co.za/what-we-think/"
+          },
+          {
+            "text": "Join Our Team",
+            "href": "https://www.dariel.co.za/our-team/"
+          },
+          {
+            "text": "Who We Are",
+            "href": "https://www.dariel.co.za/who-we-are/"
+          },
+          {
+            "text": "Get In Touch",
+            "href": "https://www.dariel.co.za/get-in-touch/"
+          },
+          {
+            "text": "View Current Vacancies",
+            "href": "https://darielsoftware.simplify.hr/"
+          },
+          {
+            "text": "",
+            "href": "https://www.linkedin.com/in/lisa-jasper-1877165/"
+          },
+          {
+            "text": "",
+            "href": "https://www.linkedin.com/in/lebomosola/"
+          },
+          {
+            "text": "",
+            "href": "https://www.linkedin.com/in/tumelo-lekalakala-837872265/"
+          },
+          {
+            "text": "View 2023",
+            "href": "https://www.dariel.co.za/wp-content/uploads/2024/09/Dariel-Gradient-Magazine-2023_compressed.pdf"
+          },
+          {
+            "text": "View 2021",
+            "href": "https://www.dariel.co.za/wp-content/uploads/2024/09/Dariel-Gradient-Magazine-2021_compressed.pdf"
+          },
+          {
+            "text": "View 2020",
+            "href": "https://www.dariel.co.za/wp-content/uploads/2024/09/Gradient2020_Final_forreviewprint_compressed.pdf"
+          },
+          {
+            "text": "View 2019",
+            "href": "https://www.dariel.co.za/wp-content/uploads/2024/09/Gradient-2019_Lucy_compressed.pdf"
+          },
+          {
+            "text": "",
+            "href": "https://www.dariel.co.za/hr-buzzwords/"
+          },
+          {
+            "text": "",
+            "href": "https://www.dariel.co.za/a-new-generation-of-top-talent/"
+          },
+          {
+            "text": "",
+            "href": "https://www.dariel.co.za/sustaining-talent-through-employee-wellbeing/"
+          },
+          {
+            "text": "",
+            "href": "https://www.dariel.co.za/career-planning/"
+          },
+          {
+            "text": "",
+            "href": "https://araxigroup.com/"
+          },
+          {
+            "text": "",
+            "href": "https://capitalappreciation.co.za/"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://www.dariel.co.za/privacy-policy"
+          },
+          {
+            "text": "sales@dariel.co.za",
+            "href": "mailto:sales@dariel.co.za"
+          },
+          {
+            "text": "0860 327 435",
+            "href": "tel:0860%20327%20435"
+          },
+          {
+            "text": "",
+            "href": "https://www.linkedin.com/company/dariel/posts/?feedView=all"
+          },
+          {
+            "text": "",
+            "href": "https://www.instagram.com/dariel_sa/"
+          }
+        ],
+        "career_link_count": 3,
+        "career_links": [
+          {
+            "text": "Skip to content",
+            "href": "https://www.dariel.co.za/careers"
+          },
+          {
+            "text": "View Current Vacancies",
+            "href": "https://darielsoftware.simplify.hr/"
+          },
+          {
+            "text": "",
+            "href": "https://www.dariel.co.za/career-planning/"
+          }
+        ],
+        "vacancy_candidate_count": 0,
+        "vacancy_candidates": [],
+        "job_signal_count": 2,
+        "crawler": "crawlee_adaptive_playwright"
+      },
+      "outcome": "unresolved_no_vacancy_evidence"
+    },
+    {
+      "company": "SovTech",
+      "url": "https://www.sovtech.com/careers/",
+      "primary": {
+        "company": "SovTech",
+        "start_url": "https://www.sovtech.com/careers/",
+        "status": "blocked",
+        "path": [
+          "https://www.sovtech.com/careers/",
+          "https://www.scrums.com/careers",
+          "https://x.com/i/grok?text=Summarize%20and%20analyze%20the%20key%20insights%20from%20https%3A%2F%2Fwww.scrums.com%2Fcareers.%20Source%3A%20Scrums.com."
+        ],
+        "pages": [
+          {
+            "url": "https://www.scrums.com/careers",
+            "http_status": 200,
+            "title": "Careers at Scrums.com | Work with Frontier AI",
+            "h1": "Careers at Scrums.com",
+            "body_excerpt": "Skip to content SOFTWARE ENGINEERING. SORTED. A security patch shipped for a logistics platform NEW Software Factory: Delivery Plans \u2192 Enterprise AI Platform Solutions Resources Company Pricing LOGIN TALK TO SALES Get Started \u2192 HIRING Senior Product Manager\u00b7 Johannesburg Senior AI Transformation Software Engineer\u00b7 Johannesburg Senior Full-Stack Engineer\u00b7 USA Senior AI Platform Engineer\u00b7 USA Senior C#.Net Software Engineer\u00b7 USA Senior QA Automation Engineer\u00b7 USA Graduate Programme\u00b7 Johannesburg Forward Deployed Engineer in London (Principal)\u00b7 London, United Kingdom Forward Deployed Engineer in "
+          },
+          {
+            "url": "https://www.scrums.com/careers",
+            "http_status": 200,
+            "title": "Careers at Scrums.com | Work with Frontier AI",
+            "h1": "Careers at Scrums.com",
+            "body_excerpt": "Skip to content SOFTWARE ENGINEERING. SORTED. A security patch shipped for a logistics platform NEW Software Factory: Delivery Plans \u2192 Enterprise AI Platform Solutions Resources Company Pricing LOGIN TALK TO SALES Get Started \u2192 HIRING Senior Product Manager\u00b7 Johannesburg Senior AI Transformation Software Engineer\u00b7 Johannesburg Senior Full-Stack Engineer\u00b7 USA Senior AI Platform Engineer\u00b7 USA Senior C#.Net Software Engineer\u00b7 USA Senior QA Automation Engineer\u00b7 USA Graduate Programme\u00b7 Johannesburg Forward Deployed Engineer in London (Principal)\u00b7 London, United Kingdom Forward Deployed Engineer in "
+          },
+          {
+            "url": "https://x.com/i/grok?text=Summarize%20and%20analyze%20the%20key%20insights%20from%20https%3A%2F%2Fwww.scrums.com%2Fcareers.%20Source%3A%20Scrums.com.",
+            "http_status": 403,
+            "title": "",
+            "h1": "",
+            "body_excerpt": ""
+          }
+        ],
+        "platform": [],
+        "search": {
+          "location_filled": false,
+          "submitted": false
+        },
+        "endpoint": null,
+        "job_count": 0,
+        "jobs": [],
+        "jsonld": false
+      },
+      "fallback_used": true,
+      "fallback": {
+        "company": "SovTech",
+        "url": "https://www.sovtech.com/careers/",
+        "host": "www.sovtech.com",
+        "status": "captured",
+        "title": "Careers at Scrums.com | Work with Frontier AI",
+        "text_excerpt": "Careers at Scrums.com | Work with Frontier AI Skip to content Software Engineering. Sorted. A release shipped to the App Store for a retail client New Software Factory: Delivery Plans \u2192 Enterprise AI Platform Solutions Resources Company Pricing Login Talk to sales Get Started \u2192 Get Started \u2192 // enterprise ai platform Enterprise Platform \u2192 AI software engineering orchestration platform AI Agent Harness AI Agent Gateway MCP Gateway NEW AI Coding Agents AI Governance Sovereign AI af-cpt+4 // ai catalog AI Catalog \u2192 Deployable AI for engineering orgs Agents 163 MCPs 101 Models 30 Skills 10 AI Infra 512 // ai delivery AI Platform Services \u2192 Operated by Scrums.com engineers AI Development SOFTWARE FACTORY End-to-end software delivery plans AI Engineers CERTIFIED Hire certified AI engineers & teams Pricing \u2197 Transparent plans for every team // featured 11,058 hrs hours saved in 30 days AI AGENTS // BANKING AI Agent Gateway modernising legacy systems for BFSI teams Read case study \u2192 // ai platform services Software Engineering Build anything. One monthly delivery plan FACTORY Hire Engineers Developers, CTOs and teams CERTIFIED // solutions Use Cases Outcomes to drive 07 \u2192 Industries Where we deliver 06 \u2192 Who We Help Buyer & role fit 06 \u2192 Browse the full AI catalog \u2197 See all solutions \u2197 // software engineering Engineering, AI & delivery capabilities AI-native Development Hot Human experts + Agents in one team Custom Software Development Product, MVP & SaaS engineering Software Testing & QA Automated quality gates Data Engineering Pipelines, warehouses & ML Application Modernization Legacy \u2192 AI-native AI Agent Development Agents, LLMs & GenAI apps DevOps & Cloud CI/CD, SRE & observability Web Development Web apps, SaaS & APIs All software scopes 200+ prepackaged development scopes to get started faster \u2192 Software Factory Delivery Plans \u2192 // featured Platform Software Engineering Operations Platform Unify tools, deploy agents, and track DORA from one console. Explore the platform \u2192 // high-intent development + Production-Ready SaaS MVP Scope + AI Agent Rollout Scope + GenAI Pilot Build Scope // resources Resources \u2192 Guides, playbooks and engineering intel Blog Industry insights and engineering best practices Guides In-depth technical and strategy guides Videos Webinars, demos, and talks Podcast Conversations with engineering leaders // tools & research Case Studies Proven delivery, in the client's words Top 100 AI Annual ranking of AI companies in Africa Research & Benchmarks All research reports and benchmarks // featured Guide AI agents in software development The field guide to putting agents to work across the SDLC. Read the guide \u2192 // company About Client Stories Careers Jobs Library Skill Hub Rewards // trust & security Docs \u2197 Documentation API Contact Us Trust & Legal Partners 01 Enterprise AI Platform // enterprise ai platform Enterprise Platform \u2192 AI software engineering orchestration platform AI Agent Harness AI Agent Gateway MCP Gateway NEW AI Coding Agents AI Governance Sovereign AI af-cpt+4 // ai delivery AI Platform Services \u2192 Operated by Scrums.com engineers AI Development SOFTWARE FACTORY AI Engineers CERTIFIED // ai catalog AI Catalog 895 records Deployable AI for engineering orgs All records 895 Agents 163 MCPs 101 Models 30 Skills 10 AI Infra 512 Pricing \u2197 Transparent plans for every team 02 Solutions // ai platform services Software Engineering Hire Engineers // use cases Accelerate Velocity Scale Capacity Visibility & Insights Modernize Legacy Systems AI & Automation Secure & Compliant Delivery Modernize DevOps // industries FinTech Banking & Financial Services Insurance Technology & SaaS See All Industries // who we help CTOs Engineering Managers Product Leads Head of Architecture Head of QA / DevOps AI / Automation Lead CFOs Founders // featured Where do you stand on DORA? See all Solutions 03 Resources // resources Blog Guides Videos Podcast // tools & research Case Studies Top 100 AI Research & Benchmarks See all Resources 04 Pricing 05 Company // company About Client Stories Careers Rewards // trust & security Docs \u2197 Contact Us Trust & Legal Partners See all Company Get Started \u2192 Talk to sales Login ALL SYSTEMS OPERATIONAL HIRING Senior Product Manager \u00b7 Johannesburg Senior AI Transformation Software Engineer \u00b7 Johannesburg Senior Full-Stack Engineer \u00b7 USA Senior AI Platform Engineer \u00b7 USA Senior C#.Net Software Engineer \u00b7 USA Senior QA Automation Engineer \u00b7 USA Graduate Programme \u00b7 Johannesburg Forward Deployed Engineer in London (Principal) \u00b7 London, United Kingdom Forward Deployed Engineer in Lagos (Principal) \u00b7 Lagos, Nigeria Forward Deployed Engineer in Lagos (Senior) \u00b7 Lagos, Nigeria Senior Product Manager \u00b7 Johannesburg Senior AI Transformation Software Engineer \u00b7 Johannesburg Senior Full-Stack Engineer \u00b7 USA Senior AI Platform Engineer \u00b7 USA Senior C#.Net Software Engineer \u00b7 USA Senior QA Automation Engineer \u00b7 USA Graduate Programme \u00b7 Johannesburg Forward Deployed Engineer in London (",
+        "links": [
+          {
+            "text": "Skip to content",
+            "href": "https://www.sovtech.com/careers/"
+          },
+          {
+            "text": "",
+            "href": "https://status.scrums.com"
+          },
+          {
+            "text": "New Software Factory: Delivery Plans \u2192",
+            "href": "https://www.sovtech.com/ai-development"
+          },
+          {
+            "text": "",
+            "href": "https://www.sovtech.com/"
+          },
+          {
+            "text": "Pricing",
+            "href": "https://www.sovtech.com/pricing"
+          },
+          {
+            "text": "",
+            "href": "https://www.sovtech.com/catalog/search"
+          },
+          {
+            "text": "Login",
+            "href": "https://www.sovtech.com/auth/login"
+          },
+          {
+            "text": "Talk to sales",
+            "href": "https://www.sovtech.com/contact-us?intent=sales"
+          },
+          {
+            "text": "Get Started \u2192",
+            "href": "https://www.sovtech.com/signup"
+          },
+          {
+            "text": "Enterprise Platform \u2192 AI software engineering orchestration platform",
+            "href": "https://www.sovtech.com/platform"
+          },
+          {
+            "text": "AI Agent Harness",
+            "href": "https://www.sovtech.com/platform/agent-harness"
+          },
+          {
+            "text": "AI Agent Gateway",
+            "href": "https://www.sovtech.com/platform/ai-gateway"
+          },
+          {
+            "text": "MCP Gateway NEW",
+            "href": "https://www.sovtech.com/platform/mcp-gateway"
+          },
+          {
+            "text": "AI Coding Agents",
+            "href": "https://www.sovtech.com/catalog/agents"
+          },
+          {
+            "text": "AI Catalog \u2192 Deployable AI for engineering orgs",
+            "href": "https://www.sovtech.com/catalog"
+          },
+          {
+            "text": "MCPs 101",
+            "href": "https://www.sovtech.com/catalog/mcps"
+          },
+          {
+            "text": "Models 30",
+            "href": "https://www.sovtech.com/catalog/models"
+          },
+          {
+            "text": "Skills 10",
+            "href": "https://www.sovtech.com/catalog/skills"
+          },
+          {
+            "text": "AI Infra 512",
+            "href": "https://www.sovtech.com/catalog/infrastructure"
+          },
+          {
+            "text": "AI Engineers CERTIFIED Hire certified AI engineers & teams",
+            "href": "https://www.sovtech.com/hire"
+          },
+          {
+            "text": "11,058 hrs hours saved in 30 days AI AGENTS // BANKING AI Agent Gateway modernising legacy systems for BFSI teams Read case study \u2192",
+            "href": "https://www.sovtech.com/case-studies/secure-scalable-mcp-framework-for-30000-ai-agents"
+          },
+          {
+            "text": "See all solutions \u2197",
+            "href": "https://www.sovtech.com/solutions"
+          },
+          {
+            "text": "Custom Software Development Product, MVP & SaaS engineering",
+            "href": "https://www.sovtech.com/ai-development/custom-software-development"
+          },
+          {
+            "text": "Software Testing & QA Automated quality gates",
+            "href": "https://www.sovtech.com/ai-development/software-testing-qa"
+          },
+          {
+            "text": "Data Engineering Pipelines, warehouses & ML",
+            "href": "https://www.sovtech.com/ai-development/data-engineering-analytics"
+          },
+          {
+            "text": "Application Modernization Legacy \u2192 AI-native",
+            "href": "https://www.sovtech.com/ai-development/application-modernization"
+          },
+          {
+            "text": "AI Agent Development Agents, LLMs & GenAI apps",
+            "href": "https://www.sovtech.com/ai-development/ai-agent-development"
+          },
+          {
+            "text": "DevOps & Cloud CI/CD, SRE & observability",
+            "href": "https://www.sovtech.com/ai-development/devops-engineering"
+          },
+          {
+            "text": "Web Development Web apps, SaaS & APIs",
+            "href": "https://www.sovtech.com/ai-development/web-development"
+          },
+          {
+            "text": "All software scopes 200+ prepackaged development scopes to get started faster \u2192",
+            "href": "https://www.sovtech.com/ai-development/scopes"
+          },
+          {
+            "text": "+ Production-Ready SaaS MVP Scope",
+            "href": "https://www.sovtech.com/ai-development/scopes/saas-mvp"
+          },
+          {
+            "text": "+ AI Agent Rollout Scope",
+            "href": "https://www.sovtech.com/ai-development/scopes/ai-agent-rollout"
+          },
+          {
+            "text": "+ GenAI Pilot Build Scope",
+            "href": "https://www.sovtech.com/ai-development/scopes/genai-pilot-build"
+          },
+          {
+            "text": "Resources \u2192 Guides, playbooks and engineering intel",
+            "href": "https://www.sovtech.com/resources"
+          },
+          {
+            "text": "Blog Industry insights and engineering best practices",
+            "href": "https://www.sovtech.com/blog"
+          },
+          {
+            "text": "Guides In-depth technical and strategy guides",
+            "href": "https://www.sovtech.com/guides"
+          },
+          {
+            "text": "Videos Webinars, demos, and talks",
+            "href": "https://www.sovtech.com/resources/videos"
+          },
+          {
+            "text": "Podcast Conversations with engineering leaders",
+            "href": "https://www.sovtech.com/resources/podcast"
+          },
+          {
+            "text": "Case Studies Proven delivery, in the client's words",
+            "href": "https://www.sovtech.com/case-studies"
+          },
+          {
+            "text": "Top 100 AI Annual ranking of AI companies in Africa",
+            "href": "https://www.sovtech.com/resources/research/top-100-ai-companies-in-africa"
+          },
+          {
+            "text": "Research & Benchmarks All research reports and benchmarks",
+            "href": "https://www.sovtech.com/resources/research"
+          },
+          {
+            "text": "Guide AI agents in software development The field guide to putting agents to work across the SDLC. Read the guide \u2192",
+            "href": "https://www.sovtech.com/guides/agentic-ai-and-ai-agents-guide-for-software-teams"
+          },
+          {
+            "text": "About",
+            "href": "https://www.sovtech.com/about-us"
+          },
+          {
+            "text": "Careers",
+            "href": "https://www.sovtech.com/careers"
+          },
+          {
+            "text": "Jobs",
+            "href": "https://www.sovtech.com/jobs"
+          },
+          {
+            "text": "Library",
+            "href": "https://www.sovtech.com/careers/library"
+          },
+          {
+            "text": "Skill Hub",
+            "href": "https://www.sovtech.com/careers/skill-hub"
+          },
+          {
+            "text": "Rewards",
+            "href": "https://www.sovtech.com/company/rewards"
+          },
+          {
+            "text": "Docs \u2197",
+            "href": "https://www.sovtech.com/docs"
+          },
+          {
+            "text": "API",
+            "href": "https://www.sovtech.com/docs/api-reference/introduction"
+          },
+          {
+            "text": "Contact Us",
+            "href": "https://www.sovtech.com/contact-us"
+          },
+          {
+            "text": "Trust & Legal",
+            "href": "https://www.sovtech.com/legal"
+          },
+          {
+            "text": "Partners",
+            "href": "https://www.sovtech.com/partnerships"
+          },
+          {
+            "text": "Accelerate Velocity",
+            "href": "https://www.sovtech.com/solutions/use-case/accelerate-engineering-velocity"
+          },
+          {
+            "text": "Scale Capacity",
+            "href": "https://www.sovtech.com/solutions/use-case/scale-engineering-capacity"
+          },
+          {
+            "text": "Visibility & Insights",
+            "href": "https://www.sovtech.com/solutions/use-case/engineering-visibility-delivery-insights"
+          },
+          {
+            "text": "Modernize Legacy Systems",
+            "href": "https://www.sovtech.com/solutions/use-case/modernize-legacy-systems"
+          },
+          {
+            "text": "AI & Automation",
+            "href": "https://www.sovtech.com/solutions/use-case/ai-automation"
+          },
+          {
+            "text": "Secure & Compliant Delivery",
+            "href": "https://www.sovtech.com/solutions/use-case/secure-compliant-software-delivery"
+          },
+          {
+            "text": "Modernize DevOps",
+            "href": "https://www.sovtech.com/solutions/use-case/modernize-devops-platform-engineering"
+          },
+          {
+            "text": "FinTech",
+            "href": "https://www.sovtech.com/solutions/industries/fintech-software"
+          },
+          {
+            "text": "Banking & Financial Services",
+            "href": "https://www.sovtech.com/solutions/industries/banking-financial-services-software"
+          },
+          {
+            "text": "Insurance",
+            "href": "https://www.sovtech.com/solutions/industries/insurance-software"
+          },
+          {
+            "text": "Technology & SaaS",
+            "href": "https://www.sovtech.com/solutions/industries/technology-saas-software"
+          },
+          {
+            "text": "See All Industries",
+            "href": "https://www.sovtech.com/solutions/industries"
+          },
+          {
+            "text": "CTOs",
+            "href": "https://www.sovtech.com/solutions/cto"
+          }
+        ],
+        "career_link_count": 5,
+        "career_links": [
+          {
+            "text": "Skip to content",
+            "href": "https://www.sovtech.com/careers/"
+          },
+          {
+            "text": "Careers",
+            "href": "https://www.sovtech.com/careers"
+          },
+          {
+            "text": "Jobs",
+            "href": "https://www.sovtech.com/jobs"
+          },
+          {
+            "text": "Library",
+            "href": "https://www.sovtech.com/careers/library"
+          },
+          {
+            "text": "Skill Hub",
+            "href": "https://www.sovtech.com/careers/skill-hub"
+          }
+        ],
+        "vacancy_candidate_count": 0,
+        "vacancy_candidates": [],
+        "job_signal_count": 4,
+        "crawler": "crawlee_adaptive_playwright"
+      },
+      "outcome": "unresolved_no_vacancy_evidence"
+    }
+  ]
+}
