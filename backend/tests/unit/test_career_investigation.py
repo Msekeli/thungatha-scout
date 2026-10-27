@@ -1,7 +1,11 @@
 """Offline tests for careers investigation candidate validation."""
 import unittest
 
-from diagnostics.investigate_careers import _extract_visible_jobs, validate_job_list
+from diagnostics.investigate_careers import (
+    _extract_visible_jobs,
+    _has_vacancy_card_evidence,
+    validate_job_list,
+)
 
 
 class NetworkJobValidationTests(unittest.TestCase):
@@ -44,6 +48,25 @@ class NetworkJobValidationTests(unittest.TestCase):
         ])
         self.assertEqual(len(jobs), 1)
         self.assertEqual(jobs[0]["location"], "Cape Town")
+
+
+class VacancyCardEvidenceTests(unittest.TestCase):
+    def test_rejects_career_page_content_without_vacancy_signals(self):
+        self.assertFalse(_has_vacancy_card_evidence("Library Skill Hub Learn more"))
+
+    def test_accepts_card_with_location_and_employment_type(self):
+        self.assertTrue(
+            _has_vacancy_card_evidence(
+                "Software Engineer · Full-time · Cape Town · View role"
+            )
+        )
+
+    def test_accepts_card_with_closing_date(self):
+        self.assertTrue(
+            _has_vacancy_card_evidence(
+                "Software Engineer Closes 30 Nov 2026 View role"
+            )
+        )
 
 
 class VisibleHtmlExtractionTests(unittest.TestCase):
