@@ -1,0 +1,44 @@
+{
+  "generated_at": "2026-10-26T23:59:37.847713+00:00",
+  "input_file": "/Users/admin/Documents/Projects/thungatha-scout/backend/cape_town_tech_companies.json",
+  "companies_scanned": 1,
+  "status_counts": {
+    "search_control_not_found": 1
+  },
+  "results": [
+    {
+      "company": "Entelect",
+      "start_url": "https://culture.entelect.co.za/current-available-positions/",
+      "status": "search_control_not_found",
+      "path": [
+        "https://culture.entelect.co.za/current-available-positions/",
+        "https://careers.entelect.co.za/lore-of-entelect"
+      ],
+      "pages": [
+        {
+          "url": "https://culture.entelect.co.za/current-available-positions/",
+          "http_status": 200,
+          "title": "Current Available Jobs - Entelect",
+          "h1": "SOFTWARE ENGINEER POSITIONS",
+          "body_excerpt": "WORKING AT ENTELECT HOW YOU\u2019LL GROW THE ROLES WE OFFER NEWS THE ENTELECT FOUNDATION CONTACT US APPLY NOW Home|Current Available Jobs WE ARE ALWAYS HIRING At Entelect, we're always on the lookout for talented professionals who are ready to make an impact. Browse through our current job openings below to find a position that matches your skills and passion. We're committed to fostering a culture of innovation, growth, and collaboration \u2013 so take a look and see where you could fit in! Software Engineering Positions | Business Analyst Positions | Data Solutions Engineer Positions | Quality Assuran"
+        },
+        {
+          "url": "https://online.flippingbook.com/view/158335443/",
+          "http_status": 200,
+          "title": "The Lore of Entelect",
+          "h1": "The Lore of Entelect",
+          "body_excerpt": "1 Table of contents 2-3 92 The Lore of Entelect At Entelect, we grow the people who build technology that matters. Join a global software engineering consultancy with 25+ years of experience. Hello and welcome! < ARE YOU PREPARED TO BECOME MORE? Like the na\u00efve teenager who becomes the saviour of an entire galaxy, you too have the potential for greatness when you work with us at Entelect. Through constant training, development and mentorship, we are fully equipped to give you everything that you need to become more (whatever your more is). Should you choose to start your journey with us, you ar"
+        }
+      ],
+      "platform": [],
+      "search": {
+        "location_filled": false,
+        "submitted": false
+      },
+      "endpoint": null,
+      "job_count": 0,
+      "jobs": [],
+      "jsonld": false
+    }
+  ]
+}

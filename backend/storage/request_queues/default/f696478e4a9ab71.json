@@ -1,0 +1,16 @@
+{
+  "unique_key": "https://culture.entelect.co.za/current-available-positions",
+  "url": "https://culture.entelect.co.za/current-available-positions/",
+  "method": "GET",
+  "payload": null,
+  "headers": {},
+  "user_data": {
+    "__crawlee": {
+      "state": 4
+    }
+  },
+  "retry_count": 0,
+  "no_retry": false,
+  "loaded_url": "https://culture.entelect.co.za/current-available-positions/",
+  "handled_at": "2026-10-27 00:03:22.391637+00:00"
+}
