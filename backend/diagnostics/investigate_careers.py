@@ -154,6 +154,26 @@ def _next_link(page, visited: set[str]):
 
 
 
+def _has_vacancy_card_evidence(card: str) -> bool:
+    """Require job-card context beyond a careers-looking URL or anchor label."""
+    if not card:
+        return False
+    location = re.search(
+        r"\b(Cape Town|Stellenbosch|Johannesburg|Pretoria|Durban|"
+        r"Bellville|South Africa|remote|hybrid)\b", card, re.I,
+    )
+    closing_date = re.search(
+        r"(?:closes?|closing date)\s*:?[ ]*"
+        r"(?:\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})",
+        card, re.I,
+    )
+    employment = re.search(
+        r"\b(full[- ]time|part[- ]time|permanent|contract|internship|"
+        r"fixed[- ]term|graduate programme|graduate program)\b", card, re.I,
+    )
+    return bool(location or closing_date or employment)
+
+
 def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
     """Extract vacancy links and field values from their nearest visible card."""
     try:
@@ -187,6 +207,10 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
         if not path or path == urlparse(page_url).path.rstrip("/"):
             continue
         if not re.search(r"/careers?/[^/]+$", path, re.I):
+            continue
+        # A career-looking URL alone is not enough: content pages such as
+        # "Library" and "Skill Hub" can live under /careers/ too.
+        if not _has_vacancy_card_evidence(card):
             continue
 
         title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
