@@ -1,6 +1,6 @@
 """Run the primary career-page investigator, then Crawlee only where it found no jobs.
 
-Run from backend/: python diagnostics/crawl_with_fallback.py
+Run from backend/: PYTHONPATH=. python diagnostics/crawl_with_fallback.py
 This is a bounded diagnostic; it never calls AI or publishes vacancies.
 """
 from __future__ import annotations
