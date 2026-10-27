@@ -83,7 +83,15 @@ def main() -> int:
                 "primary_found_jobs" if primary.get("jobs")
                 else "fallback_found_vacancy_candidates"
                 if fallback and fallback.get("vacancy_candidates")
-                else "unresolved_no_vacancy_evidence"
+                else "blocked"
+                if primary.get("status") == "blocked"
+                or (fallback and fallback.get("status") in {"request_failed", "empty_page"})
+                else "successful_no_vacancy_evidence"
+                if primary.get("status") == "page_says_no_jobs"
+                else "vacancy_evidence_no_extractable_records"
+                if (fallback and fallback.get("job_signal_count", 0) > 0)
+                or any(page.get("link_evidence") for page in primary.get("pages", []))
+                else "unresolved"
             ),
         })
 
@@ -92,10 +100,10 @@ def main() -> int:
         "mode": "primary_then_fallback",
         "ai_enabled": False,
         "companies_requested": len(companies),
-        "primary_jobs_found": sum(bool(item.get("jobs")) for item in primary_results),
+        "primary_jobs_found": sum(len(item.get("jobs", [])) for item in primary_results),
         "fallback_attempted": len(fallback_targets),
         "fallback_candidates_found": sum(
-            bool(item.get("vacancy_candidates")) for item in fallback_results
+            len(item.get("vacancy_candidates", [])) for item in fallback_results
         ),
         "results": combined,
     }

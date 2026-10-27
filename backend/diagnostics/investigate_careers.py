@@ -15,6 +15,7 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
 from app.application.structured_job_extraction import extract_job_postings
+from diagnostics.vacancy_extraction import extract_vacancy_candidate
 
 ROOT = Path(__file__).resolve().parents[1]
 TITLE_KEYS = {"title", "jobtitle", "job_title", "positiontitle", "name"}
@@ -174,8 +175,45 @@ def _has_vacancy_card_evidence(card: str) -> bool:
     return bool(location or closing_date or employment)
 
 
+def _career_link_evidence(page) -> list[dict]:
+    """Preserve linked job, PDF and email application evidence from a source page."""
+    try:
+        anchors = page.evaluate("""() => [...document.querySelectorAll('a[href]')].map(a => ({
+          text: (a.innerText || a.getAttribute('aria-label') || '').trim().slice(0, 180),
+          href: a.href
+        }))""")
+    except Exception:
+        return []
+    evidence = []
+    seen = set()
+    for item in anchors:
+        href = item.get("href", "").split("#", 1)[0]
+        label = re.sub(r"\s+", " ", item.get("text", "")).strip()
+        lowered = (label + " " + href).casefold()
+        if not href or href in seen:
+            continue
+        if not (
+            re.search(r"\.pdf(?:$|[?#])", href, re.I)
+            or href.startswith("mailto:")
+            or re.search(r"/(?:position|o|jobs|careers?)/[^/?#]+", href, re.I)
+            or re.search(r"vacanc|current opening|view role|apply|career|job", lowered, re.I)
+        ):
+            continue
+        seen.add(href)
+        evidence.append({
+            "text": label,
+            "href": href,
+            "kind": (
+                "application_email" if href.startswith("mailto:")
+                else "job_description_pdf" if re.search(r"\.pdf(?:$|[?#])", href, re.I)
+                else "vacancy_or_careers_link"
+            ),
+        })
+    return evidence[:80]
+
+
 def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
-    """Extract vacancy links and field values from their nearest visible card."""
+    """Extract reviewable vacancy candidates from links and their surrounding cards."""
     try:
         candidates = page.evaluate(r"""() => {
           const links = [...document.querySelectorAll('a[href]')];
@@ -184,15 +222,15 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
             let best = '';
             for (let depth = 0; node && depth < 6; depth++, node = node.parentElement) {
               const value = (node.innerText || '').replace(/\s+/g, ' ').trim();
-              if (value.length >= 35 && value.length <= 1400 &&
-                  /(close|closing|location|hybrid|remote|apply|view role)/i.test(value)) {
+              if (value.length >= 25 && value.length <= 1400 &&
+                  /(close|closing|location|hybrid|remote|apply|view role|permanent|full-time)/i.test(value)) {
                 if (!best) best = value;
                 const hasDate = /(?:closes?|closing date)\s*:?\s*\d{1,2}\s+[a-z]+\s+\d{4}/i.test(value);
                 const hasLocation = /south africa|cape town|stellenbosch|hybrid|remote/i.test(value);
                 if (hasDate && hasLocation) { best = value; break; }
               }
             }
-            return {text:(a.innerText || '').trim(), href:a.href, card:best};
+            return {text:(a.innerText || a.getAttribute('aria-label') || '').trim(), href:a.href, card:best};
           });
         }""")
     except Exception:
@@ -200,74 +238,36 @@ def _extract_visible_jobs(page, page_url: str, company: str) -> list[dict]:
 
     found = {}
     for item in candidates:
-        href = item.get("href", "").split("#", 1)[0]
-        link_text = re.sub(r"\s+", " ", item.get("text", "")).strip()
-        card = re.sub(r"\s+", " ", item.get("card", "")).strip()
-        path = urlparse(href).path.rstrip("/")
-        if not path or path == urlparse(page_url).path.rstrip("/"):
-            continue
-        if not re.search(r"/careers?/[^/]+$", path, re.I):
-            continue
-        # A career-looking URL alone is not enough: content pages such as
-        # "Library" and "Skill Hub" can live under /careers/ too.
-        if not _has_vacancy_card_evidence(card):
-            continue
-
-        title = re.sub(r"[-_]+", " ", path.rsplit("/", 1)[-1]).strip().title()
-        # Some sites wrap the entire card in the anchor, so anchor text can
-        # include the title, category, employment type, location and CTA.
-        # Prefer the title portion of the card when a category separator is present.
-        title_match = re.search(
-            r"([A-Z][A-Za-z0-9()& /-]{3,100}?)\s+"
-            r"(?:Software Engineering|Operations|Engineering|Developer|"
-            r"UX/UI Designer|Product Owner)\s*[·|]",
-            card,
-        )
-        if title_match:
-            title = title_match.group(1).strip(" :-|")
-        cleaned_link = re.sub(r"^view role\s*:?", "", link_text, flags=re.I).strip()
-        link_has_card_metadata = bool(re.search(
-            r"[·|]|\b(full[- ]time|part[- ]time|permanent|contract|"
-            r"cape town|stellenbosch|south africa|hybrid|remote|closes?)\b",
-            cleaned_link, re.I,
-        ))
-        if (
-            cleaned_link
-            and len(cleaned_link) <= 120
-            and not link_has_card_metadata
-            and not re.fullmatch(r"(apply|apply for this role|learn more)", cleaned_link, re.I)
-        ):
-            title = cleaned_link
-
-        # Prefer explicit location labels / department separators. Otherwise
-        # match known city names so the job title is not swallowed as a location.
-        location_pattern = (
-            r"(Stellenbosch|Cape Town|Johannesburg|Pretoria|Durban|"
-            r"Port Elizabeth|Gqeberha|East London|Bloemfontein|"
-            r"George|Paarl|Midrand|Sandton|Centurion)"
-            r"\s*,\s*South\s*Africa(?:\s*\([^)]*\))?"
-        )
-        location_match = re.search(
-            r"(?:Location\s*:?\s*|"
-            r"(?:Operations|Software Engineering|Engineering)\s*·\s*)"
-            + location_pattern,
-            card, re.I,
-        )
-        if not location_match:
-            location_match = re.search(location_pattern, card, re.I)
-        close_match = re.search(
-            r"(?:Closes?\s+|Closing date\s*:?\s*)"
-            r"(\d{1,2}\s+[A-Za-z]+\s+\d{4}|[A-Za-z]+\s+\d{1,2},?\s+\d{4})",
-            card, re.I,
-        )
-        found[href] = {
-            "company": company, "title": title[:150],
-            "location": re.sub(r"\s+", " ", location_match.group(0)).strip() if location_match else None,
-            "url": href, "closing_date_text": close_match.group(1) if close_match else None,
-            "source_url": page_url, "extraction_method": "visible_html_link_and_context",
-            "needs_review": True,
-        }
+        candidate = extract_vacancy_candidate(item, page_url, company)
+        if candidate:
+            found[candidate["url"]] = candidate
     return list(found.values())
+
+
+def _inspect_vacancy_details(page, jobs: list[dict], limit: int = 3) -> list[dict]:
+    """Inspect a small number of linked detail pages without changing candidate status."""
+    for job in jobs[:limit]:
+        url = job.get("url", "")
+        if not url.startswith(("http://", "https://")):
+            continue
+        evidence = {"url": url, "http_status": None, "title": "", "h1": "", "body_excerpt": ""}
+        try:
+            response = page.goto(url, wait_until="domcontentloaded", timeout=12000)
+            evidence["http_status"] = response.status if response else None
+            evidence["title"] = page.title()[:200]
+            try:
+                evidence["h1"] = page.locator("h1").first.inner_text(timeout=1000).strip()[:200]
+            except Exception:
+                evidence["h1"] = ""
+            try:
+                body = page.locator("body").inner_text(timeout=1500)
+                evidence["body_excerpt"] = re.sub(r"\s+", " ", body)[:700]
+            except Exception:
+                evidence["body_excerpt"] = ""
+        except Exception as exc:
+            evidence["error"] = type(exc).__name__
+        job["detail_evidence"] = evidence
+    return jobs
 
 def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> dict:
     context = browser.new_context(user_agent="ThungathaScout-diagnostic/0.2")
@@ -334,11 +334,12 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
                 "url": page.url, "http_status": status_code,
                 "title": page_title[:200], "h1": heading[:200],
                 "body_excerpt": re.sub(r"\s+", " ", body_text)[:600],
+                "link_evidence": _career_link_evidence(page),
             })
             if status_code in {404, 410}:
                 result["status"] = "dead_url"
                 break
-            if status_code in {401, 403, 429} or BLOCK.search(html[:8000]):
+            if status_code in {401, 403, 429}:
                 result["status"] = "blocked"
                 break
             result["platform"] = sorted({
@@ -347,16 +348,21 @@ def investigate(browser, company: str, start_url: str, max_pages: int = 3) -> di
             })
             jobs = _jsonld(html, page.url, company)
             if jobs:
+                jobs = _inspect_vacancy_details(page, jobs[:30], limit=3)
                 result.update(status="jobs_in_jsonld", jsonld=True,
                               job_count=len(jobs), jobs=jobs[:30])
                 break
             visible_jobs = _extract_visible_jobs(page, page.url, company)
             if visible_jobs:
+                visible_jobs = _inspect_vacancy_details(page, visible_jobs[:30], limit=3)
                 result.update(
                     status="jobs_in_visible_html",
                     job_count=len(visible_jobs),
                     jobs=visible_jobs[:30],
                 )
+                break
+            if BLOCK.search(html[:8000]):
+                result["status"] = "blocked"
                 break
             if not hits:
                 result["search"] = _try_search(page)

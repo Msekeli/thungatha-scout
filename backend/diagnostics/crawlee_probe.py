@@ -14,6 +14,7 @@ from pathlib import Path
 from urllib.parse import urlparse, urljoin
 
 from crawlee.crawlers import AdaptivePlaywrightCrawler, AdaptivePlaywrightCrawlingContext
+from diagnostics.vacancy_extraction import extract_vacancy_candidate
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_TEXT = 5000
@@ -24,22 +25,42 @@ def capture(content, url: str, company: str) -> dict:
     title = content.title.get_text(" ", strip=True)[:300] if content.title else ""
     text = re.sub(r"\s+", " ", content.get_text(" ", strip=True))[:MAX_TEXT]
     links = []
+    candidate_links = []
     seen_urls = set()
     for anchor in content.select("a[href]")[:MAX_LINKS]:
         href = urljoin(url, anchor.get("href", "")).split("#", 1)[0]
         label = re.sub(r"\s+", " ", anchor.get_text(" ", strip=True))[:180]
-        if href and href not in seen_urls:
-            seen_urls.add(href)
-            links.append({"text": label, "href": href})
+        if not href or href in seen_urls:
+            continue
+        seen_urls.add(href)
+        links.append({"text": label, "href": href})
+        card = ""
+        node = anchor.parent
+        for _ in range(5):
+            if node is None:
+                break
+            candidate_text = re.sub(r"\s+", " ", node.get_text(" ", strip=True)).strip()
+            if 25 <= len(candidate_text) <= 1400 and re.search(
+                r"close|closing|location|hybrid|remote|apply|view role|permanent|full-time",
+                candidate_text, re.I,
+            ):
+                if not card:
+                    card = candidate_text
+                if re.search(r"cape town|stellenbosch|south africa|hybrid|remote", candidate_text, re.I) and re.search(
+                    r"permanent|contract|internship|full[- ]time|closing date|closes", candidate_text, re.I
+                ):
+                    card = candidate_text
+                    break
+            node = node.parent
+        candidate_links.append({"text": label, "href": href, "card": card})
 
-    # Explicit /position/ routes are vacancy candidates; other career links
-    # remain evidence, not job records.
-    vacancy_candidates = [
-        link for link in links
-        if re.search(r"/position/[^/]+/?$", urlparse(link["href"]).path, re.I)
-        and link["text"]
-        and link["text"].casefold() not in {"read more", "apply now", "learn more"}
-    ]
+    vacancy_candidates = []
+    for item in candidate_links:
+        candidate = extract_vacancy_candidate(
+            item, url, company, extraction_method="crawlee_html_link_and_context"
+        )
+        if candidate:
+            vacancy_candidates.append(candidate)
     career_links = [
         link for link in links
         if re.search(r"career|jobs?|vacanc|position|opening|apply", link["text"] + " " + link["href"], re.I)
