@@ -45,6 +45,10 @@ The separation is intentional: adapter definitions describe how a platform is ac
 
 These are initial registry records, not a production-ready source catalogue. Candidate/pending values must remain distinct from verified claims. In particular, a verified ATS mapping does not automatically verify Cape Town presence, source permission, adapter implementation or human approval. Registry schema validation and persistence behavior remain implementation work under M1.
 
+## Repository naming rules
+
+All contributors and AI coding tools, including Antigravity, must follow the naming and file-creation procedure in `AGENTS.md` and `CODING-STANDARDS.md`. Use descriptive names that state a directory or file's responsibility; avoid vague one-word folders. Test categories use explicit names such as `test-suites/unit-tests/` and `test-suites/integration-tests/`. Python modules use `snake_case`; ordinary directories and non-Python filenames use `kebab-case`. Inspect the repository and tooling before creating or renaming paths. Do not create speculative empty folders.
+
 ## Backend development
 
 The backend is in `backend/` and uses Azure Functions Python v2. Use a Python version supported by the selected Azure Functions runtime and hosting plan; verify compatibility before pinning versions or deploying.
