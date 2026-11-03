@@ -14,6 +14,8 @@ V1 adapters: Greenhouse and Workday. Initial geography: Cape Town. Scout is a pr
 - **Backend:** Python HTTP API and scheduled/background processing, hosted by a cost-appropriate provider. Keep it portable; Azure Functions is optional pending cost approval.
 - **Scout operational data:** dedicated Supabase PostgreSQL project.
 - **Thungatha destination:** existing Thungatha Supabase PostgreSQL project.
+- **Admin authentication:** Supabase Auth, restricted to one configured administrator email; public registration is disabled and the backend enforces the allowlist.
+- **Hosting:** frontend/backend provider decisions remain separate. Backend hosting is intentionally deferred until local implementation and workload verification are complete.
 - **Data boundary:** Scout retains raw operational, rejected, exception and extraction-history records. Only records passing deterministic publication gates are sent to Thungatha.
 
 Do not use Next.js, MongoDB or Azure Table Storage for the current v1 baseline. Do not share the operational database between Scout and Thungatha. The browser never receives privileged database credentials.
