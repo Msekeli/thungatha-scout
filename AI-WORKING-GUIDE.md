@@ -4,7 +4,7 @@
 
 ## 1. Shared context
 
-All assistants must use `AGENTS.md` as the repository-wide instruction source. Before coding, they must also read the source of truth, master implementation plan, and active milestone document. Tool-specific instructions may supplement these rules but must not contradict them.
+All assistants must use `AGENTS.md` as the repository-wide instruction source and `CHATGPT-PROJECT-GUIDE.md` as the concise current product/architecture brief. The source-of-truth document remains authoritative for dated decisions; older notes are historical when superseded by a later decision record. Before coding, they must also read the source of truth, master implementation plan, and active milestone document. Tool-specific instructions may supplement these rules but must not contradict them.
 
 ## 2. How to start a task
 
@@ -99,7 +99,7 @@ Explicit user review is required before:
 - deleting/migrating existing data or reports;
 - accepting a milestone or deploying a production change.
 
-## 10. Do not do this
+## 10. Current vacancy operating model\n\nRoutine human approval of every vacancy is not required. Sources are confirmed by an administrator at onboarding. Vacancies that pass deterministic quality gates are published automatically; hard failures are suppressed and uncertain cases enter the exception queue. AI cannot bypass hard gates or publish directly. Every automated decision must be auditable.\n\n## 11. Do not do this
 
 - Do not rewrite the source of truth to make it agree with newly generated code.
 - Do not invent repository state, test results, source permissions or acceptance.
