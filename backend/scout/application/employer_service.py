@@ -17,26 +17,6 @@ OrganizationType = Literal[
     "other",
     "unresolved",
 ]
-EmployerStatus = Literal[
-    "discovered",
-    "pending_review",
-    "approved",
-    "rejected",
-    "needs_review",
-    "inactive",
-]
-SourceStatus = Literal[
-    "discovered",
-    "pending_verification",
-    "verified",
-    "temporarily_unavailable",
-    "invalid",
-    "needs_review",
-    "inactive",
-]
-PermissionStatus = Literal["unknown", "allowed", "restricted", "needs_review"]
-
-
 class EmployerCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 
