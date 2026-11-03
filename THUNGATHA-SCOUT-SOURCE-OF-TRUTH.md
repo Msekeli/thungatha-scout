@@ -67,3 +67,30 @@ The discovery strategy is clarified to address low unique-employer yield from AT
 - Report unique employer coverage separately from boards found and vacancies extracted. Do not optimise for job count at the expense of employer diversity.
 
 This is a discovery strategy clarification, not approval to bypass source restrictions, use paid datasets, or treat all listed ATS adapters as production-ready.
+
+## Registry responsibilities and data boundaries (3 November 2026)
+
+The initial registry is split into two files because adapter definitions and employer/source mappings are independently maintained concepts:
+
+- `backend/registry/ats-adapter-registry.json` describes reusable adapter definitions: adapter key, implementation status, retrieval method, known capabilities, required configuration fields and adapter-level constraints.
+- `backend/registry/employer-source-registry.json` describes organizations and their recruitment sources: employer identity, organization classification, official careers entry point, source-to-employer relationship, adapter-specific configuration and evidence supporting each verification claim.
+
+The adapter registry must not contain employer-specific board identifiers or employer verification evidence. The employer/source registry must not become a copy of generic adapter capabilities. Adapter code should consume employer-specific configuration from the registry rather than hardcoding board slugs, tenants or site identifiers.
+
+### Verification boundaries
+
+Keep these claims independent:
+1. Employer identity and organization classification.
+2. Employer's Cape Town presence.
+3. Relationship between the employer's official website/careers page and the external source or ATS board.
+4. Technical retrieval method and adapter capabilities.
+5. Source terms, permission and operational constraints.
+6. Human approval to use/publish the source or resulting records.
+
+Evidence supporting one claim does not automatically verify another. In particular, a verified ATS board mapping does not establish Cape Town presence, source permission, adapter implementation readiness or approval.
+
+Unknown capabilities and unverified claims must remain explicitly unknown or pending. Do not infer a capability because an endpoint appears plausible or because one request succeeded. The current registry entries are an initial working dataset; their presence does not mean M1 persistence, schema validation, source approval or production readiness is complete.
+
+### File naming and responsibility
+
+Every file has one clearly defined primary responsibility. Names should state that responsibility clearly and specifically without becoming unnecessarily long. Split independently maintained concepts; do not split a cohesive concept into many files merely to avoid a longer name.
