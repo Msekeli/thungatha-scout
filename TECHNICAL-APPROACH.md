@@ -22,7 +22,7 @@ V1 supports Greenhouse and Workday. Initial geography is Cape Town. Scout is not
 
 Do not use Next.js. Do not share Scout's operational schema/database with Thungatha. Do not use MongoDB. Azure Table Storage is not a v1 dependency. Azure Functions may be selected later only if its actual hosting, storage, scheduling and monitoring costs are acceptable and explicitly approved.
 
-The backend owns business rules and all privileged database writes. The React client uses Supabase Auth and calls protected backend endpoints. Backend endpoints must independently validate Supabase access tokens and enforce admin authorization; frontend route guards are not a security boundary. The browser may contain only the Supabase URL and publishable/anon key, never a service-role key. Use separate credentials for Scout and Thungatha.
+The backend owns business rules and all privileged database writes. The React client uses Supabase Auth and calls protected backend endpoints. V1 permits only the administrator's explicitly configured email address; public registration is disabled. The backend independently validates Supabase access tokens and checks the authenticated email against a server-side allowlist on every protected operation. Frontend route guards are not a security boundary. The browser may contain only the Supabase URL and publishable/anon key, never a service-role key. Keep the allowlisted email in environment configuration, not source code. Use separate credentials for Scout and Thungatha.
 
 ## 3. Data ownership
 
@@ -186,6 +186,8 @@ Critical safety tests:
 
 - Backend HTTP framework: **FastAPI**, with Pydantic settings and Uvicorn for local development. Scheduled/background processing remains separately executable and provider-portable.
 - Frontend: **React + TypeScript + Vite + Tailwind CSS v3**.
-- Admin authentication: **Supabase Auth**. Browser configuration is limited to the project URL and publishable/anon key. Backend must independently validate Supabase JWTs and enforce admin authorization.
-- ORM/migration tooling and production hosting remain undecided; do not add SQLAlchemy/Alembic or provider-specific hosting without a separate decision.
-- No hosting, database project, paid service, deployment or external resource was provisioned by this setup lock.
+- Admin authentication: **Supabase Auth**, restricted to one configured administrator email. Disable public sign-up/registration. Backend validates Supabase JWTs and enforces the email allowlist for every protected operation.
+- Keep the admin email allowlist in server-side environment configuration. The browser receives only the Supabase URL and publishable/anon key; never expose a service-role key.
+- ORM/migration tooling remains undecided; do not add SQLAlchemy/Alembic without a demonstrated need.
+- Hosting is deliberately deferred until the application is implemented and its local functionality is verified. Keep the FastAPI backend and scheduled/background processing provider-portable. Select a provider only after evaluating the completed workload, dependencies, scheduling, reliability, deployment effort and total cost.
+- No hosting provider, paid service, deployment or external resource is approved by this setup decision.
