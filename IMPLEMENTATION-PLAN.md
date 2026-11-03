@@ -31,7 +31,7 @@ V1 ATS adapters: Greenhouse and Workday. Initial geographic scope: Cape Town. No
 | ATS integrations | Greenhouse and Workday adapters |
 | Admin authentication | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
-Azure Table Storage is not a v1 requirement. Azure Functions may be reconsidered after a real cost/hosting comparison; do not provision Azure resources or upgrade the exhausted student subscription without explicit approval.
+Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.
 
 Scout and Thungatha databases are isolated. Scout retains raw operational, rejected, exception and history records. Only qualified published records cross to Thungatha.
 
