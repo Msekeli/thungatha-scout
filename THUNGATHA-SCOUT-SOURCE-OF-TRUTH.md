@@ -98,7 +98,7 @@ Every file has one clearly defined primary responsibility. Names should state th
 
 ## Decision record — v1 implementation baseline (3 November 2026)
 
-V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS platforms remain out of scope. The private Next.js admin interface is required in v1; it is not a public job-search frontend.
+V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS platforms remain out of scope. The private React admin interface is required in v1; it is not a public job-search frontend.
 
 ### Product workflow
 - The employer is the primary management entity. An employer can have multiple independent recruitment sources; vacancies retain employer and source provenance.
@@ -108,12 +108,12 @@ V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS pl
 - Adding a source to an existing employer must not create a duplicate employer. Archiving a source must not remove its employer or other sources.
 - Employer/source approval and vacancy approval are separate. Only approved, validated vacancy versions may publish.
 
-### Technical ownership
-- Frontend: Next.js App Router, TypeScript and Tailwind CSS.
-- Backend: one Python Azure Functions Function App using Python v2. HTTP functions expose admin operations; timer functions perform bounded scheduled work. Triggers delegate to shared application services.
-- Operational persistence: PostgreSQL. Python owns business rules and authoritative writes. Next.js calls the backend API and does not write directly to PostgreSQL.
-- Publishing: approved records go idempotently to the existing Thungatha Supabase integration. Scout operational state remains separate.
-- No microservices, separate Function Apps per ATS or second frontend ORM without demonstrated need.
+### Technical ownership — historical proposal superseded by the implementation stack lock
+- Frontend: React + TypeScript + Vite + Tailwind CSS v3.
+- Backend: FastAPI (Python) HTTP API with separately executable scheduled/background processing. Keep it provider-portable; hosting is deferred until local implementation is verified.
+- Operational persistence: a dedicated Scout Supabase PostgreSQL project. Python owns business rules and authoritative writes; the React client calls the protected backend API.
+- Publishing: qualifying records go idempotently to the existing Thungatha Supabase integration. Scout operational state remains separate.
+- Keep the application as a simple frontend, backend and database architecture. Do not introduce microservices or provider-specific runtime dependencies without an approved requirement.
 
 ### Adapter behavior
 - Greenhouse uses its documented public Job Board GET API for a known board token. It is board-specific, not a global customer directory.
@@ -180,7 +180,7 @@ Records failing a hard gate are suppressed/rejected with a reason. Records with 
 - Scout's database schema and credentials are isolated from Thungatha's. The backend owns all writes and business rules; the React browser client never receives a service-role key.
 - Azure Table Storage and a Scout PostgreSQL database hosted in Azure are not v1 requirements. Do not provision Azure storage or databases unless a later cost/technical review explicitly changes this decision.
 - Frontend: React + TypeScript + Vite, hosted on Vercel.
-- Backend: Python HTTP API and scheduled/background processing, hosted on a provider selected for reliable low-cost hosting. Keep the backend portable. Azure Functions remains a candidate, not a mandatory dependency.
+- Backend: FastAPI (Python) HTTP API with separately executable scheduled/background processing. Keep the backend provider-portable; hosting is deferred until local implementation is verified.
 - The current Azure for Students credit is exhausted. Do not upgrade the subscription, create paid Azure resources or assume Azure free allowances will cover persistent storage/compute without a verified cost calculation and explicit user approval.
 - Supabase Free may be used for development and a low-volume pilot only after checking current limits, inactivity pausing, backup and production reliability implications. Plan a paid tier or alternative before production depends on uninterrupted service.
 
@@ -192,7 +192,7 @@ Records failing a hard gate are suppressed/rejected with a reason. Records with 
 - Publishing to Thungatha is a one-way, validated, idempotent integration. Scout retains its own operational history.
 
 ### Superseded decisions
-The following earlier statements are no longer current: Next.js admin frontend; Azure Table Storage as mandatory operational persistence; PostgreSQL operational storage hosted as part of the prior Azure-first plan; routine human approval of every vacancy; and a rule that only human-approved vacancy versions can publish. Historical entries remain as decision history but must not guide new implementation.
+The following earlier statements are no longer current: Azure Table Storage as mandatory operational persistence; PostgreSQL operational storage hosted as part of the prior Azure-first plan; routine human approval of every vacancy; and a rule that only human-approved vacancy versions can publish. Superseded technical proposals have been replaced in this document with the current React/Vite and FastAPI stack so implementation agents encounter one unambiguous architecture.
 
 
 ## Decision record — implementation stack lock (3 November 2026)
