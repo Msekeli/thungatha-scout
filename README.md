@@ -11,7 +11,7 @@ V1 adapters: Greenhouse and Workday. Initial geography: Cape Town. Scout is a pr
 ## Current architecture
 
 - **Frontend:** React + TypeScript + Vite, hosted on Vercel.
-- **Backend:** Python HTTP API and scheduled/background processing, hosted by a cost-appropriate provider. Keep it portable; Azure Functions is optional pending cost approval.
+- **Backend:** FastAPI (Python) HTTP API with separately executable scheduled/background processing. Keep it provider-portable; hosting selection is deferred until local implementation and workload verification are complete.
 - **Scout operational data:** dedicated Supabase PostgreSQL project.
 - **Thungatha destination:** existing Thungatha Supabase PostgreSQL project.
 - **Admin authentication:** Supabase Auth, restricted to one configured administrator email; public registration is disabled and the backend enforces the allowlist.
