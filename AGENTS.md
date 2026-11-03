@@ -41,16 +41,21 @@ The source-of-truth document must not be overwritten or silently reconciled with
 - Publishing must be validated and idempotent; unapproved records must not reach Thungatha.
 - Avoid adding infrastructure or dependencies without a demonstrated requirement and user review.
 
-## Directory and file naming
+## Directory and file naming — mandatory for every contributor and AI tool
 
-- Directory and file names must communicate their actual responsibility without requiring readers to infer meaning from surrounding folders.
-- Prefer specific, descriptive, multi-word names joined with kebab-case. Do not create vague one-word names when a clear descriptive name is available.
-- Use a one-word name only when there is no clear, precise multi-word alternative, or when an external framework/tool requires that exact name. A familiar convention is not, by itself, a reason to keep an ambiguous name.
-- Avoid generic names such as `common`, `shared`, `misc`, `helpers`, `utils`, `lib`, `temp` and unexplained abbreviations. Replace them with the responsibility they contain.
-- Name test directories by the complete test category: `unit-tests`, `integration-tests`, `contract-tests` or another precise category. Do not use nested generic labels such as `tests/unit` or `tests/integration`.
-- Before creating a directory or file, check whether its name states what it contains or does, whether its parent already communicates the same information, and whether it duplicates an existing responsibility.
-- Do not rename framework-required paths without checking their tooling impact. For Python importable packages, use descriptive `snake_case` names; for other directories and files, use descriptive `kebab-case` names. When a scaffold directory has no implementation yet, resolve its name before adding code to it.
-- When reviewing existing names, distinguish intentional conventions from ambiguous placeholders. Do not rename a folder merely to satisfy a mechanical word-count rule.
+This is a repository-wide rule for developers and AI coding agents, including Antigravity, Codex and Copilot. Follow it before creating, moving or renaming any directory or file. `CODING-STANDARDS.md` contains the detailed examples; this section is the mandatory workflow.
+
+- Names must tell a reader what the directory or file is responsible for. A reader must not need to open it or inspect sibling names to guess its purpose.
+- Prefer precise, descriptive names made from the fewest words that fully express the responsibility. Do not default to short generic labels. One-word names are allowed only when no clear descriptive alternative exists or a tool/framework mandates the exact name.
+- Use kebab-case for ordinary directory names and non-Python filenames. Use snake_case for Python modules and importable package directories because Python imports require it. Preserve exact framework/tool-required names only when the tool actually requires them.
+- Do not create vague labels such as `unit`, `integration`, `common`, `shared`, `misc`, `helpers`, `utils`, `lib`, `temp`, `api`, `types` or `data` when a more precise name is possible.
+- Test categories must be explicit: use `test-suites/unit-tests/`, `test-suites/integration-tests/`, and `test-suites/contract-tests/` when those categories exist. Never create `tests/unit/` or `tests/integration/`.
+- Python test filenames follow Python discovery conventions (for example, `test_employer_discovery.py`); their names must still identify the behavior under test.
+- Before creating a file or directory, inspect the current tree and relevant tooling. Check for an existing owner of the responsibility, avoid duplicate/nested names that repeat the parent, and confirm the proposed name is accurate.
+- Before renaming an existing path, search all imports, references, configuration, test discovery and CI workflows. Update every reference in the same change and run the affected checks. Do not rename framework-required paths casually.
+- Do not create empty placeholder directories for speculative future features. Create a directory when its responsibility and near-term contents are understood.
+- If the right name or responsibility is unclear, stop and ask rather than inventing a folder. Explain the proposed name and what belongs inside it.
+- When reviewing existing names, distinguish a required convention from a vague scaffold placeholder. Do not rename a folder merely to satisfy a mechanical word-count rule.
 
 ## File and registry responsibilities
 
