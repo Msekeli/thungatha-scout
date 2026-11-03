@@ -54,13 +54,13 @@ Existing Greenhouse experiments may provide evidence toward a milestone, but do 
 **Status:** Accepted (26 October 2026). The branch/artifact inventory and scope review are documented in `milestones/M0-AUDIT-REPORT.md`. The required source-of-truth document has been restored to the repository. The current scaffold has no runnable application test suite or frontend build configuration, and runtime checks were not run because this environment could not clone GitHub. These limitations are explicit; no runtime/test pass is claimed. Establish executable tests and a runnable checkout during the first implementation work.
 
 ### M1 — Employer Discovery and Source Registry
-**Outcome:** A repeatable discovery workflow records candidate employers, official careers pages, source evidence, geography, source type and review status without inventing identities or treating failed searches as empty results.
+**Outcome:** A repeatable, dual-channel discovery workflow identifies Cape Town employer candidates through broad careers-page discovery and separate ATS-footprint discovery (initially Greenhouse, Workday, Lever, Breezy HR and Ashby). It verifies official employer/source relationships, measures unique employer coverage separately from board/job volume, and records evidence, geography, source type and review status without inventing identities or treating failed searches as empty results.
 
 ### M2 — Adapter Contract and Greenhouse Baseline
-**Outcome:** A documented adapter interface and a verified Greenhouse implementation provide a stable baseline without discarding existing experimental work.
+**Outcome:** A documented adapter interface and a verified Greenhouse implementation provide a stable baseline without discarding existing experimental work. Greenhouse employer discovery remains M1 work; successfully extracting a known board does not establish how to discover all Greenhouse employers.
 
 ### M3 — Additional Career-Site/ATS Adapters
-**Outcome:** Additional adapters can be added independently behind the shared contract. Each source is evaluated separately for access, terms, data quality and operational limits before production approval.
+**Outcome:** Additional adapters can be added independently behind the shared contract. Initial investigation priorities include Workday, Lever, Breezy HR and Ashby, subject to employer coverage, public access behavior, terms, data quality and operational limits. Adapter priority must be based on verified unique Cape Town employer coverage, not raw vacancy volume.
 
 ### M4 — Vacancy Normalisation, Deduplication and Freshness
 **Outcome:** Source records become consistent vacancy records with traceable provenance, conservative deduplication, repeatable updates and explicit freshness/availability states.
@@ -92,4 +92,4 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 
 ## 8. Current focus
 
-M0 is accepted as the repository audit and scope baseline. The runtime limitation is recorded rather than hidden. Proceed to M1 — Employer Discovery and Source Registry, beginning with establishing a runnable checkout and adding/running focused tests as behavior is introduced. Validate platform, storage, integration, authentication and source-access decisions before implementation.
+M0 is accepted as the repository audit and scope baseline. M1 is in progress. Its discovery strategy now explicitly has two parallel channels: broad Cape Town employer discovery and ATS-footprint discovery. The immediate priority is to improve the number of distinct, verified direct employers—not simply increase the number of jobs extracted from a small number of boards. Greenhouse, Workday, Lever, Breezy HR and Ashby are the initial ATS investigation set. Establish a runnable checkout and focused tests as behavior is introduced. Validate platform access, source terms and employer identity before implementation or approval.
