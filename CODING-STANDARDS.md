@@ -5,11 +5,11 @@
 ## Directory and file naming
 
 - Use descriptive kebab-case names for directories and files. A name must communicate the actual responsibility or contents.
-- Prefer multi-word names when they make the responsibility clearer. One-word names are permitted only for precise, established technical conventions, proper names, or cases with no clear descriptive alternative.
+- Prefer multi-word names when they make the responsibility clearer. Use a one-word name only when there is no clear, precise multi-word alternative, or when an external framework/tool requires that exact name.
 - Do not use vague convenience names such as `common`, `shared`, `misc`, `helpers`, `utils`, `lib` or unexplained abbreviations. Name the actual responsibility instead.
 - Name test groupings explicitly: `unit-tests`, `integration-tests`, `contract-tests`, etc. Avoid `tests/unit` and `tests/integration`.
 - Do not create directories just because a future feature may need them. Create a directory when its responsibility and contents are understood.
-- Preserve framework- or tooling-required names when they have a precise established meaning. Check imports, test discovery, build configuration and CI paths before renaming an existing directory.
+- Preserve framework- or tooling-required names only when the tool requires the exact path. Use descriptive `snake_case` for Python importable packages and descriptive `kebab-case` for other directories and files. Check imports, test discovery, build configuration and CI paths before renaming an existing directory.
 - Review each directory in context. A technically familiar name is not automatically clear; prefer the name that best describes what the directory actually owns.
 
 ## General
