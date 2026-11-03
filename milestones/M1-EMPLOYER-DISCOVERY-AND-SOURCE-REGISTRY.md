@@ -213,3 +213,18 @@ Two initial JSON files have been added under `backend/registry/`:
 - `employer-source-registry.json` contains initial employer/source candidates, source mappings and separate verification states.
 
 This is a registry data baseline only. It does not complete C04. The files still require an explicit schema/contract, validation tests, a reviewed persistence/update lifecycle and evidence review of their individual records. Existing `candidate` and `pending_verification` values must not be upgraded based on assumptions. C04 remains Not started until its work and exit criteria are completed and verified.
+
+
+## Scope clarification — v1 delivery sequencing (3 November 2026)
+
+The product's first implementation slice is now explicitly focused on registering and extracting from known Greenhouse and Workday employer boards supplied by the administrator. This is a delivery-sequencing decision; it does not erase or invalidate the C01/C02 discovery research above.
+
+- The broad employer-discovery experiment and ATS-footprint discovery remain useful work, but they are not a dependency for starting the first registration/extraction vertical slice.
+- The v1 admin can add an employer by pasting a known Greenhouse or Workday careers/board URL. The backend detects the platform where possible, supports manual selection/override, extracts employer metadata where reliable, and requires administrator confirmation.
+- Greenhouse and Workday are the only v1 adapter commitments. Lever, Breezy HR and Ashby remain future investigation candidates, not current implementation scope.
+- A supplied ATS board URL is a source lead. Employer identity, official source relationship, Cape Town relevance, source terms/permission and human approval remain separate verification claims.
+- The registry's generic adapter definitions remain separate from employer-specific source configuration. Newly added employers using a supported adapter must not require employer-specific adapter code.
+- M1 remains In progress. Existing checkpoint status and historical reports are preserved. Do not mark M1 Accepted or rewrite old evidence because the implementation sequence changed.
+- Immediate implementation begins with M2 in IMPLEMENTATION-PLAN.md. Revisit remaining M1 discovery work after the first Greenhouse and Workday registration/extraction workflows provide a working baseline.
+
+**Next action:** preserve the discovery experiment and continue implementation through M2/M3/M4. The first live compatibility tests are a Greenhouse board and https://myhcm.wd3.myworkdayjobs.com/digioutsource.
