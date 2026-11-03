@@ -1,7 +1,7 @@
 # Thungatha Scout — Source of Truth
 
 **Status:** Proposed baseline for review  
-**Updated:** 22 October 2026
+**Updated:** 3 November 2026
 
 ## Purpose
 Thungatha Scout discovers companies operating in Cape Town, verifies their official recruitment sources, collects and tracks vacancies, and publishes approved company/job data to Thungatha. A minimal private admin UI lets the administrator resolve uncertain records.
@@ -18,6 +18,10 @@ Out of scope for the initial release: a public job-search frontend duplicating T
 - Approval requires evidence of company identity, Cape Town presence, organization type, and an official recruitment page.
 - A careers page may redirect to an ATS if the relationship to the company is evidenced.
 - ATS board discovery alone does not prove employer identity.
+- Employer discovery uses two complementary channels: broad careers-page discovery and a separately measured ATS-footprint discovery process. ATS discovery improves coverage but does not replace employer-first verification.
+- Initial ATS investigation priorities are Greenhouse, Workday, Lever, Breezy HR and Ashby. This is not a claim that all adapters are implemented or approved.
+- Measure unique employer candidates and verified direct employers separately from ATS board counts and vacancy counts; high job volume from one employer is not broad employer coverage.
+- Do not assume an ATS vendor exposes a public global customer directory. Discover board identifiers from multiple public footprints and third-party lead sources, then independently verify the employer relationship through its official website.
 - Report search failure separately from a successful search returning no results.
 
 ## Organization classification
@@ -51,3 +55,15 @@ A recruiter portal may be considered later. Recruiter-submitted jobs require sep
 
 ## Decision governance
 When decisions change, record date, reason, and impact; update affected documents. Inspect the live repository/tests before implementation. Historical Greenhouse-only notes and reports are evidence of prior experiments, not proof of current behavior.
+
+
+## Decision record — dual-channel employer discovery (3 November 2026)
+
+The discovery strategy is clarified to address low unique-employer yield from ATS-only job extraction:
+
+- Keep broad Cape Town employer discovery active across industries and company sizes.
+- Add a separate ATS-footprint discovery channel to find candidate employer/board pairs for Greenhouse, Workday, Lever, Breezy HR and Ashby.
+- Treat ATS identifiers and third-party directories as leads. The employer's official website must support the claimed relationship before the source is verified.
+- Report unique employer coverage separately from boards found and vacancies extracted. Do not optimise for job count at the expense of employer diversity.
+
+This is a discovery strategy clarification, not approval to bypass source restrictions, use paid datasets, or treat all listed ATS adapters as production-ready.
