@@ -198,3 +198,23 @@ The following earlier statements are no longer current: Next.js admin frontend; 
 ## Decision record — implementation stack lock (3 November 2026)
 
 Approved implementation stack: FastAPI backend; React + TypeScript + Vite + Tailwind CSS v3 frontend; Supabase Auth for admin identity. The browser uses only the Supabase URL and publishable/anon key. Backend authorization must independently validate Supabase access tokens and enforce admin permissions. Dedicated Scout Supabase PostgreSQL remains the operational database target; no project was provisioned by this decision. Backend hosting, worker scheduling provider, ORM and migration tooling remain open decisions. No paid resources, hosting, deployment or subscription changes are authorised by this stack decision.
+
+
+## Decision record — single-admin authentication and deferred hosting (4 November 2026)
+
+### Admin authentication
+- Use Supabase Auth for the private Scout admin.
+- Only the administrator's explicitly configured email address is permitted to sign in.
+- Public registration/sign-up is disabled; there is no public account creation or user onboarding.
+- Enforce the email allowlist on the backend for every protected operation. Frontend route guards are only a user-experience measure and are not an authorization boundary.
+- The backend independently validates Supabase access tokens and rejects authenticated users whose email is not the configured administrator address.
+- Keep the allowlisted email in deployment configuration, not hardcoded in source. Do not expose service-role credentials in the browser.
+- Multi-user roles and broader authentication workflows are future scope and are not part of v1.
+
+### Hosting and deployment
+- Hosting provider selection is deliberately deferred until the application is implemented and its local functionality has been verified.
+- Continue local-first development with a provider-portable FastAPI backend and separately executable scheduled/background processing.
+- Do not add provider-specific SDKs, deployment manifests, hosting services or paid resources solely in anticipation of a hosting choice.
+- Before release, evaluate the completed application's actual runtime needs, scheduled workload, scraping dependencies, reliability, deployment effort and total cost. Confirm that the chosen provider can run both the HTTP API and unattended processing before committing to it.
+- Frontend and backend hosting are separate concerns. The React admin can be deployed independently; the backend hosting decision must account for API execution and automation.
+- No hosting provider, paid plan, subscription change or deployment is approved by this decision.
