@@ -13,6 +13,18 @@
 - Make failure states observable and preserve enough source evidence to explain decisions.
 - Avoid unrelated formatting and large rewrites.
 
+## Registry data
+
+- Keep generic ATS/career-site adapter definitions in `backend/registry/ats-adapter-registry.json`.
+- Keep employer identities, official careers entry points, source mappings and claim-specific evidence in `backend/registry/employer-source-registry.json`.
+- Each file has one primary responsibility. Do not duplicate adapter capabilities across employer records or employer-specific configuration across adapter definitions.
+- Validate registry JSON against an explicit schema/contract before application use. JSON syntax validity alone is insufficient.
+- Reject unknown adapter references and missing required configuration fields. Do not silently substitute defaults for required employer-specific identifiers.
+- Use explicit, documented status values. Preserve unknown or unverified values as null or an explicit pending state; never manufacture verification dates or evidence.
+- Treat employer identity, Cape Town presence, official source relationship, technical retrieval capability, source permission and human approval as separate claims/states.
+- Registry edits require tests for valid records, malformed data, unknown adapters, missing configuration, invalid status values and unresolved verification state, as applicable.
+- Do not hardcode employer-specific board slugs, tenant/site identifiers or source URLs in adapter implementation when they belong in the employer/source registry.
+
 ## Python
 
 - Use type hints for public functions and important data structures.
