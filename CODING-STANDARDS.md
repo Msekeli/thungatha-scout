@@ -4,13 +4,40 @@
 
 ## Directory and file naming
 
-- Use descriptive kebab-case names for directories and files. A name must communicate the actual responsibility or contents.
-- Prefer multi-word names when they make the responsibility clearer. Use a one-word name only when there is no clear, precise multi-word alternative, or when an external framework/tool requires that exact name.
-- Do not use vague convenience names such as `common`, `shared`, `misc`, `helpers`, `utils`, `lib` or unexplained abbreviations. Name the actual responsibility instead.
-- Name test groupings explicitly: `unit-tests`, `integration-tests`, `contract-tests`, etc. Avoid `tests/unit` and `tests/integration`.
-- Do not create directories just because a future feature may need them. Create a directory when its responsibility and contents are understood.
-- Preserve framework- or tooling-required names only when the tool requires the exact path. Use descriptive `snake_case` for Python importable packages and descriptive `kebab-case` for other directories and files. Check imports, test discovery, build configuration and CI paths before renaming an existing directory.
-- Review each directory in context. A technically familiar name is not automatically clear; prefer the name that best describes what the directory actually owns.
+This standard applies equally to human contributors and AI tools (including Antigravity, Codex and Copilot). `AGENTS.md` is the mandatory repository instruction; this section defines how to apply it.
+
+### Naming principles
+- A path must communicate its actual responsibility or contents without requiring a reader to guess.
+- Prefer the fewest words that fully describe the responsibility. Descriptive multi-word names are preferred over vague one-word names. A one-word name is acceptable only when no clear alternative exists or an external tool/framework mandates the exact name.
+- Use kebab-case for ordinary directory names and non-Python filenames. Use snake_case for Python module filenames and importable package directories. Preserve exact framework/tool-required paths only when they are genuinely required.
+- Avoid vague labels such as `unit`, `integration`, `common`, `shared`, `misc`, `helpers`, `utils`, `lib`, `temp`, `api`, `types` and `data` when the actual responsibility can be named.
+- Do not expand precise proper names or platform names just to make them longer. For example, `greenhouse` is meaningful when it specifically contains Greenhouse adapter code; `shared` is not meaningful without a defined sharing boundary.
+
+### Test directory and file names
+- Use explicit test categories: `test-suites/unit-tests/`, `test-suites/integration-tests/` and `test-suites/contract-tests/` where applicable.
+- Do not create `tests/unit/` or `tests/integration/`; the category must be expressed as a complete directory name.
+- Python test files must follow the test runner's discovery convention, such as `test_employer_discovery.py`, and identify the behavior being tested. Do not use generic `test_utils.py` or `test_helpers.py` for unrelated cases.
+
+### Required creation/rename procedure
+1. Inspect the repository tree and relevant code/configuration before choosing a path.
+2. Write down the responsibility the path will own. If that cannot be stated in one clear sentence, do not create it yet.
+3. Choose a precise name and check that the parent directory does not already communicate the same information.
+4. Check for an existing directory/file with the same responsibility; extend it rather than creating a duplicate.
+5. Do not create empty directories for speculative future features.
+6. Before renaming, search imports, references, test discovery settings, build configuration and CI workflows. Update all affected references together.
+7. Run relevant tests/build/lint checks after path changes and report the exact results. Never claim checks passed if they were not run.
+8. If the responsibility, naming choice or tooling impact is uncertain, ask the user before making the change.
+
+### Examples
+| Prefer | Avoid | Reason |
+|---|---|---|
+| `test-suites/unit-tests/` | `tests/unit/` | Complete test category is explicit |
+| `test-suites/integration-tests/` | `tests/integration/` | Complete test category is explicit |
+| `operational-diagnostics/` | `diagnostics/` | States the operational responsibility |
+| `employer_source_registry.py` | `data.py` | Identifies the data concept |
+| `test_employer_discovery.py` | `test.py` | Identifies the behavior under test |
+
+A name is not better merely because it is longer. It is better when it is accurate, specific and unambiguous.
 
 ## General
 
