@@ -57,6 +57,7 @@ class EmployerSourceCreate(BaseModel):
     employer_id: UUID
     adapter_key: Literal["greenhouse", "workday"]
     source_url: HttpUrl
+    employer_careers_url: HttpUrl | None = None
     normalized_url: HttpUrl
     adapter_config: dict[str, Any] = Field(default_factory=dict)
     relationship_evidence: list[dict[str, Any]] = Field(default_factory=list)
@@ -88,6 +89,8 @@ class EmployerService:
         values["status"] = "discovered"
         values["permission_status"] = "unknown"
         values["source_url"] = str(values["source_url"])
+        if values["employer_careers_url"] is not None:
+            values["employer_careers_url"] = str(values["employer_careers_url"])
         values["normalized_url"] = str(values["normalized_url"])
 
         with self._connection_factory() as connection:
