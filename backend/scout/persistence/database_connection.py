@@ -1,8 +1,8 @@
 from typing import Any
 
 import psycopg
-from psycopg.rows import dict_row
 from psycopg.connection import Connection
+from psycopg.rows import dict_row
 from pydantic import SecretStr
 
 from scout.settings import Settings, get_settings
