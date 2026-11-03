@@ -34,6 +34,17 @@ The trigger functions should orchestrate small, ordinary Python modules. Do not 
 
 Table Storage is not relational. Choose partition and row keys from actual access patterns. Keep privileged credentials server-side. Temporary source failures must not be interpreted as vacancies being closed, and AI must never approve or publish records autonomously.
 
+## Registry
+
+The initial registry data is stored as two separate JSON files under `backend/registry/`:
+
+- `ats-adapter-registry.json` defines reusable adapter entries: adapter key, status, retrieval method, capability metadata, configuration requirements and adapter-level notes.
+- `employer-source-registry.json` maps organizations to their official careers entry points and candidate/verified retrieval sources. It records organization classification, Cape Town verification state, adapter-specific configuration and evidence for the employer/source relationship.
+
+The separation is intentional: adapter definitions describe how a platform is accessed; employer/source records describe which employer is associated with a particular source and the evidence for that association. Do not duplicate either responsibility in the other file.
+
+These are initial registry records, not a production-ready source catalogue. Candidate/pending values must remain distinct from verified claims. In particular, a verified ATS mapping does not automatically verify Cape Town presence, source permission, adapter implementation or human approval. Registry schema validation and persistence behavior remain implementation work under M1.
+
 ## Backend development
 
 The backend is in `backend/` and uses Azure Functions Python v2. Use a Python version supported by the selected Azure Functions runtime and hosting plan; verify compatibility before pinning versions or deploying.
