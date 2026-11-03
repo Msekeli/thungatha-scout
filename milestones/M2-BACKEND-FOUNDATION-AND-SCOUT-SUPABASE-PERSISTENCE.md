@@ -25,7 +25,7 @@ Do not provision Azure resources, upgrade Azure subscriptions, create paid infra
 ## Checkpoints
 
 ### M2-C01 — Repository and runtime baseline
-**Status:** Not started
+**Status:** In review
 
 Inspect the live dev tree, existing Python experiments, dependency/runtime constraints and local development setup. Preserve existing code and evidence. Confirm the smallest runnable backend layout.
 
@@ -34,6 +34,49 @@ Inspect the live dev tree, existing Python experiments, dependency/runtime const
 - Python runtime and hosting compatibility assumptions are documented.
 - No duplicate application skeleton is introduced.
 - Local startup approach is documented.
+
+
+**Inspection findings — M2-C01 (4 November 2026)**
+
+The live `dev` tree was inspected through GitHub. No local checkout was available in this execution environment, so runtime commands were not run.
+
+**Current backend inventory**
+- `backend/pyproject.toml` defines a setuptools package, Python `>=3.11`, FastAPI, Pydantic Settings and Uvicorn. Development extras are HTTPX, pytest and Ruff. Pytest is configured for `test-suites/unit-tests` and `test-suites/integration-tests`.
+- `backend/scout/main.py` creates the FastAPI application and exposes `GET /health`.
+- `backend/scout/settings.py` owns the current Pydantic Settings configuration and cached settings factory.
+- `backend/test-suites/unit-tests/test_health_endpoint.py` is the only backend test currently present.
+- `backend/registry/ats-adapter-registry.json` and `backend/registry/employer-source-registry.json` are separate data registries and remain outside the Python package.
+- `backend/.env.example` contains non-secret local settings. No database client, migration tool, repository, auth validator or ATS adapter is currently present in this `dev` backend.
+
+**Frontend inventory**
+- `frontend/` is a Vite + React 18 + TypeScript 5.7 + Tailwind CSS v3 skeleton.
+- `@supabase/supabase-js` is present for the browser authentication client. The frontend README correctly states that backend JWT validation and authorization are still required.
+- The frontend has a package manifest and entry files, but no dependency lockfile was found in the inspected directory listing. A build has not been run.
+
+**Historical implementation preservation**
+- `setup/backend-prototype` contains the earlier employer-discovery and Greenhouse analysis/discovery/jobs modules, verification and site-investigation code, tests, and `backend/data/companies.csv`.
+- `feature/cape-town-greenhouse-workday-api` contains a Workday client, a previous jobs API experiment and corresponding tests.
+- `research` contains additional discovery output and reports.
+- These branches are evidence and source material, not current `dev` application code. No wholesale merge or copy is justified. Review individual adapter behavior and tests when their implementation checkpoints begin. Preserve the company CSV and historical reports.
+
+**Backend structure decision for the new implementation**
+Keep the existing `backend/scout` import package and FastAPI entry point. Do not create a second `backend/app` application or migrate the scaffold solely to imitate a layered template. Keep the initial composition root and configuration small. As real capabilities are implemented, keep these responsibilities separate:
+- HTTP layer: request/response validation, route handlers and authentication dependencies; no ATS or persistence business rules in route handlers.
+- Application layer: employer/source registration, adapter orchestration and vacancy-processing use cases.
+- Domain layer: employer/source/vacancy concepts, state transitions and deterministic eligibility rules.
+- ATS integrations: one reusable implementation per supported platform, driven by employer/source registry configuration rather than employer-specific code.
+- Persistence boundary: repositories and database-specific implementation kept behind application-facing interfaces; no database calls from route handlers or ATS adapters.
+- Runtime composition/configuration: dependency construction and environment settings, without embedding business rules.
+
+Do not create these packages as empty placeholders. Add a package or module only when its first concrete responsibility is implemented. Avoid a generic service/repository framework, dependency-injection container, queue or ORM until a demonstrated requirement exists. Keep scheduled processing separately executable from the HTTP API while reusing the same application use cases.
+
+**Runtime and hosting assumptions**
+- The repository declares Python 3.11 or newer. The actual local interpreter version and successful installation/startup are not verified in this environment.
+- Local startup documented by the backend README is: from `backend/`, create/activate a virtual environment, run `pip install -e ".[dev]"`, then `uvicorn scout.main:app --reload`. The health route is `GET /health`.
+- Keep API and scheduled processing provider-portable. No hosting provider is selected in C01; hosting remains deferred until local runtime, browser/scraping dependencies and scheduled execution requirements are tested.
+- No Supabase project was provisioned or contacted. Database availability and credentials remain unverified.
+
+**C01 outcome:** The current `scout` package is the smallest suitable starting point. No duplicate application skeleton or speculative directories are needed. C01 is **In review** pending user review; this record does not claim a local runtime or frontend build pass.
 
 ### M2-C02 — Backend application foundation
 **Status:** Not started
