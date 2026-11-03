@@ -34,3 +34,10 @@ def test_migration_checksum_changes_when_file_changes(tmp_path: Path) -> None:
     migration.write_text("SELECT 2;", encoding="utf-8")
 
     assert migration_checksum(migration) != first_checksum
+
+
+def test_missing_migration_directory_fails_clearly(tmp_path: Path) -> None:
+    missing_directory = tmp_path / "missing-migrations"
+
+    with pytest.raises(FileNotFoundError, match="Migration directory does not exist"):
+        discover_migrations(missing_directory)
