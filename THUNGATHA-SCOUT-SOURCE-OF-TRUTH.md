@@ -142,3 +142,54 @@ Navigation: Dashboard, Companies, Vacancies and Review Queue. Source health, tes
 
 ### Initial acceptance target
 Register a Greenhouse board and the DigiOutsource Workday board through the admin UI, confirm extracted employer metadata, test retrieval, view real vacancies and manage employer/source records. New employers using either supported adapter require configuration only, not backend code changes. This is a target, not a claim that the current repository already implements it or that live integrations have passed.
+
+
+## Decision record — autonomous ingestion and isolated Scout persistence (3 November 2026)
+
+This decision supersedes conflicting v1 implementation statements above and in older planning documents.
+
+### Product operating model
+- Scout is designed to operate unattended after an administrator registers and verifies an employer/source.
+- The administrator's normal responsibility is to paste an official careers/ATS URL, inspect the source preview, confirm employer identity and official source relationship, and activate the source.
+- Scheduled extraction, normalisation, deterministic quality validation, deduplication, lifecycle reconciliation and publication run automatically.
+- Routine vacancy-by-vacancy human approval is removed. It is not a release prerequisite for every vacancy.
+- Vacancies that pass the configured deterministic publication gates are automatically eligible for idempotent publication to Thungatha.
+- Exceptions are placed in an exception-review queue. Examples include missing or malformed application URLs, insufficient job details, ambiguous employer/source attribution, uncertain Cape Town relevance, possible duplicates, suspicious or malformed content, and materially changed content that cannot safely be assessed automatically.
+- Admins can reject or unpublish a record, correct permitted fields, pause a source, deactivate/archive an employer or source, and inspect the decision history.
+- AI may assist with extraction or classification, but cannot override hard validation gates or invent evidence. Low-confidence AI output is an exception, not an automatic approval.
+- Every automatic publish, rejection, suppression and exception decision must persist a reason, rule/version, evidence references and timestamps.
+
+### Publication quality gates
+A vacancy may auto-publish only when:
+1. Its employer and source are active and verified to the required level.
+2. The source is an employer-authorised official careers/ATS source and its use complies with applicable access restrictions and terms.
+3. A stable source-scoped vacancy identity exists.
+4. Required fields are present: meaningful title, employer identity, useful description, credible location or explicit remote arrangement, and a working/recognised application destination.
+5. Location and initial Cape Town scope are supported by evidence; unknown location is not silently treated as Cape Town.
+6. It is not a confirmed or unresolved high-confidence duplicate.
+7. Freshness and lifecycle checks pass without treating a failed/partial extraction as evidence of removal.
+8. The record passes content safety, URL and schema validation.
+9. The publishing payload matches the Thungatha contract and the idempotency key is stable.
+
+Records failing a hard gate are suppressed/rejected with a reason. Records with uncertainty that cannot be resolved deterministically go to exception review. A successful ATS retrieval is not, by itself, proof that a vacancy should be published.
+
+### Persistence and hosting decision
+- Scout operational persistence is a dedicated Supabase project using PostgreSQL, separate from Thungatha's existing Supabase project.
+- Thungatha's existing Supabase project remains the destination for approved/qualified public-facing records only.
+- Raw, incomplete, rejected, exception and extraction-history data remain in Scout and are never copied wholesale into Thungatha.
+- Scout's database schema and credentials are isolated from Thungatha's. The backend owns all writes and business rules; the React browser client never receives a service-role key.
+- Azure Table Storage and a Scout PostgreSQL database hosted in Azure are not v1 requirements. Do not provision Azure storage or databases unless a later cost/technical review explicitly changes this decision.
+- Frontend: React + TypeScript + Vite, hosted on Vercel.
+- Backend: Python HTTP API and scheduled/background processing, hosted on a provider selected for reliable low-cost hosting. Keep the backend portable. Azure Functions remains a candidate, not a mandatory dependency.
+- The current Azure for Students credit is exhausted. Do not upgrade the subscription, create paid Azure resources or assume Azure free allowances will cover persistent storage/compute without a verified cost calculation and explicit user approval.
+- Supabase Free may be used for development and a low-volume pilot only after checking current limits, inactivity pausing, backup and production reliability implications. Plan a paid tier or alternative before production depends on uninterrupted service.
+
+### Data retention and storage discipline
+- Keep the Scout database focused on structured operational records and the latest meaningful vacancy versions.
+- Avoid storing full HTML/page snapshots by default. Retain raw evidence only where it materially supports audit/debugging and apply a bounded retention policy.
+- Do not create a new vacancy version for unchanged content.
+- Keep extraction run summaries and exception/audit evidence; define retention/archival rules before volume grows.
+- Publishing to Thungatha is a one-way, validated, idempotent integration. Scout retains its own operational history.
+
+### Superseded decisions
+The following earlier statements are no longer current: Next.js admin frontend; Azure Table Storage as mandatory operational persistence; PostgreSQL operational storage hosted as part of the prior Azure-first plan; routine human approval of every vacancy; and a rule that only human-approved vacancy versions can publish. Historical entries remain as decision history but must not guide new implementation.
