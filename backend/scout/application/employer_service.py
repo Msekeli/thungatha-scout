@@ -1,12 +1,12 @@
 from typing import Any, Callable, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, HttpUrl, Field
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 from psycopg.connection import Connection
 
+from scout.persistence.database_connection import get_database_connection
 from scout.persistence.employer_repository import EmployerRepository
 from scout.persistence.employer_source_repository import EmployerSourceRepository
-from scout.persistence.database_connection import get_database_connection
 
 
 OrganizationType = Literal[
@@ -17,6 +17,8 @@ OrganizationType = Literal[
     "other",
     "unresolved",
 ]
+
+
 class EmployerCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 
@@ -70,7 +72,9 @@ class EmployerService:
         values["permission_status"] = "unknown"
         values["source_url"] = str(values["source_url"])
         if values["employer_careers_url"] is not None:
-            values["employer_careers_url"] = str(values["employer_careers_url"])
+            values["employer_careers_url"] = str(
+                values["employer_careers_url"]
+            )
         values["normalized_url"] = str(values["normalized_url"])
 
         with self._connection_factory() as connection:
