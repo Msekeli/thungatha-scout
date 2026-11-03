@@ -18,7 +18,7 @@ V1 adapters: Greenhouse and Workday. Initial geography: Cape Town. Scout is a pr
 - **Hosting:** frontend/backend provider decisions remain separate. Backend hosting is intentionally deferred until local implementation and workload verification are complete.
 - **Data boundary:** Scout retains raw operational, rejected, exception and extraction-history records. Only records passing deterministic publication gates are sent to Thungatha.
 
-Do not use Next.js, MongoDB or Azure Table Storage for the current v1 baseline. Do not share the operational database between Scout and Thungatha. The browser never receives privileged database credentials.
+Do not use MongoDB or Azure Table Storage for the current v1 baseline. Do not share the operational database between Scout and Thungatha. The browser never receives privileged database credentials.
 
 ## Repository guidance
 
