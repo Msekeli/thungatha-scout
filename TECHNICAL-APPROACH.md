@@ -1,189 +1,182 @@
 # Thungatha Scout — Technical Approach
 
-**Status:** V1 implementation baseline  
-**Date:** 3 November 2026  
-**Branch:** dev  
-**Scope:** Greenhouse and Workday employer-source registration, vacancy extraction and private administration
+**Status:** Current v1 implementation baseline  
+**Updated:** 3 November 2026
 
-## 1. Objective
+## 1. Product model
 
-Deliver an internal system that lets an administrator register an employer by pasting its careers/ATS URL, inspect and confirm employer/source details, retrieve vacancies through a supported adapter, monitor the source and manage employer/source records.
+Scout is an unattended employer-sourced vacancy ingestion and publishing system supporting Thungatha. The administrator's main recurring action is adding an employer by pasting an official careers/ATS URL and confirming the employer/source identity. Once a source is verified and activated, Scout operates automatically.
 
-The model is company-centric: employers are durable business records; ATS sources are independently managed connections; vacancies retain employer and source provenance. V1 supports Greenhouse and Workday only.
+Routine human approval of every vacancy is not part of the operating model. Human attention is reserved for exceptions and administrative control.
 
-## 2. Technology and ownership
+V1 supports Greenhouse and Workday. Initial geography is Cape Town. Scout is not a public job-search frontend and has no recruiter self-service.
 
-| Area | Technology | Responsibility |
+## 2. Deployment architecture
+
+| Component | Technology | Hosting |
 |---|---|---|
-| Admin frontend | Next.js App Router, TypeScript, Tailwind CSS | Dashboard and company/vacancy operations UI |
-| Backend | Python Azure Functions v2, one Function App | HTTP API, business rules, adapters and scheduled triggers |
-| Operational database | PostgreSQL | Employers, sources, vacancies, versions, runs and audit records |
-| Publishing destination | Existing Thungatha Supabase integration | Approved records only |
+| Admin UI | React, TypeScript, Vite, Tailwind | Vercel |
+| Backend | Python HTTP API and scheduled workers | Cost-appropriate hosted Python runtime; provider decision pending |
+| Operational database | PostgreSQL via Supabase | Dedicated Scout Supabase project |
+| Public destination | Existing Thungatha Supabase/PostgreSQL | Existing Thungatha project |
 
-Python owns business rules and authoritative persistence. Next.js calls the backend API; it does not connect directly to PostgreSQL or duplicate business rules. Azure Functions HTTP handlers are thin and delegate to application services. Timer triggers call the same services. No microservices or separate Function Apps per ATS.
+Do not use Next.js. Do not share Scout's operational schema/database with Thungatha. Do not use MongoDB. Azure Table Storage is not a v1 dependency. Azure Functions may be selected later only if its actual hosting, storage, scheduling and monitoring costs are acceptable and explicitly approved.
 
-## 3. Core relational model
+The backend owns business rules and all database writes. The React client calls protected backend endpoints. It never receives a Supabase service-role key. Use separate credentials and least-privilege policies for Scout and Thungatha.
 
-### employers
-- id, name, normalized_name
-- logo_url and logo attribution/source metadata (nullable)
-- website_url and location evidence (nullable)
-- organization_type: direct employer, agency, staffing, hybrid, other or unresolved
-- status: pending_review, approved, rejected or archived
-- created_at, updated_at, archived_at
+## 3. Data ownership
 
-### employer_sources
-- id, employer_id
-- ats_platform: greenhouse or workday in v1
-- source_url
-- source_config JSONB for platform-specific identifiers/configuration
-- operational_status: pending_verification, active, paused or archived
-- health_status: unknown, healthy, warning or failed (computed from extraction history)
-- last_success_at, last_failure_at, created_at, updated_at, archived_at
+**Scout project owns:**
+- Employers and verification evidence.
+- Employer sources and adapter configuration.
+- Retrieved vacancy observations and normalised vacancies.
+- Meaningful vacancy versions and content hashes.
+- Extraction runs, diagnostics and source health.
+- Quality outcomes, exceptions, admin corrections and audit events.
+- Publication attempts, idempotency keys and sync state.
 
-One employer may have multiple sources. A source belongs to one employer. Registration must be idempotent and prevent duplicate employers/sources.
+**Thungatha project owns:**
+- The clean employer/vacancy records needed by the public product.
+- Public visibility and application-facing lifecycle.
 
-### vacancies
-- id, employer_id, source_id
-- external_job_id, source_job_url, application_url
-- title, location, employment_type, description
-- lifecycle_status: active, possibly_expired, expired, removed, unavailable or needs_review
-- review_status: pending, approved or rejected
-- current_version_id and approved_version_id
-- first_seen_at, last_seen_at, expired_at
-- content_hash: SHA-256 of normalised review-relevant content
-- Unique constraint on (source_id, external_job_id)
+Never copy raw ATS payloads, rejected records, unresolved records or full extraction history into Thungatha. Publish only the approved-by-policy, quality-gate-passing projection. Scout retains provenance and its own publication ledger.
 
-### vacancy_versions
-Store materially different extracted content versions, content hash, observed timestamp and provenance. Keep latest extracted content separate from the version approved/published. A changed version must not silently overwrite the previously approved version.
+## 4. Employer onboarding
 
-### extraction_runs
-Store source_id, started_at, completed_at, duration_ms, status (success/partial/failed), jobs_found, jobs_added, jobs_updated, jobs_expired, pages_fetched, inventory_complete and sanitised diagnostic details.
+1. Admin pastes an official careers/ATS URL.
+2. Backend normalises and validates the URL and detects Greenhouse or Workday.
+3. If detection is uncertain, admin can choose/override the supported platform.
+4. Adapter inspects the source and returns metadata, identifiers, test outcome and sample vacancies.
+5. Admin confirms employer identity, Cape Town evidence and the official source relationship; uncertain metadata requires manual confirmation.
+6. Backend registers employer/source idempotently.
+7. Source is activated only after required verification and a meaningful retrieval test.
 
-### review/audit records
-Record actor, entity, prior/new state, timestamp, decision and reason. Human approval is persisted backend state, not merely a UI interaction.
+One employer can have multiple sources. Adding another source must not create a duplicate employer. Employer-specific board tokens, Workday tenant/site values and evidence live in source configuration, not adapter code.
 
-### Referential integrity and deletion
-Use foreign keys and restrictive deletion behavior to protect history. Employer/source removal in v1 means archive/disable, not physical cascading deletion. Archiving a source must not delete its employer, vacancies or extraction runs.
+## 5. Adapter contract
 
-## 4. Add Company workflow
+A small adapter interface covers:
+- URL recognition and parsing.
+- Source configuration validation.
+- Employer/board metadata inspection.
+- Paginated vacancy retrieval.
+- Individual job detail retrieval where required.
 
-1. Admin opens Companies and selects Add Company.
-2. Admin pastes the careers/ATS URL.
-3. Backend validates/normalises the URL and attempts ATS detection.
-4. If detection is inconclusive, UI offers Greenhouse/Workday manual selection or correction. Unsupported URLs are not silently forced into an adapter.
-5. Adapter inspects the board and returns a structured preview: detected platform, employer name if available, source identifiers/configuration, logo candidate, test outcome and sample vacancy count.
-6. Admin confirms employer identity and source relationship. If the name cannot be reliably extracted, ask for manual confirmation/input as a fallback.
-7. Backend checks for an existing employer/source and registers idempotently.
-8. Source remains pending verification until meaningful retrieval testing and required source approval are complete. Activate only after admin confirmation.
+Adapters own HTTP transport, platform parsing and pagination. They do not own quality policy, duplicate decisions, exception resolution or publishing.
 
-Employer identity, official employer/source relationship, Cape Town presence, technical retrieval, source terms/permission and human approval are separate claims. Technical success does not prove the other claims.
-
-## 5. Adapter contract and ATS behavior
-
-The shared adapter contract supports source URL identification/parsing, configuration validation, employer/board metadata retrieval, paginated vacancy inventory retrieval and individual vacancy detail retrieval where needed.
-
-Adapters own HTTP transport, platform response parsing and pagination. They do not own employer approval, vacancy review, deduplication policy, lifecycle decisions or publishing.
-
-Outcomes distinguish success with results, success with zero results, not found, blocked, rate limited, timeout/transient failure, malformed response and partial/incomplete retrieval.
+Explicit outcomes: success with results, success empty, not found, blocked, rate-limited, timeout/transient, malformed and partial/incomplete.
 
 ### Greenhouse
-
 Use the documented public Job Board API for a known board token:
-- Board metadata: GET /v1/boards/{board_token}
-- Jobs: GET /v1/boards/{board_token}/jobs?content=true
+- `GET /v1/boards/{board_token}`
+- `GET /v1/boards/{board_token}/jobs?content=true`
 
-Parse supported Greenhouse URL forms and extract the board token. Retrieve board metadata before registration confirmation. The API is board-specific, not a global customer directory. Verify actual logo fields in the returned payload; logo absence is not a registration failure. Follow documented pagination and response behavior.
+This is board-specific, not a global customer directory. Validate response shape and pagination. Missing logo is not a blocker.
 
 ### Workday
+Use observed public careers-site CXS JSON behavior, acknowledging it is undocumented and not guaranteed. Parse host, tenant and site separately. For `https://myhcm.wd3.myworkdayjobs.com/digioutsource`:
+- host: `myhcm.wd3.myworkdayjobs.com`
+- tenant: `myhcm`
+- site: `digioutsource`
 
-Workday is an undocumented public careers-site integration, not a guaranteed public API. Parse hostname, tenant and site separately. For:
+Common listing route: `https://{host}/wday/cxs/{tenant}/{site}/jobs`. Validate each tenant. Test DigiOutsource and at least one other tenant before claiming broad compatibility. HTTP 200 alone is not a successful source test.
 
-https://myhcm.wd3.myworkdayjobs.com/digioutsource
+## 6. Automated vacancy pipeline
 
-Expected configuration:
-- host: myhcm.wd3.myworkdayjobs.com
-- tenant: myhcm
-- site: digioutsource
+```text
+Scheduled/source-triggered retrieval
+        |
+        v
+Persist source observation and run outcome
+        |
+        v
+Normalize fields and content
+        |
+        v
+Resolve source-scoped identity and duplicates
+        |
+        v
+Apply deterministic quality gates
+        |
+        +---- Hard failure -> suppress/reject with reason
+        |
+        +---- Uncertainty -> exception queue
+        |
+        v
+Qualifying vacancy
+        |
+        v
+Idempotent publish to Thungatha
+        |
+        v
+Record destination result and audit event
+```
 
-The commonly observed CXS listing route is:
+### Automatic publication gates
+A vacancy is eligible only if:
+1. Employer and source are active and verified.
+2. Source relationship is official and use complies with applicable access restrictions/terms.
+3. Stable source-scoped external identity exists.
+4. Title, meaningful description, employer, credible location/remote arrangement and usable application destination are present.
+5. Cape Town scope is supported; unknown is not assumed eligible.
+6. It is not a confirmed or unresolved high-confidence duplicate.
+7. Freshness and lifecycle checks pass.
+8. Schema, URL and content validation pass.
+9. The destination payload and stable idempotency key are valid.
 
-https://{host}/wday/cxs/{tenant}/{site}/jobs
+Official ATS provenance is not enough by itself. Missing application URL, poor/incomplete content, ambiguous location, possible duplicates, malformed/suspicious content, uncertain source attribution and low-confidence classification are exceptions. Hard failures are suppressed with a reason; uncertainty is held for review.
 
-Validate this against the live board, use bounded requests, handle pagination and retrieve individual posting details through returned source paths where supported. Do not assume every Workday tenant behaves identically. Add explicit, tested compatibility strategies inside the single Workday adapter only when evidence requires them. DigiOutsource is the first case; test at least one additional tenant before claiming broad compatibility.
+AI may help extract or classify ambiguous content, but it cannot bypass hard gates, invent evidence or directly publish. Deterministic code owns URL validation, identity, deduplication, freshness, state transitions and publishing.
 
-A successful HTTP status alone is not success. Validate response shape and vacancy records. A zero-vacancy board is valid if the endpoint and board identity are verified.
+## 7. Versioning and lifecycle
 
-## 6. Employer metadata and logos
+- Match source-level vacancies by `(source_id, external_job_id)`.
+- Normalise HTML/whitespace and hash meaningful fields with SHA-256.
+- Unchanged records update last-seen metadata without creating a new version.
+- Material changes create a version and are re-evaluated. If the change is uncertain or potentially harmful, hold the new version for exception review while preserving the last published version.
+- Failed/partial extraction never implies vacancy removal or expiry.
+- Only sufficiently complete successful inventories can support missing-vacancy reconciliation.
+- Do not cross-employer deduplicate on title alone.
+- Archive employers/sources and preserve audit/history; avoid destructive cascading deletes.
 
-Employer identity extraction priority:
-1. authoritative ATS board metadata;
-2. official careers-page metadata/structured data;
-3. validated public board/CXS response metadata;
-4. administrator confirmation/input when uncertain.
+## 8. Exception management
 
-Never derive a company name solely from a URL slug.
+The admin UI provides an Exceptions queue rather than a mandatory approval queue. It shows the reason, evidence, employer/source, extracted content, application link, prior version and suggested corrective action. Admin can correct permitted fields, reject/suppress, retry, or resolve the exception. Every action is audited.
 
-Logo retrieval is best-effort: verified ATS image, official employer website, separately evaluated provider after checking availability/pricing/terms, then administrator upload/replacement. Do not depend on Clearbit Logo API. Store logo source/attribution. A missing logo never blocks registration or extraction.
+Admin can also reject/unpublish a published vacancy, pause/resume a source, edit employer/source metadata, and archive records. These controls do not require routine intervention in successful runs.
 
-## 7. Extraction, normalisation and versioning
+## 9. Scheduling and resilience
 
-1. Retrieve a complete or explicitly partial source inventory.
-2. Validate/map fields into the common vacancy model.
-3. Normalise HTML and whitespace; calculate SHA-256 over review-relevant fields such as title, description, location and employment type.
-4. Match by (source_id, external_job_id); URL is supporting evidence, not a replacement for stable source identity.
-5. New vacancy: persist first version as pending review.
-6. Unchanged vacancy: update last_seen_at; do not create a version or review item.
-7. Changed vacancy: create a version and mark for review when materially relevant. Preserve the previously approved/published version.
-8. Missing vacancy: transition lifecycle only after a sufficiently complete successful inventory comparison. Failed or partial runs cannot expire jobs.
+Use a hosted scheduler/worker mechanism appropriate to the chosen backend host. Cadence is configurable and selected after measuring source count, runtime and provider limits. Prevent overlapping runs per source. Apply bounded timeouts, retries, exponential backoff and rate-limit handling. Record run completeness, counts, duration and sanitised diagnostics. A failed source must not mass-suppress or expire vacancies.
 
-Do not deduplicate across employers solely on title or description.
+Publishing is idempotent and retryable. Keep a Scout-side publication ledger and reconcile destination state without copying operational history.
 
-## 8. Source operations and health
+## 10. Storage discipline and cost
 
-Operational status is pending_verification, active, paused or archived. Health is derived from recent extraction outcomes: unknown, healthy, warning or failed. A source may be active but unhealthy. Paused/archived sources are not scheduled.
+Scout stores structured operational records and meaningful versions. Do not retain full HTML/page snapshots by default. If raw evidence is required for a specific diagnostic/audit reason, retain it with a bounded policy and size limits. Avoid duplicate versions and unnecessary AI calls.
 
-Show source test results in Company Details: detected employer, ATS, identifiers, validation result, jobs retrieved, response time, test timestamp and sanitised errors.
+Supabase Free can support development/low-volume evaluation subject to current limits, inactivity pausing, backup and availability constraints. It is not automatically a production SLA. Decide on paid database/hosting before relying on uninterrupted production operation. The exhausted Azure for Students credit is not a basis for assuming Azure resources are free. No paid resource or subscription upgrade without explicit approval.
 
-## 9. Admin UI v1
+## 11. Security
 
-Navigation: Dashboard, Companies, Vacancies and Review Queue. Source health, tests and extraction history are embedded in Company Details.
+- Private admin authentication and backend authorization.
+- Separate Scout and Thungatha project credentials.
+- No service-role key in browser bundles.
+- Validate external/AI data at boundaries.
+- Bound requests, payload sizes, retries, scheduled workloads and logs.
+- Never bypass source access restrictions, quotas or terms.
+- Redact secrets and unnecessary personal data from diagnostics.
 
-Companies supports search/list/detail, Add Company, edit permitted metadata, add source, test source, pause/resume and archive. Add Company is URL-first and does not routinely require manual company-name entry.
+## 12. Verification
 
-Vacancies supports search/filter and inspection. Review Queue supports source-content inspection, Thungatha presentation preview, permitted field edits, approve/reject and decision reason. Employer/source approval and vacancy approval are separate.
+Unit tests cover URL parsing, adapters, config validation, normalisation, hashing, duplicate handling, quality gates, state transitions and idempotency. Contract tests use recorded ATS fixtures. PostgreSQL integration tests cover schema constraints and persistence. Live smoke tests for Greenhouse and Workday are separately recorded.
 
-All admin operations require authentication and backend authorization. No privileged credential is exposed to browser code.
-
-## 10. Scheduling, failures and publishing
-
-Use bounded Azure Functions timer triggers for scheduled extraction. Choose initial cadence after observing source count, runtime and Azure cost. Prevent overlapping runs per source; apply bounded timeouts, retries and backoff.
-
-Only a sufficiently complete successful inventory can drive missing-vacancy reconciliation. Failed/partial runs record diagnostics and leave vacancy lifecycle unchanged.
-
-Publish only approved, validated versions to Thungatha through an idempotent integration contract. Keep Scout operational state separate from the destination. Publishing failures must be retryable without duplicate destination records.
-
-## 11. Testing strategy
-
-- Unit tests: URL parsing, adapter selection, configuration validation, normalisation, hashing, state transitions and deduplication.
-- Adapter contract tests using recorded Greenhouse and Workday fixtures.
-- PostgreSQL integration tests for migrations, constraints and repositories.
-- Live smoke tests for Greenhouse and DigiOutsource Workday, recorded separately from deterministic tests.
-- Failure cases: empty board, malformed payload, timeout, rate limit, partial pagination, duplicate/changed vacancy, failed reconciliation and publishing retry.
-- UI tests for registration, confirmation, duplicate handling, company/source actions and vacancy review.
-- Explicitly prove failed/partial extraction cannot expire jobs and unapproved versions cannot publish.
-
-## 12. V1 exclusions
-
-No recruiter portal/submissions, public job-search frontend, ATS beyond Greenhouse and Workday, one adapter per employer, autonomous approval, speculative agents, global ATS customer-directory assumption, direct frontend database writes or destructive historical deletion.
-
-## 13. First vertical-slice acceptance
-
-1. Open admin UI and paste a Greenhouse board URL.
-2. Scout identifies Greenhouse, retrieves board metadata/vacancies and presents employer details for confirmation.
-3. Repeat with DigiOutsource Workday URL.
-4. Confirm/register both employers/sources without employer-specific adapter code.
-5. Display registered companies and retrieved vacancies in the admin UI.
-6. Show meaningful source-test results and persist extraction-run evidence.
-
-This is a target, not a claim that it is implemented or verified. Live endpoint assumptions must be tested before being treated as supported behavior.
+Critical safety tests:
+- Missing application URL cannot auto-publish.
+- Uncertain location cannot silently pass Cape Town scope.
+- Duplicate candidates are held/suppressed correctly.
+- Failed/partial extraction cannot expire vacancies.
+- Unchanged content does not create a new version.
+- Unqualified or exception records never publish.
+- Publishing retry does not duplicate destination records.
+- Scout-only operational data never leaks into Thungatha.
