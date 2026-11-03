@@ -1,0 +1,138 @@
+{
+  "_metadata": {
+    "project": "Thungatha Scout",
+    "description": "Employer and organization source mappings with separate ATS and Cape Town verification evidence.",
+    "updated_at": "2026-11-03",
+    "rules": [
+      "An ATS board is a retrieval mechanism, not proof of employer identity.",
+      "Verify the employer-to-source relationship using the employer's official website.",
+      "Verify Cape Town presence independently and retain evidence for that claim.",
+      "Keep recruitment agencies and staffing companies separate from direct-employer coverage."
+    ]
+  },
+  "employers": [
+    {
+      "employer_id": "takealot_group",
+      "name": "Takealot Group",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.takealot.com/careers",
+      "cape_town_presence_claimed": true,
+      "cape_town_presence_status": "pending_verification",
+      "cape_town_evidence": [],
+      "sources": [
+        {
+          "source_id": "takealot_group_greenhouse",
+          "ats": "greenhouse",
+          "config": {
+            "slug": "takealotgroup"
+          },
+          "official_source_url": "https://job-boards.greenhouse.io/takealotgroup",
+          "source_status": "verified",
+          "source_verified_at": "2026-11-03T10:00:00Z",
+          "verification_evidence": [
+            "https://job-boards.greenhouse.io/takealotgroup"
+          ],
+          "notes": "The supplied registry marks the public Greenhouse board mapping as verified. Cape Town presence remains a separate verification item."
+        }
+      ]
+    },
+    {
+      "employer_id": "old_mutual",
+      "name": "Old Mutual",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.oldmutual.com/careers",
+      "cape_town_presence_claimed": true,
+      "cape_town_presence_status": "pending_verification",
+      "cape_town_evidence": [],
+      "sources": [
+        {
+          "source_id": "old_mutual_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "oldmutual.wd3",
+            "tenant": "oldmutual",
+            "site": "Old_Mutual_Careers"
+          },
+          "official_source_url": "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers",
+          "source_status": "verified",
+          "source_verified_at": "2026-11-03T10:15:00Z",
+          "verification_evidence": [
+            "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers"
+          ],
+          "notes": "The supplied registry marks the Workday mapping as verified. Job-list retrieval uses POST; job descriptions may require a secondary GET. Confirm the site identifier and detail behavior in integration tests."
+        }
+      ]
+    },
+    {
+      "employer_id": "pick_n_pay",
+      "name": "Pick n Pay",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.pnp.co.za/careers",
+      "cape_town_presence_claimed": true,
+      "cape_town_presence_status": "pending_verification",
+      "cape_town_evidence": [],
+      "sources": [
+        {
+          "source_id": "pick_n_pay_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "picknpay.wd3",
+            "tenant": "picknpay",
+            "site": "Pnet"
+          },
+          "official_source_url": "https://picknpay.wd3.myworkdayjobs.com/Pnet",
+          "source_status": "pending_verification",
+          "source_verified_at": null,
+          "verification_evidence": [],
+          "notes": "Unverified candidate mapping. Confirm the Workday host and internal site identifier; do not assume Pnet is the correct site."
+        }
+      ]
+    },
+    {
+      "employer_id": "impact_com",
+      "name": "Impact.com",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://impact.com/careers/",
+      "cape_town_presence_claimed": true,
+      "cape_town_presence_status": "pending_verification",
+      "cape_town_evidence": [],
+      "sources": [
+        {
+          "source_id": "impact_com_greenhouse",
+          "ats": "greenhouse",
+          "config": {
+            "slug": "earlycareersct"
+          },
+          "official_source_url": "https://job-boards.greenhouse.io/earlycareersct",
+          "source_status": "pending_verification",
+          "source_verified_at": null,
+          "verification_evidence": [],
+          "notes": "Unverified candidate mapping. Determine whether this is a dedicated employer board or a filtered/global board and verify its relationship through Impact.com's official careers site."
+        }
+      ]
+    },
+    {
+      "employer_id": "network_recruitment",
+      "name": "Network Recruitment",
+      "organization_classification": "recruitment_agency",
+      "careers_url": "https://www.networkrecruitment.co.za/",
+      "cape_town_presence_claimed": true,
+      "cape_town_presence_status": "pending_verification",
+      "cape_town_evidence": [],
+      "sources": [
+        {
+          "source_id": "network_recruitment_placement_partner",
+          "ats": "placement_partner",
+          "config": {
+            "agency_id": "network"
+          },
+          "official_source_url": "https://placementpartner.co.za/live/agency.php?agency=network",
+          "source_status": "pending_verification",
+          "source_verified_at": null,
+          "verification_evidence": [],
+          "notes": "Separate agency pipeline. Exclude from direct-employer coverage and adapter pilot eligibility counts."
+        }
+      ]
+    }
+  ]
+}
