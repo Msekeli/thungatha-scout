@@ -99,12 +99,12 @@ A name is not better merely because it is longer. It is better when it is accura
 - Bound retries, tokens, latency and spend; handle rate limits and provider outages.
 - Do not send secrets or unnecessary personal information.
 - Record model/provider metadata where useful without logging sensitive prompts or credentials.
-- AI recommendations cannot replace source evidence or human approval.
+- AI recommendations cannot replace source evidence or deterministic quality gates. AI cannot bypass hard gates or publish directly.
 
 ## Tests and acceptance
 
 - Tests must be repeatable and avoid depending on live websites unless explicitly classified as integration/smoke tests.
 - Mock external providers for unit tests.
-- Test that failed extraction cannot mark a vacancy closed and unapproved data cannot be published.
+- Test that failed extraction cannot mark a vacancy closed and records failing publication gates cannot be published.
 - Record commands actually run and observed results in the relevant checkpoint.
 - A passing unit suite alone does not prove source permission, live integration, security or user acceptance.
