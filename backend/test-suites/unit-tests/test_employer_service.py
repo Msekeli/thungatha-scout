@@ -31,11 +31,17 @@ def test_source_accepts_only_supported_v1_adapters() -> None:
         )
 
 
-def test_source_defaults_to_unverified_and_unknown_permission() -> None:
+def test_creation_payloads_cannot_set_review_or_permission_state() -> None:
+    employer = EmployerCreate(name="Example Employer", status="approved")
     source = EmployerSourceCreate(
         employer_id=uuid4(),
         adapter_key="greenhouse",
         source_url="https://boards.greenhouse.io/example",
         normalized_url="https://boards.greenhouse.io/example",
+        status="verified",
+        permission_status="allowed",
     )
 
+    assert "status" not in employer.model_dump()
+    assert "status" not in source.model_dump()
+    assert "permission_status" not in source.model_dump()
