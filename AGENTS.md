@@ -41,6 +41,17 @@ The source-of-truth document must not be overwritten or silently reconciled with
 - Publishing must be validated and idempotent; unapproved records must not reach Thungatha.
 - Avoid adding infrastructure or dependencies without a demonstrated requirement and user review.
 
+## Directory and file naming
+
+- Directory and file names must communicate their actual responsibility without requiring readers to infer meaning from surrounding folders.
+- Prefer specific, descriptive, multi-word names joined with kebab-case. Do not create vague one-word names when a clear descriptive name is available.
+- Use a one-word name only when it is an established, precise technical convention or proper name, or when no clear alternative exists. Examples include language/framework-mandated names and actual platform names such as `greenhouse` or `workday`; convenience alone is not sufficient.
+- Avoid generic names such as `common`, `shared`, `misc`, `helpers`, `utils`, `lib`, `temp` and unexplained abbreviations. Replace them with the responsibility they contain.
+- Name test directories by the complete test category: `unit-tests`, `integration-tests`, `contract-tests` or another precise category. Do not use nested generic labels such as `tests/unit` or `tests/integration`.
+- Before creating a directory or file, check whether its name states what it contains or does, whether its parent already communicates the same information, and whether it duplicates an existing responsibility.
+- Do not rename established framework-required paths or standard technical concepts without checking their tooling impact. When a scaffold directory has no implementation yet, resolve its name before adding code to it.
+- When reviewing existing names, distinguish intentional conventions from ambiguous placeholders. Do not rename a folder merely to satisfy a mechanical word-count rule.
+
 ## File and registry responsibilities
 
 - Every file must have one clearly defined primary responsibility. Do not combine unrelated concerns merely to reduce the number of files.
