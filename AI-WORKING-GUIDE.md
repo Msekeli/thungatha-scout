@@ -54,7 +54,28 @@ Use `AGENTS.md` and `.github/copilot-instructions.md`. For Copilot Chat/agent ta
 - Avoid sending secrets or unnecessary personal data to external AI providers.
 - Handle quota exhaustion, timeouts and malformed responses without corrupting existing data.
 
-## 6. Registry and documentation workflow
+## 6. Repository naming and file-creation workflow
+
+This section is mandatory for Antigravity, Codex, Copilot and every other assistant. `AGENTS.md` is the rule source; `CODING-STANDARDS.md` gives further guidance. Do not invent a separate naming style for a particular tool.
+
+Before creating or renaming anything:
+1. Inspect the current repository tree and relevant source/configuration files.
+2. State the responsibility the new directory or file will own.
+3. Choose a precise name that communicates that responsibility. Prefer descriptive multi-word names; do not use a generic one-word label for convenience.
+4. Apply the naming conventions: kebab-case for ordinary directories/files; snake_case for Python modules and importable packages; exact names only where a framework/tool requires them.
+5. For tests, use explicit categories such as `test-suites/unit-tests/`, `test-suites/integration-tests/` and `test-suites/contract-tests/`. Python test modules should use `test_<behavior>.py` names.
+6. Check that the path does not duplicate an existing responsibility or repeat information already expressed by its parent directory.
+7. If renaming, find and update every import, path reference, test configuration and CI workflow in the same change; then run the relevant checks.
+8. Do not create speculative empty folders. If the responsibility or name is unclear, ask the user before creating it.
+
+Examples:
+- Good: `backend/test-suites/unit-tests/`, `backend/test-suites/integration-tests/`.
+- Avoid: `backend/tests/unit/`, `backend/tests/integration/`.
+- Good Python module: `employer_discovery.py`; avoid `utils.py` or `helpers.py` unless that is genuinely the single responsibility and no clearer name exists.
+- Good ordinary directory: `operational-diagnostics/`; avoid `diagnostics/` when the narrower responsibility is known.
+- A short name is not automatically wrong: keep a precise external platform name such as `greenhouse` when it identifies the platform-specific adapter. Do not expand names just to add words.
+
+## 7. Registry and documentation workflow
 
 Before implementing an ATS/career-site adapter, inspect:
 - `backend/registry/ats-adapter-registry.json` for adapter status, retrieval method, capabilities and required configuration;
@@ -64,11 +85,11 @@ Keep generic adapter behavior separate from employer-specific source configurati
 
 When editing documentation, follow the single-primary-responsibility naming rule in `AGENTS.md`. Update the source of truth for established product decisions, the master plan for milestone-level scope/status, and the active milestone for checkpoint work/evidence. Preserve accepted checkpoint evidence and historical records.
 
-## 7. Prompt template
+## 8. Prompt template
 
 > Work on **[M#-C##]** only. First read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`, and the active milestone document. Inspect the current code and working tree before editing. Preserve existing data, reports, and experimental implementations. Do not change unrelated files or make unapproved architecture/source/cost decisions. Implement the smallest safe change, add or update tests, and run the relevant checks. Report exact files changed, commands and observed results, remaining gaps, and the next action. Do not mark the checkpoint Accepted; leave it for user review.
 
-## 8. Human review gates
+## 9. Human review gates
 
 Explicit user review is required before:
 - changing product scope or milestone order;
@@ -78,7 +99,7 @@ Explicit user review is required before:
 - deleting/migrating existing data or reports;
 - accepting a milestone or deploying a production change.
 
-## 9. Do not do this
+## 10. Do not do this
 
 - Do not rewrite the source of truth to make it agree with newly generated code.
 - Do not invent repository state, test results, source permissions or acceptance.
