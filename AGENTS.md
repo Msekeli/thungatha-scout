@@ -41,6 +41,16 @@ The source-of-truth document must not be overwritten or silently reconciled with
 - Publishing must be validated and idempotent; unapproved records must not reach Thungatha.
 - Avoid adding infrastructure or dependencies without a demonstrated requirement and user review.
 
+## File and registry responsibilities
+
+- Every file must have one clearly defined primary responsibility. Do not combine unrelated concerns merely to reduce the number of files.
+- File names must describe that responsibility clearly and specifically. Split independently maintained concepts when necessary, but avoid unnecessary fragmentation and excessively long names.
+- The adapter definitions belong in `backend/registry/ats-adapter-registry.json`. This file describes adapter identity, implementation status, retrieval method, capabilities, configuration requirements and adapter-level constraints.
+- Employer/source mappings belong in `backend/registry/employer-source-registry.json`. This file describes organizations, official careers entry points, source-to-employer relationships, adapter configuration and verification evidence.
+- Do not put employer-specific board identifiers or employer verification evidence in the adapter registry. Do not put generic adapter capabilities in individual employer records.
+- Before implementing or changing an adapter, inspect the adapter registry and relevant employer/source mappings. Do not hardcode employer-specific configuration in adapter code.
+- Treat registry entries as data requiring validation. A registry status or a populated field is not, by itself, proof of source permission, Cape Town eligibility, implementation readiness or human approval.
+
 ## Security and cost
 
 - Never commit secrets, credentials, tokens, private keys or real environment files.
