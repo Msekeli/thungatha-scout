@@ -38,6 +38,7 @@ CREATE TABLE employer_sources (
     adapter_key TEXT NOT NULL
         CHECK (adapter_key IN ('greenhouse', 'workday')),
     source_url TEXT NOT NULL CHECK (length(btrim(source_url)) > 0),
+    employer_careers_url TEXT,
     normalized_url TEXT NOT NULL UNIQUE
         CHECK (length(btrim(normalized_url)) > 0),
     adapter_config JSONB NOT NULL DEFAULT '{}'::jsonb
