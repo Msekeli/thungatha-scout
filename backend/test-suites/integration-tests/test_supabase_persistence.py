@@ -33,6 +33,7 @@ def test_supabase_employer_and_source_persistence_round_trip() -> None:
             location_evidence=[{"type": "test", "url": "https://example.com"}],
         )
     )
+    assert employer["status"] == "discovered"
     source_id = None
 
     try:
@@ -49,6 +50,8 @@ def test_supabase_employer_and_source_persistence_round_trip() -> None:
             )
         )
         source_id = source["id"]
+        assert source["status"] == "discovered"
+        assert source["permission_status"] == "unknown"
 
         assert service.get_employer(employer["id"])["id"] == employer["id"]
         assert service.list_sources(employer["id"])[0]["id"] == source_id
