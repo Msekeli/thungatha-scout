@@ -1,1 +1,0 @@
-"""Lever source adapter."""

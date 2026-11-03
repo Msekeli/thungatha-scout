@@ -1,1 +1,0 @@
-"""Azure Table Storage access."""
