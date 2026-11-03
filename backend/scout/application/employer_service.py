@@ -44,7 +44,6 @@ class EmployerCreate(BaseModel):
     legal_name: str | None = None
     website_url: HttpUrl | None = None
     organization_type: OrganizationType = "unresolved"
-    status: EmployerStatus = "discovered"
     city: str | None = None
     province: str | None = None
     country: str | None = None
@@ -60,8 +59,6 @@ class EmployerSourceCreate(BaseModel):
     source_url: HttpUrl
     normalized_url: HttpUrl
     adapter_config: dict[str, Any] = Field(default_factory=dict)
-    status: SourceStatus = "discovered"
-    permission_status: PermissionStatus = "unknown"
     relationship_evidence: list[dict[str, Any]] = Field(default_factory=list)
 
 
@@ -74,6 +71,7 @@ class EmployerService:
 
     def create_employer(self, payload: EmployerCreate) -> dict[str, Any]:
         values = payload.model_dump()
+        values["status"] = "discovered"
         if values["website_url"] is not None:
             values["website_url"] = str(values["website_url"])
 
@@ -87,6 +85,8 @@ class EmployerService:
 
     def create_source(self, payload: EmployerSourceCreate) -> dict[str, Any]:
         values = payload.model_dump()
+        values["status"] = "discovered"
+        values["permission_status"] = "unknown"
         values["source_url"] = str(values["source_url"])
         values["normalized_url"] = str(values["normalized_url"])
 
