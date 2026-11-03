@@ -188,6 +188,7 @@ Critical safety tests:
 - Frontend: **React + TypeScript + Vite + Tailwind CSS v3**.
 - Admin authentication: **Supabase Auth**, restricted to one configured administrator email. Disable public sign-up/registration. Backend validates Supabase JWTs and enforces the email allowlist for every protected operation.
 - Keep the admin email allowlist in server-side environment configuration. The browser receives only the Supabase URL and publishable/anon key; never expose a service-role key.
-- ORM/migration tooling remains undecided; do not add SQLAlchemy/Alembic without a demonstrated need.
+- Initial PostgreSQL persistence uses **Psycopg 3 with explicit SQL**, not an ORM. Versioned SQL files under `backend/database-migrations/` are applied by the small in-repository migration runner, which records SHA-256 checksums and serializes concurrent runs with a transaction-scoped advisory lock. Do not add SQLAlchemy/Alembic without a demonstrated need.
+- Supabase Transaction Pooler connections use TLS, a bounded connection timeout and `prepare_threshold=None` to avoid session-level prepared-statement assumptions. The backend opens direct connections per operation; no connection-pool framework is introduced for the current low-volume admin workload.
 - Hosting is deliberately deferred until the application is implemented and its local functionality is verified. Keep the FastAPI backend and scheduled/background processing provider-portable. Select a provider only after evaluating the completed workload, dependencies, scheduling, reliability, deployment effort and total cost.
 - No hosting provider, paid service, deployment or external resource is approved by this setup decision.
