@@ -1,0 +1,99 @@
+{
+  "_metadata": {
+    "project": "Thungatha Scout",
+    "description": "Reusable ATS/career-site adapter definitions, status, retrieval capabilities and configuration requirements.",
+    "updated_at": "2026-11-03",
+    "pilot_eligibility_rule": {
+      "minimum_verified_direct_employer_sources": 2,
+      "geography": "Cape Town",
+      "counting_unit": "unique direct employers",
+      "exclude_organization_classifications": [
+        "recruitment_agency",
+        "staffing_company"
+      ],
+      "note": "Eligibility is a validation rule, not proof that an adapter is implemented, permitted, or production-ready."
+    }
+  },
+  "adapters": {
+    "greenhouse": {
+      "status": "candidate",
+      "extraction_method": "json_api",
+      "capabilities": {
+        "pagination_supported": true,
+        "inline_descriptions": true,
+        "authentication_required": false
+      },
+      "config_schema": [
+        "slug"
+      ],
+      "endpoint_pattern": "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true",
+      "notes": "Public job-board endpoint. Confirm response completeness and pagination behavior against representative boards before relying on the capability."
+    },
+    "workday": {
+      "status": "candidate",
+      "extraction_method": "json_api_post",
+      "capabilities": {
+        "pagination_supported": true,
+        "inline_descriptions": false,
+        "authentication_required": false
+      },
+      "config_schema": [
+        "host_prefix",
+        "tenant",
+        "site"
+      ],
+      "endpoint_pattern": "https://{host_prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs",
+      "notes": "Uses a POST request for job-list retrieval. Job descriptions may require a secondary detail request. host_prefix includes the Workday host/version prefix, for example oldmutual.wd3."
+    },
+    "lever": {
+      "status": "candidate",
+      "extraction_method": "json_api",
+      "capabilities": {
+        "pagination_supported": null,
+        "inline_descriptions": true,
+        "authentication_required": false
+      },
+      "config_schema": [
+        "slug"
+      ],
+      "endpoint_pattern": "https://api.lever.co/v0/postings/{slug}?mode=json",
+      "notes": "Validate pagination, board coverage, and public access behavior before implementation."
+    },
+    "breezy_hr": {
+      "status": "candidate",
+      "extraction_method": "pending_verification",
+      "capabilities": null,
+      "config_schema": [],
+      "endpoint_pattern": "pending_verification",
+      "notes": "Initial ATS investigation priority from the project source of truth. Do not implement until a supported public retrieval method and employer evidence are established."
+    },
+    "ashby": {
+      "status": "candidate",
+      "extraction_method": "pending_verification",
+      "capabilities": null,
+      "config_schema": [
+        "slug"
+      ],
+      "endpoint_pattern": "pending_verification",
+      "notes": "Do not implement until the public endpoint, response shape, and employer relationship are verified."
+    },
+    "placement_partner": {
+      "status": "candidate",
+      "organization_scope": [
+        "recruitment_agency",
+        "staffing_company"
+      ],
+      "extraction_method": "html_scrape",
+      "capabilities": {
+        "pagination_supported": null,
+        "inline_descriptions": null,
+        "authentication_required": null
+      },
+      "config_schema": [
+        "agency_id"
+      ],
+      "endpoint_pattern": "https://placementpartner.co.za/live/agency.php?agency={agency_id}",
+      "notes": "Separate recruitment/staffing pipeline. Do not count these sources toward verified direct-employer adapter coverage. Validate access behavior and source restrictions before use."
+    }
+  }
+}
