@@ -54,11 +54,21 @@ Use `AGENTS.md` and `.github/copilot-instructions.md`. For Copilot Chat/agent ta
 - Avoid sending secrets or unnecessary personal data to external AI providers.
 - Handle quota exhaustion, timeouts and malformed responses without corrupting existing data.
 
-## 6. Prompt template
+## 6. Registry and documentation workflow
+
+Before implementing an ATS/career-site adapter, inspect:
+- `backend/registry/ats-adapter-registry.json` for adapter status, retrieval method, capabilities and required configuration;
+- `backend/registry/employer-source-registry.json` for employer identity, official careers URLs, source mappings and verification evidence.
+
+Keep generic adapter behavior separate from employer-specific source configuration. Do not add employer identifiers or evidence to adapter definitions, and do not duplicate generic capabilities in employer records. Unknown values remain explicitly unknown; do not infer capabilities from an adapter's name or from a single successful request.
+
+When editing documentation, follow the single-primary-responsibility naming rule in `AGENTS.md`. Update the source of truth for established product decisions, the master plan for milestone-level scope/status, and the active milestone for checkpoint work/evidence. Preserve accepted checkpoint evidence and historical records.
+
+## 7. Prompt template
 
 > Work on **[M#-C##]** only. First read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`, and the active milestone document. Inspect the current code and working tree before editing. Preserve existing data, reports, and experimental implementations. Do not change unrelated files or make unapproved architecture/source/cost decisions. Implement the smallest safe change, add or update tests, and run the relevant checks. Report exact files changed, commands and observed results, remaining gaps, and the next action. Do not mark the checkpoint Accepted; leave it for user review.
 
-## 7. Human review gates
+## 8. Human review gates
 
 Explicit user review is required before:
 - changing product scope or milestone order;
@@ -68,7 +78,7 @@ Explicit user review is required before:
 - deleting/migrating existing data or reports;
 - accepting a milestone or deploying a production change.
 
-## 8. Do not do this
+## 9. Do not do this
 
 - Do not rewrite the source of truth to make it agree with newly generated code.
 - Do not invent repository state, test results, source permissions or acceptance.
