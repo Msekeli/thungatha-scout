@@ -13,7 +13,8 @@ class EmployerSourceRepository:
         row = self._connection.execute(
             """
             INSERT INTO employer_sources (
-                employer_id, adapter_key, source_url, employer_careers_url, normalized_url,
+                employer_id, adapter_key, source_url, employer_careers_url,
+                normalized_url,
                 adapter_config, status, permission_status, relationship_evidence
             )
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
