@@ -29,7 +29,7 @@ V1 ATS adapters: Greenhouse and Workday. Initial geographic scope: Cape Town. No
 | Scout operational database | Dedicated Supabase PostgreSQL project |
 | Thungatha publication destination | Existing Thungatha Supabase PostgreSQL project |
 | ATS integrations | Greenhouse and Workday adapters |
-| Admin authentication | Supabase Auth; backend validates JWTs and enforces admin authorization |
+| Admin authentication | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
 Azure Table Storage is not a v1 requirement. Azure Functions may be reconsidered after a real cost/hosting comparison; do not provision Azure resources or upgrade the exhausted student subscription without explicit approval.
 
@@ -87,8 +87,8 @@ Bounded recurring extraction, concurrency protection, retries/backoff, run metri
 Acceptance: unattended run works; only gate-passing records publish; duplicate publishing prevented; failed publication recovers; destination receives only required clean fields.
 
 ### M8 — Security, hosting and release
-Authentication/authorization, secret handling, deployment, monitoring, retention, backup/recovery, rollback and end-to-end verification.
-Acceptance: deployed frontend/backend; production configuration verified; critical flows tested; costs reviewed; user accepts release.
+Authentication/authorization, secret handling, hosting-provider evaluation, deployment, monitoring, retention, backup/recovery, rollback and end-to-end verification. Hosting selection is intentionally deferred until the application is implemented and verified locally. Evaluate the actual API, scheduled-worker, scraping and runtime requirements before selecting a provider.
+Acceptance: one-email Supabase Auth restriction verified; public registration disabled; backend independently enforces the email allowlist; deployed frontend/backend; production configuration verified; critical flows tested; costs reviewed; user accepts release.
 
 ## 6. Immediate sequence
 
@@ -100,7 +100,7 @@ Acceptance: deployed frontend/backend; production configuration verified; critic
 6. Build React admin against the stable API.
 7. Implement quality gates and exception workflow.
 8. Add unattended scheduling and idempotent publishing.
-9. Deploy only after hosting costs, backups and failure recovery are understood.
+9. Complete and verify the application locally; then evaluate hosting against the actual workload, costs, backups and failure-recovery requirements before selecting a provider or deploying.
 
 ## 7. Acceptance and evidence
 
