@@ -10,7 +10,7 @@ V1 scope: Cape Town; Greenhouse and Workday adapters; private admin UI; automate
 
 ## Current decisions — do not silently change
 
-- Frontend: React + TypeScript + Vite on Vercel. Not Next.js.
+- Frontend: React + TypeScript + Vite + Tailwind CSS v3. Hosting is deferred pending local verification.
 - Backend: FastAPI (Python) HTTP API plus separately executable scheduled/background processing. Keep provider-portable; hosting provider remains undecided.
 - Frontend styling: Tailwind CSS v3.
 - Admin authentication: Supabase Auth, restricted to the one configured administrator email. Public sign-up/registration is disabled. Backend independently validates JWTs and checks the email allowlist for every protected operation; store the allowlisted email server-side. Browser uses only the Supabase URL and publishable/anon key.
