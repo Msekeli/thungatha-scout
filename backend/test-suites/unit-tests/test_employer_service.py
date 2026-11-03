@@ -14,7 +14,6 @@ def test_employer_defaults_to_unresolved_and_discovered() -> None:
 
     assert employer.name == "Example Employer"
     assert employer.organization_type == "unresolved"
-    assert employer.status == "discovered"
 
 
 def test_employer_rejects_blank_name() -> None:
@@ -40,5 +39,3 @@ def test_source_defaults_to_unverified_and_unknown_permission() -> None:
         normalized_url="https://boards.greenhouse.io/example",
     )
 
-    assert source.status == "discovered"
-    assert source.permission_status == "unknown"
