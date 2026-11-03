@@ -1,6 +1,6 @@
 # M2 — Backend Foundation and Scout Supabase Persistence
 
-**Status:** Not started  
+**Status:** In progress — M2-C01 in review  
 **Updated:** 3 November 2026  
 **Depends on:** M0 — Repository Audit and Scope Lock
 
