@@ -126,6 +126,15 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Unresolved cases remain reviewable.
 - Technical accessibility is not mistaken for permission to use data.
 
+## Registry file responsibilities
+
+The initial JSON registry is organized by independently maintained concept:
+
+- `backend/registry/ats-adapter-registry.json`: generic adapter definitions, implementation status, retrieval method, capability metadata, required configuration fields and adapter-level notes.
+- `backend/registry/employer-source-registry.json`: employer/organization records, official careers entry points, source mappings, employer-specific adapter configuration and verification evidence.
+
+The first file must not accumulate employer-specific board mappings. The second must not duplicate generic adapter capabilities. Registry contents are provisional until their records and claim-specific evidence are reviewed. A verified source mapping does not by itself verify Cape Town presence, source permission, adapter readiness or human approval.
+
 ## M1-C04 — Registry persistence and reporting
 
 **Status:** Not started
@@ -133,14 +142,19 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 **Goal:** persist discovery outcomes without losing provenance or damaging existing data.
 
 **Work**
+- Define and validate the contracts for the two registry files; reject malformed records, unknown adapter references and missing required configuration.
+- Keep adapter definitions separate from employer/source mappings and claim-specific verification evidence.
 - Choose a persistence/reporting approach consistent with the audited repository.
 - Preserve historical JSON/CSV reports and existing company data.
 - Make repeated runs idempotent and retain first-seen/last-checked information where appropriate.
+- Ensure registry updates preserve evidence history and do not promote pending claims to verified without review.
 - Summarize new, verified, unresolved, failed and unchanged candidates.
 
 **Exit criteria**
 - Repeated runs do not create uncontrolled duplicates.
 - Reports distinguish candidate counts from verified official sources.
+- Registry records pass schema/contract validation and cross-reference valid adapter keys.
+- Generic adapter definitions and employer-specific source mappings remain separate.
 - Existing data is preserved and schema changes are documented.
 
 ## M1-C05 — Verification and review
@@ -190,3 +204,12 @@ The following findings inform the discovery approach; they do not claim adapter 
 - Public ATS directories and search-engine indexes can be useful lead sources, but they are third-party evidence. Validate every candidate board against the employer's official web presence and retain source provenance.
 
 **Discovery rule:** Scout must not wait for an ATS vendor to provide a customer directory. It should discover candidate employer/board pairs from multiple independent public footprints, verify each pair, and keep broad employer discovery running in parallel.
+
+## Registry data baseline (3 November 2026)
+
+Two initial JSON files have been added under `backend/registry/`:
+
+- `ats-adapter-registry.json` contains the current adapter catalogue and its known retrieval metadata.
+- `employer-source-registry.json` contains initial employer/source candidates, source mappings and separate verification states.
+
+This is a registry data baseline only. It does not complete C04. The files still require an explicit schema/contract, validation tests, a reviewed persistence/update lifecycle and evidence review of their individual records. Existing `candidate` and `pending_verification` values must not be upgraded based on assumptions. C04 remains Not started until its work and exit criteria are completed and verified.
