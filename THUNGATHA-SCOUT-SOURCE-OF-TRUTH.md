@@ -193,3 +193,8 @@ Records failing a hard gate are suppressed/rejected with a reason. Records with 
 
 ### Superseded decisions
 The following earlier statements are no longer current: Next.js admin frontend; Azure Table Storage as mandatory operational persistence; PostgreSQL operational storage hosted as part of the prior Azure-first plan; routine human approval of every vacancy; and a rule that only human-approved vacancy versions can publish. Historical entries remain as decision history but must not guide new implementation.
+
+
+## Decision record — implementation stack lock (3 November 2026)
+
+Approved implementation stack: FastAPI backend; React + TypeScript + Vite + Tailwind CSS v3 frontend; Supabase Auth for admin identity. The browser uses only the Supabase URL and publishable/anon key. Backend authorization must independently validate Supabase access tokens and enforce admin permissions. Dedicated Scout Supabase PostgreSQL remains the operational database target; no project was provisioned by this decision. Backend hosting, worker scheduling provider, ORM and migration tooling remain open decisions. No paid resources, hosting, deployment or subscription changes are authorised by this stack decision.

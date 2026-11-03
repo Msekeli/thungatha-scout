@@ -10,7 +10,9 @@ A runnable, provider-portable Python backend with a dedicated Scout Supabase Pos
 
 ## Scope
 
-- Python HTTP API foundation.
+- FastAPI HTTP API foundation.
+- React + TypeScript + Vite + Tailwind CSS v3 frontend skeleton.
+- Supabase Auth client foundation; backend-side JWT validation is required before protected API access.
 - Dedicated Scout Supabase project connection.
 - Schema/migration strategy for employers and employer sources first.
 - Configuration and secret handling.
@@ -82,5 +84,5 @@ Add unit and database integration tests for the foundation. Record actual comman
 
 - Follow AGENTS.md, CODING-STANDARDS.md, CHATGPT-PROJECT-GUIDE.md, THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md and TECHNICAL-APPROACH.md.
 - Keep modules focused and within repository line limits.
-- Do not add FastAPI, queues, an ORM, cloud services or additional infrastructure without demonstrating the need.
+- FastAPI is explicitly approved for the HTTP API. Do not add queues, an ORM, cloud services or additional infrastructure without a separate demonstrated need and approval.
 - Do not mark a checkpoint Accepted without actual evidence and user acceptance.

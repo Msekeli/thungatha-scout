@@ -11,7 +11,9 @@ V1 scope: Cape Town; Greenhouse and Workday adapters; private admin UI; automate
 ## Current decisions — do not silently change
 
 - Frontend: React + TypeScript + Vite on Vercel. Not Next.js.
-- Backend: Python HTTP API plus scheduled/background processing. Keep provider-portable; Azure Functions is optional pending verified cost/hosting decision.
+- Backend: FastAPI (Python) HTTP API plus separately executable scheduled/background processing. Keep provider-portable; hosting provider remains undecided.
+- Frontend styling: Tailwind CSS v3.
+- Admin authentication: Supabase Auth. Browser uses only the Supabase URL and publishable/anon key; backend independently validates JWTs and authorizes admin operations.
 - Scout operational database: a dedicated Supabase PostgreSQL project.
 - Thungatha destination: the existing Thungatha Supabase PostgreSQL project.
 - Do not use MongoDB or Azure Table Storage in the current v1 architecture.

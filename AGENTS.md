@@ -35,7 +35,7 @@ The source-of-truth document must not be overwritten or silently reconciled with
 - Company discovery includes all industries and company sizes; do not apply job-title filters during discovery.
 - Preserve unresolved identity, source classification and location states rather than guessing.
 - Search failure must not be reported as a successful search with zero results.
-- Human approval is an explicit backend state. AI cannot approve a source or publish records by itself.
+- Admin confirmation and activation are required for employer/source onboarding. After activation, qualifying vacancies publish automatically through deterministic gates; AI cannot approve sources, bypass gates or publish records by itself.
 - Do not bypass authentication, access controls, robots/terms restrictions or source quotas.
 - Do not overwrite `backend/data/companies.csv` or historical reports without an explicitly reviewed migration/change.
 - Publishing must be validated and idempotent; unapproved records must not reach Thungatha.

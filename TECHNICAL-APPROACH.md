@@ -15,14 +15,14 @@ V1 supports Greenhouse and Workday. Initial geography is Cape Town. Scout is not
 
 | Component | Technology | Hosting |
 |---|---|---|
-| Admin UI | React, TypeScript, Vite, Tailwind | Vercel |
-| Backend | Python HTTP API and scheduled workers | Cost-appropriate hosted Python runtime; provider decision pending |
+| Admin UI | React, TypeScript, Vite, Tailwind CSS v3 | Hosting provider pending |
+| Backend | FastAPI (Python); separately executable scheduled/background processing | Provider decision pending |
 | Operational database | PostgreSQL via Supabase | Dedicated Scout Supabase project |
 | Public destination | Existing Thungatha Supabase/PostgreSQL | Existing Thungatha project |
 
 Do not use Next.js. Do not share Scout's operational schema/database with Thungatha. Do not use MongoDB. Azure Table Storage is not a v1 dependency. Azure Functions may be selected later only if its actual hosting, storage, scheduling and monitoring costs are acceptable and explicitly approved.
 
-The backend owns business rules and all database writes. The React client calls protected backend endpoints. It never receives a Supabase service-role key. Use separate credentials and least-privilege policies for Scout and Thungatha.
+The backend owns business rules and all privileged database writes. The React client uses Supabase Auth and calls protected backend endpoints. Backend endpoints must independently validate Supabase access tokens and enforce admin authorization; frontend route guards are not a security boundary. The browser may contain only the Supabase URL and publishable/anon key, never a service-role key. Use separate credentials for Scout and Thungatha.
 
 ## 3. Data ownership
 
@@ -180,3 +180,12 @@ Critical safety tests:
 - Unqualified or exception records never publish.
 - Publishing retry does not duplicate destination records.
 - Scout-only operational data never leaks into Thungatha.
+
+
+## 13. Locked project setup — 3 November 2026
+
+- Backend HTTP framework: **FastAPI**, with Pydantic settings and Uvicorn for local development. Scheduled/background processing remains separately executable and provider-portable.
+- Frontend: **React + TypeScript + Vite + Tailwind CSS v3**.
+- Admin authentication: **Supabase Auth**. Browser configuration is limited to the project URL and publishable/anon key. Backend must independently validate Supabase JWTs and enforce admin authorization.
+- ORM/migration tooling and production hosting remain undecided; do not add SQLAlchemy/Alembic or provider-specific hosting without a separate decision.
+- No hosting, database project, paid service, deployment or external resource was provisioned by this setup lock.

@@ -24,11 +24,12 @@ V1 ATS adapters: Greenhouse and Workday. Initial geographic scope: Cape Town. No
 
 | Responsibility | Technology / hosting |
 |---|---|
-| Admin frontend | React + TypeScript + Vite on Vercel |
-| Backend API and scheduled processing | Python, hosted on a cost-appropriate provider; keep portable |
+| Admin frontend | React + TypeScript + Vite + Tailwind CSS v3; hosting pending |
+| Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending |
 | Scout operational database | Dedicated Supabase PostgreSQL project |
 | Thungatha publication destination | Existing Thungatha Supabase PostgreSQL project |
 | ATS integrations | Greenhouse and Workday adapters |
+| Admin authentication | Supabase Auth; backend validates JWTs and enforces admin authorization |
 
 Azure Table Storage is not a v1 requirement. Azure Functions may be reconsidered after a real cost/hosting comparison; do not provision Azure resources or upgrade the exhausted student subscription without explicit approval.
 
