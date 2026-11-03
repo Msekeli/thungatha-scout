@@ -94,3 +94,51 @@ Unknown capabilities and unverified claims must remain explicitly unknown or pen
 ### File naming and responsibility
 
 Every file has one clearly defined primary responsibility. Names should state that responsibility clearly and specifically without becoming unnecessarily long. Split independently maintained concepts; do not split a cohesive concept into many files merely to avoid a longer name.
+
+
+## Decision record — v1 implementation baseline (3 November 2026)
+
+V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS platforms remain out of scope. The private Next.js admin interface is required in v1; it is not a public job-search frontend.
+
+### Product workflow
+- The employer is the primary management entity. An employer can have multiple independent recruitment sources; vacancies retain employer and source provenance.
+- Add Company is URL-first. The administrator pastes a careers/ATS URL; the backend detects the ATS, inspects the source and extracts employer metadata where reliable. The administrator confirms the employer identity and source relationship before registration.
+- Manual ATS selection is a fallback and override. V1 supports Greenhouse and Workday only.
+- Adding an employer to an existing adapter is configuration-driven and must not require employer-specific adapter code. A new ATS may require one new adapter implementation.
+- Adding a source to an existing employer must not create a duplicate employer. Archiving a source must not remove its employer or other sources.
+- Employer/source approval and vacancy approval are separate. Only approved, validated vacancy versions may publish.
+
+### Technical ownership
+- Frontend: Next.js App Router, TypeScript and Tailwind CSS.
+- Backend: one Python Azure Functions Function App using Python v2. HTTP functions expose admin operations; timer functions perform bounded scheduled work. Triggers delegate to shared application services.
+- Operational persistence: PostgreSQL. Python owns business rules and authoritative writes. Next.js calls the backend API and does not write directly to PostgreSQL.
+- Publishing: approved records go idempotently to the existing Thungatha Supabase integration. Scout operational state remains separate.
+- No microservices, separate Function Apps per ATS or second frontend ORM without demonstrated need.
+
+### Adapter behavior
+- Greenhouse uses its documented public Job Board GET API for a known board token. It is board-specific, not a global customer directory.
+- Workday uses observed public careers-site CXS JSON endpoints. This is undocumented behavior, not a guaranteed public API. Parse host, tenant and site separately and validate each board.
+- For https://myhcm.wd3.myworkdayjobs.com/digioutsource, expected values are host myhcm.wd3.myworkdayjobs.com, tenant myhcm and site digioutsource. Do not confuse tenant and site.
+- One Workday adapter may contain explicitly tested compatibility strategies. Never create one adapter per employer or speculative strategies without evidence.
+- A source test must validate meaningful vacancy data, not merely HTTP 200. Distinguish empty, not-found, blocked, rate-limited, malformed, partial and transient outcomes.
+- Adapter definitions remain separate from employer-specific source configuration. Never hardcode board tokens, tenants or site identifiers in adapter code.
+
+### Employer identity and logos
+- Prefer authoritative ATS board metadata, then official careers-page metadata/structured data and validated public board response metadata. A Workday job payload may provide evidence but is not guaranteed to exist or contain the employer name.
+- Never infer a company name solely from a URL slug. Ask for administrator confirmation/input when extraction is uncertain.
+- Logo retrieval is best-effort: verified ATS image, official employer website, separately evaluated provider, then admin upload/replacement. Do not depend on the retired Clearbit Logo API. Store logo source/attribution; missing logos never block registration.
+
+### Persistence and lifecycle
+- Core records: employers, employer_sources, vacancies, vacancy_versions, extraction_runs and review/audit records.
+- Enforce source-scoped external identity with a unique constraint on (source_id, external_job_id). Use normalised SHA-256 fingerprints to detect meaningful content changes.
+- Keep vacancy lifecycle separate from review/publication state. Preserve the latest extracted version separately from the approved/published version. Changed content creates a version and may require review; it must not silently overwrite an approved version.
+- Extraction runs record start/end, outcome (success/partial/failed), duration, jobs found/added/updated/expired, pagination/completeness and sanitised diagnostics.
+- Source operational status (pending_verification, active, paused, archived) is separate from computed health (unknown, healthy, warning, failed).
+- Failed or incomplete runs must not expire vacancies. Expiry requires a sufficiently complete successful inventory comparison.
+- Archive employers and sources rather than physically cascading deletion through vacancy and extraction history. Preserve audit records.
+
+### Admin v1
+Navigation: Dashboard, Companies, Vacancies and Review Queue. Source health, tests and extraction history are embedded in Company Details. Add Company is URL-first, detects the ATS, supports manual override, previews metadata and requires confirmation. Company name is not routinely typed; manual entry is a fallback. Company operations include edit, add source, test, pause/resume and archive.
+
+### Initial acceptance target
+Register a Greenhouse board and the DigiOutsource Workday board through the admin UI, confirm extracted employer metadata, test retrieval, view real vacancies and manage employer/source records. New employers using either supported adapter require configuration only, not backend code changes. This is a target, not a claim that the current repository already implements it or that live integrations have passed.
