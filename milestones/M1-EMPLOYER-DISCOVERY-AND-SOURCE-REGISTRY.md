@@ -6,7 +6,16 @@
 
 ## Purpose and scope
 
-Discover direct employers across industries and company sizes that have a credible Cape Town connection and an official careers, jobs, vacancies, Join Us, Work With Us or equivalent recruitment page. The page may be company-hosted or an external portal clearly linked from the employer's official website. Do not require an ATS or filter by job title or industry. Exclude recruitment agencies and staffing firms from the direct-employer registry. Companies may qualify even when no current vacancy is found.
+Discover direct employers across industries and company sizes that have a credible Cape Town connection and an official careers, jobs, vacancies, Join Us, Work With Us or equivalent recruitment page. The page may be company-hosted or an external portal clearly linked from the employer's official website. Do not filter by job title or industry. Exclude recruitment agencies and staffing firms from the direct-employer registry. Companies may qualify even when no current vacancy is found.
+
+Employer discovery has two complementary channels, not competing strategies:
+
+1. **General employer discovery:** identify Cape Town employers and their official recruitment entry points without assuming which ATS they use.
+2. **ATS-footprint discovery:** identify candidate employer boards and career portals associated with known recruitment platforms, then trace each candidate back to the employer's own website and verify the Cape Town connection.
+
+ATS-footprint discovery exists to improve employer coverage. It must not replace general employer discovery or turn the registry into a list of ATS boards. One ATS can serve many employers, and one employer may use multiple platforms or brands. Measure unique candidate and verified employers separately from board counts and vacancy counts. A provider returning many vacancies for one employer is not broad employer coverage.
+
+The initial ATS investigation set is Greenhouse, Workday, Lever, Breezy HR, and Ashby. This is a discovery/investigation priority, not a claim that all adapters are implemented or approved. Add providers when evidence shows useful Cape Town employer coverage.
 
 ## Checkpoint status rules
 
@@ -46,11 +55,14 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 **Goal:** discover direct employers and their official recruitment entry points without narrowing the employer universe by role, industry, or ATS provider.
 
 **Work**
-- Use bounded, reproducible, search-provider-independent queries for careers pages and recruitment entry points.
+- Run two complementary query groups: broad employer/careers discovery and ATS-specific footprint discovery. Keep their provenance and result counts separate.
 - Keep Cape Town as the initial geographic scope and record the evidence for the employer's Cape Town connection.
 - Discover company-built pages and employer-linked external portals, not only ATS-hosted boards.
-- Record search results as leads; do not treat snippets or titles as proof of employer identity or source ownership.
-- Avoid treating a single query or search backend as exhaustive.
+- For each investigated ATS, document observable public footprints such as hosted board domains, career-portal domains, embedded widgets, redirect patterns and job URL patterns. Search those footprints for candidate boards; do not assume the ATS provides a public global customer directory.
+- Treat third-party ATS board directories, search results, repositories and datasets as unverified lead sources. Record their provider, retrieval date and original URL; independently validate the board and employer before promoting a candidate.
+- A board token, tenant/site identifier, subdomain or ATS-hosted job page is a source lead, not proof of the legal employer, its Cape Town presence, or an official relationship.
+- Record distinct metrics: raw board leads, validated boards, unique employer candidates, verified direct employers, employers with Cape Town evidence, total vacancies and vacancies per employer. Do not use job volume as a proxy for employer coverage.
+- Retain broad employer discovery even when ATS-specific discovery is productive. Avoid treating a single query, directory, ATS or search backend as exhaustive.
 - Retain discovery run metadata and report coverage limitations.
 
 **Exit criteria**
@@ -88,6 +100,9 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - No reusable standalone Bing search-provider implementation was found in the inspected research branch. A bounded comparison mode was added to run the same queries independently against the supported DDGS `bing`, `brave`, `duckduckgo` and `mojeek` backends. This compares engine behavior without introducing a separate scraper. The live comparison has not yet been run.
 - The current report is a baseline, not an authoritative registry. Aggregator filtering is intentionally conservative and must be reviewed against new results; official employer ownership, direct-employer classification, Cape Town connection and recruitment-page linkage remain unverified.
 - Search snippets do not establish Cape Town presence or official source ownership. The discovery stage must collect candidate recruitment-page URLs; M1-C03 verifies the employer identity, source ownership/linkage and organization classification.
+- ATS-specific discovery is now an additional channel, not a replacement for broad employer discovery. The earlier removal of ATS-specific queries from the default query plan was intended to avoid biasing the entire discovery process toward known ATS platforms; it must not be interpreted as a prohibition on a separately measured ATS-footprint channel.
+- Official Greenhouse Job Board API documentation describes public GET access to a specified board using its board token; it does not document a public endpoint for enumerating all customer boards. The authenticated Harvest API's board-listing capability is not a public employer-discovery endpoint. Breezy's official developer API is documented, and Breezy also offers hosted career portals and an embeddable widget, but the reviewed official documentation does not establish a public global customer directory. Therefore, Scout must discover candidate identifiers through external evidence and validate them, not rely on a nonexistent universal ATS directory.
+- Breezy HR is explicitly included in the ATS discovery investigation set. Its hosted career-portal footprint and employer-site widget/links are discovery clues; confirm the employer relationship and current access method before implementing or approving an adapter.
 - Results are emitted as JSON to stdout; durable registry persistence and CSV
   reporting remain M1-C04 work.
 
@@ -162,4 +177,16 @@ again after commit `8202978`; all 10 tests passed on Python 3.14.7.
 **Current status:** C01 was explicitly accepted by the user on 26 October 2026.
 C02 remains in progress. The user reported 22 unit tests passing after the latest implementation fix. The latest recorded live report is still poor (1 query with retained candidates, 9 failed queries) and does not establish a useful, verified employer set. The default queries now target official careers-page discovery rather than ATS-specific domains. The assistant has not run tests or a live search.
 
-**Next action:** Establish a reliable search provider using a bounded comparison, then review a sample of distinct direct employers and their official recruitment pages. M1-C02 remains unaccepted until the discovery yield, evidence quality and failure reporting meet the exit criteria.
+**Next action:** Establish a reliable search provider using a bounded comparison and add a separately reported ATS-footprint discovery experiment for Greenhouse, Workday, Lever, Breezy HR and Ashby. Compare unique employer yield—not just board or job totals—and review a sample of distinct direct employers and their official recruitment pages. M1-C02 remains unaccepted until discovery yield, evidence quality and failure reporting meet the exit criteria.
+
+
+## ATS discovery evidence and limitations (3 November 2026)
+
+The following findings inform the discovery approach; they do not claim adapter implementation or source approval:
+
+- Greenhouse's public Job Board API accepts a specific `board_token` to retrieve that board's jobs. Its documentation does not describe a public global customer/board enumeration endpoint: https://docs.greenhouse.io/job-board
+- Greenhouse's Harvest API documents listing job boards, but it is a customer recruiting-data API rather than an unauthenticated public directory: https://harvestdocs.greenhouse.io/reference/get_v3-job-boards
+- Breezy provides official developer API documentation and hosted career portals/widgets. The reviewed documentation does not establish a public global directory of Breezy customers: https://developer.breezy.hr/reference/overview and https://breezy.hr/attract
+- Public ATS directories and search-engine indexes can be useful lead sources, but they are third-party evidence. Validate every candidate board against the employer's official web presence and retain source provenance.
+
+**Discovery rule:** Scout must not wait for an ATS vendor to provide a customer directory. It should discover candidate employer/board pairs from multiple independent public footprints, verify each pair, and keep broad employer discovery running in parallel.
