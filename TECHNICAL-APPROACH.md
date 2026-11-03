@@ -20,7 +20,7 @@ V1 supports Greenhouse and Workday. Initial geography is Cape Town. Scout is not
 | Operational database | PostgreSQL via Supabase | Dedicated Scout Supabase project |
 | Public destination | Existing Thungatha Supabase/PostgreSQL | Existing Thungatha project |
 
-Do not use Next.js. Do not share Scout's operational schema/database with Thungatha. Do not use MongoDB. Azure Table Storage is not a v1 dependency. Azure Functions may be selected later only if its actual hosting, storage, scheduling and monitoring costs are acceptable and explicitly approved.
+Do not share Scout's operational schema/database with Thungatha. Do not use MongoDB or Azure Table Storage in the v1 architecture. Hosting remains deferred until local implementation and workload verification are complete.
 
 The backend owns business rules and all privileged database writes. The React client uses Supabase Auth and calls protected backend endpoints. V1 permits only the administrator's explicitly configured email address; public registration is disabled. The backend independently validates Supabase access tokens and checks the authenticated email against a server-side allowlist on every protected operation. Frontend route guards are not a security boundary. The browser may contain only the Supabase URL and publishable/anon key, never a service-role key. Keep the allowlisted email in environment configuration, not source code. Use separate credentials for Scout and Thungatha.
 
