@@ -1,7 +1,7 @@
 # Thungatha Scout — Implementation Plan
 
 **Status:** Active delivery roadmap  
-**Updated:** 3 November 2026  
+**Updated:** 4 November 2026  
 **Branch:** `dev`
 
 ## 1. Authority
@@ -54,7 +54,7 @@ Scout and Thungatha databases are isolated. Scout retains raw operational, rejec
 |---|---|---|
 | M0 | Repository Audit and Scope Lock | Accepted |
 | M1 | Employer Discovery and Source Registry | In progress; research retained, not a blocker for first vertical slice |
-| M2 | Backend Foundation and Scout Supabase Persistence | Not started |
+| M2 | Backend Foundation and Scout Supabase Persistence | In progress — C01 in review |
 | M3 | Employer Registration and Greenhouse Adapter | Not started |
 | M4 | Workday Adapter and Tenant Compatibility | Not started |
 | M5 | React Admin — Employer and Source Management | Not started |
@@ -92,9 +92,9 @@ Acceptance: one-email Supabase Auth restriction verified; public registration di
 
 ## 6. Immediate sequence
 
-1. Re-inspect the current `dev` repository and preserve existing work.
-2. Confirm the separate Scout Supabase project is available; do not create paid resources.
-3. Define the Scout schema and Thungatha publishing contract.
+1. Complete M2-C01 review of the backend/runtime baseline; retain the current `scout` package and avoid duplicate scaffolding.
+2. Confirm the separate Scout Supabase project is available; do not create it without approval.
+3. Define the Scout schema and Thungatha publishing contract only after the project and data requirements are confirmed.
 4. Implement M2 backend foundation and persistence.
 5. Build Greenhouse vertical slice, then Workday.
 6. Build React admin against the stable API.
