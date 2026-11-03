@@ -41,6 +41,7 @@ def test_supabase_employer_and_source_persistence_round_trip() -> None:
                 employer_id=employer["id"],
                 adapter_key="greenhouse",
                 source_url="https://boards.greenhouse.io/example",
+                employer_careers_url="https://example.com/careers",
                 normalized_url=f"https://boards.greenhouse.io/example-{uuid4()}",
                 relationship_evidence=[
                     {"type": "test", "url": "https://example.com/careers"}
