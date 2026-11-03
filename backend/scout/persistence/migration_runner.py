@@ -16,6 +16,8 @@ class MigrationChecksumError(RuntimeError):
 
 
 def discover_migrations(directory: Path) -> list[Path]:
+    if not directory.is_dir():
+        raise FileNotFoundError(f"Migration directory does not exist: {directory}")
     migrations = sorted(directory.glob("*.sql"))
     versions: set[str] = set()
 
