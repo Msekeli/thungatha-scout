@@ -421,8 +421,7 @@ export default function App() {
                         <td>{new Date(vacancy.last_seen_at).toLocaleDateString()}</td>
                         <td className="vacancy-actions">
                           <button className="text-link" onClick={() => void openVacancy(vacancy.id)}>View details</button>
-                          <a href={vacancy.source_url} target="_blank" rel="noreferrer">Original ↗</a>
-                          <a href={vacancy.application_url} target="_blank" rel="noreferrer">Apply ↗</a>
+                          <a href={vacancy.application_url} target="_blank" rel="noreferrer">Open original ↗</a>
                         </td>
                       </tr>
                     ))}
@@ -443,8 +442,8 @@ export default function App() {
                 <button className="button secondary" onClick={() => setSelectedVacancy(null)}>Close</button>
               </div>
               <div className="detail-links">
-                <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">View original job ↗</a>
-                <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Apply ↗</a>
+                <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">Greenhouse board ↗</a>
+                <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Open original job / apply ↗</a>
               </div>
               <div className="vacancy-review">
                 <div><label>Review status
