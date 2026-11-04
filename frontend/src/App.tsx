@@ -960,7 +960,9 @@ export default function App() {
               <strong className="block text-sm text-amber-900">
                 {employers.filter((item) => item.status === "discovered").length} awaiting approval
               </strong>
-              <span className="text-[10px] text-[var(--warning-text)]">Review new company records</span>
+              <span className="text-[10px] text-[var(--warning-text)]">
+                Review new company records
+              </span>
             </button>
             <button
               type="button"
