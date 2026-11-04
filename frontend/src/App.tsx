@@ -15,7 +15,9 @@ const emptyEmployer = {
 export default function App() {
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [selected, setSelected] = useState<Employer | null>(null);
-  const [sources, setSources] = useState<EmployerSource[]>([]);\n  const [vacancies, setVacancies] = useState<Vacancy[]>([]);\n  const [extracting, setExtracting] = useState(false);
+  const [sources, setSources] = useState<EmployerSource[]>([]);
+  const [vacancies, setVacancies] = useState<Vacancy[]>([]);
+  const [extracting, setExtracting] = useState(false);
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
   const [greenhouseInspection, setGreenhouseInspection] = useState<GreenhouseInspection | null>(null);
@@ -36,9 +38,14 @@ export default function App() {
         const refreshed =
           result.find((item) => item.id === selectedEmployerId) ?? null;
         setSelected(refreshed);
-        setSources(
-          refreshed ? await scoutApi.listSources(refreshed.id) : [],
-        );
+        const [nextSources, nextVacancies] = refreshed
+          ? await Promise.all([
+              scoutApi.listSources(refreshed.id),
+              scoutApi.listVacancies(refreshed.id),
+            ])
+          : [[], []];
+        setSources(nextSources);
+        setVacancies(nextVacancies);
       }
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load employers.");
@@ -78,7 +85,12 @@ export default function App() {
     setSelected(employer);
     setError("");
     try {
-      const [nextSources, nextVacancies] = await Promise.all([\n        scoutApi.listSources(employer.id),\n        scoutApi.listVacancies(employer.id),\n      ]);\n      setSources(nextSources);\n      setVacancies(nextVacancies);
+      const [nextSources, nextVacancies] = await Promise.all([
+        scoutApi.listSources(employer.id),
+        scoutApi.listVacancies(employer.id),
+      ]);
+      setSources(nextSources);
+      setVacancies(nextVacancies);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load sources.");
     }
@@ -222,7 +234,8 @@ export default function App() {
                 <span className="status">{selected.organization_type.replaceAll("_", " ")}</span>
               </div>
               <p className="muted">{selected.website_url || "Official website not supplied"}</p>
-              <div className="source-heading"><h4>Vacancy sources</h4><span>{sources.length} registered</span></div>\n              <button className="button primary" type="button" onClick={() => void extractEmployerJobs()} disabled={extracting || !sources.some((source) => source.adapter_key === "greenhouse")}>{extracting ? "Extracting vacancies…" : "Extract jobs from Greenhouse"}</button>
+              <div className="source-heading"><h4>Vacancy sources</h4><span>{sources.length} registered</span></div>
+              <button className="button primary" type="button" onClick={() => void extractEmployerJobs()} disabled={extracting || !sources.some((source) => source.adapter_key === "greenhouse")}>{extracting ? "Extracting vacancies…" : "Extract jobs from Greenhouse"}</button>
               {sources.length === 0 ? <p className="muted">No ATS source registered yet.</p> : (
                 <div className="source-list">
                   {sources.map((source) => (
