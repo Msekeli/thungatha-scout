@@ -39,6 +39,8 @@ def test_retrieves_jobs_and_follows_next_link() -> None:
 
     def handler(request: httpx.Request) -> httpx.Response:
         requests.append(str(request.url))
+        if request.url.params.get("page") == "2":
+            return httpx.Response(200, json={"jobs": []})
         if request.url.path.endswith("/jobs"):
             return httpx.Response(
                 200,
@@ -58,8 +60,6 @@ def test_retrieves_jobs_and_follows_next_link() -> None:
                     )
                 },
             )
-        if request.url.params.get("page") == "2":
-            return httpx.Response(200, json={"jobs": []})
         return httpx.Response(200, json={"name": "Demo Employer"})
 
     async def run() -> None:
@@ -79,7 +79,7 @@ def test_retrieves_jobs_and_follows_next_link() -> None:
 
 @pytest.mark.parametrize(
     ("status_code", "outcome"),
-    [(403, "blocked"), (404, "not_found"), (429, "rate_limited"), (503, "transient_failure")],
+    [\n        (403, "blocked"),\n        (404, "not_found"),\n        (429, "rate_limited"),\n        (503, "transient_failure"),\n    ],
 )
 def test_maps_http_failures(status_code: int, outcome: str) -> None:
     def handler(request: httpx.Request) -> httpx.Response:
