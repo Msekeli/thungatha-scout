@@ -28,7 +28,6 @@ import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
 import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
 import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
 
-
 type Page = "jobs" | "companies" | "add-company";
 
 const emptyEmployer = {
