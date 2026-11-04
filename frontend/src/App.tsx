@@ -45,6 +45,7 @@ export default function App() {
   const [reviewReason, setReviewReason] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
+  const [sourceDecision, setSourceDecision] = useState<Record<string, { status: string; permission_status: string; evidence_url: string; reason: string }>>({});
   const [vacancySaving, setVacancySaving] = useState(false);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
@@ -170,6 +171,21 @@ export default function App() {
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not update company status.");
     } finally { setSaving(false); }
+  }
+
+  async function updateSourceDecision(source: EmployerSource) {
+    const decision = sourceDecision[source.id] ?? { status: source.status, permission_status: source.permission_status, evidence_url: "", reason: "" };
+    if (decision.status === "verified" && decision.permission_status === "allowed" && !decision.evidence_url.trim()) {
+      setError("Add an evidence URL before verifying and permitting this source."); return;
+    }
+    setSaving(true); setError(""); setNotice("");
+    try {
+      const updated = await scoutApi.updateSourceReview(selectedEmployer!.id, source.id, decision);
+      setSources((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setDashboardSources((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setNotice("Source verification and permission decision saved.");
+    } catch (reason) { setError(reason instanceof Error ? reason.message : "Could not update source decision."); }
+    finally { setSaving(false); }
   }
 
   async function deleteCompany() {
@@ -529,6 +545,20 @@ export default function App() {
                           <div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div>
                           <span className="status">{source.status.replaceAll("_", " ")}</span>
                           {source.adapter_key === "greenhouse" && <button className="button secondary" type="button" onClick={() => { setEditingSourceId(source.id); setSourceUrl(source.source_url); setInspection(null); }}>Edit source</button>}
+                        </div>
+                        <div className="source-decision">
+                          <div className="source-decision-heading"><strong>Verification & permission</strong><span>Company approval does not approve this source</span></div>
+                          <div className="source-decision-grid">
+                            <label>Source status<select value={sourceDecision[source.id]?.status ?? source.status} onChange={(event) => setSourceDecision((current) => ({ ...current, [source.id]: { status: event.target.value, permission_status: current[source.id]?.permission_status ?? source.permission_status, evidence_url: current[source.id]?.evidence_url ?? "", reason: current[source.id]?.reason ?? "" } }))}>
+                              <option value="discovered">Discovered</option><option value="pending_verification">Pending verification</option><option value="verified">Verified</option><option value="temporarily_unavailable">Temporarily unavailable</option><option value="invalid">Invalid</option><option value="needs_review">Needs review</option><option value="inactive">Inactive</option>
+                            </select></label>
+                            <label>Permission<select value={sourceDecision[source.id]?.permission_status ?? source.permission_status} onChange={(event) => setSourceDecision((current) => ({ ...current, [source.id]: { status: current[source.id]?.status ?? source.status, permission_status: event.target.value, evidence_url: current[source.id]?.evidence_url ?? "", reason: current[source.id]?.reason ?? "" } }))}>
+                              <option value="unknown">Unknown</option><option value="allowed">Allowed</option><option value="restricted">Restricted</option><option value="needs_review">Needs review</option>
+                            </select></label>
+                          </div>
+                          <label>Evidence URL<input type="url" value={sourceDecision[source.id]?.evidence_url ?? ""} onChange={(event) => setSourceDecision((current) => ({ ...current, [source.id]: { status: current[source.id]?.status ?? source.status, permission_status: current[source.id]?.permission_status ?? source.permission_status, evidence_url: event.target.value, reason: current[source.id]?.reason ?? "" } }))} placeholder="Official employer page confirming this ATS relationship" /></label>
+                          <label>Decision notes<input value={sourceDecision[source.id]?.reason ?? ""} onChange={(event) => setSourceDecision((current) => ({ ...current, [source.id]: { status: current[source.id]?.status ?? source.status, permission_status: current[source.id]?.permission_status ?? source.permission_status, evidence_url: current[source.id]?.evidence_url ?? "", reason: event.target.value } }))} placeholder="Why this source status and permission were chosen" /></label>
+                          <button type="button" className="button primary" disabled={saving} onClick={() => void updateSourceDecision(source)}>{saving ? "Saving…" : "Save source decision"}</button>
                         </div>
                         <div className="run-history">
                           <div className="run-heading"><strong>Latest extraction</strong><span>{runs.length} recorded run(s)</span></div>
