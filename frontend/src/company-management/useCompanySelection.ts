@@ -35,6 +35,7 @@ export function useCompanySelection({
     setEditingSourceId(null);
     setSourceUrl("");
     setInspection(null);
+    setSources([]);
     setSelectedEmployerId(employer.id);
     setLogoUrl(employer.logo_url ?? "");
     setLogoSourceUrl(employer.logo_source_url ?? "");
