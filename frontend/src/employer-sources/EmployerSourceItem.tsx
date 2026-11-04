@@ -15,10 +15,10 @@ export const EmployerSourceItem: FC<EmployerSourceItemProps> = ({
   onOpenReview,
 }) => {
   return (
-    <div className="source-item">
-      <div>
-        <div className="flex items-center gap-2">
-          <strong>{source.adapter_key}</strong>
+    <div className="grid gap-3 rounded-lg border border-border bg-card p-3 sm:flex sm:items-center sm:justify-between">
+      <div className="min-w-0 space-y-1">
+        <div className="flex flex-wrap items-center gap-2">
+          <strong className="text-sm font-semibold text-foreground">{source.adapter_key}</strong>
           <Badge variant="outline" className="text-[9px] uppercase tracking-wide">
             {source.status.replace("_", " ")}
           </Badge>
@@ -26,9 +26,9 @@ export const EmployerSourceItem: FC<EmployerSourceItemProps> = ({
             {source.permission_status}
           </Badge>
         </div>
-        <small>{source.source_url}</small>
+        <p className="break-all text-xs text-muted-foreground">{source.source_url}</p>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Button type="button" size="sm" variant="outline" onClick={() => onOpenReview(source)}>
           Verify source
         </Button>
