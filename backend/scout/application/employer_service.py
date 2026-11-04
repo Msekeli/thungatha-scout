@@ -83,6 +83,14 @@ class EmployerService:
         with self._connection_factory() as connection:
             return EmployerRepository(connection).get_by_id(employer_id)
 
+    def update_status(self, employer_id: UUID, status: str) -> dict[str, Any] | None:
+        with self._connection_factory() as connection, connection.transaction():
+            return EmployerRepository(connection).update_status(employer_id, status)
+
+    def delete_employer(self, employer_id: UUID) -> bool:
+        with self._connection_factory() as connection, connection.transaction():
+            return EmployerRepository(connection).delete(employer_id)
+
     def update_branding(
         self, employer_id: UUID, payload: EmployerBrandingUpdate
     ) -> dict[str, Any] | None:
