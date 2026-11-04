@@ -1,25 +1,20 @@
 import { useState } from "react";
-import { BriefcaseBusiness, RefreshCw } from "lucide-react";
 import type { FormEvent } from "react";
 import type { EmployerSource } from "./api";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { CompanyAttentionActions } from "./company-management/CompanyAttentionActions";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
-import { Button } from "@/components/ui/button";
 import { CompanyDirectoryPanel } from "./company-management/CompanyDirectoryPanel";
 import { CompanyProfilePanel } from "./company-management/CompanyProfilePanel";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
 import { useCompanySelection } from "./company-management/useCompanySelection";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
 import { useEmployerSourceOperations } from "./employer-sources/useEmployerSourceOperations";
-import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
-import { VacancyRecordList } from "./job-management/VacancyRecordList";
-import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
 import { useVacancyReview } from "./job-management/useVacancyReview";
+import { JobsWorkspacePanel } from "./job-management/JobsWorkspacePanel";
 import { EmployerOnboardingPanel } from "./employer-onboarding/EmployerOnboardingPanel";
 import { useScoutWorkspace } from "./useScoutWorkspace";
 import { useScoutDashboardMetrics } from "./useScoutDashboardMetrics";
-import { DashboardOverview } from "./app-shell/DashboardOverview";
 import { useVacancyFetching } from "./useVacancyFetching";
 import { useCareersDiscovery } from "./employer-onboarding/useCareersDiscovery";
 import { useEmployerRegistration } from "./employer-onboarding/useEmployerRegistration";
@@ -240,79 +235,39 @@ export default function App() {
       <OperationalAlerts error={error} notice={notice} />
 
       {page === "jobs" && (
-        <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-[10px] font-medium text-muted-foreground/70">
-              {loading ? "Refreshing data…" : "Updated from Scout records"}
-            </span>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="h-8 bg-card"
-                onClick={() => void loadWorkspace()}
-                disabled={loading || extracting}
-              >
-                <RefreshCw className={`mr-1 h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
-                Refresh
-              </Button>
-              <Button
-                size="sm"
-                className="h-8 bg-[var(--scout-cyan)] text-primary hover:opacity-90"
-                onClick={() => void fetchJobs()}
-                disabled={loading || extracting}
-              >
-                <BriefcaseBusiness className="mr-1 h-3.5 w-3.5" />
-                {extracting ? "Fetching jobs…" : "Fetch jobs"}
-              </Button>
-            </div>
-          </div>
-          <DashboardOverview
-            vacancyCount={vacancies.length}
-            employerCount={employers.length}
-            newVacancies24h={newVacancies24h}
-            attentionCount={attentionCount}
-            atsPerformance={atsPerformance}
-          />
-          <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-            <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-              <VacancyRecordsToolbar
-                showArchived={showArchived}
-                onShowArchivedChange={(show) => {
-                  setShowArchived(show);
-                  clearSelection();
-                }}
-                reviewFilter={reviewFilter}
-                onReviewFilterChange={setReviewFilter}
-                selectedEmployerId={selectedEmployerId}
-                onEmployerChange={setSelectedEmployerId}
-                employers={employers}
-                onRefresh={() => void loadWorkspace()}
-                loading={loading}
-              />
-              <VacancyRecordList
-                vacancies={filteredVacancies}
-                loading={loading}
-                selectedVacancyId={selectedVacancyId}
-                openingVacancyId={openingVacancyId}
-                onOpenVacancy={(vacancyId) => void openVacancy(vacancyId, visibleVacancies)}
-              />
-            </section>
-            <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-              <VacancyDetailsPanel
-                vacancy={selectedVacancy}
-                loading={Boolean(openingVacancyId)}
-                reviewReason={reviewReason}
-                saving={vacancySaving}
-                onChangeReviewReason={setReviewReason}
-                onClear={clearSelection}
-                onDecision={(status) => void setVacancyDecision(status)}
-                onArchive={() => void archiveSelectedVacancy()}
-                onRestore={() => void restoreSelectedVacancy()}
-              />
-            </section>
-          </div>
-        </section>
+        <JobsWorkspacePanel
+          loading={loading}
+          extracting={extracting}
+          onRefresh={() => void loadWorkspace()}
+          onFetchJobs={() => void fetchJobs()}
+          vacancies={vacancies}
+          employers={employers}
+          newVacancies24h={newVacancies24h}
+          attentionCount={attentionCount}
+          atsPerformance={atsPerformance}
+          showArchived={showArchived}
+          onShowArchivedChange={(show) => {
+            setShowArchived(show);
+            clearSelection();
+          }}
+          reviewFilter={reviewFilter}
+          onReviewFilterChange={setReviewFilter}
+          selectedEmployerId={selectedEmployerId}
+          onEmployerChange={setSelectedEmployerId}
+          filteredVacancies={filteredVacancies}
+          visibleVacancies={visibleVacancies}
+          selectedVacancyId={selectedVacancyId}
+          openingVacancyId={openingVacancyId}
+          onOpenVacancy={(vacancyId, visible) => void openVacancy(vacancyId, visible)}
+          selectedVacancy={selectedVacancy}
+          reviewReason={reviewReason}
+          vacancySaving={vacancySaving}
+          onChangeReviewReason={setReviewReason}
+          onClearSelection={clearSelection}
+          onDecision={(status) => void setVacancyDecision(status)}
+          onArchive={() => void archiveSelectedVacancy()}
+          onRestore={() => void restoreSelectedVacancy()}
+        />
       )}
 
       {page === "companies" && (
