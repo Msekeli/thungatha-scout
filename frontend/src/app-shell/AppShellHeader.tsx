@@ -30,7 +30,7 @@ export function AppShellHeader({
       : "text-white/80 hover:bg-white/10 hover:text-white";
 
   return (
-    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-scout-navy to-scout-navy-light px-4 py-[14px] text-white shadow-md md:-mx-8 md:px-8">
+    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-[#070d18] to-[#0b1220] px-4 py-[14px] text-white shadow-md md:-mx-8 md:px-8">
       <div className="flex items-center gap-3">
         <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/10 text-scout-cyan shadow-inner">
           <Radar className="h-6 w-6" />
