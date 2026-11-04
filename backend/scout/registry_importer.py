@@ -7,7 +7,7 @@ from psycopg.connection import Connection
 from psycopg.types.json import Jsonb
 
 from scout.persistence.database_connection import get_database_connection
-from scout.registry_loader import REGISTRY_DIRECTORY
+from scout.registry_loader import REGISTRY_DIRECTORY, validate_source_config
 
 
 def import_registry(
@@ -65,6 +65,8 @@ def import_registry(
                 counts["sources_skipped"] += 1
                 continue
 
+            adapter_config = source.get("config", {})
+            validate_source_config(adapter_key, adapter_config)
             source_url = source["official_source_url"]
             existing = connection.execute(
                 """
@@ -103,7 +105,7 @@ def import_registry(
                     source_url,
                     careers_url,
                     source_url,
-                    Jsonb(source.get("config", {})),
+                    Jsonb(adapter_config),
                     Jsonb(evidence),
                 ),
             )
