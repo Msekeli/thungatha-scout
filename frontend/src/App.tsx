@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Activity, BriefcaseBusiness, Building2, CircleAlert, Sparkles } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type {
   Employer,
   EmployerSource,
-  ExtractionRun,
   GreenhouseInspection,
   CareersDiscovery,
   Vacancy,
@@ -27,6 +26,7 @@ import { VacancyRecordList } from "./job-management/VacancyRecordList";
 import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
 import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
 import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
+import { useScoutWorkspace } from "./useScoutWorkspace";
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -41,9 +41,6 @@ const emptyEmployer = {
 
 export default function App() {
   const [page, setPage] = useState<Page>("jobs");
-  const [employers, setEmployers] = useState<Employer[]>([]);
-  const [vacancies, setVacancies] = useState<Vacancy[]>([]);
-  const [archivedVacancies, setArchivedVacancies] = useState<Vacancy[]>([]);
   const [showArchived, setShowArchived] = useState(false);
   const [reviewFilter, setReviewFilter] = useState("all");
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
@@ -64,20 +61,32 @@ export default function App() {
   const [vacancySaving, setVacancySaving] = useState(false);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
-  const [dashboardSources, setDashboardSources] = useState<EmployerSource[]>([]);
-  const [extractionRuns, setExtractionRuns] = useState<Record<string, ExtractionRun[]>>({});
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
   const [editingSourceId, setEditingSourceId] = useState<string | null>(null);
   const [inspection, setInspection] = useState<GreenhouseInspection | null>(null);
   const [discovery, setDiscovery] = useState<CareersDiscovery | null>(null);
   const [atsKey, setAtsKey] = useState("greenhouse");
-  const [loading, setLoading] = useState(true);
   const [extracting, setExtracting] = useState(false);
   const [saving, setSaving] = useState(false);
   const [inspecting, setInspecting] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+
+  const {
+    employers,
+    setEmployers,
+    vacancies,
+    setVacancies,
+    archivedVacancies,
+    setArchivedVacancies,
+    dashboardSources,
+    setDashboardSources,
+    extractionRuns,
+    setExtractionRuns,
+    loading,
+    loadWorkspace,
+  } = useScoutWorkspace(setError);
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
   const visibleEmployers = employers.filter(
@@ -124,43 +133,6 @@ export default function App() {
         : visibleVacancies.filter((item) => item.employer_id === selectedEmployerId),
     [visibleVacancies, selectedEmployerId],
   ).filter((item) => reviewFilter === "all" || item.review_status === reviewFilter);
-
-  const loadWorkspace = useCallback(async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const [nextEmployers, nextVacancies, nextArchived] = await Promise.all([
-        scoutApi.listEmployers(),
-        scoutApi.listVacancies(),
-        scoutApi.listArchivedVacancies(),
-      ]);
-      setEmployers(nextEmployers);
-      setVacancies(nextVacancies);
-      setArchivedVacancies(nextArchived);
-      const sourceGroups = await Promise.all(
-        nextEmployers.map(async (employer) => ({
-          employer,
-          sources: await scoutApi.listSources(employer.id),
-        })),
-      );
-      const allSources = sourceGroups.flatMap((group) => group.sources);
-      setDashboardSources(allSources);
-      const runEntries = await Promise.all(
-        allSources.map(
-          async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
-        ),
-      );
-      setExtractionRuns(Object.fromEntries(runEntries));
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not load Scout data.");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    void loadWorkspace();
-  }, [loadWorkspace]);
 
   async function fetchJobs() {
     const eligibleSources = dashboardSources.filter(
