@@ -25,34 +25,6 @@
   align-content: center;
 }
 
-.button {
-  padding: 9px 13px;
-  border: 0;
-  border-radius: 7px;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.button:disabled {
-  opacity: 0.6;
-  cursor: wait;
-}
-
-.button.primary {
-  background: var(--scout-navy-2);
-  color: var(--scout-on-dark);
-}
-
-.button.primary:hover {
-  background: var(--scout-navy-3);
-}
-
-.button.secondary {
-  border: 1px solid var(--border);
-  background: hsl(var(--card));
-  color: hsl(var(--muted-foreground));
-}
-
 @media (max-width: 760px) {
   main > header {
     margin: -16px -16px 0;
