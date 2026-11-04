@@ -2,11 +2,9 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import type { EmployerSource } from "./api";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
-import { CompanyAttentionActions } from "./company-management/CompanyAttentionActions";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
-import { CompanyDirectoryPanel } from "./company-management/CompanyDirectoryPanel";
-import { CompanyProfilePanel } from "./company-management/CompanyProfilePanel";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
+import { CompaniesWorkspacePanel } from "./company-management/CompaniesWorkspacePanel";
 import { useCompanySelection } from "./company-management/useCompanySelection";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
 import { useEmployerSourceOperations } from "./employer-sources/useEmployerSourceOperations";
@@ -271,73 +269,56 @@ export default function App() {
       )}
 
       {page === "companies" && (
-        <>
-          <p className="mb-3 text-xs text-muted-foreground">
-            Manage company identity, verification, branding and registered ATS sources.
-          </p>
-          <CompanyAttentionActions
-            employers={employers}
-            sources={dashboardSources}
-            onSelectCompany={(employer) => void openCompany(employer)}
-          />
-          <div className="grid min-h-0 gap-3 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.5fr)]">
-            <CompanyDirectoryPanel
-              employers={employers}
-              selectedEmployerId={selectedEmployerId}
-              searchQuery={companyQuery}
-              statusFilter={companyStatusFilter}
-              onSearchChange={setCompanyQuery}
-              onStatusFilterChange={setCompanyStatusFilter}
-              onSelectEmployer={(employer) => void openCompany(employer)}
-              onAddCompany={() => {
-                setPage("add-company");
-                setError("");
-                setNotice("");
-              }}
-            />
-            <CompanyProfilePanel
-              employer={selectedEmployer}
-              jobsCount={
-                selectedEmployer
-                  ? vacancies.filter((item) => item.employer_id === selectedEmployer.id).length
-                  : 0
-              }
-              sources={sources}
-              extractionRuns={extractionRuns}
-              decisions={sourceDecision}
-              logoUrl={logoUrl}
-              logoSourceUrl={logoSourceUrl}
-              sourceUrl={sourceUrl}
-              editingSourceId={editingSourceId}
-              inspection={inspection}
-              saving={saving}
-              inspecting={inspecting}
-              onUpdateStatus={(status) => void updateCompanyStatus(status)}
-              onDelete={() => void deleteCompany()}
-              onLogoUrlChange={setLogoUrl}
-              onLogoSourceUrlChange={setLogoSourceUrl}
-              onSaveBranding={saveEmployerBranding}
-              onEditSource={(source) => {
-                setEditingSourceId(source.id);
-                setSourceUrl(source.source_url);
-                setInspection(null);
-              }}
-              onDecisionChange={updateSourceDecisionField}
-              onSaveDecision={(source) => void saveSourceDecision(source)}
-              onChangeSourceUrl={(value) => {
-                setSourceUrl(value);
-                setInspection(null);
-              }}
-              onInspect={() => void inspectGreenhouseBoard(sourceUrl)}
-              onSaveSource={saveSource}
-              onCancelEdit={() => {
-                setEditingSourceId(null);
-                setSourceUrl("");
-                setInspection(null);
-              }}
-            />
-          </div>
-        </>
+        <CompaniesWorkspacePanel
+          employers={employers}
+          dashboardSources={dashboardSources}
+          selectedEmployer={selectedEmployer}
+          vacancies={vacancies}
+          selectedEmployerId={selectedEmployerId}
+          searchQuery={companyQuery}
+          statusFilter={companyStatusFilter}
+          sources={sources}
+          extractionRuns={extractionRuns}
+          decisions={sourceDecision}
+          logoUrl={logoUrl}
+          logoSourceUrl={logoSourceUrl}
+          sourceUrl={sourceUrl}
+          editingSourceId={editingSourceId}
+          inspection={inspection}
+          saving={saving}
+          inspecting={inspecting}
+          onSelectCompany={(employer) => void openCompany(employer)}
+          onSearchChange={setCompanyQuery}
+          onStatusFilterChange={setCompanyStatusFilter}
+          onAddCompany={() => {
+            setPage("add-company");
+            setError("");
+            setNotice("");
+          }}
+          onUpdateStatus={(status) => void updateCompanyStatus(status)}
+          onDelete={() => void deleteCompany()}
+          onLogoUrlChange={setLogoUrl}
+          onLogoSourceUrlChange={setLogoSourceUrl}
+          onSaveBranding={saveEmployerBranding}
+          onEditSource={(source) => {
+            setEditingSourceId(source.id);
+            setSourceUrl(source.source_url);
+            setInspection(null);
+          }}
+          onDecisionChange={updateSourceDecisionField}
+          onSaveDecision={(source) => void saveSourceDecision(source)}
+          onChangeSourceUrl={(value) => {
+            setSourceUrl(value);
+            setInspection(null);
+          }}
+          onInspect={() => void inspectGreenhouseBoard(sourceUrl)}
+          onSaveSource={saveSource}
+          onCancelEdit={() => {
+            setEditingSourceId(null);
+            setSourceUrl("");
+            setInspection(null);
+          }}
+        />
       )}
 
       {page === "add-company" && (
