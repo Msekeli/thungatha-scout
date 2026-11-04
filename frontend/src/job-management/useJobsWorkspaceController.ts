@@ -9,8 +9,10 @@ type AppState = ReturnType<typeof useScoutAppState>;
 export function useJobsWorkspaceController(state: AppState) {
   const workspace = useScoutWorkspace(state.setError);
   const review = useVacancyReview({
-    onVacancyUpdated: (updated) => workspace.setVacancies((items) =>
-      items.map((item) => item.id === updated.id ? updated : item)),
+    onVacancyUpdated: (updated) =>
+      workspace.setVacancies((items) =>
+        items.map((item) => (item.id === updated.id ? updated : item)),
+      ),
     onRefresh: workspace.loadWorkspace,
     onNotice: state.setNotice,
     onError: state.setError,
