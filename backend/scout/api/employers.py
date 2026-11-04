@@ -3,11 +3,12 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from scout.registry_loader import RegistryValidationError, validate_source_config\nfrom scout.application.employer_service import (
+from scout.application.employer_service import (
     EmployerCreate,
     EmployerService,
     EmployerSourceCreate,
 )
+from scout.registry_loader import RegistryValidationError, validate_source_config
 
 router = APIRouter(prefix="/employers", tags=["employers"])
 
@@ -70,4 +71,8 @@ def create_employer_source(
         )
     if service.get_employer(employer_id) is None:
         raise HTTPException(status_code=404, detail="Employer not found.")
+    try:
+        validate_source_config(payload.adapter_key, payload.adapter_config)
+    except RegistryValidationError as exception:
+        raise HTTPException(status_code=422, detail=str(exception)) from exception
     return service.create_source(payload)
