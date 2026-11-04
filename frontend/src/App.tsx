@@ -14,6 +14,17 @@ const emptyEmployer = {
   country: "South Africa",
 };
 
+function decodeGreenhouseContent(value: string): string {
+  const decoder = document.createElement("textarea");
+  let decoded = value;
+  for (let pass = 0; pass < 2; pass += 1) {
+    decoder.innerHTML = decoded;
+    if (decoder.value === decoded) break;
+    decoded = decoder.value;
+  }
+  return decoded;
+}
+
 export default function App() {
   const [page, setPage] = useState<Page>("jobs");
   const [employers, setEmployers] = useState<Employer[]>([]);
@@ -321,7 +332,7 @@ export default function App() {
                 <div>
                   <h4>Full job description</h4>
                   {selectedVacancy.description ? (
-                    <iframe className="description-frame" title={`Description for ${selectedVacancy.title}`} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#315b9a}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + selectedVacancy.description + "</body></html>"} />
+                    <iframe className="description-frame" title={`Description for ${selectedVacancy.title}`} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv="<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#315b9a}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + decodeGreenhouseContent(selectedVacancy.description || "") + "</body></html>"} />
                   ) : <p className="empty">Greenhouse did not return description content for this vacancy.</p>}
                 </div>
                 <div>
@@ -331,7 +342,7 @@ export default function App() {
                     title: selectedVacancy.title,
                     company: selectedVacancy.employer_name,
                     location: selectedVacancy.location_text,
-                    description: selectedVacancy.description,
+                    description: selectedVacancy.description ? decodeGreenhouseContent(selectedVacancy.description) : null,
                     application_url: selectedVacancy.application_url,
                     source_url: selectedVacancy.source_url,
                     department: selectedVacancy.department,
