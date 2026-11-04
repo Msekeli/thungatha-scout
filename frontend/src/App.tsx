@@ -59,6 +59,9 @@ export default function App() {
   useEffect(() => { void loadWorkspace(); }, [loadWorkspace]);
 
   async function openCompany(employer: Employer) {
+    setEditingSourceId(null);
+    setSourceUrl("");
+    setInspection(null);
     setSelectedEmployerId(employer.id);
     setPage("companies");
     setError("");
