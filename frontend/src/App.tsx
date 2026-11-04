@@ -46,6 +46,8 @@ export default function App() {
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
   const [sourceDecision, setSourceDecision] = useState<Record<string, { status: string; permission_status: string; evidence_url: string; reason: string }>>({});
+  const [companyQuery, setCompanyQuery] = useState("");
+  const [companyStatusFilter, setCompanyStatusFilter] = useState("all");
   const [vacancySaving, setVacancySaving] = useState(false);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
@@ -65,6 +67,7 @@ export default function App() {
   const [notice, setNotice] = useState("");
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
+  const visibleEmployers = employers.filter((item) => item.name.toLowerCase().includes(companyQuery.toLowerCase()) && (companyStatusFilter === "all" || item.status === companyStatusFilter));
   const visibleVacancies = showArchived ? archivedVacancies : vacancies;
   const newVacancies24h = vacancies.filter((item) => item.first_seen_at && Date.now() - new Date(item.first_seen_at).getTime() < 86400000).length;
   const attentionCount = vacancies.filter((item) => item.review_status === "pending" || item.review_status === "needs_verification").length;
@@ -498,8 +501,9 @@ export default function App() {
           </section>
           <div className="company-layout">
             <section className="surface company-directory">
-              <div className="section-heading"><div className="flex items-center gap-3"><h3>Registered companies</h3><span>{employers.length}</span></div><button className="button primary" type="button" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button></div>
-              {employers.map((employer) => (
+              <div className="section-heading"><div className="flex items-center gap-3"><h3>Registered companies</h3><span>{visibleEmployers.length} / {employers.length}</span></div><button className="button primary" type="button" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button></div>
+              <div className="company-filters"><input aria-label="Search companies" value={companyQuery} onChange={(event) => setCompanyQuery(event.target.value)} placeholder="Search company name…" /><select aria-label="Filter companies by status" value={companyStatusFilter} onChange={(event) => setCompanyStatusFilter(event.target.value)}><option value="all">All statuses</option><option value="discovered">Discovered</option><option value="pending_review">Pending review</option><option value="approved">Approved</option><option value="needs_review">Needs review</option><option value="rejected">Rejected</option><option value="inactive">Inactive</option></select></div>
+              {visibleEmployers.map((employer) => (
                 <button key={employer.id} className={`company-row ${selectedEmployerId === employer.id ? "selected" : ""}`} onClick={() => void openCompany(employer)}>
                   {employer.logo_url
                     ? <img className="employer-logo" src={employer.logo_url} alt={employer.name + " logo"} />
@@ -508,7 +512,7 @@ export default function App() {
                   <span className="status">{employer.status.replaceAll("_", " ")}</span>
                 </button>
               ))}
-              {!employers.length && <div className="empty">No companies registered.</div>}
+              {!visibleEmployers.length && <div className="empty">{employers.length ? "No companies match these filters." : "No companies registered."}</div>}
             </section>
             <section className="surface company-profile">
               {selectedEmployer ? (
