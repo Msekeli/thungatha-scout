@@ -31,28 +31,28 @@ export function useScoutDashboardMetrics({
 
   const atsPerformance = useMemo(
     () =>
-      Array.from(new Set(["greenhouse", ...dashboardSources.map((source) => source.adapter_key)])).map(
-        (adapter) => {
-          const adapterSources = dashboardSources.filter((source) => source.adapter_key === adapter);
-          const runs = adapterSources.flatMap((source) => extractionRuns[source.id] ?? []);
-          const latest = [...runs].sort(
-            (a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime(),
-          )[0];
+      Array.from(
+        new Set(["greenhouse", ...dashboardSources.map((source) => source.adapter_key)]),
+      ).map((adapter) => {
+        const adapterSources = dashboardSources.filter((source) => source.adapter_key === adapter);
+        const runs = adapterSources.flatMap((source) => extractionRuns[source.id] ?? []);
+        const latest = [...runs].sort(
+          (a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime(),
+        )[0];
 
-          return {
-            adapter,
-            sourceCount: adapterSources.length,
-            verified: adapterSources.filter(
-              (source) => source.status === "verified" && source.permission_status === "allowed",
-            ).length,
-            jobCount: vacancies.filter((job) =>
-              adapterSources.some((source) => source.id === job.source_id),
-            ).length,
-            latest,
-            failed: runs.filter((run) => !["success", "empty"].includes(run.outcome)).length,
-          };
-        },
-      ),
+        return {
+          adapter,
+          sourceCount: adapterSources.length,
+          verified: adapterSources.filter(
+            (source) => source.status === "verified" && source.permission_status === "allowed",
+          ).length,
+          jobCount: vacancies.filter((job) =>
+            adapterSources.some((source) => source.id === job.source_id),
+          ).length,
+          latest,
+          failed: runs.filter((run) => !["success", "empty"].includes(run.outcome)).length,
+        };
+      }),
     [dashboardSources, extractionRuns, vacancies],
   );
 

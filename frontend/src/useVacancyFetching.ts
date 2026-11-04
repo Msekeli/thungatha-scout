@@ -46,7 +46,9 @@ export function useVacancyFetching({
           : `Fetch completed for ${succeeded} verified source(s). Dashboard data has been refreshed.`,
       );
     } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not fetch jobs from verified sources.");
+      onError(
+        reason instanceof Error ? reason.message : "Could not fetch jobs from verified sources.",
+      );
     } finally {
       setExtracting(false);
     }

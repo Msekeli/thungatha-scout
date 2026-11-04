@@ -189,22 +189,17 @@ export default function App() {
       item.name.toLowerCase().includes(companyQuery.toLowerCase()) &&
       (companyStatusFilter === "all" || item.status === companyStatusFilter),
   );
-  const {
-    newVacancies24h,
-    attentionCount,
-    atsPerformance,
-    visibleVacancies,
-    filteredVacancies,
-  } = useScoutDashboardMetrics({
-    employers,
-    vacancies,
-    archivedVacancies,
-    dashboardSources,
-    extractionRuns,
-    showArchived,
-    selectedEmployerId,
-    reviewFilter,
-  });
+  const { newVacancies24h, attentionCount, atsPerformance, visibleVacancies, filteredVacancies } =
+    useScoutDashboardMetrics({
+      employers,
+      vacancies,
+      archivedVacancies,
+      dashboardSources,
+      extractionRuns,
+      showArchived,
+      selectedEmployerId,
+      reviewFilter,
+    });
 
   async function openCompany(employer: Employer) {
     setEditingSourceId(null);
