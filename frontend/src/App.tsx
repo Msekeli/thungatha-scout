@@ -205,7 +205,7 @@ export default function App() {
                 <label>ATS platform
                   <select value={adapter} onChange={(event) => setAdapter(event.target.value as "greenhouse" | "workday")}>
                     <option value="greenhouse">Greenhouse</option>
-                    <option value="workday">Workday</option>
+                    <option value="workday" disabled>Workday — planned for M4</option>
                   </select>
                 </label>
                 <label>Careers / board URL
