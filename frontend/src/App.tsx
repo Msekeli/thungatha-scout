@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { FormEvent } from "react";
 import type { EmployerSource } from "./api";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
@@ -45,6 +45,8 @@ export default function App() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const dismissError = useCallback(() => setError(""), []);
+  const dismissNotice = useCallback(() => setNotice(""), []);
   const {
     discovery,
     setDiscovery,
@@ -80,6 +82,8 @@ export default function App() {
     saving: vacancySaving,
     openVacancy,
     saveDecision: setVacancyDecision,
+    undoLastDecision,
+    canUndoDecision,
     archive: archiveSelectedVacancy,
     restore: restoreSelectedVacancy,
     clearSelection,
@@ -230,7 +234,14 @@ export default function App() {
         refreshing={loading}
       />
 
-      <OperationalAlerts error={error} notice={notice} />
+      <OperationalAlerts
+        error={error}
+        notice={notice}
+        canUndo={canUndoDecision}
+        onUndo={() => void undoLastDecision()}
+        onDismissError={dismissError}
+        onDismissNotice={dismissNotice}
+      />
 
       {page === "jobs" && (
         <JobsWorkspacePanel
