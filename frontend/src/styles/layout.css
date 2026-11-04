@@ -1,27 +1,32 @@
 main > header {
   position: relative;
+  min-height: 76px;
   margin: -16px -32px 0;
   padding: 18px 32px 16px;
-  min-height: 76px;
   border: 0;
   background: linear-gradient(112deg, var(--scout-navy), #12365c);
   color: #fff;
   box-shadow: 0 5px 18px #071b3526;
 }
+
 main > header h1,
 main > header h2 {
   color: #fff !important;
 }
+
 main > header p {
   color: #c8d8ea !important;
 }
+
 main > header nav button {
   color: #d9e6f3 !important;
 }
+
 main > header nav button:hover {
   background: #ffffff18 !important;
   color: #fff !important;
 }
+
 main > header nav button.active {
   background: #fff !important;
   color: var(--scout-navy) !important;
@@ -34,6 +39,7 @@ main > header nav button.active {
   font-weight: 800;
   letter-spacing: 0.14em;
 }
+
 .surface {
   min-width: 0;
   padding: 20px;
@@ -42,6 +48,7 @@ main > header nav button.active {
   background: #fff;
   box-shadow: 0 5px 18px #102b4d0b;
 }
+
 .section-heading {
   display: flex;
   align-items: center;
@@ -49,6 +56,7 @@ main > header nav button.active {
   gap: 12px;
   margin-bottom: 20px;
 }
+
 .empty {
   display: grid;
   gap: 6px;
@@ -57,9 +65,11 @@ main > header nav button.active {
   text-align: center;
   font-size: 12px;
 }
+
 .empty strong {
   color: #344054;
 }
+
 .empty.large {
   min-height: 260px;
   align-content: center;
@@ -72,17 +82,21 @@ main > header nav button.active {
   font-size: 11px;
   font-weight: 700;
 }
+
 .button:disabled {
   opacity: 0.6;
   cursor: wait;
 }
+
 .button.primary {
   background: var(--scout-navy-2);
   color: #fff;
 }
+
 .button.primary:hover {
   background: #1b4776;
 }
+
 .button.secondary {
   border: 1px solid #dce3ec;
   background: #fff;
@@ -95,14 +109,17 @@ main > header nav button.active {
   border-radius: 8px;
   font-size: 12px;
 }
+
 .alert.error {
   background: #fff0f0;
   color: #a33131;
 }
+
 .alert.success {
   background: #eef8f1;
   color: #25653b;
 }
+
 footer {
   padding-top: 22px;
   color: #8a95a5;

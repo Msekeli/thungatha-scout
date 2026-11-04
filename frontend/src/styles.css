@@ -1,6 +1,7 @@
-@import "./styles/base-tokens.css";
-@import "./styles/layout-shell.css";
-@import "./styles/jobs-workspace.css";
-@import "./styles/vacancy-drawer.css";
-@import "./styles/company-directory.css";
-@import "./styles/source-management.css";
+@import "./styles/tokens.css";
+@import "./styles/layout.css";
+@import "./styles/features.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
