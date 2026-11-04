@@ -71,6 +71,7 @@ export default function App() {
       setForm(emptyEmployer);
       setSelected(created);
       setSources([]);
+      setVacancies([]);
       setNotice(`${created.name} added to the registry.`);
       const result = await scoutApi.listEmployers();
       setEmployers(result);
