@@ -79,7 +79,6 @@ export default function App() {
     vacancies,
     setVacancies,
     archivedVacancies,
-    setArchivedVacancies,
     dashboardSources,
     setDashboardSources,
     extractionRuns,
