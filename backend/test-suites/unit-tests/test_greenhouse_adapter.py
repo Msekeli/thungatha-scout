@@ -128,3 +128,49 @@ def test_malformed_job_payload_is_not_success() -> None:
         assert result.complete is False
 
     asyncio.run(run())
+
+
+def test_page_limit_returns_partial_inventory() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path.endswith("/jobs"):
+            return httpx.Response(
+                200,
+                json={"jobs": []},
+                headers={
+                    "Link": (
+                        '<https://boards-api.greenhouse.io/v1/boards/demo/jobs'
+                        '?content=true&page=2>; rel="next"'
+                    )
+                },
+            )
+        return httpx.Response(200, json={"name": "Demo"})
+
+    async def run() -> None:
+        async with httpx.AsyncClient(
+            transport=httpx.MockTransport(handler)
+        ) as client:
+            result = await GreenhouseAdapter(client, max_pages=1).retrieve("demo")
+        assert result.outcome == "partial"
+        assert result.complete is False
+
+    asyncio.run(run())
+
+
+def test_rejects_pagination_links_to_other_hosts() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path.endswith("/jobs"):
+            return httpx.Response(
+                200,
+                json={"jobs": []},
+                headers={'Link': '<https://example.com/jobs?page=2>; rel="next"'},
+            )
+        return httpx.Response(200, json={"name": "Demo"})
+
+    async def run() -> None:
+        async with httpx.AsyncClient(
+            transport=httpx.MockTransport(handler)
+        ) as client:
+            result = await GreenhouseAdapter(client).retrieve("demo")
+        assert result.outcome == "malformed"
+
+    asyncio.run(run())
