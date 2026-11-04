@@ -39,16 +39,16 @@ export function DashboardOverview({
       value: newVacancies24h,
       note: "Based on first seen time",
       icon: Sparkles,
-      color: "text-[var(--success-text)]",
-      bg: "bg-[var(--success-surface)]",
+      color: "text-success",
+      bg: "bg-success-surface",
     },
     {
       label: "Needs admin attention",
       value: attentionCount,
       note: "Pending or needs verification",
       icon: CircleAlert,
-      color: "text-[var(--warning-text)]",
-      bg: "bg-[var(--warning-surface)]",
+      color: "text-warning",
+      bg: "bg-warning-surface",
     },
   ];
 
@@ -77,7 +77,7 @@ export function DashboardOverview({
       <section className="rounded-xl border border-border bg-card p-3 shadow-sm">
         <div className="mb-2 flex items-center justify-between">
           <h3 className="flex items-center gap-2 text-xs font-bold text-primary">
-            <Activity className="h-4 w-4 text-[var(--scout-cyan)]" /> ATS performance
+            <Activity className="h-4 w-4 text-scout-cyan" /> ATS performance
           </h3>
           <span className="text-[10px] text-muted-foreground/70">
             Source health and latest extraction results
