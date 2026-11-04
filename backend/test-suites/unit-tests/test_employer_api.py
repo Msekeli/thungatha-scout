@@ -111,6 +111,7 @@ def test_employer_source_api_rejects_mismatched_employer_ids() -> None:
                 "adapter_key": "greenhouse",
                 "source_url": "https://boards.greenhouse.io/example",
                 "normalized_url": "https://boards.greenhouse.io/example",
+                "adapter_config": {"slug": "example"},
             },
         )
 
