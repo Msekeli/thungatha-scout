@@ -4,8 +4,6 @@ from collections.abc import Mapping
 from typing import Any
 from uuid import UUID
 
-from psycopg.types.json import Jsonb
-
 
 class VacancyIngestionOperations:
     def upsert_batch(
@@ -60,6 +58,7 @@ class VacancyIngestionOperations:
                 updated += 1
         return inserted, updated
 
+    @staticmethod
     @staticmethod
     def _values(
         employer_id: UUID,
