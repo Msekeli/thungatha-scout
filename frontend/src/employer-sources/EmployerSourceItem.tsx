@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { EmployerSource } from "../shared-contracts/employer-contracts";
 
@@ -18,10 +19,12 @@ export const EmployerSourceItem: FC<EmployerSourceItemProps> = ({
       <div>
         <div className="flex items-center gap-2">
           <strong>{source.adapter_key}</strong>
-          <span className="review-state text-[9px]">{source.status.replace("_", " ")}</span>
-          <span className="review-state text-[9px] bg-slate-100 text-slate-600">
+          <Badge variant="outline" className="text-[9px] uppercase tracking-wide">
+            {source.status.replace("_", " ")}
+          </Badge>
+          <Badge variant="secondary" className="text-[9px]">
             {source.permission_status}
-          </span>
+          </Badge>
         </div>
         <small>{source.source_url}</small>
       </div>
