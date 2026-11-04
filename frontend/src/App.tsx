@@ -28,6 +28,7 @@ import { CompanyDirectoryList } from "./company-management/CompanyDirectoryList"
 import { CompanySearchFilters } from "./company-management/CompanySearchFilters";
 import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
 import { SourceReviewPanel } from "./employer-sources/SourceReviewPanel";
+import { ExtractionRunHistory } from "./employer-sources/ExtractionRunHistory";
 import {
   Select,
   SelectContent,
@@ -1064,7 +1065,6 @@ export default function App() {
                   {sources.length ? (
                     sources.map((source) => {
                       const runs = extractionRuns[source.id] ?? [];
-                      const latestRun = runs[0];
                       return (
                         <div className="space-y-3 border-b border-border py-4" key={source.id}>
                           <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card p-3">
@@ -1113,96 +1113,7 @@ export default function App() {
                             }
                             onSave={() => void updateSourceDecision(source)}
                           />
-                          <div className="grid gap-2 rounded-lg border border-border bg-muted/50 p-3">
-                            <div className="flex flex-wrap items-center justify-between gap-2">
-                              <strong className="text-xs font-semibold text-foreground">
-                                Latest extraction
-                              </strong>
-                              <span className="text-[10px] text-muted-foreground">
-                                {runs.length} recorded run(s)
-                              </span>
-                            </div>
-                            {latestRun ? (
-                              <>
-                                <div className="flex flex-wrap items-center gap-2 text-[10px] text-muted-foreground">
-                                  <Badge
-                                    variant={
-                                      ["success", "empty"].includes(latestRun.outcome)
-                                        ? "default"
-                                        : [
-                                              "not_found",
-                                              "blocked",
-                                              "malformed",
-                                              "persistence_failure",
-                                            ].includes(latestRun.outcome)
-                                          ? "destructive"
-                                          : "secondary"
-                                    }
-                                    className="capitalize"
-                                  >
-                                    {latestRun.outcome.replaceAll("_", " ")}
-                                  </Badge>
-                                  <span>
-                                    {latestRun.jobs_received} received · {latestRun.jobs_inserted}{" "}
-                                    new · {latestRun.jobs_updated} updated
-                                  </span>
-                                  <span>{latestRun.complete ? "Complete" : "Incomplete"}</span>
-                                </div>
-                                {latestRun.detail && (
-                                  <p
-                                    className={
-                                      ["success", "empty"].includes(latestRun.outcome)
-                                        ? "break-words text-[10px] leading-relaxed text-muted-foreground"
-                                        : "break-words text-[10px] leading-relaxed text-destructive"
-                                    }
-                                  >
-                                    {latestRun.detail}
-                                  </p>
-                                )}
-                                <div className="flex flex-wrap justify-between gap-2 text-[10px] text-muted-foreground">
-                                  <span>
-                                    Started:{" "}
-                                    {latestRun.started_at
-                                      ? new Date(latestRun.started_at).toLocaleString()
-                                      : "Unknown"}
-                                  </span>
-                                  <span>
-                                    Finished:{" "}
-                                    {latestRun.finished_at
-                                      ? new Date(latestRun.finished_at).toLocaleString()
-                                      : "Not finished"}
-                                  </span>
-                                </div>
-                                {runs.length > 1 && (
-                                  <details className="border-t border-border pt-2 text-xs">
-                                    <summary>Previous runs ({runs.length - 1})</summary>
-                                    {runs.slice(1).map((run) => (
-                                      <div
-                                        className="grid gap-1 border-t border-border py-2"
-                                        key={run.id}
-                                      >
-                                        <strong>{run.outcome.replaceAll("_", " ")}</strong>
-                                        <span>
-                                          {run.jobs_received} received · {run.jobs_inserted} new ·{" "}
-                                          {run.jobs_updated} updated
-                                        </span>
-                                        <small>{run.detail || "No additional detail"}</small>
-                                        <small>
-                                          {run.started_at
-                                            ? new Date(run.started_at).toLocaleString()
-                                            : "Unknown time"}
-                                        </small>
-                                      </div>
-                                    ))}
-                                  </details>
-                                )}
-                              </>
-                            ) : (
-                              <p className="text-xs text-muted-foreground">
-                                No extraction runs recorded yet.
-                              </p>
-                            )}
-                          </div>
+                          <ExtractionRunHistory runs={runs} />
                         </div>
                       );
                     })
