@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, CareersDiscovery, Vacancy } from "./api";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -33,6 +36,8 @@ export default function App() {
   const [showArchived, setShowArchived] = useState(false);
   const [reviewFilter, setReviewFilter] = useState("all");
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+  const [selectedVacancyId, setSelectedVacancyId] = useState<string | null>(null);
+  const [openingVacancyId, setOpeningVacancyId] = useState<string | null>(null);
   const [reviewReason, setReviewReason] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
@@ -130,7 +135,7 @@ export default function App() {
         setNotice("No Greenhouse sources are registered yet. Add a company and its official job source first.");
         return;
       }
-      const results = [];
+      const results: Array<{ employer: string; run: ExtractionRun }> = [];
       for (const item of greenhouseSources) {
         results.push({ employer: item.employer, run: await scoutApi.extractSource(item.source.id) });
       }
@@ -182,12 +187,18 @@ export default function App() {
 
   async function openVacancy(vacancyId: string) {
     setError("");
+    setSelectedVacancyId(vacancyId);
+    setOpeningVacancyId(vacancyId);
+    setSelectedVacancy(null);
     try {
       const vacancy = await scoutApi.getVacancy(vacancyId);
       setSelectedVacancy(vacancy);
       setReviewReason(vacancy.review_reason ?? "");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load vacancy details.");
+      setSelectedVacancyId(null);
+    } finally {
+      setOpeningVacancyId(null);
     }
   }
 
@@ -429,66 +440,121 @@ export default function App() {
                 </table>
               </div>
             )}
-          </section>
-          {selectedVacancy && (
-            <section className="surface vacancy-detail">
-              <div className="section-heading">
-                <div className="vacancy-identity">
-                  {selectedVacancy.employer_logo_url
-                    ? <img className="employer-logo" src={selectedVacancy.employer_logo_url} alt={selectedVacancy.employer_name + " logo"} />
-                    : <span className="employer-avatar">{selectedVacancy.employer_name.slice(0, 1).toUpperCase()}</span>}
-                  <div><p className="eyebrow">VACANCY DETAILS</p><h3>{selectedVacancy.title}</h3><p className="muted">{selectedVacancy.employer_name} · {selectedVacancy.location_text || "Location not specified"}</p></div>
-                </div>
-                <button className="button secondary" onClick={() => setSelectedVacancy(null)}>Close</button>
+          <div className="jobs-workspace">
+            <section className="surface jobs-panel">
+              <div className="jobs-toolbar">
+                <div><h3>{showArchived ? "Archived vacancies" : "All vacancies"}</h3><p className="muted">Select a company to view its details.</p></div>
+                <select aria-label="Filter active or archived jobs" value={showArchived ? "archived" : "active"} onChange={(event) => { setShowArchived(event.target.value === "archived"); setSelectedVacancy(null); setSelectedVacancyId(null); }}>
+                  <option value="active">Active jobs</option>
+                  <option value="archived">Archived jobs</option>
+                </select>
+                <select aria-label="Filter jobs by review status" value={reviewFilter} onChange={(event) => setReviewFilter(event.target.value)}>
+                  <option value="all">All review states</option>
+                  <option value="pending">Pending</option>
+                  <option value="needs_verification">Needs verification</option>
+                  <option value="verified">Verified</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+                <select aria-label="Filter jobs by company" value={selectedEmployerId} onChange={(event) => setSelectedEmployerId(event.target.value)}>
+                  <option value="all">All companies</option>
+                  {employers.map((employer) => <option key={employer.id} value={employer.id}>{employer.name}</option>)}
+                </select>
+                <Button variant="outline" size="sm" onClick={() => void loadWorkspace()} disabled={loading}>Refresh</Button>
               </div>
-              <div className="detail-links">
-                <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">Greenhouse board ↗</a>
-                <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Open original job / apply ↗</a>
-              </div>
-              <div className="vacancy-review">
-                <div><label>Review status
-                  <select value={selectedVacancy.review_status} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setSelectedVacancy({ ...selectedVacancy, review_status: event.target.value as Vacancy["review_status"] })}>
-                    <option value="pending">Pending</option>
-                    <option value="needs_verification">Needs verification</option>
-                    <option value="verified">Verified</option>
-                    <option value="rejected">Rejected</option>
-                  </select>
-                </label></div>
-                <div><label>Review reason / notes
-                  <input value={reviewReason} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setReviewReason(event.target.value)} placeholder="Explain what needs checking…" />
-                </label></div>
-                <div className="review-actions">
-                  {!selectedVacancy.archived_at
-                    ? <><button className="button primary" onClick={() => void saveVacancyReview()} disabled={vacancySaving}>Save review</button><button className="button secondary" onClick={() => void archiveSelectedVacancy()} disabled={vacancySaving}>Archive vacancy</button></>
-                    : <button className="button primary" onClick={() => void restoreSelectedVacancy()} disabled={vacancySaving}>Restore vacancy</button>}
+              {loading ? <div className="empty">Loading jobs…</div> : filteredVacancies.length === 0 ? (
+                <div className="empty"><strong>No jobs collected yet</strong><span>Register a company source, then select “Extract jobs”.</span></div>
+              ) : (
+                <div className="jobs-table-wrap">
+                  <table className="jobs-table">
+                    <thead><tr><th>Position</th><th>Company</th><th>Location</th><th>Review</th><th>Last seen</th></tr></thead>
+                    <tbody>
+                      {filteredVacancies.map((vacancy) => (
+                        <tr key={vacancy.id} className={selectedVacancyId === vacancy.id ? "selected" : ""}>
+                          <td>
+                            <button className="text-link vacancy-title" onClick={() => void openVacancy(vacancy.id)}>{vacancy.title}</button>
+                            {vacancy.department && <small>{vacancy.department}</small>}
+                          </td>
+                          <td><button className="text-link" onClick={() => { const employer = employers.find((item) => item.id === vacancy.employer_id); if (employer) void openCompany(employer); }}>{vacancy.employer_name}</button></td>
+                          <td>{vacancy.location_text || "Not specified"}</td>
+                          <td><Badge variant={vacancy.review_status === "verified" ? "default" : vacancy.review_status === "rejected" ? "destructive" : "secondary"}>{vacancy.review_status.replaceAll("_", " ")}</Badge></td>
+                          <td>{new Date(vacancy.last_seen_at).toLocaleDateString()}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              </div>
-              <div className="detail-grid">
-                <div>
-                  <h4>Full job description</h4>
-                  {selectedVacancy.description ? (
-                    <iframe className="description-frame" title={"Description for " + selectedVacancy.title} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#315b9a}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + decodeGreenhouseContent(selectedVacancy.description || "") + "</body></html>"} />
-                  ) : <p className="empty">Greenhouse did not return description content for this vacancy.</p>}
-                </div>
-                <div>
-                  <h4>Thungatha payload preview</h4>
-                  <p className="muted">Draft mapping for inspection only. Nothing is published from this screen.</p>
-                  <pre className="payload-preview">{JSON.stringify({
-                    title: selectedVacancy.title,
-                    company: selectedVacancy.employer_name,
-                    location: selectedVacancy.location_text,
-                    description: selectedVacancy.description ? decodeGreenhouseContent(selectedVacancy.description) : null,
-                    review_status: selectedVacancy.review_status,
-                    review_reason: selectedVacancy.review_reason,
-                    application_url: selectedVacancy.application_url,
-                    source_url: selectedVacancy.source_url,
-                    department: selectedVacancy.department,
-                    office: selectedVacancy.office,
-                  }, null, 2)}</pre>
-                </div>
-              </div>
+              )}
             </section>
-          )}
+
+            <section className="surface vacancy-detail">
+              {openingVacancyId ? (
+                <div className="empty large"><strong>Loading vacancy details…</strong><span>Retrieving the full job record.</span></div>
+              ) : selectedVacancy ? (
+                <>
+                  <div className="section-heading">
+                    <div className="vacancy-identity">
+                      {selectedVacancy.employer_logo_url
+                        ? <img className="employer-logo" src={selectedVacancy.employer_logo_url} alt={selectedVacancy.employer_name + " logo"} />
+                        : <span className="employer-avatar">{selectedVacancy.employer_name.slice(0, 1).toUpperCase()}</span>}
+                      <div><p className="eyebrow">VACANCY DETAILS</p><h3>{selectedVacancy.title}</h3><p className="muted">{selectedVacancy.employer_name} · {selectedVacancy.location_text || "Location not specified"}</p></div>
+                    </div>
+                    <Button variant="ghost" size="sm" onClick={() => { setSelectedVacancy(null); setSelectedVacancyId(null); }}>Clear selection</Button>
+                  </div>
+                  <div className="detail-links">
+                    <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">Greenhouse board ↗</a>
+                    <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Open original job / apply ↗</a>
+                  </div>
+                  <div className="vacancy-review">
+                    <div><label>Review status
+                      <select value={selectedVacancy.review_status} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setSelectedVacancy({ ...selectedVacancy, review_status: event.target.value as Vacancy["review_status"] })}>
+                        <option value="pending">Pending</option>
+                        <option value="needs_verification">Needs verification</option>
+                        <option value="verified">Verified</option>
+                        <option value="rejected">Rejected</option>
+                      </select>
+                    </label></div>
+                    <div><label>Review reason / notes
+                      <input value={reviewReason} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setReviewReason(event.target.value)} placeholder="Explain what needs checking…" />
+                    </label></div>
+                    <div className="review-actions">
+                      {!selectedVacancy.archived_at
+                        ? <><Button size="sm" onClick={() => void saveVacancyReview()} disabled={vacancySaving}>Save review</Button><Button variant="outline" size="sm" onClick={() => void archiveSelectedVacancy()} disabled={vacancySaving}>Archive vacancy</Button></>
+                        : <Button size="sm" onClick={() => void restoreSelectedVacancy()} disabled={vacancySaving}>Restore vacancy</Button>}
+                    </div>
+                  </div>
+                  <div className="detail-grid">
+                    <div>
+                      <h4>Full job description</h4>
+                      {selectedVacancy.description ? (
+                        <iframe className="description-frame" title={"Description for " + selectedVacancy.title} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#315b9a}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + decodeGreenhouseContent(selectedVacancy.description || "") + "</body></html>"} />
+                      ) : <p className="empty">Greenhouse did not return description content for this vacancy.</p>}
+                    </div>
+                    <div>
+                      <h4>Thungatha payload preview</h4>
+                      <p className="muted">Draft mapping for inspection only. Nothing is published from this screen.</p>
+                      <pre className="payload-preview">{JSON.stringify({
+                        title: selectedVacancy.title,
+                        company: selectedVacancy.employer_name,
+                        location: selectedVacancy.location_text,
+                        description: selectedVacancy.description ? decodeGreenhouseContent(selectedVacancy.description) : null,
+                        review_status: selectedVacancy.review_status,
+                        review_reason: selectedVacancy.review_reason,
+                        application_url: selectedVacancy.application_url,
+                        source_url: selectedVacancy.source_url,
+                        department: selectedVacancy.department,
+                        office: selectedVacancy.office,
+                      }, null, 2)}</pre>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="empty large vacancy-placeholder">
+                  <strong>Select a vacancy</strong>
+                  <span>Choose a job from the list to inspect its description, review status and publishing payload.</span>
+                </div>
+              )}
+            </section>
+          </div>
         </>
       )}
 
