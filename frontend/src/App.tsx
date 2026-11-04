@@ -23,6 +23,7 @@ import { CompanyBrandingForm } from "./company-management/CompanyBrandingForm";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
 import { CompanySourcesSection } from "./employer-sources/CompanySourcesSection";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
+import { useEmployerSourceOperations } from "./employer-sources/useEmployerSourceOperations";
 import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
 import { VacancyRecordList } from "./job-management/VacancyRecordList";
 import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
@@ -107,6 +108,20 @@ export default function App() {
   });
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
+  const { saveSource } = useEmployerSourceOperations({
+    employer: selectedEmployer,
+    sources,
+    setSources,
+    sourceUrl,
+    setSourceUrl,
+    editingSourceId,
+    setEditingSourceId,
+    inspection,
+    setInspection,
+    setSaving,
+    onError: setError,
+    onNotice: setNotice,
+  });
   const {
     updateStatus: updateCompanyStatus,
     deleteCompany,
@@ -283,43 +298,6 @@ export default function App() {
     }
   }
 
-  async function createSource(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!selectedEmployer) return;
-    setSaving(true);
-    setError("");
-    try {
-      const payload = {
-        adapter_key: editingSourceId
-          ? sources.find((source) => source.id === editingSourceId)?.adapter_key
-          : "greenhouse",
-        source_url: sourceUrl,
-        normalized_url: sourceUrl,
-        adapter_config: { slug: inspection?.board_token },
-      };
-      if (editingSourceId) {
-        await scoutApi.updateSource(selectedEmployer.id, editingSourceId, payload);
-        setSources(await scoutApi.listSources(selectedEmployer.id));
-        setNotice(
-          "Source configuration updated. Its verification and permission states were preserved.",
-        );
-      } else {
-        const created = await scoutApi.createSource(selectedEmployer.id, {
-          ...payload,
-          employer_careers_url: selectedEmployer.website_url ?? null,
-        });
-        setSources((current) => [...current, created]);
-        setNotice("Greenhouse source registered. Verification and permission remain pending.");
-      }
-      setEditingSourceId(null);
-      setSourceUrl("");
-      setInspection(null);
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not register source.");
-    } finally {
-      setSaving(false);
-    }
-  }
 
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
@@ -653,7 +631,7 @@ export default function App() {
                       setInspection(null);
                     }}
                     onInspect={() => void inspectGreenhouseBoard(sourceUrl)}
-                    onSaveSource={createSource}
+                    onSaveSource={saveSource}
                     onCancelEdit={() => {
                       setEditingSourceId(null);
                       setSourceUrl("");
