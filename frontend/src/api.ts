@@ -41,6 +41,7 @@ export type Vacancy = {
   source_url: string;
   application_url: string;
   source_updated_at?: string | null;
+  first_seen_at?: string;
   last_seen_at: string;
   review_status: "pending" | "needs_verification" | "verified" | "rejected";
   review_reason?: string | null;
