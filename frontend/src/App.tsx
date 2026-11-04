@@ -659,7 +659,7 @@ export default function App() {
         </>
       )}
 
-      <footer className="mt-5 border-t pt-3 text-xs text-muted-foreground">
+      <footer className="mt-5 border-t pt-3 text-[10px] text-muted-foreground">
         Scout is a private operations workspace. Only verified, quality-checked records are eligible
         for publishing to Thungatha.
       </footer>
