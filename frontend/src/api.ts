@@ -55,6 +55,13 @@ export type ExtractionRun = {
   finished_at?: string | null;
 };
 
+export type CareersDiscovery = GreenhouseInspection & {
+  careers_url: string;
+  board_url: string;
+  detected_adapter: "greenhouse";
+  company_name?: string;
+};
+
 export type GreenhouseInspection = {
   outcome: string;
   board_token: string;
@@ -130,6 +137,10 @@ export const scoutApi = {
     }),
   listExtractionRuns: (sourceId: string) =>
     request<ExtractionRun[]>(`/api/v1/sources/${sourceId}/extraction-runs`),
+  discoverCareersPage: (url: string) =>
+    request<CareersDiscovery>(
+      `/api/v1/greenhouse/discover?url=${encodeURIComponent(url)}`,
+    ),
   inspectGreenhouse: (url: string) =>
     request<GreenhouseInspection>(
       `/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`,
