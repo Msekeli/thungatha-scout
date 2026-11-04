@@ -4,6 +4,7 @@ import type { FormEvent } from "react";
 import type { EmployerSource } from "./api";
 import { Badge } from "@/components/ui/badge";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
+import { CompanyAttentionActions } from "./company-management/CompanyAttentionActions";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -305,73 +306,11 @@ export default function App() {
           <p className="mb-3 text-xs text-muted-foreground">
             Manage company identity, verification, branding and registered ATS sources.
           </p>
-          <section className="mb-3 grid gap-2 rounded-xl border border-border bg-card p-3 shadow-sm md:grid-cols-3">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground/70">
-                Suggested actions
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                Work through these records to keep the company directory and sources reliable.
-              </p>
-            </div>
-            <Button
-              type="button"
-              className="rounded-lg border border-[var(--warning-text)]/15 bg-[var(--warning-surface)] px-3 py-2 text-left transition-colors hover:opacity-90"
-              onClick={() => {
-                const target = employers.find((item) => item.status === "discovered");
-                if (target) void openCompany(target);
-              }}
-            >
-              <strong className="block text-sm text-[var(--warning-text)]">
-                {employers.filter((item) => item.status === "discovered").length} awaiting approval
-              </strong>
-              <span className="text-[10px] text-[var(--warning-text)]">
-                Review new company records
-              </span>
-            </Button>
-            <Button
-              type="button"
-              className="rounded-lg bg-[var(--warning-surface)] px-3 py-2 text-left hover:opacity-90"
-              onClick={() => {
-                const target = employers.find((item) => item.status === "needs_review");
-                if (target) void openCompany(target);
-              }}
-            >
-              <strong className="block text-sm text-[var(--warning-text)]">
-                {employers.filter((item) => item.status === "needs_review").length} flagged for
-                review
-              </strong>
-              <span className="text-[10px] text-[var(--warning-text)]">
-                Resolve company identity concerns
-              </span>
-            </Button>
-            <Button
-              type="button"
-              className="rounded-lg border border-border bg-muted px-3 py-2 text-left transition-colors hover:bg-accent"
-              onClick={() => {
-                const targetSource = dashboardSources.find(
-                  (source) =>
-                    source.status !== "verified" || source.permission_status !== "allowed",
-                );
-                const target =
-                  targetSource && employers.find((item) => item.id === targetSource.employer_id);
-                if (target) void openCompany(target);
-              }}
-            >
-              <strong className="block text-sm text-foreground">
-                {
-                  dashboardSources.filter(
-                    (source) =>
-                      source.status !== "verified" || source.permission_status !== "allowed",
-                  ).length
-                }{" "}
-                sources need checks
-              </strong>
-              <span className="text-[10px] text-muted-foreground">
-                Verify source and permission status
-              </span>
-            </Button>
-          </section>
+          <CompanyAttentionActions
+            employers={employers}
+            sources={dashboardSources}
+            onSelectCompany={(employer) => void openCompany(employer)}
+          />
           <div className="grid min-h-0 gap-3 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.5fr)]">
             <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
               <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
