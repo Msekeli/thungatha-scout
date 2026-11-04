@@ -20,22 +20,9 @@ h2 { margin:0; font-size:28px; letter-spacing:-.04em; }
 h3 { margin:0; font-size:17px; letter-spacing:-.02em; }
 h4 { margin:0; font-size:14px; }
 .environment,.status { border-radius:20px; padding:6px 10px; background:#edf2f7; color:#526174; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; }
-.intro { display:flex; justify-content:space-between; align-items:end; padding:32px 0 24px; }
-.intro p:last-child { color:#64748b; margin:9px 0 0; font-size:13px; }
-.stat { display:grid; gap:3px; text-align:right; }
-.stat strong { font-size:27px; }
-.stat span,.muted { color:#7b8798; font-size:12px; }
-.workspace { display:grid; grid-template-columns:minmax(280px,.95fr) minmax(320px,1.25fr) minmax(280px,.95fr); gap:16px; align-items:start; }
 .surface { min-width:0; padding:20px; border:1px solid #e1e6ed; border-radius:12px; background:#fff; box-shadow:0 2px 8px #17203308; }
 .section-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:20px; }
-.employer-list,.source-list { display:grid; gap:6px; }
-.employer-item { display:flex; align-items:center; width:100%; gap:10px; padding:10px; border:1px solid transparent; border-radius:8px; background:transparent; text-align:left; }
-.employer-item:hover,.employer-item.selected { background:#f4f7fb; border-color:#dbe4ef; }
 .employer-avatar { display:grid; place-items:center; flex:none; width:34px; height:34px; border-radius:8px; background:#eaf0fa; color:#315b9a; font-weight:800; }
-.employer-copy { display:grid; min-width:0; flex:1; gap:3px; }
-.employer-copy strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; }
-.employer-copy small,.source-item small { color:#8290a2; font-size:10px; }
-.employer-item .status { font-size:8px; }
 .empty { display:grid; gap:6px; padding:30px 12px; color:#6b7789; text-align:center; font-size:12px; }
 .empty strong { color:#344054; }
 .empty.large { min-height:260px; align-content:center; }
@@ -66,21 +53,12 @@ footer { padding-top:22px; color:#8a95a5; font-size:10px; }
 @media (max-width: 1050px) { .workspace { grid-template-columns:1fr 1fr; } .create { grid-column:1/-1; } }
 @media (max-width: 680px) { .app-shell { padding:22px 16px; } .intro { align-items:start; gap:14px; } h2 { font-size:23px; } .workspace { grid-template-columns:1fr; } .create { grid-column:auto; } .stat strong { font-size:22px; } }
 
-.vacancy-list { display:grid; gap:0; max-height:420px; overflow:auto; border-top:1px solid #edf0f4; }
-.vacancy-item { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:13px 2px; border-bottom:1px solid #edf0f4; }
-.vacancy-item > div { display:grid; min-width:0; gap:5px; }
-.vacancy-item strong { color:#263449; font-size:12px; }
-.vacancy-item small { color:#8290a2; font-size:10px; }
-.vacancy-item a { flex:none; color:#315b9a; font-size:10px; font-weight:700; text-decoration:none; }
-.vacancy-item a:hover { text-decoration:underline; }
-
 .brand-lockup { display:flex; align-items:center; gap:12px; }
 .brand-mark { display:grid; place-items:center; width:38px; height:38px; border-radius:11px; background:#243f68; color:#fff; font-size:17px; font-weight:800; }
 .main-nav { display:flex; align-items:center; gap:8px; padding:18px 0 4px; border-bottom:1px solid #dce2ea; }
 .main-nav button { padding:10px 14px; border:0; border-radius:7px; background:transparent; color:#68778b; font-size:12px; font-weight:700; }
 .main-nav button.active { background:#e9eff7; color:#243f68; }
 .main-nav .nav-add { margin-left:auto; background:#243f68; color:#fff; }
-.text-link { padding:0; border:0; background:transparent; }
 .company-layout { display:grid; grid-template-columns:minmax(260px,.8fr) minmax(0,1.5fr); gap:16px; align-items:start; }
 .company-directory,.company-profile { min-width:0; }
 .company-directory .section-heading span { color:#8390a2; font-size:11px; }
@@ -121,8 +99,6 @@ footer { padding-top:22px; color:#8a95a5; font-size:10px; }
 .older-run { display: grid; gap: 4px; padding: 9px 0; border-top: 1px solid #e7ebf0; }
 .older-run strong { font-size: 10px; text-transform: capitalize; }
 .older-run span,.older-run small { color: #8290a2; font-size: 9px; }
-
-.vacancy-title { text-align:left; white-space:normal; }
 
 .employer-logo { display:block; width:38px; height:38px; object-fit:contain; border:1px solid #e5eaf0; border-radius:8px; background:#fff; }
 @media (max-width: 760px) {
