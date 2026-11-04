@@ -117,7 +117,11 @@ class GreenhouseAdapter:
 
             complete = next_url is None
             return GreenhouseResult(
-                outcome="success" if jobs else "empty",
+                outcome=(
+                    "partial"
+                    if not complete
+                    else "success" if jobs else "empty"
+                ),
                 board_token=board_token,
                 board_name=board["name"],
                 jobs=jobs,
