@@ -22,6 +22,7 @@ import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { decodeGreenhouseContent } from "./job-management/html-content-decoder";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { CompanyProfileActions } from "./company-management/CompanyProfileActions";
 import {
   Select,
@@ -1114,11 +1115,12 @@ export default function App() {
                     </div>
                     <label>
                       Logo image URL
-                      <input
+                      <Input
                         type="url"
                         value={logoUrl}
                         onChange={(event) => setLogoUrl(event.target.value)}
                         placeholder="https://company.com/logo.png"
+                        className="mt-1"
                       />
                     </label>
                     <p className="text-[10px] text-muted-foreground/70">
@@ -1127,11 +1129,12 @@ export default function App() {
                     </p>
                     <label>
                       Logo source / evidence URL
-                      <input
+                      <Input
                         type="url"
                         value={logoSourceUrl}
                         onChange={(event) => setLogoSourceUrl(event.target.value)}
                         placeholder="Official company page where the logo is shown"
+                        className="mt-1"
                       />
                     </label>
                     <Button type="submit"
