@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, CareersDiscovery, Vacancy } from "./api";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -392,9 +392,9 @@ export default function App() {
             </button>
           </section>
           <section className="metric-row">
-            <div className="metric-card"><span>Companies</span><strong>{employers.length}</strong></div>
-            <div className="metric-card"><span>Collected jobs</span><strong>{vacancies.length}</strong></div>
-            <div className="metric-card"><span>Companies with jobs</span><strong>{new Set(vacancies.map((item) => item.employer_id)).size}</strong></div>
+            <Card className="metric-card"><span>Companies</span><strong>{employers.length}</strong></Card>
+            <Card className="metric-card"><span>Collected jobs</span><strong>{vacancies.length}</strong></Card>
+            <Card className="metric-card"><span>Companies with jobs</span><strong>{new Set(vacancies.map((item) => item.employer_id)).size}</strong></Card>
           </section>
           <section className="surface jobs-panel">
             <div className="jobs-toolbar">
