@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "../api";
 import type { Employer } from "../api";
 
@@ -8,7 +9,7 @@ type UseCompanyProfileOperationsOptions = {
   employer: Employer | null;
   logoUrl: string;
   logoSourceUrl: string;
-  setEmployers: (update: (current: Employer[]) => Employer[]) => void;
+  setEmployers: Dispatch<SetStateAction<Employer[]>>;
   onDeleted: () => void;
   setSaving: (saving: boolean) => void;
   onNotice: (message: string) => void;
