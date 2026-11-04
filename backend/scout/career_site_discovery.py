@@ -24,6 +24,14 @@ class CareersLinks(HTMLParser):
         if tag == "title":
             self.in_title = True
 
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "title":
+            self.in_title = False
+
+    def handle_data(self, data: str) -> None:
+        if self.in_title:
+            self.title_text += data
+
 
 async def discover_greenhouse(url: str) -> dict[str, str]:
     parsed = urlparse(url.strip())
