@@ -19,9 +19,8 @@ import { CompanyProfileActions } from "./company-management/CompanyProfileAction
 import { CompanyDirectoryList } from "./company-management/CompanyDirectoryList";
 import { CompanySearchFilters } from "./company-management/CompanySearchFilters";
 import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
+import { CompanySourcesSection } from "./employer-sources/CompanySourcesSection";
 import { SourceReviewPanel } from "./employer-sources/SourceReviewPanel";
-import { ExtractionRunHistory } from "./employer-sources/ExtractionRunHistory";
-import { SourceRegistrationForm } from "./employer-sources/SourceRegistrationForm";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
 import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
 import { VacancyRecordList } from "./job-management/VacancyRecordList";
@@ -734,75 +733,33 @@ export default function App() {
                       {saving ? "Saving…" : "Save logo details"}
                     </Button>
                   </form>
-                  <div className="mb-3 mt-6 flex items-center justify-between gap-3 border-b border-border pb-2">
-                    <h4>Job sources</h4>
-                  </div>
-                  {sources.length ? (
-                    sources.map((source) => {
-                      const runs = extractionRuns[source.id] ?? [];
-                      return (
-                        <div className="space-y-3 border-b border-border py-4" key={source.id}>
-                          <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card p-3">
-                            <div>
-                              <strong className="text-xs font-semibold capitalize text-foreground">
-                                {source.adapter_key}
-                              </strong>
-                              <small className="block break-all text-[10px] text-muted-foreground">
-                                {source.source_url}
-                              </small>
-                            </div>
-                            <Badge variant="outline" className="capitalize">
-                              {source.status.replaceAll("_", " ")}
-                            </Badge>
-                            {source.adapter_key === "greenhouse" && (
-                              <Button
-                                type="button"
-                                className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
-                                onClick={() => {
-                                  setEditingSourceId(source.id);
-                                  setSourceUrl(source.source_url);
-                                  setInspection(null);
-                                }}
-                              >
-                                Edit source
-                              </Button>
-                            )}
-                          </div>
-                          <SourceReviewPanel
-                            source={source}
-                            decision={sourceDecision[source.id]}
-                            saving={saving}
-                            onChange={(field, value) =>
-                              updateSourceDecisionField(source, field, value)
-                            }
-                            onSave={() => void saveSourceDecision(source)}
-                          />
-                          <ExtractionRunHistory runs={runs} />
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <p className="py-4 text-xs text-muted-foreground">
-                      No job source registered for this company.
-                    </p>
-                  )}
-                  <SourceRegistrationForm
-                    editingSourceId={editingSourceId}
+                  <CompanySourcesSection
+                    sources={sources}
+                    extractionRuns={extractionRuns}
+                    decisions={sourceDecision}
                     sourceUrl={sourceUrl}
+                    editingSourceId={editingSourceId}
+                    inspection={inspection}
+                    saving={saving}
+                    inspecting={inspecting}
+                    onEditSource={(source) => {
+                      setEditingSourceId(source.id);
+                      setSourceUrl(source.source_url);
+                      setInspection(null);
+                    }}
+                    onDecisionChange={updateSourceDecisionField}
+                    onSaveDecision={(source) => void saveSourceDecision(source)}
                     onChangeSourceUrl={(value) => {
                       setSourceUrl(value);
                       setInspection(null);
                     }}
                     onInspect={() => void inspectGreenhouse()}
-                    inspection={inspection}
                     onSaveSource={createSource}
                     onCancelEdit={() => {
                       setEditingSourceId(null);
                       setSourceUrl("");
                       setInspection(null);
                     }}
-                    inspecting={inspecting}
-                    saving={saving}
                   />
                 </>
               ) : (
