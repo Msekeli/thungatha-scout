@@ -47,9 +47,7 @@ export function AppShellHeader({
         <p className="text-[9px] font-bold uppercase tracking-[.2em] text-scout-cyan">
           {heading.eyebrow}
         </p>
-        <h2 className="text-lg font-bold tracking-tight text-white">
-          {heading.title}
-        </h2>
+        <h2 className="text-lg font-bold tracking-tight text-white">{heading.title}</h2>
       </div>
 
       <nav className="flex items-center gap-1.5" aria-label="Main navigation">
