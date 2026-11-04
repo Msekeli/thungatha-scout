@@ -19,7 +19,12 @@ export function CompanyProfileActions({
   return (
     <div className="flex flex-wrap gap-2 border-b border-border pb-4">
       {currentStatus !== "approved" && (
-        <Button type="button" size="sm" disabled={saving} onClick={() => onUpdateStatus("approved")}>
+        <Button
+          type="button"
+          size="sm"
+          disabled={saving}
+          onClick={() => onUpdateStatus("approved")}
+        >
           Approve company
         </Button>
       )}

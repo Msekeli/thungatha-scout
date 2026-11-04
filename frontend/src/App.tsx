@@ -940,7 +940,8 @@ export default function App() {
                 Work through these records to keep the company directory and sources reliable.
               </p>
             </div>
-            <Button type="button"
+            <Button
+              type="button"
               type="button"
               className="rounded-lg border border-[var(--warning-text)]/15 bg-[var(--warning-surface)] px-3 py-2 text-left transition-colors hover:opacity-90"
               onClick={() => {
@@ -955,7 +956,8 @@ export default function App() {
                 Review new company records
               </span>
             </Button>
-            <Button type="button"
+            <Button
+              type="button"
               type="button"
               className="rounded-lg bg-[var(--warning-surface)] px-3 py-2 text-left hover:opacity-90"
               onClick={() => {
@@ -971,7 +973,8 @@ export default function App() {
                 Resolve company identity concerns
               </span>
             </Button>
-            <Button type="button"
+            <Button
+              type="button"
               type="button"
               className="rounded-lg border border-border bg-muted px-3 py-2 text-left transition-colors hover:bg-accent"
               onClick={() => {
@@ -1007,7 +1010,8 @@ export default function App() {
                     {visibleEmployers.length} / {employers.length}
                   </span>
                 </div>
-                <Button type="button"
+                <Button
+                  type="button"
                   className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                   type="button"
                   onClick={() => {
@@ -1041,7 +1045,8 @@ export default function App() {
                 </select>
               </div>
               {visibleEmployers.map((employer) => (
-                <Button type="button"
+                <Button
+                  type="button"
                   key={employer.id}
                   className={`flex w-full items-center gap-3 rounded-lg border p-2 text-left transition-colors hover:bg-accent ${selectedEmployerId === employer.id ? "border-ring bg-accent" : "border-transparent bg-transparent"}`}
                   onClick={() => void openCompany(employer)}
@@ -1095,7 +1100,8 @@ export default function App() {
                     saving={saving}
                     onUpdateStatus={(status) => void updateCompanyStatus(status)}
                     onDelete={() => void deleteCompany()}
-                  />                  <p className="mb-4 -mt-2 break-all text-[11px] text-muted-foreground">
+                  />{" "}
+                  <p className="mb-4 -mt-2 break-all text-[11px] text-muted-foreground">
                     {selectedEmployer.website_url || "Official website not supplied"}
                   </p>
                   <form
@@ -1137,15 +1143,10 @@ export default function App() {
                         className="mt-1"
                       />
                     </label>
-                    <Button type="submit"
-                      variant="outline"
-                      className="w-fit"
-                      disabled={saving}
-                    >
+                    <Button type="submit" variant="outline" className="w-fit" disabled={saving}>
                       {saving ? "Saving…" : "Save logo details"}
                     </Button>
                   </form>
-
                   <div className="flex gap-7 border-y border-border py-3">
                     <div>
                       <strong>
@@ -1183,7 +1184,8 @@ export default function App() {
                               {source.status.replaceAll("_", " ")}
                             </Badge>
                             {source.adapter_key === "greenhouse" && (
-                              <Button type="button"
+                              <Button
+                                type="button"
                                 className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                                 type="button"
                                 onClick={() => {
@@ -1302,7 +1304,8 @@ export default function App() {
                                 placeholder="Why this source status and permission were chosen"
                               />
                             </label>
-                            <Button type="button"
+                            <Button
+                              type="button"
                               type="button"
                               className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                               disabled={saving}
@@ -1429,7 +1432,8 @@ export default function App() {
                         required
                       />
                     </label>
-                    <Button type="button"
+                    <Button
+                      type="button"
                       type="button"
                       className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                       onClick={() => void inspectGreenhouse()}
@@ -1448,7 +1452,8 @@ export default function App() {
                     )}
                     <div className="flex flex-wrap items-center justify-end gap-2">
                       {editingSourceId && (
-                        <Button type="button"
+                        <Button
+                          type="button"
                           type="button"
                           className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                           onClick={() => {
@@ -1460,7 +1465,8 @@ export default function App() {
                           Cancel edit
                         </Button>
                       )}
-                      <Button type="button"
+                      <Button
+                        type="button"
                         className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                         disabled={
                           saving ||
