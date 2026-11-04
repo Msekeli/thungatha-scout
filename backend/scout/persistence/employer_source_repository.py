@@ -41,6 +41,31 @@ class EmployerSourceRepository:
             (source_id,),
         ).fetchone()
 
+    def update_configuration(
+        self,
+        employer_id: UUID,
+        source_id: UUID,
+        values: Mapping[str, Any],
+    ) -> dict[str, Any] | None:
+        return self._connection.execute(
+            """
+            UPDATE employer_sources
+            SET source_url = %s,
+                normalized_url = %s,
+                adapter_config = %s,
+                updated_at = NOW()
+            WHERE employer_id = %s AND id = %s
+            RETURNING *
+            """,
+            (
+                values["source_url"],
+                values["normalized_url"],
+                Jsonb(values["adapter_config"]),
+                employer_id,
+                source_id,
+            ),
+        ).fetchone()
+
     def list_for_employer(self, employer_id: UUID) -> list[dict[str, Any]]:
         return self._connection.execute(
             """
