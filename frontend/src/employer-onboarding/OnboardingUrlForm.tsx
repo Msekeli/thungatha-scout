@@ -1,27 +1,35 @@
-import type { FC, FormEvent } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type OnboardingUrlFormProps = {
   sourceUrl: string;
   onChangeSourceUrl: (url: string) => void;
   atsKey: string;
   onChangeAtsKey: (key: string) => void;
-  onDetect: (event: FormEvent) => void;
+  onDetect: () => void;
   inspecting: boolean;
 };
 
-export const OnboardingUrlForm: FC<OnboardingUrlFormProps> = ({
+export function OnboardingUrlForm({
   sourceUrl,
   onChangeSourceUrl,
   atsKey,
   onChangeAtsKey,
   onDetect,
   inspecting,
-}) => {
+}: OnboardingUrlFormProps) {
   return (
     <div className="grid gap-3">
-      <label>
+      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
         Careers / jobs listing URL
-        <input
+        <Input
           type="url"
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
@@ -30,24 +38,31 @@ export const OnboardingUrlForm: FC<OnboardingUrlFormProps> = ({
         />
       </label>
 
-      <label>
+      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
         ATS platform
-        <select value={atsKey} onChange={(event) => onChangeAtsKey(event.target.value)}>
-          <option value="greenhouse">Greenhouse</option>
-          <option value="workday" disabled>
-            Workday — coming next
-          </option>
-        </select>
+        <Select value={atsKey} onValueChange={onChangeAtsKey}>
+          <SelectTrigger className="h-9">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="greenhouse">Greenhouse</SelectItem>
+            <SelectItem value="workday" disabled>
+              Workday — coming next
+            </SelectItem>
+          </SelectContent>
+        </Select>
       </label>
 
-      <button
+      <Button
         type="button"
-        className="button secondary"
+        size="sm"
+        variant="outline"
+        className="w-fit"
         onClick={onDetect}
         disabled={inspecting || !sourceUrl.trim()}
       >
         {inspecting ? "Detecting ATS and inspecting jobs…" : "Detect ATS & preview jobs"}
-      </button>
+      </Button>
     </div>
   );
-};
+}
