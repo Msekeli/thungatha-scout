@@ -44,3 +44,13 @@ class EmployerSourceCreate(BaseModel):
     normalized_url: HttpUrl
     adapter_config: dict[str, Any] = Field(default_factory=dict)
     relationship_evidence: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class EmployerSourceReviewUpdate(BaseModel):
+    status: Literal[
+        "discovered", "pending_verification", "verified",
+        "temporarily_unavailable", "invalid", "needs_review", "inactive",
+    ]
+    permission_status: Literal["unknown", "allowed", "restricted", "needs_review"]
+    evidence_url: str | None = Field(default=None, max_length=2048)
+    reason: str | None = Field(default=None, max_length=2000)

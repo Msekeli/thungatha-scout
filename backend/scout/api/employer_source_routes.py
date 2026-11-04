@@ -1,11 +1,13 @@
-from typing import Any, Literal
+from typing import Any
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, Field
 from psycopg.errors import UniqueViolation
 
-from scout.application.employer_contracts import EmployerSourceCreate
+from scout.application.employer_contracts import (
+    EmployerSourceCreate,
+    EmployerSourceReviewUpdate,
+)
 from scout.application.employer_service import EmployerService
 from scout.application.employer_source_update_service import (
     EmployerSourceUpdate,
@@ -23,20 +25,6 @@ def get_employer_service() -> EmployerService:
 def get_source_update_service() -> EmployerSourceUpdateService:
     return EmployerSourceUpdateService()
 
-
-class EmployerSourceReviewUpdate(BaseModel):
-    status: Literal[
-        "discovered",
-        "pending_verification",
-        "verified",
-        "temporarily_unavailable",
-        "invalid",
-        "needs_review",
-        "inactive",
-    ]
-    permission_status: Literal["unknown", "allowed", "restricted", "needs_review"]
-    evidence_url: str | None = Field(default=None, max_length=2048)
-    reason: str | None = Field(default=None, max_length=2000)
 
 
 @router.get("/{employer_id}/sources")
