@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, CareersDiscovery, Vacancy } from "./api";
@@ -38,6 +38,7 @@ export default function App() {
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
   const [selectedVacancyId, setSelectedVacancyId] = useState<string | null>(null);
   const [openingVacancyId, setOpeningVacancyId] = useState<string | null>(null);
+  const vacancyRequestRef = useRef(0);
   const [reviewReason, setReviewReason] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
@@ -186,19 +187,22 @@ export default function App() {
   }
 
   async function openVacancy(vacancyId: string) {
+    const requestId = ++vacancyRequestRef.current;
     setError("");
     setSelectedVacancyId(vacancyId);
     setOpeningVacancyId(vacancyId);
     setSelectedVacancy(null);
     try {
       const vacancy = await scoutApi.getVacancy(vacancyId);
+      if (requestId !== vacancyRequestRef.current) return;
       setSelectedVacancy(vacancy);
       setReviewReason(vacancy.review_reason ?? "");
     } catch (reason) {
+      if (requestId !== vacancyRequestRef.current) return;
       setError(reason instanceof Error ? reason.message : "Could not load vacancy details.");
       setSelectedVacancyId(null);
     } finally {
-      setOpeningVacancyId(null);
+      if (requestId === vacancyRequestRef.current) setOpeningVacancyId(null);
     }
   }
 
@@ -420,24 +424,27 @@ export default function App() {
               {loading ? <div className="empty">Loading jobs…</div> : filteredVacancies.length === 0 ? (
                 <div className="empty"><strong>No jobs collected yet</strong><span>Register a company source, then select “Extract jobs”.</span></div>
               ) : (
-                <div className="jobs-table-wrap">
-                  <table className="jobs-table">
-                    <thead><tr><th>Position</th><th>Company</th><th>Location</th><th>Review</th><th>Last seen</th></tr></thead>
-                    <tbody>
-                      {filteredVacancies.map((vacancy) => (
-                        <tr key={vacancy.id} className={selectedVacancyId === vacancy.id ? "selected" : ""}>
-                          <td>
-                            <button className="text-link vacancy-title" onClick={() => void openVacancy(vacancy.id)}>{vacancy.title}</button>
-                            {vacancy.department && <small>{vacancy.department}</small>}
-                          </td>
-                          <td><button className="text-link" onClick={() => { const employer = employers.find((item) => item.id === vacancy.employer_id); if (employer) void openCompany(employer); }}>{vacancy.employer_name}</button></td>
-                          <td>{vacancy.location_text || "Not specified"}</td>
-                          <td><Badge variant={vacancy.review_status === "verified" ? "default" : vacancy.review_status === "rejected" ? "destructive" : "secondary"}>{vacancy.review_status.replaceAll("_", " ")}</Badge></td>
-                          <td>{new Date(vacancy.last_seen_at).toLocaleDateString()}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="vacancy-cards" aria-label="Collected vacancies">
+                  {filteredVacancies.map((vacancy) => (
+                    <button
+                      type="button"
+                      key={vacancy.id}
+                      className={`vacancy-card ${selectedVacancyId === vacancy.id ? "selected" : ""}`}
+                      onClick={() => void openVacancy(vacancy.id)}
+                      aria-pressed={selectedVacancyId === vacancy.id}
+                    >
+                      <span className="vacancy-card-heading">
+                        <strong>{vacancy.title}</strong>
+                        <Badge variant={vacancy.review_status === "verified" ? "default" : vacancy.review_status === "rejected" ? "destructive" : "secondary"}>{vacancy.review_status.replaceAll("_", " ")}</Badge>
+                      </span>
+                      <span className="vacancy-card-company">{vacancy.employer_name}</span>
+                      <span className="vacancy-card-meta">
+                        <span>{vacancy.location_text || "Location not specified"}</span>
+                        {vacancy.department && <span>{vacancy.department}</span>}
+                        <span>Seen {new Date(vacancy.last_seen_at).toLocaleDateString()}</span>
+                      </span>
+                    </button>
+                  ))}
                 </div>
               )}
             </section>
@@ -480,10 +487,10 @@ export default function App() {
                   </div>
                   <div className="detail-grid">
                     <div>
-                      <h4>Full job description</h4>
+                      <h4>Job description</h4>
                       {selectedVacancy.description ? (
                         <iframe className="description-frame" title={"Description for " + selectedVacancy.title} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#315b9a}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + decodeGreenhouseContent(selectedVacancy.description || "") + "</body></html>"} />
-                      ) : <p className="empty">Greenhouse did not return description content for this vacancy.</p>}
+                      ) : <p className="empty description-empty">No job description was saved for this vacancy by the source. Check the original job posting to verify its content.</p>}
                     </div>
                     <div>
                       <h4>Thungatha payload preview</h4>
@@ -506,7 +513,7 @@ export default function App() {
               ) : (
                 <div className="empty large vacancy-placeholder">
                   <strong>Select a vacancy</strong>
-                  <span>Choose a job from the list to inspect its description, review status and publishing payload.</span>
+                  <span>Select any vacancy card on the left. Its full description and review controls will appear here.</span>
                 </div>
               )}
             </section>
