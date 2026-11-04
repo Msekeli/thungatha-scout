@@ -50,3 +50,17 @@ class EmployerRepository:
             """,
             (limit, offset),
         ).fetchall()
+
+
+    def update_branding(
+        self, employer_id: UUID, logo_url: str | None, logo_source_url: str | None
+    ) -> dict[str, Any] | None:
+        return self._connection.execute(
+            """
+            UPDATE employers
+            SET logo_url = %s, logo_source_url = %s, updated_at = NOW()
+            WHERE id = %s
+            RETURNING *
+            """,
+            (logo_url, logo_source_url, employer_id),
+        ).fetchone()
