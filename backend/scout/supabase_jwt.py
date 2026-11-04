@@ -4,7 +4,11 @@ from typing import Any
 import httpx
 import jwt
 from jwt import PyJWKClient
-from jwt.exceptions import InvalidTokenError, PyJWKClientConnectionError
+from jwt.exceptions import (
+    InvalidTokenError,
+    PyJWKClientConnectionError,
+    PyJWKClientError,
+)
 from starlette.concurrency import run_in_threadpool
 
 
@@ -27,6 +31,8 @@ def verify_asymmetric_access_token(
         signing_key = _jwks_client(jwks_url).get_signing_key_from_jwt(token)
     except PyJWKClientConnectionError as error:
         raise AuthenticationServiceUnavailable from error
+    except PyJWKClientError as error:
+        raise InvalidTokenError("No trusted signing key matches this token.") from error
 
     return jwt.decode(
         token,
