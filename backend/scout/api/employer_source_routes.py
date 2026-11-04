@@ -76,7 +76,7 @@ def update_employer_source(
     employer_id: UUID,
     source_id: UUID,
     payload: EmployerSourceUpdate,
-    service: EmployerSourceUpdateService = Depends(get_source_update_service),
+    service: EmployerSourceUpdateService = Depends(get_employer_source_update_service),
 ) -> dict[str, Any]:
     try:
         validate_source_config(payload.adapter_key, payload.adapter_config)
