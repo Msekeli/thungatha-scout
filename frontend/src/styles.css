@@ -175,3 +175,25 @@ footer { padding-top:22px; color:#8a95a5; font-size:10px; }
   }
 }
 
+
+/* Navy operations workspace */
+:root { --scout-navy:#071b35; --scout-navy-2:#102b4d; --scout-cyan:#27c2d6; }
+body { background:#eef2f7; color:#16263d; }
+main > header { position:relative; margin:-16px -32px 0; padding:18px 32px 16px; min-height:76px; border:0; background:linear-gradient(112deg,var(--scout-navy),#12365c); color:#fff; box-shadow:0 5px 18px #071b3526; }
+main > header h1, main > header h2 { color:#fff!important; }
+main > header p { color:#c8d8ea!important; }
+main > header .text-cyan-700 { color:#52d7e6!important; }
+main > header nav button { color:#d9e6f3!important; }
+main > header nav button:hover { background:#ffffff18!important; color:#fff!important; }
+main > header nav button.bg-\\[\\#0b1426\\] { background:#fff!important; color:var(--scout-navy)!important; }
+main > header > div:first-child > span { background:#fff!important; color:#087f9b!important; box-shadow:none!important; }
+.surface, .company-layout > section { box-shadow:0 5px 18px #102b4d0b; border-color:#d8e1ec; }
+.button.primary { background:var(--scout-navy-2); }
+.button.primary:hover { background:#1b4776; }
+.source-decision { display:grid; gap:10px; margin:12px 0; padding:14px; border:1px solid #d5e1ef; border-radius:10px; background:#f2f6fb; }
+.source-decision-heading { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+.source-decision-heading strong { color:#102b4d; font-size:11px; }
+.source-decision-heading span { color:#7789a1; font-size:10px; }
+.source-decision-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.source-decision .button { justify-self:start; }
+@media(max-width:760px) { main > header { margin:-16px -16px 0; padding:14px 16px; } .source-decision-grid { grid-template-columns:1fr; } }
