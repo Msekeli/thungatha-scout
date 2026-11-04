@@ -66,7 +66,9 @@ export function CompanyAttentionActions({
         <strong className="block text-sm text-foreground">
           {uncheckedSources.length} sources need checks
         </strong>
-        <span className="text-[10px] text-muted-foreground">Verify source and permission status</span>
+        <span className="text-[10px] text-muted-foreground">
+          Verify source and permission status
+        </span>
       </Button>
     </section>
   );
