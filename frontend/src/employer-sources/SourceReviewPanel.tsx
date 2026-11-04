@@ -34,9 +34,7 @@ export function SourceReviewPanel({
   return (
     <div className="grid gap-3 rounded-lg border border-border bg-muted/50 p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <strong className="text-xs font-semibold text-foreground">
-          Verification & permission
-        </strong>
+        <strong className="text-xs font-semibold text-foreground">Verification & permission</strong>
         <span className="text-[10px] text-muted-foreground">
           Company approval does not approve this source
         </span>

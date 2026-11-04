@@ -53,7 +53,9 @@ export function ExtractionRunHistory({ runs }: ExtractionRunHistoryProps) {
         </span>
         <span>
           Finished:{" "}
-          {latestRun.finished_at ? new Date(latestRun.finished_at).toLocaleString() : "Not finished"}
+          {latestRun.finished_at
+            ? new Date(latestRun.finished_at).toLocaleString()
+            : "Not finished"}
         </span>
       </div>
       {runs.length > 1 && (
@@ -68,7 +70,8 @@ export function ExtractionRunHistory({ runs }: ExtractionRunHistoryProps) {
                   {run.outcome.replaceAll("_", " ")}
                 </strong>
                 <span className="text-muted-foreground">
-                  {run.jobs_received} received · {run.jobs_inserted} new · {run.jobs_updated} updated
+                  {run.jobs_received} received · {run.jobs_inserted} new · {run.jobs_updated}{" "}
+                  updated
                 </span>
                 <small className="text-muted-foreground">
                   {run.detail || "No additional detail"}

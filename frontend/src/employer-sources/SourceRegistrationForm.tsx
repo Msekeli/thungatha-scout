@@ -62,11 +62,15 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
       </Button>
       {inspection && (
         <div className="grid gap-1 rounded-lg border border-border bg-card p-3 text-xs">
-          <strong className="text-foreground">{inspection.board_name || inspection.board_token}</strong>
+          <strong className="text-foreground">
+            {inspection.board_name || inspection.board_token}
+          </strong>
           <span className="text-muted-foreground">
             {inspection.outcome} · {inspection.jobs.length} sample jobs
           </span>
-          {inspection.detail && <small className="text-muted-foreground">{inspection.detail}</small>}
+          {inspection.detail && (
+            <small className="text-muted-foreground">{inspection.detail}</small>
+          )}
         </div>
       )}
       <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">

@@ -1047,7 +1047,9 @@ export default function App() {
                 <>
                   <CompanyProfileHeader
                     employer={selectedEmployer}
-                    jobsCount={vacancies.filter((item) => item.employer_id === selectedEmployer.id).length}
+                    jobsCount={
+                      vacancies.filter((item) => item.employer_id === selectedEmployer.id).length
+                    }
                     sourcesCount={sources.length}
                   />
                   <CompanyProfileActions
