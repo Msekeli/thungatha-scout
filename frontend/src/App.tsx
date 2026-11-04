@@ -942,7 +942,6 @@ export default function App() {
             </div>
             <Button
               type="button"
-             
               className="rounded-lg border border-[var(--warning-text)]/15 bg-[var(--warning-surface)] px-3 py-2 text-left transition-colors hover:opacity-90"
               onClick={() => {
                 const target = employers.find((item) => item.status === "discovered");
@@ -958,7 +957,6 @@ export default function App() {
             </Button>
             <Button
               type="button"
-             
               className="rounded-lg bg-[var(--warning-surface)] px-3 py-2 text-left hover:opacity-90"
               onClick={() => {
                 const target = employers.find((item) => item.status === "needs_review");
@@ -975,7 +973,6 @@ export default function App() {
             </Button>
             <Button
               type="button"
-             
               className="rounded-lg border border-border bg-muted px-3 py-2 text-left transition-colors hover:bg-accent"
               onClick={() => {
                 const targetSource = dashboardSources.find(
@@ -1013,7 +1010,6 @@ export default function App() {
                 <Button
                   type="button"
                   className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-                 
                   onClick={() => {
                     setPage("add-company");
                     setError("");
@@ -1188,7 +1184,6 @@ export default function App() {
                               <Button
                                 type="button"
                                 className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
-                               
                                 onClick={() => {
                                   setEditingSourceId(source.id);
                                   setSourceUrl(source.source_url);
@@ -1307,7 +1302,6 @@ export default function App() {
                             </label>
                             <Button
                               type="button"
-                             
                               className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                               disabled={saving}
                               onClick={() => void updateSourceDecision(source)}
@@ -1435,7 +1429,6 @@ export default function App() {
                     </label>
                     <Button
                       type="button"
-                     
                       className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                       onClick={() => void inspectGreenhouse()}
                       disabled={inspecting || !sourceUrl.trim()}
@@ -1455,7 +1448,6 @@ export default function App() {
                       {editingSourceId && (
                         <Button
                           type="button"
-                         
                           className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                           onClick={() => {
                             setEditingSourceId(null);
