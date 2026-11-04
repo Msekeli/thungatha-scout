@@ -2,7 +2,12 @@ from typing import Any
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
+from psycopg.errors import UniqueViolation
 
+from scout.application.employer_source_update_service import (
+    EmployerSourceUpdate,
+    EmployerSourceUpdateService,
+)
 from scout.application.employer_service import (
     EmployerCreate,
     EmployerService,
@@ -79,3 +84,36 @@ def create_employer_source(
     except RegistryValidationError as exception:
         raise HTTPException(status_code=422, detail=str(exception)) from exception
     return service.create_source(payload)
+
+
+
+def get_employer_source_update_service() -> EmployerSourceUpdateService:
+    return EmployerSourceUpdateService()
+
+
+@router.put("/{employer_id}/sources/{source_id}")
+def update_employer_source(
+    employer_id: UUID,
+    source_id: UUID,
+    payload: EmployerSourceUpdate,
+    service: EmployerSourceUpdateService = Depends(
+        get_employer_source_update_service
+    ),
+) -> dict[str, Any]:
+    try:
+        validate_source_config(
+            "greenhouse" if "slug" in payload.adapter_config else "workday",
+            payload.adapter_config,
+        )
+    except RegistryValidationError as exception:
+        raise HTTPException(status_code=422, detail=str(exception)) from exception
+    try:
+        source = service.update_configuration(employer_id, source_id, payload)
+    except UniqueViolation as exception:
+        raise HTTPException(
+            status_code=409,
+            detail="That source URL is already registered.",
+        ) from exception
+    if source is None:
+        raise HTTPException(status_code=404, detail="Employer source not found.")
+    return source
