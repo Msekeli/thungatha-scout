@@ -226,26 +226,6 @@ export default function App() {
     }
   }
 
-  async function saveVacancyReview() {
-    if (!selectedVacancy) return;
-    setVacancySaving(true);
-    setError("");
-    try {
-      const updated = await scoutApi.updateVacancyReview(
-        selectedVacancy.id,
-        selectedVacancy.review_status,
-        reviewReason,
-      );
-      setSelectedVacancy(updated);
-      setVacancies((current) => current.map((item) => item.id === updated.id ? updated : item));
-      setNotice("Vacancy review status saved.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not update vacancy review.");
-    } finally {
-      setVacancySaving(false);
-    }
-  }
-
   async function setVacancyDecision(status: Vacancy["review_status"]) {
     if (!selectedVacancy) return;
     setVacancySaving(true);
