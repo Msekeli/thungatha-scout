@@ -32,8 +32,8 @@ export function VacancyRecordsToolbar({
   loading,
 }: VacancyRecordsToolbarProps) {
   return (
-    <div className="flex flex-wrap items-center gap-2 border-b border-scout-navy bg-scout-navy p-3">
-      <h3 className="mr-auto text-sm font-bold text-white">
+    <div className="flex flex-wrap items-center gap-2 border-b border-border bg-card p-3">
+      <h3 className="mr-auto text-sm font-bold text-primary">
         {showArchived ? "Archived vacancies" : "Vacancy records"}
       </h3>
       <Select
@@ -42,7 +42,7 @@ export function VacancyRecordsToolbar({
       >
         <SelectTrigger
           aria-label="Choose active or archived vacancies"
-          className="h-8 w-[125px] border-white/20 bg-white text-xs text-scout-navy"
+          className="h-8 w-[125px] border-input bg-background text-xs text-foreground"
         >
           <SelectValue />
         </SelectTrigger>
@@ -86,7 +86,7 @@ export function VacancyRecordsToolbar({
         type="button"
         variant="outline"
         size="sm"
-        className="h-8 border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+        className="h-8 border-input bg-background text-primary hover:bg-accent hover:text-accent-foreground"
         onClick={onRefresh}
         disabled={loading}
       >
