@@ -44,7 +44,7 @@ export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
           <span className="text-[10px] text-muted-foreground">Jobs collected</span>
         </div>
         <div className="grid gap-0.5">
-          <strong className="text-base font-bold text-white">{sourcesCount}</strong>
+          <strong className="text-base font-bold text-foreground">{sourcesCount}</strong>
           <span className="text-[10px] text-muted-foreground">Sources registered</span>
         </div>
       </div>
