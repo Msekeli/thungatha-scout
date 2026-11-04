@@ -7,7 +7,6 @@ import type {
   EmployerSource,
   GreenhouseInspection,
   CareersDiscovery,
-  Vacancy,
 } from "./api";
 import { Badge } from "@/components/ui/badge";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
