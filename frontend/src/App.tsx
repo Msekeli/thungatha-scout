@@ -1099,7 +1099,7 @@ export default function App() {
                       {selectedEmployer.status.replaceAll("_", " ")}
                     </Badge>
                   </div>
-                  <div className="flex flex-wrap gap-2 border-b border-slate-100 pb-4">
+                  <div className="flex flex-wrap gap-2 border-b border-border pb-4">
                     {selectedEmployer.status !== "approved" && (
                       <button
                         className="button primary"
@@ -1213,13 +1213,13 @@ export default function App() {
                       const runs = extractionRuns[source.id] ?? [];
                       const latestRun = runs[0];
                       return (
-                        <div className="source-history" key={source.id}>
-                          <div className="source-item">
+                        <div className="space-y-3 border-b border-border py-4" key={source.id}>
+                          <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card p-3">
                             <div>
-                              <strong>{source.adapter_key}</strong>
-                              <small>{source.source_url}</small>
+                              <strong className="text-xs font-semibold capitalize text-foreground">{source.adapter_key}</strong>
+                              <small className="block break-all text-[10px] text-muted-foreground">{source.source_url}</small>
                             </div>
-                            <span className="status">{source.status.replaceAll("_", " ")}</span>
+                            <Badge variant="outline" className="capitalize">{source.status.replaceAll("_", " ")}</Badge>
                             {source.adapter_key === "greenhouse" && (
                               <button
                                 className="button secondary"
@@ -1234,12 +1234,12 @@ export default function App() {
                               </button>
                             )}
                           </div>
-                          <div className="source-decision">
-                            <div className="source-decision-heading">
-                              <strong>Verification & permission</strong>
-                              <span>Company approval does not approve this source</span>
+                          <div className="grid gap-3 rounded-lg border border-border bg-muted/50 p-4">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <strong className="text-xs font-semibold text-foreground">Verification & permission</strong>
+                              <span className="text-[10px] text-muted-foreground">Company approval does not approve this source</span>
                             </div>
-                            <div className="source-decision-grid">
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                               <label>
                                 Source status
                                 <select
@@ -1345,15 +1345,15 @@ export default function App() {
                               {saving ? "Saving…" : "Save source decision"}
                             </button>
                           </div>
-                          <div className="run-history">
-                            <div className="run-heading">
-                              <strong>Latest extraction</strong>
-                              <span>{runs.length} recorded run(s)</span>
+                          <div className="grid gap-2 rounded-lg border border-border bg-muted/50 p-3">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <strong className="text-xs font-semibold text-foreground">Latest extraction</strong>
+                              <span className="text-[10px] text-muted-foreground">{runs.length} recorded run(s)</span>
                             </div>
                             {latestRun ? (
                               <>
-                                <div className="run-summary">
-                                  <span className={`run-outcome ${latestRun.outcome}`}>
+                                <div className="flex flex-wrap items-center gap-2 text-[10px] text-muted-foreground">
+                                  <span className="rounded-md bg-secondary px-2 py-1 text-[10px] font-bold uppercase text-secondary-foreground">
                                     {latestRun.outcome.replaceAll("_", " ")}
                                   </span>
                                   <span>
@@ -1363,9 +1363,9 @@ export default function App() {
                                   <span>{latestRun.complete ? "Complete" : "Incomplete"}</span>
                                 </div>
                                 {latestRun.detail && (
-                                  <p className="run-detail">{latestRun.detail}</p>
+                                  <p className="break-words text-[10px] leading-relaxed text-[var(--danger-text)]">{latestRun.detail}</p>
                                 )}
-                                <div className="run-meta">
+                                <div className="flex flex-wrap justify-between gap-2 text-[10px] text-muted-foreground">
                                   <span>
                                     Started:{" "}
                                     {latestRun.started_at
@@ -1380,10 +1380,10 @@ export default function App() {
                                   </span>
                                 </div>
                                 {runs.length > 1 && (
-                                  <details className="run-older">
+                                  <details className="border-t border-border pt-2 text-xs">
                                     <summary>Previous runs ({runs.length - 1})</summary>
                                     {runs.slice(1).map((run) => (
-                                      <div className="older-run" key={run.id}>
+                                      <div className="grid gap-1 border-t border-border py-2" key={run.id}>
                                         <strong>{run.outcome.replaceAll("_", " ")}</strong>
                                         <span>
                                           {run.jobs_received} received · {run.jobs_inserted} new ·{" "}
@@ -1401,16 +1401,16 @@ export default function App() {
                                 )}
                               </>
                             ) : (
-                              <p className="muted">No extraction runs recorded yet.</p>
+                              <p className="text-xs text-muted-foreground">No extraction runs recorded yet.</p>
                             )}
                           </div>
                         </div>
                       );
                     })
                   ) : (
-                    <p className="muted">No job source registered for this company.</p>
+                    <p className="py-4 text-xs text-muted-foreground">No job source registered for this company.</p>
                   )}
-                  <form className="source-form" onSubmit={createSource}>
+                  <form className="mt-5 grid gap-3 rounded-lg border border-border bg-muted/50 p-4" onSubmit={createSource}>
                     <h4>
                       {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
                     </h4>
@@ -1436,7 +1436,7 @@ export default function App() {
                       {inspecting ? "Checking source…" : "Check Greenhouse source"}
                     </button>
                     {inspection && (
-                      <div className="inspection-preview">
+                      <div className="grid gap-2 rounded-lg border border-border bg-card p-3 text-xs">
                         <strong>{inspection.board_name || inspection.board_token}</strong>
                         <span>
                           {inspection.outcome} · {inspection.jobs.length} sample jobs
@@ -1444,7 +1444,7 @@ export default function App() {
                         {inspection.detail && <small>{inspection.detail}</small>}
                       </div>
                     )}
-                    <div className="form-actions">
+                    <div className="flex flex-wrap items-center justify-end gap-2">
                       {editingSourceId && (
                         <button
                           type="button"
@@ -1473,7 +1473,7 @@ export default function App() {
                   </form>
                 </>
               ) : (
-                <div className="empty large">
+                <div className="grid min-h-[260px] content-center gap-2 px-6 text-center text-sm text-muted-foreground">
                   <strong>Select a company</strong>
                   <span>Choose a company to view its profile and registered job sources.</span>
                 </div>
@@ -1485,11 +1485,11 @@ export default function App() {
 
       {page === "add-company" && (
         <>
-          <p className="mb-3 text-xs text-slate-500">
+          <p className="mb-3 text-xs text-muted-foreground">
             Register a company and connect its official careers source.
           </p>
-          <section className="surface add-company-panel">
-            <form
+          <section className="w-full max-w-2xl rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
+            <form className="grid gap-4"
               onSubmit={
                 discovery
                   ? registerDiscoveredEmployer
@@ -1537,7 +1537,7 @@ export default function App() {
                 {inspecting ? "Detecting ATS and inspecting jobs…" : "Detect ATS & preview jobs"}
               </button>
               {discovery && (
-                <div className="inspection-preview">
+                <div className="grid gap-2 rounded-lg border border-border bg-muted/50 p-3 text-xs">
                   <strong>{discovery.jobs.length} vacancies found</strong>
                   <span>
                     Detected: {discovery.detected_adapter} · Board: {discovery.board_url}
@@ -1560,7 +1560,7 @@ export default function App() {
                   />
                 </label>
               )}
-              <div className="form-actions">
+              <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
                 <button
                   type="button"
                   className="button secondary"
