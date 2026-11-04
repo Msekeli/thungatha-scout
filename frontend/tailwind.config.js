@@ -36,6 +36,18 @@ export default {
           foreground: "hsl(var(--accent-foreground))",
         },
         destructive: "hsl(var(--destructive))",
+        success: {
+          DEFAULT: "var(--success-text)",
+          surface: "var(--success-surface)",
+        },
+        warning: {
+          DEFAULT: "var(--warning-text)",
+          surface: "var(--warning-surface)",
+        },
+        scout: {
+          navy: "var(--scout-navy-2)",
+          cyan: "var(--scout-cyan)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
