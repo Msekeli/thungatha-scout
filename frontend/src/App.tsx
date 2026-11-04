@@ -1269,7 +1269,7 @@ export default function App() {
               {discovery && (
                 <label>
                   Company name
-                  <input
+                  <Input
                     value={form.name}
                     onChange={(event) => setForm({ ...form, name: event.target.value })}
                     placeholder="Detected company name"
