@@ -937,27 +937,27 @@ export default function App() {
 
       {page === "companies" && (
         <>
-          <p className="mb-3 text-xs text-slate-500">
+          <p className="mb-3 text-xs text-muted-foreground">
             Manage company identity, verification, branding and registered ATS sources.
           </p>
-          <section className="mb-3 grid gap-2 rounded-xl border border-slate-200 bg-white p-3 shadow-sm md:grid-cols-3">
+          <section className="mb-3 grid gap-2 rounded-xl border border-border bg-card p-3 shadow-sm md:grid-cols-3">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+              <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground/70">
                 Suggested actions
               </p>
-              <p className="mt-1 text-xs text-slate-600">
+              <p className="mt-1 text-xs text-muted-foreground">
                 Work through these records to keep the company directory and sources reliable.
               </p>
             </div>
             <button
               type="button"
-              className="rounded-lg bg-amber-50 px-3 py-2 text-left hover:bg-amber-100"
+              className="rounded-lg border border-[var(--warning-text)]/15 bg-[var(--warning-surface)] px-3 py-2 text-left transition-colors hover:opacity-90"
               onClick={() => {
                 const target = employers.find((item) => item.status === "discovered");
                 if (target) void openCompany(target);
               }}
             >
-              <strong className="block text-sm text-amber-900">
+              <strong className="block text-sm text-[var(--warning-text)]">
                 {employers.filter((item) => item.status === "discovered").length} awaiting approval
               </strong>
               <span className="text-[10px] text-[var(--warning-text)]">
@@ -966,21 +966,21 @@ export default function App() {
             </button>
             <button
               type="button"
-              className="rounded-lg bg-orange-50 px-3 py-2 text-left hover:bg-orange-100"
+              className="rounded-lg bg-[var(--warning-surface)] px-3 py-2 text-left hover:opacity-90"
               onClick={() => {
                 const target = employers.find((item) => item.status === "needs_review");
                 if (target) void openCompany(target);
               }}
             >
-              <strong className="block text-sm text-orange-900">
+              <strong className="block text-sm text-[var(--warning-text)]">
                 {employers.filter((item) => item.status === "needs_review").length} flagged for
                 review
               </strong>
-              <span className="text-[10px] text-orange-800">Resolve company identity concerns</span>
+              <span className="text-[10px] text-[var(--warning-text)]">Resolve company identity concerns</span>
             </button>
             <button
               type="button"
-              className="rounded-lg bg-slate-50 px-3 py-2 text-left hover:bg-slate-100"
+              className="rounded-lg border border-border bg-muted px-3 py-2 text-left transition-colors hover:bg-accent"
               onClick={() => {
                 const targetSource = dashboardSources.find(
                   (source) =>
@@ -991,7 +991,7 @@ export default function App() {
                 if (target) void openCompany(target);
               }}
             >
-              <strong className="block text-sm text-slate-900">
+              <strong className="block text-sm text-foreground">
                 {
                   dashboardSources.filter(
                     (source) =>
@@ -1000,14 +1000,14 @@ export default function App() {
                 }{" "}
                 sources need checks
               </strong>
-              <span className="text-[10px] text-slate-600">
+              <span className="text-[10px] text-muted-foreground">
                 Verify source and permission status
               </span>
             </button>
           </section>
-          <div className="company-layout">
-            <section className="surface company-directory">
-              <div className="section-heading">
+          <div className="grid min-h-0 gap-3 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.5fr)]">
+            <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
+              <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
                 <div className="flex items-center gap-3">
                   <h3>Registered companies</h3>
                   <span>
@@ -1026,7 +1026,7 @@ export default function App() {
                   + Add company
                 </button>
               </div>
-              <div className="company-filters">
+              <div className="mb-3 grid grid-cols-1 gap-2 sm:grid-cols-[minmax(0,1fr)_140px]">
                 <input
                   aria-label="Search companies"
                   value={companyQuery}
@@ -1050,25 +1050,25 @@ export default function App() {
               {visibleEmployers.map((employer) => (
                 <button
                   key={employer.id}
-                  className={`company-row ${selectedEmployerId === employer.id ? "selected" : ""}`}
+                  className={`flex w-full items-center gap-3 rounded-lg border p-2 text-left transition-colors hover:bg-accent ${selectedEmployerId === employer.id ? "border-ring bg-accent" : "border-transparent bg-transparent"}`}
                   onClick={() => void openCompany(employer)}
                 >
                   {employer.logo_url ? (
                     <img
-                      className="employer-logo"
+                      className="h-[38px] w-[38px] shrink-0 rounded-lg border border-border bg-card object-contain"
                       src={employer.logo_url}
                       alt={employer.name + " logo"}
                     />
                   ) : (
-                    <span className="employer-avatar">
+                    <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-lg bg-secondary font-extrabold text-secondary-foreground">
                       {employer.name.slice(0, 1).toUpperCase()}
                     </span>
                   )}
                   <span>
-                    <strong>{employer.name}</strong>
-                    <small>{employer.city || "Location not confirmed"}</small>
+                    <strong className="block truncate text-xs font-semibold text-foreground">{employer.name}</strong>
+                    <small className="text-[10px] text-muted-foreground">{employer.city || "Location not confirmed"}</small>
                   </span>
-                  <span className="status">{employer.status.replaceAll("_", " ")}</span>
+                  <Badge variant="outline" className="ml-auto shrink-0 capitalize">{employer.status.replaceAll("_", " ")}</Badge>
                 </button>
               ))}
               {!visibleEmployers.length && (
@@ -1079,15 +1079,15 @@ export default function App() {
                 </div>
               )}
             </section>
-            <section className="surface company-profile">
+            <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
               {selectedEmployer ? (
                 <>
-                  <div className="section-heading">
+                  <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
                     <div>
                       <p className="eyebrow">COMPANY PROFILE</p>
                       <h3>{selectedEmployer.name}</h3>
                     </div>
-                    <span className="status">{selectedEmployer.status.replaceAll("_", " ")}</span>
+                    <Badge variant="outline" className="capitalize">{selectedEmployer.status.replaceAll("_", " ")}</Badge>
                   </div>
                   <div className="flex flex-wrap gap-2 border-b border-slate-100 pb-4">
                     {selectedEmployer.status !== "approved" && (
@@ -1135,18 +1135,18 @@ export default function App() {
                       Delete
                     </button>
                   </div>
-                  <p className="profile-website">
+                  <p className="mb-4 -mt-2 break-all text-[11px] text-muted-foreground">
                     {selectedEmployer.website_url || "Official website not supplied"}
                   </p>
-                  <form className="branding-form" onSubmit={saveEmployerBranding}>
+                  <form className="my-4 grid gap-3 rounded-lg border border-border bg-muted/50 p-4" onSubmit={saveEmployerBranding}>
                     <div className="flex items-center gap-3">
                       <h4>Company logo</h4>
-                      <span className="text-[10px] text-slate-400">Optional</span>
+                      <span className="text-[10px] text-muted-foreground/70">Optional</span>
                       {logoUrl && (
                         <img
                           src={logoUrl}
                           alt="Company logo preview"
-                          className="h-9 w-9 rounded-md border border-slate-200 bg-white object-contain p-1"
+                          className="h-9 w-9 rounded-md border border-border bg-card object-contain p-1"
                         />
                       )}
                     </div>
@@ -1159,7 +1159,7 @@ export default function App() {
                         placeholder="https://company.com/logo.png"
                       />
                     </label>
-                    <p className="text-[10px] text-slate-400">
+                    <p className="text-[10px] text-muted-foreground/70">
                       Scout currently accepts a logo URL and its evidence URL. A logo is not
                       required to register or approve a company.
                     </p>
@@ -1177,7 +1177,7 @@ export default function App() {
                     </button>
                   </form>
 
-                  <div className="profile-stats">
+                  <div className="flex gap-7 border-y border-border py-3">
                     <div>
                       <strong>
                         {
@@ -1192,7 +1192,7 @@ export default function App() {
                       <span>Sources registered</span>
                     </div>
                   </div>
-                  <div className="section-heading source-title">
+                  <div className="mb-3 mt-6 flex items-center justify-between gap-3 border-b border-border pb-2">
                     <h4>Job sources</h4>
                   </div>
                   {sources.length ? (
