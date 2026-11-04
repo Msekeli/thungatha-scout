@@ -66,6 +66,12 @@ class GreenhouseExtractionService:
                 detail=result.detail,
             )
 
+    def list_extraction_runs(self, source_id: UUID) -> list[dict[str, Any]]:
+        with self._connection_factory() as connection:
+            if EmployerSourceRepository(connection).get_by_id(source_id) is None:
+                raise SourceNotFoundError("Employer source not found.")
+            return ExtractionRunRepository(connection).list_for_source(source_id)
+
     def list_vacancies(
         self, employer_id: UUID | None = None, limit: int = 200, offset: int = 0
     ) -> list[dict[str, Any]]:
