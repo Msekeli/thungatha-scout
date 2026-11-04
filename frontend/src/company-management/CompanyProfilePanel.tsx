@@ -1,110 +1,58 @@
 import type { FormEvent } from "react";
-import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection } from "../api";
 import { CompanyProfileActions } from "./CompanyProfileActions";
 import { CompanyProfileHeader } from "./CompanyProfileHeader";
 import { CompanyBrandingForm } from "./CompanyBrandingForm";
 import { CompanySourcesSection } from "../employer-sources/CompanySourcesSection";
-import type { SourceDecisionDraft } from "../employer-sources/SourceReviewPanel";
+import type { useScoutAppState } from "../app-state/useScoutAppState";
+import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
+import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceController";
+import type { useEmployerOnboardingController } from "../employer-onboarding/useEmployerOnboardingController";
 
-type CompanyStatus = "approved" | "needs_review" | "rejected" | "inactive";
-
-type CompanyProfilePanelProps = {
-  employer: Employer | null;
+type Props = {
+  state: ReturnType<typeof useScoutAppState>;
+  jobs: ReturnType<typeof useJobsWorkspaceController>;
+  companies: ReturnType<typeof useCompaniesWorkspaceController>;
+  onboarding: ReturnType<typeof useEmployerOnboardingController>;
   jobsCount: number;
-  sources: EmployerSource[];
-  extractionRuns: Record<string, ExtractionRun[]>;
-  decisions: Record<string, SourceDecisionDraft>;
-  logoUrl: string;
-  logoSourceUrl: string;
-  sourceUrl: string;
-  editingSourceId: string | null;
-  inspection: GreenhouseInspection | null;
-  saving: boolean;
-  inspecting: boolean;
-  onUpdateStatus: (status: CompanyStatus) => void;
-  onDelete: () => void;
-  onLogoUrlChange: (value: string) => void;
-  onLogoSourceUrlChange: (value: string) => void;
   onSaveBranding: (event: FormEvent<HTMLFormElement>) => void;
-  onEditSource: (source: EmployerSource) => void;
-  onDecisionChange: (
-    source: EmployerSource,
-    field: keyof SourceDecisionDraft,
-    value: string,
-  ) => void;
-  onSaveDecision: (source: EmployerSource) => void;
-  onChangeSourceUrl: (value: string) => void;
-  onInspect: () => void;
-  onSaveSource: (event: FormEvent<HTMLFormElement>) => void;
-  onCancelEdit: () => void;
 };
 
-export function CompanyProfilePanel({
-  employer,
-  jobsCount,
-  sources,
-  extractionRuns,
-  decisions,
-  logoUrl,
-  logoSourceUrl,
-  sourceUrl,
-  editingSourceId,
-  inspection,
-  saving,
-  inspecting,
-  onUpdateStatus,
-  onDelete,
-  onLogoUrlChange,
-  onLogoSourceUrlChange,
-  onSaveBranding,
-  onEditSource,
-  onDecisionChange,
-  onSaveDecision,
-  onChangeSourceUrl,
-  onInspect,
-  onSaveSource,
-  onCancelEdit,
-}: CompanyProfilePanelProps) {
+export function CompanyProfilePanel({ state, jobs, companies, onboarding, jobsCount, onSaveBranding }: Props) {
+  const employer = companies.employer;
   return (
     <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
       {employer ? (
         <>
-          <CompanyProfileHeader
-            employer={employer}
-            jobsCount={jobsCount}
-            sourcesCount={sources.length}
-          />
-          <CompanyProfileActions
-            currentStatus={employer.status}
-            saving={saving}
-            onUpdateStatus={onUpdateStatus}
-            onDelete={onDelete}
-          />
-          <CompanyBrandingForm
-            logoUrl={logoUrl}
-            logoSourceUrl={logoSourceUrl}
-            saving={saving}
-            onLogoUrlChange={onLogoUrlChange}
-            onLogoSourceUrlChange={onLogoSourceUrlChange}
-            onSubmit={onSaveBranding}
-          />
-          <CompanySourcesSection
-            sources={sources}
-            extractionRuns={extractionRuns}
-            decisions={decisions}
-            sourceUrl={sourceUrl}
-            editingSourceId={editingSourceId}
-            inspection={inspection}
-            saving={saving}
-            inspecting={inspecting}
-            onEditSource={onEditSource}
-            onDecisionChange={onDecisionChange}
-            onSaveDecision={onSaveDecision}
-            onChangeSourceUrl={onChangeSourceUrl}
-            onInspect={onInspect}
-            onSaveSource={onSaveSource}
-            onCancelEdit={onCancelEdit}
-          />
+          <CompanyProfileHeader employer={employer} jobsCount={jobsCount}
+            sourcesCount={state.sources.length} />
+          <CompanyProfileActions currentStatus={employer.status} saving={state.saving}
+            onUpdateStatus={(status) => void companies.updateStatus(status)}
+            onDelete={() => void companies.deleteCompany()} />
+          <CompanyBrandingForm logoUrl={state.logoUrl} logoSourceUrl={state.logoSourceUrl}
+            saving={state.saving} onLogoUrlChange={state.setLogoUrl}
+            onLogoSourceUrlChange={state.setLogoSourceUrl} onSubmit={onSaveBranding} />
+          <CompanySourcesSection sources={state.sources} extractionRuns={jobs.extractionRuns}
+            decisions={companies.decisions} sourceUrl={state.sourceUrl}
+            editingSourceId={state.editingSourceId} inspection={onboarding.inspection}
+            saving={state.saving} inspecting={onboarding.inspecting}
+            onEditSource={(source) => {
+              state.setEditingSourceId(source.id);
+              state.setSourceUrl(source.source_url);
+              onboarding.setInspection(null);
+            }}
+            onDecisionChange={companies.updateField}
+            onSaveDecision={(source) => void companies.saveDecision(source)}
+            onChangeSourceUrl={(value) => {
+              state.setSourceUrl(value);
+              onboarding.setInspection(null);
+            }}
+            onInspect={() => void onboarding.inspectGreenhouseBoard(state.sourceUrl)}
+            onSaveSource={companies.saveSource}
+            onCancelEdit={() => {
+              state.setEditingSourceId(null);
+              state.setSourceUrl("");
+              onboarding.setInspection(null);
+            }} />
         </>
       ) : (
         <div className="grid min-h-[260px] content-center gap-2 px-6 text-center text-sm text-muted-foreground">
