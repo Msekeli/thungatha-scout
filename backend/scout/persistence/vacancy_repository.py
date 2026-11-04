@@ -85,7 +85,7 @@ class VacancyRepository:
             "office": offices[0].get("name") if isinstance(offices, list) and offices and isinstance(offices[0], dict) else None,
             "source_url": source_url,
             "application_url": job["absolute_url"],
-            "source_updated_at": job.get("updated_at"),
+            "published_at": job.get("first_published"),\n            "source_updated_at": job.get("updated_at"),
             "raw_payload": Jsonb(dict(job)),
             "fingerprint": fingerprint,
         }
