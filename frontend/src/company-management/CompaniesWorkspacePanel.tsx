@@ -1,95 +1,24 @@
 import type { FormEvent } from "react";
-import type {
-  Employer,
-  EmployerSource,
-  ExtractionRun,
-  GreenhouseInspection,
-  Vacancy,
-} from "../api";
+import type { useScoutAppState } from "../app-state/useScoutAppState";
+import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
+import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceController";
+import type { useEmployerOnboardingController } from "../employer-onboarding/useEmployerOnboardingController";
 import { CompanyAttentionActions } from "./CompanyAttentionActions";
 import { CompanyDirectoryPanel } from "./CompanyDirectoryPanel";
 import { CompanyProfilePanel } from "./CompanyProfilePanel";
-import type { SourceDecisionDraft } from "../employer-sources/SourceReviewPanel";
 
-type CompanyStatus = "approved" | "needs_review" | "rejected" | "inactive";
-
-type CompaniesWorkspacePanelProps = {
-  employers: Employer[];
-  dashboardSources: EmployerSource[];
-  selectedEmployer: Employer | null;
-  vacancies: Vacancy[];
-  selectedEmployerId: string;
-  searchQuery: string;
-  statusFilter: string;
-  sources: EmployerSource[];
-  extractionRuns: Record<string, ExtractionRun[]>;
-  decisions: Record<string, SourceDecisionDraft>;
-  logoUrl: string;
-  logoSourceUrl: string;
-  sourceUrl: string;
-  editingSourceId: string | null;
-  inspection: GreenhouseInspection | null;
-  saving: boolean;
-  inspecting: boolean;
-  onSelectCompany: (employer: Employer) => void;
-  onSearchChange: (value: string) => void;
-  onStatusFilterChange: (value: string) => void;
-  onAddCompany: () => void;
-  onUpdateStatus: (status: CompanyStatus) => void;
-  onDelete: () => void;
-  onLogoUrlChange: (value: string) => void;
-  onLogoSourceUrlChange: (value: string) => void;
+type Props = {
+  state: ReturnType<typeof useScoutAppState>;
+  jobs: ReturnType<typeof useJobsWorkspaceController>;
+  companies: ReturnType<typeof useCompaniesWorkspaceController>;
+  onboarding: ReturnType<typeof useEmployerOnboardingController>;
   onSaveBranding: (event: FormEvent<HTMLFormElement>) => void;
-  onEditSource: (source: EmployerSource) => void;
-  onDecisionChange: (
-    source: EmployerSource,
-    field: keyof SourceDecisionDraft,
-    value: string,
-  ) => void;
-  onSaveDecision: (source: EmployerSource) => void;
-  onChangeSourceUrl: (value: string) => void;
-  onInspect: () => void;
-  onSaveSource: (event: FormEvent<HTMLFormElement>) => void;
-  onCancelEdit: () => void;
 };
 
-export function CompaniesWorkspacePanel({
-  employers,
-  dashboardSources,
-  selectedEmployer,
-  vacancies,
-  selectedEmployerId,
-  searchQuery,
-  statusFilter,
-  sources,
-  extractionRuns,
-  decisions,
-  logoUrl,
-  logoSourceUrl,
-  sourceUrl,
-  editingSourceId,
-  inspection,
-  saving,
-  inspecting,
-  onSelectCompany,
-  onSearchChange,
-  onStatusFilterChange,
-  onAddCompany,
-  onUpdateStatus,
-  onDelete,
-  onLogoUrlChange,
-  onLogoSourceUrlChange,
-  onSaveBranding,
-  onEditSource,
-  onDecisionChange,
-  onSaveDecision,
-  onChangeSourceUrl,
-  onInspect,
-  onSaveSource,
-  onCancelEdit,
-}: CompaniesWorkspacePanelProps) {
+export function CompaniesWorkspacePanel({ state, jobs, companies, onboarding, onSaveBranding }: Props) {
+  const selectedEmployer = companies.employer;
   const jobsCount = selectedEmployer
-    ? vacancies.filter((vacancy) => vacancy.employer_id === selectedEmployer.id).length
+    ? jobs.vacancies.filter((vacancy) => vacancy.employer_id === selectedEmployer.id).length
     : 0;
 
   return (
@@ -97,48 +26,46 @@ export function CompaniesWorkspacePanel({
       <p className="mb-3 text-xs text-white/75">
         Manage company identity, verification, branding and registered ATS sources.
       </p>
-      <CompanyAttentionActions
-        employers={employers}
-        sources={dashboardSources}
-        onSelectCompany={onSelectCompany}
-      />
+      <CompanyAttentionActions employers={jobs.employers} sources={jobs.dashboardSources}
+        onSelectCompany={(employer) => void companies.openCompany(employer)} />
       <div className="grid min-h-0 gap-3 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.5fr)]">
-        <CompanyDirectoryPanel
-          employers={employers}
-          selectedEmployerId={selectedEmployerId}
-          searchQuery={searchQuery}
-          statusFilter={statusFilter}
-          onSearchChange={onSearchChange}
-          onStatusFilterChange={onStatusFilterChange}
-          onSelectEmployer={onSelectCompany}
-          onAddCompany={onAddCompany}
-        />
-        <CompanyProfilePanel
-          employer={selectedEmployer}
-          jobsCount={jobsCount}
-          sources={sources}
-          extractionRuns={extractionRuns}
-          decisions={decisions}
-          logoUrl={logoUrl}
-          logoSourceUrl={logoSourceUrl}
-          sourceUrl={sourceUrl}
-          editingSourceId={editingSourceId}
-          inspection={inspection}
-          saving={saving}
-          inspecting={inspecting}
-          onUpdateStatus={onUpdateStatus}
-          onDelete={onDelete}
-          onLogoUrlChange={onLogoUrlChange}
-          onLogoSourceUrlChange={onLogoSourceUrlChange}
+        <CompanyDirectoryPanel employers={jobs.employers}
+          selectedEmployerId={state.selectedEmployerId} searchQuery={state.companyQuery}
+          statusFilter={state.companyStatusFilter} onSearchChange={state.setCompanyQuery}
+          onStatusFilterChange={state.setCompanyStatusFilter}
+          onSelectEmployer={(employer) => void companies.openCompany(employer)}
+          onAddCompany={() => {
+            state.setPage("add-company");
+            state.setError("");
+            state.setNotice("");
+          }} />
+        <CompanyProfilePanel employer={selectedEmployer} jobsCount={jobsCount}
+          sources={state.sources} extractionRuns={jobs.extractionRuns} decisions={companies.decisions}
+          logoUrl={state.logoUrl} logoSourceUrl={state.logoSourceUrl} sourceUrl={state.sourceUrl}
+          editingSourceId={state.editingSourceId} inspection={onboarding.inspection}
+          saving={state.saving} inspecting={onboarding.inspecting}
+          onUpdateStatus={(status) => void companies.updateStatus(status)}
+          onDelete={() => void companies.deleteCompany()}
+          onLogoUrlChange={state.setLogoUrl} onLogoSourceUrlChange={state.setLogoSourceUrl}
           onSaveBranding={onSaveBranding}
-          onEditSource={onEditSource}
-          onDecisionChange={onDecisionChange}
-          onSaveDecision={onSaveDecision}
-          onChangeSourceUrl={onChangeSourceUrl}
-          onInspect={onInspect}
-          onSaveSource={onSaveSource}
-          onCancelEdit={onCancelEdit}
-        />
+          onEditSource={(source) => {
+            state.setEditingSourceId(source.id);
+            state.setSourceUrl(source.source_url);
+            onboarding.setInspection(null);
+          }}
+          onDecisionChange={companies.updateField}
+          onSaveDecision={(source) => void companies.saveDecision(source)}
+          onChangeSourceUrl={(value) => {
+            state.setSourceUrl(value);
+            onboarding.setInspection(null);
+          }}
+          onInspect={() => void onboarding.inspectGreenhouseBoard(state.sourceUrl)}
+          onSaveSource={companies.saveSource}
+          onCancelEdit={() => {
+            state.setEditingSourceId(null);
+            state.setSourceUrl("");
+            onboarding.setInspection(null);
+          }} />
       </div>
     </>
   );
