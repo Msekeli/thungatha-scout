@@ -46,6 +46,4 @@ class GreenhouseResponseMapper:
 
     @staticmethod
     def malformed(token: str, detail: str) -> GreenhouseResult:
-        return GreenhouseResult(
-            "malformed", token, None, [], 0, False, detail
-        )
+        return GreenhouseResult("malformed", token, None, [], 0, False, detail)
