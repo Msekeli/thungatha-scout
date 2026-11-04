@@ -79,9 +79,7 @@ export function EmployerOnboardingPanel({
                 type="submit"
                 size="sm"
                 disabled={
-                  saving ||
-                  !discovery.complete ||
-                  !["success", "empty"].includes(discovery.outcome)
+                  saving || !discovery.complete || !["success", "empty"].includes(discovery.outcome)
                 }
               >
                 {saving ? "Registering and retrieving…" : "Confirm & register"}
