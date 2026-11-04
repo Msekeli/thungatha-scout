@@ -612,7 +612,7 @@ export default function App() {
           <section className="rounded-xl border border-border bg-card p-3 shadow-sm">
             <div className="mb-2 flex items-center justify-between">
               <h3 className="flex items-center gap-2 text-xs font-bold text-primary">
-                <Activity className="h-4 w-4 text-cyan-600" /> ATS performance
+                <Activity className="h-4 w-4 text-[var(--scout-cyan)]" /> ATS performance
               </h3>
               <span className="text-[10px] text-muted-foreground/70">
                 Source health and latest extraction results
@@ -863,7 +863,7 @@ export default function App() {
                             size="sm"
                             disabled={vacancySaving || Boolean(selectedVacancy.archived_at)}
                             onClick={() => void setVacancyDecision("verified")}
-                            className="bg-emerald-600 text-white hover:bg-emerald-700"
+                            className="bg-[var(--success-text)] text-white hover:brightness-95"
                           >
                             <ShieldCheck className="h-4 w-4" />
                             Mark verified
