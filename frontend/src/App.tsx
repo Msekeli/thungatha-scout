@@ -57,6 +57,7 @@ export default function App() {
   const [discovery, setDiscovery] = useState<CareersDiscovery | null>(null);
   const [atsKey, setAtsKey] = useState("greenhouse");
   const [loading, setLoading] = useState(true);
+  const [extracting, setExtracting] = useState(false);
   const [saving, setSaving] = useState(false);
   const [inspecting, setInspecting] = useState(false);
   const [error, setError] = useState("");
@@ -104,6 +105,32 @@ export default function App() {
   }, []);
 
   useEffect(() => { void loadWorkspace(); }, [loadWorkspace]);
+
+  async function fetchJobs() {
+    const eligibleSources = dashboardSources.filter(
+      (source) => source.status === "verified" && source.permission_status === "allowed",
+    );
+    if (!eligibleSources.length) {
+      setError("No job sources are both verified and permitted. Review company sources before fetching jobs.");
+      return;
+    }
+
+    setExtracting(true);
+    setError("");
+    setNotice("");
+    const results = await Promise.allSettled(
+      eligibleSources.map((source) => scoutApi.extractSource(source.id)),
+    );
+    const succeeded = results.filter((result) => result.status === "fulfilled").length;
+    const failed = results.length - succeeded;
+    await loadWorkspace();
+    setNotice(
+      failed
+        ? `Fetched from ${succeeded} source(s); ${failed} source(s) failed. Check the extraction history.`
+        : `Fetch completed for ${succeeded} verified source(s). Dashboard data has been refreshed.`,
+    );
+    setExtracting(false);
+  }
 
   async function openCompany(employer: Employer) {
     setEditingSourceId(null);
@@ -375,7 +402,7 @@ export default function App() {
         <nav className="flex items-center gap-1.5" aria-label="Main navigation">
           <button className={`rounded-lg px-3 py-2 text-xs font-semibold ${page === "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`} onClick={() => setPage("jobs")}>Dashboard</button>
           <button className={`rounded-lg px-3 py-2 text-xs font-semibold ${page !== "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`} onClick={() => setPage("companies")}>Companies</button>
-          {page === "jobs" ? <button className="rounded-lg p-2 text-slate-600 hover:bg-cyan-50 hover:text-cyan-800" title="Refresh dashboard data" onClick={() => void loadWorkspace()} disabled={loading}><RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} /></button> : <button className="rounded-lg bg-cyan-500 px-3 py-2 text-xs font-bold text-[#071426] shadow-sm hover:bg-cyan-400" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button>}
+          {page === "jobs" && <button className="rounded-lg p-2 text-slate-600 hover:bg-cyan-50 hover:text-cyan-800" title="Refresh dashboard data" onClick={() => void loadWorkspace()} disabled={loading}><RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} /></button>}
         </nav>
       </header>
 
@@ -384,7 +411,13 @@ export default function App() {
 
       {page === "jobs" && (
         <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">
-          <div className="flex justify-end"><span className="text-[10px] font-medium text-slate-400">{loading ? "Refreshing data…" : "Updated from Scout records"}</span></div>
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-[10px] font-medium text-slate-400">{loading ? "Refreshing data…" : "Updated from Scout records"}</span>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="h-8 bg-white" onClick={() => void loadWorkspace()} disabled={loading || extracting}><RefreshCw className={`mr-1 h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />Refresh</Button>
+              <Button size="sm" className="h-8 bg-cyan-500 text-[#071426] hover:bg-cyan-400" onClick={() => void fetchJobs()} disabled={loading || extracting}><BriefcaseBusiness className="mr-1 h-3.5 w-3.5" />{extracting ? "Fetching jobs…" : "Fetch jobs"}</Button>
+            </div>
+          </div>
           <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
             {[
               { label:"Collected vacancies", value:vacancies.length, note:"Active records", icon:BriefcaseBusiness, color:"text-cyan-700", bg:"bg-cyan-50" },
@@ -435,9 +468,21 @@ export default function App() {
       {page === "companies" && (
         <>
           <p className="mb-3 text-xs text-slate-500">Manage company identity, verification, branding and registered ATS sources.</p>
+          <section className="mb-3 grid gap-2 rounded-xl border border-slate-200 bg-white p-3 shadow-sm md:grid-cols-3">
+            <div><p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">Suggested actions</p><p className="mt-1 text-xs text-slate-600">Work through these records to keep the company directory and sources reliable.</p></div>
+            <button type="button" className="rounded-lg bg-amber-50 px-3 py-2 text-left hover:bg-amber-100" onClick={() => { const target = employers.find((item) => item.status === "discovered"); if (target) void openCompany(target); }}>
+              <strong className="block text-sm text-amber-900">{employers.filter((item) => item.status === "discovered").length} awaiting approval</strong><span className="text-[10px] text-amber-800">Review new company records</span>
+            </button>
+            <button type="button" className="rounded-lg bg-orange-50 px-3 py-2 text-left hover:bg-orange-100" onClick={() => { const target = employers.find((item) => item.status === "needs_review"); if (target) void openCompany(target); }}>
+              <strong className="block text-sm text-orange-900">{employers.filter((item) => item.status === "needs_review").length} flagged for review</strong><span className="text-[10px] text-orange-800">Resolve company identity concerns</span>
+            </button>
+            <button type="button" className="rounded-lg bg-slate-50 px-3 py-2 text-left hover:bg-slate-100" onClick={() => { const targetSource = dashboardSources.find((source) => source.status !== "verified" || source.permission_status !== "allowed"); const target = targetSource && employers.find((item) => item.id === targetSource.employer_id); if (target) void openCompany(target); }}>
+              <strong className="block text-sm text-slate-900">{dashboardSources.filter((source) => source.status !== "verified" || source.permission_status !== "allowed").length} sources need checks</strong><span className="text-[10px] text-slate-600">Verify source and permission status</span>
+            </button>
+          </section>
           <div className="company-layout">
             <section className="surface company-directory">
-              <div className="section-heading"><h3>Registered companies</h3><span>{employers.length}</span></div>
+              <div className="section-heading"><div className="flex items-center gap-3"><h3>Registered companies</h3><span>{employers.length}</span></div><button className="button primary" type="button" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button></div>
               {employers.map((employer) => (
                 <button key={employer.id} className={`company-row ${selectedEmployerId === employer.id ? "selected" : ""}`} onClick={() => void openCompany(employer)}>
                   {employer.logo_url
