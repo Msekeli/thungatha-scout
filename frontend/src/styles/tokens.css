@@ -22,8 +22,10 @@
     --input: 214 25% 87%;
     --ring: 190 68% 48%;
 
-    /* Scout brand accents */
+    /* Scout brand surfaces */
     --scout-navy-2: #102b4d;
+    --scout-navy-3: #183b63;
+    --scout-navy-muted: #24496f;
     --scout-cyan: #27c2d6;
 
     /* Semantic UI colours */
@@ -37,6 +39,28 @@
     /* Typography and shape */
     --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
     --radius: 0.5rem;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --background: 216 42% 9%;
+    --foreground: 210 40% 96%;
+    --card: 215 43% 13%;
+    --card-foreground: 210 40% 96%;
+    --popover: 215 43% 13%;
+    --popover-foreground: 210 40% 96%;
+    --primary: 190 68% 48%;
+    --primary-foreground: 216 42% 9%;
+    --secondary: 215 35% 21%;
+    --secondary-foreground: 210 40% 94%;
+    --muted: 215 35% 17%;
+    --muted-foreground: 214 18% 70%;
+    --accent: 215 35% 23%;
+    --accent-foreground: 190 75% 75%;
+    --destructive: 0 62% 48%;
+    --border: 215 28% 27%;
+    --input: 215 28% 27%;
+    --ring: 190 68% 48%;
   }
 
   * {
