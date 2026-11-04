@@ -6,17 +6,16 @@ import { CompaniesWorkspacePanel } from "./company-management/CompaniesWorkspace
 import { useCompanySelection } from "./company-management/useCompanySelection";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
 import { useEmployerSourceOperations } from "./employer-sources/useEmployerSourceOperations";
-import { useVacancyReview } from "./job-management/useVacancyReview";
 import { JobsWorkspacePanel } from "./job-management/JobsWorkspacePanel";
+import { useJobsWorkspaceController } from "./job-management/useJobsWorkspaceController";
 import { EmployerOnboardingPanel } from "./employer-onboarding/EmployerOnboardingPanel";
 import { useScoutWorkspace } from "./useScoutWorkspace";
-import { useScoutDashboardMetrics } from "./useScoutDashboardMetrics";
-import { useVacancyFetching } from "./useVacancyFetching";
 import { useCareersDiscovery } from "./employer-onboarding/useCareersDiscovery";
 import { emptyEmployer, useScoutAppState } from "./app-shell/useScoutAppState";
 import { useEmployerRegistration } from "./employer-onboarding/useEmployerRegistration";
 
 export default function App() {
+  const appState = useScoutAppState();
   const {
     page, setPage, showArchived, setShowArchived, reviewFilter, setReviewFilter,
     logoUrl, setLogoUrl, logoSourceUrl, setLogoSourceUrl, companyQuery, setCompanyQuery,
@@ -51,28 +50,6 @@ export default function App() {
     loading,
     loadWorkspace,
   } = useScoutWorkspace(setError);
-
-  const {
-    selectedVacancy,
-    selectedVacancyId,
-    openingVacancyId,
-    reviewReason,
-    setReviewReason,
-    saving: vacancySaving,
-    openVacancy,
-    saveDecision: setVacancyDecision,
-    undoLastDecision,
-    canUndoDecision,
-    archive: archiveSelectedVacancy,
-    restore: restoreSelectedVacancy,
-    clearSelection,
-  } = useVacancyReview({
-    onVacancyUpdated: (updated) =>
-      setVacancies((current) => current.map((item) => (item.id === updated.id ? updated : item))),
-    onRefresh: loadWorkspace,
-    onNotice: setNotice,
-    onError: setError,
-  });
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
   const { register: registerDiscoveredEmployer } = useEmployerRegistration({
@@ -140,14 +117,6 @@ export default function App() {
     onNotice: setNotice,
     onError: setError,
   });
-  const { fetchJobs } = useVacancyFetching({
-    dashboardSources,
-    setExtracting,
-    loadWorkspace,
-    onError: setError,
-    onNotice: setNotice,
-  });
-
   const { openCompany } = useCompanySelection({
     setSources,
     setExtractionRuns,
@@ -161,17 +130,8 @@ export default function App() {
     onError: setError,
   });
 
-  const { newVacancies24h, attentionCount, atsPerformance, visibleVacancies, filteredVacancies } =
-    useScoutDashboardMetrics({
-      employers,
-      vacancies,
-      archivedVacancies,
-      dashboardSources,
-      extractionRuns,
-      showArchived,
-      selectedEmployerId,
-      reviewFilter,
-    });
+  const { review, fetchJobs, metrics } = useJobsWorkspaceController({ state: appState, workspace });
+
 
   async function saveEmployerBranding(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -216,8 +176,8 @@ export default function App() {
       <OperationalAlerts
         error={error}
         notice={notice}
-        canUndo={canUndoDecision}
-        onUndo={() => void undoLastDecision()}
+        canUndo={review.canUndoDecision}
+        onUndo={() => void review.undoLastDecision()}
         onDismissError={dismissError}
         onDismissNotice={dismissNotice}
       />
@@ -230,31 +190,31 @@ export default function App() {
           onFetchJobs={() => void fetchJobs()}
           vacancies={vacancies}
           employers={employers}
-          newVacancies24h={newVacancies24h}
-          attentionCount={attentionCount}
-          atsPerformance={atsPerformance}
+          metrics.newVacancies24h={metrics.newVacancies24h}
+          metrics.attentionCount={metrics.attentionCount}
+          metrics.atsPerformance={metrics.atsPerformance}
           showArchived={showArchived}
           onShowArchivedChange={(show) => {
             setShowArchived(show);
-            clearSelection();
+            review.clearSelection();
           }}
           reviewFilter={reviewFilter}
           onReviewFilterChange={setReviewFilter}
           selectedEmployerId={selectedEmployerId}
           onEmployerChange={setSelectedEmployerId}
-          filteredVacancies={filteredVacancies}
-          visibleVacancies={visibleVacancies}
-          selectedVacancyId={selectedVacancyId}
-          openingVacancyId={openingVacancyId}
-          onOpenVacancy={(vacancyId, visible) => void openVacancy(vacancyId, visible)}
-          selectedVacancy={selectedVacancy}
-          reviewReason={reviewReason}
-          vacancySaving={vacancySaving}
-          onChangeReviewReason={setReviewReason}
-          onClearSelection={clearSelection}
-          onDecision={(status) => void setVacancyDecision(status)}
-          onArchive={() => void archiveSelectedVacancy()}
-          onRestore={() => void restoreSelectedVacancy()}
+          metrics.filteredVacancies={metrics.filteredVacancies}
+          metrics.visibleVacancies={metrics.visibleVacancies}
+          review.review.selectedVacancyId={review.review.selectedVacancyId}
+          review.openingVacancyId={review.openingVacancyId}
+          onOpenVacancy={(vacancyId, visible) => void review.openVacancy(vacancyId, visible)}
+          review.selectedVacancy={review.selectedVacancy}
+          review.reviewReason={review.reviewReason}
+          review.saving={review.saving}
+          onChangeReviewReason={review.setReviewReason}
+          onClearSelection={review.clearSelection}
+          onDecision={(status) => void review.saveDecision(status)}
+          onArchive={() => void review.archive()}
+          onRestore={() => void review.restore()}
         />
       )}
 
