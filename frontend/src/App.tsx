@@ -29,6 +29,7 @@ import { CompanySearchFilters } from "./company-management/CompanySearchFilters"
 import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
 import { SourceReviewPanel } from "./employer-sources/SourceReviewPanel";
 import { ExtractionRunHistory } from "./employer-sources/ExtractionRunHistory";
+import { SourceRegistrationForm } from "./employer-sources/SourceRegistrationForm";
 import {
   Select,
   SelectContent,
@@ -1122,71 +1123,24 @@ export default function App() {
                       No job source registered for this company.
                     </p>
                   )}
-                  <form
-                    className="mt-5 grid gap-3 rounded-lg border border-border bg-muted/50 p-4"
-                    onSubmit={createSource}
-                  >
-                    <h4>
-                      {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
-                    </h4>
-                    <label>
-                      Official careers / job board URL
-                      <input
-                        type="url"
-                        value={sourceUrl}
-                        onChange={(event) => {
-                          setSourceUrl(event.target.value);
-                          setInspection(null);
-                        }}
-                        placeholder="https://job-boards.greenhouse.io/company"
-                        required
-                      />
-                    </label>
-                    <Button
-                      type="button"
-                      className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
-                      onClick={() => void inspectGreenhouse()}
-                      disabled={inspecting || !sourceUrl.trim()}
-                    >
-                      {inspecting ? "Checking source…" : "Check Greenhouse source"}
-                    </Button>
-                    {inspection && (
-                      <div className="grid gap-2 rounded-lg border border-border bg-card p-3 text-xs">
-                        <strong>{inspection.board_name || inspection.board_token}</strong>
-                        <span>
-                          {inspection.outcome} · {inspection.jobs.length} sample jobs
-                        </span>
-                        {inspection.detail && <small>{inspection.detail}</small>}
-                      </div>
-                    )}
-                    <div className="flex flex-wrap items-center justify-end gap-2">
-                      {editingSourceId && (
-                        <Button
-                          type="button"
-                          className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
-                          onClick={() => {
-                            setEditingSourceId(null);
-                            setSourceUrl("");
-                            setInspection(null);
-                          }}
-                        >
-                          Cancel edit
-                        </Button>
-                      )}
-                      <Button
-                        type="button"
-                        className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-                        disabled={
-                          saving ||
-                          !inspection ||
-                          !inspection.complete ||
-                          !["success", "empty"].includes(inspection.outcome)
-                        }
-                      >
-                        {saving ? "Saving…" : editingSourceId ? "Update source" : "Save source"}
-                      </Button>
-                    </div>
-                  </form>
+                  <SourceRegistrationForm
+                    editingSourceId={editingSourceId}
+                    sourceUrl={sourceUrl}
+                    onChangeSourceUrl={(value) => {
+                      setSourceUrl(value);
+                      setInspection(null);
+                    }}
+                    onInspect={() => void inspectGreenhouse()}
+                    inspection={inspection}
+                    onSaveSource={createSource}
+                    onCancelEdit={() => {
+                      setEditingSourceId(null);
+                      setSourceUrl("");
+                      setInspection(null);
+                    }}
+                    inspecting={inspecting}
+                    saving={saving}
+                  />
                 </>
               ) : (
                 <div className="grid min-h-[260px] content-center gap-2 px-6 text-center text-sm text-muted-foreground">
