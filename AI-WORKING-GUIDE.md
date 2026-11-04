@@ -24,7 +24,7 @@ For each checkpoint:
 3. Identify the smallest safe implementation.
 4. Implement only the approved scope.
 5. Add/update tests.
-6. Keep every Python module in `backend/app/application/` at 100 lines or fewer. The unit suite must enforce this limit; do not evade it through code compression. Split by cohesive responsibility, and request explicit review before exceeding the limit.
+6. Keep every Python module in `backend/scout/application/` at 100 lines or fewer. The unit suite must enforce this limit; do not evade it through code compression. Split by cohesive responsibility, and request explicit review before exceeding the limit.
 7. Run tests and quality gates, recording actual results.
 8. Review the diff for unrelated edits, secrets and destructive changes.
 9. Update the checkpoint record with evidence and unresolved work.
@@ -35,13 +35,13 @@ Do not combine multiple checkpoints just because an AI tool can implement them i
 ## 4. Tool-specific use
 
 ### Google Antigravity
-Use `AGENTS.md` as the shared project contract and provide the active checkpoint in the task prompt. Keep agent tasks bounded. Review proposed plans, browser actions, terminal commands and diffs before accepting them. Do not allow unattended deployment, destructive data changes or paid-resource provisioning without explicit approval.
+Use the repository-root `AGENTS.md` as the shared project contract; Antigravity automatically discovers it at the workspace/repository root. Keep agent tasks bounded. Review proposed plans, browser actions, terminal commands and diffs before accepting them. Do not allow unattended deployment, destructive data changes or paid-resource provisioning without explicit approval.
 
 ### OpenAI Codex
 Use `AGENTS.md` as the repository-level instructions. Start with repository inspection and the active checkpoint. Require tests and a final evidence summary. Do not ask Codex to mark work Accepted; acceptance is the user's decision.
 
 ### GitHub Copilot
-Use `AGENTS.md` and `.github/copilot-instructions.md`. For Copilot Chat/agent tasks, name the checkpoint and the relevant milestone file. Review generated changes, especially persistence, source-validation, publication and security code. Suggestions or generated tests are not proof until executed.
+Use the repository-root `AGENTS.md` plus `.github/copilot-instructions.md`. Copilot CLI and supported Copilot agent experiences discover these repository instruction files; IDE support can vary by feature and configuration. For Copilot Chat/agent tasks, name the checkpoint and relevant milestone file. Review generated changes, especially persistence, source-validation, publication and security code. Suggestions or generated tests are not proof until executed.
 
 ## 5. AI-generated data and decisions
 
