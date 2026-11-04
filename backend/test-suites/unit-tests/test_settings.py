@@ -21,6 +21,7 @@ def test_database_url_is_optional_when_not_configured(monkeypatch) -> None:
 
     assert settings.scout_database_url is None
 
+
 def test_supabase_auth_settings_keep_publishable_key_secret(
     monkeypatch,
 ) -> None:
