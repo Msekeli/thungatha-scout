@@ -396,50 +396,6 @@ export default function App() {
             <Card className="metric-card"><span>Collected jobs</span><strong>{vacancies.length}</strong></Card>
             <Card className="metric-card"><span>Companies with jobs</span><strong>{new Set(vacancies.map((item) => item.employer_id)).size}</strong></Card>
           </section>
-          <section className="surface jobs-panel">
-            <div className="jobs-toolbar">
-              <div><h3>{showArchived ? "Archived vacancies" : "All vacancies"}</h3><p className="muted">Select a company to narrow the list.</p></div>
-              <select aria-label="Filter active or archived jobs" value={showArchived ? "archived" : "active"} onChange={(event) => { setShowArchived(event.target.value === "archived"); setSelectedVacancy(null); }}>
-                <option value="active">Active jobs</option>
-                <option value="archived">Archived jobs</option>
-              </select>
-              <select aria-label="Filter jobs by review status" value={reviewFilter} onChange={(event) => setReviewFilter(event.target.value)}>
-                <option value="all">All review states</option>
-                <option value="pending">Pending</option>
-                <option value="needs_verification">Needs verification</option>
-                <option value="verified">Verified</option>
-                <option value="rejected">Rejected</option>
-              </select>
-              <select aria-label="Filter jobs by company" value={selectedEmployerId} onChange={(event) => setSelectedEmployerId(event.target.value)}>
-                <option value="all">All companies</option>
-                {employers.map((employer) => <option key={employer.id} value={employer.id}>{employer.name}</option>)}
-              </select>
-              <button className="button secondary" onClick={() => void loadWorkspace()} disabled={loading}>Refresh</button>
-            </div>
-            {loading ? <div className="empty">Loading jobs…</div> : filteredVacancies.length === 0 ? (
-              <div className="empty"><strong>No jobs collected yet</strong><span>Register a company source, then select “Extract jobs”.</span></div>
-            ) : (
-              <div className="jobs-table-wrap">
-                <table className="jobs-table">
-                  <thead><tr><th>Position</th><th>Company</th><th>Location</th><th>Review</th><th>Last seen</th><th></th></tr></thead>
-                  <tbody>
-                    {filteredVacancies.map((vacancy) => (
-                      <tr key={vacancy.id}>
-                        <td><button className="text-link vacancy-title" onClick={() => void openVacancy(vacancy.id)}>{vacancy.title}</button>{vacancy.department && <small>{vacancy.department}</small>}</td>
-                        <td><button className="text-link" onClick={() => { const employer = employers.find((item) => item.id === vacancy.employer_id); if (employer) void openCompany(employer); }}>{vacancy.employer_name}</button></td>
-                        <td>{vacancy.location_text || "Not specified"}</td>
-                        <td><span className={`review-state ${vacancy.review_status}`}>{vacancy.review_status.replaceAll("_", " ")}</span></td>
-                        <td>{new Date(vacancy.last_seen_at).toLocaleDateString()}</td>
-                        <td className="vacancy-actions">
-                          <button className="text-link" onClick={() => void openVacancy(vacancy.id)}>View details</button>
-                          <a href={vacancy.application_url} target="_blank" rel="noreferrer">Open original ↗</a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
           <div className="jobs-workspace">
             <section className="surface jobs-panel">
               <div className="jobs-toolbar">
