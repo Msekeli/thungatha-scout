@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
-import type { Employer, EmployerSource, GreenhouseInspection } from "./api";
+import type { Employer, EmployerSource, GreenhouseInspection, Vacancy } from "./api";
 
 const emptyEmployer = {
   name: "",
@@ -15,7 +15,7 @@ const emptyEmployer = {
 export default function App() {
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [selected, setSelected] = useState<Employer | null>(null);
-  const [sources, setSources] = useState<EmployerSource[]>([]);
+  const [sources, setSources] = useState<EmployerSource[]>([]);\n  const [vacancies, setVacancies] = useState<Vacancy[]>([]);\n  const [extracting, setExtracting] = useState(false);
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
   const [greenhouseInspection, setGreenhouseInspection] = useState<GreenhouseInspection | null>(null);
@@ -78,7 +78,7 @@ export default function App() {
     setSelected(employer);
     setError("");
     try {
-      setSources(await scoutApi.listSources(employer.id));
+      const [nextSources, nextVacancies] = await Promise.all([\n        scoutApi.listSources(employer.id),\n        scoutApi.listVacancies(employer.id),\n      ]);\n      setSources(nextSources);\n      setVacancies(nextVacancies);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load sources.");
     }
@@ -101,6 +101,39 @@ export default function App() {
       setError(reason instanceof Error ? reason.message : "Could not inspect Greenhouse board.");
     } finally {
       setInspecting(false);
+    }
+  }
+
+  async function extractEmployerJobs() {
+    if (!selected) return;
+    const greenhouseSources = sources.filter((source) => source.adapter_key === "greenhouse");
+    if (greenhouseSources.length === 0) {
+      setError("This employer has no registered Greenhouse source.");
+      return;
+    }
+    setExtracting(true);
+    setError("");
+    setNotice("");
+    try {
+      const runs = [];
+      for (const source of greenhouseSources) {
+        runs.push(await scoutApi.extractSource(source.id));
+      }
+      const [nextVacancies, nextSources] = await Promise.all([
+        scoutApi.listVacancies(selected.id),
+        scoutApi.listSources(selected.id),
+      ]);
+      setVacancies(nextVacancies);
+      setSources(nextSources);
+      const received = runs.reduce((total, run) => total + run.jobs_received, 0);
+      const inserted = runs.reduce((total, run) => total + run.jobs_inserted, 0);
+      const updated = runs.reduce((total, run) => total + run.jobs_updated, 0);
+      const failures = runs.filter((run) => !["success", "empty"].includes(run.outcome));
+      setNotice(`Extraction finished: ${received} received, ${inserted} new, ${updated} updated.${failures.length ? ` ${failures.length} source(s) need attention.` : ""}`);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not extract employer vacancies.");
+    } finally {
+      setExtracting(false);
     }
   }
 
@@ -189,7 +222,7 @@ export default function App() {
                 <span className="status">{selected.organization_type.replaceAll("_", " ")}</span>
               </div>
               <p className="muted">{selected.website_url || "Official website not supplied"}</p>
-              <div className="source-heading"><h4>Vacancy sources</h4><span>{sources.length} registered</span></div>
+              <div className="source-heading"><h4>Vacancy sources</h4><span>{sources.length} registered</span></div>\n              <button className="button primary" type="button" onClick={() => void extractEmployerJobs()} disabled={extracting || !sources.some((source) => source.adapter_key === "greenhouse")}>{extracting ? "Extracting vacancies…" : "Extract jobs from Greenhouse"}</button>
               {sources.length === 0 ? <p className="muted">No ATS source registered yet.</p> : (
                 <div className="source-list">
                   {sources.map((source) => (
@@ -197,6 +230,22 @@ export default function App() {
                       <div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div>
                       <span className="status">{source.status.replaceAll("_", " ")}</span>
                     </div>
+                  ))}
+                </div>
+              )}
+              <div className="source-heading"><h4>Published vacancies</h4><span>{vacancies.length} active</span></div>
+              {vacancies.length === 0 ? (
+                <p className="muted">No vacancies have been extracted for this employer yet.</p>
+              ) : (
+                <div className="vacancy-list">
+                  {vacancies.map((vacancy) => (
+                    <article className="vacancy-item" key={vacancy.id}>
+                      <div>
+                        <strong>{vacancy.title}</strong>
+                        <small>{vacancy.location_text || "Location not supplied"}{vacancy.department ? ` · ${vacancy.department}` : ""}</small>
+                      </div>
+                      <a href={vacancy.application_url} target="_blank" rel="noreferrer">View vacancy</a>
+                    </article>
                   ))}
                 </div>
               )}
