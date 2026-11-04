@@ -38,10 +38,10 @@ export function OnboardingUrlForm({
         />
       </label>
 
-      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
-        ATS platform
+      <div className="grid gap-1 text-xs font-medium text-muted-foreground">
+        <span>ATS platform</span>
         <Select value={atsKey} onValueChange={onChangeAtsKey}>
-          <SelectTrigger className="h-9">
+          <SelectTrigger aria-label="ATS platform" className="h-9">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -51,7 +51,7 @@ export function OnboardingUrlForm({
             </SelectItem>
           </SelectContent>
         </Select>
-      </label>
+      </div>
 
       <Button
         type="button"
