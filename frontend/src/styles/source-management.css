@@ -1,0 +1,103 @@
+.source-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 24px 0 12px;
+}
+.source-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #edf0f4;
+}
+.source-item strong {
+  font-size: 12px;
+  text-transform: capitalize;
+}
+.source-item small {
+  overflow-wrap: anywhere;
+  color: #718096;
+}
+
+.source-history {
+  padding: 4px 0 14px;
+  border-bottom: 1px solid #edf0f4;
+}
+.run-history {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+.run-heading, .run-summary, .run-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.run-heading strong { color: #526174; font-size: 10px; }
+.run-heading span, .run-meta { color: #8793a3; font-size: 9px; }
+.run-summary { justify-content: flex-start; color: #526174; font-size: 10px; }
+.run-outcome {
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: #e8edf4;
+  color: #526174;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.run-outcome.success, .run-outcome.empty { background: #e8f4ec; color: #28623b; }
+.run-outcome.not_found, .run-outcome.blocked,
+.run-outcome.malformed, .run-outcome.persistence_failure {
+  background: #fff0f0;
+  color: #a33131;
+}
+.run-detail {
+  margin: 0;
+  color: #a33131;
+  font-size: 10px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.older-run {
+  display: grid;
+  gap: 4px;
+  padding: 8px 0;
+  border-top: 1px solid #e7ebf0;
+}
+
+.source-decision {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0;
+  padding: 14px;
+  border: 1px solid #d5e1ef;
+  border-radius: 10px;
+  background: #f2f6fb;
+}
+.source-decision-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.inspection-preview {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: #f8fafc;
+  font-size: 11px;
+}
+.add-company-panel {
+  max-width: 680px;
+  padding: 24px;
+}
+@media (max-width: 760px) {
+  .source-decision-grid { grid-template-columns: 1fr; }
+}

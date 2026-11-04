@@ -201,3 +201,11 @@ Critical safety tests:
 - Supabase Transaction Pooler connections use TLS, a bounded connection timeout and `prepare_threshold=None` to avoid session-level prepared-statement assumptions. The backend opens direct connections per operation; no connection-pool framework is introduced for the current low-volume admin workload.
 - Hosting is deliberately deferred until the application is implemented and its local functionality is verified. Keep the FastAPI backend and scheduled/background processing provider-portable. Select a provider only after evaluating the completed workload, dependencies, scheduling, reliability, deployment effort and total cost.
 - No hosting provider, paid service, deployment or external resource is approved by this setup decision.
+
+## Architecture quality and maintainability standards
+
+- Every handwritten application source-code file across both backend and frontend must remain at 100 physical lines or fewer.
+- Directory and file names must communicate domain responsibility using descriptive kebab-case (frontend) and snake_case (backend Python) conventions.
+- Monolithic containers are prohibited; UI pages compose focused presentation components, custom feature hooks, resource-specific API clients, and modular stylesheets.
+- Quality gates are enforced by `scripts/check-file-line-limits.py` and `scripts/check-naming-conventions.py`.
+

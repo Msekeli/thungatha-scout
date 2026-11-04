@@ -72,8 +72,8 @@ A name is not better merely because it is longer. It is better when it is accura
 - Use Pydantic or equivalent validation at external-data boundaries where it adds value.
 - Use Ruff for linting/formatting if confirmed by the repository setup; target an 88-character line length unless existing tooling establishes another standard.
 - Prefer small, single-purpose functions. As a guideline, aim for 10–30 lines and review functions exceeding roughly 40 lines; do not split code artificially to meet a number.
-- Hard limit: every Python module directly in `backend/scout/application/` must be 100 lines or fewer, counting blank lines. Split by cohesive responsibility; do not compress or obscure code merely to meet the limit. If a module needs more than 100 lines, stop and ask for explicit review before expanding it. Test files may exceed 100 lines when their cases remain cohesive.
-- Enforce this limit with an automated unit test. Run the full unit suite after code changes and before reporting completion.
+- Hard limit: every handwritten source-code file across the entire repository (Python modules, tests, TypeScript/TSX components, hooks, API services, and stylesheets) must be 100 lines or fewer, counting blank lines. Split by cohesive responsibility; do not compress or obscure code merely to meet the limit. If a module needs more than 100 lines, split it into focused sub-modules. Only narrow, documented technical exceptions (such as `main.tsx` and generated UI primitives) are permitted.
+- Enforce this limit with the automated scripts `python3 scripts/check-file-line-limits.py` and `python3 scripts/check-naming-conventions.py`. Run these quality gates before reporting completion.
 - Use explicit exceptions and structured error reporting; do not swallow errors silently.
 - Add pytest coverage for normal, empty, malformed, duplicate, timeout, provider-failure and retry cases as applicable.
 

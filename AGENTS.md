@@ -21,7 +21,7 @@ The source-of-truth document must not be overwritten or silently reconciled with
 3. Make the smallest change that meets the agreed checkpoint.
 4. Preserve existing experimental Greenhouse work, historical reports, company data and user changes.
 5. Add or update tests for changed behavior.
-6. Keep every Python module directly in `backend/scout/application/` at 100 lines or fewer. The automated line-limit test is a required quality gate. Do not evade it by minifying code; split by responsibility. If a larger module appears necessary, stop and request explicit review.
+6. Keep every handwritten source-code file across the entire repository (backend Python modules, persistence repositories, API routes, adapters, frontend TypeScript/TSX components, hooks, API services, and stylesheets) at 100 physical lines or fewer. The automated line-limit check (`python3 scripts/check-file-line-limits.py`) and naming check (`python3 scripts/check-naming-conventions.py`) are mandatory quality gates. Do not evade them by minifying code; split by cohesive responsibility. Only documented technical exceptions (e.g. `main.tsx`, generated shadcn primitives) are permitted.
 7. Run the relevant tests and quality checks. Never claim a command passed unless it was actually run.
 8. Report changed files, commands/results, evidence, unresolved issues and the next action.
 9. Update checkpoint progress records only with verified facts.

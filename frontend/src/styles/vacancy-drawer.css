@@ -1,0 +1,86 @@
+.review-state {
+  display: inline-block;
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: #edf2f7;
+  color: #526174;
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.review-state.needs_verification {
+  background: #fff4df;
+  color: #8b5a13;
+}
+.review-state.verified {
+  background: #e8f4ec;
+  color: #28623b;
+}
+.review-state.rejected {
+  background: #fff0f0;
+  color: #a33131;
+}
+
+.vacancy-drawer-body {
+  display: grid;
+  gap: 16px;
+  padding-top: 12px;
+}
+.vacancy-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+.vacancy-meta-item {
+  display: grid;
+  gap: 2px;
+}
+.vacancy-meta-item span {
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.vacancy-meta-item strong {
+  color: #1e293b;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.vacancy-description {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.review-actions-panel {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+.review-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.archive-actions-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+}

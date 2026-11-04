@@ -47,6 +47,7 @@ Scout and Thungatha databases are isolated. Scout retains raw operational, rejec
 - Failed/partial extraction cannot mark vacancies removed or expired.
 - Publishing is idempotent and recoverable.
 - No service-role credentials in the frontend.
+- Repository-wide architecture limits: no handwritten source file may exceed 100 physical lines; descriptive naming conventions are strictly enforced across backend and frontend.
 
 ## 5. Delivery model
 

@@ -1,0 +1,93 @@
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.metric-card {
+  padding: 14px 18px;
+  border: 1px solid #d8e1ec;
+  border-radius: 10px;
+  background: #fff;
+}
+.metric-card span {
+  color: #7b889b;
+  font-size: 11px;
+}
+.metric-card strong {
+  display: block;
+  margin-top: 4px;
+  color: #102b4d;
+  font-size: 20px;
+}
+
+.jobs-panel {
+  display: grid;
+  gap: 16px;
+}
+.jobs-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #edf0f4;
+}
+.jobs-toolbar h3 {
+  margin: 0;
+  font-size: 15px;
+}
+.jobs-toolbar .muted {
+  margin: 2px 0 0;
+  color: #8290a2;
+  font-size: 11px;
+}
+
+.jobs-table-wrap {
+  overflow-x: auto;
+}
+.jobs-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+}
+.jobs-table th {
+  padding: 10px 12px;
+  border-bottom: 1px solid #dce3ec;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.jobs-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f1f4f8;
+  vertical-align: middle;
+}
+.jobs-table tr:hover td {
+  background: #f8fafc;
+}
+.jobs-table td strong {
+  display: block;
+  color: #1a2a40;
+}
+.jobs-table td small {
+  color: #8290a2;
+  font-size: 11px;
+}
+
+.text-link {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #1b4d89;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: underline;
+}
+.text-link:hover {
+  color: #0b2f5c;
+}

@@ -26,7 +26,7 @@ For each checkpoint:
 3. Identify the smallest safe implementation.
 4. Implement only the approved scope.
 5. Add/update tests.
-6. Keep every Python module in `backend/scout/application/` at 100 lines or fewer. The unit suite must enforce this limit; do not evade it through code compression. Split by cohesive responsibility, and request explicit review before exceeding the limit.
+6. Keep every handwritten source-code file across backend and frontend at 100 physical lines or fewer. The automated line-limit check (`python3 scripts/check-file-line-limits.py`) and naming check (`python3 scripts/check-naming-conventions.py`) enforce this rule. Split by cohesive responsibility.
 7. Run tests and quality gates, recording actual results.
 8. Review the diff for unrelated edits, secrets and destructive changes.
 9. Update the checkpoint record with evidence and unresolved work.
