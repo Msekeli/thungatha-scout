@@ -471,7 +471,9 @@ export default function App() {
               <div className="section-heading"><h3>Registered companies</h3><span>{employers.length}</span></div>
               {employers.map((employer) => (
                 <button key={employer.id} className={`company-row ${selectedEmployerId === employer.id ? "selected" : ""}`} onClick={() => void openCompany(employer)}>
-                  <span className="employer-avatar">{employer.name.slice(0, 1).toUpperCase()}</span>
+                  {employer.logo_url
+                    ? <img className="employer-logo" src={employer.logo_url} alt={employer.name + " logo"} />
+                    : <span className="employer-avatar">{employer.name.slice(0, 1).toUpperCase()}</span>}
                   <span><strong>{employer.name}</strong><small>{employer.city || "Location not confirmed"}</small></span>
                   <span className="status">{employer.status.replaceAll("_", " ")}</span>
                 </button>
