@@ -51,11 +51,7 @@ async def verify_supabase_access_token(
 ) -> dict[str, Any]:
     algorithm = jwt.get_unverified_header(token).get("alg")
     if algorithm == "HS256":
-        return await verify_legacy_access_token(
-            token, supabase_url, publishable_key
-        )
+        return await verify_legacy_access_token(token, supabase_url, publishable_key)
     if algorithm not in {"ES256", "RS256"}:
         raise InvalidTokenError("Unsupported access token algorithm.")
-    return await run_in_threadpool(
-        verify_asymmetric_access_token, token, supabase_url
-    )
+    return await run_in_threadpool(verify_asymmetric_access_token, token, supabase_url)
