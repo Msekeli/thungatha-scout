@@ -1006,7 +1006,46 @@ export default function App() {
           </section>
           <div className="grid min-h-0 gap-3 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.5fr)]">
             <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
-              <CompanyProfileHeader
+              <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
+                <div className="flex items-center gap-3">
+                  <h3>Registered companies</h3>
+                  <span>
+                    {visibleEmployers.length} / {employers.length}
+                  </span>
+                </div>
+                <Button
+                  type="button"
+                  className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
+                  onClick={() => {
+                    setPage("add-company");
+                    setError("");
+                    setNotice("");
+                  }}
+                >
+                  + Add company
+                </Button>
+              </div>
+              <CompanySearchFilters
+                searchQuery={companyQuery}
+                onSearchChange={setCompanyQuery}
+                statusFilter={companyStatusFilter}
+                onStatusFilterChange={setCompanyStatusFilter}
+              />
+              <CompanyDirectoryList
+                employers={visibleEmployers}
+                selectedEmployerId={selectedEmployerId}
+                onSelectEmployer={(employer) => void openCompany(employer)}
+                emptyMessage={
+                  employers.length
+                    ? "No companies match these filters."
+                    : "No companies registered."
+                }
+              />
+            </section>
+            <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
+              {selectedEmployer ? (
+                <>
+                  <CompanyProfileHeader
                     employer={selectedEmployer}
                     jobsCount={vacancies.filter((item) => item.employer_id === selectedEmployer.id).length}
                     sourcesCount={sources.length}
