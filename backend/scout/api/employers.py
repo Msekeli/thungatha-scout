@@ -102,7 +102,7 @@ def update_employer_source(
 ) -> dict[str, Any]:
     try:
         validate_source_config(
-            "greenhouse" if "slug" in payload.adapter_config else "workday",
+            payload.adapter_key,
             payload.adapter_config,
         )
     except RegistryValidationError as exception:
