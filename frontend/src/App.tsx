@@ -6,7 +6,6 @@ import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { CompanyAttentionActions } from "./company-management/CompanyAttentionActions";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { CompanyDirectoryPanel } from "./company-management/CompanyDirectoryPanel";
 import { CompanyProfilePanel } from "./company-management/CompanyProfilePanel";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
@@ -17,8 +16,7 @@ import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
 import { VacancyRecordList } from "./job-management/VacancyRecordList";
 import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
 import { useVacancyReview } from "./job-management/useVacancyReview";
-import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
-import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
+import { EmployerOnboardingPanel } from "./employer-onboarding/EmployerOnboardingPanel";
 import { useScoutWorkspace } from "./useScoutWorkspace";
 import { useScoutDashboardMetrics } from "./useScoutDashboardMetrics";
 import { DashboardOverview } from "./app-shell/DashboardOverview";
@@ -204,6 +202,32 @@ export default function App() {
     await saveBranding();
   }
 
+  function handleEmployerOnboardingSubmit(event: FormEvent<HTMLFormElement>) {
+    if (discovery) {
+      void registerDiscoveredEmployer(event);
+      return;
+    }
+
+    event.preventDefault();
+    void discover(sourceUrl, (detectedName) =>
+      setForm((current) => ({
+        ...current,
+        name: current.name || detectedName,
+        website_url: sourceUrl,
+      })),
+    );
+  }
+
+  function handleEmployerDiscovery() {
+    void discover(sourceUrl, (detectedName) =>
+      setForm((current) => ({
+        ...current,
+        name: current.name || detectedName,
+        website_url: sourceUrl,
+      })),
+    );
+  }
+
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
       <AppShellHeader
@@ -362,92 +386,30 @@ export default function App() {
       )}
 
       {page === "add-company" && (
-        <>
-          <p className="mb-3 text-xs text-muted-foreground">
-            Register a company and connect its official careers source.
-          </p>
-          <section className="w-full max-w-2xl rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
-            <form
-              className="grid gap-4"
-              onSubmit={
-                discovery
-                  ? registerDiscoveredEmployer
-                  : (event) => {
-                      event.preventDefault();
-                      void discover(sourceUrl, (detectedName) =>
-                        setForm((current) => ({
-                          ...current,
-                          name: current.name || detectedName,
-                          website_url: sourceUrl,
-                        })),
-                      );
-                    }
-              }
-            >
-              <OnboardingUrlForm
-                sourceUrl={sourceUrl}
-                onChangeSourceUrl={(value) => {
-                  setSourceUrl(value);
-                  setDiscovery(null);
-                  setForm((current) => ({ ...current, website_url: value }));
-                }}
-                atsKey={atsKey}
-                onChangeAtsKey={(value) => {
-                  setAtsKey(value);
-                  setDiscovery(null);
-                }}
-                onDetect={() =>
-                  void discover(sourceUrl, (detectedName) =>
-                    setForm((current) => ({
-                      ...current,
-                      name: current.name || detectedName,
-                      website_url: sourceUrl,
-                    })),
-                  )
-                }
-                inspecting={inspecting}
-              />
-              <OnboardingPreviewCard discovery={discovery} />
-              {discovery && (
-                <label>
-                  Company name
-                  <Input
-                    value={form.name}
-                    onChange={(event) => setForm({ ...form, name: event.target.value })}
-                    placeholder="Detected company name"
-                    required
-                  />
-                </label>
-              )}
-              <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={() => {
-                    setPage("companies");
-                    setDiscovery(null);
-                  }}
-                >
-                  Cancel
-                </Button>
-                {discovery && (
-                  <Button
-                    type="submit"
-                    size="sm"
-                    disabled={
-                      saving ||
-                      !discovery.complete ||
-                      !["success", "empty"].includes(discovery.outcome)
-                    }
-                  >
-                    {saving ? "Registering and retrieving…" : "Confirm & register"}
-                  </Button>
-                )}
-              </div>
-            </form>
-          </section>
-        </>
+        <EmployerOnboardingPanel
+          sourceUrl={sourceUrl}
+          onChangeSourceUrl={(value) => {
+            setSourceUrl(value);
+            setDiscovery(null);
+            setForm((current) => ({ ...current, website_url: value }));
+          }}
+          atsKey={atsKey}
+          onChangeAtsKey={(value) => {
+            setAtsKey(value);
+            setDiscovery(null);
+          }}
+          discovery={discovery}
+          onDiscover={handleEmployerDiscovery}
+          inspecting={inspecting}
+          form={form}
+          onChangeCompanyName={(value) => setForm((current) => ({ ...current, name: value }))}
+          saving={saving}
+          onSubmit={handleEmployerOnboardingSubmit}
+          onCancel={() => {
+            setPage("companies");
+            setDiscovery(null);
+          }}
+        />
       )}
 
       <footer className="mt-5 border-t pt-3 text-[10px] text-muted-foreground">
