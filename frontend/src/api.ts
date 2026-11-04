@@ -113,6 +113,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       problem.detail ?? problem.title ?? `Request failed (${response.status}).`,
     );
   }
+  if (response.status === 204) return undefined as T;
   return response.json() as Promise<T>;
 }
 
