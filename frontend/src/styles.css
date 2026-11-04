@@ -142,7 +142,7 @@ footer { padding-top:22px; color:#8a95a5; font-size:10px; }
 .run-summary { justify-content: flex-start; color: #526174; font-size: 10px; }
 .run-outcome { padding: 4px 7px; border-radius: 5px; background: #e8edf4; color: #526174; font-size: 9px; font-weight: 800; text-transform: uppercase; }
 .run-outcome.success,.run-outcome.empty { background: #e8f4ec; color: #28623b; }
-.run-outcome.not_found,.run-outcome.blocked,.run-outcome.malformed { background: #fff0f0; color: #a33131; }
+.run-outcome.not_found,.run-outcome.blocked,.run-outcome.malformed,.run-outcome.persistence_failure { background: #fff0f0; color: #a33131; }
 .run-outcome.partial,.run-outcome.rate_limited,.run-outcome.transient_failure { background: #fff5e6; color: #8b5a13; }
 .run-detail { margin: 0; color: #a33131; font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
 .run-older { color: #526174; font-size: 10px; }
