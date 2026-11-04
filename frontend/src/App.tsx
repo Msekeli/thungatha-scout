@@ -7,13 +7,10 @@ import { CompanyAttentionActions } from "./company-management/CompanyAttentionAc
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CompanyProfileActions } from "./company-management/CompanyProfileActions";
 import { CompanyDirectoryPanel } from "./company-management/CompanyDirectoryPanel";
-import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
-import { CompanyBrandingForm } from "./company-management/CompanyBrandingForm";
+import { CompanyProfilePanel } from "./company-management/CompanyProfilePanel";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
 import { useCompanySelection } from "./company-management/useCompanySelection";
-import { CompanySourcesSection } from "./employer-sources/CompanySourcesSection";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
 import { useEmployerSourceOperations } from "./employer-sources/useEmployerSourceOperations";
 import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
@@ -319,66 +316,47 @@ export default function App() {
                 setNotice("");
               }}
             />
-            <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
-              {selectedEmployer ? (
-                <>
-                  <CompanyProfileHeader
-                    employer={selectedEmployer}
-                    jobsCount={
-                      vacancies.filter((item) => item.employer_id === selectedEmployer.id).length
-                    }
-                    sourcesCount={sources.length}
-                  />
-                  <CompanyProfileActions
-                    currentStatus={selectedEmployer.status}
-                    saving={saving}
-                    onUpdateStatus={(status) => void updateCompanyStatus(status)}
-                    onDelete={() => void deleteCompany()}
-                  />
-                  <CompanyBrandingForm
-                    logoUrl={logoUrl}
-                    logoSourceUrl={logoSourceUrl}
-                    saving={saving}
-                    onLogoUrlChange={setLogoUrl}
-                    onLogoSourceUrlChange={setLogoSourceUrl}
-                    onSubmit={saveEmployerBranding}
-                  />
-                  <CompanySourcesSection
-                    sources={sources}
-                    extractionRuns={extractionRuns}
-                    decisions={sourceDecision}
-                    sourceUrl={sourceUrl}
-                    editingSourceId={editingSourceId}
-                    inspection={inspection}
-                    saving={saving}
-                    inspecting={inspecting}
-                    onEditSource={(source) => {
-                      setEditingSourceId(source.id);
-                      setSourceUrl(source.source_url);
-                      setInspection(null);
-                    }}
-                    onDecisionChange={updateSourceDecisionField}
-                    onSaveDecision={(source) => void saveSourceDecision(source)}
-                    onChangeSourceUrl={(value) => {
-                      setSourceUrl(value);
-                      setInspection(null);
-                    }}
-                    onInspect={() => void inspectGreenhouseBoard(sourceUrl)}
-                    onSaveSource={saveSource}
-                    onCancelEdit={() => {
-                      setEditingSourceId(null);
-                      setSourceUrl("");
-                      setInspection(null);
-                    }}
-                  />
-                </>
-              ) : (
-                <div className="grid min-h-[260px] content-center gap-2 px-6 text-center text-sm text-muted-foreground">
-                  <strong>Select a company</strong>
-                  <span>Choose a company to view its profile and registered job sources.</span>
-                </div>
-              )}
-            </section>
+            <CompanyProfilePanel
+              employer={selectedEmployer}
+              jobsCount={
+                selectedEmployer
+                  ? vacancies.filter((item) => item.employer_id === selectedEmployer.id).length
+                  : 0
+              }
+              sources={sources}
+              extractionRuns={extractionRuns}
+              decisions={sourceDecision}
+              logoUrl={logoUrl}
+              logoSourceUrl={logoSourceUrl}
+              sourceUrl={sourceUrl}
+              editingSourceId={editingSourceId}
+              inspection={inspection}
+              saving={saving}
+              inspecting={inspecting}
+              onUpdateStatus={(status) => void updateCompanyStatus(status)}
+              onDelete={() => void deleteCompany()}
+              onLogoUrlChange={setLogoUrl}
+              onLogoSourceUrlChange={setLogoSourceUrl}
+              onSaveBranding={saveEmployerBranding}
+              onEditSource={(source) => {
+                setEditingSourceId(source.id);
+                setSourceUrl(source.source_url);
+                setInspection(null);
+              }}
+              onDecisionChange={updateSourceDecisionField}
+              onSaveDecision={(source) => void saveSourceDecision(source)}
+              onChangeSourceUrl={(value) => {
+                setSourceUrl(value);
+                setInspection(null);
+              }}
+              onInspect={() => void inspectGreenhouseBoard(sourceUrl)}
+              onSaveSource={saveSource}
+              onCancelEdit={() => {
+                setEditingSourceId(null);
+                setSourceUrl("");
+                setInspection(null);
+              }}
+            />
           </div>
         </>
       )}
