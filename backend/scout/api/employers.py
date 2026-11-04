@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -104,6 +104,29 @@ def create_employer_source(
 
 def get_employer_source_update_service() -> EmployerSourceUpdateService:
     return EmployerSourceUpdateService()
+
+
+
+class EmployerSourceReviewUpdate(BaseModel):
+    status: Literal["discovered", "pending_verification", "verified", "temporarily_unavailable", "invalid", "needs_review", "inactive"]
+    permission_status: Literal["unknown", "allowed", "restricted", "needs_review"]
+    evidence_url: str | None = Field(default=None, max_length=2048)
+    reason: str | None = Field(default=None, max_length=2000)
+
+
+@router.patch("/{employer_id}/sources/{source_id}/review")
+def update_employer_source_review(
+    employer_id: UUID,
+    source_id: UUID,
+    payload: EmployerSourceReviewUpdate,
+    service: EmployerSourceUpdateService = Depends(get_employer_source_update_service),
+) -> dict[str, Any]:
+    if payload.status == "verified" and payload.permission_status == "allowed" and not payload.evidence_url:
+        raise HTTPException(status_code=422, detail="Evidence URL is required to verify and permit a source.")
+    source = service.update_review(employer_id, source_id, payload.model_dump())
+    if source is None:
+        raise HTTPException(status_code=404, detail="Employer source not found.")
+    return source
 
 
 @router.put("/{employer_id}/sources/{source_id}")
