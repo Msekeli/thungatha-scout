@@ -18,9 +18,7 @@ type UseScoutWorkspaceResult = {
   loadWorkspace: () => Promise<void>;
 };
 
-export function useScoutWorkspace(
-  onError: (message: string) => void,
-): UseScoutWorkspaceResult {
+export function useScoutWorkspace(onError: (message: string) => void): UseScoutWorkspaceResult {
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [archivedVacancies, setArchivedVacancies] = useState<Vacancy[]>([]);
