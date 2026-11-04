@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any
+from typing import Any, Literal
 from uuid import UUID
 
 from psycopg.connection import Connection
@@ -12,6 +12,7 @@ from scout.persistence.employer_source_repository import EmployerSourceRepositor
 class EmployerSourceUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 
+    adapter_key: Literal["greenhouse", "workday"]
     source_url: HttpUrl
     normalized_url: HttpUrl
     adapter_config: dict[str, Any] = Field(default_factory=dict)
