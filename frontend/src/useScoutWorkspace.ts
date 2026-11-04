@@ -40,12 +40,9 @@ export function useScoutWorkspace(onError: (message: string) => void): UseScoutW
       setArchivedVacancies(nextArchived);
 
       const sourceGroups = await Promise.all(
-        nextEmployers.map(async (employer) => ({
-          employer,
-          sources: await scoutApi.listSources(employer.id),
-        })),
+        nextEmployers.map((employer) => scoutApi.listSources(employer.id)),
       );
-      const allSources = sourceGroups.flatMap((group) => group.sources);
+      const allSources = sourceGroups.flat();
       setDashboardSources(allSources);
 
       const runEntries = await Promise.all(
