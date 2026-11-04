@@ -532,14 +532,14 @@ export default function App() {
       {page === "jobs" && (
         <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">
           <div className="flex items-center justify-between gap-3">
-            <span className="text-[10px] font-medium text-slate-400">
+            <span className="text-[10px] font-medium text-muted-foreground/70">
               {loading ? "Refreshing data…" : "Updated from Scout records"}
             </span>
             <div className="flex gap-2">
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 bg-white"
+                className="h-8 bg-card"
                 onClick={() => void loadWorkspace()}
                 disabled={loading || extracting}
               >
@@ -548,7 +548,7 @@ export default function App() {
               </Button>
               <Button
                 size="sm"
-                className="h-8 bg-cyan-500 text-[#071426] hover:bg-cyan-400"
+                className="h-8 bg-[var(--scout-cyan)] text-primary hover:bg-[var(--scout-cyan)]/90"
                 onClick={() => void fetchJobs()}
                 disabled={loading || extracting}
               >
@@ -564,37 +564,37 @@ export default function App() {
                 value: vacancies.length,
                 note: "Active records",
                 icon: BriefcaseBusiness,
-                color: "text-cyan-700",
-                bg: "bg-cyan-50",
+                color: "text-accent-foreground",
+                bg: "bg-accent",
               },
               {
                 label: "Registered companies",
                 value: employers.length,
                 note: "Employer records",
                 icon: Building2,
-                color: "text-blue-700",
-                bg: "bg-blue-50",
+                color: "text-secondary-foreground",
+                bg: "bg-secondary",
               },
               {
                 label: "New in last 24 hours",
                 value: newVacancies24h,
                 note: "Based on first seen time",
                 icon: Sparkles,
-                color: "text-emerald-700",
-                bg: "bg-emerald-50",
+                color: "text-[var(--success-text)]",
+                bg: "bg-[var(--success-surface)]",
               },
               {
                 label: "Needs admin attention",
                 value: attentionCount,
                 note: "Pending or needs verification",
                 icon: CircleAlert,
-                color: "text-amber-700",
-                bg: "bg-amber-50",
+                color: "text-[var(--warning-text)]",
+                bg: "bg-[var(--warning-surface)]",
               },
             ].map(({ label, value, note, icon: Icon, color, bg }) => (
               <div
                 key={label}
-                className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm"
+                className="flex items-center gap-3 rounded-xl border border-border bg-card p-3 shadow-sm"
               >
                 <span
                   className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${bg} ${color}`}
@@ -602,19 +602,19 @@ export default function App() {
                   <Icon className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-medium text-slate-500">{label}</p>
-                  <p className="text-xl font-bold leading-tight text-[#0b1426]">{value}</p>
-                  <p className="text-[10px] text-slate-400">{note}</p>
+                  <p className="text-[11px] font-medium text-muted-foreground">{label}</p>
+                  <p className="text-xl font-bold leading-tight text-primary">{value}</p>
+                  <p className="text-[10px] text-muted-foreground/70">{note}</p>
                 </div>
               </div>
             ))}
           </div>
-          <section className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
+          <section className="rounded-xl border border-border bg-card p-3 shadow-sm">
             <div className="mb-2 flex items-center justify-between">
-              <h3 className="flex items-center gap-2 text-xs font-bold text-[#0b1426]">
+              <h3 className="flex items-center gap-2 text-xs font-bold text-primary">
                 <Activity className="h-4 w-4 text-cyan-600" /> ATS performance
               </h3>
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-muted-foreground/70">
                 Source health and latest extraction results
               </span>
             </div>
@@ -622,11 +622,11 @@ export default function App() {
               {atsPerformance.map((item) => (
                 <div
                   key={item.adapter}
-                  className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2"
+                  className="flex items-center justify-between gap-3 rounded-lg bg-muted px-3 py-2"
                 >
                   <div className="min-w-0">
-                    <p className="text-xs font-bold capitalize text-slate-800">{item.adapter}</p>
-                    <p className="text-[10px] text-slate-500">
+                    <p className="text-xs font-bold capitalize text-foreground">{item.adapter}</p>
+                    <p className="text-[10px] text-muted-foreground">
                       {item.sourceCount} sources · {item.verified} verified · {item.jobCount}{" "}
                       vacancies
                     </p>
@@ -644,7 +644,7 @@ export default function App() {
                     >
                       {item.latest?.outcome ?? "No runs"}
                     </Badge>
-                    <p className="mt-1 text-[10px] text-slate-500">
+                    <p className="mt-1 text-[10px] text-muted-foreground">
                       {item.latest
                         ? `${item.latest.jobs_inserted} new · ${item.failed} failed runs`
                         : "Awaiting first extraction"}
@@ -655,9 +655,9 @@ export default function App() {
             </div>
           </section>
           <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-            <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-              <div className="flex flex-wrap items-center gap-2 border-b border-slate-100 bg-slate-50/80 p-3">
-                <h3 className="mr-auto text-sm font-bold text-[#0b1426]">
+            <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+              <div className="flex flex-wrap items-center gap-2 border-b border-border bg-muted/70 p-3">
+                <h3 className="mr-auto text-sm font-bold text-primary">
                   {showArchived ? "Archived vacancies" : "Vacancy records"}
                 </h3>
                 <Select
@@ -668,7 +668,7 @@ export default function App() {
                     setSelectedVacancyId(null);
                   }}
                 >
-                  <SelectTrigger className="h-8 w-[125px] bg-white text-xs">
+                  <SelectTrigger className="h-8 w-[125px] bg-card text-xs">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -677,7 +677,7 @@ export default function App() {
                   </SelectContent>
                 </Select>
                 <Select value={reviewFilter} onValueChange={setReviewFilter}>
-                  <SelectTrigger className="h-8 w-[145px] bg-white text-xs">
+                  <SelectTrigger className="h-8 w-[145px] bg-card text-xs">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -689,7 +689,7 @@ export default function App() {
                   </SelectContent>
                 </Select>
                 <Select value={selectedEmployerId} onValueChange={setSelectedEmployerId}>
-                  <SelectTrigger className="h-8 w-[140px] bg-white text-xs">
+                  <SelectTrigger className="h-8 w-[140px] bg-card text-xs">
                     <SelectValue placeholder="All companies" />
                   </SelectTrigger>
                   <SelectContent>
@@ -704,7 +704,7 @@ export default function App() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="h-8 bg-white"
+                  className="h-8 bg-card"
                   onClick={() => void loadWorkspace()}
                   disabled={loading}
                 >
@@ -713,13 +713,13 @@ export default function App() {
               </div>
               <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3">
                 {loading ? (
-                  <p className="py-12 text-center text-sm text-slate-500">
+                  <p className="py-12 text-center text-sm text-muted-foreground">
                     Loading operational data…
                   </p>
                 ) : filteredVacancies.length === 0 ? (
                   <div className="py-12 text-center">
                     <p className="text-sm font-semibold">No matching records</p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       Adjust the filters or register a source.
                     </p>
                   </div>
@@ -730,10 +730,10 @@ export default function App() {
                       type="button"
                       onClick={() => void openVacancy(vacancy.id)}
                       aria-pressed={selectedVacancyId === vacancy.id}
-                      className={`w-full rounded-lg border p-3 text-left shadow-sm transition-all hover:border-cyan-300 hover:bg-cyan-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${selectedVacancyId === vacancy.id ? "border-cyan-500 bg-cyan-50 shadow-[inset_4px_0_0_#06b6d4,0_2px_8px_#0b14261a]" : "border-slate-200 bg-white"}`}
+                      className={`w-full rounded-lg border p-3 text-left shadow-sm transition-all hover:border-ring hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selectedVacancyId === vacancy.id ? "border-cyan-500 bg-accent shadow-[inset_4px_0_0_#06b6d4,0_2px_8px_#0b14261a]" : "border-border bg-card"}`}
                     >
                       <span className="flex items-start justify-between gap-3">
-                        <strong className="text-sm font-semibold leading-snug text-[#0b1426]">
+                        <strong className="text-sm font-semibold leading-snug text-primary">
                           {vacancy.title}
                         </strong>
                         <Badge
@@ -746,19 +746,19 @@ export default function App() {
                           }
                           className={
                             vacancy.review_status === "pending"
-                              ? "bg-amber-100 text-amber-800 hover:bg-amber-100"
+                              ? "bg-[var(--warning-surface)] text-[var(--warning-text)] hover:bg-[var(--warning-surface)]"
                               : vacancy.review_status === "needs_verification"
-                                ? "bg-orange-100 text-orange-800 hover:bg-orange-100"
+                                ? "bg-[var(--warning-surface)] text-[var(--warning-text)] hover:bg-[var(--warning-surface)]"
                                 : ""
                           }
                         >
                           {reviewLabel(vacancy.review_status)}
                         </Badge>
                       </span>
-                      <span className="mt-1 block text-xs font-medium text-slate-600">
+                      <span className="mt-1 block text-xs font-medium text-muted-foreground">
                         {vacancy.employer_name}
                       </span>
-                      <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-slate-500">
+                      <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-muted-foreground">
                         <span>{vacancy.location_text || "Location unknown"}</span>
                         {vacancy.department && <span>{vacancy.department}</span>}
                         <span>
@@ -773,16 +773,16 @@ export default function App() {
                 )}
               </div>
             </section>
-            <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+            <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
               {openingVacancyId ? (
-                <div className="grid flex-1 place-content-center text-center text-sm text-slate-500">
+                <div className="grid flex-1 place-content-center text-center text-sm text-muted-foreground">
                   Loading vacancy…
                 </div>
               ) : selectedVacancy ? (
                 <>
-                  <div className="flex items-center justify-between gap-3 border-b border-slate-100 bg-[#0b1426] p-4 text-white">
+                  <div className="flex items-center justify-between gap-3 border-b border-border bg-primary p-4 text-white">
                     <div className="min-w-0">
-                      <p className="text-[10px] font-medium text-cyan-300">
+                      <p className="text-[10px] font-medium text-[var(--scout-cyan)]">
                         {selectedVacancy.employer_name} ·{" "}
                         {selectedVacancy.location_text || "Location unknown"}
                       </p>
@@ -791,7 +791,7 @@ export default function App() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-slate-300 hover:bg-white/10 hover:text-white"
+                      className="text-primary-foreground/75 hover:bg-card/10 hover:text-white"
                       onClick={() => {
                         setSelectedVacancy(null);
                         setSelectedVacancyId(null);
@@ -800,11 +800,11 @@ export default function App() {
                       Clear
                     </Button>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 border-b border-slate-100 px-4 py-3">
+                  <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3">
                     <Button
                       asChild
                       size="sm"
-                      className="bg-cyan-500 text-[#071426] hover:bg-cyan-400"
+                      className="bg-[var(--scout-cyan)] text-primary hover:bg-[var(--scout-cyan)]/90"
                     >
                       <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">
                         Open source listing ↗
@@ -815,18 +815,18 @@ export default function App() {
                         Source record ↗
                       </a>
                     </Button>
-                    <Badge className="bg-amber-100 text-amber-800">
+                    <Badge className="bg-[var(--warning-surface)] text-[var(--warning-text)]">
                       {reviewLabel(selectedVacancy.review_status)}
                     </Badge>
                   </div>
                   <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
                     <div>
-                      <h4 className="mb-2 text-sm font-bold text-[#0b1426]">
+                      <h4 className="mb-2 text-sm font-bold text-primary">
                         Extracted description
                       </h4>
                       {selectedVacancy.description ? (
                         <iframe
-                          className="h-[min(42vh,500px)] min-h-[280px] w-full rounded-lg border border-slate-200 bg-white"
+                          className="h-[min(42vh,500px)] min-h-[280px] w-full rounded-lg border border-border bg-card"
                           title={"Description for " + selectedVacancy.title}
                           sandbox=""
                           srcDoc={
@@ -836,24 +836,24 @@ export default function App() {
                           }
                         />
                       ) : (
-                        <p className="rounded-lg bg-amber-50 p-4 text-sm text-amber-800">
+                        <p className="rounded-lg bg-[var(--warning-surface)] p-4 text-sm text-amber-800">
                           No description was saved by the source. Inspect the source listing.
                         </p>
                       )}
                     </div>
-                    <section className="rounded-lg border border-slate-200">
-                      <div className="border-b bg-slate-50 px-3 py-2">
-                        <h4 className="text-xs font-bold text-[#0b1426]">Admin review actions</h4>
-                        <p className="mt-1 text-[10px] text-slate-500">
+                    <section className="rounded-lg border border-border">
+                      <div className="border-b bg-muted px-3 py-2">
+                        <h4 className="text-xs font-bold text-primary">Admin review actions</h4>
+                        <p className="mt-1 text-[10px] text-muted-foreground">
                           Pending is the database default; it does not mean automated verification
                           has run.
                         </p>
                       </div>
                       <div className="space-y-3 p-3">
-                        <label className="grid gap-1 text-xs font-medium text-slate-600">
+                        <label className="grid gap-1 text-xs font-medium text-muted-foreground">
                           Decision notes
                           <input
-                            className="h-9 rounded-md border border-slate-200 bg-white px-3 text-sm font-normal"
+                            className="h-9 rounded-md border border-border bg-card px-3 text-sm font-normal"
                             value={reviewReason}
                             disabled={Boolean(selectedVacancy.archived_at)}
                             onChange={(event) => setReviewReason(event.target.value)}
@@ -902,11 +902,11 @@ export default function App() {
                         </div>
                       </div>
                     </section>
-                    <details className="rounded-lg border border-slate-200">
+                    <details className="rounded-lg border border-border">
                       <summary className="cursor-pointer px-3 py-2 text-xs font-semibold text-slate-700">
                         Publishing payload preview
                       </summary>
-                      <pre className="max-h-64 overflow-auto border-t bg-slate-50 p-3 text-xs">
+                      <pre className="max-h-64 overflow-auto border-t bg-muted p-3 text-xs">
                         {JSON.stringify(
                           {
                             title: selectedVacancy.title,
@@ -926,8 +926,8 @@ export default function App() {
                 </>
               ) : (
                 <div className="grid flex-1 place-content-center px-6 text-center">
-                  <p className="text-sm font-semibold text-[#0b1426]">Select a vacancy record</p>
-                  <p className="mt-1 max-w-xs text-xs text-slate-500">
+                  <p className="text-sm font-semibold text-primary">Select a vacancy record</p>
+                  <p className="mt-1 max-w-xs text-xs text-muted-foreground">
                     Inspect extracted content and resolve records requiring admin attention.
                   </p>
                 </div>
