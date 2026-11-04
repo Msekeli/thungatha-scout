@@ -104,7 +104,13 @@ export function DashboardOverview({
                         ? "destructive"
                         : "secondary"
                   }
-                  className={item.latest && ["success", "empty"].includes(item.latest.outcome) ? "border-transparent bg-scout-cyan text-scout-navy hover:bg-scout-cyan" : item.latest?.outcome === "running" || !item.latest ? "border-white/15 bg-white/10 text-white hover:bg-white/10" : "capitalize"}
+                  className={
+                    item.latest && ["success", "empty"].includes(item.latest.outcome)
+                      ? "border-transparent bg-scout-cyan text-scout-navy hover:bg-scout-cyan"
+                      : item.latest?.outcome === "running" || !item.latest
+                        ? "border-white/15 bg-white/10 text-white hover:bg-white/10"
+                        : "capitalize"
+                  }
                 >
                   {item.latest?.outcome ?? "No runs"}
                 </Badge>
