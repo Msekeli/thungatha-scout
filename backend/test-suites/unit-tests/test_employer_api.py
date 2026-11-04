@@ -2,7 +2,10 @@ from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
-from scout.api.employers import get_employer_service
+from scout.api.employers import (
+    get_employer_service,
+    get_employer_source_update_service,
+)
 from scout.main import app
 
 
@@ -148,5 +151,79 @@ def test_employer_source_api_registers_discovered_source() -> None:
         assert response.status_code == 201
         assert response.json()["status"] == "discovered"
         assert response.json()["permission_status"] == "unknown"
+    finally:
+        app.dependency_overrides.clear()
+
+
+
+class FakeEmployerSourceUpdateService:
+    def __init__(self) -> None:
+        self.updated = None
+
+    def update_configuration(self, employer_id, source_id, payload):
+        self.updated = (employer_id, source_id, payload)
+        return {
+            "id": str(source_id),
+            "employer_id": str(employer_id),
+            "adapter_key": payload.adapter_key,
+            "source_url": str(payload.source_url),
+            "normalized_url": str(payload.normalized_url),
+            "adapter_config": payload.adapter_config,
+            "status": "discovered",
+            "permission_status": "unknown",
+        }
+
+
+def test_employer_source_api_updates_source_configuration() -> None:
+    service = FakeEmployerSourceUpdateService()
+    employer_id = uuid4()
+    source_id = uuid4()
+    app.dependency_overrides[
+        get_employer_source_update_service
+    ] = lambda: service
+    client = TestClient(app)
+
+    try:
+        response = client.put(
+            f"/api/v1/employers/{employer_id}/sources/{source_id}",
+            json={
+                "adapter_key": "greenhouse",
+                "source_url": "https://job-boards.greenhouse.io/impact",
+                "normalized_url": "https://job-boards.greenhouse.io/impact",
+                "adapter_config": {"slug": "impact"},
+            },
+        )
+
+        assert response.status_code == 200
+        assert response.json()["source_url"] == (
+            "https://job-boards.greenhouse.io/impact"
+        )
+        assert response.json()["adapter_config"] == {"slug": "impact"}
+        assert service.updated[0] == employer_id
+        assert service.updated[1] == source_id
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_employer_source_api_rejects_invalid_updated_adapter_config() -> None:
+    service = FakeEmployerSourceUpdateService()
+    app.dependency_overrides[
+        get_employer_source_update_service
+    ] = lambda: service
+    client = TestClient(app)
+
+    try:
+        response = client.put(
+            f"/api/v1/employers/{uuid4()}/sources/{uuid4()}",
+            json={
+                "adapter_key": "greenhouse",
+                "source_url": "https://job-boards.greenhouse.io/impact",
+                "normalized_url": "https://job-boards.greenhouse.io/impact",
+                "adapter_config": {"slug": ""},
+            },
+        )
+
+        assert response.status_code == 422
+        assert service.updated is None
     finally:
         app.dependency_overrides.clear()
