@@ -1,7 +1,6 @@
 from functools import lru_cache
 from typing import Any
 
-import httpx
 import jwt
 from jwt import PyJWKClient
 from jwt.exceptions import (
@@ -11,9 +10,10 @@ from jwt.exceptions import (
 )
 from starlette.concurrency import run_in_threadpool
 
-
-class AuthenticationServiceUnavailable(RuntimeError):
-    """Raised when Supabase cannot verify an access token."""
+from scout.application.supabase_legacy_auth import (
+    AuthenticationServiceUnavailable,
+    verify_legacy_access_token,
+)
 
 
 @lru_cache(maxsize=4)
@@ -44,66 +44,18 @@ def verify_asymmetric_access_token(
     )
 
 
-async def verify_legacy_access_token(
-    token: str,
-    supabase_url: str,
-    publishable_key: str,
-) -> dict[str, Any]:
-    try:
-        async with httpx.AsyncClient(timeout=5.0) as client:
-            response = await client.get(
-                f"{supabase_url.rstrip('/')}/auth/v1/user",
-                headers={
-                    "apikey": publishable_key,
-                    "Authorization": f"Bearer {token}",
-                },
-            )
-    except httpx.HTTPError as error:
-        raise AuthenticationServiceUnavailable from error
-
-    if response.status_code == 401:
-        raise InvalidTokenError("Supabase rejected the access token.")
-    if response.status_code != 200:
-        raise AuthenticationServiceUnavailable(
-            f"Supabase Auth returned HTTP {response.status_code}."
-        )
-
-    try:
-        user = response.json()
-    except ValueError as error:
-        raise AuthenticationServiceUnavailable(
-            "Supabase Auth returned an invalid response."
-        ) from error
-    if not isinstance(user, dict) or not user.get("id"):
-        raise AuthenticationServiceUnavailable(
-            "Supabase Auth returned an incomplete user response."
-        )
-
-    return {
-        "sub": user["id"],
-        "email": user.get("email"),
-        "role": "authenticated",
-    }
-
-
 async def verify_supabase_access_token(
     token: str,
     supabase_url: str,
     publishable_key: str,
 ) -> dict[str, Any]:
     algorithm = jwt.get_unverified_header(token).get("alg")
-
     if algorithm == "HS256":
         return await verify_legacy_access_token(
-            token,
-            supabase_url,
-            publishable_key,
+            token, supabase_url, publishable_key
         )
     if algorithm not in {"ES256", "RS256"}:
         raise InvalidTokenError("Unsupported access token algorithm.")
-
     return await run_in_threadpool(
-        verify_asymmetric_access_token,
-        token,
-        supabase_url,
+        verify_asymmetric_access_token, token, supabase_url
     )
