@@ -1172,7 +1172,7 @@ export default function App() {
             >
               <label>
                 Careers / jobs listing URL
-                <input
+                <Input
                   type="url"
                   value={sourceUrl}
                   onChange={(event) => {
@@ -1186,27 +1186,34 @@ export default function App() {
               </label>
               <label>
                 ATS platform
-                <select
+                <Select
                   value={atsKey}
-                  onChange={(event) => {
-                    setAtsKey(event.target.value);
+                  onValueChange={(value) => {
+                    setAtsKey(value);
                     setDiscovery(null);
                   }}
                 >
-                  <option value="greenhouse">Greenhouse</option>
-                  <option value="workday" disabled>
-                    Workday — coming next
-                  </option>
-                </select>
+                  <SelectTrigger className="h-9">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="greenhouse">Greenhouse</SelectItem>
+                    <SelectItem value="workday" disabled>
+                      Workday — coming next
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </label>
-              <button
+              <Button
                 type="button"
-                className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
+                size="sm"
+                variant="outline"
+                className="w-fit"
                 onClick={() => void discoverCareersPage()}
                 disabled={inspecting || !sourceUrl.trim()}
               >
                 {inspecting ? "Detecting ATS and inspecting jobs…" : "Detect ATS & preview jobs"}
-              </button>
+              </Button>
               {discovery && (
                 <div className="grid gap-2 rounded-lg border border-border bg-muted/50 p-3 text-xs">
                   <strong>{discovery.jobs.length} vacancies found</strong>
@@ -1232,19 +1239,21 @@ export default function App() {
                 </label>
               )}
               <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
-                <button
+                <Button
                   type="button"
-                  className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
+                  size="sm"
+                  variant="outline"
                   onClick={() => {
                     setPage("companies");
                     setDiscovery(null);
                   }}
                 >
                   Cancel
-                </button>
+                </Button>
                 {discovery && (
-                  <button
-                    className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
+                  <Button
+                    type="submit"
+                    size="sm"
                     disabled={
                       saving ||
                       !discovery.complete ||
@@ -1252,7 +1261,7 @@ export default function App() {
                     }
                   >
                     {saving ? "Registering and retrieving…" : "Confirm & register"}
-                  </button>
+                  </Button>
                 )}
               </div>
             </form>
