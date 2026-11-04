@@ -12,6 +12,8 @@ export type Employer = {
   city?: string | null;
   province?: string | null;
   country?: string | null;
+  logo_url?: string | null;
+  logo_source_url?: string | null;
   created_at?: string;
 };
 
