@@ -40,6 +40,13 @@ export type Vacancy = {
   application_url: string;
   source_updated_at?: string | null;
   last_seen_at: string;
+  review_status: "pending" | "needs_verification" | "verified" | "rejected";
+  review_reason?: string | null;
+  reviewed_at?: string | null;
+  archived_at?: string | null;
+  archived_reason?: string | null;
+  employer_logo_url?: string | null;
+  employer_logo_source_url?: string | null;
 };
 
 export type ExtractionRun = {
@@ -125,6 +132,21 @@ export const scoutApi = {
       method: "POST",
       body: JSON.stringify({ ...payload, employer_id: employerId }),
     }),
+  getVacancy: (vacancyId: string) =>
+    request<Vacancy>(`/api/v1/vacancies/${vacancyId}`),
+  updateVacancyReview: (vacancyId: string, review_status: Vacancy["review_status"], review_reason: string) =>
+    request<Vacancy>(`/api/v1/vacancies/${vacancyId}/review`, {
+      method: "PATCH",
+      body: JSON.stringify({ review_status, review_reason: review_reason || null }),
+    }),
+  archiveVacancy: (vacancyId: string, reason: string) =>
+    request<Vacancy>(`/api/v1/vacancies/${vacancyId}/archive`, {
+      method: "POST",
+      body: JSON.stringify({ reason: reason || null }),
+    }),
+  restoreVacancy: (vacancyId: string) =>
+    request<Vacancy>(`/api/v1/vacancies/${vacancyId}/restore`, { method: "POST" }),
+  listArchivedVacancies: () => request<Vacancy[]>("/api/v1/vacancies/archived"),
   listVacancies: (employerId?: string) =>
     request<Vacancy[]>(
       employerId
