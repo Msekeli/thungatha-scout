@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Activity, BriefcaseBusiness, Building2, CircleAlert, Sparkles } from "lucide-react";
+import { Activity, BriefcaseBusiness, Building2, CircleAlert, RefreshCw, Sparkles } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, GreenhouseInspection, CareersDiscovery } from "./api";
@@ -15,6 +15,7 @@ import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader"
 import { SourceReviewPanel } from "./employer-sources/SourceReviewPanel";
 import { ExtractionRunHistory } from "./employer-sources/ExtractionRunHistory";
 import { SourceRegistrationForm } from "./employer-sources/SourceRegistrationForm";
+import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
 import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
 import { VacancyRecordList } from "./job-management/VacancyRecordList";
 import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
@@ -40,12 +41,6 @@ export default function App() {
   const [reviewFilter, setReviewFilter] = useState("all");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
-  const [sourceDecision, setSourceDecision] = useState<
-    Record<
-      string,
-      { status: string; permission_status: string; evidence_url: string; reason: string }
-    >
-  >({});
   const [companyQuery, setCompanyQuery] = useState("");
   const [companyStatusFilter, setCompanyStatusFilter] = useState("all");
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
@@ -97,6 +92,22 @@ export default function App() {
   });
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
+  const {
+    decisions: sourceDecision,
+    updateField: updateSourceDecisionField,
+    saveDecision: saveSourceDecision,
+  } = useEmployerSourceReview({
+    employerId: selectedEmployerId === "all" ? null : selectedEmployerId,
+    onSourceUpdated: (updated) =>
+      setSources((current) => current.map((item) => (item.id === updated.id ? updated : item))),
+    onDashboardSourceUpdated: (updated) =>
+      setDashboardSources((current) =>
+        current.map((item) => (item.id === updated.id ? updated : item)),
+      ),
+    setSaving,
+    onNotice: setNotice,
+    onError: setError,
+  });
   const visibleEmployers = employers.filter(
     (item) =>
       item.name.toLowerCase().includes(companyQuery.toLowerCase()) &&
@@ -208,38 +219,6 @@ export default function App() {
       setNotice(`${updated.name} marked ${status.replaceAll("_", " ")}.`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not update company status.");
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function updateSourceDecision(source: EmployerSource) {
-    const decision = sourceDecision[source.id] ?? {
-      status: source.status,
-      permission_status: source.permission_status,
-      evidence_url: "",
-      reason: "",
-    };
-    if (
-      decision.status === "verified" &&
-      decision.permission_status === "allowed" &&
-      !decision.evidence_url.trim()
-    ) {
-      setError("Add an evidence URL before verifying and permitting this source.");
-      return;
-    }
-    setSaving(true);
-    setError("");
-    setNotice("");
-    try {
-      const updated = await scoutApi.updateSourceReview(selectedEmployer!.id, source.id, decision);
-      setSources((current) => current.map((item) => (item.id === updated.id ? updated : item)));
-      setDashboardSources((current) =>
-        current.map((item) => (item.id === updated.id ? updated : item)),
-      );
-      setNotice("Source verification and permission decision saved.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not update source decision.");
     } finally {
       setSaving(false);
     }
@@ -787,20 +766,9 @@ export default function App() {
                             decision={sourceDecision[source.id]}
                             saving={saving}
                             onChange={(field, value) =>
-                              setSourceDecision((current) => {
-                                const existing = current[source.id] ?? {
-                                  status: source.status,
-                                  permission_status: source.permission_status,
-                                  evidence_url: "",
-                                  reason: "",
-                                };
-                                return {
-                                  ...current,
-                                  [source.id]: { ...existing, [field]: value },
-                                };
-                              })
+                              updateSourceDecisionField(source, field, value)
                             }
-                            onSave={() => void updateSourceDecision(source)}
+                            onSave={() => void saveSourceDecision(source)}
                           />
                           <ExtractionRunHistory runs={runs} />
                         </div>
