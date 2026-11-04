@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     app_env: str = "development"
     api_prefix: str = "/api/v1"
     scout_database_url: SecretStr | None = None
+    scout_supabase_url: str | None = None
+    scout_supabase_publishable_key: SecretStr | None = None
+    scout_admin_email: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env",
