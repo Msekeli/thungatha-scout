@@ -47,7 +47,14 @@ export function useCareersDiscovery({ onError, onNotice }: UseCareersDiscoveryOp
   }
 
   return {
-    discovery, setDiscovery, inspection, setInspection, atsKey, setAtsKey, inspecting,
-    discover, inspectGreenhouseBoard,
+    discovery,
+    setDiscovery,
+    inspection,
+    setInspection,
+    atsKey,
+    setAtsKey,
+    inspecting,
+    discover,
+    inspectGreenhouseBoard,
   };
 }

@@ -61,8 +61,15 @@ export default function App() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const {
-    discovery, setDiscovery, inspection, setInspection, atsKey, setAtsKey, inspecting,
-    discover, inspectGreenhouseBoard,
+    discovery,
+    setDiscovery,
+    inspection,
+    setInspection,
+    atsKey,
+    setAtsKey,
+    inspecting,
+    discover,
+    inspectGreenhouseBoard,
   } = useCareersDiscovery({ onError: setError, onNotice: setNotice });
 
   const {
@@ -678,7 +685,13 @@ export default function App() {
                   ? registerDiscoveredEmployer
                   : (event) => {
                       event.preventDefault();
-                      void discover(sourceUrl, (detectedName) => setForm((current) => ({ ...current, name: current.name || detectedName, website_url: sourceUrl })));
+                      void discover(sourceUrl, (detectedName) =>
+                        setForm((current) => ({
+                          ...current,
+                          name: current.name || detectedName,
+                          website_url: sourceUrl,
+                        })),
+                      );
                     }
               }
             >
@@ -694,7 +707,15 @@ export default function App() {
                   setAtsKey(value);
                   setDiscovery(null);
                 }}
-                onDetect={() => void discover(sourceUrl, (detectedName) => setForm((current) => ({ ...current, name: current.name || detectedName, website_url: sourceUrl })))}
+                onDetect={() =>
+                  void discover(sourceUrl, (detectedName) =>
+                    setForm((current) => ({
+                      ...current,
+                      name: current.name || detectedName,
+                      website_url: sourceUrl,
+                    })),
+                  )
+                }
                 inspecting={inspecting}
               />
               <OnboardingPreviewCard discovery={discovery} />
