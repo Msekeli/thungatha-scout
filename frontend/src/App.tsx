@@ -22,6 +22,7 @@ export default function App() {
   const [sources, setSources] = useState<EmployerSource[]>([]);
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
+  const [editingSourceId, setEditingSourceId] = useState<string | null>(null);
   const [inspection, setInspection] = useState<GreenhouseInspection | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -151,17 +152,29 @@ export default function App() {
     setSaving(true);
     setError("");
     try {
-      const created = await scoutApi.createSource(selectedEmployer.id, {
-        adapter_key: "greenhouse",
+      const payload = {
+        adapter_key: editingSourceId
+          ? sources.find((source) => source.id === editingSourceId)?.adapter_key
+          : "greenhouse",
         source_url: sourceUrl,
         normalized_url: sourceUrl,
-        employer_careers_url: selectedEmployer.website_url ?? null,
         adapter_config: { slug: inspection?.board_token },
-      });
-      setSources((current) => [...current, created]);
+      };
+      if (editingSourceId) {
+        await scoutApi.updateSource(selectedEmployer.id, editingSourceId, payload);
+        setSources(await scoutApi.listSources(selectedEmployer.id));
+        setNotice("Source configuration updated. Its verification and permission states were preserved.");
+      } else {
+        const created = await scoutApi.createSource(selectedEmployer.id, {
+          ...payload,
+          employer_careers_url: selectedEmployer.website_url ?? null,
+        });
+        setSources((current) => [...current, created]);
+        setNotice("Greenhouse source registered. Verification and permission remain pending.");
+      }
+      setEditingSourceId(null);
       setSourceUrl("");
       setInspection(null);
-      setNotice("Greenhouse source registered. Verification and permission remain pending.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not register source.");
     } finally {
@@ -259,13 +272,13 @@ export default function App() {
                   <p className="profile-website">{selectedEmployer.website_url || "Official website not supplied"}</p>
                   <div className="profile-stats"><div><strong>{vacancies.filter((item) => item.employer_id === selectedEmployer.id).length}</strong><span>Jobs collected</span></div><div><strong>{sources.length}</strong><span>Sources registered</span></div></div>
                   <div className="section-heading source-title"><h4>Job sources</h4></div>
-                  {sources.length ? sources.map((source) => <div className="source-item" key={source.id}><div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div><span className="status">{source.status.replaceAll("_", " ")}</span></div>) : <p className="muted">No job source registered for this company.</p>}
+                  {sources.length ? sources.map((source) => <div className="source-item" key={source.id}><div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div><span className="status">{source.status.replaceAll("_", " ")}</span>{source.adapter_key === "greenhouse" && <button className="button secondary" type="button" onClick={() => { setEditingSourceId(source.id); setSourceUrl(source.source_url); setInspection(null); }}>Edit source</button>}</div>) : <p className="muted">No job source registered for this company.</p>}
                   <form className="source-form" onSubmit={createSource}>
-                    <h4>Register Greenhouse source</h4>
+                    <h4>{editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}</h4>
                     <label>Official careers / job board URL<input type="url" value={sourceUrl} onChange={(event) => { setSourceUrl(event.target.value); setInspection(null); }} placeholder="https://job-boards.greenhouse.io/company" required /></label>
                     <button type="button" className="button secondary" onClick={() => void inspectGreenhouse()} disabled={inspecting || !sourceUrl.trim()}>{inspecting ? "Checking source…" : "Check Greenhouse source"}</button>
                     {inspection && <div className="inspection-preview"><strong>{inspection.board_name || inspection.board_token}</strong><span>{inspection.outcome} · {inspection.jobs.length} sample jobs</span>{inspection.detail && <small>{inspection.detail}</small>}</div>}
-                    <button className="button primary" disabled={saving || !inspection || !inspection.complete || !["success", "empty"].includes(inspection.outcome)}>{saving ? "Saving…" : "Save source"}</button>
+                    <div className="form-actions">{editingSourceId && <button type="button" className="button secondary" onClick={() => { setEditingSourceId(null); setSourceUrl(""); setInspection(null); }}>Cancel edit</button>}<button className="button primary" disabled={saving || !inspection || !inspection.complete || !["success", "empty"].includes(inspection.outcome)}>{saving ? "Saving…" : editingSourceId ? "Update source" : "Save source"}</button></div>
                   </form>
                 </>
               ) : <div className="empty large"><strong>Select a company</strong><span>Choose a company to view its profile and registered job sources.</span></div>}
