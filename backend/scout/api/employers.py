@@ -3,7 +3,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from scout.application.employer_service import (
+from scout.registry_loader import RegistryValidationError, validate_source_config\nfrom scout.application.employer_service import (
     EmployerCreate,
     EmployerService,
     EmployerSourceCreate,
