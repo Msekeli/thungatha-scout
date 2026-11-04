@@ -75,6 +75,9 @@ class VacancyRepository:
         fingerprint: str,
     ) -> dict[str, Any]:
         location = job.get("location")
+        location_name = location.get("name") if isinstance(location, dict) else None
+        location_text = location_name if isinstance(location_name, str) else None
+        location_normalized = location_text.lower() if location_text else ""
         departments = job.get("departments")
         offices = job.get("offices")
         return {
@@ -83,7 +86,7 @@ class VacancyRepository:
             "external_job_id": str(job["id"]),
             "title": job["title"].strip(),
             "description": job.get("content"),
-            "location_text": location.get("name") if isinstance(location, dict) else None,
+            "location_text": location_text,
             "department": departments[0].get("name") if isinstance(departments, list) and departments and isinstance(departments[0], dict) else None,
             "office": offices[0].get("name") if isinstance(offices, list) and offices and isinstance(offices[0], dict) else None,
             "source_url": source_url,
@@ -94,16 +97,15 @@ class VacancyRepository:
             "fingerprint": fingerprint,
             "review_status": (
                 "needs_verification"
-                if not isinstance(location, dict)
-                or not location.get("name")
-                or any(term in location.get("name", "").lower() for term in ("south africa", "remote"))
+                if not location_text
+                or any(term in location_normalized for term in ("south africa", "remote"))
                 else "pending"
             ),
             "review_reason": (
                 "Location is missing from the source."
-                if not isinstance(location, dict) or not location.get("name")
+                if not location_text
                 else "Verify the stated South African or remote-work location and eligibility."
-                if any(term in location.get("name", "").lower() for term in ("south africa", "remote"))
+                if any(term in location_normalized for term in ("south africa", "remote"))
                 else None
             ),
         }
