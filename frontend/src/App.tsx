@@ -49,14 +49,6 @@ const emptyEmployer = {
   country: "South Africa",
 };
 
-const reviewLabel = (status: Vacancy["review_status"]) =>
-  ({
-    pending: "Pending review",
-    needs_verification: "Needs verification",
-    verified: "Verified",
-    rejected: "Rejected",
-  })[status];
-
 export default function App() {
   const [page, setPage] = useState<Page>("jobs");
   const [employers, setEmployers] = useState<Employer[]>([]);
