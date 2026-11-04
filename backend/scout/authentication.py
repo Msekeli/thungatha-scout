@@ -27,6 +27,7 @@ async def require_admin(
     if not all(
         [
             settings.scout_supabase_url,
+            settings.scout_supabase_url.startswith("https://"),
             settings.scout_supabase_publishable_key,
             settings.scout_admin_email,
         ]
@@ -69,4 +70,4 @@ async def require_admin(
             detail="This account is not authorised to use Scout.",
         )
 
-    return claims
+    return {"sub": str(claims["sub"]), "email": token_email}
