@@ -35,6 +35,17 @@ def list_employer_vacancies(
     return service.list_vacancies(employer_id, limit, offset)
 
 
+@router.get("/sources/{source_id}/extraction-runs")
+def list_source_extraction_runs(
+    source_id: UUID,
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> list[dict[str, Any]]:
+    try:
+        return service.list_extraction_runs(source_id)
+    except SourceNotFoundError as exception:
+        raise HTTPException(status_code=404, detail=str(exception)) from exception
+
+
 @router.post(
     "/sources/{source_id}/extract",
     status_code=status.HTTP_200_OK,
