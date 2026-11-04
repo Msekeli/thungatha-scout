@@ -91,6 +91,8 @@ Checkpoints:
 - Backend API endpoints for source inspection, preview, connection test and retrieval.
 - Admin URL-entry, preview/confirmation and source-management workflow integrated against those endpoints.
 - Jobs workspace supports selecting a vacancy to inspect its full description and a clearly labelled draft Thungatha payload preview; inspection does not publish.
+- Vacancy management includes a dedicated detail endpoint, separate original-job and apply links, review states (pending, needs verification, verified, rejected), review notes, and soft archive/restore. Lifecycle status remains separate from operator review status.
+- Employer branding persistence includes optional logo URL and source URL fields; the admin displays a logo when a verified URL is supplied. Logo discovery/verification remains a separate follow-up.
 - Validate the three selected Greenhouse employers using live evidence. The current candidate cohort is Takealot Group, Impact.com and Ozow; each employer/source relationship, Cape Town presence and live retrieval capability must be verified independently. Pending claims remain pending.
 
 Acceptance: adding another Greenhouse employer requires registry configuration, not employer-specific adapter code; supported URL forms, complete-board counts, full descriptions, meaningful vacancy data and failure outcomes are tested; the admin can complete source onboarding, extraction and vacancy inspection end to end.
@@ -120,6 +122,7 @@ Deliver the private React admin incrementally:
 - Source connection test, operational status and useful error feedback.
 - Progressive Greenhouse and Workday integration as each API contract stabilises.
 - Dashboard, vacancies and exception/review views when their backend capabilities are ready.
+- Vacancy detail, review, and archive/restore controls integrated against the management API.
 
 Acceptance: the admin uses authenticated backend APIs; backend independently enforces the administrator allowlist; source add/edit/test/pause/resume/archive works; no service-role key or privileged credential reaches the browser. Each delivered vertical slice has an end-to-end test.
 
