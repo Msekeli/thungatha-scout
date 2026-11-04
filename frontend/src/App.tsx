@@ -222,7 +222,7 @@ export default function App() {
   }
 
   return (
-    <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
+    <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden bg-scout-navy px-4 pb-3 pt-4 text-white md:px-8">
       <AppShellHeader
         activePage={page}
         onSelectPage={setPage}
@@ -348,7 +348,7 @@ export default function App() {
         />
       )}
 
-      <footer className="mt-5 border-t pt-3 text-[10px] text-muted-foreground">
+      <footer className="mt-5 border-t border-white/15 pt-3 text-[10px] text-white/65">
         Scout is a private operations workspace. Only verified, quality-checked records are eligible
         for publishing to Thungatha.
       </footer>
