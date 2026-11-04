@@ -117,7 +117,7 @@ Connect only to the dedicated Scout Supabase project. Define migrations and repo
 - No frontend service-role credentials exist.
 
 ### M2-C04 — Data boundary and publishing contract
-**Status:** Not started
+**Status:** In review — destination contract mapped; transport decision deferred
 
 Inspect Thungatha's current database contract before defining the publication projection. Document stable identifiers, required fields, idempotency and destination error handling. Do not publish during this checkpoint.
 
@@ -158,3 +158,72 @@ The backend now has an explicit Supabase Auth verification boundary:
 - Unit tests cover missing credentials, incomplete configuration, administrator acceptance, non-admin rejection, non-user token rejection, supported verification strategy selection and unsupported algorithms.
 
 **Unverified:** the actual signing algorithm configured in the Scout Supabase project has not been inspected; no live JWT has been verified; no local tests or Ruff checks have been executed in this session. The project must have a valid Supabase Auth user for the configured administrator email, and public sign-up must be disabled/configured in the Supabase dashboard. No dashboard changes were made.
+
+
+### M2-C04 contract inspection — 4 November 2026
+
+The destination contract was inspected against the current `main` branch of the separate `Msekeli/thungatha` repository. This is a schema/code inspection only; no destination writes or credentials were used.
+
+**Evidence inspected**
+- `supabase/migrations/20261015000100_create_job_catalogue_and_user_states.sql`
+- `supabase/migrations/20261016000100_job_ingestion_reliability.sql`
+- `src/thungatha-features/job-discovery/server/schema.ts`
+- `src/thungatha-features/job-discovery/server/ingestion.ts`
+- `src/app/api/internal/jobs/ingest/route.ts`
+
+**Destination projection**
+
+Thungatha stores the public-facing job projection in `public.jobs` and source provenance in `public.job_sources`. The normalized contract in `normalizedJobSchema` uses camelCase JSON fields and requires nullable fields to be explicitly supplied as `null` where no value exists.
+
+| Scout normalized field | Thungatha destination |
+|---|---|
+| `title` | `jobs.title` |
+| `employerName` | `jobs.employer_name` |
+| `description` | `jobs.description` |
+| `locationText` | `jobs.location_text` |
+| `countryCode` | `jobs.country_code` |
+| `workMode` | `jobs.work_mode` |
+| `employmentType` | `jobs.employment_type` |
+| `salaryMin`, `salaryMax`, `salaryCurrency` | `jobs.salary_min`, `jobs.salary_max`, `jobs.salary_currency` |
+| `providerKey`, `providerKind`, `externalJobId` | `job_sources.provider_key`, `provider_kind`, `external_job_id` |
+| `upstreamSource` | `job_sources.upstream_source` |
+| `sourceUrl`, `applicationUrl` | `job_sources.source_url`, `application_url` |
+| `publishedAt` | `job_sources.published_at` |
+
+Scout-only raw observations, extraction diagnostics, rejected records, exception records, internal evidence, decision history and quality-gate details are not part of this destination payload. Scout must reject or hold records before publication; the destination schema is not the Scout quality gate.
+
+**Existing controlled write functions**
+
+The destination migrations define these PostgreSQL functions:
+
+- `start_job_ingestion_run(p_provider_key text, p_provider_kind text)` returns a run UUID.
+- `persist_job_ingestion_batch(p_run_id uuid, p_jobs jsonb)` returns received/inserted/updated/skipped counts.
+- `finish_job_ingestion_run(p_run_id uuid, p_status text, p_error_count integer, p_error_message text, p_received_count integer)` closes the run.
+
+The functions use `SECURITY DEFINER`, an empty `search_path`, and explicitly revoke execution from `public`, `anon` and `authenticated`; execution is granted to `service_role`. The batch function checks that each payload's provider key and kind match the ingestion run. The destination also has a unique constraint on `(provider_key, external_job_id)` and performs upsert-style persistence.
+
+**Provider identity requirement**
+
+A single shared provider key such as `greenhouse` is unsafe for Scout because the destination uniqueness key is provider key plus external job ID. Different Greenhouse boards may reuse the same external job ID. The transport contract should therefore use a stable, source-specific provider key, derived from the immutable Scout source identity (for example, a fixed `scout_source_` prefix plus the source UUID without hyphens). `provider_kind` remains `ats`; `external_job_id` remains the ATS job identifier. This is a recommended contract, not yet implemented.
+
+**Important distinction: the existing internal route is not a Scout intake endpoint**
+
+`POST /api/internal/jobs/ingest` authenticates a cron/operator secret and calls Thungatha's own configured provider ingestion. It does not accept a Scout normalized-job batch. Scout must not call it expecting to push records. A dedicated authenticated intake route would need to be added to Thungatha if that transport is selected.
+
+**Transport options for M8 — not implemented**
+
+1. **Scout calls the existing destination RPCs server-to-server.** Scout would hold a separate Thungatha destination publishable/service credential in backend-only configuration and call the three RPCs through the Supabase REST interface. The destination service credential must never be confused with or stored as the Scout operational DB credential. This reuses the current controlled write contract and avoids changing Thungatha's API, but increases the impact of a compromised Scout backend credential.
+2. **Add a dedicated Thungatha intake endpoint.** Scout sends a validated batch to a new authenticated server-to-server endpoint. Thungatha owns its destination credential and calls the same RPCs internally. This adds a second API contract and deployment dependency but keeps destination credentials inside Thungatha.
+
+**Recommendation:** prefer the existing RPC path for the first implementation if the security review accepts a dedicated, least-privilege destination credential held only by Scout's backend. If credential isolation is judged more important than implementation simplicity, implement the dedicated intake endpoint instead. The final transport choice requires review before M8; neither path is authorised or implemented by this checkpoint.
+
+**Failure and idempotency rules**
+- Create/finish a destination ingestion run per stable source-specific provider key.
+- Send only records that passed Scout's publication gates.
+- Batch persistence must be retryable; the destination unique key prevents duplicate source records for the same provider key and external job ID.
+- Preserve destination run state and sanitized error outcomes. Do not mark Scout records published until the destination confirms persistence.
+- A failed/partial Scout extraction must not trigger destination unavailability or expiry reconciliation.
+- Retry publication independently from extraction, using Scout's own publication ledger/idempotency state.
+- Never send raw/rejected/exception records or Scout operational metadata to Thungatha.
+
+**C04 outcome:** The actual destination schema, normalized JSON contract, controlled RPC functions, privileges and existing route behavior are documented. The transport choice and implementation remain deferred. No destination data was written and no publishing code was added.
