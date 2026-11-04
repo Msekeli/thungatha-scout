@@ -1,3 +1,5 @@
+import ipaddress
+import socket
 from html.parser import HTMLParser
 from urllib.parse import urlparse, urlunparse
 
@@ -39,6 +41,14 @@ async def discover_greenhouse(url: str) -> dict[str, str]:
         raise ValueError("Enter a valid HTTPS careers or jobs URL.")
     if parsed.username or parsed.password:
         raise ValueError("URLs containing credentials are not supported.")
+    try:
+        addresses = socket.getaddrinfo(parsed.hostname, 443, type=socket.SOCK_STREAM)
+    except OSError as exception:
+        raise ValueError("Careers page host could not be resolved.") from exception
+    if not addresses or any(
+        not ipaddress.ip_address(item[4][0]).is_global for item in addresses
+    ):
+        raise ValueError("Careers page must resolve to a public internet host.")
 
     async with httpx.AsyncClient(timeout=12, follow_redirects=False) as client:
         response = await client.get(url)
