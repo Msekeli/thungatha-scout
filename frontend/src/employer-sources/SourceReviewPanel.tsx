@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import type { EmployerSource } from "../api";
 import {
   Select,
@@ -90,7 +91,7 @@ export function SourceReviewPanel({
       </label>
       <label className="grid gap-1 text-xs font-medium text-muted-foreground">
         Decision notes
-        <Input
+        <Textarea
           className="bg-card"
           value={decision?.reason ?? ""}
           onChange={(event) => onChange("reason", event.target.value)}
