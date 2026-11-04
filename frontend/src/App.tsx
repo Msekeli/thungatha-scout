@@ -548,7 +548,7 @@ export default function App() {
               </Button>
               <Button
                 size="sm"
-                className="h-8 bg-[var(--scout-cyan)] text-primary hover:bg-[var(--scout-cyan)]/90"
+                className="h-8 bg-[var(--scout-cyan)] text-primary hover:opacity-90"
                 onClick={() => void fetchJobs()}
                 disabled={loading || extracting}
               >
@@ -730,7 +730,7 @@ export default function App() {
                       type="button"
                       onClick={() => void openVacancy(vacancy.id)}
                       aria-pressed={selectedVacancyId === vacancy.id}
-                      className={`w-full rounded-lg border p-3 text-left shadow-sm transition-all hover:border-ring hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selectedVacancyId === vacancy.id ? "border-cyan-500 bg-accent shadow-[inset_4px_0_0_#06b6d4,0_2px_8px_#0b14261a]" : "border-border bg-card"}`}
+                      className={`w-full rounded-lg border p-3 text-left shadow-sm transition-all hover:border-ring hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selectedVacancyId === vacancy.id ? "border-ring bg-accent shadow-sm" : "border-border bg-card"}`}
                     >
                       <span className="flex items-start justify-between gap-3">
                         <strong className="text-sm font-semibold leading-snug text-primary">
@@ -780,7 +780,7 @@ export default function App() {
                 </div>
               ) : selectedVacancy ? (
                 <>
-                  <div className="flex items-center justify-between gap-3 border-b border-border bg-primary p-4 text-white">
+                  <div className="flex items-center justify-between gap-3 border-b border-border bg-primary p-4 text-primary-foreground">
                     <div className="min-w-0">
                       <p className="text-[10px] font-medium text-[var(--scout-cyan)]">
                         {selectedVacancy.employer_name} ·{" "}
@@ -804,7 +804,7 @@ export default function App() {
                     <Button
                       asChild
                       size="sm"
-                      className="bg-[var(--scout-cyan)] text-primary hover:bg-[var(--scout-cyan)]/90"
+                      className="bg-[var(--scout-cyan)] text-primary hover:opacity-90"
                     >
                       <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">
                         Open source listing ↗
@@ -834,7 +834,7 @@ export default function App() {
                           }
                         />
                       ) : (
-                        <p className="rounded-lg bg-[var(--warning-surface)] p-4 text-sm text-amber-800">
+                        <p className="rounded-lg bg-[var(--warning-surface)] p-4 text-sm text-[var(--warning-text)]">
                           No description was saved by the source. Inspect the source listing.
                         </p>
                       )}
@@ -901,7 +901,7 @@ export default function App() {
                       </div>
                     </section>
                     <details className="rounded-lg border border-border">
-                      <summary className="cursor-pointer px-3 py-2 text-xs font-semibold text-slate-700">
+                      <summary className="cursor-pointer px-3 py-2 text-xs font-semibold text-muted-foreground">
                         Publishing payload preview
                       </summary>
                       <pre className="max-h-64 overflow-auto border-t bg-muted p-3 text-xs">
@@ -960,7 +960,7 @@ export default function App() {
               <strong className="block text-sm text-amber-900">
                 {employers.filter((item) => item.status === "discovered").length} awaiting approval
               </strong>
-              <span className="text-[10px] text-amber-800">Review new company records</span>
+              <span className="text-[10px] text-[var(--warning-text)]">Review new company records</span>
             </button>
             <button
               type="button"
