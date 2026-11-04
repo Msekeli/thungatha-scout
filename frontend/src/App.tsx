@@ -22,7 +22,6 @@ import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader"
 import { CompanyBrandingForm } from "./company-management/CompanyBrandingForm";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
 import { CompanySourcesSection } from "./employer-sources/CompanySourcesSection";
-import { SourceReviewPanel } from "./employer-sources/SourceReviewPanel";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
 import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
 import { VacancyRecordList } from "./job-management/VacancyRecordList";
