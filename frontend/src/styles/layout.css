@@ -69,11 +69,6 @@
   color: hsl(var(--muted-foreground));
 }
 
-footer {
-  padding-top: 22px;
-  color: var(--text-subtle);
-  font-size: 10px;
-}
 
 @media (max-width: 760px) {
   main > header {
