@@ -1,10 +1,11 @@
-from typing import Any, Literal
+from typing import Any
 from uuid import UUID
-
-from pydantic import BaseModel, Field
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
+from scout.api.vacancy_api_dependencies import get_extraction_service
+from scout.api.vacancy_archive_routes import router as archive_router
+from scout.api.vacancy_contracts import VacancyReviewUpdate
 from scout.application.greenhouse_extraction_service import (
     GreenhouseExtractionService,
     SourceNotFoundError,
@@ -12,10 +13,7 @@ from scout.application.greenhouse_extraction_service import (
 )
 
 router = APIRouter(tags=["vacancies"])
-
-
-def get_extraction_service() -> GreenhouseExtractionService:
-    return GreenhouseExtractionService()
+router.include_router(archive_router)
 
 
 @router.get("/vacancies")
@@ -48,10 +46,7 @@ def list_source_extraction_runs(
         raise HTTPException(status_code=404, detail=str(exception)) from exception
 
 
-@router.post(
-    "/sources/{source_id}/extract",
-    status_code=status.HTTP_200_OK,
-)
+@router.post("/sources/{source_id}/extract", status_code=status.HTTP_200_OK)
 async def extract_source(
     source_id: UUID,
     service: GreenhouseExtractionService = Depends(get_extraction_service),
@@ -62,24 +57,6 @@ async def extract_source(
         raise HTTPException(status_code=404, detail=str(exception)) from exception
     except UnsupportedAdapterError as exception:
         raise HTTPException(status_code=422, detail=str(exception)) from exception
-
-
-class VacancyReviewUpdate(BaseModel):
-    review_status: Literal["pending", "needs_verification", "verified", "rejected"]
-    review_reason: str | None = Field(default=None, max_length=2000)
-
-
-class VacancyArchiveRequest(BaseModel):
-    reason: str | None = Field(default=None, max_length=2000)
-
-
-@router.get("/vacancies/archived")
-def list_archived_vacancies(
-    limit: int = Query(default=200, ge=1, le=500),
-    offset: int = Query(default=0, ge=0),
-    service: GreenhouseExtractionService = Depends(get_extraction_service),
-) -> list[dict[str, Any]]:
-    return service.list_archived_vacancies(limit, offset)
 
 
 @router.get("/vacancies/{vacancy_id}")
@@ -104,29 +81,4 @@ def update_vacancy_review(
     )
     if vacancy is None:
         raise HTTPException(status_code=404, detail="Vacancy not found or archived.")
-    return vacancy
-
-
-@router.post("/vacancies/{vacancy_id}/archive")
-def archive_vacancy(
-    vacancy_id: UUID,
-    payload: VacancyArchiveRequest,
-    service: GreenhouseExtractionService = Depends(get_extraction_service),
-) -> dict[str, Any]:
-    vacancy = service.archive_vacancy(vacancy_id, payload.reason)
-    if vacancy is None:
-        raise HTTPException(
-            status_code=404, detail="Vacancy not found or already archived."
-        )
-    return vacancy
-
-
-@router.post("/vacancies/{vacancy_id}/restore")
-def restore_vacancy(
-    vacancy_id: UUID,
-    service: GreenhouseExtractionService = Depends(get_extraction_service),
-) -> dict[str, Any]:
-    vacancy = service.restore_vacancy(vacancy_id)
-    if vacancy is None:
-        raise HTTPException(status_code=404, detail="Archived vacancy not found.")
     return vacancy
