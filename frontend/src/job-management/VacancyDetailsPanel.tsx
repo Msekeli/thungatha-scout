@@ -88,7 +88,7 @@ export function VacancyDetailsPanel({
             Open source listing ↗
           </a>
         </Button>
-        <Button asChild type="button" size="sm" variant="outline">
+        <Button asChild size="sm" variant="outline">
           <a href={vacancy.source_url} target="_blank" rel="noreferrer">
             Source record ↗
           </a>
