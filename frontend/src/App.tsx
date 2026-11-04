@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { CompanyProfileActions } from "./company-management/CompanyProfileActions";
 import { CompanyDirectoryList } from "./company-management/CompanyDirectoryList";
 import { CompanySearchFilters } from "./company-management/CompanySearchFilters";
+import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
 import {
   Select,
   SelectContent,
@@ -1002,63 +1003,17 @@ export default function App() {
           </section>
           <div className="grid min-h-0 gap-3 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.5fr)]">
             <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
-              <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
-                <div className="flex items-center gap-3">
-                  <h3>Registered companies</h3>
-                  <span>
-                    {visibleEmployers.length} / {employers.length}
-                  </span>
-                </div>
-                <Button
-                  type="button"
-                  className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-                  onClick={() => {
-                    setPage("add-company");
-                    setError("");
-                    setNotice("");
-                  }}
-                >
-                  + Add company
-                </Button>
-              </div>
-              <CompanySearchFilters
-                searchQuery={companyQuery}
-                onSearchChange={setCompanyQuery}
-                statusFilter={companyStatusFilter}
-                onStatusFilterChange={setCompanyStatusFilter}
-              />
-              <CompanyDirectoryList
-                employers={visibleEmployers}
-                selectedEmployerId={selectedEmployerId}
-                onSelectEmployer={(employer) => void openCompany(employer)}
-                emptyMessage={
-                  employers.length
-                    ? "No companies match these filters."
-                    : "No companies registered."
-                }
-              />
-            </section>
-            <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
-              {selectedEmployer ? (
-                <>
-                  <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
-                    <div>
-                      <p className="eyebrow">COMPANY PROFILE</p>
-                      <h3>{selectedEmployer.name}</h3>
-                    </div>
-                    <Badge variant="outline" className="capitalize">
-                      {selectedEmployer.status.replaceAll("_", " ")}
-                    </Badge>
-                  </div>
+              <CompanyProfileHeader
+                    employer={selectedEmployer}
+                    jobsCount={vacancies.filter((item) => item.employer_id === selectedEmployer.id).length}
+                    sourcesCount={sources.length}
+                  />
                   <CompanyProfileActions
                     currentStatus={selectedEmployer.status}
                     saving={saving}
                     onUpdateStatus={(status) => void updateCompanyStatus(status)}
                     onDelete={() => void deleteCompany()}
                   />
-                  <p className="mb-4 -mt-2 break-all text-[11px] text-muted-foreground">
-                    {selectedEmployer.website_url || "Official website not supplied"}
-                  </p>
                   <form
                     className="my-4 grid gap-3 rounded-lg border border-border bg-muted/50 p-4"
                     onSubmit={saveEmployerBranding}
@@ -1102,21 +1057,6 @@ export default function App() {
                       {saving ? "Saving…" : "Save logo details"}
                     </Button>
                   </form>
-                  <div className="flex gap-7 border-y border-border py-3">
-                    <div>
-                      <strong>
-                        {
-                          vacancies.filter((item) => item.employer_id === selectedEmployer.id)
-                            .length
-                        }
-                      </strong>
-                      <span>Jobs collected</span>
-                    </div>
-                    <div>
-                      <strong>{sources.length}</strong>
-                      <span>Sources registered</span>
-                    </div>
-                  </div>
                   <div className="mb-3 mt-6 flex items-center justify-between gap-3 border-b border-border pb-2">
                     <h4>Job sources</h4>
                   </div>
