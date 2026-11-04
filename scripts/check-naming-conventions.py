@@ -12,6 +12,7 @@ PROHIBITED_GENERIC_NAMES = {
 DOCUMENTED_DIRECTORY_EXCEPTIONS = {
     "src", "ui", "app", "lib", "api", "milestones", "scripts",
     "backend", "frontend", "scout", "domain", "adapters", "persistence",
+    "components", "styles",
     "test-suites", "unit-tests", "integration-tests", "registry",
     "database-migrations", "application",
 }
@@ -48,8 +49,15 @@ def check_naming(root_dir: Path) -> list[str]:
             name_stem = path.stem.lower()
             name_full = path.name
 
+            # Check directory names as well as source filenames.
+            if path.is_dir() and name_full not in DOCUMENTED_DIRECTORY_EXCEPTIONS:
+                if "-" not in name_full and "_" not in name_full:
+                    violations.append(
+                        f"Single-word directory '{name_full}': {path}"
+                    )
+
             # Check generic prohibited names
-            if name_stem in PROHIBITED_GENERIC_NAMES:
+            if path.is_file() and name_stem in PROHIBITED_GENERIC_NAMES:
                 violations.append(f"Generic prohibited name '{path.name}': {path}")
 
             # Check single-word names
