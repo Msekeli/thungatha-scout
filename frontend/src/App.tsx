@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
-import type { Employer, EmployerSource, GreenhouseInspection, CareersDiscovery } from "./api";
+import type { Employer, EmployerSource } from "./api";
 import { Badge } from "@/components/ui/badge";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
@@ -30,6 +30,7 @@ import { useVacancyReview } from "./job-management/useVacancyReview";
 import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
 import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
 import { useScoutWorkspace } from "./useScoutWorkspace";
+import { useCareersDiscovery } from "./employer-onboarding/useCareersDiscovery";
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -55,14 +56,14 @@ export default function App() {
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
   const [editingSourceId, setEditingSourceId] = useState<string | null>(null);
-  const [inspection, setInspection] = useState<GreenhouseInspection | null>(null);
-  const [discovery, setDiscovery] = useState<CareersDiscovery | null>(null);
-  const [atsKey, setAtsKey] = useState("greenhouse");
   const [extracting, setExtracting] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [inspecting, setInspecting] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const {
+    discovery, setDiscovery, inspection, setInspection, atsKey, setAtsKey, inspecting,
+    discover, inspectGreenhouseBoard,
+  } = useCareersDiscovery({ onError: setError, onNotice: setNotice });
 
   const {
     employers,
@@ -236,30 +237,6 @@ export default function App() {
     await saveBranding();
   }
 
-  async function discoverCareersPage() {
-    setInspecting(true);
-    setError("");
-    setNotice("");
-    setDiscovery(null);
-    try {
-      if (atsKey !== "greenhouse") {
-        throw new Error("Workday discovery will be enabled in the Workday vertical slice.");
-      }
-      const result = await scoutApi.discoverCareersPage(sourceUrl);
-      setDiscovery(result);
-      setForm((current) => ({
-        ...current,
-        name: current.name || result.company_name || "",
-        website_url: sourceUrl,
-      }));
-      setNotice(`Detected ${result.detected_adapter} and found ${result.jobs.length} vacancies.`);
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not discover the careers source.");
-    } finally {
-      setInspecting(false);
-    }
-  }
-
   async function registerDiscoveredEmployer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!discovery || !form.name.trim()) return;
@@ -296,19 +273,6 @@ export default function App() {
       );
     } finally {
       setSaving(false);
-    }
-  }
-
-  async function inspectGreenhouse() {
-    setInspecting(true);
-    setError("");
-    setInspection(null);
-    try {
-      setInspection(await scoutApi.inspectGreenhouse(sourceUrl));
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not inspect Greenhouse board.");
-    } finally {
-      setInspecting(false);
     }
   }
 
@@ -681,7 +645,7 @@ export default function App() {
                       setSourceUrl(value);
                       setInspection(null);
                     }}
-                    onInspect={() => void inspectGreenhouse()}
+                    onInspect={() => void inspectGreenhouseBoard(sourceUrl)}
                     onSaveSource={createSource}
                     onCancelEdit={() => {
                       setEditingSourceId(null);
@@ -714,7 +678,7 @@ export default function App() {
                   ? registerDiscoveredEmployer
                   : (event) => {
                       event.preventDefault();
-                      void discoverCareersPage();
+                      void discover(sourceUrl, (detectedName) => setForm((current) => ({ ...current, name: current.name || detectedName, website_url: sourceUrl })));
                     }
               }
             >
@@ -730,7 +694,7 @@ export default function App() {
                   setAtsKey(value);
                   setDiscovery(null);
                 }}
-                onDetect={() => void discoverCareersPage()}
+                onDetect={() => void discover(sourceUrl, (detectedName) => setForm((current) => ({ ...current, name: current.name || detectedName, website_url: sourceUrl })))}
                 inspecting={inspecting}
               />
               <OnboardingPreviewCard discovery={discovery} />
