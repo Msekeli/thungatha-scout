@@ -32,8 +32,8 @@ export function VacancyRecordsToolbar({
   loading,
 }: VacancyRecordsToolbarProps) {
   return (
-    <div className="flex flex-wrap items-center gap-2 border-b border-border bg-muted/70 p-3">
-      <h3 className="mr-auto text-sm font-bold text-primary">
+    <div className="flex flex-wrap items-center gap-2 border-b border-scout-navy bg-scout-navy p-3">
+      <h3 className="mr-auto text-sm font-bold text-white">
         {showArchived ? "Archived vacancies" : "Vacancy records"}
       </h3>
       <Select
@@ -42,7 +42,7 @@ export function VacancyRecordsToolbar({
       >
         <SelectTrigger
           aria-label="Choose active or archived vacancies"
-          className="h-8 w-[125px] bg-card text-xs"
+          className="h-8 w-[125px] border-white/20 bg-white text-xs text-scout-navy"
         >
           <SelectValue />
         </SelectTrigger>
@@ -54,7 +54,7 @@ export function VacancyRecordsToolbar({
       <Select value={reviewFilter} onValueChange={onReviewFilterChange}>
         <SelectTrigger
           aria-label="Filter vacancies by review state"
-          className="h-8 w-[145px] bg-card text-xs"
+          className="h-8 w-[145px] border-white/20 bg-white text-xs text-scout-navy"
         >
           <SelectValue />
         </SelectTrigger>
@@ -69,7 +69,7 @@ export function VacancyRecordsToolbar({
       <Select value={selectedEmployerId} onValueChange={onEmployerChange}>
         <SelectTrigger
           aria-label="Filter vacancies by company"
-          className="h-8 w-[140px] bg-card text-xs"
+          className="h-8 w-[140px] border-white/20 bg-white text-xs text-scout-navy"
         >
           <SelectValue placeholder="All companies" />
         </SelectTrigger>
