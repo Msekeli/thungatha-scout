@@ -2,13 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import type { EmployerSource } from "../api";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export type SourceDecisionDraft = {
   status: string;
@@ -25,13 +19,7 @@ type SourceReviewPanelProps = {
   onSave: () => void;
 };
 
-export function SourceReviewPanel({
-  source,
-  decision,
-  saving,
-  onChange,
-  onSave,
-}: SourceReviewPanelProps) {
+export function SourceReviewPanel(props: SourceReviewPanelProps) {
   return (
     <div className="grid gap-3 rounded-lg border border-border bg-muted/50 p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
