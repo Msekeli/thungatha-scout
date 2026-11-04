@@ -54,7 +54,7 @@ class EmployerSourceRepository:
                 normalized_url = %s,
                 adapter_config = %s,
                 updated_at = NOW()
-            WHERE employer_id = %s AND id = %s
+            WHERE employer_id = %s AND id = %s AND adapter_key = %s
             RETURNING *
             """,
             (
@@ -63,6 +63,7 @@ class EmployerSourceRepository:
                 Jsonb(values["adapter_config"]),
                 employer_id,
                 source_id,
+                values["adapter_key"],
             ),
         ).fetchone()
 
