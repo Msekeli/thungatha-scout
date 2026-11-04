@@ -15,19 +15,19 @@ export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
 }) => {
   return (
     <>
-      <div className="mb-3 flex items-start justify-between gap-3 border-b border-border pb-3">
+      <div className="mb-4 rounded-xl border border-scout-navy bg-scout-navy p-4 text-white shadow-sm">\n        <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-[10px] font-semibold tracking-widest text-muted-foreground">
             COMPANY PROFILE
           </p>
-          <h3 className="mt-1 truncate text-base font-bold text-primary">{employer.name}</h3>
-          <p className="mt-1 break-all text-[11px] text-muted-foreground">
+          <h3 className="mt-1 truncate text-base font-bold text-white">{employer.name}</h3>
+          <p className="mt-1 break-all text-[11px] text-white/65">
             {employer.website_url ? (
               <a
                 href={employer.website_url}
                 target="_blank"
                 rel="noreferrer"
-                className="text-primary underline-offset-2 hover:underline"
+                className="text-scout-cyan underline-offset-2 hover:underline"
               >
                 {employer.website_url}
               </a>
@@ -36,18 +36,18 @@ export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
             )}
           </p>
         </div>
-        <Badge variant="outline" className="shrink-0 capitalize">
+        <Badge variant="outline" className="shrink-0 border-white/30 text-white capitalize">
           {employer.status.replaceAll("_", " ")}
         </Badge>
       </div>
       <div className="mb-4 flex gap-7 border-y border-border py-3">
         <div className="grid gap-0.5">
-          <strong className="text-base font-bold text-primary">{jobsCount}</strong>
-          <span className="text-[10px] text-muted-foreground">Jobs collected</span>
+          <strong className="text-base font-bold text-white">{jobsCount}</strong>
+          <span className="text-[10px] text-white/60">Jobs collected</span>
         </div>
         <div className="grid gap-0.5">
           <strong className="text-base font-bold text-primary">{sourcesCount}</strong>
-          <span className="text-[10px] text-muted-foreground">Sources registered</span>
+          <span className="text-[10px] text-white/60">Sources registered</span>
         </div>
       </div>
     </>
