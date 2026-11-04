@@ -19,6 +19,7 @@ import { CompanyProfileActions } from "./company-management/CompanyProfileAction
 import { CompanyDirectoryList } from "./company-management/CompanyDirectoryList";
 import { CompanySearchFilters } from "./company-management/CompanySearchFilters";
 import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
+import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
 import { CompanySourcesSection } from "./employer-sources/CompanySourcesSection";
 import { SourceReviewPanel } from "./employer-sources/SourceReviewPanel";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
@@ -98,6 +99,23 @@ export default function App() {
   });
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
+  const {
+    updateStatus: updateCompanyStatus,
+    deleteCompany,
+    saveBranding,
+  } = useCompanyProfileOperations({
+    employer: selectedEmployer,
+    logoUrl,
+    logoSourceUrl,
+    setEmployers,
+    onDeleted: () => {
+      setSelectedEmployerId("all");
+      setSources([]);
+    },
+    setSaving,
+    onNotice: setNotice,
+    onError: setError,
+  });
   const {
     decisions: sourceDecision,
     updateField: updateSourceDecisionField,
@@ -213,64 +231,9 @@ export default function App() {
     }
   }
 
-  async function updateCompanyStatus(
-    status: "approved" | "needs_review" | "rejected" | "inactive",
-  ) {
-    if (!selectedEmployer) return;
-    setSaving(true);
-    setError("");
-    try {
-      const updated = await scoutApi.updateEmployerStatus(selectedEmployer.id, status);
-      setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
-      setNotice(`${updated.name} marked ${status.replaceAll("_", " ")}.`);
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not update company status.");
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function deleteCompany() {
-    if (!selectedEmployer) return;
-    if (
-      !window.confirm(
-        `Permanently delete ${selectedEmployer.name}? Companies with sources or vacancies cannot be deleted.`,
-      )
-    )
-      return;
-    setSaving(true);
-    setError("");
-    try {
-      await scoutApi.deleteEmployer(selectedEmployer.id);
-      setEmployers((current) => current.filter((item) => item.id !== selectedEmployer.id));
-      setSelectedEmployerId("all");
-      setSources([]);
-      setNotice("Company deleted.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not delete company.");
-    } finally {
-      setSaving(false);
-    }
-  }
-
   async function saveEmployerBranding(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!selectedEmployer) return;
-    setSaving(true);
-    setError("");
-    try {
-      const updated = await scoutApi.updateEmployerBranding(
-        selectedEmployer.id,
-        logoUrl.trim(),
-        logoSourceUrl.trim(),
-      );
-      setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
-      setNotice("Company logo details saved.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not save company logo details.");
-    } finally {
-      setSaving(false);
-    }
+    await saveBranding();
   }
 
   async function discoverCareersPage() {
