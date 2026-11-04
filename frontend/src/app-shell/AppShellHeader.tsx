@@ -30,9 +30,9 @@ export function AppShellHeader({
       : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground";
 
   return (
-    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-primary to-[var(--scout-navy-2)] px-4 py-[14px] text-primary-foreground shadow-md md:-mx-8 md:px-8">
+    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-primary to-scout-navy px-4 py-[14px] text-primary-foreground shadow-md md:-mx-8 md:px-8">
       <div className="flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-xl border border-primary-foreground/15 bg-primary-foreground/10 text-[var(--scout-cyan)] shadow-inner">
+        <span className="grid h-10 w-10 place-items-center rounded-xl border border-primary-foreground/15 bg-primary-foreground/10 text-scout-cyan shadow-inner">
           <Radar className="h-6 w-6" />
         </span>
         <div>
@@ -44,7 +44,7 @@ export function AppShellHeader({
       </div>
 
       <div className="flex-1 text-center">
-        <p className="text-[9px] font-bold uppercase tracking-[.2em] text-[var(--scout-cyan)]">
+        <p className="text-[9px] font-bold uppercase tracking-[.2em] text-scout-cyan">
           {heading.eyebrow}
         </p>
         <h2 className="text-lg font-bold tracking-tight text-primary-foreground">
