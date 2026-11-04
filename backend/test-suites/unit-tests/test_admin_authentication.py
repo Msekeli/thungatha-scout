@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.testclient import TestClient
 
 from scout.authentication import require_admin
@@ -8,12 +8,10 @@ from scout.settings import Settings, get_settings
 def create_test_client(settings: Settings) -> TestClient:
     test_app = FastAPI()
     test_app.dependency_overrides[get_settings] = lambda: settings
-    test_app.add_api_route(
-        "/protected",
-        lambda claims=__import__(
-            "fastapi"
-        ).Depends(require_admin): {"subject": claims["sub"]},
-    )
+    def protected(claims=Depends(require_admin)) -> dict[str, str]:
+        return {"subject": claims["sub"]}
+
+    test_app.add_api_route("/protected", protected)
     return TestClient(test_app)
 
 
