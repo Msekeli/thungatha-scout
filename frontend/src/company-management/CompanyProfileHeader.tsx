@@ -34,18 +34,18 @@ export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
             )}
           </p>
         </div>
-        <Badge variant="outline" className="shrink-0 border-white/30 text-white capitalize">
+        <Badge variant="outline" className="shrink-0 border-border text-foreground capitalize">
           {employer.status.replaceAll("_", " ")}
         </Badge>
       </div>
       <div className="mt-4 flex gap-7 border-t border-border pt-3">
         <div className="grid gap-0.5">
-          <strong className="text-base font-bold text-white">{jobsCount}</strong>
+          <strong className="text-base font-bold text-foreground">{jobsCount}</strong>
           <span className="text-[10px] text-muted-foreground">Jobs collected</span>
         </div>
         <div className="grid gap-0.5">
           <strong className="text-base font-bold text-white">{sourcesCount}</strong>
-          <span className="text-[10px] text-white/60">Sources registered</span>
+          <span className="text-[10px] text-muted-foreground">Sources registered</span>
         </div>
       </div>
     </div>
