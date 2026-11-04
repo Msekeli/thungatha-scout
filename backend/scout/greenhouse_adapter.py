@@ -8,8 +8,8 @@ API_ROOT = "https://boards-api.greenhouse.io/v1/boards"
 ALLOWED_BOARD_HOSTS = {
     "boards.greenhouse.io",
     "job-boards.greenhouse.io",
+    "job-boards.eu.greenhouse.io",
 }
-MAX_PAGES = 20
 
 
 class GreenhouseUrlError(ValueError):
@@ -25,13 +25,20 @@ class GreenhouseResult:
     pages_fetched: int
     complete: bool
     detail: str | None = None
+    total_jobs: int | None = None
 
 
 def parse_board_token(value: str) -> str:
     parsed = urlparse(value.strip())
-    if parsed.scheme != "https" or parsed.hostname not in ALLOWED_BOARD_HOSTS:
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname not in ALLOWED_BOARD_HOSTS
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.port not in (None, 443)
+    ):
         raise GreenhouseUrlError(
-            "URL must use a supported Greenhouse board host."
+            "URL must use a supported HTTPS Greenhouse job-board host."
         )
 
     parts = [part for part in parsed.path.split("/") if part]
@@ -49,14 +56,13 @@ class GreenhouseAdapter:
     def __init__(
         self,
         client: httpx.AsyncClient | None = None,
-        max_pages: int = MAX_PAGES,
     ) -> None:
         self._client = client or httpx.AsyncClient(
-            timeout=10.0,
+            timeout=15.0,
             follow_redirects=False,
+            headers={"Accept": "application/json"},
         )
         self._owns_client = client is None
-        self._max_pages = max_pages
 
     async def close(self) -> None:
         if self._owns_client:
@@ -70,80 +76,53 @@ class GreenhouseAdapter:
             if failure:
                 return failure
             board = board_response.json()
-            if not isinstance(board, dict) or not isinstance(
-                board.get("name"), str
+            if not isinstance(board, dict) or not isinstance(board.get("name"), str):
+                return self._malformed(board_token, "Board metadata is malformed.")
+
+            response = await self._client.get(f"{board_url}/jobs?content=true")
+            failure = self._failure(response, board_token, board["name"])
+            if failure:
+                return failure
+            payload = response.json()
+            jobs = payload.get("jobs") if isinstance(payload, dict) else None
+            meta = payload.get("meta") if isinstance(payload, dict) else None
+            total = meta.get("total") if isinstance(meta, dict) else None
+            if (
+                not isinstance(jobs, list)
+                or not isinstance(total, int)
+                or total < 0
+                or not all(self._valid_job(job) for job in jobs)
             ):
                 return self._malformed(
                     board_token,
-                    "Board metadata is malformed.",
+                    "Job response must contain valid jobs and meta.total.",
                 )
 
-            jobs: list[dict[str, Any]] = []
-            next_url: str | None = f"{board_url}/jobs?content=true"
-            pages = 0
-            while next_url and pages < self._max_pages:
-                if urlparse(next_url).hostname != "boards-api.greenhouse.io":
-                    return self._malformed(
-                        board_token,
-                        "Pagination link host is invalid.",
-                    )
-                response = await self._client.get(next_url)
-                failure = self._failure(
-                    response,
-                    board_token,
-                    board["name"],
-                    jobs,
-                    pages,
-                )
-                if failure:
-                    return failure
-                payload = response.json()
-                page_jobs = (
-                    payload.get("jobs") if isinstance(payload, dict) else None
-                )
-                if not isinstance(page_jobs, list):
-                    return self._malformed(
-                        board_token,
-                        "Job response does not contain a jobs array.",
-                    )
-                if not all(self._valid_job(job) for job in page_jobs):
-                    return self._malformed(
-                        board_token,
-                        "One or more job records are malformed.",
-                    )
-                jobs.extend(page_jobs)
-                pages += 1
-                next_url = response.links.get("next", {}).get("url")
-
-            complete = next_url is None
+            complete = len(jobs) == total
+            outcome = (
+                "partial" if not complete else "success" if jobs else "empty"
+            )
             return GreenhouseResult(
-                outcome=(
-                    "partial"
-                    if not complete
-                    else "success" if jobs else "empty"
-                ),
+                outcome=outcome,
                 board_token=board_token,
                 board_name=board["name"],
                 jobs=jobs,
-                pages_fetched=pages,
+                pages_fetched=1,
                 complete=complete,
-                detail=None if complete else "Maximum page count reached.",
+                detail=(
+                    None
+                    if complete
+                    else f"API reported {total} jobs but returned {len(jobs)}."
+                ),
+                total_jobs=total,
             )
         except (httpx.TimeoutException, httpx.TransportError):
             return GreenhouseResult(
-                "transient_failure",
-                board_token,
-                None,
-                [],
-                0,
-                False,
+                "transient_failure", board_token, None, [], 0, False,
                 "Greenhouse request failed or timed out.",
             )
         except (ValueError, TypeError):
-            return self._malformed(
-                board_token,
-                "Greenhouse returned invalid JSON.",
-            )
+            return self._malformed(board_token, "Greenhouse returned invalid JSON.")
 
     @staticmethod
     def _valid_job(job: Any) -> bool:
@@ -153,6 +132,7 @@ class GreenhouseAdapter:
             and isinstance(job.get("title"), str)
             and bool(job["title"].strip())
             and isinstance(job.get("absolute_url"), str)
+            and job["absolute_url"].startswith("https://")
         )
 
     @staticmethod
@@ -160,8 +140,6 @@ class GreenhouseAdapter:
         response: httpx.Response,
         token: str,
         board_name: str | None = None,
-        jobs: list[dict[str, Any]] | None = None,
-        pages: int = 0,
     ) -> GreenhouseResult | None:
         outcome = {
             403: "blocked",
@@ -175,23 +153,12 @@ class GreenhouseAdapter:
         if outcome is None:
             outcome = "malformed"
         return GreenhouseResult(
-            outcome,
-            token,
-            board_name,
-            jobs or [],
-            pages,
-            False,
+            outcome, token, board_name, [], 0, False,
             f"Greenhouse returned HTTP {response.status_code}.",
         )
 
     @staticmethod
     def _malformed(token: str, detail: str) -> GreenhouseResult:
         return GreenhouseResult(
-            "malformed",
-            token,
-            None,
-            [],
-            0,
-            False,
-            detail,
+            "malformed", token, None, [], 0, False, detail,
         )
