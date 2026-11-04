@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
-import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, Vacancy } from "./api";
+import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, CareersDiscovery, Vacancy } from "./api";
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -25,6 +25,8 @@ export default function App() {
   const [sourceUrl, setSourceUrl] = useState("");
   const [editingSourceId, setEditingSourceId] = useState<string | null>(null);
   const [inspection, setInspection] = useState<GreenhouseInspection | null>(null);
+  const [discovery, setDiscovery] = useState<CareersDiscovery | null>(null);
+  const [atsKey, setAtsKey] = useState("greenhouse");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [extracting, setExtracting] = useState(false);
@@ -134,24 +136,60 @@ export default function App() {
     }
   }
 
-  async function createEmployer(event: FormEvent<HTMLFormElement>) {
+  async function discoverCareersPage() {
+    setInspecting(true);
+    setError("");
+    setNotice("");
+    setDiscovery(null);
+    try {
+      if (atsKey !== "greenhouse") {
+        throw new Error("Workday discovery will be enabled in the Workday vertical slice.");
+      }
+      const result = await scoutApi.discoverCareersPage(sourceUrl);
+      setDiscovery(result);
+      setForm((current) => ({
+        ...current,
+        name: current.name || result.company_name || "",
+        website_url: sourceUrl,
+      }));
+      setNotice(`Detected ${result.detected_adapter} and found ${result.jobs.length} vacancies.`);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not discover the careers source.");
+    } finally {
+      setInspecting(false);
+    }
+  }
+
+  async function registerDiscoveredEmployer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!discovery || !form.name.trim()) return;
     setSaving(true);
     setError("");
     setNotice("");
     try {
       const created = await scoutApi.createEmployer({
         ...form,
-        website_url: form.website_url || null,
+        website_url: sourceUrl,
       });
-      setForm(emptyEmployer);
+      const source = await scoutApi.createSource(created.id, {
+        adapter_key: discovery.detected_adapter,
+        source_url: discovery.board_url,
+        normalized_url: discovery.board_url,
+        employer_careers_url: sourceUrl,
+        adapter_config: { slug: discovery.board_token },
+      });
+      const run = await scoutApi.extractSource(source.id);
       await loadWorkspace();
       setSelectedEmployerId(created.id);
-      setSources([]);
+      setSources([source]);
+      setExtractionRuns((current) => ({ ...current, [source.id]: [run] }));
       setPage("companies");
-      setNotice(`${created.name} added. Register its official Greenhouse source from the company profile.`);
+      setSourceUrl("");
+      setDiscovery(null);
+      setForm(emptyEmployer);
+      setNotice(`${created.name} registered. ${run.jobs_received} vacancies retrieved; ${run.outcome}.`);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not add company.");
+      setError(reason instanceof Error ? reason.message : "Could not register employer and source.");
     } finally {
       setSaving(false);
     }
@@ -343,15 +381,39 @@ export default function App() {
 
       {page === "add-company" && (
         <>
-          <section className="page-heading"><div><p className="eyebrow">EMPLOYER ONBOARDING</p><h2>Add a company</h2><p>Register the employer first. You can add and verify its job source from its profile.</p></div></section>
+          <section className="page-heading">
+            <div><p className="eyebrow">EMPLOYER ONBOARDING</p><h2>Add a company</h2><p>Paste the official careers or jobs listing URL. Scout will identify its ATS.</p></div>
+          </section>
           <section className="surface add-company-panel">
-            <form onSubmit={createEmployer}>
-              <label>Company name<input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Company name" required /></label>
-              <label>Official website<input type="url" value={form.website_url} onChange={(event) => setForm({ ...form, website_url: event.target.value })} placeholder="https://company.co.za" /></label>
-              <label>Organization type<select value={form.organization_type} onChange={(event) => setForm({ ...form, organization_type: event.target.value })}><option value="unresolved">Needs classification</option><option value="direct_employer">Direct employer</option><option value="recruitment_agency">Recruitment agency</option><option value="staffing_company">Staffing company</option><option value="hybrid">Hybrid</option><option value="other">Other</option></select></label>
-              <div className="form-row"><label>City<input value={form.city} onChange={(event) => setForm({ ...form, city: event.target.value })} /></label><label>Province<input value={form.province} onChange={(event) => setForm({ ...form, province: event.target.value })} /></label></div>
-              <label>Country<input value={form.country} onChange={(event) => setForm({ ...form, country: event.target.value })} /></label>
-              <div className="form-actions"><button type="button" className="button secondary" onClick={() => setPage("companies")}>Cancel</button><button className="button primary" disabled={saving}>{saving ? "Saving company…" : "Add company"}</button></div>
+            <form onSubmit={discovery ? registerDiscoveredEmployer : (event) => { event.preventDefault(); void discoverCareersPage(); }}>
+              <label>Careers / jobs listing URL
+                <input type="url" value={sourceUrl} onChange={(event) => { setSourceUrl(event.target.value); setDiscovery(null); setForm({ ...form, website_url: event.target.value }); }} placeholder="https://company.com/jobs" required />
+              </label>
+              <label>ATS platform
+                <select value={atsKey} onChange={(event) => { setAtsKey(event.target.value); setDiscovery(null); }}>
+                  <option value="greenhouse">Greenhouse</option>
+                  <option value="workday" disabled>Workday — coming next</option>
+                </select>
+              </label>
+              <button type="button" className="button secondary" onClick={() => void discoverCareersPage()} disabled={inspecting || !sourceUrl.trim()}>
+                {inspecting ? "Detecting ATS and inspecting jobs…" : "Detect ATS & preview jobs"}
+              </button>
+              {discovery && (
+                <div className="inspection-preview">
+                  <strong>{discovery.jobs.length} vacancies found</strong>
+                  <span>Detected: {discovery.detected_adapter} · Board: {discovery.board_url}</span>
+                  <small>{discovery.complete ? "Vacancy preview is complete." : discovery.detail || "The preview is incomplete."}</small>
+                </div>
+              )}
+              {discovery && <label>Company name
+                <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Detected company name" required />
+              </label>}
+              <div className="form-actions">
+                <button type="button" className="button secondary" onClick={() => { setPage("companies"); setDiscovery(null); }}>Cancel</button>
+                {discovery && <button className="button primary" disabled={saving || !discovery.complete || !["success", "empty"].includes(discovery.outcome)}>
+                  {saving ? "Registering and retrieving…" : "Confirm & register"}
+                </button>}
+              </div>
             </form>
           </section>
         </>
