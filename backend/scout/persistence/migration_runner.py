@@ -1,39 +1,15 @@
-import hashlib
-import re
 from pathlib import Path
 
 from psycopg.connection import Connection
 
 from scout.persistence.database_connection import get_database_connection
+from scout.persistence.migration_catalog import (
+    MigrationChecksumError,
+    discover_migrations,
+    migration_checksum,
+)
 
 MIGRATION_LOCK_ID = 731_204_119
-MIGRATION_FILENAME = re.compile(r"^(\d{4})-[a-z0-9-]+\.sql$")
-
-
-class MigrationChecksumError(RuntimeError):
-    """Raised when an already-applied migration has been modified."""
-
-
-def discover_migrations(directory: Path) -> list[Path]:
-    if not directory.is_dir():
-        raise FileNotFoundError(f"Migration directory does not exist: {directory}")
-    migrations = sorted(directory.glob("*.sql"))
-    versions: set[str] = set()
-
-    for migration in migrations:
-        match = MIGRATION_FILENAME.fullmatch(migration.name)
-        if match is None:
-            raise ValueError(f"Invalid migration filename: {migration.name}")
-        version = match.group(1)
-        if version in versions:
-            raise ValueError(f"Duplicate migration version: {version}")
-        versions.add(version)
-
-    return migrations
-
-
-def migration_checksum(migration: Path) -> str:
-    return hashlib.sha256(migration.read_bytes()).hexdigest()
 
 
 def apply_migrations(
@@ -66,18 +42,15 @@ def apply_migrations(
                 "SELECT version, checksum FROM scout_schema_migrations"
             ).fetchall()
         }
-
         for migration in migrations:
             version = migration.name[:4]
             checksum = migration_checksum(migration)
-
             if version in existing:
                 if existing[version] != checksum:
                     raise MigrationChecksumError(
                         f"Applied migration {version} has changed."
                     )
                 continue
-
             connection.execute(migration.read_text(encoding="utf-8"), prepare=False)
             connection.execute(
                 """
@@ -87,7 +60,6 @@ def apply_migrations(
                 (version, checksum),
             )
             applied_versions.append(version)
-
     return applied_versions
 
 
