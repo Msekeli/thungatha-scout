@@ -51,7 +51,6 @@ class EmployerRepository:
             (limit, offset),
         ).fetchall()
 
-
     def update_branding(
         self, employer_id: UUID, logo_url: str | None, logo_source_url: str | None
     ) -> dict[str, Any] | None:

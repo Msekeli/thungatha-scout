@@ -12,9 +12,20 @@ from scout.greenhouse_adapter import (
 
 
 def test_parse_supported_greenhouse_board_urls() -> None:
-    assert parse_board_token("https://job-boards.greenhouse.io/takealotgroup") == "takealotgroup"
-    assert parse_board_token("https://job-boards.eu.greenhouse.io/bashdotcom/jobs/5017437101") == "bashdotcom"
-    assert parse_board_token("https://boards.greenhouse.io/embed/job_board?for=example") == "example"
+    assert (
+        parse_board_token("https://job-boards.greenhouse.io/takealotgroup")
+        == "takealotgroup"
+    )
+    assert (
+        parse_board_token(
+            "https://job-boards.eu.greenhouse.io/bashdotcom/jobs/5017437101"
+        )
+        == "bashdotcom"
+    )
+    assert (
+        parse_board_token("https://boards.greenhouse.io/embed/job_board?for=example")
+        == "example"
+    )
 
 
 @pytest.mark.parametrize(
@@ -68,11 +79,13 @@ def test_reports_incomplete_inventory_when_meta_total_differs() -> None:
             return httpx.Response(
                 200,
                 json={
-                    "jobs": [{
-                        "id": 1,
-                        "title": "Engineer",
-                        "absolute_url": "https://example.com/jobs/1",
-                    }],
+                    "jobs": [
+                        {
+                            "id": 1,
+                            "title": "Engineer",
+                            "absolute_url": "https://example.com/jobs/1",
+                        }
+                    ],
                     "meta": {"total": 2},
                 },
             )

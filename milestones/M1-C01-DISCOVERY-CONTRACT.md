@@ -19,12 +19,12 @@ Candidate records keep official website/careers URLs separate from the URL where
 
 ## Discovery run outcomes
 
-| Outcome | Meaning |
-|---|---|
-| success_with_results | Search completed and returned one or more candidates |
-| success_empty | Search completed successfully with no candidates |
-| request_failed | A discovery request failed, for example timeout or rate limit |
-| discovery_failed | The overall discovery operation could not complete reliably |
+| Outcome              | Meaning                                                       |
+| -------------------- | ------------------------------------------------------------- |
+| success_with_results | Search completed and returned one or more candidates          |
+| success_empty        | Search completed successfully with no candidates              |
+| request_failed       | A discovery request failed, for example timeout or rate limit |
+| discovery_failed     | The overall discovery operation could not complete reliably   |
 
 Failed outcomes require an error code or message. Successful outcomes cannot carry failure details. Start/finish times must be timezone-aware and ordered. The current result model requires an empty candidate list for failed outcomes; a future orchestration contract may explicitly represent partial results.
 

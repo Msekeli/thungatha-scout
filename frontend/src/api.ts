@@ -1,6 +1,4 @@
-const API_BASE = (
-  import.meta.env.VITE_SCOUT_API_URL ?? "http://127.0.0.1:8000"
-).replace(/\/$/, "");
+const API_BASE = (import.meta.env.VITE_SCOUT_API_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
 
 export type Employer = {
   id: string;
@@ -25,7 +23,11 @@ export type EmployerSource = {
   normalized_url: string;
   status: string;
   permission_status: string;
-  relationship_evidence?: Array<{ evidence_url?: string | null; decision_reason?: string | null; recorded_at?: string | null }>;
+  relationship_evidence?: Array<{
+    evidence_url?: string | null;
+    decision_reason?: string | null;
+    recorded_at?: string | null;
+  }>;
 };
 
 export type Vacancy = {
@@ -103,16 +105,12 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       },
     });
   } catch {
-    throw new Error(
-      `Cannot reach Scout API at ${API_BASE}. Start the backend and try again.`,
-    );
+    throw new Error(`Cannot reach Scout API at ${API_BASE}. Start the backend and try again.`);
   }
 
   if (!response.ok) {
     const problem = (await response.json().catch(() => ({}))) as ProblemDetails;
-    throw new Error(
-      problem.detail ?? problem.title ?? `Request failed (${response.status}).`,
-    );
+    throw new Error(problem.detail ?? problem.title ?? `Request failed (${response.status}).`);
   }
   if (response.status === 204) return undefined as T;
   return response.json() as Promise<T>;
@@ -125,33 +123,51 @@ export const scoutApi = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
-  updateEmployerStatus: (employerId: string, status: "approved" | "needs_review" | "rejected" | "inactive") =>
-    request<Employer>(`/api/v1/employers/${employerId}/status`, { method: "PATCH", body: JSON.stringify({ status }) }),
+  updateEmployerStatus: (
+    employerId: string,
+    status: "approved" | "needs_review" | "rejected" | "inactive",
+  ) =>
+    request<Employer>(`/api/v1/employers/${employerId}/status`, {
+      method: "PATCH",
+      body: JSON.stringify({ status }),
+    }),
   deleteEmployer: (employerId: string) =>
     request<void>(`/api/v1/employers/${employerId}`, { method: "DELETE" }),
   updateEmployerBranding: (employerId: string, logo_url: string, logo_source_url: string) =>
     request<Employer>(`/api/v1/employers/${employerId}/branding`, {
       method: "PATCH",
-      body: JSON.stringify({ logo_url: logo_url || null, logo_source_url: logo_source_url || null }),
+      body: JSON.stringify({
+        logo_url: logo_url || null,
+        logo_source_url: logo_source_url || null,
+      }),
     }),
   listSources: (employerId: string) =>
     request<EmployerSource[]>(`/api/v1/employers/${employerId}/sources`),
   updateSource: (employerId: string, sourceId: string, payload: Record<string, unknown>) =>
     request<EmployerSource>(`/api/v1/employers/${employerId}/sources/${sourceId}`, {
-      method: "PUT", body: JSON.stringify(payload),
+      method: "PUT",
+      body: JSON.stringify(payload),
     }),
-  updateSourceReview: (employerId: string, sourceId: string, payload: { status: string; permission_status: string; evidence_url: string; reason: string }) =>
+  updateSourceReview: (
+    employerId: string,
+    sourceId: string,
+    payload: { status: string; permission_status: string; evidence_url: string; reason: string },
+  ) =>
     request<EmployerSource>(`/api/v1/employers/${employerId}/sources/${sourceId}/review`, {
-      method: "PATCH", body: JSON.stringify(payload),
+      method: "PATCH",
+      body: JSON.stringify(payload),
     }),
   createSource: (employerId: string, payload: Record<string, unknown>) =>
     request<EmployerSource>(`/api/v1/employers/${employerId}/sources`, {
       method: "POST",
       body: JSON.stringify({ ...payload, employer_id: employerId }),
     }),
-  getVacancy: (vacancyId: string) =>
-    request<Vacancy>(`/api/v1/vacancies/${vacancyId}`),
-  updateVacancyReview: (vacancyId: string, review_status: Vacancy["review_status"], review_reason: string) =>
+  getVacancy: (vacancyId: string) => request<Vacancy>(`/api/v1/vacancies/${vacancyId}`),
+  updateVacancyReview: (
+    vacancyId: string,
+    review_status: Vacancy["review_status"],
+    review_reason: string,
+  ) =>
     request<Vacancy>(`/api/v1/vacancies/${vacancyId}/review`, {
       method: "PATCH",
       body: JSON.stringify({ review_status, review_reason: review_reason || null }),
@@ -166,9 +182,7 @@ export const scoutApi = {
   listArchivedVacancies: () => request<Vacancy[]>("/api/v1/vacancies/archived"),
   listVacancies: (employerId?: string) =>
     request<Vacancy[]>(
-      employerId
-        ? `/api/v1/employers/${employerId}/vacancies`
-        : "/api/v1/vacancies",
+      employerId ? `/api/v1/employers/${employerId}/vacancies` : "/api/v1/vacancies",
     ),
   extractSource: (sourceId: string) =>
     request<ExtractionRun>(`/api/v1/sources/${sourceId}/extract`, {
@@ -177,11 +191,7 @@ export const scoutApi = {
   listExtractionRuns: (sourceId: string) =>
     request<ExtractionRun[]>(`/api/v1/sources/${sourceId}/extraction-runs`),
   discoverCareersPage: (url: string) =>
-    request<CareersDiscovery>(
-      `/api/v1/greenhouse/discover?url=${encodeURIComponent(url)}`,
-    ),
+    request<CareersDiscovery>(`/api/v1/greenhouse/discover?url=${encodeURIComponent(url)}`),
   inspectGreenhouse: (url: string) =>
-    request<GreenhouseInspection>(
-      `/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`,
-    ),
+    request<GreenhouseInspection>(`/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`),
 };

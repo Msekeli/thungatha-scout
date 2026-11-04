@@ -39,9 +39,7 @@ def test_http_errors_use_problem_details_format() -> None:
     response = TestClient(test_app).get("/test-http-error")
 
     assert response.status_code == 404
-    assert response.headers["content-type"].startswith(
-        "application/problem+json"
-    )
+    assert response.headers["content-type"].startswith("application/problem+json")
     assert response.json() == {
         "type": "about:blank",
         "title": "Request failed",
@@ -58,14 +56,10 @@ def test_validation_errors_use_problem_details_format() -> None:
     def validation_error(limit: int) -> dict[str, int]:
         return {"limit": limit}
 
-    response = TestClient(test_app).get(
-        "/test-validation-error?limit=invalid"
-    )
+    response = TestClient(test_app).get("/test-validation-error?limit=invalid")
 
     assert response.status_code == 422
-    assert response.headers["content-type"].startswith(
-        "application/problem+json"
-    )
+    assert response.headers["content-type"].startswith("application/problem+json")
     body = response.json()
     assert body["type"] == "about:blank"
     assert body["title"] == "Request validation failed"

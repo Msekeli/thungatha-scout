@@ -103,8 +103,13 @@ class EmployerSourceRepository:
             RETURNING *
             """,
             (
-                values["status"], values["permission_status"],
-                values.get("evidence_url") or None, values.get("reason") or None,
-                values["status"], values["status"], employer_id, source_id,
+                values["status"],
+                values["permission_status"],
+                values.get("evidence_url") or None,
+                values.get("reason") or None,
+                values["status"],
+                values["status"],
+                employer_id,
+                source_id,
             ),
         ).fetchone()

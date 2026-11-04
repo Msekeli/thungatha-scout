@@ -115,7 +115,9 @@ def archive_vacancy(
 ) -> dict[str, Any]:
     vacancy = service.archive_vacancy(vacancy_id, payload.reason)
     if vacancy is None:
-        raise HTTPException(status_code=404, detail="Vacancy not found or already archived.")
+        raise HTTPException(
+            status_code=404, detail="Vacancy not found or already archived."
+        )
     return vacancy
 
 

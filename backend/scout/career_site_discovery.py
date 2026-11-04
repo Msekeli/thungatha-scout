@@ -65,9 +65,7 @@ async def discover_greenhouse(url: str) -> dict[str, str]:
         if token == "jobs" and len(parts) > 1:
             token = parts[1]
         if token:
-            board_url = urlunparse(
-                (link.scheme, link.netloc, f"/{token}", "", "", "")
-            )
+            board_url = urlunparse((link.scheme, link.netloc, f"/{token}", "", "", ""))
             return {
                 "careers_url": str(response.url),
                 "board_url": board_url,

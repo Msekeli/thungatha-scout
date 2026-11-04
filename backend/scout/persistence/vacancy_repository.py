@@ -23,9 +23,7 @@ class VacancyRepository:
         for job in jobs:
             raw = json.dumps(job, sort_keys=True, separators=(",", ":"))
             fingerprint = hashlib.sha256(raw.encode()).hexdigest()
-            values = self._values(
-                employer_id, source_id, source_url, job, fingerprint
-            )
+            values = self._values(employer_id, source_id, source_url, job, fingerprint)
             row = self._connection.execute(
                 """
                 INSERT INTO vacancies (
@@ -87,8 +85,14 @@ class VacancyRepository:
             "title": job["title"].strip(),
             "description": job.get("content"),
             "location_text": location_text,
-            "department": departments[0].get("name") if isinstance(departments, list) and departments and isinstance(departments[0], dict) else None,
-            "office": offices[0].get("name") if isinstance(offices, list) and offices and isinstance(offices[0], dict) else None,
+            "department": departments[0].get("name")
+            if isinstance(departments, list)
+            and departments
+            and isinstance(departments[0], dict)
+            else None,
+            "office": offices[0].get("name")
+            if isinstance(offices, list) and offices and isinstance(offices[0], dict)
+            else None,
             "source_url": source_url,
             "application_url": job["absolute_url"],
             "published_at": job.get("first_published"),
@@ -98,14 +102,18 @@ class VacancyRepository:
             "review_status": (
                 "needs_verification"
                 if not location_text
-                or any(term in location_normalized for term in ("south africa", "remote"))
+                or any(
+                    term in location_normalized for term in ("south africa", "remote")
+                )
                 else "pending"
             ),
             "review_reason": (
                 "Location is missing from the source."
                 if not location_text
                 else "Verify the stated South African or remote-work location and eligibility."
-                if any(term in location_normalized for term in ("south africa", "remote"))
+                if any(
+                    term in location_normalized for term in ("south africa", "remote")
+                )
                 else None
             ),
         }
@@ -140,7 +148,6 @@ class VacancyRepository:
             """,
             (limit, offset),
         ).fetchall()
-
 
     def get_by_id(self, vacancy_id: UUID) -> dict[str, Any] | None:
         return self._connection.execute(
@@ -198,7 +205,6 @@ class VacancyRepository:
             (vacancy_id,),
         ).fetchone()
         return self.get_by_id(vacancy_id) if row else None
-
 
     def list_archived(self, limit: int = 200, offset: int = 0) -> list[dict[str, Any]]:
         return self._connection.execute(

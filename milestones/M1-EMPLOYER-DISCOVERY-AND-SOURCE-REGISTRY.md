@@ -28,17 +28,20 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 **Goal:** define the candidate/evidence contract and make success-empty distinct from failures.
 
 **Work**
+
 - Define candidate identity and conservative deduplication rules.
 - Capture discovery method/query, observed URL, timezone-aware observation time, official careers URL when verified, location evidence and evidence references.
 - Distinguish unknown identity from verified identity; an ATS token alone never proves employer identity.
 - Represent successful results, successful empty results, request failure and total discovery failure as separate outcomes.
 
 **Exit criteria**
+
 - Candidate/evidence schema is documented and reviewed.
 - Unknown and failure states are explicit.
 - Automated tests distinguish empty results from request/discovery failures.
 
 **Acceptance evidence**
+
 - Added `backend/app/domain/discovery.py` with typed candidate, evidence, identity, organization, review and run-outcome models.
 - Added `backend/tests/unit/test_discovery.py` and Pydantic to `backend/requirements.txt`.
 - Added `milestones/M1-C01-DISCOVERY-CONTRACT.md`.
@@ -55,6 +58,7 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 **Goal:** discover direct employers and their official recruitment entry points without narrowing the employer universe by role, industry, or ATS provider.
 
 **Work**
+
 - Run two complementary query groups: broad employer/careers discovery and ATS-specific footprint discovery. Keep their provenance and result counts separate.
 - Keep Cape Town as the initial geographic scope and record the evidence for the employer's Cape Town connection.
 - Discover company-built pages and employer-linked external portals, not only ATS-hosted boards.
@@ -66,11 +70,13 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Retain discovery run metadata and report coverage limitations.
 
 **Exit criteria**
+
 - Repeatable run produces traceable candidates or a clearly reported incomplete/failure result.
 - Discovery records can be reproduced from recorded evidence.
 - No unsupported claim of exhaustive coverage is made.
 
 **Implementation progress (26 October 2026)**
+
 - Added a bounded query plan and replaceable search-provider interface. The
   implementation is now split into focused modules under
   `backend/app/application/discovery_*.py`; `employer_discovery.py` is a small
@@ -96,6 +102,7 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
   suite passed (22 tests, 0 failures); this was not independently run by the assistant.
 
 **Open issues**
+
 - The current live search provider is unreliable: the latest recorded run failed on 9 of 10 queries. Do not add more DDGS fallback complexity without evidence that it improves distinct, relevant employers found.
 - No reusable standalone Bing search-provider implementation was found in the inspected research branch. A bounded comparison mode was added to run the same queries independently against the supported DDGS `bing`, `brave`, `duckduckgo` and `mojeek` backends. This compares engine behavior without introducing a separate scraper. The live comparison has not yet been run.
 - The current report is a baseline, not an authoritative registry. Aggregator filtering is intentionally conservative and must be reviewed against new results; official employer ownership, direct-employer classification, Cape Town connection and recruitment-page linkage remain unverified.
@@ -115,6 +122,7 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 **Goal:** verify the candidate employer, Cape Town connection, direct-employer classification and official recruitment-page relationship; identify the source relationship without requiring a particular ATS.
 
 **Work**
+
 - Verify the employer's own website and careers page where possible.
 - Record ATS redirects and evidence connecting an ATS board to the employer.
 - Classify as direct employer, recruitment agency, staffing company, hybrid, other or unresolved.
@@ -122,6 +130,7 @@ Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accept
 - Record source access method, usage terms, attribution requirements, quotas and approval status.
 
 **Exit criteria**
+
 - Each verified source has evidence and a classification.
 - Unresolved cases remain reviewable.
 - Technical accessibility is not mistaken for permission to use data.
@@ -142,6 +151,7 @@ The first file must not accumulate employer-specific board mappings. The second 
 **Goal:** persist discovery outcomes without losing provenance or damaging existing data.
 
 **Work**
+
 - Define and validate the contracts for the two registry files; reject malformed records, unknown adapter references and missing required configuration.
 - Keep adapter definitions separate from employer/source mappings and claim-specific verification evidence.
 - Choose a persistence/reporting approach consistent with the audited repository.
@@ -151,6 +161,7 @@ The first file must not accumulate employer-specific board mappings. The second 
 - Summarize new, verified, unresolved, failed and unchanged candidates.
 
 **Exit criteria**
+
 - Repeated runs do not create uncontrolled duplicates.
 - Reports distinguish candidate counts from verified official sources.
 - Registry records pass schema/contract validation and cross-reference valid adapter keys.
@@ -164,12 +175,14 @@ The first file must not accumulate employer-specific board mappings. The second 
 **Goal:** establish the discovery workflow's reliability.
 
 **Work**
+
 - Test malformed URLs, redirects, duplicate candidates, search backend failure, empty results and ambiguous identity.
 - Review sample records manually against official pages.
 - Record representative evidence and known blind spots.
 - Obtain explicit user review before accepting M1.
 
 **Exit criteria**
+
 - Relevant automated tests pass and commands/results are recorded.
 - Sampled records are supported by source evidence.
 - Failure states and review queue are usable.
@@ -193,7 +206,6 @@ C02 remains in progress. The user reported 22 unit tests passing after the lates
 
 **Next action:** Establish a reliable search provider using a bounded comparison and add a separately reported ATS-footprint discovery experiment for Greenhouse, Workday, Lever, Breezy HR and Ashby. Compare unique employer yield—not just board or job totals—and review a sample of distinct direct employers and their official recruitment pages. M1-C02 remains unaccepted until discovery yield, evidence quality and failure reporting meet the exit criteria.
 
-
 ## ATS discovery evidence and limitations (3 November 2026)
 
 The following findings inform the discovery approach; they do not claim adapter implementation or source approval:
@@ -213,7 +225,6 @@ Two initial JSON files have been added under `backend/registry/`:
 - `employer-source-registry.json` contains initial employer/source candidates, source mappings and separate verification states.
 
 This is a registry data baseline only. It does not complete C04. The files still require an explicit schema/contract, validation tests, a reviewed persistence/update lifecycle and evidence review of their individual records. Existing `candidate` and `pending_verification` values must not be upgraded based on assumptions. C04 remains Not started until its work and exit criteria are completed and verified.
-
 
 ## Scope clarification — v1 delivery sequencing (3 November 2026)
 

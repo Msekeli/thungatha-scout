@@ -67,9 +67,7 @@ class GreenhouseExtractionService:
                     detail=result.detail,
                 )
         except Exception as exception:
-            detail = (
-                f"Persistence failed ({type(exception).__name__}): {exception}"
-            )
+            detail = f"Persistence failed ({type(exception).__name__}): {exception}"
             with self._connection_factory() as connection, connection.transaction():
                 return ExtractionRunRepository(connection).finish(
                     run_id=run_id,
@@ -96,7 +94,6 @@ class GreenhouseExtractionService:
                 return repository.list_for_employer(employer_id, limit, offset)
             return repository.list_all(limit, offset)
 
-
     def get_vacancy(self, vacancy_id: UUID) -> dict[str, Any] | None:
         with self._connection_factory() as connection:
             return VacancyRepository(connection).get_by_id(vacancy_id)
@@ -118,7 +115,6 @@ class GreenhouseExtractionService:
     def restore_vacancy(self, vacancy_id: UUID) -> dict[str, Any] | None:
         with self._connection_factory() as connection, connection.transaction():
             return VacancyRepository(connection).restore(vacancy_id)
-
 
     def list_archived_vacancies(
         self, limit: int = 200, offset: int = 0

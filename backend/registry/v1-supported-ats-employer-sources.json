@@ -10,11 +10,9 @@
       "sources": [
         {
           "ats": "greenhouse",
-          "config": {"slug": "takealotgroup"},
+          "config": { "slug": "takealotgroup" },
           "official_source_url": "https://job-boards.greenhouse.io/takealotgroup",
-          "verification_evidence": [
-            "https://job-boards.greenhouse.io/takealotgroup"
-          ]
+          "verification_evidence": ["https://job-boards.greenhouse.io/takealotgroup"]
         }
       ]
     },
@@ -32,9 +30,7 @@
             "site": "Old_Mutual_Careers"
           },
           "official_source_url": "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers",
-          "verification_evidence": [
-            "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers"
-          ]
+          "verification_evidence": ["https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers"]
         }
       ]
     },
@@ -64,7 +60,7 @@
       "sources": [
         {
           "ats": "greenhouse",
-          "config": {"slug": "impact"},
+          "config": { "slug": "impact" },
           "official_source_url": "https://job-boards.greenhouse.io/impact",
           "verification_evidence": []
         }

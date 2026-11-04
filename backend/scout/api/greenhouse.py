@@ -41,8 +41,6 @@ async def discover_careers_source(
             result = await adapter.retrieve(discovery["board_token"])
         finally:
             await adapter.close()
-        return asdict(result) | discovery | {
-            "source_url": discovery["board_url"]
-        }
+        return asdict(result) | discovery | {"source_url": discovery["board_url"]}
     except (ValueError, httpx.HTTPError) as exception:
         raise HTTPException(status_code=422, detail=str(exception)) from exception

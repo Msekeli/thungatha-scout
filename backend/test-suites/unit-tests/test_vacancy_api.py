@@ -46,30 +46,32 @@ class FakeExtractionService:
         return [{"id": str(uuid4()), "title": "Archived vacancy"}]
 
     def list_extraction_runs(self, source_id):
-        return [{
-            "id": str(uuid4()),
-            "source_id": str(source_id),
-            "outcome": "not_found",
-            "jobs_received": 0,
-            "jobs_inserted": 0,
-            "jobs_updated": 0,
-            "complete": False,
-            "detail": "Greenhouse returned HTTP 404.",
-        }]
+        return [
+            {
+                "id": str(uuid4()),
+                "source_id": str(source_id),
+                "outcome": "not_found",
+                "jobs_received": 0,
+                "jobs_inserted": 0,
+                "jobs_updated": 0,
+                "complete": False,
+                "detail": "Greenhouse returned HTTP 404.",
+            }
+        ]
 
 
 def test_lists_vacancies_for_an_employer() -> None:
     employer_id = uuid4()
     app.dependency_overrides[get_extraction_service] = FakeExtractionService
     try:
-        response = TestClient(app).get(
-            f"/api/v1/employers/{employer_id}/vacancies"
-        )
+        response = TestClient(app).get(f"/api/v1/employers/{employer_id}/vacancies")
         assert response.status_code == 200
-        assert response.json() == [{
-            "employer_id": str(employer_id),
-            "title": "Software Engineer",
-        }]
+        assert response.json() == [
+            {
+                "employer_id": str(employer_id),
+                "title": "Software Engineer",
+            }
+        ]
     finally:
         app.dependency_overrides.clear()
 
@@ -78,9 +80,7 @@ def test_extracts_a_registered_source() -> None:
     source_id = uuid4()
     app.dependency_overrides[get_extraction_service] = FakeExtractionService
     try:
-        response = TestClient(app).post(
-            f"/api/v1/sources/{source_id}/extract"
-        )
+        response = TestClient(app).post(f"/api/v1/sources/{source_id}/extract")
         assert response.status_code == 200
         assert response.json()["outcome"] == "success"
         assert response.json()["jobs_inserted"] == 2
@@ -92,15 +92,12 @@ def test_lists_extraction_runs_for_a_source() -> None:
     source_id = uuid4()
     app.dependency_overrides[get_extraction_service] = FakeExtractionService
     try:
-        response = TestClient(app).get(
-            f"/api/v1/sources/{source_id}/extraction-runs"
-        )
+        response = TestClient(app).get(f"/api/v1/sources/{source_id}/extraction-runs")
         assert response.status_code == 200
         assert response.json()[0]["outcome"] == "not_found"
         assert response.json()[0]["detail"] == "Greenhouse returned HTTP 404."
     finally:
         app.dependency_overrides.clear()
-
 
 
 def test_gets_vacancy_detail() -> None:
@@ -121,7 +118,10 @@ def test_updates_vacancy_review_status() -> None:
     try:
         response = TestClient(app).patch(
             f"/api/v1/vacancies/{vacancy_id}/review",
-            json={"review_status": "verified", "review_reason": "Cape Town office confirmed."},
+            json={
+                "review_status": "verified",
+                "review_reason": "Cape Town office confirmed.",
+            },
         )
         assert response.status_code == 200
         assert response.json()["review_status"] == "verified"

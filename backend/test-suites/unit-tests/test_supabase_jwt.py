@@ -111,6 +111,7 @@ def test_asymmetric_token_rejects_wrong_issuer(monkeypatch) -> None:
     with pytest.raises(InvalidIssuerError):
         verify_asymmetric_access_token(token, "https://scout.supabase.co")
 
+
 def test_unsupported_jwt_algorithm_is_rejected() -> None:
     token = jwt.encode(
         {"sub": "user"},

@@ -13,12 +13,12 @@ V1 supports Greenhouse and Workday. Initial geography is Cape Town. Scout is not
 
 ## 2. Deployment architecture
 
-| Component | Technology | Hosting |
-|---|---|---|
-| Admin UI | React, TypeScript, Vite, Tailwind CSS v3 | Hosting provider pending |
-| Backend | FastAPI (Python); separately executable scheduled/background processing | Provider decision pending |
-| Operational database | PostgreSQL via Supabase | Dedicated Scout Supabase project |
-| Public destination | Existing Thungatha Supabase/PostgreSQL | Existing Thungatha project |
+| Component            | Technology                                                              | Hosting                          |
+| -------------------- | ----------------------------------------------------------------------- | -------------------------------- |
+| Admin UI             | React, TypeScript, Vite, Tailwind CSS v3                                | Hosting provider pending         |
+| Backend              | FastAPI (Python); separately executable scheduled/background processing | Provider decision pending        |
+| Operational database | PostgreSQL via Supabase                                                 | Dedicated Scout Supabase project |
+| Public destination   | Existing Thungatha Supabase/PostgreSQL                                  | Existing Thungatha project       |
 
 Do not share Scout's operational schema/database with Thungatha. Do not use MongoDB or Azure Table Storage in the v1 architecture. Hosting remains deferred until local implementation and workload verification are complete.
 
@@ -27,6 +27,7 @@ The backend owns business rules and all privileged database writes. The React cl
 ## 3. Data ownership
 
 **Scout project owns:**
+
 - Employers and verification evidence.
 - Employer sources and adapter configuration.
 - Retrieved vacancy observations and normalised vacancies.
@@ -36,6 +37,7 @@ The backend owns business rules and all privileged database writes. The React cl
 - Publication attempts, idempotency keys and sync state.
 
 **Thungatha project owns:**
+
 - The clean employer/vacancy records needed by the public product.
 - Public visibility and application-facing lifecycle.
 
@@ -56,6 +58,7 @@ One employer can have multiple sources. Adding another source must not create a 
 ## 5. Adapter contract
 
 A small adapter interface covers:
+
 - URL recognition and parsing.
 - Source configuration validation.
 - Employer/board metadata inspection.
@@ -67,14 +70,18 @@ Adapters own HTTP transport, platform parsing and pagination. They do not own qu
 Explicit outcomes: success with results, success empty, not found, blocked, rate-limited, timeout/transient, malformed and partial/incomplete.
 
 ### Greenhouse
+
 Use the documented public Job Board API for a known board token:
+
 - `GET /v1/boards/{board_token}`
 - `GET /v1/boards/{board_token}/jobs?content=true`
 
 This is board-specific, not a global customer directory. Validate response shape and pagination. Missing logo is not a blocker.
 
 ### Workday
+
 Use observed public careers-site CXS JSON behavior, acknowledging it is undocumented and not guaranteed. Parse host, tenant and site separately. For `https://myhcm.wd3.myworkdayjobs.com/digioutsource`:
+
 - host: `myhcm.wd3.myworkdayjobs.com`
 - tenant: `myhcm`
 - site: `digioutsource`
@@ -113,7 +120,9 @@ Record destination result and audit event
 ```
 
 ### Automatic publication gates
+
 A vacancy is eligible only if:
+
 1. Employer and source are active and verified.
 2. Source relationship is official and use complies with applicable access restrictions/terms.
 3. Stable source-scoped external identity exists.
@@ -172,6 +181,7 @@ Supabase Free can support development/low-volume evaluation subject to current l
 Unit tests cover URL parsing, adapters, config validation, normalisation, hashing, duplicate handling, quality gates, state transitions and idempotency. Contract tests use recorded ATS fixtures. PostgreSQL integration tests cover schema constraints and persistence. Live smoke tests for Greenhouse and Workday are separately recorded.
 
 Critical safety tests:
+
 - Missing application URL cannot auto-publish.
 - Uncertain location cannot silently pass Cape Town scope.
 - Duplicate candidates are held/suppressed correctly.
@@ -180,7 +190,6 @@ Critical safety tests:
 - Unqualified or exception records never publish.
 - Publishing retry does not duplicate destination records.
 - Scout-only operational data never leaks into Thungatha.
-
 
 ## 13. Locked project setup — 3 November 2026
 

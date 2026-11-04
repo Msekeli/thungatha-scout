@@ -17,6 +17,5 @@ def test_application_modules_do_not_exceed_one_hundred_lines() -> None:
             oversized_modules[name] = line_count
 
     assert not oversized_modules, (
-        "Application modules must remain at or below 100 lines: "
-        f"{oversized_modules}"
+        f"Application modules must remain at or below 100 lines: {oversized_modules}"
     )

@@ -88,9 +88,7 @@ def test_employer_registry_api_validates_payloads() -> None:
     )
 
     assert response.status_code == 422
-    assert response.headers["content-type"].startswith(
-        "application/problem+json"
-    )
+    assert response.headers["content-type"].startswith("application/problem+json")
 
 
 def test_employer_source_api_rejects_mismatched_employer_ids() -> None:
@@ -155,7 +153,6 @@ def test_employer_source_api_registers_discovered_source() -> None:
         app.dependency_overrides.clear()
 
 
-
 class FakeEmployerSourceUpdateService:
     def __init__(self) -> None:
         self.updated = None
@@ -178,9 +175,7 @@ def test_employer_source_api_updates_source_configuration() -> None:
     service = FakeEmployerSourceUpdateService()
     employer_id = uuid4()
     source_id = uuid4()
-    app.dependency_overrides[
-        get_employer_source_update_service
-    ] = lambda: service
+    app.dependency_overrides[get_employer_source_update_service] = lambda: service
     client = TestClient(app)
 
     try:
@@ -207,9 +202,7 @@ def test_employer_source_api_updates_source_configuration() -> None:
 
 def test_employer_source_api_rejects_invalid_updated_adapter_config() -> None:
     service = FakeEmployerSourceUpdateService()
-    app.dependency_overrides[
-        get_employer_source_update_service
-    ] = lambda: service
+    app.dependency_overrides[get_employer_source_update_service] = lambda: service
     client = TestClient(app)
 
     try:

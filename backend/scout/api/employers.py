@@ -101,14 +101,20 @@ def create_employer_source(
     return service.create_source(payload)
 
 
-
 def get_employer_source_update_service() -> EmployerSourceUpdateService:
     return EmployerSourceUpdateService()
 
 
-
 class EmployerSourceReviewUpdate(BaseModel):
-    status: Literal["discovered", "pending_verification", "verified", "temporarily_unavailable", "invalid", "needs_review", "inactive"]
+    status: Literal[
+        "discovered",
+        "pending_verification",
+        "verified",
+        "temporarily_unavailable",
+        "invalid",
+        "needs_review",
+        "inactive",
+    ]
     permission_status: Literal["unknown", "allowed", "restricted", "needs_review"]
     evidence_url: str | None = Field(default=None, max_length=2048)
     reason: str | None = Field(default=None, max_length=2000)
@@ -121,8 +127,15 @@ def update_employer_source_review(
     payload: EmployerSourceReviewUpdate,
     service: EmployerSourceUpdateService = Depends(get_employer_source_update_service),
 ) -> dict[str, Any]:
-    if payload.status == "verified" and payload.permission_status == "allowed" and not payload.evidence_url:
-        raise HTTPException(status_code=422, detail="Evidence URL is required to verify and permit a source.")
+    if (
+        payload.status == "verified"
+        and payload.permission_status == "allowed"
+        and not payload.evidence_url
+    ):
+        raise HTTPException(
+            status_code=422,
+            detail="Evidence URL is required to verify and permit a source.",
+        )
     source = service.update_review(employer_id, source_id, payload.model_dump())
     if source is None:
         raise HTTPException(status_code=404, detail="Employer source not found.")
@@ -134,9 +147,7 @@ def update_employer_source(
     employer_id: UUID,
     source_id: UUID,
     payload: EmployerSourceUpdate,
-    service: EmployerSourceUpdateService = Depends(
-        get_employer_source_update_service
-    ),
+    service: EmployerSourceUpdateService = Depends(get_employer_source_update_service),
 ) -> dict[str, Any]:
     try:
         validate_source_config(

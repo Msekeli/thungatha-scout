@@ -25,13 +25,9 @@ def load_adapter_registry() -> dict[str, Any]:
         )
     for key, definition in adapters.items():
         if not isinstance(definition, dict):
-            raise RegistryValidationError(
-                f"Adapter '{key}' must be an object."
-            )
+            raise RegistryValidationError(f"Adapter '{key}' must be an object.")
         if not isinstance(definition.get("config_schema"), list):
-            raise RegistryValidationError(
-                f"Adapter '{key}' has no config schema."
-            )
+            raise RegistryValidationError(f"Adapter '{key}' has no config schema.")
     return adapters
 
 

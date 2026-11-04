@@ -10,6 +10,4 @@ def test_greenhouse_inspection_rejects_non_greenhouse_url() -> None:
     )
 
     assert response.status_code == 422
-    assert response.headers["content-type"].startswith(
-        "application/problem+json"
-    )
+    assert response.headers["content-type"].startswith("application/problem+json")

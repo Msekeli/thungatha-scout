@@ -9,6 +9,7 @@ All assistants must use `AGENTS.md` as the repository-wide instruction source an
 ## 2. How to start a task
 
 Provide the assistant with:
+
 - the milestone/checkpoint ID;
 - the intended outcome and acceptance criteria;
 - relevant file paths or evidence;
@@ -19,6 +20,7 @@ Ask it to inspect the repository before proposing edits. For investigation-only 
 ## 3. How to execute a checkpoint
 
 For each checkpoint:
+
 1. Confirm the goal, scope and dependencies.
 2. Inspect relevant code, tests, branches and working-tree changes.
 3. Identify the smallest safe implementation.
@@ -35,12 +37,15 @@ Do not combine multiple checkpoints just because an AI tool can implement them i
 ## 4. Tool-specific use
 
 ### Google Antigravity
+
 Use the repository-root `AGENTS.md` as the shared project contract; Antigravity automatically discovers it at the workspace/repository root. Keep agent tasks bounded. Review proposed plans, browser actions, terminal commands and diffs before accepting them. Do not allow unattended deployment, destructive data changes or paid-resource provisioning without explicit approval.
 
 ### OpenAI Codex
+
 Use `AGENTS.md` as the repository-level instructions. Start with repository inspection and the active checkpoint. Require tests and a final evidence summary. Do not ask Codex to mark work Accepted; acceptance is the user's decision.
 
 ### GitHub Copilot
+
 Use the repository-root `AGENTS.md` plus `.github/copilot-instructions.md`. Copilot CLI and supported Copilot agent experiences discover these repository instruction files; IDE support can vary by feature and configuration. For Copilot Chat/agent tasks, name the checkpoint and relevant milestone file. Review generated changes, especially persistence, source-validation, publication and security code. Suggestions or generated tests are not proof until executed.
 
 ## 5. AI-generated data and decisions
@@ -59,6 +64,7 @@ Use the repository-root `AGENTS.md` plus `.github/copilot-instructions.md`. Copi
 This section is mandatory for Antigravity, Codex, Copilot and every other assistant. `AGENTS.md` is the rule source; `CODING-STANDARDS.md` gives further guidance. Do not invent a separate naming style for a particular tool.
 
 Before creating or renaming anything:
+
 1. Inspect the current repository tree and relevant source/configuration files.
 2. State the responsibility the new directory or file will own.
 3. Choose a precise name that communicates that responsibility. Prefer descriptive multi-word names; do not use a generic one-word label for convenience.
@@ -69,6 +75,7 @@ Before creating or renaming anything:
 8. Do not create speculative empty folders. If the responsibility or name is unclear, ask the user before creating it.
 
 Examples:
+
 - Good: `backend/test-suites/unit-tests/`, `backend/test-suites/integration-tests/`.
 - Avoid: `backend/tests/unit/`, `backend/tests/integration/`.
 - Good Python module: `employer_discovery.py`; avoid `utils.py` or `helpers.py` unless that is genuinely the single responsibility and no clearer name exists.
@@ -78,6 +85,7 @@ Examples:
 ## 7. Registry and documentation workflow
 
 Before implementing an ATS/career-site adapter, inspect:
+
 - `backend/registry/ats-adapter-registry.json` for adapter status, retrieval method, capabilities and required configuration;
 - `backend/registry/employer-source-registry.json` for employer identity, official careers URLs, source mappings and verification evidence.
 
@@ -92,6 +100,7 @@ When editing documentation, follow the single-primary-responsibility naming rule
 ## 9. Human review gates
 
 Explicit user review is required before:
+
 - changing product scope or milestone order;
 - adding or approving a production data source;
 - changing storage or publishing contracts;

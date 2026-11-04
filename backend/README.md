@@ -18,11 +18,11 @@ cp .env.example .env
 Edit `.env` and set:
 
 - `SCOUT_DATABASE_URL` to the dedicated Scout Supabase Transaction Pooler URI.
-Authentication is intentionally deferred during the initial functional
-application build. Only the dedicated Scout database URL is required for the
-current local registry workflow. Do not expose this unauthenticated development
-API to the public internet. Authentication will be restored before deployment
-or external access.
+  Authentication is intentionally deferred during the initial functional
+  application build. Only the dedicated Scout database URL is required for the
+  current local registry workflow. Do not expose this unauthenticated development
+  API to the public internet. Authentication will be restored before deployment
+  or external access.
 
 Keep passwords and keys in `.env`; never put real values in `.env.example`
 or commit them. Do not use the Thungatha destination project's URL or keys here.
@@ -102,6 +102,7 @@ The Greenhouse Job Board API returns the public jobs collection with `meta.total
 New employers and sources are stored as discovered; callers cannot set approval
 or permission states. This API is for local development only until authentication
 is reinstated.
+
 ## API
 
 ```bash

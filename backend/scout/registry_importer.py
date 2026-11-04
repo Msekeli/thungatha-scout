@@ -29,22 +29,22 @@ def import_registry(
             (item["name"],),
         ).fetchone()
         careers_url = item.get("careers_url")
-        if employer is not None and employer["website_url"] not in (
-            None, careers_url
-        ):
+        if employer is not None and employer["website_url"] not in (None, careers_url):
             raise ValueError(
                 f"Employer name already exists with another website: {item['name']}"
             )
         if employer is None:
             location_evidence = []
             if item.get("cape_town_presence_claimed"):
-                location_evidence.append({
-                    "claim": "Cape Town presence",
-                    "status": item.get(
-                        "cape_town_presence_status",
-                        "pending_verification",
-                    ),
-                })
+                location_evidence.append(
+                    {
+                        "claim": "Cape Town presence",
+                        "status": item.get(
+                            "cape_town_presence_status",
+                            "pending_verification",
+                        ),
+                    }
+                )
             employer = connection.execute(
                 """
                 INSERT INTO employers (

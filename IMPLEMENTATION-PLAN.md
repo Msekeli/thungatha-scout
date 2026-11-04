@@ -22,14 +22,14 @@ V1 ATS adapters: Greenhouse and Workday. Initial geographic scope: Cape Town. No
 
 ## 3. Current architecture
 
-| Responsibility | Technology / hosting |
-|---|---|
-| Admin frontend | React + TypeScript + Vite + Tailwind CSS v3; hosting pending |
-| Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending |
-| Scout operational database | Dedicated Supabase PostgreSQL project |
-| Thungatha publication destination | Existing Thungatha Supabase PostgreSQL project |
-| ATS integrations | Greenhouse and Workday adapters |
-| Admin authentication | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
+| Responsibility                       | Technology / hosting                                                                                                                          |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Admin frontend                       | React + TypeScript + Vite + Tailwind CSS v3; hosting pending                                                                                  |
+| Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending                                                                             |
+| Scout operational database           | Dedicated Supabase PostgreSQL project                                                                                                         |
+| Thungatha publication destination    | Existing Thungatha Supabase PostgreSQL project                                                                                                |
+| ATS integrations                     | Greenhouse and Workday adapters                                                                                                               |
+| Admin authentication                 | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
 Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.
 
@@ -58,18 +58,18 @@ Employer discovery and source verification continue in parallel with implementat
 
 ## 6. Milestones
 
-| Milestone | Name | Status |
-|---|---|---|
-| M0 | Repository Audit and Scope Lock | Accepted |
-| M1 | Employer Discovery and Source Registry | In progress; runs in parallel with implementation |
-| M2 | Backend Foundation and Scout Supabase Persistence | In progress; checkpoint review/remaining contract work |
-| M3 | Greenhouse Vertical Slice | In progress — registry-backed inspection and live preview slice implemented; local verification pending |
-| M4 | Workday Vertical Slice | Not started |
-| M5 | Cross-cutting Admin UI and API Integration | In progress alongside M3 and M4 when its checkpoints begin |
-| M6 | Fourth-Employer Compatibility Test | Not started |
-| M7 | Vacancy Quality, Lifecycle and Exception Review | Not started |
-| M8 | Scheduling and Thungatha Publishing | Not started |
-| M9 | Security, Hosting, Recovery and Release Acceptance | Not started |
+| Milestone | Name                                               | Status                                                                                                  |
+| --------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| M0        | Repository Audit and Scope Lock                    | Accepted                                                                                                |
+| M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                       |
+| M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                  |
+| M3        | Greenhouse Vertical Slice                          | In progress — registry-backed inspection and live preview slice implemented; local verification pending |
+| M4        | Workday Vertical Slice                             | Not started                                                                                             |
+| M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                              |
+| M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                             |
+| M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                             |
+| M8        | Scheduling and Thungatha Publishing                | Not started                                                                                             |
+| M9        | Security, Hosting, Recovery and Release Acceptance | Not started                                                                                             |
 
 ### M2 — Backend foundation and Scout Supabase persistence
 
@@ -84,6 +84,7 @@ Close the persistence checkpoint using actual local/cloud test evidence. Define 
 Deliver the reusable Greenhouse adapter and first complete employer/source workflow.
 
 Checkpoints:
+
 - Registry schemas, loading and validation.
 - Common ATS adapter contract.
 - Greenhouse URL inspection and board configuration extraction.
@@ -102,6 +103,7 @@ Acceptance: adding another Greenhouse employer requires registry configuration, 
 Deliver a reusable Workday adapter and integrate it into the same employer/source workflow.
 
 Checkpoints:
+
 - Parse and validate host, tenant and site independently.
 - Implement observed public CXS retrieval and pagination.
 - Retrieve detail data where required and normalise vacancies.
@@ -116,6 +118,7 @@ Acceptance: DigiOutsource and at least two additional tenants are tested before 
 This milestone runs alongside M3 and M4. It is not a gate that begins only after both adapters are complete.
 
 Deliver the private React admin incrementally:
+
 - Admin app foundation, Supabase Auth sign-in and protected routes.
 - Companies and sources list/detail workflows.
 - URL-first Add Company flow: paste URL, detect supported ATS, preview metadata/configuration, allow manual fallback, confirm employer/source relationship.

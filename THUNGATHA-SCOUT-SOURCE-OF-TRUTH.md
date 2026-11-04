@@ -4,14 +4,17 @@
 **Updated:** 3 November 2026
 
 ## Purpose
+
 Thungatha Scout discovers companies operating in Cape Town, verifies their official recruitment sources, collects and tracks vacancies, and publishes approved company/job data to Thungatha. A minimal private admin UI lets the administrator resolve uncertain records.
 
 ## Scope
+
 In scope: company discovery across industries and sizes; careers-page/ATS verification; classification; multiple sources per company; vacancy extraction, normalization, deduplication and lifecycle tracking; human review; approved publication; operational monitoring.
 
 Out of scope for the initial release: a public job-search frontend duplicating Thungatha, recruiter self-service, complex multi-user administration, and autonomous AI agents.
 
 ## Geography and discovery rules
+
 - Initial location scope is **Cape Town only**; do not silently expand to all Western Cape or Stellenbosch.
 - Do not filter discovery by industry, company size, or job title.
 - Companies may be approved even when they currently have zero vacancies.
@@ -25,37 +28,45 @@ Out of scope for the initial release: a public job-search frontend duplicating T
 - Report search failure separately from a successful search returning no results.
 
 ## Organization classification
+
 Use `direct_employer`, `recruitment_agency`, `staffing_company`, `hybrid`, `other`, or `unresolved`. Keep agencies/staffing firms separate from the direct-employer dataset. Do not automatically reject hybrid organizations; record evidence and review ambiguous cases.
 
 ## Review states
+
 Company: `discovered`, `pending_review`, `approved`, `rejected`, `needs_review`, `inactive`.  
 Source: `discovered`, `pending_verification`, `verified`, `temporarily_unavailable`, `invalid`, `needs_review`, `inactive`.
 
 Preserve evidence and decision reasons. Do not silently delete unresolved or rejected records.
 
 ## Vacancy rules
+
 Retain, where available: stable ID, company/source IDs, source job ID, title, description, location, employment type, source and application URLs, first/last seen, last checked, content fingerprint, status and publication state.
 
 Statuses: `active`, `possibly_expired`, `expired`, `removed`, `unavailable`, `needs_review`. A timeout, rate limit, or source outage must not immediately expire vacancies. Do not deduplicate on title alone. Preserve source evidence.
 
 ## Human review and publishing
+
 Human approval is an explicit backend state, not just a UI button. Publish approved companies even if they have no jobs. Publish only approved/validated records to Thungatha’s Supabase project. Scout’s internal state stays separate. Publishing must be idempotent and send only new/changed records where possible.
 
 ## Scheduling
+
 Initial proposal: company discovery weekly while coverage is growing; reduce to monthly/on-demand when yield becomes low; company/source verification weekly; vacancy extraction every 8 hours; publish after successful batches plus a recovery pass; daily reconciliation. Schedules must be configurable. Avoid overlapping runs and bound retries.
 
 ## AI principles
+
 Gemini and Groq are replaceable provider options. Use AI selectively for ambiguous classification and difficult extraction/normalization. Use deterministic code for URLs, deduplication, status changes, scheduling, and database writes. Validate structured AI output; low-confidence results go to human review. AI alone cannot approve or publish records. Check current models, quotas, and free-tier terms before enabling.
 
 ## Cost and security
+
 The project is being built with limited Azure student credits (approximately USD $68 at document creation). Prefer consumption-based execution where suitable, avoid unjustified always-on resources, limit browser automation and AI calls, and monitor usage. The admin UI must authenticate and the backend must authorize every privileged action. Never hardcode credentials or expose service-role/API keys in frontend code.
 
 ## Future scope
+
 A recruiter portal may be considered later. Recruiter-submitted jobs require separate ownership, provenance, verification, and moderation rules; they are not in the initial release.
 
 ## Decision governance
-When decisions change, record date, reason, and impact; update affected documents. Inspect the live repository/tests before implementation. Historical Greenhouse-only notes and reports are evidence of prior experiments, not proof of current behavior.
 
+When decisions change, record date, reason, and impact; update affected documents. Inspect the live repository/tests before implementation. Historical Greenhouse-only notes and reports are evidence of prior experiments, not proof of current behavior.
 
 ## Decision record — dual-channel employer discovery (3 November 2026)
 
@@ -80,6 +91,7 @@ The adapter registry must not contain employer-specific board identifiers or emp
 ### Verification boundaries
 
 Keep these claims independent:
+
 1. Employer identity and organization classification.
 2. Employer's Cape Town presence.
 3. Relationship between the employer's official website/careers page and the external source or ATS board.
@@ -95,12 +107,12 @@ Unknown capabilities and unverified claims must remain explicitly unknown or pen
 
 Every file has one clearly defined primary responsibility. Names should state that responsibility clearly and specifically without becoming unnecessarily long. Split independently maintained concepts; do not split a cohesive concept into many files merely to avoid a longer name.
 
-
 ## Decision record — v1 implementation baseline (3 November 2026)
 
 V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS platforms remain out of scope. The private React admin interface is required in v1; it is not a public job-search frontend.
 
 ### Product workflow
+
 - The employer is the primary management entity. An employer can have multiple independent recruitment sources; vacancies retain employer and source provenance.
 - Add Company is URL-first. The administrator pastes a careers/ATS URL; the backend detects the ATS, inspects the source and extracts employer metadata where reliable. The administrator confirms the employer identity and source relationship before registration.
 - Manual ATS selection is a fallback and override. V1 supports Greenhouse and Workday only.
@@ -109,6 +121,7 @@ V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS pl
 - Employer/source approval and vacancy approval are separate. Only approved, validated vacancy versions may publish.
 
 ### Technical ownership — historical proposal superseded by the implementation stack lock
+
 - Frontend: React + TypeScript + Vite + Tailwind CSS v3.
 - Backend: FastAPI (Python) HTTP API with separately executable scheduled/background processing. Keep it provider-portable; hosting is deferred until local implementation is verified.
 - Operational persistence: a dedicated Scout Supabase PostgreSQL project. Python owns business rules and authoritative writes; the React client calls the protected backend API.
@@ -116,6 +129,7 @@ V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS pl
 - Keep the application as a simple frontend, backend and database architecture. Do not introduce microservices or provider-specific runtime dependencies without an approved requirement.
 
 ### Adapter behavior
+
 - Greenhouse uses its documented public Job Board GET API for a known board token. It is board-specific, not a global customer directory.
 - Workday uses observed public careers-site CXS JSON endpoints. This is undocumented behavior, not a guaranteed public API. Parse host, tenant and site separately and validate each board.
 - For https://myhcm.wd3.myworkdayjobs.com/digioutsource, expected values are host myhcm.wd3.myworkdayjobs.com, tenant myhcm and site digioutsource. Do not confuse tenant and site.
@@ -124,11 +138,13 @@ V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS pl
 - Adapter definitions remain separate from employer-specific source configuration. Never hardcode board tokens, tenants or site identifiers in adapter code.
 
 ### Employer identity and logos
+
 - Prefer authoritative ATS board metadata, then official careers-page metadata/structured data and validated public board response metadata. A Workday job payload may provide evidence but is not guaranteed to exist or contain the employer name.
 - Never infer a company name solely from a URL slug. Ask for administrator confirmation/input when extraction is uncertain.
 - Logo retrieval is best-effort: verified ATS image, official employer website, separately evaluated provider, then admin upload/replacement. Do not depend on the retired Clearbit Logo API. Store logo source/attribution; missing logos never block registration.
 
 ### Persistence and lifecycle
+
 - Core records: employers, employer_sources, vacancies, vacancy_versions, extraction_runs and review/audit records.
 - Enforce source-scoped external identity with a unique constraint on (source_id, external_job_id). Use normalised SHA-256 fingerprints to detect meaningful content changes.
 - Keep vacancy lifecycle separate from review/publication state. Preserve the latest extracted version separately from the approved/published version. Changed content creates a version and may require review; it must not silently overwrite an approved version.
@@ -138,17 +154,19 @@ V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS pl
 - Archive employers and sources rather than physically cascading deletion through vacancy and extraction history. Preserve audit records.
 
 ### Admin v1
+
 Navigation: Dashboard, Companies, Vacancies and Review Queue. Source health, tests and extraction history are embedded in Company Details. Add Company is URL-first, detects the ATS, supports manual override, previews metadata and requires confirmation. Company name is not routinely typed; manual entry is a fallback. Company operations include edit, add source, test, pause/resume and archive.
 
 ### Initial acceptance target
-Register a Greenhouse board and the DigiOutsource Workday board through the admin UI, confirm extracted employer metadata, test retrieval, view real vacancies and manage employer/source records. New employers using either supported adapter require configuration only, not backend code changes. This is a target, not a claim that the current repository already implements it or that live integrations have passed.
 
+Register a Greenhouse board and the DigiOutsource Workday board through the admin UI, confirm extracted employer metadata, test retrieval, view real vacancies and manage employer/source records. New employers using either supported adapter require configuration only, not backend code changes. This is a target, not a claim that the current repository already implements it or that live integrations have passed.
 
 ## Decision record — autonomous ingestion and isolated Scout persistence (3 November 2026)
 
 This decision supersedes conflicting v1 implementation statements above and in older planning documents.
 
 ### Product operating model
+
 - Scout is designed to operate unattended after an administrator registers and verifies an employer/source.
 - The administrator's normal responsibility is to paste an official careers/ATS URL, inspect the source preview, confirm employer identity and official source relationship, and activate the source.
 - Scheduled extraction, normalisation, deterministic quality validation, deduplication, lifecycle reconciliation and publication run automatically.
@@ -160,7 +178,9 @@ This decision supersedes conflicting v1 implementation statements above and in o
 - Every automatic publish, rejection, suppression and exception decision must persist a reason, rule/version, evidence references and timestamps.
 
 ### Publication quality gates
+
 A vacancy may auto-publish only when:
+
 1. Its employer and source are active and verified to the required level.
 2. The source is an employer-authorised official careers/ATS source and its use complies with applicable access restrictions and terms.
 3. A stable source-scoped vacancy identity exists.
@@ -174,6 +194,7 @@ A vacancy may auto-publish only when:
 Records failing a hard gate are suppressed/rejected with a reason. Records with uncertainty that cannot be resolved deterministically go to exception review. A successful ATS retrieval is not, by itself, proof that a vacancy should be published.
 
 ### Persistence and hosting decision
+
 - Scout operational persistence is a dedicated Supabase project using PostgreSQL, separate from Thungatha's existing Supabase project.
 - Thungatha's existing Supabase project remains the destination for approved/qualified public-facing records only.
 - Raw, incomplete, rejected, exception and extraction-history data remain in Scout and are never copied wholesale into Thungatha.
@@ -185,6 +206,7 @@ Records failing a hard gate are suppressed/rejected with a reason. Records with 
 - Supabase Free may be used for development and a low-volume pilot only after checking current limits, inactivity pausing, backup and production reliability implications. Plan a paid tier or alternative before production depends on uninterrupted service.
 
 ### Data retention and storage discipline
+
 - Keep the Scout database focused on structured operational records and the latest meaningful vacancy versions.
 - Avoid storing full HTML/page snapshots by default. Retain raw evidence only where it materially supports audit/debugging and apply a bounded retention policy.
 - Do not create a new vacancy version for unchanged content.
@@ -192,17 +214,17 @@ Records failing a hard gate are suppressed/rejected with a reason. Records with 
 - Publishing to Thungatha is a one-way, validated, idempotent integration. Scout retains its own operational history.
 
 ### Superseded decisions
-The following earlier statements are no longer current: Azure Table Storage as mandatory operational persistence; PostgreSQL operational storage hosted as part of the prior Azure-first plan; routine human approval of every vacancy; and a rule that only human-approved vacancy versions can publish. Superseded technical proposals have been replaced in this document with the current React/Vite and FastAPI stack so implementation agents encounter one unambiguous architecture.
 
+The following earlier statements are no longer current: Azure Table Storage as mandatory operational persistence; PostgreSQL operational storage hosted as part of the prior Azure-first plan; routine human approval of every vacancy; and a rule that only human-approved vacancy versions can publish. Superseded technical proposals have been replaced in this document with the current React/Vite and FastAPI stack so implementation agents encounter one unambiguous architecture.
 
 ## Decision record — implementation stack lock (3 November 2026)
 
 Approved implementation stack: FastAPI backend; React + TypeScript + Vite + Tailwind CSS v3 frontend; Supabase Auth for admin identity. The browser uses only the Supabase URL and publishable/anon key. Backend authorization must independently validate Supabase access tokens and enforce admin permissions. Dedicated Scout Supabase PostgreSQL remains the operational database target; no project was provisioned by this decision. Backend hosting, worker scheduling provider, ORM and migration tooling remain open decisions. No paid resources, hosting, deployment or subscription changes are authorised by this stack decision.
 
-
 ## Decision record — single-admin authentication and deferred hosting (4 November 2026)
 
 ### Admin authentication
+
 - Use Supabase Auth for the private Scout admin.
 - Only the administrator's explicitly configured email address is permitted to sign in.
 - Public registration/sign-up is disabled; there is no public account creation or user onboarding.
@@ -212,6 +234,7 @@ Approved implementation stack: FastAPI backend; React + TypeScript + Vite + Tail
 - Multi-user roles and broader authentication workflows are future scope and are not part of v1.
 
 ### Hosting and deployment
+
 - Hosting provider selection is deliberately deferred until the application is implemented and its local functionality has been verified.
 - Continue local-first development with a provider-portable FastAPI backend and separately executable scheduled/background processing.
 - Do not add provider-specific SDKs, deployment manifests, hosting services or paid resources solely in anticipation of a hosting choice.

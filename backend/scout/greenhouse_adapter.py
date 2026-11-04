@@ -103,9 +103,7 @@ class GreenhouseAdapter:
                 )
 
             complete = len(jobs) == total
-            outcome = (
-                "partial" if not complete else "success" if jobs else "empty"
-            )
+            outcome = "partial" if not complete else "success" if jobs else "empty"
             return GreenhouseResult(
                 outcome=outcome,
                 board_token=board_token,
@@ -122,7 +120,12 @@ class GreenhouseAdapter:
             )
         except (httpx.TimeoutException, httpx.TransportError):
             return GreenhouseResult(
-                "transient_failure", board_token, None, [], 0, False,
+                "transient_failure",
+                board_token,
+                None,
+                [],
+                0,
+                False,
                 "Greenhouse request failed or timed out.",
             )
         except (ValueError, TypeError):
@@ -157,12 +160,23 @@ class GreenhouseAdapter:
         if outcome is None:
             outcome = "malformed"
         return GreenhouseResult(
-            outcome, token, board_name, [], 0, False,
+            outcome,
+            token,
+            board_name,
+            [],
+            0,
+            False,
             f"Greenhouse returned HTTP {response.status_code}.",
         )
 
     @staticmethod
     def _malformed(token: str, detail: str) -> GreenhouseResult:
         return GreenhouseResult(
-            "malformed", token, None, [], 0, False, detail,
+            "malformed",
+            token,
+            None,
+            [],
+            0,
+            False,
+            detail,
         )

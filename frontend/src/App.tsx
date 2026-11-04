@@ -1,11 +1,34 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Activity, BriefcaseBusiness, Building2, CircleAlert, Radar, RefreshCw, ShieldCheck, Sparkles, Trash2 } from "lucide-react";
+import {
+  Activity,
+  BriefcaseBusiness,
+  Building2,
+  CircleAlert,
+  Radar,
+  RefreshCw,
+  ShieldCheck,
+  Sparkles,
+  Trash2,
+} from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
-import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, CareersDiscovery, Vacancy } from "./api";
+import type {
+  Employer,
+  EmployerSource,
+  ExtractionRun,
+  GreenhouseInspection,
+  CareersDiscovery,
+  Vacancy,
+} from "./api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -18,7 +41,13 @@ const emptyEmployer = {
   country: "South Africa",
 };
 
-const reviewLabel = (status: Vacancy["review_status"]) => ({ pending: "Pending review", needs_verification: "Needs verification", verified: "Verified", rejected: "Rejected" })[status];
+const reviewLabel = (status: Vacancy["review_status"]) =>
+  ({
+    pending: "Pending review",
+    needs_verification: "Needs verification",
+    verified: "Verified",
+    rejected: "Rejected",
+  })[status];
 
 function decodeGreenhouseContent(value: string): string {
   const decoder = document.createElement("textarea");
@@ -45,7 +74,12 @@ export default function App() {
   const [reviewReason, setReviewReason] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
-  const [sourceDecision, setSourceDecision] = useState<Record<string, { status: string; permission_status: string; evidence_url: string; reason: string }>>({});
+  const [sourceDecision, setSourceDecision] = useState<
+    Record<
+      string,
+      { status: string; permission_status: string; evidence_url: string; reason: string }
+    >
+  >({});
   const [companyQuery, setCompanyQuery] = useState("");
   const [companyStatusFilter, setCompanyStatusFilter] = useState("all");
   const [vacancySaving, setVacancySaving] = useState(false);
@@ -67,20 +101,48 @@ export default function App() {
   const [notice, setNotice] = useState("");
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
-  const visibleEmployers = employers.filter((item) => item.name.toLowerCase().includes(companyQuery.toLowerCase()) && (companyStatusFilter === "all" || item.status === companyStatusFilter));
+  const visibleEmployers = employers.filter(
+    (item) =>
+      item.name.toLowerCase().includes(companyQuery.toLowerCase()) &&
+      (companyStatusFilter === "all" || item.status === companyStatusFilter),
+  );
   const visibleVacancies = showArchived ? archivedVacancies : vacancies;
-  const newVacancies24h = vacancies.filter((item) => item.first_seen_at && Date.now() - new Date(item.first_seen_at).getTime() < 86400000).length;
-  const attentionCount = vacancies.filter((item) => item.review_status === "pending" || item.review_status === "needs_verification").length;
-  const atsPerformance = useMemo(() => Array.from(new Set(["greenhouse", ...dashboardSources.map((source) => source.adapter_key)])).map((adapter) => {
-    const adapterSources = dashboardSources.filter((source) => source.adapter_key === adapter);
-    const runs = adapterSources.flatMap((source) => extractionRuns[source.id] ?? []);
-    const latest = runs.sort((a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime())[0];
-    return { adapter, sourceCount: adapterSources.length, verified: adapterSources.filter((source) => source.status === "verified" && source.permission_status === "allowed").length, jobCount: vacancies.filter((job) => adapterSources.some((source) => source.id === job.source_id)).length, latest, failed: runs.filter((run) => !["success", "empty"].includes(run.outcome)).length };
-  }), [dashboardSources, extractionRuns, vacancies]);
+  const newVacancies24h = vacancies.filter(
+    (item) => item.first_seen_at && Date.now() - new Date(item.first_seen_at).getTime() < 86400000,
+  ).length;
+  const attentionCount = vacancies.filter(
+    (item) => item.review_status === "pending" || item.review_status === "needs_verification",
+  ).length;
+  const atsPerformance = useMemo(
+    () =>
+      Array.from(
+        new Set(["greenhouse", ...dashboardSources.map((source) => source.adapter_key)]),
+      ).map((adapter) => {
+        const adapterSources = dashboardSources.filter((source) => source.adapter_key === adapter);
+        const runs = adapterSources.flatMap((source) => extractionRuns[source.id] ?? []);
+        const latest = runs.sort(
+          (a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime(),
+        )[0];
+        return {
+          adapter,
+          sourceCount: adapterSources.length,
+          verified: adapterSources.filter(
+            (source) => source.status === "verified" && source.permission_status === "allowed",
+          ).length,
+          jobCount: vacancies.filter((job) =>
+            adapterSources.some((source) => source.id === job.source_id),
+          ).length,
+          latest,
+          failed: runs.filter((run) => !["success", "empty"].includes(run.outcome)).length,
+        };
+      }),
+    [dashboardSources, extractionRuns, vacancies],
+  );
   const filteredVacancies = useMemo(
-    () => selectedEmployerId === "all"
-      ? visibleVacancies
-      : visibleVacancies.filter((item) => item.employer_id === selectedEmployerId),
+    () =>
+      selectedEmployerId === "all"
+        ? visibleVacancies
+        : visibleVacancies.filter((item) => item.employer_id === selectedEmployerId),
     [visibleVacancies, selectedEmployerId],
   ).filter((item) => reviewFilter === "all" || item.review_status === reviewFilter);
 
@@ -96,10 +158,19 @@ export default function App() {
       setEmployers(nextEmployers);
       setVacancies(nextVacancies);
       setArchivedVacancies(nextArchived);
-      const sourceGroups = await Promise.all(nextEmployers.map(async (employer) => ({ employer, sources: await scoutApi.listSources(employer.id) })));
+      const sourceGroups = await Promise.all(
+        nextEmployers.map(async (employer) => ({
+          employer,
+          sources: await scoutApi.listSources(employer.id),
+        })),
+      );
       const allSources = sourceGroups.flatMap((group) => group.sources);
       setDashboardSources(allSources);
-      const runEntries = await Promise.all(allSources.map(async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const));
+      const runEntries = await Promise.all(
+        allSources.map(
+          async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
+        ),
+      );
       setExtractionRuns(Object.fromEntries(runEntries));
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load Scout data.");
@@ -108,14 +179,18 @@ export default function App() {
     }
   }, []);
 
-  useEffect(() => { void loadWorkspace(); }, [loadWorkspace]);
+  useEffect(() => {
+    void loadWorkspace();
+  }, [loadWorkspace]);
 
   async function fetchJobs() {
     const eligibleSources = dashboardSources.filter(
       (source) => source.status === "verified" && source.permission_status === "allowed",
     );
     if (!eligibleSources.length) {
-      setError("No job sources are both verified and permitted. Review company sources before fetching jobs.");
+      setError(
+        "No job sources are both verified and permitted. Review company sources before fetching jobs.",
+      );
       return;
     }
 
@@ -149,10 +224,9 @@ export default function App() {
       const nextSources = await scoutApi.listSources(employer.id);
       setSources(nextSources);
       const runEntries = await Promise.all(
-        nextSources.map(async (source) => [
-          source.id,
-          await scoutApi.listExtractionRuns(source.id),
-        ] as const),
+        nextSources.map(
+          async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
+        ),
       );
       setExtractionRuns((current) => ({
         ...current,
@@ -163,37 +237,63 @@ export default function App() {
     }
   }
 
-  async function updateCompanyStatus(status: "approved" | "needs_review" | "rejected" | "inactive") {
+  async function updateCompanyStatus(
+    status: "approved" | "needs_review" | "rejected" | "inactive",
+  ) {
     if (!selectedEmployer) return;
     setSaving(true);
     setError("");
     try {
       const updated = await scoutApi.updateEmployerStatus(selectedEmployer.id, status);
-      setEmployers((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
       setNotice(`${updated.name} marked ${status.replaceAll("_", " ")}.`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not update company status.");
-    } finally { setSaving(false); }
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function updateSourceDecision(source: EmployerSource) {
-    const decision = sourceDecision[source.id] ?? { status: source.status, permission_status: source.permission_status, evidence_url: "", reason: "" };
-    if (decision.status === "verified" && decision.permission_status === "allowed" && !decision.evidence_url.trim()) {
-      setError("Add an evidence URL before verifying and permitting this source."); return;
+    const decision = sourceDecision[source.id] ?? {
+      status: source.status,
+      permission_status: source.permission_status,
+      evidence_url: "",
+      reason: "",
+    };
+    if (
+      decision.status === "verified" &&
+      decision.permission_status === "allowed" &&
+      !decision.evidence_url.trim()
+    ) {
+      setError("Add an evidence URL before verifying and permitting this source.");
+      return;
     }
-    setSaving(true); setError(""); setNotice("");
+    setSaving(true);
+    setError("");
+    setNotice("");
     try {
       const updated = await scoutApi.updateSourceReview(selectedEmployer!.id, source.id, decision);
-      setSources((current) => current.map((item) => item.id === updated.id ? updated : item));
-      setDashboardSources((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setSources((current) => current.map((item) => (item.id === updated.id ? updated : item)));
+      setDashboardSources((current) =>
+        current.map((item) => (item.id === updated.id ? updated : item)),
+      );
       setNotice("Source verification and permission decision saved.");
-    } catch (reason) { setError(reason instanceof Error ? reason.message : "Could not update source decision."); }
-    finally { setSaving(false); }
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not update source decision.");
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function deleteCompany() {
     if (!selectedEmployer) return;
-    if (!window.confirm(`Permanently delete ${selectedEmployer.name}? Companies with sources or vacancies cannot be deleted.`)) return;
+    if (
+      !window.confirm(
+        `Permanently delete ${selectedEmployer.name}? Companies with sources or vacancies cannot be deleted.`,
+      )
+    )
+      return;
     setSaving(true);
     setError("");
     try {
@@ -204,7 +304,9 @@ export default function App() {
       setNotice("Company deleted.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not delete company.");
-    } finally { setSaving(false); }
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function saveEmployerBranding(event: FormEvent<HTMLFormElement>) {
@@ -218,7 +320,7 @@ export default function App() {
         logoUrl.trim(),
         logoSourceUrl.trim(),
       );
-      setEmployers((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
       setNotice("Company logo details saved.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not save company logo details.");
@@ -259,7 +361,7 @@ export default function App() {
     try {
       const updated = await scoutApi.updateVacancyReview(selectedVacancy.id, status, reviewReason);
       setSelectedVacancy(updated);
-      setVacancies((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setVacancies((current) => current.map((item) => (item.id === updated.id ? updated : item)));
       setNotice(`Vacancy marked ${status.replaceAll("_", " ")}.`);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not save the vacancy decision.");
@@ -353,9 +455,13 @@ export default function App() {
       setSourceUrl("");
       setDiscovery(null);
       setForm(emptyEmployer);
-      setNotice(`${created.name} registered. ${run.jobs_received} vacancies retrieved; ${run.outcome}.`);
+      setNotice(
+        `${created.name} registered. ${run.jobs_received} vacancies retrieved; ${run.outcome}.`,
+      );
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not register employer and source.");
+      setError(
+        reason instanceof Error ? reason.message : "Could not register employer and source.",
+      );
     } finally {
       setSaving(false);
     }
@@ -391,7 +497,9 @@ export default function App() {
       if (editingSourceId) {
         await scoutApi.updateSource(selectedEmployer.id, editingSourceId, payload);
         setSources(await scoutApi.listSources(selectedEmployer.id));
-        setNotice("Source configuration updated. Its verification and permission states were preserved.");
+        setNotice(
+          "Source configuration updated. Its verification and permission states were preserved.",
+        );
       } else {
         const created = await scoutApi.createSource(selectedEmployer.id, {
           ...payload,
@@ -414,71 +522,472 @@ export default function App() {
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
       <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
         <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#0b1426] text-cyan-300 shadow-lg shadow-slate-900/20"><Radar className="h-6 w-6" /></span>
-          <div><p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-slate-500">THUNGATHA / OPERATIONS</p><h1 className="text-lg font-bold tracking-tight text-[#0b1426]">Scout</h1></div>
+          <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#0b1426] text-cyan-300 shadow-lg shadow-slate-900/20">
+            <Radar className="h-6 w-6" />
+          </span>
+          <div>
+            <p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-slate-500">
+              THUNGATHA / OPERATIONS
+            </p>
+            <h1 className="text-lg font-bold tracking-tight text-[#0b1426]">Scout</h1>
+          </div>
         </div>
-        <div className="flex-1 text-center"><p className="text-[9px] font-bold uppercase tracking-[.2em] text-cyan-700">{page === "jobs" ? "Operations overview" : page === "companies" ? "Employer directory" : "Employer onboarding"}</p><h2 className="text-lg font-bold tracking-tight text-[#0b1426]">{page === "jobs" ? "Ingestion Dashboard" : page === "companies" ? "Companies" : "Add a company"}</h2></div>
+        <div className="flex-1 text-center">
+          <p className="text-[9px] font-bold uppercase tracking-[.2em] text-cyan-700">
+            {page === "jobs"
+              ? "Operations overview"
+              : page === "companies"
+                ? "Employer directory"
+                : "Employer onboarding"}
+          </p>
+          <h2 className="text-lg font-bold tracking-tight text-[#0b1426]">
+            {page === "jobs"
+              ? "Ingestion Dashboard"
+              : page === "companies"
+                ? "Companies"
+                : "Add a company"}
+          </h2>
+        </div>
         <nav className="flex items-center gap-1.5" aria-label="Main navigation">
-          <button className={`rounded-lg px-3 py-2 text-xs font-semibold ${page === "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`} onClick={() => setPage("jobs")}>Dashboard</button>
-          <button className={`rounded-lg px-3 py-2 text-xs font-semibold ${page !== "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`} onClick={() => setPage("companies")}>Companies</button>
-          {page === "jobs" && <button className="rounded-lg p-2 text-slate-600 hover:bg-cyan-50 hover:text-cyan-800" title="Refresh dashboard data" onClick={() => void loadWorkspace()} disabled={loading}><RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} /></button>}
+          <button
+            className={`rounded-lg px-3 py-2 text-xs font-semibold ${page === "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}
+            onClick={() => setPage("jobs")}
+          >
+            Dashboard
+          </button>
+          <button
+            className={`rounded-lg px-3 py-2 text-xs font-semibold ${page !== "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}
+            onClick={() => setPage("companies")}
+          >
+            Companies
+          </button>
+          {page === "jobs" && (
+            <button
+              className="rounded-lg p-2 text-slate-600 hover:bg-cyan-50 hover:text-cyan-800"
+              title="Refresh dashboard data"
+              onClick={() => void loadWorkspace()}
+              disabled={loading}
+            >
+              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+            </button>
+          )}
         </nav>
       </header>
 
-      {error && <div className="alert error" role="alert">{error}</div>}
-      {notice && <div className="alert success" role="status">{notice}</div>}
+      {error && (
+        <div className="alert error" role="alert">
+          {error}
+        </div>
+      )}
+      {notice && (
+        <div className="alert success" role="status">
+          {notice}
+        </div>
+      )}
 
       {page === "jobs" && (
         <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">
           <div className="flex items-center justify-between gap-3">
-            <span className="text-[10px] font-medium text-slate-400">{loading ? "Refreshing data…" : "Updated from Scout records"}</span>
+            <span className="text-[10px] font-medium text-slate-400">
+              {loading ? "Refreshing data…" : "Updated from Scout records"}
+            </span>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" className="h-8 bg-white" onClick={() => void loadWorkspace()} disabled={loading || extracting}><RefreshCw className={`mr-1 h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />Refresh</Button>
-              <Button size="sm" className="h-8 bg-cyan-500 text-[#071426] hover:bg-cyan-400" onClick={() => void fetchJobs()} disabled={loading || extracting}><BriefcaseBusiness className="mr-1 h-3.5 w-3.5" />{extracting ? "Fetching jobs…" : "Fetch jobs"}</Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-8 bg-white"
+                onClick={() => void loadWorkspace()}
+                disabled={loading || extracting}
+              >
+                <RefreshCw className={`mr-1 h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
+                Refresh
+              </Button>
+              <Button
+                size="sm"
+                className="h-8 bg-cyan-500 text-[#071426] hover:bg-cyan-400"
+                onClick={() => void fetchJobs()}
+                disabled={loading || extracting}
+              >
+                <BriefcaseBusiness className="mr-1 h-3.5 w-3.5" />
+                {extracting ? "Fetching jobs…" : "Fetch jobs"}
+              </Button>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
             {[
-              { label:"Collected vacancies", value:vacancies.length, note:"Active records", icon:BriefcaseBusiness, color:"text-cyan-700", bg:"bg-cyan-50" },
-              { label:"Registered companies", value:employers.length, note:"Employer records", icon:Building2, color:"text-blue-700", bg:"bg-blue-50" },
-              { label:"New in last 24 hours", value:newVacancies24h, note:"Based on first seen time", icon:Sparkles, color:"text-emerald-700", bg:"bg-emerald-50" },
-              { label:"Needs admin attention", value:attentionCount, note:"Pending or needs verification", icon:CircleAlert, color:"text-amber-700", bg:"bg-amber-50" },
-            ].map(({label,value,note,icon:Icon,color,bg}) => <div key={label} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm"><span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${bg} ${color}`}><Icon className="h-5 w-5" /></span><div className="min-w-0"><p className="text-[11px] font-medium text-slate-500">{label}</p><p className="text-xl font-bold leading-tight text-[#0b1426]">{value}</p><p className="text-[10px] text-slate-400">{note}</p></div></div>)}
+              {
+                label: "Collected vacancies",
+                value: vacancies.length,
+                note: "Active records",
+                icon: BriefcaseBusiness,
+                color: "text-cyan-700",
+                bg: "bg-cyan-50",
+              },
+              {
+                label: "Registered companies",
+                value: employers.length,
+                note: "Employer records",
+                icon: Building2,
+                color: "text-blue-700",
+                bg: "bg-blue-50",
+              },
+              {
+                label: "New in last 24 hours",
+                value: newVacancies24h,
+                note: "Based on first seen time",
+                icon: Sparkles,
+                color: "text-emerald-700",
+                bg: "bg-emerald-50",
+              },
+              {
+                label: "Needs admin attention",
+                value: attentionCount,
+                note: "Pending or needs verification",
+                icon: CircleAlert,
+                color: "text-amber-700",
+                bg: "bg-amber-50",
+              },
+            ].map(({ label, value, note, icon: Icon, color, bg }) => (
+              <div
+                key={label}
+                className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm"
+              >
+                <span
+                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${bg} ${color}`}
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[11px] font-medium text-slate-500">{label}</p>
+                  <p className="text-xl font-bold leading-tight text-[#0b1426]">{value}</p>
+                  <p className="text-[10px] text-slate-400">{note}</p>
+                </div>
+              </div>
+            ))}
           </div>
           <section className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
-            <div className="mb-2 flex items-center justify-between"><h3 className="flex items-center gap-2 text-xs font-bold text-[#0b1426]"><Activity className="h-4 w-4 text-cyan-600" /> ATS performance</h3><span className="text-[10px] text-slate-400">Source health and latest extraction results</span></div>
+            <div className="mb-2 flex items-center justify-between">
+              <h3 className="flex items-center gap-2 text-xs font-bold text-[#0b1426]">
+                <Activity className="h-4 w-4 text-cyan-600" /> ATS performance
+              </h3>
+              <span className="text-[10px] text-slate-400">
+                Source health and latest extraction results
+              </span>
+            </div>
             <div className="grid gap-2 md:grid-cols-2">
-              {atsPerformance.map((item) => <div key={item.adapter} className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2">
-                <div className="min-w-0"><p className="text-xs font-bold capitalize text-slate-800">{item.adapter}</p><p className="text-[10px] text-slate-500">{item.sourceCount} sources · {item.verified} verified · {item.jobCount} vacancies</p></div>
-                <div className="text-right"><Badge variant={item.latest && ["success","empty"].includes(item.latest.outcome) ? "default" : item.latest && item.latest.outcome !== "running" ? "destructive" : "secondary"} className="capitalize">{item.latest?.outcome ?? "No runs"}</Badge><p className="mt-1 text-[10px] text-slate-500">{item.latest ? `${item.latest.jobs_inserted} new · ${item.failed} failed runs` : "Awaiting first extraction"}</p></div>
-              </div>)}
+              {atsPerformance.map((item) => (
+                <div
+                  key={item.adapter}
+                  className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2"
+                >
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold capitalize text-slate-800">{item.adapter}</p>
+                    <p className="text-[10px] text-slate-500">
+                      {item.sourceCount} sources · {item.verified} verified · {item.jobCount}{" "}
+                      vacancies
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <Badge
+                      variant={
+                        item.latest && ["success", "empty"].includes(item.latest.outcome)
+                          ? "default"
+                          : item.latest && item.latest.outcome !== "running"
+                            ? "destructive"
+                            : "secondary"
+                      }
+                      className="capitalize"
+                    >
+                      {item.latest?.outcome ?? "No runs"}
+                    </Badge>
+                    <p className="mt-1 text-[10px] text-slate-500">
+                      {item.latest
+                        ? `${item.latest.jobs_inserted} new · ${item.failed} failed runs`
+                        : "Awaiting first extraction"}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
           <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
             <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-              <div className="flex flex-wrap items-center gap-2 border-b border-slate-100 bg-slate-50/80 p-3"><h3 className="mr-auto text-sm font-bold text-[#0b1426]">{showArchived ? "Archived vacancies" : "Vacancy records"}</h3>
-                <Select value={showArchived ? "archived" : "active"} onValueChange={(value) => { setShowArchived(value === "archived"); setSelectedVacancy(null); setSelectedVacancyId(null); }}><SelectTrigger className="h-8 w-[125px] bg-white text-xs"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="active">Active records</SelectItem><SelectItem value="archived">Archived</SelectItem></SelectContent></Select>
-                <Select value={reviewFilter} onValueChange={setReviewFilter}><SelectTrigger className="h-8 w-[145px] bg-white text-xs"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All review states</SelectItem><SelectItem value="pending">Pending</SelectItem><SelectItem value="needs_verification">Needs verification</SelectItem><SelectItem value="verified">Verified</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select>
-                <Select value={selectedEmployerId} onValueChange={setSelectedEmployerId}><SelectTrigger className="h-8 w-[140px] bg-white text-xs"><SelectValue placeholder="All companies" /></SelectTrigger><SelectContent><SelectItem value="all">All companies</SelectItem>{employers.map((employer) => <SelectItem key={employer.id} value={employer.id}>{employer.name}</SelectItem>)}</SelectContent></Select>
-                <Button variant="outline" size="sm" className="h-8 bg-white" onClick={() => void loadWorkspace()} disabled={loading}>Refresh</Button>
+              <div className="flex flex-wrap items-center gap-2 border-b border-slate-100 bg-slate-50/80 p-3">
+                <h3 className="mr-auto text-sm font-bold text-[#0b1426]">
+                  {showArchived ? "Archived vacancies" : "Vacancy records"}
+                </h3>
+                <Select
+                  value={showArchived ? "archived" : "active"}
+                  onValueChange={(value) => {
+                    setShowArchived(value === "archived");
+                    setSelectedVacancy(null);
+                    setSelectedVacancyId(null);
+                  }}
+                >
+                  <SelectTrigger className="h-8 w-[125px] bg-white text-xs">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="active">Active records</SelectItem>
+                    <SelectItem value="archived">Archived</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={reviewFilter} onValueChange={setReviewFilter}>
+                  <SelectTrigger className="h-8 w-[145px] bg-white text-xs">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All review states</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="needs_verification">Needs verification</SelectItem>
+                    <SelectItem value="verified">Verified</SelectItem>
+                    <SelectItem value="rejected">Rejected</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={selectedEmployerId} onValueChange={setSelectedEmployerId}>
+                  <SelectTrigger className="h-8 w-[140px] bg-white text-xs">
+                    <SelectValue placeholder="All companies" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All companies</SelectItem>
+                    {employers.map((employer) => (
+                      <SelectItem key={employer.id} value={employer.id}>
+                        {employer.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 bg-white"
+                  onClick={() => void loadWorkspace()}
+                  disabled={loading}
+                >
+                  Refresh
+                </Button>
               </div>
               <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3">
-                {loading ? <p className="py-12 text-center text-sm text-slate-500">Loading operational data…</p> : filteredVacancies.length === 0 ? <div className="py-12 text-center"><p className="text-sm font-semibold">No matching records</p><p className="mt-1 text-xs text-slate-500">Adjust the filters or register a source.</p></div> : filteredVacancies.map((vacancy) => <button key={vacancy.id} type="button" onClick={() => void openVacancy(vacancy.id)} aria-pressed={selectedVacancyId === vacancy.id} className={`w-full rounded-lg border p-3 text-left shadow-sm transition-all hover:border-cyan-300 hover:bg-cyan-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${selectedVacancyId === vacancy.id ? "border-cyan-500 bg-cyan-50 shadow-[inset_4px_0_0_#06b6d4,0_2px_8px_#0b14261a]" : "border-slate-200 bg-white"}`}>
-                  <span className="flex items-start justify-between gap-3"><strong className="text-sm font-semibold leading-snug text-[#0b1426]">{vacancy.title}</strong><Badge variant={vacancy.review_status === "verified" ? "default" : vacancy.review_status === "rejected" ? "destructive" : "secondary"} className={vacancy.review_status === "pending" ? "bg-amber-100 text-amber-800 hover:bg-amber-100" : vacancy.review_status === "needs_verification" ? "bg-orange-100 text-orange-800 hover:bg-orange-100" : ""}>{reviewLabel(vacancy.review_status)}</Badge></span>
-                  <span className="mt-1 block text-xs font-medium text-slate-600">{vacancy.employer_name}</span><span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-slate-500"><span>{vacancy.location_text || "Location unknown"}</span>{vacancy.department && <span>{vacancy.department}</span>}<span>First seen {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}</span></span>
-                </button>)}
+                {loading ? (
+                  <p className="py-12 text-center text-sm text-slate-500">
+                    Loading operational data…
+                  </p>
+                ) : filteredVacancies.length === 0 ? (
+                  <div className="py-12 text-center">
+                    <p className="text-sm font-semibold">No matching records</p>
+                    <p className="mt-1 text-xs text-slate-500">
+                      Adjust the filters or register a source.
+                    </p>
+                  </div>
+                ) : (
+                  filteredVacancies.map((vacancy) => (
+                    <button
+                      key={vacancy.id}
+                      type="button"
+                      onClick={() => void openVacancy(vacancy.id)}
+                      aria-pressed={selectedVacancyId === vacancy.id}
+                      className={`w-full rounded-lg border p-3 text-left shadow-sm transition-all hover:border-cyan-300 hover:bg-cyan-50/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${selectedVacancyId === vacancy.id ? "border-cyan-500 bg-cyan-50 shadow-[inset_4px_0_0_#06b6d4,0_2px_8px_#0b14261a]" : "border-slate-200 bg-white"}`}
+                    >
+                      <span className="flex items-start justify-between gap-3">
+                        <strong className="text-sm font-semibold leading-snug text-[#0b1426]">
+                          {vacancy.title}
+                        </strong>
+                        <Badge
+                          variant={
+                            vacancy.review_status === "verified"
+                              ? "default"
+                              : vacancy.review_status === "rejected"
+                                ? "destructive"
+                                : "secondary"
+                          }
+                          className={
+                            vacancy.review_status === "pending"
+                              ? "bg-amber-100 text-amber-800 hover:bg-amber-100"
+                              : vacancy.review_status === "needs_verification"
+                                ? "bg-orange-100 text-orange-800 hover:bg-orange-100"
+                                : ""
+                          }
+                        >
+                          {reviewLabel(vacancy.review_status)}
+                        </Badge>
+                      </span>
+                      <span className="mt-1 block text-xs font-medium text-slate-600">
+                        {vacancy.employer_name}
+                      </span>
+                      <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-slate-500">
+                        <span>{vacancy.location_text || "Location unknown"}</span>
+                        {vacancy.department && <span>{vacancy.department}</span>}
+                        <span>
+                          First seen{" "}
+                          {new Date(
+                            vacancy.first_seen_at ?? vacancy.last_seen_at,
+                          ).toLocaleDateString()}
+                        </span>
+                      </span>
+                    </button>
+                  ))
+                )}
               </div>
             </section>
             <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-              {openingVacancyId ? <div className="grid flex-1 place-content-center text-center text-sm text-slate-500">Loading vacancy…</div> : selectedVacancy ? <>
-                <div className="flex items-center justify-between gap-3 border-b border-slate-100 bg-[#0b1426] p-4 text-white"><div className="min-w-0"><p className="text-[10px] font-medium text-cyan-300">{selectedVacancy.employer_name} · {selectedVacancy.location_text || "Location unknown"}</p><h3 className="mt-1 text-sm font-bold">{selectedVacancy.title}</h3></div><Button variant="ghost" size="sm" className="text-slate-300 hover:bg-white/10 hover:text-white" onClick={() => { setSelectedVacancy(null); setSelectedVacancyId(null); }}>Clear</Button></div>
-                <div className="flex flex-wrap items-center gap-2 border-b border-slate-100 px-4 py-3"><Button asChild size="sm" className="bg-cyan-500 text-[#071426] hover:bg-cyan-400"><a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Open source listing ↗</a></Button><Button asChild size="sm" variant="outline"><a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">Source record ↗</a></Button><Badge className="bg-amber-100 text-amber-800">{reviewLabel(selectedVacancy.review_status)}</Badge></div>
-                <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
-                  <div><h4 className="mb-2 text-sm font-bold text-[#0b1426]">Extracted description</h4>{selectedVacancy.description ? <iframe className="h-[min(42vh,500px)] min-h-[280px] w-full rounded-lg border border-slate-200 bg-white" title={"Description for " + selectedVacancy.title} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#168bb9}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + decodeGreenhouseContent(selectedVacancy.description) + "</body></html>"} /> : <p className="rounded-lg bg-amber-50 p-4 text-sm text-amber-800">No description was saved by the source. Inspect the source listing.</p>}</div>
-                  <section className="rounded-lg border border-slate-200"><div className="border-b bg-slate-50 px-3 py-2"><h4 className="text-xs font-bold text-[#0b1426]">Admin review actions</h4><p className="mt-1 text-[10px] text-slate-500">Pending is the database default; it does not mean automated verification has run.</p></div><div className="space-y-3 p-3"><label className="grid gap-1 text-xs font-medium text-slate-600">Decision notes<input className="h-9 rounded-md border border-slate-200 bg-white px-3 text-sm font-normal" value={reviewReason} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setReviewReason(event.target.value)} placeholder="Record the reason for your decision" /></label><div className="flex flex-wrap gap-2"><Button size="sm" disabled={vacancySaving || Boolean(selectedVacancy.archived_at)} onClick={() => void setVacancyDecision("verified") } className="bg-emerald-600 text-white hover:bg-emerald-700"><ShieldCheck className="h-4 w-4" />Mark verified</Button><Button size="sm" variant="outline" disabled={vacancySaving || Boolean(selectedVacancy.archived_at)} onClick={() => void setVacancyDecision("needs_verification")}>Needs verification</Button><Button size="sm" variant="destructive" disabled={vacancySaving || Boolean(selectedVacancy.archived_at)} onClick={() => void setVacancyDecision("rejected")}>Reject record</Button>{selectedVacancy.archived_at ? <Button size="sm" onClick={() => void restoreSelectedVacancy()}>Restore</Button> : <Button size="sm" variant="outline" onClick={() => void archiveSelectedVacancy()}>Archive</Button>}</div></div></section>
-                  <details className="rounded-lg border border-slate-200"><summary className="cursor-pointer px-3 py-2 text-xs font-semibold text-slate-700">Publishing payload preview</summary><pre className="max-h-64 overflow-auto border-t bg-slate-50 p-3 text-xs">{JSON.stringify({title:selectedVacancy.title,company:selectedVacancy.employer_name,location:selectedVacancy.location_text,review_status:selectedVacancy.review_status,review_reason:selectedVacancy.review_reason,application_url:selectedVacancy.application_url,source_url:selectedVacancy.source_url},null,2)}</pre></details>
+              {openingVacancyId ? (
+                <div className="grid flex-1 place-content-center text-center text-sm text-slate-500">
+                  Loading vacancy…
                 </div>
-              </> : <div className="grid flex-1 place-content-center px-6 text-center"><p className="text-sm font-semibold text-[#0b1426]">Select a vacancy record</p><p className="mt-1 max-w-xs text-xs text-slate-500">Inspect extracted content and resolve records requiring admin attention.</p></div>}
+              ) : selectedVacancy ? (
+                <>
+                  <div className="flex items-center justify-between gap-3 border-b border-slate-100 bg-[#0b1426] p-4 text-white">
+                    <div className="min-w-0">
+                      <p className="text-[10px] font-medium text-cyan-300">
+                        {selectedVacancy.employer_name} ·{" "}
+                        {selectedVacancy.location_text || "Location unknown"}
+                      </p>
+                      <h3 className="mt-1 text-sm font-bold">{selectedVacancy.title}</h3>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-slate-300 hover:bg-white/10 hover:text-white"
+                      onClick={() => {
+                        setSelectedVacancy(null);
+                        setSelectedVacancyId(null);
+                      }}
+                    >
+                      Clear
+                    </Button>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 border-b border-slate-100 px-4 py-3">
+                    <Button
+                      asChild
+                      size="sm"
+                      className="bg-cyan-500 text-[#071426] hover:bg-cyan-400"
+                    >
+                      <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">
+                        Open source listing ↗
+                      </a>
+                    </Button>
+                    <Button asChild size="sm" variant="outline">
+                      <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">
+                        Source record ↗
+                      </a>
+                    </Button>
+                    <Badge className="bg-amber-100 text-amber-800">
+                      {reviewLabel(selectedVacancy.review_status)}
+                    </Badge>
+                  </div>
+                  <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
+                    <div>
+                      <h4 className="mb-2 text-sm font-bold text-[#0b1426]">
+                        Extracted description
+                      </h4>
+                      {selectedVacancy.description ? (
+                        <iframe
+                          className="h-[min(42vh,500px)] min-h-[280px] w-full rounded-lg border border-slate-200 bg-white"
+                          title={"Description for " + selectedVacancy.title}
+                          sandbox=""
+                          srcDoc={
+                            '<!doctype html><html><head><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; img-src https: data:; style-src \'unsafe-inline\';"><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#168bb9}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>' +
+                            decodeGreenhouseContent(selectedVacancy.description) +
+                            "</body></html>"
+                          }
+                        />
+                      ) : (
+                        <p className="rounded-lg bg-amber-50 p-4 text-sm text-amber-800">
+                          No description was saved by the source. Inspect the source listing.
+                        </p>
+                      )}
+                    </div>
+                    <section className="rounded-lg border border-slate-200">
+                      <div className="border-b bg-slate-50 px-3 py-2">
+                        <h4 className="text-xs font-bold text-[#0b1426]">Admin review actions</h4>
+                        <p className="mt-1 text-[10px] text-slate-500">
+                          Pending is the database default; it does not mean automated verification
+                          has run.
+                        </p>
+                      </div>
+                      <div className="space-y-3 p-3">
+                        <label className="grid gap-1 text-xs font-medium text-slate-600">
+                          Decision notes
+                          <input
+                            className="h-9 rounded-md border border-slate-200 bg-white px-3 text-sm font-normal"
+                            value={reviewReason}
+                            disabled={Boolean(selectedVacancy.archived_at)}
+                            onChange={(event) => setReviewReason(event.target.value)}
+                            placeholder="Record the reason for your decision"
+                          />
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          <Button
+                            size="sm"
+                            disabled={vacancySaving || Boolean(selectedVacancy.archived_at)}
+                            onClick={() => void setVacancyDecision("verified")}
+                            className="bg-emerald-600 text-white hover:bg-emerald-700"
+                          >
+                            <ShieldCheck className="h-4 w-4" />
+                            Mark verified
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled={vacancySaving || Boolean(selectedVacancy.archived_at)}
+                            onClick={() => void setVacancyDecision("needs_verification")}
+                          >
+                            Needs verification
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="destructive"
+                            disabled={vacancySaving || Boolean(selectedVacancy.archived_at)}
+                            onClick={() => void setVacancyDecision("rejected")}
+                          >
+                            Reject record
+                          </Button>
+                          {selectedVacancy.archived_at ? (
+                            <Button size="sm" onClick={() => void restoreSelectedVacancy()}>
+                              Restore
+                            </Button>
+                          ) : (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => void archiveSelectedVacancy()}
+                            >
+                              Archive
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </section>
+                    <details className="rounded-lg border border-slate-200">
+                      <summary className="cursor-pointer px-3 py-2 text-xs font-semibold text-slate-700">
+                        Publishing payload preview
+                      </summary>
+                      <pre className="max-h-64 overflow-auto border-t bg-slate-50 p-3 text-xs">
+                        {JSON.stringify(
+                          {
+                            title: selectedVacancy.title,
+                            company: selectedVacancy.employer_name,
+                            location: selectedVacancy.location_text,
+                            review_status: selectedVacancy.review_status,
+                            review_reason: selectedVacancy.review_reason,
+                            application_url: selectedVacancy.application_url,
+                            source_url: selectedVacancy.source_url,
+                          },
+                          null,
+                          2,
+                        )}
+                      </pre>
+                    </details>
+                  </div>
+                </>
+              ) : (
+                <div className="grid flex-1 place-content-center px-6 text-center">
+                  <p className="text-sm font-semibold text-[#0b1426]">Select a vacancy record</p>
+                  <p className="mt-1 max-w-xs text-xs text-slate-500">
+                    Inspect extracted content and resolve records requiring admin attention.
+                  </p>
+                </div>
+              )}
             </section>
           </div>
         </section>
@@ -486,114 +995,532 @@ export default function App() {
 
       {page === "companies" && (
         <>
-          <p className="mb-3 text-xs text-slate-500">Manage company identity, verification, branding and registered ATS sources.</p>
+          <p className="mb-3 text-xs text-slate-500">
+            Manage company identity, verification, branding and registered ATS sources.
+          </p>
           <section className="mb-3 grid gap-2 rounded-xl border border-slate-200 bg-white p-3 shadow-sm md:grid-cols-3">
-            <div><p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">Suggested actions</p><p className="mt-1 text-xs text-slate-600">Work through these records to keep the company directory and sources reliable.</p></div>
-            <button type="button" className="rounded-lg bg-amber-50 px-3 py-2 text-left hover:bg-amber-100" onClick={() => { const target = employers.find((item) => item.status === "discovered"); if (target) void openCompany(target); }}>
-              <strong className="block text-sm text-amber-900">{employers.filter((item) => item.status === "discovered").length} awaiting approval</strong><span className="text-[10px] text-amber-800">Review new company records</span>
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+                Suggested actions
+              </p>
+              <p className="mt-1 text-xs text-slate-600">
+                Work through these records to keep the company directory and sources reliable.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="rounded-lg bg-amber-50 px-3 py-2 text-left hover:bg-amber-100"
+              onClick={() => {
+                const target = employers.find((item) => item.status === "discovered");
+                if (target) void openCompany(target);
+              }}
+            >
+              <strong className="block text-sm text-amber-900">
+                {employers.filter((item) => item.status === "discovered").length} awaiting approval
+              </strong>
+              <span className="text-[10px] text-amber-800">Review new company records</span>
             </button>
-            <button type="button" className="rounded-lg bg-orange-50 px-3 py-2 text-left hover:bg-orange-100" onClick={() => { const target = employers.find((item) => item.status === "needs_review"); if (target) void openCompany(target); }}>
-              <strong className="block text-sm text-orange-900">{employers.filter((item) => item.status === "needs_review").length} flagged for review</strong><span className="text-[10px] text-orange-800">Resolve company identity concerns</span>
+            <button
+              type="button"
+              className="rounded-lg bg-orange-50 px-3 py-2 text-left hover:bg-orange-100"
+              onClick={() => {
+                const target = employers.find((item) => item.status === "needs_review");
+                if (target) void openCompany(target);
+              }}
+            >
+              <strong className="block text-sm text-orange-900">
+                {employers.filter((item) => item.status === "needs_review").length} flagged for
+                review
+              </strong>
+              <span className="text-[10px] text-orange-800">Resolve company identity concerns</span>
             </button>
-            <button type="button" className="rounded-lg bg-slate-50 px-3 py-2 text-left hover:bg-slate-100" onClick={() => { const targetSource = dashboardSources.find((source) => source.status !== "verified" || source.permission_status !== "allowed"); const target = targetSource && employers.find((item) => item.id === targetSource.employer_id); if (target) void openCompany(target); }}>
-              <strong className="block text-sm text-slate-900">{dashboardSources.filter((source) => source.status !== "verified" || source.permission_status !== "allowed").length} sources need checks</strong><span className="text-[10px] text-slate-600">Verify source and permission status</span>
+            <button
+              type="button"
+              className="rounded-lg bg-slate-50 px-3 py-2 text-left hover:bg-slate-100"
+              onClick={() => {
+                const targetSource = dashboardSources.find(
+                  (source) =>
+                    source.status !== "verified" || source.permission_status !== "allowed",
+                );
+                const target =
+                  targetSource && employers.find((item) => item.id === targetSource.employer_id);
+                if (target) void openCompany(target);
+              }}
+            >
+              <strong className="block text-sm text-slate-900">
+                {
+                  dashboardSources.filter(
+                    (source) =>
+                      source.status !== "verified" || source.permission_status !== "allowed",
+                  ).length
+                }{" "}
+                sources need checks
+              </strong>
+              <span className="text-[10px] text-slate-600">
+                Verify source and permission status
+              </span>
             </button>
           </section>
           <div className="company-layout">
             <section className="surface company-directory">
-              <div className="section-heading"><div className="flex items-center gap-3"><h3>Registered companies</h3><span>{visibleEmployers.length} / {employers.length}</span></div><button className="button primary" type="button" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button></div>
-              <div className="company-filters"><input aria-label="Search companies" value={companyQuery} onChange={(event) => setCompanyQuery(event.target.value)} placeholder="Search company name…" /><select aria-label="Filter companies by status" value={companyStatusFilter} onChange={(event) => setCompanyStatusFilter(event.target.value)}><option value="all">All statuses</option><option value="discovered">Discovered</option><option value="pending_review">Pending review</option><option value="approved">Approved</option><option value="needs_review">Needs review</option><option value="rejected">Rejected</option><option value="inactive">Inactive</option></select></div>
+              <div className="section-heading">
+                <div className="flex items-center gap-3">
+                  <h3>Registered companies</h3>
+                  <span>
+                    {visibleEmployers.length} / {employers.length}
+                  </span>
+                </div>
+                <button
+                  className="button primary"
+                  type="button"
+                  onClick={() => {
+                    setPage("add-company");
+                    setError("");
+                    setNotice("");
+                  }}
+                >
+                  + Add company
+                </button>
+              </div>
+              <div className="company-filters">
+                <input
+                  aria-label="Search companies"
+                  value={companyQuery}
+                  onChange={(event) => setCompanyQuery(event.target.value)}
+                  placeholder="Search company name…"
+                />
+                <select
+                  aria-label="Filter companies by status"
+                  value={companyStatusFilter}
+                  onChange={(event) => setCompanyStatusFilter(event.target.value)}
+                >
+                  <option value="all">All statuses</option>
+                  <option value="discovered">Discovered</option>
+                  <option value="pending_review">Pending review</option>
+                  <option value="approved">Approved</option>
+                  <option value="needs_review">Needs review</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
               {visibleEmployers.map((employer) => (
-                <button key={employer.id} className={`company-row ${selectedEmployerId === employer.id ? "selected" : ""}`} onClick={() => void openCompany(employer)}>
-                  {employer.logo_url
-                    ? <img className="employer-logo" src={employer.logo_url} alt={employer.name + " logo"} />
-                    : <span className="employer-avatar">{employer.name.slice(0, 1).toUpperCase()}</span>}
-                  <span><strong>{employer.name}</strong><small>{employer.city || "Location not confirmed"}</small></span>
+                <button
+                  key={employer.id}
+                  className={`company-row ${selectedEmployerId === employer.id ? "selected" : ""}`}
+                  onClick={() => void openCompany(employer)}
+                >
+                  {employer.logo_url ? (
+                    <img
+                      className="employer-logo"
+                      src={employer.logo_url}
+                      alt={employer.name + " logo"}
+                    />
+                  ) : (
+                    <span className="employer-avatar">
+                      {employer.name.slice(0, 1).toUpperCase()}
+                    </span>
+                  )}
+                  <span>
+                    <strong>{employer.name}</strong>
+                    <small>{employer.city || "Location not confirmed"}</small>
+                  </span>
                   <span className="status">{employer.status.replaceAll("_", " ")}</span>
                 </button>
               ))}
-              {!visibleEmployers.length && <div className="empty">{employers.length ? "No companies match these filters." : "No companies registered."}</div>}
+              {!visibleEmployers.length && (
+                <div className="empty">
+                  {employers.length
+                    ? "No companies match these filters."
+                    : "No companies registered."}
+                </div>
+              )}
             </section>
             <section className="surface company-profile">
               {selectedEmployer ? (
                 <>
-                  <div className="section-heading"><div><p className="eyebrow">COMPANY PROFILE</p><h3>{selectedEmployer.name}</h3></div><span className="status">{selectedEmployer.status.replaceAll("_", " ")}</span></div>
-                  <div className="flex flex-wrap gap-2 border-b border-slate-100 pb-4">
-                    {selectedEmployer.status !== "approved" && <button className="button primary" disabled={saving} onClick={() => void updateCompanyStatus("approved")}>Approve company</button>}
-                    {selectedEmployer.status !== "needs_review" && <button className="button secondary" disabled={saving} onClick={() => void updateCompanyStatus("needs_review")}>Flag for review</button>}
-                    {selectedEmployer.status !== "rejected" && <button className="button secondary" disabled={saving} onClick={() => void updateCompanyStatus("rejected")}>Reject company</button>}
-                    {selectedEmployer.status !== "inactive" && <button className="button secondary" disabled={saving} onClick={() => void updateCompanyStatus("inactive")}>Deactivate</button>}
-                    <button className="button secondary ml-auto text-red-700" disabled={saving} onClick={() => void deleteCompany()}><Trash2 className="mr-1 inline h-3 w-3" />Delete</button>
+                  <div className="section-heading">
+                    <div>
+                      <p className="eyebrow">COMPANY PROFILE</p>
+                      <h3>{selectedEmployer.name}</h3>
+                    </div>
+                    <span className="status">{selectedEmployer.status.replaceAll("_", " ")}</span>
                   </div>
-                  <p className="profile-website">{selectedEmployer.website_url || "Official website not supplied"}</p>
+                  <div className="flex flex-wrap gap-2 border-b border-slate-100 pb-4">
+                    {selectedEmployer.status !== "approved" && (
+                      <button
+                        className="button primary"
+                        disabled={saving}
+                        onClick={() => void updateCompanyStatus("approved")}
+                      >
+                        Approve company
+                      </button>
+                    )}
+                    {selectedEmployer.status !== "needs_review" && (
+                      <button
+                        className="button secondary"
+                        disabled={saving}
+                        onClick={() => void updateCompanyStatus("needs_review")}
+                      >
+                        Flag for review
+                      </button>
+                    )}
+                    {selectedEmployer.status !== "rejected" && (
+                      <button
+                        className="button secondary"
+                        disabled={saving}
+                        onClick={() => void updateCompanyStatus("rejected")}
+                      >
+                        Reject company
+                      </button>
+                    )}
+                    {selectedEmployer.status !== "inactive" && (
+                      <button
+                        className="button secondary"
+                        disabled={saving}
+                        onClick={() => void updateCompanyStatus("inactive")}
+                      >
+                        Deactivate
+                      </button>
+                    )}
+                    <button
+                      className="button secondary ml-auto text-red-700"
+                      disabled={saving}
+                      onClick={() => void deleteCompany()}
+                    >
+                      <Trash2 className="mr-1 inline h-3 w-3" />
+                      Delete
+                    </button>
+                  </div>
+                  <p className="profile-website">
+                    {selectedEmployer.website_url || "Official website not supplied"}
+                  </p>
                   <form className="branding-form" onSubmit={saveEmployerBranding}>
-                    <div className="flex items-center gap-3"><h4>Company logo</h4><span className="text-[10px] text-slate-400">Optional</span>{logoUrl && <img src={logoUrl} alt="Company logo preview" className="h-9 w-9 rounded-md border border-slate-200 bg-white object-contain p-1" />}</div>
-                    <label>Logo image URL
-                      <input type="url" value={logoUrl} onChange={(event) => setLogoUrl(event.target.value)} placeholder="https://company.com/logo.png" />
+                    <div className="flex items-center gap-3">
+                      <h4>Company logo</h4>
+                      <span className="text-[10px] text-slate-400">Optional</span>
+                      {logoUrl && (
+                        <img
+                          src={logoUrl}
+                          alt="Company logo preview"
+                          className="h-9 w-9 rounded-md border border-slate-200 bg-white object-contain p-1"
+                        />
+                      )}
+                    </div>
+                    <label>
+                      Logo image URL
+                      <input
+                        type="url"
+                        value={logoUrl}
+                        onChange={(event) => setLogoUrl(event.target.value)}
+                        placeholder="https://company.com/logo.png"
+                      />
                     </label>
-                    <p className="text-[10px] text-slate-400">Scout currently accepts a logo URL and its evidence URL. A logo is not required to register or approve a company.</p>
-                    <label>Logo source / evidence URL
-                      <input type="url" value={logoSourceUrl} onChange={(event) => setLogoSourceUrl(event.target.value)} placeholder="Official company page where the logo is shown" />
+                    <p className="text-[10px] text-slate-400">
+                      Scout currently accepts a logo URL and its evidence URL. A logo is not
+                      required to register or approve a company.
+                    </p>
+                    <label>
+                      Logo source / evidence URL
+                      <input
+                        type="url"
+                        value={logoSourceUrl}
+                        onChange={(event) => setLogoSourceUrl(event.target.value)}
+                        placeholder="Official company page where the logo is shown"
+                      />
                     </label>
-                    <button className="button secondary" disabled={saving}>{saving ? "Saving…" : "Save logo details"}</button>
+                    <button className="button secondary" disabled={saving}>
+                      {saving ? "Saving…" : "Save logo details"}
+                    </button>
                   </form>
 
-                  <div className="profile-stats"><div><strong>{vacancies.filter((item) => item.employer_id === selectedEmployer.id).length}</strong><span>Jobs collected</span></div><div><strong>{sources.length}</strong><span>Sources registered</span></div></div>
-                  <div className="section-heading source-title"><h4>Job sources</h4></div>
-                  {sources.length ? sources.map((source) => {
-                    const runs = extractionRuns[source.id] ?? [];
-                    const latestRun = runs[0];
-                    return (
-                      <div className="source-history" key={source.id}>
-                        <div className="source-item">
-                          <div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div>
-                          <span className="status">{source.status.replaceAll("_", " ")}</span>
-                          {source.adapter_key === "greenhouse" && <button className="button secondary" type="button" onClick={() => { setEditingSourceId(source.id); setSourceUrl(source.source_url); setInspection(null); }}>Edit source</button>}
-                        </div>
-                        <div className="source-decision">
-                          <div className="source-decision-heading"><strong>Verification & permission</strong><span>Company approval does not approve this source</span></div>
-                          <div className="source-decision-grid">
-                            <label>Source status<select value={sourceDecision[source.id]?.status ?? source.status} onChange={(event) => setSourceDecision((current) => ({ ...current, [source.id]: { status: event.target.value, permission_status: current[source.id]?.permission_status ?? source.permission_status, evidence_url: current[source.id]?.evidence_url ?? "", reason: current[source.id]?.reason ?? "" } }))}>
-                              <option value="discovered">Discovered</option><option value="pending_verification">Pending verification</option><option value="verified">Verified</option><option value="temporarily_unavailable">Temporarily unavailable</option><option value="invalid">Invalid</option><option value="needs_review">Needs review</option><option value="inactive">Inactive</option>
-                            </select></label>
-                            <label>Permission<select value={sourceDecision[source.id]?.permission_status ?? source.permission_status} onChange={(event) => setSourceDecision((current) => ({ ...current, [source.id]: { status: current[source.id]?.status ?? source.status, permission_status: event.target.value, evidence_url: current[source.id]?.evidence_url ?? "", reason: current[source.id]?.reason ?? "" } }))}>
-                              <option value="unknown">Unknown</option><option value="allowed">Allowed</option><option value="restricted">Restricted</option><option value="needs_review">Needs review</option>
-                            </select></label>
+                  <div className="profile-stats">
+                    <div>
+                      <strong>
+                        {
+                          vacancies.filter((item) => item.employer_id === selectedEmployer.id)
+                            .length
+                        }
+                      </strong>
+                      <span>Jobs collected</span>
+                    </div>
+                    <div>
+                      <strong>{sources.length}</strong>
+                      <span>Sources registered</span>
+                    </div>
+                  </div>
+                  <div className="section-heading source-title">
+                    <h4>Job sources</h4>
+                  </div>
+                  {sources.length ? (
+                    sources.map((source) => {
+                      const runs = extractionRuns[source.id] ?? [];
+                      const latestRun = runs[0];
+                      return (
+                        <div className="source-history" key={source.id}>
+                          <div className="source-item">
+                            <div>
+                              <strong>{source.adapter_key}</strong>
+                              <small>{source.source_url}</small>
+                            </div>
+                            <span className="status">{source.status.replaceAll("_", " ")}</span>
+                            {source.adapter_key === "greenhouse" && (
+                              <button
+                                className="button secondary"
+                                type="button"
+                                onClick={() => {
+                                  setEditingSourceId(source.id);
+                                  setSourceUrl(source.source_url);
+                                  setInspection(null);
+                                }}
+                              >
+                                Edit source
+                              </button>
+                            )}
                           </div>
-                          <label>Evidence URL<input type="url" value={sourceDecision[source.id]?.evidence_url ?? ""} onChange={(event) => setSourceDecision((current) => ({ ...current, [source.id]: { status: current[source.id]?.status ?? source.status, permission_status: current[source.id]?.permission_status ?? source.permission_status, evidence_url: event.target.value, reason: current[source.id]?.reason ?? "" } }))} placeholder="Official employer page confirming this ATS relationship" /></label>
-                          <label>Decision notes<input value={sourceDecision[source.id]?.reason ?? ""} onChange={(event) => setSourceDecision((current) => ({ ...current, [source.id]: { status: current[source.id]?.status ?? source.status, permission_status: current[source.id]?.permission_status ?? source.permission_status, evidence_url: current[source.id]?.evidence_url ?? "", reason: event.target.value } }))} placeholder="Why this source status and permission were chosen" /></label>
-                          <button type="button" className="button primary" disabled={saving} onClick={() => void updateSourceDecision(source)}>{saving ? "Saving…" : "Save source decision"}</button>
+                          <div className="source-decision">
+                            <div className="source-decision-heading">
+                              <strong>Verification & permission</strong>
+                              <span>Company approval does not approve this source</span>
+                            </div>
+                            <div className="source-decision-grid">
+                              <label>
+                                Source status
+                                <select
+                                  value={sourceDecision[source.id]?.status ?? source.status}
+                                  onChange={(event) =>
+                                    setSourceDecision((current) => ({
+                                      ...current,
+                                      [source.id]: {
+                                        status: event.target.value,
+                                        permission_status:
+                                          current[source.id]?.permission_status ??
+                                          source.permission_status,
+                                        evidence_url: current[source.id]?.evidence_url ?? "",
+                                        reason: current[source.id]?.reason ?? "",
+                                      },
+                                    }))
+                                  }
+                                >
+                                  <option value="discovered">Discovered</option>
+                                  <option value="pending_verification">Pending verification</option>
+                                  <option value="verified">Verified</option>
+                                  <option value="temporarily_unavailable">
+                                    Temporarily unavailable
+                                  </option>
+                                  <option value="invalid">Invalid</option>
+                                  <option value="needs_review">Needs review</option>
+                                  <option value="inactive">Inactive</option>
+                                </select>
+                              </label>
+                              <label>
+                                Permission
+                                <select
+                                  value={
+                                    sourceDecision[source.id]?.permission_status ??
+                                    source.permission_status
+                                  }
+                                  onChange={(event) =>
+                                    setSourceDecision((current) => ({
+                                      ...current,
+                                      [source.id]: {
+                                        status: current[source.id]?.status ?? source.status,
+                                        permission_status: event.target.value,
+                                        evidence_url: current[source.id]?.evidence_url ?? "",
+                                        reason: current[source.id]?.reason ?? "",
+                                      },
+                                    }))
+                                  }
+                                >
+                                  <option value="unknown">Unknown</option>
+                                  <option value="allowed">Allowed</option>
+                                  <option value="restricted">Restricted</option>
+                                  <option value="needs_review">Needs review</option>
+                                </select>
+                              </label>
+                            </div>
+                            <label>
+                              Evidence URL
+                              <input
+                                type="url"
+                                value={sourceDecision[source.id]?.evidence_url ?? ""}
+                                onChange={(event) =>
+                                  setSourceDecision((current) => ({
+                                    ...current,
+                                    [source.id]: {
+                                      status: current[source.id]?.status ?? source.status,
+                                      permission_status:
+                                        current[source.id]?.permission_status ??
+                                        source.permission_status,
+                                      evidence_url: event.target.value,
+                                      reason: current[source.id]?.reason ?? "",
+                                    },
+                                  }))
+                                }
+                                placeholder="Official employer page confirming this ATS relationship"
+                              />
+                            </label>
+                            <label>
+                              Decision notes
+                              <input
+                                value={sourceDecision[source.id]?.reason ?? ""}
+                                onChange={(event) =>
+                                  setSourceDecision((current) => ({
+                                    ...current,
+                                    [source.id]: {
+                                      status: current[source.id]?.status ?? source.status,
+                                      permission_status:
+                                        current[source.id]?.permission_status ??
+                                        source.permission_status,
+                                      evidence_url: current[source.id]?.evidence_url ?? "",
+                                      reason: event.target.value,
+                                    },
+                                  }))
+                                }
+                                placeholder="Why this source status and permission were chosen"
+                              />
+                            </label>
+                            <button
+                              type="button"
+                              className="button primary"
+                              disabled={saving}
+                              onClick={() => void updateSourceDecision(source)}
+                            >
+                              {saving ? "Saving…" : "Save source decision"}
+                            </button>
+                          </div>
+                          <div className="run-history">
+                            <div className="run-heading">
+                              <strong>Latest extraction</strong>
+                              <span>{runs.length} recorded run(s)</span>
+                            </div>
+                            {latestRun ? (
+                              <>
+                                <div className="run-summary">
+                                  <span className={`run-outcome ${latestRun.outcome}`}>
+                                    {latestRun.outcome.replaceAll("_", " ")}
+                                  </span>
+                                  <span>
+                                    {latestRun.jobs_received} received · {latestRun.jobs_inserted}{" "}
+                                    new · {latestRun.jobs_updated} updated
+                                  </span>
+                                  <span>{latestRun.complete ? "Complete" : "Incomplete"}</span>
+                                </div>
+                                {latestRun.detail && (
+                                  <p className="run-detail">{latestRun.detail}</p>
+                                )}
+                                <div className="run-meta">
+                                  <span>
+                                    Started:{" "}
+                                    {latestRun.started_at
+                                      ? new Date(latestRun.started_at).toLocaleString()
+                                      : "Unknown"}
+                                  </span>
+                                  <span>
+                                    Finished:{" "}
+                                    {latestRun.finished_at
+                                      ? new Date(latestRun.finished_at).toLocaleString()
+                                      : "Not finished"}
+                                  </span>
+                                </div>
+                                {runs.length > 1 && (
+                                  <details className="run-older">
+                                    <summary>Previous runs ({runs.length - 1})</summary>
+                                    {runs.slice(1).map((run) => (
+                                      <div className="older-run" key={run.id}>
+                                        <strong>{run.outcome.replaceAll("_", " ")}</strong>
+                                        <span>
+                                          {run.jobs_received} received · {run.jobs_inserted} new ·{" "}
+                                          {run.jobs_updated} updated
+                                        </span>
+                                        <small>{run.detail || "No additional detail"}</small>
+                                        <small>
+                                          {run.started_at
+                                            ? new Date(run.started_at).toLocaleString()
+                                            : "Unknown time"}
+                                        </small>
+                                      </div>
+                                    ))}
+                                  </details>
+                                )}
+                              </>
+                            ) : (
+                              <p className="muted">No extraction runs recorded yet.</p>
+                            )}
+                          </div>
                         </div>
-                        <div className="run-history">
-                          <div className="run-heading"><strong>Latest extraction</strong><span>{runs.length} recorded run(s)</span></div>
-                          {latestRun ? (
-                            <>
-                              <div className="run-summary">
-                                <span className={`run-outcome ${latestRun.outcome}`}>{latestRun.outcome.replaceAll("_", " ")}</span>
-                                <span>{latestRun.jobs_received} received · {latestRun.jobs_inserted} new · {latestRun.jobs_updated} updated</span>
-                                <span>{latestRun.complete ? "Complete" : "Incomplete"}</span>
-                              </div>
-                              {latestRun.detail && <p className="run-detail">{latestRun.detail}</p>}
-                              <div className="run-meta">
-                                <span>Started: {latestRun.started_at ? new Date(latestRun.started_at).toLocaleString() : "Unknown"}</span>
-                                <span>Finished: {latestRun.finished_at ? new Date(latestRun.finished_at).toLocaleString() : "Not finished"}</span>
-                              </div>
-                              {runs.length > 1 && <details className="run-older"><summary>Previous runs ({runs.length - 1})</summary>{runs.slice(1).map((run) => <div className="older-run" key={run.id}><strong>{run.outcome.replaceAll("_", " ")}</strong><span>{run.jobs_received} received · {run.jobs_inserted} new · {run.jobs_updated} updated</span><small>{run.detail || "No additional detail"}</small><small>{run.started_at ? new Date(run.started_at).toLocaleString() : "Unknown time"}</small></div>)}</details>}
-                            </>
-                          ) : <p className="muted">No extraction runs recorded yet.</p>}
-                        </div>
-                      </div>
-                    );
-                  }) : <p className="muted">No job source registered for this company.</p>}
+                      );
+                    })
+                  ) : (
+                    <p className="muted">No job source registered for this company.</p>
+                  )}
                   <form className="source-form" onSubmit={createSource}>
-                    <h4>{editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}</h4>
-                    <label>Official careers / job board URL<input type="url" value={sourceUrl} onChange={(event) => { setSourceUrl(event.target.value); setInspection(null); }} placeholder="https://job-boards.greenhouse.io/company" required /></label>
-                    <button type="button" className="button secondary" onClick={() => void inspectGreenhouse()} disabled={inspecting || !sourceUrl.trim()}>{inspecting ? "Checking source…" : "Check Greenhouse source"}</button>
-                    {inspection && <div className="inspection-preview"><strong>{inspection.board_name || inspection.board_token}</strong><span>{inspection.outcome} · {inspection.jobs.length} sample jobs</span>{inspection.detail && <small>{inspection.detail}</small>}</div>}
-                    <div className="form-actions">{editingSourceId && <button type="button" className="button secondary" onClick={() => { setEditingSourceId(null); setSourceUrl(""); setInspection(null); }}>Cancel edit</button>}<button className="button primary" disabled={saving || !inspection || !inspection.complete || !["success", "empty"].includes(inspection.outcome)}>{saving ? "Saving…" : editingSourceId ? "Update source" : "Save source"}</button></div>
+                    <h4>
+                      {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
+                    </h4>
+                    <label>
+                      Official careers / job board URL
+                      <input
+                        type="url"
+                        value={sourceUrl}
+                        onChange={(event) => {
+                          setSourceUrl(event.target.value);
+                          setInspection(null);
+                        }}
+                        placeholder="https://job-boards.greenhouse.io/company"
+                        required
+                      />
+                    </label>
+                    <button
+                      type="button"
+                      className="button secondary"
+                      onClick={() => void inspectGreenhouse()}
+                      disabled={inspecting || !sourceUrl.trim()}
+                    >
+                      {inspecting ? "Checking source…" : "Check Greenhouse source"}
+                    </button>
+                    {inspection && (
+                      <div className="inspection-preview">
+                        <strong>{inspection.board_name || inspection.board_token}</strong>
+                        <span>
+                          {inspection.outcome} · {inspection.jobs.length} sample jobs
+                        </span>
+                        {inspection.detail && <small>{inspection.detail}</small>}
+                      </div>
+                    )}
+                    <div className="form-actions">
+                      {editingSourceId && (
+                        <button
+                          type="button"
+                          className="button secondary"
+                          onClick={() => {
+                            setEditingSourceId(null);
+                            setSourceUrl("");
+                            setInspection(null);
+                          }}
+                        >
+                          Cancel edit
+                        </button>
+                      )}
+                      <button
+                        className="button primary"
+                        disabled={
+                          saving ||
+                          !inspection ||
+                          !inspection.complete ||
+                          !["success", "empty"].includes(inspection.outcome)
+                        }
+                      >
+                        {saving ? "Saving…" : editingSourceId ? "Update source" : "Save source"}
+                      </button>
+                    </div>
                   </form>
                 </>
-              ) : <div className="empty large"><strong>Select a company</strong><span>Choose a company to view its profile and registered job sources.</span></div>}
+              ) : (
+                <div className="empty large">
+                  <strong>Select a company</strong>
+                  <span>Choose a company to view its profile and registered job sources.</span>
+                </div>
+              )}
             </section>
           </div>
         </>
@@ -601,43 +1528,114 @@ export default function App() {
 
       {page === "add-company" && (
         <>
-          <p className="mb-3 text-xs text-slate-500">Register a company and connect its official careers source.</p>
+          <p className="mb-3 text-xs text-slate-500">
+            Register a company and connect its official careers source.
+          </p>
           <section className="surface add-company-panel">
-            <form onSubmit={discovery ? registerDiscoveredEmployer : (event) => { event.preventDefault(); void discoverCareersPage(); }}>
-              <label>Careers / jobs listing URL
-                <input type="url" value={sourceUrl} onChange={(event) => { setSourceUrl(event.target.value); setDiscovery(null); setForm({ ...form, website_url: event.target.value }); }} placeholder="https://company.com/jobs" required />
+            <form
+              onSubmit={
+                discovery
+                  ? registerDiscoveredEmployer
+                  : (event) => {
+                      event.preventDefault();
+                      void discoverCareersPage();
+                    }
+              }
+            >
+              <label>
+                Careers / jobs listing URL
+                <input
+                  type="url"
+                  value={sourceUrl}
+                  onChange={(event) => {
+                    setSourceUrl(event.target.value);
+                    setDiscovery(null);
+                    setForm({ ...form, website_url: event.target.value });
+                  }}
+                  placeholder="https://company.com/jobs"
+                  required
+                />
               </label>
-              <label>ATS platform
-                <select value={atsKey} onChange={(event) => { setAtsKey(event.target.value); setDiscovery(null); }}>
+              <label>
+                ATS platform
+                <select
+                  value={atsKey}
+                  onChange={(event) => {
+                    setAtsKey(event.target.value);
+                    setDiscovery(null);
+                  }}
+                >
                   <option value="greenhouse">Greenhouse</option>
-                  <option value="workday" disabled>Workday — coming next</option>
+                  <option value="workday" disabled>
+                    Workday — coming next
+                  </option>
                 </select>
               </label>
-              <button type="button" className="button secondary" onClick={() => void discoverCareersPage()} disabled={inspecting || !sourceUrl.trim()}>
+              <button
+                type="button"
+                className="button secondary"
+                onClick={() => void discoverCareersPage()}
+                disabled={inspecting || !sourceUrl.trim()}
+              >
                 {inspecting ? "Detecting ATS and inspecting jobs…" : "Detect ATS & preview jobs"}
               </button>
               {discovery && (
                 <div className="inspection-preview">
                   <strong>{discovery.jobs.length} vacancies found</strong>
-                  <span>Detected: {discovery.detected_adapter} · Board: {discovery.board_url}</span>
-                  <small>{discovery.complete ? "Vacancy preview is complete." : discovery.detail || "The preview is incomplete."}</small>
+                  <span>
+                    Detected: {discovery.detected_adapter} · Board: {discovery.board_url}
+                  </span>
+                  <small>
+                    {discovery.complete
+                      ? "Vacancy preview is complete."
+                      : discovery.detail || "The preview is incomplete."}
+                  </small>
                 </div>
               )}
-              {discovery && <label>Company name
-                <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Detected company name" required />
-              </label>}
+              {discovery && (
+                <label>
+                  Company name
+                  <input
+                    value={form.name}
+                    onChange={(event) => setForm({ ...form, name: event.target.value })}
+                    placeholder="Detected company name"
+                    required
+                  />
+                </label>
+              )}
               <div className="form-actions">
-                <button type="button" className="button secondary" onClick={() => { setPage("companies"); setDiscovery(null); }}>Cancel</button>
-                {discovery && <button className="button primary" disabled={saving || !discovery.complete || !["success", "empty"].includes(discovery.outcome)}>
-                  {saving ? "Registering and retrieving…" : "Confirm & register"}
-                </button>}
+                <button
+                  type="button"
+                  className="button secondary"
+                  onClick={() => {
+                    setPage("companies");
+                    setDiscovery(null);
+                  }}
+                >
+                  Cancel
+                </button>
+                {discovery && (
+                  <button
+                    className="button primary"
+                    disabled={
+                      saving ||
+                      !discovery.complete ||
+                      !["success", "empty"].includes(discovery.outcome)
+                    }
+                  >
+                    {saving ? "Registering and retrieving…" : "Confirm & register"}
+                  </button>
+                )}
               </div>
             </form>
           </section>
         </>
       )}
 
-      <footer className="mt-5 border-t pt-3 text-xs text-muted-foreground">Scout is a private operations workspace. Only verified, quality-checked records are eligible for publishing to Thungatha.</footer>
+      <footer className="mt-5 border-t pt-3 text-xs text-muted-foreground">
+        Scout is a private operations workspace. Only verified, quality-checked records are eligible
+        for publishing to Thungatha.
+      </footer>
     </main>
   );
 }

@@ -109,9 +109,7 @@ class EmployerService:
         values["permission_status"] = "unknown"
         values["source_url"] = str(values["source_url"])
         if values["employer_careers_url"] is not None:
-            values["employer_careers_url"] = str(
-                values["employer_careers_url"]
-            )
+            values["employer_careers_url"] = str(values["employer_careers_url"])
         values["normalized_url"] = str(values["normalized_url"])
 
         with self._connection_factory() as connection, connection.transaction():
@@ -119,6 +117,4 @@ class EmployerService:
 
     def list_sources(self, employer_id: UUID) -> list[dict[str, Any]]:
         with self._connection_factory() as connection:
-            return EmployerSourceRepository(connection).list_for_employer(
-                employer_id
-            )
+            return EmployerSourceRepository(connection).list_for_employer(employer_id)

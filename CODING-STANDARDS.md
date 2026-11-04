@@ -7,6 +7,7 @@
 This standard applies equally to human contributors and AI tools (including Antigravity, Codex and Copilot). `AGENTS.md` is the mandatory repository instruction; this section defines how to apply it.
 
 ### Naming principles
+
 - A path must communicate its actual responsibility or contents without requiring a reader to guess.
 - Prefer the fewest words that fully describe the responsibility. Descriptive multi-word names are preferred over vague one-word names. A one-word name is acceptable only when no clear alternative exists or an external tool/framework mandates the exact name.
 - Use kebab-case for ordinary directory names and non-Python filenames. Use snake_case for Python module filenames and importable package directories. Preserve exact framework/tool-required paths only when they are genuinely required.
@@ -14,11 +15,13 @@ This standard applies equally to human contributors and AI tools (including Anti
 - Do not expand precise proper names or platform names just to make them longer. For example, `greenhouse` is meaningful when it specifically contains Greenhouse adapter code; `shared` is not meaningful without a defined sharing boundary.
 
 ### Test directory and file names
+
 - Use explicit test categories: `test-suites/unit-tests/`, `test-suites/integration-tests/` and `test-suites/contract-tests/` where applicable.
 - Do not create `tests/unit/` or `tests/integration/`; the category must be expressed as a complete directory name.
 - Python test files must follow the test runner's discovery convention, such as `test_employer_discovery.py`, and identify the behavior being tested. Do not use generic `test_utils.py` or `test_helpers.py` for unrelated cases.
 
 ### Required creation/rename procedure
+
 1. Inspect the repository tree and relevant code/configuration before choosing a path.
 2. Write down the responsibility the path will own. If that cannot be stated in one clear sentence, do not create it yet.
 3. Choose a precise name and check that the parent directory does not already communicate the same information.
@@ -29,13 +32,14 @@ This standard applies equally to human contributors and AI tools (including Anti
 8. If the responsibility, naming choice or tooling impact is uncertain, ask the user before making the change.
 
 ### Examples
-| Prefer | Avoid | Reason |
-|---|---|---|
-| `test-suites/unit-tests/` | `tests/unit/` | Complete test category is explicit |
-| `test-suites/integration-tests/` | `tests/integration/` | Complete test category is explicit |
-| `operational-diagnostics/` | `diagnostics/` | States the operational responsibility |
-| `employer_source_registry.py` | `data.py` | Identifies the data concept |
-| `test_employer_discovery.py` | `test.py` | Identifies the behavior under test |
+
+| Prefer                           | Avoid                | Reason                                |
+| -------------------------------- | -------------------- | ------------------------------------- |
+| `test-suites/unit-tests/`        | `tests/unit/`        | Complete test category is explicit    |
+| `test-suites/integration-tests/` | `tests/integration/` | Complete test category is explicit    |
+| `operational-diagnostics/`       | `diagnostics/`       | States the operational responsibility |
+| `employer_source_registry.py`    | `data.py`            | Identifies the data concept           |
+| `test_employer_discovery.py`     | `test.py`            | Identifies the behavior under test    |
 
 A name is not better merely because it is longer. It is better when it is accurate, specific and unambiguous.
 

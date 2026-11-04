@@ -33,8 +33,6 @@ def test_supabase_auth_settings_keep_publishable_key_secret(
 
     assert settings.scout_supabase_url == "https://scout.supabase.co"
     assert isinstance(settings.scout_supabase_publishable_key, SecretStr)
-    assert settings.scout_supabase_publishable_key.get_secret_value() == (
-        "public-key"
-    )
+    assert settings.scout_supabase_publishable_key.get_secret_value() == ("public-key")
     assert settings.scout_admin_email == "admin@example.com"
     assert "public-key" not in str(settings.scout_supabase_publishable_key)

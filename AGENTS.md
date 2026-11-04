@@ -88,6 +88,7 @@ This is a repository-wide rule for developers and AI coding agents, including An
 ## Completion response
 
 At the end of a task, provide:
+
 - **Checkpoint:** identifier and status.
 - **Changes:** files and behavior changed.
 - **Verification:** exact commands and observed results.

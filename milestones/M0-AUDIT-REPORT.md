@@ -15,13 +15,13 @@ The source-of-truth file supplied in the project files was restored at repositor
 
 ## 2. Branch and artifact inventory
 
-| Branch | Head observed during audit | Tracked paths observed | Relevant evidence |
-|---|---|---:|---|
-| `dev` | `35d0954a1823c3ea3f45807224e88a97fd04ea98` | 64 | Scaffold, health endpoint, package/test placeholders |
-| `main` | `d86368fe485d61eda66254fed83c7fc9d7679326` | 18 | Earlier baseline |
-| `research` | `a10a40088407890d7c86ce0e1cc9818596956807` | 106 | Workday client/tests, Greenhouse reports/registries, URL investigations |
-| `setup/backend-prototype` | `a91dced88a556479cbc91b9bb95127b3e860092c` | 31 | Greenhouse source modules and tests |
-| `feature/cape-town-greenhouse-workday-api` | `8d8274bd90e063f095321a44aa9db846f32fd747` | 17 | Workday code/tests and FastAPI API experiment |
+| Branch                                     | Head observed during audit                 | Tracked paths observed | Relevant evidence                                                       |
+| ------------------------------------------ | ------------------------------------------ | ---------------------: | ----------------------------------------------------------------------- |
+| `dev`                                      | `35d0954a1823c3ea3f45807224e88a97fd04ea98` |                     64 | Scaffold, health endpoint, package/test placeholders                    |
+| `main`                                     | `d86368fe485d61eda66254fed83c7fc9d7679326` |                     18 | Earlier baseline                                                        |
+| `research`                                 | `a10a40088407890d7c86ce0e1cc9818596956807` |                    106 | Workday client/tests, Greenhouse reports/registries, URL investigations |
+| `setup/backend-prototype`                  | `a91dced88a556479cbc91b9bb95127b3e860092c` |                     31 | Greenhouse source modules and tests                                     |
+| `feature/cape-town-greenhouse-workday-api` | `8d8274bd90e063f095321a44aa9db846f32fd747` |                     17 | Workday code/tests and FastAPI API experiment                           |
 
 Counts represent tree entries returned during inspection, not only source files. These branch heads/counts are the audit snapshot; the source-of-truth restoration commit is newer.
 
@@ -37,9 +37,11 @@ Counts represent tree entries returned during inspection, not only source files.
 ## 4. Research preservation findings
 
 ### Greenhouse
+
 The `research` branch contains dated discovery snapshots, board registries, company registries, a consolidated jobs report, a role-relevance report and URL investigations. Prior saved evidence reports 3,582 saved job records across 77 board entries; per-board totals exceed the capped saved-record count, so this is not a complete census. These artifacts are historical evidence, not current vacancy availability or proof of employer identity.
 
 ### Workday and API experiment
+
 The `research` and `feature/cape-town-greenhouse-workday-api` branches contain a Workday public CXS client and mocked tests. The feature branch also contains a FastAPI-based jobs API. Since the proposed backend is Azure Functions Python v2, the FastAPI experiment remains historical evidence unless separately reviewed.
 
 No research branch was modified; reports, registries, snapshots, investigations and experimental source were not deleted or regenerated.
@@ -47,6 +49,7 @@ No research branch was modified; reports, registries, snapshots, investigations 
 ## 5. Source and scope reconciliation
 
 The restored source-of-truth and repository guidance establish:
+
 - Scout is the trusted employer-sourced ingestion component, not a duplicate public job-search frontend.
 - The employer's official careers publication is authoritative; an ATS is an access mechanism.
 - Initial scope is Cape Town only; discovery is not filtered by industry, company size or job title.
@@ -60,6 +63,7 @@ The restored source-of-truth and repository guidance establish:
 ## 6. Verification and limitations
 
 **Checks performed:**
+
 - GitHub branch/tree/file retrieval across `main`, `dev`, `research`, `setup/backend-prototype`, and `feature/cape-town-greenhouse-workday-api`.
 - Source inspection of `backend/function_app.py`, `backend/requirements.txt`, and repository guidance.
 - Attempted `git clone https://github.com/Msekeli/thungatha-scout.git /tmp/thungatha-scout`; it failed because this environment could not resolve `github.com`.
