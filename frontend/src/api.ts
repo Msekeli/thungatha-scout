@@ -25,7 +25,7 @@ export type EmployerSource = {
   permission_status: string;
 };
 
-export export type Vacancy = {
+export type Vacancy = {
   id: string;
   employer_id: string;
   employer_name: string;
