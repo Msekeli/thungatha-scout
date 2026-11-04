@@ -821,9 +821,7 @@ export default function App() {
                   </div>
                   <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
                     <div>
-                      <h4 className="mb-2 text-sm font-bold text-primary">
-                        Extracted description
-                      </h4>
+                      <h4 className="mb-2 text-sm font-bold text-primary">Extracted description</h4>
                       {selectedVacancy.description ? (
                         <iframe
                           className="h-[min(42vh,500px)] min-h-[280px] w-full rounded-lg border border-border bg-card"
