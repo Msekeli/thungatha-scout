@@ -1,4 +1,5 @@
 export default {
+  darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
@@ -45,6 +46,8 @@ export default {
         },
         scout: {
           navy: "var(--scout-navy-2)",
+          "navy-light": "var(--scout-navy-3)",
+          "navy-muted": "var(--scout-navy-muted)",
           cyan: "var(--scout-cyan)",
         },
         border: "hsl(var(--border))",
