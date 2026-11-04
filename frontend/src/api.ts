@@ -25,6 +25,7 @@ export type EmployerSource = {
   normalized_url: string;
   status: string;
   permission_status: string;
+  relationship_evidence?: Array<{ evidence_url?: string | null; decision_reason?: string | null; recorded_at?: string | null }>;
 };
 
 export type Vacancy = {
