@@ -22,20 +22,11 @@
     --input: 214 25% 87%;
     --ring: 190 68% 48%;
 
-    /* Scout dark surfaces and brand accents */
-    --scout-navy: #071b35;
+    /* Scout brand accents */
     --scout-navy-2: #102b4d;
-    --scout-navy-3: #17395e;
     --scout-cyan: #27c2d6;
-    --scout-on-dark: #f8fafc;
-    --scout-on-dark-muted: #c8d8ea;
 
     /* Semantic UI colours */
-    --surface-subtle: #f8fafc;
-    --surface-hover: #f1f5f9;
-    --border-subtle: #e2e8f0;
-    --text-muted: #64748b;
-    --text-subtle: #8290a2;
     --success-surface: #eef8f1;
     --success-text: #25653b;
     --warning-surface: #fff4df;
