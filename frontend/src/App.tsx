@@ -116,9 +116,13 @@ export default function App() {
         source_url: sourceUrl,
         normalized_url: sourceUrl,
         employer_careers_url: selected.website_url ?? null,
+        adapter_config: adapter === "greenhouse"
+          ? { slug: greenhouseInspection?.board_token }
+          : {},
       });
       setSources((current) => [...current, created]);
       setSourceUrl("");
+      setGreenhouseInspection(null);
       setNotice("Source added. Verification and permission remain pending.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not add source.");
@@ -205,9 +209,24 @@ export default function App() {
                   </select>
                 </label>
                 <label>Careers / board URL
-                  <input type="url" value={sourceUrl} onChange={(event) => setSourceUrl(event.target.value)} placeholder="https://…" required />
+                  <input type="url" value={sourceUrl} onChange={(event) => { setSourceUrl(event.target.value); setGreenhouseInspection(null); }} placeholder="https://…" required />
                 </label>
-                <button className="button primary" disabled={saving}>{saving ? "Saving…" : "Add source"}</button>
+                {adapter === "greenhouse" && (
+                  <button className="button secondary" type="button" onClick={() => void inspectGreenhouse()} disabled={inspecting || !sourceUrl.trim()}>
+                    {inspecting ? "Inspecting board…" : "Inspect Greenhouse board"}
+                  </button>
+                )}
+                {greenhouseInspection && (
+                  <div className="inspection-preview">
+                    <strong>{greenhouseInspection.board_name ?? greenhouseInspection.board_token}</strong>
+                    <span>{greenhouseInspection.outcome} · {greenhouseInspection.jobs.length} jobs · {greenhouseInspection.pages_fetched} page(s)</span>
+                    {greenhouseInspection.jobs.slice(0, 5).map((job) => (
+                      <a key={job.id} href={job.absolute_url} target="_blank" rel="noreferrer">{job.title}</a>
+                    ))}
+                    {!greenhouseInspection.complete && <small>Inventory is incomplete. Do not use this result for lifecycle reconciliation.</small>}
+                  </div>
+                )}
+                <button className="button primary" disabled={saving || (adapter === "greenhouse" && (!greenhouseInspection || !greenhouseInspection.complete || !["success", "empty"].includes(greenhouseInspection.outcome)))}>{saving ? "Saving…" : "Add source"}</button>
               </form>
             </>
           ) : (
