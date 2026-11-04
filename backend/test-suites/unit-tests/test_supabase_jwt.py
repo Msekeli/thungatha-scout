@@ -1,4 +1,5 @@
 import asyncio
+from datetime import UTC
 
 import jwt
 import pytest
@@ -76,7 +77,7 @@ def test_asymmetric_token_is_verified_against_project_claims(monkeypatch) -> Non
 
 
 def test_asymmetric_token_rejects_wrong_issuer(monkeypatch) -> None:
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
     from types import SimpleNamespace
 
     from cryptography.hazmat.primitives.asymmetric import ec
@@ -85,7 +86,7 @@ def test_asymmetric_token_rejects_wrong_issuer(monkeypatch) -> None:
     from scout.supabase_jwt import verify_asymmetric_access_token
 
     private_key = ec.generate_private_key(ec.SECP256R1())
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     token = jwt.encode(
         {
             "sub": "user-123",
