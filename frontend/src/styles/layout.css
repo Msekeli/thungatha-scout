@@ -4,18 +4,18 @@ main > header {
   margin: -16px -32px 0;
   padding: 18px 32px 16px;
   border: 0;
-  background: linear-gradient(112deg, var(--scout-navy), #12365c);
-  color: #fff;
+  background: linear-gradient(112deg, var(--scout-navy), var(--scout-navy-2));
+  color: var(--scout-on-dark);
   box-shadow: 0 5px 18px #071b3526;
 }
 
 main > header h1,
 main > header h2 {
-  color: #fff !important;
+  color: var(--scout-on-dark) !important;
 }
 
 main > header p {
-  color: #c8d8ea !important;
+  color: var(--scout-on-dark-muted) !important;
 }
 
 main > header nav button {
@@ -24,17 +24,17 @@ main > header nav button {
 
 main > header nav button:hover {
   background: #ffffff18 !important;
-  color: #fff !important;
+  color: var(--scout-on-dark) !important;
 }
 
 main > header nav button.active {
-  background: #fff !important;
+  background: var(--scout-on-dark) !important;
   color: var(--scout-navy) !important;
 }
 
 .eyebrow {
   margin: 0 0 8px;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -43,9 +43,9 @@ main > header nav button.active {
 .surface {
   min-width: 0;
   padding: 20px;
-  border: 1px solid #d8e1ec;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: #fff;
+  background: hsl(var(--card));
   box-shadow: 0 5px 18px #102b4d0b;
 }
 
@@ -61,13 +61,13 @@ main > header nav button.active {
   display: grid;
   gap: 6px;
   padding: 30px 12px;
-  color: #6b7789;
+  color: var(--text-muted);
   text-align: center;
   font-size: 12px;
 }
 
 .empty strong {
-  color: #344054;
+  color: hsl(var(--foreground));
 }
 
 .empty.large {
@@ -90,17 +90,17 @@ main > header nav button.active {
 
 .button.primary {
   background: var(--scout-navy-2);
-  color: #fff;
+  color: var(--scout-on-dark);
 }
 
 .button.primary:hover {
-  background: #1b4776;
+  background: var(--scout-navy-3);
 }
 
 .button.secondary {
-  border: 1px solid #dce3ec;
-  background: #fff;
-  color: #526174;
+  border: 1px solid var(--border);
+  background: hsl(var(--card));
+  color: hsl(var(--muted-foreground));
 }
 
 .alert {
@@ -111,18 +111,18 @@ main > header nav button.active {
 }
 
 .alert.error {
-  background: #fff0f0;
-  color: #a33131;
+  background: var(--danger-surface);
+  color: var(--danger-text);
 }
 
 .alert.success {
-  background: #eef8f1;
-  color: #25653b;
+  background: var(--success-surface);
+  color: var(--success-text);
 }
 
 footer {
   padding-top: 22px;
-  color: #8a95a5;
+  color: var(--text-subtle);
   font-size: 10px;
 }
 
