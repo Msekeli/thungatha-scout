@@ -24,27 +24,30 @@ export default function App() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
-  const loadEmployers = useCallback(async () => {
+  const loadEmployers = useCallback(async (selectedEmployerId?: string) => {
     setLoading(true);
     setError("");
     try {
       const result = await scoutApi.listEmployers();
       setEmployers(result);
-      if (selected) {
-        const refreshed = result.find((item) => item.id === selected.id) ?? null;
+      if (selectedEmployerId) {
+        const refreshed =
+          result.find((item) => item.id === selectedEmployerId) ?? null;
         setSelected(refreshed);
-        if (refreshed) setSources(await scoutApi.listSources(refreshed.id));
+        setSources(
+          refreshed ? await scoutApi.listSources(refreshed.id) : [],
+        );
       }
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load employers.");
     } finally {
       setLoading(false);
     }
-  }, [selected]);
+  }, []);
 
   useEffect(() => {
     void loadEmployers();
-  }, []);
+  }, [loadEmployers]);
 
   async function createEmployer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -131,7 +134,7 @@ export default function App() {
         <section className="surface registry">
           <div className="section-heading">
             <div><p className="eyebrow">REGISTRY</p><h3>Employers</h3></div>
-            <button className="button secondary" onClick={() => void loadEmployers()}>Refresh</button>
+            <button className="button secondary" onClick={() => void loadEmployers(selected?.id)}>Refresh</button>
           </div>
           {loading ? <p className="muted">Loading registry…</p> : employers.length === 0 ? (
             <div className="empty"><strong>No employers yet</strong><span>Add your first employer using the form.</span></div>
