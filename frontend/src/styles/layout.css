@@ -69,7 +69,6 @@
   color: hsl(var(--muted-foreground));
 }
 
-
 @media (max-width: 760px) {
   main > header {
     margin: -16px -16px 0;
