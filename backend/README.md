@@ -18,16 +18,14 @@ cp .env.example .env
 Edit `.env` and set:
 
 - `SCOUT_DATABASE_URL` to the dedicated Scout Supabase Transaction Pooler URI.
-- `SCOUT_SUPABASE_URL` to the same Scout Supabase project URL.
-- `SCOUT_SUPABASE_PUBLISHABLE_KEY` to that project's publishable key.
-- `SCOUT_ADMIN_EMAIL` to the single administrator email allowed to use Scout.
+Authentication is intentionally deferred during the initial functional
+application build. Only the dedicated Scout database URL is required for the
+current local registry workflow. Do not expose this unauthenticated development
+API to the public internet. Authentication will be restored before deployment
+or external access.
 
 Keep passwords and keys in `.env`; never put real values in `.env.example`
 or commit them. Do not use the Thungatha destination project's URL or keys here.
-The publishable key is not a service-role key. In the Scout Supabase Auth
-settings, disable public sign-ups and require email confirmation for the
-configured administrator account. The backend allowlist remains mandatory
-even when those dashboard controls are enabled.
 
 ## Database migrations
 
@@ -63,17 +61,20 @@ SCOUT_RUN_DATABASE_INTEGRATION_TESTS=true pytest test-suites/integration-tests
 The integration test applies pending migrations before testing employer/source
 persistence. Do not enable it against the Thungatha destination project.
 
-## API authentication
+## Registry API
 
-Protected FastAPI routes must declare the `require_admin` dependency from
-`scout.authentication`. It verifies Supabase user access tokens and enforces
-the configured administrator email. The health route is intentionally public.
-Do not expose service-role credentials to the browser.
+The current local admin workflow exposes these endpoints without authentication
+while the functional application is being built:
 
-Asymmetric ES256/RS256 tokens are verified against Supabase JWKS. Legacy HS256
-tokens are validated by the Supabase Auth user endpoint. The latter requires
-the publishable key and a bounded Auth request.
+- `GET /api/v1/employers` — list employers (supports `limit` and `offset`).
+- `POST /api/v1/employers` — register an employer.
+- `GET /api/v1/employers/{id}` — read an employer.
+- `GET /api/v1/employers/{id}/sources` — list its ATS sources.
+- `POST /api/v1/employers/{id}/sources` — register a Greenhouse or Workday source.
 
+New employers and sources are stored as discovered; callers cannot set approval
+or permission states. This API is for local development only until authentication
+is reinstated.
 ## API
 
 ```bash
