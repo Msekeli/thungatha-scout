@@ -64,3 +64,19 @@ class EmployerRepository:
             """,
             (logo_url, logo_source_url, employer_id),
         ).fetchone()
+
+    def update_status(self, employer_id: UUID, status: str) -> dict[str, Any] | None:
+        return self._connection.execute(
+            """
+            UPDATE employers SET status = %s, updated_at = NOW()
+            WHERE id = %s RETURNING *
+            """,
+            (status, employer_id),
+        ).fetchone()
+
+    def delete(self, employer_id: UUID) -> bool:
+        cursor = self._connection.execute(
+            "DELETE FROM employers WHERE id = %s",
+            (employer_id,),
+        )
+        return cursor.rowcount > 0
