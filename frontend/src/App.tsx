@@ -1,6 +1,4 @@
-import { useCallback, useState } from "react";
 import type { FormEvent } from "react";
-import type { EmployerSource } from "./api";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
@@ -15,38 +13,19 @@ import { useScoutWorkspace } from "./useScoutWorkspace";
 import { useScoutDashboardMetrics } from "./useScoutDashboardMetrics";
 import { useVacancyFetching } from "./useVacancyFetching";
 import { useCareersDiscovery } from "./employer-onboarding/useCareersDiscovery";
+import { emptyEmployer, useScoutAppState } from "./app-shell/useScoutAppState";
 import { useEmployerRegistration } from "./employer-onboarding/useEmployerRegistration";
 
-type Page = "jobs" | "companies" | "add-company";
-
-const emptyEmployer = {
-  name: "",
-  website_url: "",
-  organization_type: "unresolved",
-  city: "Cape Town",
-  province: "Western Cape",
-  country: "South Africa",
-};
-
 export default function App() {
-  const [page, setPage] = useState<Page>("jobs");
-  const [showArchived, setShowArchived] = useState(false);
-  const [reviewFilter, setReviewFilter] = useState("all");
-  const [logoUrl, setLogoUrl] = useState("");
-  const [logoSourceUrl, setLogoSourceUrl] = useState("");
-  const [companyQuery, setCompanyQuery] = useState("");
-  const [companyStatusFilter, setCompanyStatusFilter] = useState("all");
-  const [selectedEmployerId, setSelectedEmployerId] = useState("all");
-  const [sources, setSources] = useState<EmployerSource[]>([]);
-  const [form, setForm] = useState(emptyEmployer);
-  const [sourceUrl, setSourceUrl] = useState("");
-  const [editingSourceId, setEditingSourceId] = useState<string | null>(null);
-  const [extracting, setExtracting] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
-  const dismissError = useCallback(() => setError(""), []);
-  const dismissNotice = useCallback(() => setNotice(""), []);
+  const {
+    page, setPage, showArchived, setShowArchived, reviewFilter, setReviewFilter,
+    logoUrl, setLogoUrl, logoSourceUrl, setLogoSourceUrl, companyQuery, setCompanyQuery,
+    companyStatusFilter, setCompanyStatusFilter, selectedEmployerId, setSelectedEmployerId,
+    sources, setSources, form, setForm, sourceUrl, setSourceUrl, editingSourceId,
+    setEditingSourceId, extracting, setExtracting, saving, setSaving, error, setError,
+    notice, setNotice, dismissError, dismissNotice,
+  } = useScoutAppState();
+
   const {
     discovery,
     setDiscovery,
