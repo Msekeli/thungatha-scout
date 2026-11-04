@@ -18,6 +18,7 @@ export default function App() {
   const [page, setPage] = useState<Page>("jobs");
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
+  const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
   const [extractionRuns, setExtractionRuns] = useState<Record<string, ExtractionRun[]>>({});
@@ -294,7 +295,7 @@ export default function App() {
                   <tbody>
                     {filteredVacancies.map((vacancy) => (
                       <tr key={vacancy.id}>
-                        <td><strong>{vacancy.title}</strong>{vacancy.department && <small>{vacancy.department}</small>}</td>
+                        <td><button className="text-link vacancy-title" onClick={() => setSelectedVacancy(vacancy)}>{vacancy.title}</button>{vacancy.department && <small>{vacancy.department}</small>}</td>
                         <td><button className="text-link" onClick={() => { const employer = employers.find((item) => item.id === vacancy.employer_id); if (employer) void openCompany(employer); }}>{vacancy.employer_name}</button></td>
                         <td>{vacancy.location_text || "Not specified"}</td>
                         <td>{new Date(vacancy.last_seen_at).toLocaleDateString()}</td>
@@ -306,6 +307,40 @@ export default function App() {
               </div>
             )}
           </section>
+          {selectedVacancy && (
+            <section className="surface vacancy-detail">
+              <div className="section-heading">
+                <div><p className="eyebrow">EXTRACTED VACANCY</p><h3>{selectedVacancy.title}</h3><p className="muted">{selectedVacancy.employer_name} · {selectedVacancy.location_text || "Location not specified"}</p></div>
+                <button className="button secondary" onClick={() => setSelectedVacancy(null)}>Close</button>
+              </div>
+              <div className="detail-links">
+                <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">Source board ↗</a>
+                <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Application page ↗</a>
+              </div>
+              <div className="detail-grid">
+                <div>
+                  <h4>Full job description</h4>
+                  {selectedVacancy.description ? (
+                    <iframe className="description-frame" title={`Description for ${selectedVacancy.title}`} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#315b9a}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + selectedVacancy.description + "</body></html>"} />
+                  ) : <p className="empty">Greenhouse did not return description content for this vacancy.</p>}
+                </div>
+                <div>
+                  <h4>Thungatha payload preview</h4>
+                  <p className="muted">Draft mapping for inspection only. Nothing is published from this screen.</p>
+                  <pre className="payload-preview">{JSON.stringify({
+                    title: selectedVacancy.title,
+                    company: selectedVacancy.employer_name,
+                    location: selectedVacancy.location_text,
+                    description: selectedVacancy.description,
+                    application_url: selectedVacancy.application_url,
+                    source_url: selectedVacancy.source_url,
+                    department: selectedVacancy.department,
+                    office: selectedVacancy.office,
+                  }, null, 2)}</pre>
+                </div>
+              </div>
+            </section>
+          )}
         </>
       )}
 
