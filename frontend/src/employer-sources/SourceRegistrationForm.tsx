@@ -1,13 +1,15 @@
 import type { FC, FormEvent } from "react";
-import type { GreenhouseInspection } from "../shared-contracts/discovery-contracts";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import type { GreenhouseInspection } from "../api";
 
 type SourceRegistrationFormProps = {
   editingSourceId: string | null;
   sourceUrl: string;
-  onChangeSourceUrl: (val: string) => void;
+  onChangeSourceUrl: (value: string) => void;
   onInspect: () => void;
   inspection: GreenhouseInspection | null;
-  onSaveSource: (event: FormEvent) => void;
+  onSaveSource: (event: FormEvent<HTMLFormElement>) => void;
   onCancelEdit: () => void;
   inspecting: boolean;
   saving: boolean;
@@ -31,11 +33,16 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
     ["success", "empty"].includes(inspection.outcome);
 
   return (
-    <form className="source-form" onSubmit={onSaveSource}>
-      <h4>{editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}</h4>
-      <label>
+    <form
+      className="mt-5 grid gap-3 rounded-lg border border-border bg-muted/50 p-4"
+      onSubmit={onSaveSource}
+    >
+      <h4 className="text-sm font-semibold text-foreground">
+        {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
+      </h4>
+      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
         Official careers / job board URL
-        <input
+        <Input
           type="url"
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
@@ -43,34 +50,34 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
           required
         />
       </label>
-      <button
+      <Button
         type="button"
-        className="button secondary"
+        size="sm"
+        variant="outline"
+        className="w-fit"
         onClick={onInspect}
         disabled={inspecting || !sourceUrl.trim()}
       >
         {inspecting ? "Checking source…" : "Check Greenhouse source"}
-      </button>
-
+      </Button>
       {inspection && (
-        <div className="inspection-preview">
-          <strong>{inspection.board_name || inspection.board_token}</strong>
-          <span>
+        <div className="grid gap-1 rounded-lg border border-border bg-card p-3 text-xs">
+          <strong className="text-foreground">{inspection.board_name || inspection.board_token}</strong>
+          <span className="text-muted-foreground">
             {inspection.outcome} · {inspection.jobs.length} sample jobs
           </span>
-          {inspection.detail && <small>{inspection.detail}</small>}
+          {inspection.detail && <small className="text-muted-foreground">{inspection.detail}</small>}
         </div>
       )}
-
-      <div className="form-actions">
+      <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
         {editingSourceId && (
-          <button type="button" className="button secondary" onClick={onCancelEdit}>
+          <Button type="button" size="sm" variant="outline" onClick={onCancelEdit}>
             Cancel edit
-          </button>
+          </Button>
         )}
-        <button className="button primary" disabled={!canSave}>
+        <Button type="submit" size="sm" disabled={!canSave}>
           {saving ? "Saving…" : editingSourceId ? "Update source" : "Save source"}
-        </button>
+        </Button>
       </div>
     </form>
   );
