@@ -21,6 +21,7 @@ import type {
 import { Badge } from "@/components/ui/badge";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
+import { decodeGreenhouseContent } from "./job-management/html-content-decoder";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -49,16 +50,6 @@ const reviewLabel = (status: Vacancy["review_status"]) =>
     rejected: "Rejected",
   })[status];
 
-function decodeGreenhouseContent(value: string): string {
-  const decoder = document.createElement("textarea");
-  let decoded = value;
-  for (let pass = 0; pass < 2; pass += 1) {
-    decoder.innerHTML = decoded;
-    if (decoder.value === decoded) break;
-    decoded = decoder.value;
-  }
-  return decoded;
-}
 
 export default function App() {
   const [page, setPage] = useState<Page>("jobs");
