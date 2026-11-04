@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Activity, BriefcaseBusiness, Building2, CheckCircle2, CircleAlert, Database, RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
+import { Activity, BriefcaseBusiness, Building2, CircleAlert, Radar, RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, CareersDiscovery, Vacancy } from "./api";
@@ -46,6 +46,7 @@ export default function App() {
   const [vacancySaving, setVacancySaving] = useState(false);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
+  const [dashboardSources, setDashboardSources] = useState<EmployerSource[]>([]);
   const [extractionRuns, setExtractionRuns] = useState<Record<string, ExtractionRun[]>>({});
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
@@ -65,11 +66,11 @@ export default function App() {
   const newVacancies24h = vacancies.filter((item) => item.first_seen_at && Date.now() - new Date(item.first_seen_at).getTime() < 86400000).length;
   const attentionCount = vacancies.filter((item) => item.review_status === "pending" || item.review_status === "needs_verification").length;
   const atsPerformance = useMemo(() => ["greenhouse", "workday"].map((adapter) => {
-    const adapterSources = sources.filter((source) => source.adapter_key === adapter);
+    const adapterSources = dashboardSources.filter((source) => source.adapter_key === adapter);
     const runs = adapterSources.flatMap((source) => extractionRuns[source.id] ?? []);
     const latest = runs.sort((a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime())[0];
     return { adapter, sourceCount: adapterSources.length, verified: adapterSources.filter((source) => source.status === "verified" && source.permission_status === "allowed").length, jobCount: vacancies.filter((job) => adapterSources.some((source) => source.id === job.source_id)).length, latest, failed: runs.filter((run) => !["success", "empty"].includes(run.outcome)).length };
-  }), [sources, extractionRuns, vacancies]);
+  }), [dashboardSources, extractionRuns, vacancies]);
   const filteredVacancies = useMemo(
     () => selectedEmployerId === "all"
       ? visibleVacancies
@@ -91,7 +92,7 @@ export default function App() {
       setArchivedVacancies(nextArchived);
       const sourceGroups = await Promise.all(nextEmployers.map(async (employer) => ({ employer, sources: await scoutApi.listSources(employer.id) })));
       const allSources = sourceGroups.flatMap((group) => group.sources);
-      setSources(allSources);
+      setDashboardSources(allSources);
       const runEntries = await Promise.all(allSources.map(async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const));
       setExtractionRuns(Object.fromEntries(runEntries));
     } catch (reason) {
@@ -407,7 +408,7 @@ export default function App() {
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
       <header className="flex items-center justify-between border-b pb-4">
         <div className="flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#0b1426] text-cyan-300 shadow-lg shadow-slate-900/20"><Sparkles className="h-6 w-6" /></span>
+          <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#0b1426] text-cyan-300 shadow-lg shadow-slate-900/20"><Radar className="h-6 w-6" /></span>
           <div><p className="mb-1 text-[10px] font-bold tracking-[.2em] text-slate-500">THUNGATHA / OPERATIONS</p><h1 className="text-xl font-bold tracking-tight text-[#0b1426]">Scout <span className="text-cyan-600">/</span> Control Centre</h1></div>
         </div>
         <span className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-[10px] font-bold tracking-wider text-[#16456b]">PRIVATE ADMIN</span>
