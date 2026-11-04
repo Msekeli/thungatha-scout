@@ -47,24 +47,39 @@ class GreenhouseExtractionService:
         finally:
             await adapter.close()
 
-        with self._connection_factory() as connection, connection.transaction():
-            inserted = updated = 0
-            if result.jobs:
-                inserted, updated = VacancyRepository(connection).upsert_batch(
-                    source["employer_id"],
-                    source_id,
-                    source["source_url"],
-                    result.jobs,
+        try:
+            with self._connection_factory() as connection, connection.transaction():
+                inserted = updated = 0
+                if result.jobs:
+                    inserted, updated = VacancyRepository(connection).upsert_batch(
+                        source["employer_id"],
+                        source_id,
+                        source["source_url"],
+                        result.jobs,
+                    )
+                return ExtractionRunRepository(connection).finish(
+                    run_id=run_id,
+                    outcome=result.outcome,
+                    received=len(result.jobs),
+                    inserted=inserted,
+                    updated=updated,
+                    complete=result.complete,
+                    detail=result.detail,
                 )
-            return ExtractionRunRepository(connection).finish(
-                run_id=run_id,
-                outcome=result.outcome,
-                received=len(result.jobs),
-                inserted=inserted,
-                updated=updated,
-                complete=result.complete,
-                detail=result.detail,
+        except Exception as exception:
+            detail = (
+                f"Persistence failed ({type(exception).__name__}): {exception}"
             )
+            with self._connection_factory() as connection, connection.transaction():
+                return ExtractionRunRepository(connection).finish(
+                    run_id=run_id,
+                    outcome="persistence_failure",
+                    received=len(result.jobs),
+                    inserted=0,
+                    updated=0,
+                    complete=False,
+                    detail=detail,
+                )
 
     def list_extraction_runs(self, source_id: UUID) -> list[dict[str, Any]]:
         with self._connection_factory() as connection:
