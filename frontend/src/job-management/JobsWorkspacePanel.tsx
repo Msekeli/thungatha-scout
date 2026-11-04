@@ -70,15 +70,15 @@ export function JobsWorkspacePanel({
 }: JobsWorkspacePanelProps) {
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-scout-navy bg-scout-navy px-4 py-2.5 shadow-sm">
-        <span className="text-[10px] font-medium text-white/70">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/80 bg-card px-4 py-2.5 text-card-foreground shadow-lg shadow-black/20">
+        <span className="text-[10px] font-medium text-muted-foreground">
           {loading ? "Refreshing data…" : "Updated from Scout records"}
         </span>
         <div className="flex gap-2">
           <Button
             variant="outline"
             size="sm"
-            className="h-8 border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+            className="h-8 border-input bg-background text-primary hover:bg-accent hover:text-accent-foreground"
             onClick={onRefresh}
             disabled={loading || extracting}
           >
