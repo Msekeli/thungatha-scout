@@ -1,3 +1,5 @@
+import { Alert } from "@/components/ui/alert";
+
 type OperationalAlertsProps = {
   error?: string | null;
   notice?: string | null;
@@ -9,20 +11,14 @@ export function OperationalAlerts({ error, notice }: OperationalAlertsProps) {
   return (
     <div className="space-y-2 pt-3" aria-live="polite">
       {error && (
-        <div
-          className="rounded-md border border-border bg-[var(--danger-surface)] px-3 py-2.5 text-sm text-[var(--danger-text)]"
-          role="alert"
-        >
+        <Alert variant="destructive">
           {error}
-        </div>
+        </Alert>
       )}
       {notice && (
-        <div
-          className="rounded-md border border-border bg-[var(--success-surface)] px-3 py-2.5 text-sm text-[var(--success-text)]"
-          role="status"
-        >
+        <Alert variant="success" role="status">
           {notice}
-        </div>
+        </Alert>
       )}
     </div>
   );
