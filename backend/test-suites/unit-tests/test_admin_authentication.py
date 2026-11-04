@@ -8,7 +8,8 @@ from scout.settings import Settings, get_settings
 def create_test_client(settings: Settings) -> TestClient:
     test_app = FastAPI()
     test_app.dependency_overrides[get_settings] = lambda: settings
-    def protected(claims=Depends(require_admin)) -> dict[str, str]:
+
+    def protected(claims: dict = Depends(require_admin)) -> dict[str, str]:
         return {"subject": claims["sub"]}
 
     test_app.add_api_route("/protected", protected)
