@@ -54,7 +54,7 @@ export function VacancyRecordsToolbar({
       <Select value={reviewFilter} onValueChange={onReviewFilterChange}>
         <SelectTrigger
           aria-label="Filter vacancies by review state"
-          className="h-8 w-[145px] border-white/20 bg-white text-xs text-scout-navy"
+          className="h-8 w-[145px] border-input bg-background text-xs text-foreground"
         >
           <SelectValue />
         </SelectTrigger>
@@ -69,7 +69,7 @@ export function VacancyRecordsToolbar({
       <Select value={selectedEmployerId} onValueChange={onEmployerChange}>
         <SelectTrigger
           aria-label="Filter vacancies by company"
-          className="h-8 w-[140px] border-white/20 bg-white text-xs text-scout-navy"
+          className="h-8 w-[140px] border-input bg-background text-xs text-foreground"
         >
           <SelectValue placeholder="All companies" />
         </SelectTrigger>
