@@ -29,7 +29,11 @@ export default function App() {
   const [page, setPage] = useState<Page>("jobs");
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
+  const [archivedVacancies, setArchivedVacancies] = useState<Vacancy[]>([]);
+  const [showArchived, setShowArchived] = useState(false);
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+  const [reviewReason, setReviewReason] = useState("");
+  const [vacancySaving, setVacancySaving] = useState(false);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
   const [extractionRuns, setExtractionRuns] = useState<Record<string, ExtractionRun[]>>({});
@@ -47,23 +51,26 @@ export default function App() {
   const [notice, setNotice] = useState("");
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
+  const visibleVacancies = showArchived ? archivedVacancies : vacancies;
   const filteredVacancies = useMemo(
     () => selectedEmployerId === "all"
-      ? vacancies
-      : vacancies.filter((item) => item.employer_id === selectedEmployerId),
-    [vacancies, selectedEmployerId],
+      ? visibleVacancies
+      : visibleVacancies.filter((item) => item.employer_id === selectedEmployerId),
+    [visibleVacancies, selectedEmployerId],
   );
 
   const loadWorkspace = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
-      const [nextEmployers, nextVacancies] = await Promise.all([
+      const [nextEmployers, nextVacancies, nextArchived] = await Promise.all([
         scoutApi.listEmployers(),
         scoutApi.listVacancies(),
+        scoutApi.listArchivedVacancies(),
       ]);
       setEmployers(nextEmployers);
       setVacancies(nextVacancies);
+      setArchivedVacancies(nextArchived);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load Scout data.");
     } finally {
@@ -145,6 +152,71 @@ export default function App() {
       setError(reason instanceof Error ? reason.message : "Could not extract jobs.");
     } finally {
       setExtracting(false);
+    }
+  }
+
+  async function openVacancy(vacancyId: string) {
+    setError("");
+    try {
+      const vacancy = await scoutApi.getVacancy(vacancyId);
+      setSelectedVacancy(vacancy);
+      setReviewReason(vacancy.review_reason ?? "");
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not load vacancy details.");
+    }
+  }
+
+  async function saveVacancyReview() {
+    if (!selectedVacancy) return;
+    setVacancySaving(true);
+    setError("");
+    try {
+      const updated = await scoutApi.updateVacancyReview(
+        selectedVacancy.id,
+        selectedVacancy.review_status,
+        reviewReason,
+      );
+      setSelectedVacancy(updated);
+      setVacancies((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setNotice("Vacancy review status saved.");
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not update vacancy review.");
+    } finally {
+      setVacancySaving(false);
+    }
+  }
+
+  async function archiveSelectedVacancy() {
+    if (!selectedVacancy) return;
+    const reason = window.prompt("Why are you archiving this vacancy?") ?? "";
+    if (!reason.trim()) return;
+    setVacancySaving(true);
+    setError("");
+    try {
+      await scoutApi.archiveVacancy(selectedVacancy.id, reason);
+      setSelectedVacancy(null);
+      await loadWorkspace();
+      setNotice("Vacancy archived. It remains available in the Archived jobs view.");
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not archive vacancy.");
+    } finally {
+      setVacancySaving(false);
+    }
+  }
+
+  async function restoreSelectedVacancy() {
+    if (!selectedVacancy) return;
+    setVacancySaving(true);
+    setError("");
+    try {
+      await scoutApi.restoreVacancy(selectedVacancy.id);
+      setSelectedVacancy(null);
+      await loadWorkspace();
+      setNotice("Vacancy restored to the active jobs list.");
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not restore vacancy.");
+    } finally {
+      setVacancySaving(false);
     }
   }
 
@@ -290,7 +362,11 @@ export default function App() {
           </section>
           <section className="surface jobs-panel">
             <div className="jobs-toolbar">
-              <div><h3>All vacancies</h3><p className="muted">Select a company to narrow the list.</p></div>
+              <div><h3>{showArchived ? "Archived vacancies" : "All vacancies"}</h3><p className="muted">Select a company to narrow the list.</p></div>
+              <select aria-label="Filter active or archived jobs" value={showArchived ? "archived" : "active"} onChange={(event) => { setShowArchived(event.target.value === "archived"); setSelectedVacancy(null); }}>
+                <option value="active">Active jobs</option>
+                <option value="archived">Archived jobs</option>
+              </select>
               <select aria-label="Filter jobs by company" value={selectedEmployerId} onChange={(event) => setSelectedEmployerId(event.target.value)}>
                 <option value="all">All companies</option>
                 {employers.map((employer) => <option key={employer.id} value={employer.id}>{employer.name}</option>)}
@@ -306,11 +382,15 @@ export default function App() {
                   <tbody>
                     {filteredVacancies.map((vacancy) => (
                       <tr key={vacancy.id}>
-                        <td><button className="text-link vacancy-title" onClick={() => setSelectedVacancy(vacancy)}>{vacancy.title}</button>{vacancy.department && <small>{vacancy.department}</small>}</td>
+                        <td><button className="text-link vacancy-title" onClick={() => void openVacancy(vacancy.id)}>{vacancy.title}</button>{vacancy.department && <small>{vacancy.department}</small>}</td>
                         <td><button className="text-link" onClick={() => { const employer = employers.find((item) => item.id === vacancy.employer_id); if (employer) void openCompany(employer); }}>{vacancy.employer_name}</button></td>
                         <td>{vacancy.location_text || "Not specified"}</td>
                         <td>{new Date(vacancy.last_seen_at).toLocaleDateString()}</td>
-                        <td><a href={vacancy.application_url} target="_blank" rel="noreferrer">View job ↗</a></td>
+                        <td className="vacancy-actions">
+                          <button className="text-link" onClick={() => void openVacancy(vacancy.id)}>View details</button>
+                          <a href={vacancy.source_url} target="_blank" rel="noreferrer">Original ↗</a>
+                          <a href={vacancy.application_url} target="_blank" rel="noreferrer">Apply ↗</a>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -321,12 +401,35 @@ export default function App() {
           {selectedVacancy && (
             <section className="surface vacancy-detail">
               <div className="section-heading">
-                <div><p className="eyebrow">EXTRACTED VACANCY</p><h3>{selectedVacancy.title}</h3><p className="muted">{selectedVacancy.employer_name} · {selectedVacancy.location_text || "Location not specified"}</p></div>
+                <div className="vacancy-identity">
+                  {selectedVacancy.employer_logo_url
+                    ? <img className="employer-logo" src={selectedVacancy.employer_logo_url} alt={selectedVacancy.employer_name + " logo"} />
+                    : <span className="employer-avatar">{selectedVacancy.employer_name.slice(0, 1).toUpperCase()}</span>}
+                  <div><p className="eyebrow">VACANCY DETAILS</p><h3>{selectedVacancy.title}</h3><p className="muted">{selectedVacancy.employer_name} · {selectedVacancy.location_text || "Location not specified"}</p></div>
+                </div>
                 <button className="button secondary" onClick={() => setSelectedVacancy(null)}>Close</button>
               </div>
               <div className="detail-links">
-                <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">Source board ↗</a>
-                <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Application page ↗</a>
+                <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">View original job ↗</a>
+                <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Apply ↗</a>
+              </div>
+              <div className="vacancy-review">
+                <div><label>Review status
+                  <select value={selectedVacancy.review_status} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setSelectedVacancy({ ...selectedVacancy, review_status: event.target.value as Vacancy["review_status"] })}>
+                    <option value="pending">Pending</option>
+                    <option value="needs_verification">Needs verification</option>
+                    <option value="verified">Verified</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </label></div>
+                <div><label>Review reason / notes
+                  <input value={reviewReason} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setReviewReason(event.target.value)} placeholder="Explain what needs checking…" />
+                </label></div>
+                <div className="review-actions">
+                  {!selectedVacancy.archived_at
+                    ? <><button className="button primary" onClick={() => void saveVacancyReview()} disabled={vacancySaving}>Save review</button><button className="button secondary" onClick={() => void archiveSelectedVacancy()} disabled={vacancySaving}>Archive vacancy</button></>
+                    : <button className="button primary" onClick={() => void restoreSelectedVacancy()} disabled={vacancySaving}>Restore vacancy</button>}
+                </div>
               </div>
               <div className="detail-grid">
                 <div>
@@ -343,6 +446,8 @@ export default function App() {
                     company: selectedVacancy.employer_name,
                     location: selectedVacancy.location_text,
                     description: selectedVacancy.description ? decodeGreenhouseContent(selectedVacancy.description) : null,
+                    review_status: selectedVacancy.review_status,
+                    review_reason: selectedVacancy.review_reason,
                     application_url: selectedVacancy.application_url,
                     source_url: selectedVacancy.source_url,
                     department: selectedVacancy.department,
