@@ -63,19 +63,20 @@ persistence. Do not enable it against the Thungatha destination project.
 
 ## Import the checked-in employer registry
 
-The checked-in employer/source registry can be imported into the Scout database
+The dedicated V1 Greenhouse/Workday employer-source registry can be imported into the Scout database
 without manually recreating each record:
 
 ```bash
 python -m scout.registry_importer
 ```
 
-The import is repeat-safe: existing employer names and normalized source URLs
-are matched rather than duplicated. It imports supported Greenhouse and Workday
-sources only. Other ATS/career-site types are reported as skipped until their
-adapter is implemented.
+The importer reads only `registry/v1-supported-ats-employer-sources.json`.
+It accepts Greenhouse and Workday records only and fails if another adapter is
+added to that file. It is repeat-safe: existing employer names and normalized
+source URLs are matched rather than duplicated.
 
-Registry evidence is retained as claims, but imported employers remain
+The broader discovery registry is not used by this import command. Registry
+evidence is retained as claims, but imported employers remain
 `discovered`, imported sources remain `discovered`, and source permission
 remains `unknown`. A registry entry marked verified is not automatically
 promoted to an approved database state. Confirm employer identity, Cape Town
