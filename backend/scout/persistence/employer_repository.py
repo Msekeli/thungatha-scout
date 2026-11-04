@@ -40,3 +40,13 @@ class EmployerRepository:
             "SELECT * FROM employers WHERE id = %s",
             (employer_id,),
         ).fetchone()
+
+    def list_all(self, limit: int = 100, offset: int = 0) -> list[dict[str, Any]]:
+        return self._connection.execute(
+            """
+            SELECT * FROM employers
+            ORDER BY created_at DESC, id
+            LIMIT %s OFFSET %s
+            """,
+            (limit, offset),
+        ).fetchall()
