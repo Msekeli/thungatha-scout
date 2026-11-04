@@ -122,6 +122,11 @@ export const scoutApi = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
+  updateEmployerBranding: (employerId: string, logo_url: string, logo_source_url: string) =>
+    request<Employer>(`/api/v1/employers/${employerId}/branding`, {
+      method: "PATCH",
+      body: JSON.stringify({ logo_url: logo_url || null, logo_source_url: logo_source_url || null }),
+    }),
   listSources: (employerId: string) =>
     request<EmployerSource[]>(`/api/v1/employers/${employerId}/sources`),
   updateSource: (employerId: string, sourceId: string, payload: Record<string, unknown>) =>
