@@ -30,6 +30,7 @@ import { ExtractionRunHistory } from "./employer-sources/ExtractionRunHistory";
 import { SourceRegistrationForm } from "./employer-sources/SourceRegistrationForm";
 import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
 import { VacancyRecordList } from "./job-management/VacancyRecordList";
+import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
 import {
   Select,
   SelectContent,
@@ -645,61 +646,21 @@ export default function App() {
           </section>
           <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
             <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
-              <div className="flex flex-wrap items-center gap-2 border-b border-border bg-muted/70 p-3">
-                <h3 className="mr-auto text-sm font-bold text-primary">
-                  {showArchived ? "Archived vacancies" : "Vacancy records"}
-                </h3>
-                <Select
-                  value={showArchived ? "archived" : "active"}
-                  onValueChange={(value) => {
-                    setShowArchived(value === "archived");
-                    setSelectedVacancy(null);
-                    setSelectedVacancyId(null);
-                  }}
-                >
-                  <SelectTrigger className="h-8 w-[125px] bg-card text-xs">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="active">Active records</SelectItem>
-                    <SelectItem value="archived">Archived</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select value={reviewFilter} onValueChange={setReviewFilter}>
-                  <SelectTrigger className="h-8 w-[145px] bg-card text-xs">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All review states</SelectItem>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="needs_verification">Needs verification</SelectItem>
-                    <SelectItem value="verified">Verified</SelectItem>
-                    <SelectItem value="rejected">Rejected</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select value={selectedEmployerId} onValueChange={setSelectedEmployerId}>
-                  <SelectTrigger className="h-8 w-[140px] bg-card text-xs">
-                    <SelectValue placeholder="All companies" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All companies</SelectItem>
-                    {employers.map((employer) => (
-                      <SelectItem key={employer.id} value={employer.id}>
-                        {employer.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-8 bg-card"
-                  onClick={() => void loadWorkspace()}
-                  disabled={loading}
-                >
-                  Refresh
-                </Button>
-              </div>
+              <VacancyRecordsToolbar
+                showArchived={showArchived}
+                onShowArchivedChange={(show) => {
+                  setShowArchived(show);
+                  setSelectedVacancy(null);
+                  setSelectedVacancyId(null);
+                }}
+                reviewFilter={reviewFilter}
+                onReviewFilterChange={setReviewFilter}
+                selectedEmployerId={selectedEmployerId}
+                onEmployerChange={setSelectedEmployerId}
+                employers={employers}
+                onRefresh={() => void loadWorkspace()}
+                loading={loading}
+              />
               <VacancyRecordList
                 vacancies={filteredVacancies}
                 loading={loading}
