@@ -50,7 +50,9 @@ export function useEmployerSourceOperations({
       if (editingSourceId) {
         await scoutApi.updateSource(employer.id, editingSourceId, payload);
         setSources(await scoutApi.listSources(employer.id));
-        onNotice("Source configuration updated. Its verification and permission states were preserved.");
+        onNotice(
+          "Source configuration updated. Its verification and permission states were preserved.",
+        );
       } else {
         const created = await scoutApi.createSource(employer.id, {
           ...payload,

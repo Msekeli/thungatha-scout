@@ -298,7 +298,6 @@ export default function App() {
     }
   }
 
-
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
       <AppShellHeader
