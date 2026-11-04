@@ -40,3 +40,14 @@ class EmployerSourceUpdateService:
                 source_id,
                 values,
             )
+
+    def update_review(
+        self,
+        employer_id: UUID,
+        source_id: UUID,
+        values: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        with self._connection_factory() as connection, connection.transaction():
+            return EmployerSourceRepository(connection).update_review(
+                employer_id, source_id, values
+            )
