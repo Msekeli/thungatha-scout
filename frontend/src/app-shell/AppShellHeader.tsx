@@ -26,17 +26,17 @@ export function AppShellHeader({
 
   const navigationButtonClass = (isActive: boolean) =>
     isActive
-      ? "bg-primary-foreground text-primary hover:bg-primary-foreground/90 hover:text-primary"
-      : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground";
+      ? "bg-white text-scout-navy hover:bg-white/90 hover:text-scout-navy"
+      : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-white";
 
   return (
-    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-primary to-scout-navy px-4 py-[14px] text-primary-foreground shadow-md md:-mx-8 md:px-8">
+    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-scout-navy to-scout-navy-light px-4 py-[14px] text-white shadow-md md:-mx-8 md:px-8">
       <div className="flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-xl border border-primary-foreground/15 bg-primary-foreground/10 text-scout-cyan shadow-inner">
+        <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/10 text-scout-cyan shadow-inner">
           <Radar className="h-6 w-6" />
         </span>
         <div>
-          <p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-primary-foreground/65">
+          <p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-white/65">
             THUNGATHA / OPERATIONS
           </p>
           <h1 className="text-lg font-bold tracking-tight text-primary-foreground">Scout</h1>
@@ -76,7 +76,7 @@ export function AppShellHeader({
             type="button"
             size="icon"
             variant="ghost"
-            className="text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground"
+            className="text-white/80 hover:bg-white/10 hover:text-white"
             title="Refresh dashboard data"
             aria-label="Refresh dashboard data"
             onClick={onRefresh}
