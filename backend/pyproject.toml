@@ -26,6 +26,9 @@ python_files = ["test_*.py"]
 line-length = 88
 target-version = "py311"
 
+[tool.ruff.lint]
+ignore = ["B008"]
+
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["scout*"]
