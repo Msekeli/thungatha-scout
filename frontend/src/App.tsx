@@ -48,15 +48,12 @@ export default function App() {
       ]);
       setEmployers(nextEmployers);
       setVacancies(nextVacancies);
-      if (selectedEmployerId !== "all" && !nextEmployers.some((item) => item.id === selectedEmployerId)) {
-        setSelectedEmployerId("all");
-      }
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load Scout data.");
     } finally {
       setLoading(false);
     }
-  }, [selectedEmployerId]);
+  }, []);
 
   useEffect(() => { void loadWorkspace(); }, [loadWorkspace]);
 
