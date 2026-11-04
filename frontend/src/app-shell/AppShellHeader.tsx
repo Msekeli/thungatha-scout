@@ -27,7 +27,7 @@ export function AppShellHeader({
   const navigationButtonClass = (isActive: boolean) =>
     isActive
       ? "bg-white text-scout-navy hover:bg-white/90 hover:text-scout-navy"
-      : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-white";
+      : "text-white/80 hover:bg-white/10 hover:text-white";
 
   return (
     <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-scout-navy to-scout-navy-light px-4 py-[14px] text-white shadow-md md:-mx-8 md:px-8">
@@ -39,7 +39,7 @@ export function AppShellHeader({
           <p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-white/65">
             THUNGATHA / OPERATIONS
           </p>
-          <h1 className="text-lg font-bold tracking-tight text-primary-foreground">Scout</h1>
+          <h1 className="text-lg font-bold tracking-tight text-white">Scout</h1>
         </div>
       </div>
 
@@ -47,7 +47,7 @@ export function AppShellHeader({
         <p className="text-[9px] font-bold uppercase tracking-[.2em] text-scout-cyan">
           {heading.eyebrow}
         </p>
-        <h2 className="text-lg font-bold tracking-tight text-primary-foreground">
+        <h2 className="text-lg font-bold tracking-tight text-white">
           {heading.title}
         </h2>
       </div>
