@@ -40,13 +40,13 @@ export function SourceReviewPanel({
         </span>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <label className="grid gap-1 text-xs font-medium text-muted-foreground">
-          Source status
+        <div className="grid gap-1 text-xs font-medium text-muted-foreground">
+          <span>Source status</span>
           <Select
             value={decision?.status ?? source.status}
             onValueChange={(value) => onChange("status", value)}
           >
-            <SelectTrigger className="h-9 bg-card text-xs">
+            <SelectTrigger aria-label="Source status" className="h-9 bg-card text-xs">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -59,14 +59,14 @@ export function SourceReviewPanel({
               <SelectItem value="inactive">Inactive</SelectItem>
             </SelectContent>
           </Select>
-        </label>
-        <label className="grid gap-1 text-xs font-medium text-muted-foreground">
-          Permission
+        </div>
+        <div className="grid gap-1 text-xs font-medium text-muted-foreground">
+          <span>Permission</span>
           <Select
             value={decision?.permission_status ?? source.permission_status}
             onValueChange={(value) => onChange("permission_status", value)}
           >
-            <SelectTrigger className="h-9 bg-card text-xs">
+            <SelectTrigger aria-label="Permission" className="h-9 bg-card text-xs">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -76,7 +76,7 @@ export function SourceReviewPanel({
               <SelectItem value="needs_review">Needs review</SelectItem>
             </SelectContent>
           </Select>
-        </label>
+        </div>
       </div>
       <label className="grid gap-1 text-xs font-medium text-muted-foreground">
         Evidence URL
