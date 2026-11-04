@@ -48,7 +48,11 @@ export function AppShellHeader({
           type="button"
           size="sm"
           variant="ghost"
-          className={activePage === "jobs" ? "bg-[#0b1426] text-white hover:bg-[#172b46] hover:text-white" : "text-slate-600"}
+          className={
+            activePage === "jobs"
+              ? "bg-[#0b1426] text-white hover:bg-[#172b46] hover:text-white"
+              : "text-slate-600"
+          }
           onClick={() => onSelectPage("jobs")}
         >
           Dashboard
@@ -57,7 +61,11 @@ export function AppShellHeader({
           type="button"
           size="sm"
           variant="ghost"
-          className={activePage !== "jobs" ? "bg-[#0b1426] text-white hover:bg-[#172b46] hover:text-white" : "text-slate-600"}
+          className={
+            activePage !== "jobs"
+              ? "bg-[#0b1426] text-white hover:bg-[#172b46] hover:text-white"
+              : "text-slate-600"
+          }
           onClick={() => onSelectPage("companies")}
         >
           Companies
