@@ -76,7 +76,8 @@ def import_registry(
             source_url = source["official_source_url"]
             existing = connection.execute(
                 """
-                SELECT id, employer_id, adapter_key
+                SELECT id, employer_id, adapter_key, source_url,
+                       adapter_config
                 FROM employer_sources WHERE normalized_url = %s
                 """,
                 (source_url,),
@@ -89,6 +90,21 @@ def import_registry(
                     raise ValueError(
                         f"Source URL is already assigned elsewhere: {source_url}"
                     )
+                if (
+                    existing["source_url"] != source_url
+                    or existing["adapter_config"] != adapter_config
+                ):
+                    connection.execute(
+                        """
+                        UPDATE employer_sources
+                        SET source_url = %s,
+                            adapter_config = %s,
+                            updated_at = NOW()
+                        WHERE id = %s
+                        """,
+                        (source_url, Jsonb(adapter_config), existing["id"]),
+                    )
+                    counts["sources_updated"] += 1
                 continue
 
             employer_sources = connection.execute(
