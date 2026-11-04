@@ -65,3 +65,11 @@ input:focus,select:focus { border-color:#7395c8; box-shadow:0 0 0 3px #7395c81a;
 footer { padding-top:22px; color:#8a95a5; font-size:10px; }
 @media (max-width: 1050px) { .workspace { grid-template-columns:1fr 1fr; } .create { grid-column:1/-1; } }
 @media (max-width: 680px) { .app-shell { padding:22px 16px; } .intro { align-items:start; gap:14px; } h2 { font-size:23px; } .workspace { grid-template-columns:1fr; } .create { grid-column:auto; } .stat strong { font-size:22px; } }
+
+.vacancy-list { display:grid; gap:0; max-height:420px; overflow:auto; border-top:1px solid #edf0f4; }
+.vacancy-item { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:13px 2px; border-bottom:1px solid #edf0f4; }
+.vacancy-item > div { display:grid; min-width:0; gap:5px; }
+.vacancy-item strong { color:#263449; font-size:12px; }
+.vacancy-item small { color:#8290a2; font-size:10px; }
+.vacancy-item a { flex:none; color:#315b9a; font-size:10px; font-weight:700; text-decoration:none; }
+.vacancy-item a:hover { text-decoration:underline; }
