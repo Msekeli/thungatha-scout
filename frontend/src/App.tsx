@@ -32,6 +32,7 @@ import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
 import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
 import { useScoutWorkspace } from "./useScoutWorkspace";
 import { useCareersDiscovery } from "./employer-onboarding/useCareersDiscovery";
+import { useEmployerRegistration } from "./employer-onboarding/useEmployerRegistration";
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -108,6 +109,24 @@ export default function App() {
   });
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
+  const { register: registerDiscoveredEmployer } = useEmployerRegistration({
+    discovery,
+    form,
+    sourceUrl,
+    loadWorkspace,
+    setSaving,
+    onError: setError,
+    onNotice: setNotice,
+    onRegistered: ({ employer, source, run }) => {
+      setSelectedEmployerId(employer.id);
+      setSources([source]);
+      setExtractionRuns((current) => ({ ...current, [source.id]: [run] }));
+      setPage("companies");
+      setSourceUrl("");
+      setDiscovery(null);
+      setForm(emptyEmployer);
+    },
+  });
   const { saveSource } = useEmployerSourceOperations({
     employer: selectedEmployer,
     sources,
@@ -259,44 +278,6 @@ export default function App() {
     await saveBranding();
   }
 
-  async function registerDiscoveredEmployer(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!discovery || !form.name.trim()) return;
-    setSaving(true);
-    setError("");
-    setNotice("");
-    try {
-      const created = await scoutApi.createEmployer({
-        ...form,
-        website_url: sourceUrl,
-      });
-      const source = await scoutApi.createSource(created.id, {
-        adapter_key: discovery.detected_adapter,
-        source_url: discovery.board_url,
-        normalized_url: discovery.board_url,
-        employer_careers_url: sourceUrl,
-        adapter_config: { slug: discovery.board_token },
-      });
-      const run = await scoutApi.extractSource(source.id);
-      await loadWorkspace();
-      setSelectedEmployerId(created.id);
-      setSources([source]);
-      setExtractionRuns((current) => ({ ...current, [source.id]: [run] }));
-      setPage("companies");
-      setSourceUrl("");
-      setDiscovery(null);
-      setForm(emptyEmployer);
-      setNotice(
-        `${created.name} registered. ${run.jobs_received} vacancies retrieved; ${run.outcome}.`,
-      );
-    } catch (reason) {
-      setError(
-        reason instanceof Error ? reason.message : "Could not register employer and source.",
-      );
-    } finally {
-      setSaving(false);
-    }
-  }
 
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
