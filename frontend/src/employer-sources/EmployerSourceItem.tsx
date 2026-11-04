@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { Button } from "@/components/ui/button";
 import type { EmployerSource } from "../shared-contracts/employer-contracts";
 
 type EmployerSourceItemProps = {
@@ -25,13 +26,13 @@ export const EmployerSourceItem: FC<EmployerSourceItemProps> = ({
         <small>{source.source_url}</small>
       </div>
       <div className="flex items-center gap-2">
-        <button type="button" className="button secondary" onClick={() => onOpenReview(source)}>
+        <Button type="button" size="sm" variant="outline" onClick={() => onOpenReview(source)}>
           Verify source
-        </button>
+        </Button>
         {source.adapter_key === "greenhouse" && (
-          <button type="button" className="button secondary" onClick={() => onEditSource(source)}>
+          <Button type="button" size="sm" variant="outline" onClick={() => onEditSource(source)}>
             Edit
-          </button>
+          </Button>
         )}
       </div>
     </div>
