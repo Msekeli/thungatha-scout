@@ -2,15 +2,13 @@ import { useState } from "react";
 import { BriefcaseBusiness, RefreshCw } from "lucide-react";
 import type { FormEvent } from "react";
 import type { EmployerSource } from "./api";
-import { Badge } from "@/components/ui/badge";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { CompanyAttentionActions } from "./company-management/CompanyAttentionActions";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CompanyProfileActions } from "./company-management/CompanyProfileActions";
-import { CompanyDirectoryList } from "./company-management/CompanyDirectoryList";
-import { CompanySearchFilters } from "./company-management/CompanySearchFilters";
+import { CompanyDirectoryPanel } from "./company-management/CompanyDirectoryPanel";
 import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
 import { CompanyBrandingForm } from "./company-management/CompanyBrandingForm";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
@@ -192,11 +190,6 @@ export default function App() {
     onError: setError,
   });
 
-  const visibleEmployers = employers.filter(
-    (item) =>
-      item.name.toLowerCase().includes(companyQuery.toLowerCase()) &&
-      (companyStatusFilter === "all" || item.status === companyStatusFilter),
-  );
   const { newVacancies24h, attentionCount, atsPerformance, visibleVacancies, filteredVacancies } =
     useScoutDashboardMetrics({
       employers,
@@ -312,43 +305,20 @@ export default function App() {
             onSelectCompany={(employer) => void openCompany(employer)}
           />
           <div className="grid min-h-0 gap-3 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.5fr)]">
-            <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
-              <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
-                <div className="flex items-center gap-3">
-                  <h3>Registered companies</h3>
-                  <span>
-                    {visibleEmployers.length} / {employers.length}
-                  </span>
-                </div>
-                <Button
-                  type="button"
-                  className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-                  onClick={() => {
-                    setPage("add-company");
-                    setError("");
-                    setNotice("");
-                  }}
-                >
-                  + Add company
-                </Button>
-              </div>
-              <CompanySearchFilters
-                searchQuery={companyQuery}
-                onSearchChange={setCompanyQuery}
-                statusFilter={companyStatusFilter}
-                onStatusFilterChange={setCompanyStatusFilter}
-              />
-              <CompanyDirectoryList
-                employers={visibleEmployers}
-                selectedEmployerId={selectedEmployerId}
-                onSelectEmployer={(employer) => void openCompany(employer)}
-                emptyMessage={
-                  employers.length
-                    ? "No companies match these filters."
-                    : "No companies registered."
-                }
-              />
-            </section>
+            <CompanyDirectoryPanel
+              employers={employers}
+              selectedEmployerId={selectedEmployerId}
+              searchQuery={companyQuery}
+              statusFilter={companyStatusFilter}
+              onSearchChange={setCompanyQuery}
+              onStatusFilterChange={setCompanyStatusFilter}
+              onSelectEmployer={(employer) => void openCompany(employer)}
+              onAddCompany={() => {
+                setPage("add-company");
+                setError("");
+                setNotice("");
+              }}
+            />
             <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
               {selectedEmployer ? (
                 <>
