@@ -24,6 +24,8 @@ import { decodeGreenhouseContent } from "./job-management/html-content-decoder";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CompanyProfileActions } from "./company-management/CompanyProfileActions";
+import { CompanyDirectoryList } from "./company-management/CompanyDirectoryList";
+import { CompanySearchFilters } from "./company-management/CompanySearchFilters";
 import {
   Select,
   SelectContent,
@@ -1019,66 +1021,22 @@ export default function App() {
                   + Add company
                 </Button>
               </div>
-              <div className="mb-3 grid grid-cols-1 gap-2 sm:grid-cols-[minmax(0,1fr)_140px]">
-                <Input
-                  aria-label="Search companies"
-                  value={companyQuery}
-                  onChange={(event) => setCompanyQuery(event.target.value)}
-                  placeholder="Search company name…"
-                />
-                <Select value={companyStatusFilter} onValueChange={setCompanyStatusFilter}>
-                  <SelectTrigger aria-label="Filter companies by status" className="h-9">
-                    <SelectValue placeholder="All statuses" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All statuses</SelectItem>
-                    <SelectItem value="discovered">Discovered</SelectItem>
-                    <SelectItem value="pending_review">Pending review</SelectItem>
-                    <SelectItem value="approved">Approved</SelectItem>
-                    <SelectItem value="needs_review">Needs review</SelectItem>
-                    <SelectItem value="rejected">Rejected</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              {visibleEmployers.map((employer) => (
-                <Button
-                  type="button"
-                  key={employer.id}
-                  className={`flex w-full items-center gap-3 rounded-lg border p-2 text-left transition-colors hover:bg-accent ${selectedEmployerId === employer.id ? "border-ring bg-accent" : "border-transparent bg-transparent"}`}
-                  onClick={() => void openCompany(employer)}
-                >
-                  {employer.logo_url ? (
-                    <img
-                      className="h-[38px] w-[38px] shrink-0 rounded-lg border border-border bg-card object-contain"
-                      src={employer.logo_url}
-                      alt={employer.name + " logo"}
-                    />
-                  ) : (
-                    <span className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded-lg bg-secondary font-extrabold text-secondary-foreground">
-                      {employer.name.slice(0, 1).toUpperCase()}
-                    </span>
-                  )}
-                  <span>
-                    <strong className="block truncate text-xs font-semibold text-foreground">
-                      {employer.name}
-                    </strong>
-                    <small className="text-[10px] text-muted-foreground">
-                      {employer.city || "Location not confirmed"}
-                    </small>
-                  </span>
-                  <Badge variant="outline" className="ml-auto shrink-0 capitalize">
-                    {employer.status.replaceAll("_", " ")}
-                  </Badge>
-                </Button>
-              ))}
-              {!visibleEmployers.length && (
-                <div className="empty">
-                  {employers.length
+              <CompanySearchFilters
+                searchQuery={companyQuery}
+                onSearchChange={setCompanyQuery}
+                statusFilter={companyStatusFilter}
+                onStatusFilterChange={setCompanyStatusFilter}
+              />
+              <CompanyDirectoryList
+                employers={visibleEmployers}
+                selectedEmployerId={selectedEmployerId}
+                onSelectEmployer={(employer) => void openCompany(employer)}
+                emptyMessage={
+                  employers.length
                     ? "No companies match these filters."
-                    : "No companies registered."}
-                </div>
-              )}
+                    : "No companies registered."
+                }
+              />
             </section>
             <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
               {selectedEmployer ? (
@@ -1097,7 +1055,7 @@ export default function App() {
                     saving={saving}
                     onUpdateStatus={(status) => void updateCompanyStatus(status)}
                     onDelete={() => void deleteCompany()}
-                  />{" "}
+                  />
                   <p className="mb-4 -mt-2 break-all text-[11px] text-muted-foreground">
                     {selectedEmployer.website_url || "Official website not supplied"}
                   </p>
