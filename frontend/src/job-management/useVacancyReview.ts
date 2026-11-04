@@ -31,6 +31,7 @@ export function useVacancyReview({
 
   const openVacancy = useCallback(async (vacancyId: string, visibleVacancies: Vacancy[]) => {
     const requestId = ++requestRef.current;
+    onError("");
     setSelectedVacancyId(vacancyId);
     setOpeningVacancyId(vacancyId);
     setSelectedVacancy(null);
