@@ -1,7 +1,9 @@
 from dataclasses import asdict
 
 from fastapi import APIRouter, HTTPException, Query
+import httpx
 
+from scout.career_site_discovery import discover_greenhouse
 from scout.greenhouse_adapter import (
     GreenhouseAdapter,
     GreenhouseUrlError,
@@ -26,3 +28,21 @@ async def inspect_greenhouse_source(
         return asdict(result) | {"source_url": url}
     finally:
         await adapter.close()
+
+
+@router.get("/discover")
+async def discover_careers_source(
+    url: str = Query(min_length=1, max_length=2048),
+) -> dict:
+    try:
+        discovery = await discover_greenhouse(url)
+        adapter = GreenhouseAdapter()
+        try:
+            result = await adapter.retrieve(discovery["board_token"])
+        finally:
+            await adapter.close()
+        return asdict(result) | discovery | {
+            "source_url": discovery["board_url"]
+        }
+    except (ValueError, httpx.HTTPError) as exception:
+        raise HTTPException(status_code=422, detail=str(exception)) from exception
