@@ -177,3 +177,12 @@ footer { padding-top:22px; color:#8a95a5; font-size:10px; }
   .review-actions { flex-wrap:wrap; }
   .vacancy-actions { flex-wrap:wrap; }
 }
+
+
+.review-state { display:inline-block; padding:4px 7px; border-radius:5px; background:#edf2f7; color:#526174; font-size:9px; font-weight:800; text-transform:uppercase; white-space:nowrap; }
+.review-state.needs_verification { background:#fff4df; color:#8b5a13; }
+.review-state.verified { background:#e8f4ec; color:#28623b; }
+.review-state.rejected { background:#fff0f0; color:#a33131; }
+.branding-form { display:grid; gap:10px; margin:18px 0; padding:14px; border:1px solid #e1e6ed; border-radius:9px; background:#f8fafc; }
+.branding-form h4 { margin-bottom:2px; }
+.branding-form .button { justify-self:start; }
