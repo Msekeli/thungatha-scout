@@ -20,6 +20,7 @@ import type {
 } from "./api";
 import { Badge } from "@/components/ui/badge";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
+import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -526,16 +527,7 @@ export default function App() {
         refreshing={loading}
       />
 
-      {error && (
-        <div className="alert error" role="alert">
-          {error}
-        </div>
-      )}
-      {notice && (
-        <div className="alert success" role="status">
-          {notice}
-        </div>
-      )}
+      <OperationalAlerts error={error} notice={notice} />
 
       {page === "jobs" && (
         <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">

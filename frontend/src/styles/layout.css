@@ -1,37 +1,3 @@
-main > header {
-  position: relative;
-  min-height: 76px;
-  margin: -16px -32px 0;
-  padding: 18px 32px 16px;
-  border: 0;
-  background: linear-gradient(112deg, var(--scout-navy), var(--scout-navy-2));
-  color: var(--scout-on-dark);
-  box-shadow: 0 5px 18px #071b3526;
-}
-
-main > header h1,
-main > header h2 {
-  color: var(--scout-on-dark) !important;
-}
-
-main > header p {
-  color: var(--scout-on-dark-muted) !important;
-}
-
-main > header nav button {
-  color: #d9e6f3 !important;
-}
-
-main > header nav button:hover {
-  background: #ffffff18 !important;
-  color: var(--scout-on-dark) !important;
-}
-
-main > header nav button.active {
-  background: var(--scout-on-dark) !important;
-  color: var(--scout-navy) !important;
-}
-
 .eyebrow {
   margin: 0 0 8px;
   color: var(--text-muted);
@@ -101,23 +67,6 @@ main > header nav button.active {
   border: 1px solid var(--border);
   background: hsl(var(--card));
   color: hsl(var(--muted-foreground));
-}
-
-.alert {
-  margin: 0 0 14px;
-  padding: 11px 13px;
-  border-radius: 8px;
-  font-size: 12px;
-}
-
-.alert.error {
-  background: var(--danger-surface);
-  color: var(--danger-text);
-}
-
-.alert.success {
-  background: var(--success-surface);
-  color: var(--success-text);
 }
 
 footer {

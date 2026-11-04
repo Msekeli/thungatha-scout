@@ -24,35 +24,40 @@ export function AppShellHeader({
 }: AppShellHeaderProps) {
   const heading = pageHeading[activePage];
 
+  const navigationButtonClass = (isActive: boolean) =>
+    isActive
+      ? "bg-primary-foreground text-primary hover:bg-primary-foreground/90 hover:text-primary"
+      : "text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground";
+
   return (
-    <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-primary to-[var(--scout-navy-2)] px-4 py-4 text-primary-foreground shadow-md md:-mx-8 md:px-8">
       <div className="flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#0b1426] text-cyan-300 shadow-lg shadow-slate-900/20">
+        <span className="grid h-10 w-10 place-items-center rounded-xl border border-primary-foreground/15 bg-primary-foreground/10 text-[var(--scout-cyan)] shadow-inner">
           <Radar className="h-6 w-6" />
         </span>
         <div>
-          <p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-slate-500">
+          <p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-primary-foreground/65">
             THUNGATHA / OPERATIONS
           </p>
-          <h1 className="text-lg font-bold tracking-tight text-[#0b1426]">Scout</h1>
+          <h1 className="text-lg font-bold tracking-tight text-primary-foreground">Scout</h1>
         </div>
       </div>
+
       <div className="flex-1 text-center">
-        <p className="text-[9px] font-bold uppercase tracking-[.2em] text-cyan-700">
+        <p className="text-[9px] font-bold uppercase tracking-[.2em] text-[var(--scout-cyan)]">
           {heading.eyebrow}
         </p>
-        <h2 className="text-lg font-bold tracking-tight text-[#0b1426]">{heading.title}</h2>
+        <h2 className="text-lg font-bold tracking-tight text-primary-foreground">
+          {heading.title}
+        </h2>
       </div>
+
       <nav className="flex items-center gap-1.5" aria-label="Main navigation">
         <Button
           type="button"
           size="sm"
           variant="ghost"
-          className={
-            activePage === "jobs"
-              ? "bg-[#0b1426] text-white hover:bg-[#172b46] hover:text-white"
-              : "text-slate-600"
-          }
+          className={navigationButtonClass(activePage === "jobs")}
           onClick={() => onSelectPage("jobs")}
         >
           Dashboard
@@ -61,11 +66,7 @@ export function AppShellHeader({
           type="button"
           size="sm"
           variant="ghost"
-          className={
-            activePage !== "jobs"
-              ? "bg-[#0b1426] text-white hover:bg-[#172b46] hover:text-white"
-              : "text-slate-600"
-          }
+          className={navigationButtonClass(activePage !== "jobs")}
           onClick={() => onSelectPage("companies")}
         >
           Companies
@@ -75,7 +76,7 @@ export function AppShellHeader({
             type="button"
             size="icon"
             variant="ghost"
-            className="text-slate-600 hover:bg-cyan-50 hover:text-cyan-800"
+            className="text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground"
             title="Refresh dashboard data"
             aria-label="Refresh dashboard data"
             onClick={onRefresh}
