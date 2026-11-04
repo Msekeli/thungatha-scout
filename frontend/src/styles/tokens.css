@@ -1,25 +1,25 @@
 @layer base {
   :root {
     /* Light-led Scout surfaces, using the parent Thungatha blue palette */
-    --background: 210 65% 89%;
+    --background: 0 0% 98%;
     --foreground: 213 71% 11%;
-    --card: 210 100% 98%;
+    --card: 0 0% 100%;
     --card-foreground: 213 71% 11%;
-    --popover: 210 100% 98%;
+    --popover: 0 0% 100%;
     --popover-foreground: 213 71% 11%;
 
     --primary: 209 81% 22%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 212 63% 92%;
+    --secondary: 210 20% 96%;
     --secondary-foreground: 209 76% 23%;
-    --muted: 212 63% 92%;
-    --muted-foreground: 210 37% 30%;
-    --accent: 209 58% 80%;
-    --accent-foreground: 204 88% 29%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 42%;
+    --accent: 199 90% 94%;
+    --accent-foreground: 204 80% 25%;
     --destructive: 0 72% 51%;
-    --border: 211 49% 71%;
-    --input: 211 49% 71%;
-    --ring: 201 96% 32%;
+    --border: 214 20% 88%;
+    --input: 214 20% 82%;
+    --ring: 199 89% 48%;
 
     /* Shared Thungatha / Scout brand colours */
     --scout-navy-2: #0b3a66;
