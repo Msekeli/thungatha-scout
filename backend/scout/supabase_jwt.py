@@ -68,9 +68,19 @@ async def verify_legacy_access_token(
             f"Supabase Auth returned HTTP {response.status_code}."
         )
 
-    user = response.json()
+    try:
+        user = response.json()
+    except ValueError as error:
+        raise AuthenticationServiceUnavailable(
+            "Supabase Auth returned an invalid response."
+        ) from error
+    if not isinstance(user, dict) or not user.get("id"):
+        raise AuthenticationServiceUnavailable(
+            "Supabase Auth returned an incomplete user response."
+        )
+
     return {
-        "sub": user.get("id"),
+        "sub": user["id"],
         "email": user.get("email"),
         "role": "authenticated",
     }
