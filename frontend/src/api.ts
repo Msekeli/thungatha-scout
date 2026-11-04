@@ -106,6 +106,11 @@ export const scoutApi = {
     }),
   listSources: (employerId: string) =>
     request<EmployerSource[]>(`/api/v1/employers/${employerId}/sources`),
+  updateSource: (employerId: string, sourceId: string, payload: Record<string, unknown>) =>
+    request<EmployerSource>(`/api/v1/employers/${employerId}/sources/${sourceId}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    }),
   createSource: (employerId: string, payload: Record<string, unknown>) =>
     request<EmployerSource>(`/api/v1/employers/${employerId}/sources`, {
       method: "POST",
