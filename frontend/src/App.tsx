@@ -976,7 +976,9 @@ export default function App() {
                 {employers.filter((item) => item.status === "needs_review").length} flagged for
                 review
               </strong>
-              <span className="text-[10px] text-[var(--warning-text)]">Resolve company identity concerns</span>
+              <span className="text-[10px] text-[var(--warning-text)]">
+                Resolve company identity concerns
+              </span>
             </button>
             <button
               type="button"
@@ -1065,10 +1067,16 @@ export default function App() {
                     </span>
                   )}
                   <span>
-                    <strong className="block truncate text-xs font-semibold text-foreground">{employer.name}</strong>
-                    <small className="text-[10px] text-muted-foreground">{employer.city || "Location not confirmed"}</small>
+                    <strong className="block truncate text-xs font-semibold text-foreground">
+                      {employer.name}
+                    </strong>
+                    <small className="text-[10px] text-muted-foreground">
+                      {employer.city || "Location not confirmed"}
+                    </small>
                   </span>
-                  <Badge variant="outline" className="ml-auto shrink-0 capitalize">{employer.status.replaceAll("_", " ")}</Badge>
+                  <Badge variant="outline" className="ml-auto shrink-0 capitalize">
+                    {employer.status.replaceAll("_", " ")}
+                  </Badge>
                 </button>
               ))}
               {!visibleEmployers.length && (
@@ -1087,7 +1095,9 @@ export default function App() {
                       <p className="eyebrow">COMPANY PROFILE</p>
                       <h3>{selectedEmployer.name}</h3>
                     </div>
-                    <Badge variant="outline" className="capitalize">{selectedEmployer.status.replaceAll("_", " ")}</Badge>
+                    <Badge variant="outline" className="capitalize">
+                      {selectedEmployer.status.replaceAll("_", " ")}
+                    </Badge>
                   </div>
                   <div className="flex flex-wrap gap-2 border-b border-slate-100 pb-4">
                     {selectedEmployer.status !== "approved" && (
@@ -1138,7 +1148,10 @@ export default function App() {
                   <p className="mb-4 -mt-2 break-all text-[11px] text-muted-foreground">
                     {selectedEmployer.website_url || "Official website not supplied"}
                   </p>
-                  <form className="my-4 grid gap-3 rounded-lg border border-border bg-muted/50 p-4" onSubmit={saveEmployerBranding}>
+                  <form
+                    className="my-4 grid gap-3 rounded-lg border border-border bg-muted/50 p-4"
+                    onSubmit={saveEmployerBranding}
+                  >
                     <div className="flex items-center gap-3">
                       <h4>Company logo</h4>
                       <span className="text-[10px] text-muted-foreground/70">Optional</span>
