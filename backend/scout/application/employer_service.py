@@ -61,6 +61,17 @@ class EmployerService:
         with self._connection_factory() as connection, connection.transaction():
             return EmployerRepository(connection).create(values)
 
+    def list_employers(
+        self,
+        limit: int = 100,
+        offset: int = 0,
+    ) -> list[dict[str, Any]]:
+        with self._connection_factory() as connection:
+            return EmployerRepository(connection).list_all(
+                limit=limit,
+                offset=offset,
+            )
+
     def get_employer(self, employer_id: UUID) -> dict[str, Any] | None:
         with self._connection_factory() as connection:
             return EmployerRepository(connection).get_by_id(employer_id)
