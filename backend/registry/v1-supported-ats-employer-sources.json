@@ -64,8 +64,8 @@
       "sources": [
         {
           "ats": "greenhouse",
-          "config": {"slug": "earlycareersct"},
-          "official_source_url": "https://job-boards.greenhouse.io/earlycareersct",
+          "config": {"slug": "impact"},
+          "official_source_url": "https://job-boards.greenhouse.io/impact",
           "verification_evidence": []
         }
       ]
