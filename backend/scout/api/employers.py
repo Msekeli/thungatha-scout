@@ -3,21 +3,20 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
+from scout.api.employer_api_dependencies import (
+    get_employer_service,
+    get_employer_source_update_service,
+)
 from scout.api.employer_source_routes import router as source_router
 from scout.api.employer_status_routes import router as status_router
 from scout.application.employer_contracts import (
     EmployerBrandingUpdate,
     EmployerCreate,
 )
-from scout.application.employer_service import EmployerService
 
 router = APIRouter(prefix="/employers", tags=["employers"])
 router.include_router(source_router)
 router.include_router(status_router)
-
-
-def get_employer_service() -> EmployerService:
-    return EmployerService()
 
 
 @router.get("")

@@ -5,13 +5,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from psycopg.errors import ForeignKeyViolation
 
-from scout.application.employer_service import EmployerService
+from scout.api.employer_api_dependencies import get_employer_service
 
 router = APIRouter()
-
-
-def get_employer_service() -> EmployerService:
-    return EmployerService()
 
 
 class EmployerStatusUpdate(BaseModel):

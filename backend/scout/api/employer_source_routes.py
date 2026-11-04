@@ -8,22 +8,14 @@ from scout.application.employer_contracts import (
     EmployerSourceCreate,
     EmployerSourceReviewUpdate,
 )
-from scout.application.employer_service import EmployerService
-from scout.application.employer_source_update_service import (
-    EmployerSourceUpdate,
-    EmployerSourceUpdateService,
+from scout.application.employer_source_update_service import EmployerSourceUpdate
+from scout.api.employer_api_dependencies import (
+    get_employer_service,
+    get_employer_source_update_service,
 )
 from scout.registry_loader import RegistryValidationError, validate_source_config
 
 router = APIRouter()
-
-
-def get_employer_service() -> EmployerService:
-    return EmployerService()
-
-
-def get_source_update_service() -> EmployerSourceUpdateService:
-    return EmployerSourceUpdateService()
 
 
 @router.get("/{employer_id}/sources")
@@ -61,7 +53,7 @@ def update_employer_source_review(
     employer_id: UUID,
     source_id: UUID,
     payload: EmployerSourceReviewUpdate,
-    service: EmployerSourceUpdateService = Depends(get_source_update_service),
+    service: EmployerSourceUpdateService = Depends(get_employer_source_update_service),
 ) -> dict[str, Any]:
     if payload.status == "verified" and payload.permission_status == "allowed":
         if not payload.evidence_url:
