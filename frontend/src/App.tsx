@@ -6,7 +6,6 @@ import {
   CircleAlert,
   ShieldCheck,
   Sparkles,
-  Trash2,
 } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
@@ -23,6 +22,7 @@ import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { decodeGreenhouseContent } from "./job-management/html-content-decoder";
 import { Button } from "@/components/ui/button";
+import { CompanyProfileActions } from "./company-management/CompanyProfileActions";
 import {
   Select,
   SelectContent,
@@ -1089,53 +1089,12 @@ export default function App() {
                       {selectedEmployer.status.replaceAll("_", " ")}
                     </Badge>
                   </div>
-                  <div className="flex flex-wrap gap-2 border-b border-border pb-4">
-                    {selectedEmployer.status !== "approved" && (
-                      <Button type="button"
-                        className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-                        disabled={saving}
-                        onClick={() => void updateCompanyStatus("approved")}
-                      >
-                        Approve company
-                      </Button>
-                    )}
-                    {selectedEmployer.status !== "needs_review" && (
-                      <Button type="button"
-                        className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
-                        disabled={saving}
-                        onClick={() => void updateCompanyStatus("needs_review")}
-                      >
-                        Flag for review
-                      </Button>
-                    )}
-                    {selectedEmployer.status !== "rejected" && (
-                      <Button type="button"
-                        className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
-                        disabled={saving}
-                        onClick={() => void updateCompanyStatus("rejected")}
-                      >
-                        Reject company
-                      </Button>
-                    )}
-                    {selectedEmployer.status !== "inactive" && (
-                      <Button type="button"
-                        className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
-                        disabled={saving}
-                        onClick={() => void updateCompanyStatus("inactive")}
-                      >
-                        Deactivate
-                      </Button>
-                    )}
-                    <Button type="button"
-                      className="ml-auto inline-flex h-9 items-center justify-center rounded-md border border-destructive/30 bg-background px-4 py-2 text-sm font-medium text-destructive shadow-sm transition-colors hover:bg-destructive/10 disabled:pointer-events-none disabled:opacity-50"
-                      disabled={saving}
-                      onClick={() => void deleteCompany()}
-                    >
-                      <Trash2 className="mr-1 inline h-3 w-3" />
-                      Delete
-                    </Button>
-                  </div>
-                  <p className="mb-4 -mt-2 break-all text-[11px] text-muted-foreground">
+                  <CompanyProfileActions
+                    currentStatus={selectedEmployer.status}
+                    saving={saving}
+                    onUpdateStatus={(status) => void updateCompanyStatus(status)}
+                    onDelete={() => void deleteCompany()}
+                  />                  <p className="mb-4 -mt-2 break-all text-[11px] text-muted-foreground">
                     {selectedEmployer.website_url || "Official website not supplied"}
                   </p>
                   <form
