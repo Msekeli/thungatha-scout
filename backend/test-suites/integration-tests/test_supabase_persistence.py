@@ -11,7 +11,6 @@ from scout.application.employer_service import (
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.migration_runner import run_migrations
 
-
 pytestmark = pytest.mark.skipif(
     os.getenv("SCOUT_RUN_DATABASE_INTEGRATION_TESTS") != "true",
     reason="Set SCOUT_RUN_DATABASE_INTEGRATION_TESTS=true to use Scout Supabase.",

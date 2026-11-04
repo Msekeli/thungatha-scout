@@ -6,7 +6,6 @@ from psycopg.connection import Connection
 
 from scout.persistence.database_connection import get_database_connection
 
-
 MIGRATION_LOCK_ID = 731_204_119
 MIGRATION_FILENAME = re.compile(r"^(\d{4})-[a-z0-9-]+\.sql$")
 

@@ -1,7 +1,6 @@
-from pydantic import SecretStr
-
 import psycopg
 import pytest
+from pydantic import SecretStr
 
 from scout.persistence.database_connection import (
     DatabaseConfigurationError,

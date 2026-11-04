@@ -1,13 +1,13 @@
-from typing import Any, Callable, Literal
+from collections.abc import Callable
+from typing import Any, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 from psycopg.connection import Connection
+from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.employer_repository import EmployerRepository
 from scout.persistence.employer_source_repository import EmployerSourceRepository
-
 
 OrganizationType = Literal[
     "direct_employer",
@@ -58,9 +58,8 @@ class EmployerService:
         if values["website_url"] is not None:
             values["website_url"] = str(values["website_url"])
 
-        with self._connection_factory() as connection:
-            with connection.transaction():
-                return EmployerRepository(connection).create(values)
+        with self._connection_factory() as connection, connection.transaction():
+            return EmployerRepository(connection).create(values)
 
     def get_employer(self, employer_id: UUID) -> dict[str, Any] | None:
         with self._connection_factory() as connection:
@@ -77,9 +76,8 @@ class EmployerService:
             )
         values["normalized_url"] = str(values["normalized_url"])
 
-        with self._connection_factory() as connection:
-            with connection.transaction():
-                return EmployerSourceRepository(connection).create(values)
+        with self._connection_factory() as connection, connection.transaction():
+            return EmployerSourceRepository(connection).create(values)
 
     def list_sources(self, employer_id: UUID) -> list[dict[str, Any]]:
         with self._connection_factory() as connection:
