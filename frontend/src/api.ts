@@ -25,6 +25,34 @@ export type EmployerSource = {
   permission_status: string;
 };
 
+export export type Vacancy = {
+  id: string;
+  employer_id: string;
+  employer_name: string;
+  source_id: string;
+  external_job_id: string;
+  title: string;
+  description?: string | null;
+  location_text?: string | null;
+  department?: string | null;
+  office?: string | null;
+  source_url: string;
+  application_url: string;
+  source_updated_at?: string | null;
+  last_seen_at: string;
+};
+
+export type ExtractionRun = {
+  id: string;
+  source_id: string;
+  outcome: string;
+  jobs_received: number;
+  jobs_inserted: number;
+  jobs_updated: number;
+  complete: boolean;
+  detail?: string | null;
+};
+
 export type GreenhouseInspection = {
   outcome: string;
   board_token: string;
@@ -82,6 +110,16 @@ export const scoutApi = {
     request<EmployerSource>(`/api/v1/employers/${employerId}/sources`, {
       method: "POST",
       body: JSON.stringify({ ...payload, employer_id: employerId }),
+    }),
+  listVacancies: (employerId?: string) =>
+    request<Vacancy[]>(
+      employerId
+        ? `/api/v1/employers/${employerId}/vacancies`
+        : "/api/v1/vacancies",
+    ),
+  extractSource: (sourceId: string) =>
+    request<ExtractionRun>(`/api/v1/sources/${sourceId}/extract`, {
+      method: "POST",
     }),
   inspectGreenhouse: (url: string) =>
     request<GreenhouseInspection>(
