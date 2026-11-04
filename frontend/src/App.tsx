@@ -8,8 +8,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import type { FormEvent } from "react";
-import { scoutApi } from "./api";
-import type { Employer, EmployerSource } from "./api";
+import type { EmployerSource } from "./api";
 import { Badge } from "@/components/ui/badge";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
@@ -21,6 +20,7 @@ import { CompanySearchFilters } from "./company-management/CompanySearchFilters"
 import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
 import { CompanyBrandingForm } from "./company-management/CompanyBrandingForm";
 import { useCompanyProfileOperations } from "./company-management/useCompanyProfileOperations";
+import { useCompanySelection } from "./company-management/useCompanySelection";
 import { CompanySourcesSection } from "./employer-sources/CompanySourcesSection";
 import { useEmployerSourceReview } from "./employer-sources/useEmployerSourceReview";
 import { useEmployerSourceOperations } from "./employer-sources/useEmployerSourceOperations";
@@ -184,6 +184,19 @@ export default function App() {
     onNotice: setNotice,
   });
 
+  const { openCompany } = useCompanySelection({
+    setSources,
+    setExtractionRuns,
+    setSelectedEmployerId,
+    setLogoUrl,
+    setLogoSourceUrl,
+    setSourceUrl,
+    setEditingSourceId,
+    setInspection,
+    setPage,
+    onError: setError,
+  });
+
   const visibleEmployers = employers.filter(
     (item) =>
       item.name.toLowerCase().includes(companyQuery.toLowerCase()) &&
@@ -200,32 +213,6 @@ export default function App() {
       selectedEmployerId,
       reviewFilter,
     });
-
-  async function openCompany(employer: Employer) {
-    setEditingSourceId(null);
-    setSourceUrl("");
-    setInspection(null);
-    setSelectedEmployerId(employer.id);
-    setLogoUrl(employer.logo_url ?? "");
-    setLogoSourceUrl(employer.logo_source_url ?? "");
-    setPage("companies");
-    setError("");
-    try {
-      const nextSources = await scoutApi.listSources(employer.id);
-      setSources(nextSources);
-      const runEntries = await Promise.all(
-        nextSources.map(
-          async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
-        ),
-      );
-      setExtractionRuns((current) => ({
-        ...current,
-        ...Object.fromEntries(runEntries),
-      }));
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not load company sources.");
-    }
-  }
 
   async function saveEmployerBranding(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
