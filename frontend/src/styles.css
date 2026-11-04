@@ -73,3 +73,62 @@ footer { padding-top:22px; color:#8a95a5; font-size:10px; }
 .vacancy-item small { color:#8290a2; font-size:10px; }
 .vacancy-item a { flex:none; color:#315b9a; font-size:10px; font-weight:700; text-decoration:none; }
 .vacancy-item a:hover { text-decoration:underline; }
+
+.brand-lockup { display:flex; align-items:center; gap:12px; }
+.brand-mark { display:grid; place-items:center; width:38px; height:38px; border-radius:11px; background:#243f68; color:#fff; font-size:17px; font-weight:800; }
+.main-nav { display:flex; align-items:center; gap:8px; padding:18px 0 4px; border-bottom:1px solid #dce2ea; }
+.main-nav button { padding:10px 14px; border:0; border-radius:7px; background:transparent; color:#68778b; font-size:12px; font-weight:700; }
+.main-nav button.active { background:#e9eff7; color:#243f68; }
+.main-nav .nav-add { margin-left:auto; background:#243f68; color:#fff; }
+.page-heading { display:flex; justify-content:space-between; align-items:center; gap:18px; padding:30px 0 20px; }
+.page-heading p:last-child { margin:8px 0 0; color:#748196; font-size:12px; }
+.extract-button { min-width:138px; padding:12px 16px; }
+.metric-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-bottom:16px; }
+.metric-card { display:grid; gap:8px; padding:16px 18px; border:1px solid #e1e6ed; border-radius:10px; background:#fff; }
+.metric-card span { color:#778499; font-size:11px; }
+.metric-card strong { color:#1c2c43; font-size:25px; letter-spacing:-.04em; }
+.jobs-panel { padding:0; }
+.jobs-toolbar { display:flex; align-items:center; gap:10px; padding:18px 20px; border-bottom:1px solid #edf0f4; }
+.jobs-toolbar > div { flex:1; }
+.jobs-toolbar .muted { margin:5px 0 0; }
+.jobs-toolbar select { width:auto; min-width:180px; }
+.jobs-table-wrap { overflow-x:auto; }
+.jobs-table { width:100%; border-collapse:collapse; text-align:left; }
+.jobs-table th { padding:12px 16px; background:#fafbfd; color:#8190a3; font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.jobs-table td { padding:14px 16px; border-top:1px solid #edf0f4; color:#66758a; font-size:11px; vertical-align:middle; }
+.jobs-table td:first-child { min-width:220px; }
+.jobs-table td strong,.jobs-table td small { display:block; }
+.jobs-table td strong { color:#263449; font-size:12px; }
+.jobs-table td small { margin-top:4px; color:#8793a3; font-size:10px; }
+.jobs-table a,.text-link { color:#315b9a; font-size:11px; font-weight:700; text-decoration:none; white-space:nowrap; }
+.text-link { padding:0; border:0; background:transparent; }
+.jobs-table a:hover,.text-link:hover { text-decoration:underline; }
+.company-layout { display:grid; grid-template-columns:minmax(260px,.8fr) minmax(0,1.5fr); gap:16px; align-items:start; }
+.company-directory,.company-profile { min-width:0; }
+.company-directory .section-heading span { color:#8390a2; font-size:11px; }
+.company-row { display:flex; align-items:center; width:100%; gap:10px; padding:11px 8px; border:1px solid transparent; border-radius:8px; background:transparent; text-align:left; }
+.company-row:hover,.company-row.selected { border-color:#dce5ef; background:#f5f8fc; }
+.company-row > span:nth-child(2) { display:grid; flex:1; gap:4px; min-width:0; }
+.company-row strong { overflow:hidden; color:#263449; font-size:12px; text-overflow:ellipsis; white-space:nowrap; }
+.company-row small { color:#8290a2; font-size:10px; }
+.company-row .status { font-size:8px; }
+.profile-website { margin:-8px 0 18px; color:#778499; font-size:11px; overflow-wrap:anywhere; }
+.profile-stats { display:flex; gap:28px; padding:14px 0; border-top:1px solid #edf0f4; border-bottom:1px solid #edf0f4; }
+.profile-stats div { display:grid; gap:3px; }
+.profile-stats strong { color:#1c2c43; font-size:19px; }
+.profile-stats span { color:#8290a2; font-size:10px; }
+.source-title { margin:20px 0 8px; }
+.add-company-panel { max-width:680px; padding:24px; }
+.add-company-panel form { max-width:560px; }
+.form-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:8px; }
+@media (max-width: 760px) {
+  .app-shell { padding:20px 16px; }
+  .page-heading { align-items:flex-start; flex-direction:column; }
+  .metric-row { grid-template-columns:1fr 1fr; }
+  .metric-card:last-child { grid-column:1/-1; }
+  .jobs-toolbar { align-items:stretch; flex-wrap:wrap; }
+  .jobs-toolbar > div { flex-basis:100%; }
+  .jobs-toolbar select { flex:1; min-width:0; }
+  .company-layout { grid-template-columns:1fr; }
+  .company-directory { max-height:360px; overflow:auto; }
+}
