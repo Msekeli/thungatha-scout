@@ -94,7 +94,7 @@ export function CompaniesWorkspacePanel({
 
   return (
     <>
-      <p className="mb-3 text-xs text-muted-foreground">
+      <p className="mb-3 text-xs text-white/75">
         Manage company identity, verification, branding and registered ATS sources.
       </p>
       <CompanyAttentionActions
