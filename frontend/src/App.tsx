@@ -32,6 +32,7 @@ import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
 import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
 import { useScoutWorkspace } from "./useScoutWorkspace";
 import { useScoutDashboardMetrics } from "./useScoutDashboardMetrics";
+import { useVacancyFetching } from "./useVacancyFetching";
 import { useCareersDiscovery } from "./employer-onboarding/useCareersDiscovery";
 import { useEmployerRegistration } from "./employer-onboarding/useEmployerRegistration";
 
@@ -175,6 +176,14 @@ export default function App() {
     onNotice: setNotice,
     onError: setError,
   });
+  const { fetchJobs } = useVacancyFetching({
+    dashboardSources,
+    setExtracting,
+    loadWorkspace,
+    onError: setError,
+    onNotice: setNotice,
+  });
+
   const visibleEmployers = employers.filter(
     (item) =>
       item.name.toLowerCase().includes(companyQuery.toLowerCase()) &&
@@ -196,34 +205,6 @@ export default function App() {
     selectedEmployerId,
     reviewFilter,
   });
-
-  async function fetchJobs() {
-    const eligibleSources = dashboardSources.filter(
-      (source) => source.status === "verified" && source.permission_status === "allowed",
-    );
-    if (!eligibleSources.length) {
-      setError(
-        "No job sources are both verified and permitted. Review company sources before fetching jobs.",
-      );
-      return;
-    }
-
-    setExtracting(true);
-    setError("");
-    setNotice("");
-    const results = await Promise.allSettled(
-      eligibleSources.map((source) => scoutApi.extractSource(source.id)),
-    );
-    const succeeded = results.filter((result) => result.status === "fulfilled").length;
-    const failed = results.length - succeeded;
-    await loadWorkspace();
-    setNotice(
-      failed
-        ? `Fetched from ${succeeded} source(s); ${failed} source(s) failed. Check the extraction history.`
-        : `Fetch completed for ${succeeded} verified source(s). Dashboard data has been refreshed.`,
-    );
-    setExtracting(false);
-  }
 
   async function openCompany(employer: Employer) {
     setEditingSourceId(null);
