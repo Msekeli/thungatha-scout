@@ -118,3 +118,10 @@ class GreenhouseExtractionService:
     def restore_vacancy(self, vacancy_id: UUID) -> dict[str, Any] | None:
         with self._connection_factory() as connection, connection.transaction():
             return VacancyRepository(connection).restore(vacancy_id)
+
+
+    def list_archived_vacancies(
+        self, limit: int = 200, offset: int = 0
+    ) -> list[dict[str, Any]]:
+        with self._connection_factory() as connection:
+            return VacancyRepository(connection).list_archived(limit, offset)
