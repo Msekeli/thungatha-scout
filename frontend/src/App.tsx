@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { Activity, BriefcaseBusiness, Building2, CircleAlert, Sparkles } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
@@ -24,6 +24,7 @@ import { SourceRegistrationForm } from "./employer-sources/SourceRegistrationFor
 import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
 import { VacancyRecordList } from "./job-management/VacancyRecordList";
 import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
+import { useVacancyReview } from "./job-management/useVacancyReview";
 import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
 import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
 import { useScoutWorkspace } from "./useScoutWorkspace";
@@ -43,11 +44,6 @@ export default function App() {
   const [page, setPage] = useState<Page>("jobs");
   const [showArchived, setShowArchived] = useState(false);
   const [reviewFilter, setReviewFilter] = useState("all");
-  const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
-  const [selectedVacancyId, setSelectedVacancyId] = useState<string | null>(null);
-  const [openingVacancyId, setOpeningVacancyId] = useState<string | null>(null);
-  const vacancyRequestRef = useRef(0);
-  const [reviewReason, setReviewReason] = useState("");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
   const [sourceDecision, setSourceDecision] = useState<
@@ -58,7 +54,6 @@ export default function App() {
   >({});
   const [companyQuery, setCompanyQuery] = useState("");
   const [companyStatusFilter, setCompanyStatusFilter] = useState("all");
-  const [vacancySaving, setVacancySaving] = useState(false);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
   const [form, setForm] = useState(emptyEmployer);
@@ -86,6 +81,26 @@ export default function App() {
     loading,
     loadWorkspace,
   } = useScoutWorkspace(setError);
+
+  const {
+    selectedVacancy,
+    selectedVacancyId,
+    openingVacancyId,
+    reviewReason,
+    setReviewReason,
+    saving: vacancySaving,
+    openVacancy,
+    saveDecision: setVacancyDecision,
+    archive: archiveSelectedVacancy,
+    restore: restoreSelectedVacancy,
+    clearSelection,
+  } = useVacancyReview({
+    onVacancyUpdated: (updated) =>
+      setVacancies((current) => current.map((item) => (item.id === updated.id ? updated : item))),
+    onRefresh: loadWorkspace,
+    onNotice: setNotice,
+    onError: setError,
+  });
 
   const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
   const visibleEmployers = employers.filter(
@@ -276,81 +291,6 @@ export default function App() {
       setError(reason instanceof Error ? reason.message : "Could not save company logo details.");
     } finally {
       setSaving(false);
-    }
-  }
-
-  async function openVacancy(vacancyId: string) {
-    const requestId = ++vacancyRequestRef.current;
-    setError("");
-    setSelectedVacancyId(vacancyId);
-    setOpeningVacancyId(vacancyId);
-    setSelectedVacancy(null);
-    try {
-      const vacancy = await scoutApi.getVacancy(vacancyId);
-      if (requestId !== vacancyRequestRef.current) return;
-      const listRecord = visibleVacancies.find((item) => item.id === vacancyId);
-      const completeVacancy = {
-        ...vacancy,
-        description: vacancy.description ?? listRecord?.description ?? null,
-      };
-      setSelectedVacancy(completeVacancy);
-      setReviewReason(completeVacancy.review_reason ?? "");
-    } catch (reason) {
-      if (requestId !== vacancyRequestRef.current) return;
-      setError(reason instanceof Error ? reason.message : "Could not load vacancy details.");
-      setSelectedVacancyId(null);
-    } finally {
-      if (requestId === vacancyRequestRef.current) setOpeningVacancyId(null);
-    }
-  }
-
-  async function setVacancyDecision(status: Vacancy["review_status"]) {
-    if (!selectedVacancy) return;
-    setVacancySaving(true);
-    setError("");
-    try {
-      const updated = await scoutApi.updateVacancyReview(selectedVacancy.id, status, reviewReason);
-      setSelectedVacancy(updated);
-      setVacancies((current) => current.map((item) => (item.id === updated.id ? updated : item)));
-      setNotice(`Vacancy marked ${status.replaceAll("_", " ")}.`);
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not save the vacancy decision.");
-    } finally {
-      setVacancySaving(false);
-    }
-  }
-
-  async function archiveSelectedVacancy() {
-    if (!selectedVacancy) return;
-    const reason = window.prompt("Why are you archiving this vacancy?") ?? "";
-    if (!reason.trim()) return;
-    setVacancySaving(true);
-    setError("");
-    try {
-      await scoutApi.archiveVacancy(selectedVacancy.id, reason);
-      setSelectedVacancy(null);
-      await loadWorkspace();
-      setNotice("Vacancy archived. It remains available in the Archived jobs view.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not archive vacancy.");
-    } finally {
-      setVacancySaving(false);
-    }
-  }
-
-  async function restoreSelectedVacancy() {
-    if (!selectedVacancy) return;
-    setVacancySaving(true);
-    setError("");
-    try {
-      await scoutApi.restoreVacancy(selectedVacancy.id);
-      setSelectedVacancy(null);
-      await loadWorkspace();
-      setNotice("Vacancy restored to the active jobs list.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not restore vacancy.");
-    } finally {
-      setVacancySaving(false);
     }
   }
 
@@ -610,8 +550,7 @@ export default function App() {
                 showArchived={showArchived}
                 onShowArchivedChange={(show) => {
                   setShowArchived(show);
-                  setSelectedVacancy(null);
-                  setSelectedVacancyId(null);
+                  clearSelection();
                 }}
                 reviewFilter={reviewFilter}
                 onReviewFilterChange={setReviewFilter}
@@ -626,7 +565,7 @@ export default function App() {
                 loading={loading}
                 selectedVacancyId={selectedVacancyId}
                 openingVacancyId={openingVacancyId}
-                onOpenVacancy={(vacancyId) => void openVacancy(vacancyId)}
+                onOpenVacancy={(vacancyId) => void openVacancy(vacancyId, visibleVacancies)}
               />
             </section>
             <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
@@ -637,8 +576,7 @@ export default function App() {
                 saving={vacancySaving}
                 onChangeReviewReason={setReviewReason}
                 onClear={() => {
-                  setSelectedVacancy(null);
-                  setSelectedVacancyId(null);
+                  clearSelection();
                 }}
                 onDecision={(status) => void setVacancyDecision(status)}
                 onArchive={() => void archiveSelectedVacancy()}
