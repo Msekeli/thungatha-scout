@@ -17,9 +17,7 @@ export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
     <div className="mb-4 rounded-xl border border-border bg-background p-4 text-foreground shadow-md shadow-black/10">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-[10px] font-semibold tracking-widest text-primary">
-            COMPANY PROFILE
-          </p>
+          <p className="text-[10px] font-semibold tracking-widest text-primary">COMPANY PROFILE</p>
           <h3 className="mt-1 truncate text-base font-bold text-foreground">{employer.name}</h3>
           <p className="mt-1 break-all text-[11px] text-muted-foreground">
             {employer.website_url ? (
