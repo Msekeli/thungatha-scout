@@ -31,13 +31,15 @@ class VacancyRepository:
                 INSERT INTO vacancies (
                     employer_id, source_id, external_job_id, title, description,
                     location_text, department, office, source_url, application_url,
-                    published_at, source_updated_at, raw_payload, content_fingerprint
+                    published_at, source_updated_at, raw_payload, content_fingerprint,
+                    review_status, review_reason
                 )
                 VALUES (
                     %(employer_id)s, %(source_id)s, %(external_job_id)s,
                     %(title)s, %(description)s, %(location_text)s, %(department)s,
                     %(office)s, %(source_url)s, %(application_url)s,
-                    %(published_at)s, %(source_updated_at)s, %(raw_payload)s, %(fingerprint)s
+                    %(published_at)s, %(source_updated_at)s, %(raw_payload)s, %(fingerprint)s,
+                    %(review_status)s, %(review_reason)s
                 )
                 ON CONFLICT (source_id, external_job_id) DO UPDATE SET
                     title = EXCLUDED.title,
@@ -90,6 +92,20 @@ class VacancyRepository:
             "source_updated_at": job.get("updated_at"),
             "raw_payload": Jsonb(dict(job)),
             "fingerprint": fingerprint,
+            "review_status": (
+                "needs_verification"
+                if not isinstance(location, dict)
+                or not location.get("name")
+                or any(term in location.get("name", "").lower() for term in ("south africa", "remote"))
+                else "pending"
+            ),
+            "review_reason": (
+                "Location is missing from the source."
+                if not isinstance(location, dict) or not location.get("name")
+                else "Verify the stated South African or remote-work location and eligibility."
+                if any(term in location.get("name", "").lower() for term in ("south africa", "remote"))
+                else None
+            ),
         }
 
     def list_for_employer(
@@ -102,6 +118,7 @@ class VacancyRepository:
             JOIN employer_sources s ON s.id = v.source_id
             JOIN employers e ON e.id = v.employer_id
             WHERE v.employer_id = %s AND v.status = 'active'
+              AND v.archived_at IS NULL
             ORDER BY v.source_updated_at DESC NULLS LAST, v.created_at DESC
             LIMIT %s OFFSET %s
             """,
@@ -115,9 +132,67 @@ class VacancyRepository:
             FROM vacancies v
             JOIN employer_sources s ON s.id = v.source_id
             JOIN employers e ON e.id = v.employer_id
-            WHERE v.status = 'active'
+            WHERE v.status = 'active' AND v.archived_at IS NULL
             ORDER BY v.source_updated_at DESC NULLS LAST, v.created_at DESC
             LIMIT %s OFFSET %s
             """,
             (limit, offset),
         ).fetchall()
+
+
+    def get_by_id(self, vacancy_id: UUID) -> dict[str, Any] | None:
+        return self._connection.execute(
+            """
+            SELECT v.*, s.adapter_key, e.name AS employer_name,
+                   e.logo_url AS employer_logo_url,
+                   e.logo_source_url AS employer_logo_source_url
+            FROM vacancies v
+            JOIN employer_sources s ON s.id = v.source_id
+            JOIN employers e ON e.id = v.employer_id
+            WHERE v.id = %s
+            """,
+            (vacancy_id,),
+        ).fetchone()
+
+    def update_review(
+        self, vacancy_id: UUID, review_status: str, review_reason: str | None
+    ) -> dict[str, Any] | None:
+        row = self._connection.execute(
+            """
+            UPDATE vacancies
+            SET review_status = %s,
+                review_reason = %s,
+                reviewed_at = CASE WHEN %s = 'verified' THEN NOW() ELSE NULL END,
+                updated_at = NOW()
+            WHERE id = %s AND archived_at IS NULL
+            RETURNING id
+            """,
+            (review_status, review_reason, review_status, vacancy_id),
+        ).fetchone()
+        return self.get_by_id(vacancy_id) if row else None
+
+    def archive(
+        self, vacancy_id: UUID, reason: str | None = None
+    ) -> dict[str, Any] | None:
+        row = self._connection.execute(
+            """
+            UPDATE vacancies
+            SET archived_at = NOW(), archived_reason = %s, updated_at = NOW()
+            WHERE id = %s AND archived_at IS NULL
+            RETURNING id
+            """,
+            (reason, vacancy_id),
+        ).fetchone()
+        return self.get_by_id(vacancy_id) if row else None
+
+    def restore(self, vacancy_id: UUID) -> dict[str, Any] | None:
+        row = self._connection.execute(
+            """
+            UPDATE vacancies
+            SET archived_at = NULL, archived_reason = NULL, updated_at = NOW()
+            WHERE id = %s AND archived_at IS NOT NULL
+            RETURNING id
+            """,
+            (vacancy_id,),
+        ).fetchone()
+        return self.get_by_id(vacancy_id) if row else None
