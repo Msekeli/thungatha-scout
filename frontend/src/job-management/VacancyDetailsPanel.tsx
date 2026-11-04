@@ -61,7 +61,7 @@ export function VacancyDetailsPanel({
     <>
       <div className="flex items-center justify-between gap-3 border-b border-border bg-primary p-4 text-primary-foreground">
         <div className="min-w-0">
-          <p className="text-[10px] font-medium text-[var(--scout-cyan)]">
+          <p className="text-[10px] font-medium text-scout-cyan">
             {vacancy.employer_name} · {vacancy.location_text || "Location unknown"}
           </p>
           <h3 className="mt-1 text-sm font-bold">{vacancy.title}</h3>
@@ -82,7 +82,7 @@ export function VacancyDetailsPanel({
           asChild
           type="button"
           size="sm"
-          className="bg-[var(--scout-cyan)] text-primary hover:opacity-90"
+          className="bg-scout-cyan text-primary hover:opacity-90"
         >
           <a href={vacancy.application_url} target="_blank" rel="noreferrer">
             Open source listing ↗
@@ -103,7 +103,7 @@ export function VacancyDetailsPanel({
           }
           className={
             vacancy.review_status === "pending" || vacancy.review_status === "needs_verification"
-              ? "bg-[var(--warning-surface)] text-[var(--warning-text)] hover:bg-[var(--warning-surface)]"
+              ? "bg-warning-surface text-warning hover:bg-warning-surface"
               : ""
           }
         >
@@ -126,7 +126,7 @@ export function VacancyDetailsPanel({
               }
             />
           ) : (
-            <p className="rounded-lg bg-[var(--warning-surface)] p-4 text-sm text-[var(--warning-text)]">
+            <p className="rounded-lg bg-warning-surface p-4 text-sm text-warning">
               No description was saved by the source. Inspect the source listing.
             </p>
           )}
@@ -153,9 +153,10 @@ export function VacancyDetailsPanel({
               <Button
                 type="button"
                 size="sm"
+                variant="ghost"
                 disabled={saving || archived}
                 onClick={() => onDecision("verified")}
-                className="bg-[var(--success-text)] text-white hover:brightness-95"
+                className="bg-success text-white shadow-sm hover:bg-success/90"
               >
                 <ShieldCheck className="h-4 w-4" />
                 Mark verified
