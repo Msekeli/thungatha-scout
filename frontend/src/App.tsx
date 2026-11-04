@@ -462,10 +462,11 @@ export default function App() {
                   </div>
                   <p className="profile-website">{selectedEmployer.website_url || "Official website not supplied"}</p>
                   <form className="branding-form" onSubmit={saveEmployerBranding}>
-                    <h4>Company logo</h4>
+                    <div className="flex items-center gap-3"><h4>Company logo</h4><span className="text-[10px] text-slate-400">Optional</span>{logoUrl && <img src={logoUrl} alt="Company logo preview" className="h-9 w-9 rounded-md border border-slate-200 bg-white object-contain p-1" />}</div>
                     <label>Logo image URL
                       <input type="url" value={logoUrl} onChange={(event) => setLogoUrl(event.target.value)} placeholder="https://company.com/logo.png" />
                     </label>
+                    <p className="text-[10px] text-slate-400">Scout currently accepts a logo URL and its evidence URL. A logo is not required to register or approve a company.</p>
                     <label>Logo source / evidence URL
                       <input type="url" value={logoSourceUrl} onChange={(event) => setLogoSourceUrl(event.target.value)} placeholder="Official company page where the logo is shown" />
                     </label>
