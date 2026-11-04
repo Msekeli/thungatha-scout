@@ -14,11 +14,15 @@ class CareersLinks(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.links: list[str] = []
+        self.in_title = False
+        self.title_text = ""
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         href = dict(attrs).get("href")
         if tag == "a" and href:
             self.links.append(href)
+        if tag == "title":
+            self.in_title = True
 
 
 async def discover_greenhouse(url: str) -> dict[str, str]:
@@ -51,6 +55,7 @@ async def discover_greenhouse(url: str) -> dict[str, str]:
                 "board_url": board_url,
                 "board_token": token,
                 "detected_adapter": "greenhouse",
+                "company_name": parser.title_text.split("|")[0].split("—")[0].strip(),
             }
     raise ValueError(
         "No Greenhouse board link was found. "
