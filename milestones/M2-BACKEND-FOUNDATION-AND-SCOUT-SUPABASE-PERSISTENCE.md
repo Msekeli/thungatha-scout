@@ -42,13 +42,15 @@ The live `dev` tree was inspected through GitHub. No local checkout was availabl
 
 **Current backend inventory — refreshed 4 November 2026**
 
-- `backend/pyproject.toml` defines a setuptools package for Python 3.11+, FastAPI, Pydantic Settings, Psycopg 3 and Uvicorn. Development extras include HTTPX, pytest and Ruff. Pytest discovers unit and integration suites under `backend/test-suites/`.
+- `backend/pyproject.toml` defines a setuptools package for Python 3.11+, FastAPI, HTTPX, Pydantic Settings, Psycopg 3, PyJWT with cryptographic support and Uvicorn. Development extras include pytest and Ruff. Pytest discovers unit and integration suites under `backend/test-suites/`.
 - `backend/scout/main.py` creates the FastAPI application, exposes `GET /health`, and registers RFC 9457-style Problem Details handlers for HTTP and request-validation errors.
-- `backend/scout/settings.py` provides Pydantic Settings and represents `SCOUT_DATABASE_URL` as a secret value.
+- `backend/scout/settings.py` provides Pydantic Settings. Database and Supabase publishable-key values use `SecretStr`; the Supabase URL and configured administrator email are non-secret settings.
+- `backend/scout/supabase_jwt.py` verifies asymmetric Supabase access tokens against the project's JWKS endpoint (ES256/RS256) and delegates legacy HS256 validation to Supabase Auth's `/auth/v1/user` endpoint. JWKS keys are cached for five minutes; the legacy path uses a five-second HTTP timeout.
+- `backend/scout/authentication.py` exposes the `require_admin` FastAPI dependency. It rejects missing/invalid sessions, non-user tokens and users outside the configured single-email allowlist. Missing auth configuration fails closed with HTTP 503. Protected routes must explicitly depend on `require_admin`; the health endpoint remains public.
 - `backend/scout/application/employer_service.py` defines employer/source creation payloads and service operations. Creation forces initial employer/source states and source permission to safe defaults rather than accepting approval state from the caller.
 - `backend/scout/persistence/` contains the Psycopg connection boundary, migration runner and employer/source repositories.
 - `backend/database-migrations/0001-create-employers-and-sources.sql` defines the initial employer/source schema, state constraints, evidence JSONB columns, foreign-key behavior and indexes.
-- `backend/test-suites/unit-tests/` currently contains tests for health/error responses, settings, database connection configuration, migration discovery/checksums, employer/source payload validation and the application-module line limit.
+- `backend/test-suites/unit-tests/` contains tests for health/error responses, settings, database connection configuration, migration discovery/checksums, employer/source payload validation, administrator authentication, Supabase JWT strategy selection and the application-module line limit.
 - `backend/test-suites/integration-tests/test_supabase_persistence.py` is an opt-in cloud integration test. It must only use the dedicated Scout database, never the Thungatha destination.
 - `backend/registry/` keeps ATS adapter definitions separate from employer/source mappings.
 - `backend/.env.example` contains placeholder configuration only. No real credentials should be committed.
@@ -59,7 +61,7 @@ The live `dev` tree was inspected through GitHub. No local checkout was availabl
 - `frontend/src/App.tsx` currently provides a minimal Supabase email/password sign-in and sign-out shell. It is not yet an admin application.
 - `frontend/src/supabase.ts` uses only the browser Supabase URL and anon/publishable key. It does not contain a service-role credential.
 - The frontend has no checked-in package lockfile in the inspected tree. A production build has not been run in this environment.
-- Frontend sign-in is not sufficient authorization by itself. Backend JWT verification and administrator email allowlisting must be implemented before protected API operations are exposed.
+- Frontend sign-in is not sufficient authorization by itself. A backend JWT-verification and administrator allowlist dependency is now implemented, but no employer/source HTTP routes are exposed yet. Local execution and verification remain outstanding.
 
 **Verification boundary**
 
@@ -91,7 +93,7 @@ Do not create these packages as empty placeholders. Add a package or module only
 **C01 outcome:** The current `scout` package is the smallest suitable starting point. No duplicate application skeleton or speculative directories are needed. C01 is **In review** pending user review; this record does not claim a local runtime or frontend build pass.
 
 ### M2-C02 — Backend application foundation
-**Status:** In progress — implementation present; local verification outstanding
+**Status:** In progress — API error contract and administrator authentication implemented; local verification outstanding
 
 Create the minimal Python HTTP application and configuration boundary. Keep HTTP handlers thin and business logic in ordinary application modules. Preserve portability so the hosting provider can be selected without rewriting domain logic.
 
@@ -99,7 +101,8 @@ Create the minimal Python HTTP application and configuration boundary. Keep HTTP
 - Backend starts locally with example configuration.
 - Health endpoint reports application readiness without exposing secrets.
 - Consistent validation and error response contract exists.
-- No real credentials are committed.
+- Protected routes can enforce verified Supabase user sessions and the configured administrator email allowlist.
+- Missing auth configuration fails closed; no real credentials are committed.
 
 ### M2-C03 — Scout Supabase schema and persistence
 **Status:** In progress — initial migration and repositories present; live verification outstanding
@@ -125,7 +128,7 @@ Inspect Thungatha's current database contract before defining the publication pr
 - Publishing remains disabled until its own milestone.
 
 ### M2-C05 — Verification and checkpoint review
-**Status:** In progress — unit coverage expanded; execution and review outstanding
+**Status:** In progress — unit coverage expanded, including authentication; execution and review outstanding
 
 Add unit and database integration tests for the foundation. Record actual commands and results. Review secrets, migrations, error handling and provider portability.
 
@@ -141,3 +144,17 @@ Add unit and database integration tests for the foundation. Record actual comman
 - Keep modules focused and within repository line limits.
 - FastAPI is explicitly approved for the HTTP API. Do not add queues, an ORM, cloud services or additional infrastructure without a separate demonstrated need and approval.
 - Do not mark a checkpoint Accepted without actual evidence and user acceptance.
+
+
+### Administrator authentication implementation note — 4 November 2026
+
+The backend now has an explicit Supabase Auth verification boundary:
+
+- Configure `SCOUT_SUPABASE_URL`, `SCOUT_SUPABASE_PUBLISHABLE_KEY` and `SCOUT_ADMIN_EMAIL` in the backend environment. The publishable key is treated as a secret configuration value in backend settings; it is not a service-role key.
+- ES256/RS256 access tokens are checked against the configured project's JWKS endpoint, with issuer, audience, expiry and required subject/time claims validated by PyJWT.
+- Legacy HS256 tokens are validated by Supabase Auth's `/auth/v1/user` endpoint rather than trusting a locally configured JWT secret. This adds a bounded network call for that legacy signing mode.
+- Only tokens representing authenticated user sessions with the configured administrator email are authorised. Email comparison is case-insensitive.
+- The `require_admin` dependency is available for protected FastAPI routes. The health route intentionally remains public. Existing routes must opt in explicitly; authentication is not applied globally.
+- Unit tests cover missing credentials, incomplete configuration, administrator acceptance, non-admin rejection, non-user token rejection, supported verification strategy selection and unsupported algorithms.
+
+**Unverified:** the actual signing algorithm configured in the Scout Supabase project has not been inspected; no live JWT has been verified; no local tests or Ruff checks have been executed in this session. The project must have a valid Supabase Auth user for the configured administrator email, and public sign-up must be disabled/configured in the Supabase dashboard. No dashboard changes were made.
