@@ -3,7 +3,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
-from psycopg.errors import ForeignKeyViolation, UniqueViolation
+from psycopg.errors import UniqueViolation
 
 from scout.application.employer_contracts import EmployerSourceCreate
 from scout.application.employer_service import EmployerService
@@ -26,21 +26,12 @@ def get_source_update_service() -> EmployerSourceUpdateService:
 
 class EmployerSourceReviewUpdate(BaseModel):
     status: Literal[
-        "discovered",
-        "pending_verification",
-        "verified",
-        "temporarily_unavailable",
-        "invalid",
-        "needs_review",
-        "inactive",
+        "discovered", "pending_verification", "verified",
+        "temporarily_unavailable", "invalid", "needs_review", "inactive",
     ]
     permission_status: Literal["unknown", "allowed", "restricted", "needs_review"]
     evidence_url: str | None = Field(default=None, max_length=2048)
     reason: str | None = Field(default=None, max_length=2000)
-
-
-class EmployerStatusUpdate(BaseModel):
-    status: Literal["approved", "needs_review", "rejected", "inactive"]
 
 
 @router.get("/{employer_id}/sources")
@@ -111,34 +102,3 @@ def update_employer_source(
     if source is None:
         raise HTTPException(status_code=404, detail="Employer source not found.")
     return source
-
-
-@router.patch("/{employer_id}/status")
-def update_employer_status(
-    employer_id: UUID,
-    payload: EmployerStatusUpdate,
-    service: EmployerService = Depends(get_employer_service),
-) -> dict[str, Any]:
-    employer = service.update_status(employer_id, payload.status)
-    if employer is None:
-        raise HTTPException(status_code=404, detail="Company not found.")
-    return employer
-
-
-@router.delete("/{employer_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_employer(
-    employer_id: UUID,
-    service: EmployerService = Depends(get_employer_service),
-) -> None:
-    try:
-        deleted = service.delete_employer(employer_id)
-    except ForeignKeyViolation as exception:
-        raise HTTPException(
-            status_code=409,
-            detail=(
-                "This company has registered sources or vacancies. "
-                "Deactivate it instead of deleting its history."
-            ),
-        ) from exception
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Company not found.")
