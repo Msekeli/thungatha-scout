@@ -17,24 +17,47 @@ type Props = {
   onSaveBranding: (event: FormEvent<HTMLFormElement>) => void;
 };
 
-export function CompanyProfilePanel({ state, jobs, companies, onboarding, jobsCount, onSaveBranding }: Props) {
+export function CompanyProfilePanel({
+  state,
+  jobs,
+  companies,
+  onboarding,
+  jobsCount,
+  onSaveBranding,
+}: Props) {
   const employer = companies.employer;
   return (
     <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
       {employer ? (
         <>
-          <CompanyProfileHeader employer={employer} jobsCount={jobsCount}
-            sourcesCount={state.sources.length} />
-          <CompanyProfileActions currentStatus={employer.status} saving={state.saving}
+          <CompanyProfileHeader
+            employer={employer}
+            jobsCount={jobsCount}
+            sourcesCount={state.sources.length}
+          />
+          <CompanyProfileActions
+            currentStatus={employer.status}
+            saving={state.saving}
             onUpdateStatus={(status) => void companies.updateStatus(status)}
-            onDelete={() => void companies.deleteCompany()} />
-          <CompanyBrandingForm logoUrl={state.logoUrl} logoSourceUrl={state.logoSourceUrl}
-            saving={state.saving} onLogoUrlChange={state.setLogoUrl}
-            onLogoSourceUrlChange={state.setLogoSourceUrl} onSubmit={onSaveBranding} />
-          <CompanySourcesSection sources={state.sources} extractionRuns={jobs.extractionRuns}
-            decisions={companies.decisions} sourceUrl={state.sourceUrl}
-            editingSourceId={state.editingSourceId} inspection={onboarding.inspection}
-            saving={state.saving} inspecting={onboarding.inspecting}
+            onDelete={() => void companies.deleteCompany()}
+          />
+          <CompanyBrandingForm
+            logoUrl={state.logoUrl}
+            logoSourceUrl={state.logoSourceUrl}
+            saving={state.saving}
+            onLogoUrlChange={state.setLogoUrl}
+            onLogoSourceUrlChange={state.setLogoSourceUrl}
+            onSubmit={onSaveBranding}
+          />
+          <CompanySourcesSection
+            sources={state.sources}
+            extractionRuns={jobs.extractionRuns}
+            decisions={companies.decisions}
+            sourceUrl={state.sourceUrl}
+            editingSourceId={state.editingSourceId}
+            inspection={onboarding.inspection}
+            saving={state.saving}
+            inspecting={onboarding.inspecting}
             onEditSource={(source) => {
               state.setEditingSourceId(source.id);
               state.setSourceUrl(source.source_url);
@@ -52,7 +75,8 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding, jobsCo
               state.setEditingSourceId(null);
               state.setSourceUrl("");
               onboarding.setInspection(null);
-            }} />
+            }}
+          />
         </>
       ) : (
         <div className="grid min-h-[260px] content-center gap-2 px-6 text-center text-sm text-muted-foreground">

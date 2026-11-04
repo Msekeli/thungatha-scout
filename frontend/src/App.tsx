@@ -15,18 +15,33 @@ export default function App() {
 
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden bg-[#050a14] px-4 pb-3 pt-4 text-white md:px-8">
-      <AppShellHeader activePage={state.page} onSelectPage={state.setPage}
-        onRefresh={() => void jobs.loadWorkspace()} refreshing={jobs.loading} />
-      <OperationalAlerts error={state.error} notice={state.notice}
-        canUndo={jobs.canUndoDecision} onUndo={() => void jobs.undoLastDecision()}
-        onDismissError={state.dismissError} onDismissNotice={state.dismissNotice} />
+      <AppShellHeader
+        activePage={state.page}
+        onSelectPage={state.setPage}
+        onRefresh={() => void jobs.loadWorkspace()}
+        refreshing={jobs.loading}
+      />
+      <OperationalAlerts
+        error={state.error}
+        notice={state.notice}
+        canUndo={jobs.canUndoDecision}
+        onUndo={() => void jobs.undoLastDecision()}
+        onDismissError={state.dismissError}
+        onDismissNotice={state.dismissNotice}
+      />
       {state.page === "jobs" && <JobsWorkspacePanel jobs={jobs} state={state} />}
       {state.page === "companies" && (
-        <CompaniesWorkspacePanel state={state} jobs={jobs} companies={companies}
-          onboarding={onboarding} onSaveBranding={saveBranding} />
+        <CompaniesWorkspacePanel
+          state={state}
+          jobs={jobs}
+          companies={companies}
+          onboarding={onboarding}
+          onSaveBranding={saveBranding}
+        />
       )}
       {state.page === "add-company" && (
-        <EmployerOnboardingPanel sourceUrl={state.sourceUrl}
+        <EmployerOnboardingPanel
+          sourceUrl={state.sourceUrl}
           onChangeSourceUrl={(value) => {
             state.setSourceUrl(value);
             onboarding.setDiscovery(null);
@@ -37,14 +52,18 @@ export default function App() {
             onboarding.setAtsKey(value);
             onboarding.setDiscovery(null);
           }}
-          discovery={onboarding.discovery} onDiscover={onboarding.discover}
-          inspecting={onboarding.inspecting} form={state.form}
+          discovery={onboarding.discovery}
+          onDiscover={onboarding.discover}
+          inspecting={onboarding.inspecting}
+          form={state.form}
           onChangeCompanyName={(value) => state.setForm((current) => ({ ...current, name: value }))}
-          saving={state.saving} onSubmit={onboarding.submit}
+          saving={state.saving}
+          onSubmit={onboarding.submit}
           onCancel={() => {
             state.setPage("companies");
             onboarding.setDiscovery(null);
-          }} />
+          }}
+        />
       )}
       <footer className="mt-5 border-t border-white/15 pt-3 text-[10px] text-white/65">
         Scout is a private operations workspace. Only verified, quality-checked records are eligible
