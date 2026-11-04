@@ -34,6 +34,8 @@ export default function App() {
   const [reviewFilter, setReviewFilter] = useState("all");
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
   const [reviewReason, setReviewReason] = useState("");
+  const [logoUrl, setLogoUrl] = useState("");
+  const [logoSourceUrl, setLogoSourceUrl] = useState("");
   const [vacancySaving, setVacancySaving] = useState(false);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
@@ -86,6 +88,8 @@ export default function App() {
     setSourceUrl("");
     setInspection(null);
     setSelectedEmployerId(employer.id);
+    setLogoUrl(employer.logo_url ?? "");
+    setLogoSourceUrl(employer.logo_source_url ?? "");
     setPage("companies");
     setError("");
     try {
@@ -153,6 +157,26 @@ export default function App() {
       setError(reason instanceof Error ? reason.message : "Could not extract jobs.");
     } finally {
       setExtracting(false);
+    }
+  }
+
+  async function saveEmployerBranding(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selectedEmployer) return;
+    setSaving(true);
+    setError("");
+    try {
+      const updated = await scoutApi.updateEmployerBranding(
+        selectedEmployer.id,
+        logoUrl.trim(),
+        logoSourceUrl.trim(),
+      );
+      setEmployers((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setNotice("Company logo details saved.");
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not save company logo details.");
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -494,6 +518,17 @@ export default function App() {
                 <>
                   <div className="section-heading"><div><p className="eyebrow">COMPANY PROFILE</p><h3>{selectedEmployer.name}</h3></div><span className="status">{selectedEmployer.status.replaceAll("_", " ")}</span></div>
                   <p className="profile-website">{selectedEmployer.website_url || "Official website not supplied"}</p>
+                  <form className="branding-form" onSubmit={saveEmployerBranding}>
+                    <h4>Company logo</h4>
+                    <label>Logo image URL
+                      <input type="url" value={logoUrl} onChange={(event) => setLogoUrl(event.target.value)} placeholder="https://company.com/logo.png" />
+                    </label>
+                    <label>Logo source / evidence URL
+                      <input type="url" value={logoSourceUrl} onChange={(event) => setLogoSourceUrl(event.target.value)} placeholder="Official company page where the logo is shown" />
+                    </label>
+                    <button className="button secondary" disabled={saving}>{saving ? "Saving…" : "Save logo details"}</button>
+                  </form>
+
                   <div className="profile-stats"><div><strong>{vacancies.filter((item) => item.employer_id === selectedEmployer.id).length}</strong><span>Jobs collected</span></div><div><strong>{sources.length}</strong><span>Sources registered</span></div></div>
                   <div className="section-heading source-title"><h4>Job sources</h4></div>
                   {sources.length ? sources.map((source) => {
