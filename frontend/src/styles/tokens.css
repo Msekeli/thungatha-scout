@@ -1,66 +1,64 @@
 @layer base {
   :root {
-    /* Light canvas and content surfaces */
-    --background: 216 33% 96%;
-    --foreground: 216 35% 16%;
-    --card: 0 0% 100%;
-    --card-foreground: 216 35% 16%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 216 35% 16%;
+    /* Light-led Scout surfaces, using the parent Thungatha blue palette */
+    --background: 210 65% 89%;
+    --foreground: 213 71% 11%;
+    --card: 210 100% 98%;
+    --card-foreground: 213 71% 11%;
+    --popover: 210 100% 98%;
+    --popover-foreground: 213 71% 11%;
 
-    /* Primary actions and supporting surfaces */
-    --primary: 215 75% 17%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 216 25% 92%;
-    --secondary-foreground: 215 55% 25%;
-    --muted: 216 25% 94%;
-    --muted-foreground: 215 15% 45%;
-    --accent: 190 55% 91%;
-    --accent-foreground: 215 75% 17%;
+    --primary: 209 81% 22%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 212 63% 92%;
+    --secondary-foreground: 209 76% 23%;
+    --muted: 212 63% 92%;
+    --muted-foreground: 210 37% 30%;
+    --accent: 209 58% 80%;
+    --accent-foreground: 204 88% 29%;
     --destructive: 0 72% 51%;
-    --border: 214 25% 88%;
-    --input: 214 25% 87%;
-    --ring: 190 68% 48%;
+    --border: 211 49% 71%;
+    --input: 211 49% 71%;
+    --ring: 201 96% 32%;
 
-    /* Scout brand surfaces */
-    --scout-navy-2: #102b4d;
-    --scout-navy-3: #183b63;
-    --scout-navy-muted: #24496f;
-    --scout-cyan: #27c2d6;
+    /* Shared Thungatha / Scout brand colours */
+    --scout-navy-2: #0b3a66;
+    --scout-navy-3: #164b7a;
+    --scout-navy-muted: #2f4b68;
+    --scout-cyan: #38bdf8;
 
-    /* Semantic UI colours */
-    --success-surface: #eef8f1;
-    --success-text: #25653b;
-    --warning-surface: #fff4df;
-    --warning-text: #8b5a13;
-    --danger-surface: #fff0f0;
-    --danger-text: #a33131;
+    /* Semantic states retain their meaning across themes */
+    --success-surface: #bfe6ce;
+    --success-text: #0b4a27;
+    --warning-surface: #f6dca0;
+    --warning-text: #6a3705;
+    --danger-surface: #f8d1d1;
+    --danger-text: #8f2020;
 
-    /* Typography and shape */
     --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
     --radius: 0.5rem;
   }
 
   .dark {
     color-scheme: dark;
-    --background: 216 42% 9%;
-    --foreground: 210 40% 96%;
-    --card: 215 43% 13%;
-    --card-foreground: 210 40% 96%;
-    --popover: 215 43% 13%;
-    --popover-foreground: 210 40% 96%;
-    --primary: 190 68% 48%;
-    --primary-foreground: 216 42% 9%;
-    --secondary: 215 35% 21%;
-    --secondary-foreground: 210 40% 94%;
-    --muted: 215 35% 17%;
-    --muted-foreground: 214 18% 70%;
-    --accent: 215 35% 23%;
-    --accent-foreground: 190 75% 75%;
+    --background: 219 60% 5%;
+    --foreground: 202 100% 95%;
+    --card: 219 48% 8%;
+    --card-foreground: 202 100% 95%;
+    --popover: 219 48% 8%;
+    --popover-foreground: 202 100% 95%;
+    --primary: 198 93% 60%;
+    --primary-foreground: 204 88% 6%;
+    --secondary: 219 50% 12%;
+    --secondary-foreground: 202 100% 95%;
+    --muted: 219 50% 12%;
+    --muted-foreground: 207 25% 65%;
+    --accent: 220 40% 18%;
+    --accent-foreground: 198 93% 60%;
     --destructive: 0 62% 48%;
-    --border: 215 28% 27%;
-    --input: 215 28% 27%;
-    --ring: 190 68% 48%;
+    --border: 220 40% 18%;
+    --input: 220 40% 18%;
+    --ring: 198 93% 60%;
   }
 
   * {
