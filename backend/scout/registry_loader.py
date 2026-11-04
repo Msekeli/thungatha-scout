@@ -14,16 +14,24 @@ def load_adapter_registry() -> dict[str, Any]:
     try:
         registry = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exception:
-        raise RegistryValidationError("ATS adapter registry cannot be loaded.") from exception
+        raise RegistryValidationError(
+            "ATS adapter registry cannot be loaded."
+        ) from exception
 
     adapters = registry.get("adapters") if isinstance(registry, dict) else None
     if not isinstance(adapters, dict) or not adapters:
-        raise RegistryValidationError("ATS adapter registry has no adapter definitions.")
+        raise RegistryValidationError(
+            "ATS adapter registry has no adapter definitions."
+        )
     for key, definition in adapters.items():
         if not isinstance(definition, dict):
-            raise RegistryValidationError(f"Adapter '{key}' must be an object.")
+            raise RegistryValidationError(
+                f"Adapter '{key}' must be an object."
+            )
         if not isinstance(definition.get("config_schema"), list):
-            raise RegistryValidationError(f"Adapter '{key}' has no config schema.")
+            raise RegistryValidationError(
+                f"Adapter '{key}' has no config schema."
+            )
     return adapters
 
 
@@ -35,10 +43,12 @@ def validate_source_config(adapter_key: str, config: dict[str, Any]) -> None:
 
     required = definition["config_schema"]
     missing = [
-        field for field in required
-        if field not in config or config[field] in (None, "")
+        field
+        for field in required
+        if not isinstance(config.get(field), str) or not config[field].strip()
     ]
     if missing:
+        fields = ", ".join(missing)
         raise RegistryValidationError(
-            f"Adapter '{adapter_key}' is missing configuration: {', '.join(missing)}."
+            f"Adapter '{adapter_key}' is missing configuration: {fields}."
         )
