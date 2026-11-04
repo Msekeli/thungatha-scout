@@ -1,4 +1,6 @@
-from typing import Any
+from typing import Any, Literal
+
+from pydantic import BaseModel
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
