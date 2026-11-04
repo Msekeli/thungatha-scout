@@ -27,9 +27,7 @@ export function VacancyRecordList({
   return (
     <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3">
       {loading ? (
-        <p className="py-12 text-center text-sm text-muted-foreground">
-          Loading operational data…
-        </p>
+        <p className="py-12 text-center text-sm text-muted-foreground">Loading operational data…</p>
       ) : vacancies.length === 0 ? (
         <div className="py-12 text-center">
           <p className="text-sm font-semibold">No matching records</p>

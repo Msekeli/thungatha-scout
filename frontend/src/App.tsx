@@ -1,11 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  Activity,
-  BriefcaseBusiness,
-  Building2,
-  CircleAlert,
-  Sparkles,
-} from "lucide-react";
+import { Activity, BriefcaseBusiness, Building2, CircleAlert, Sparkles } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type {

@@ -78,7 +78,12 @@ export function VacancyDetailsPanel({
       </div>
 
       <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3">
-        <Button asChild type="button" size="sm" className="bg-[var(--scout-cyan)] text-primary hover:opacity-90">
+        <Button
+          asChild
+          type="button"
+          size="sm"
+          className="bg-[var(--scout-cyan)] text-primary hover:opacity-90"
+        >
           <a href={vacancy.application_url} target="_blank" rel="noreferrer">
             Open source listing ↗
           </a>

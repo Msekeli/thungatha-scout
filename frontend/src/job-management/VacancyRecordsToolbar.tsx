@@ -40,7 +40,10 @@ export function VacancyRecordsToolbar({
         value={showArchived ? "archived" : "active"}
         onValueChange={(value) => onShowArchivedChange(value === "archived")}
       >
-        <SelectTrigger aria-label="Choose active or archived vacancies" className="h-8 w-[125px] bg-card text-xs">
+        <SelectTrigger
+          aria-label="Choose active or archived vacancies"
+          className="h-8 w-[125px] bg-card text-xs"
+        >
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -49,7 +52,10 @@ export function VacancyRecordsToolbar({
         </SelectContent>
       </Select>
       <Select value={reviewFilter} onValueChange={onReviewFilterChange}>
-        <SelectTrigger aria-label="Filter vacancies by review state" className="h-8 w-[145px] bg-card text-xs">
+        <SelectTrigger
+          aria-label="Filter vacancies by review state"
+          className="h-8 w-[145px] bg-card text-xs"
+        >
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -61,7 +67,10 @@ export function VacancyRecordsToolbar({
         </SelectContent>
       </Select>
       <Select value={selectedEmployerId} onValueChange={onEmployerChange}>
-        <SelectTrigger aria-label="Filter vacancies by company" className="h-8 w-[140px] bg-card text-xs">
+        <SelectTrigger
+          aria-label="Filter vacancies by company"
+          className="h-8 w-[140px] bg-card text-xs"
+        >
           <SelectValue placeholder="All companies" />
         </SelectTrigger>
         <SelectContent>
