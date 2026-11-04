@@ -2,12 +2,7 @@ import { useMemo, useState } from "react";
 import { Activity, BriefcaseBusiness, Building2, CircleAlert, Sparkles } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
-import type {
-  Employer,
-  EmployerSource,
-  GreenhouseInspection,
-  CareersDiscovery,
-} from "./api";
+import type { Employer, EmployerSource, GreenhouseInspection, CareersDiscovery } from "./api";
 import { Badge } from "@/components/ui/badge";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";

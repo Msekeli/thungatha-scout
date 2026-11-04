@@ -29,46 +29,56 @@ export function useVacancyReview({
     setOpeningVacancyId(null);
   }, []);
 
-  const openVacancy = useCallback(async (vacancyId: string, visibleVacancies: Vacancy[]) => {
-    const requestId = ++requestRef.current;
-    onError("");
-    setSelectedVacancyId(vacancyId);
-    setOpeningVacancyId(vacancyId);
-    setSelectedVacancy(null);
-    try {
-      const vacancy = await scoutApi.getVacancy(vacancyId);
-      if (requestId !== requestRef.current) return;
-      const listRecord = visibleVacancies.find((item) => item.id === vacancyId);
-      const completeVacancy = {
-        ...vacancy,
-        description: vacancy.description ?? listRecord?.description ?? null,
-      };
-      setSelectedVacancy(completeVacancy);
-      setReviewReason(completeVacancy.review_reason ?? "");
-    } catch (reason) {
-      if (requestId !== requestRef.current) return;
-      onError(reason instanceof Error ? reason.message : "Could not load vacancy details.");
-      setSelectedVacancyId(null);
-    } finally {
-      if (requestId === requestRef.current) setOpeningVacancyId(null);
-    }
-  }, [onError]);
+  const openVacancy = useCallback(
+    async (vacancyId: string, visibleVacancies: Vacancy[]) => {
+      const requestId = ++requestRef.current;
+      onError("");
+      setSelectedVacancyId(vacancyId);
+      setOpeningVacancyId(vacancyId);
+      setSelectedVacancy(null);
+      try {
+        const vacancy = await scoutApi.getVacancy(vacancyId);
+        if (requestId !== requestRef.current) return;
+        const listRecord = visibleVacancies.find((item) => item.id === vacancyId);
+        const completeVacancy = {
+          ...vacancy,
+          description: vacancy.description ?? listRecord?.description ?? null,
+        };
+        setSelectedVacancy(completeVacancy);
+        setReviewReason(completeVacancy.review_reason ?? "");
+      } catch (reason) {
+        if (requestId !== requestRef.current) return;
+        onError(reason instanceof Error ? reason.message : "Could not load vacancy details.");
+        setSelectedVacancyId(null);
+      } finally {
+        if (requestId === requestRef.current) setOpeningVacancyId(null);
+      }
+    },
+    [onError],
+  );
 
-  const saveDecision = useCallback(async (status: Vacancy["review_status"]) => {
-    if (!selectedVacancy) return;
-    setSaving(true);
-    onError("");
-    try {
-      const updated = await scoutApi.updateVacancyReview(selectedVacancy.id, status, reviewReason);
-      setSelectedVacancy(updated);
-      onVacancyUpdated(updated);
-      onNotice(`Vacancy marked ${status.replaceAll("_", " ")}.`);
-    } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not save the vacancy decision.");
-    } finally {
-      setSaving(false);
-    }
-  }, [selectedVacancy, reviewReason, onVacancyUpdated, onNotice, onError]);
+  const saveDecision = useCallback(
+    async (status: Vacancy["review_status"]) => {
+      if (!selectedVacancy) return;
+      setSaving(true);
+      onError("");
+      try {
+        const updated = await scoutApi.updateVacancyReview(
+          selectedVacancy.id,
+          status,
+          reviewReason,
+        );
+        setSelectedVacancy(updated);
+        onVacancyUpdated(updated);
+        onNotice(`Vacancy marked ${status.replaceAll("_", " ")}.`);
+      } catch (reason) {
+        onError(reason instanceof Error ? reason.message : "Could not save the vacancy decision.");
+      } finally {
+        setSaving(false);
+      }
+    },
+    [selectedVacancy, reviewReason, onVacancyUpdated, onNotice, onError],
+  );
 
   const archive = useCallback(async () => {
     if (!selectedVacancy) return;
