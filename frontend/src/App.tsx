@@ -4,8 +4,6 @@ import {
   BriefcaseBusiness,
   Building2,
   CircleAlert,
-  Radar,
-  RefreshCw,
   ShieldCheck,
   Sparkles,
   Trash2,
@@ -21,6 +19,7 @@ import type {
   Vacancy,
 } from "./api";
 import { Badge } from "@/components/ui/badge";
+import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -520,59 +519,12 @@ export default function App() {
 
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
-      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
-        <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#0b1426] text-cyan-300 shadow-lg shadow-slate-900/20">
-            <Radar className="h-6 w-6" />
-          </span>
-          <div>
-            <p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-slate-500">
-              THUNGATHA / OPERATIONS
-            </p>
-            <h1 className="text-lg font-bold tracking-tight text-[#0b1426]">Scout</h1>
-          </div>
-        </div>
-        <div className="flex-1 text-center">
-          <p className="text-[9px] font-bold uppercase tracking-[.2em] text-cyan-700">
-            {page === "jobs"
-              ? "Operations overview"
-              : page === "companies"
-                ? "Employer directory"
-                : "Employer onboarding"}
-          </p>
-          <h2 className="text-lg font-bold tracking-tight text-[#0b1426]">
-            {page === "jobs"
-              ? "Ingestion Dashboard"
-              : page === "companies"
-                ? "Companies"
-                : "Add a company"}
-          </h2>
-        </div>
-        <nav className="flex items-center gap-1.5" aria-label="Main navigation">
-          <button
-            className={`rounded-lg px-3 py-2 text-xs font-semibold ${page === "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}
-            onClick={() => setPage("jobs")}
-          >
-            Dashboard
-          </button>
-          <button
-            className={`rounded-lg px-3 py-2 text-xs font-semibold ${page !== "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`}
-            onClick={() => setPage("companies")}
-          >
-            Companies
-          </button>
-          {page === "jobs" && (
-            <button
-              className="rounded-lg p-2 text-slate-600 hover:bg-cyan-50 hover:text-cyan-800"
-              title="Refresh dashboard data"
-              onClick={() => void loadWorkspace()}
-              disabled={loading}
-            >
-              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-            </button>
-          )}
-        </nav>
-      </header>
+      <AppShellHeader
+        activePage={page}
+        onSelectPage={setPage}
+        onRefresh={() => void loadWorkspace()}
+        refreshing={loading}
+      />
 
       {error && (
         <div className="alert error" role="alert">
