@@ -14,7 +14,11 @@ def import_registry(
     registry: dict[str, Any],
     connection: Connection,
 ) -> dict[str, int]:
-    counts = {"employers_created": 0, "sources_created": 0}
+    counts = {
+        "employers_created": 0,
+        "sources_created": 0,
+        "sources_updated": 0,
+    }
 
     for item in registry["employers"]:
         employer = connection.execute(
@@ -85,6 +89,40 @@ def import_registry(
                     raise ValueError(
                         f"Source URL is already assigned elsewhere: {source_url}"
                     )
+                continue
+
+            employer_sources = connection.execute(
+                """
+                SELECT id, normalized_url
+                FROM employer_sources
+                WHERE employer_id = %s AND adapter_key = %s
+                ORDER BY created_at, id
+                """,
+                (employer["id"], adapter_key),
+            ).fetchall()
+            if len(employer_sources) > 1:
+                raise ValueError(
+                    f"Cannot safely reconcile multiple {adapter_key} sources "
+                    f"for employer: {item['name']}"
+                )
+            if employer_sources:
+                connection.execute(
+                    """
+                    UPDATE employer_sources
+                    SET source_url = %s,
+                        normalized_url = %s,
+                        adapter_config = %s,
+                        updated_at = NOW()
+                    WHERE id = %s
+                    """,
+                    (
+                        source_url,
+                        source_url,
+                        Jsonb(adapter_config),
+                        employer_sources[0]["id"],
+                    ),
+                )
+                counts["sources_updated"] += 1
                 continue
 
             evidence = [
