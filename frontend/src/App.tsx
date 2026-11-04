@@ -2,9 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, CareersDiscovery, Vacancy } from "./api";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -374,156 +374,81 @@ export default function App() {
   }
 
   return (
-    <main className="app-shell">
-      <header className="topbar">
-        <div className="brand-lockup">
-          <span className="brand-mark">S</span>
-          <div><p className="eyebrow">THUNGATHA / OPERATIONS</p><h1>Scout</h1></div>
+    <main className="mx-auto flex min-h-screen max-w-[1600px] flex-col px-4 pb-6 pt-5 md:px-8">
+      <header className="flex items-center justify-between border-b pb-4">
+        <div className="flex items-center gap-3">
+          <span className="grid h-10 w-10 place-items-center rounded-xl bg-primary text-lg font-bold text-primary-foreground">S</span>
+          <div><p className="mb-1 text-[10px] font-bold tracking-widest text-muted-foreground">THUNGATHA / OPERATIONS</p><h1>Scout</h1></div>
         </div>
-        <span className="environment">PRIVATE ADMIN</span>
+        <span className="rounded-full bg-muted px-3 py-1.5 text-[10px] font-semibold tracking-wide text-muted-foreground">PRIVATE ADMIN</span>
       </header>
 
-      <nav className="main-nav" aria-label="Main navigation">
-        <button className={page === "jobs" ? "active" : ""} onClick={() => setPage("jobs")}>Jobs</button>
-        <button className={page === "companies" ? "active" : ""} onClick={() => setPage("companies")}>Companies</button>
-        <button className="nav-add" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button>
+      <nav className="flex items-center gap-1 border-b py-3" aria-label="Main navigation">
+        <button className={`rounded-md px-3 py-2 text-sm font-medium ${page === "jobs" ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted"}`} onClick={() => setPage("jobs")}>Jobs</button>
+        <button className={`rounded-md px-3 py-2 text-sm font-medium ${page === "companies" ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted"}`} onClick={() => setPage("companies")}>Companies</button>
+        <button className="ml-auto rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button>
       </nav>
 
       {error && <div className="alert error" role="alert">{error}</div>}
       {notice && <div className="alert success" role="status">{notice}</div>}
 
       {page === "jobs" && (
-        <>
-          <section className="page-heading">
-            <div><p className="eyebrow">VACANCY WORKSPACE</p><h2>Jobs</h2><p>Collected vacancies from your registered companies.</p></div>
-            <button className="button primary extract-button" onClick={() => void extractJobs()} disabled={extracting || loading}>
-              {extracting ? "Extracting jobs…" : "↻ Extract jobs"}
-            </button>
-          </section>
-          <section className="metric-row">
-            <Card className="metric-card"><span>Companies</span><strong>{employers.length}</strong></Card>
-            <Card className="metric-card"><span>Collected jobs</span><strong>{vacancies.length}</strong></Card>
-            <Card className="metric-card"><span>Companies with jobs</span><strong>{new Set(vacancies.map((item) => item.employer_id)).size}</strong></Card>
-          </section>
-          <div className="jobs-workspace">
-            <section className="surface jobs-panel">
-              <div className="jobs-toolbar">
-                <div><h3>{showArchived ? "Archived vacancies" : "All vacancies"}</h3><p className="muted">Select a company to view its details.</p></div>
-                <select aria-label="Filter active or archived jobs" value={showArchived ? "archived" : "active"} onChange={(event) => { setShowArchived(event.target.value === "archived"); setSelectedVacancy(null); setSelectedVacancyId(null); }}>
-                  <option value="active">Active jobs</option>
-                  <option value="archived">Archived jobs</option>
-                </select>
-                <select aria-label="Filter jobs by review status" value={reviewFilter} onChange={(event) => setReviewFilter(event.target.value)}>
-                  <option value="all">All review states</option>
-                  <option value="pending">Pending</option>
-                  <option value="needs_verification">Needs verification</option>
-                  <option value="verified">Verified</option>
-                  <option value="rejected">Rejected</option>
-                </select>
-                <select aria-label="Filter jobs by company" value={selectedEmployerId} onChange={(event) => setSelectedEmployerId(event.target.value)}>
-                  <option value="all">All companies</option>
-                  {employers.map((employer) => <option key={employer.id} value={employer.id}>{employer.name}</option>)}
-                </select>
+        <section className="flex min-h-0 flex-1 flex-col gap-3 pt-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div><p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Vacancy workspace</p><h2 className="text-2xl font-semibold tracking-tight">Jobs <span className="ml-2 text-sm font-normal text-muted-foreground">{filteredVacancies.length} shown · {vacancies.length} collected · {employers.length} companies</span></h2></div>
+            <Button onClick={() => void extractJobs()} disabled={extracting || loading}>{extracting ? "Extracting…" : "↻ Extract jobs"}</Button>
+          </div>
+          <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+            <section className="flex min-h-[420px] min-w-0 flex-col overflow-hidden rounded-xl border bg-card">
+              <div className="flex flex-wrap items-center gap-2 border-b p-3">
+                <h3 className="mr-auto text-sm font-semibold">{showArchived ? "Archived vacancies" : "All vacancies"}</h3>
+                <Select value={showArchived ? "archived" : "active"} onValueChange={(value) => { setShowArchived(value === "archived"); setSelectedVacancy(null); setSelectedVacancyId(null); }}>
+                  <SelectTrigger className="h-9 w-[135px]"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="active">Active jobs</SelectItem><SelectItem value="archived">Archived jobs</SelectItem></SelectContent>
+                </Select>
+                <Select value={reviewFilter} onValueChange={setReviewFilter}>
+                  <SelectTrigger className="h-9 w-[155px]"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All review states</SelectItem><SelectItem value="pending">Pending</SelectItem><SelectItem value="needs_verification">Needs verification</SelectItem><SelectItem value="verified">Verified</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent>
+                </Select>
+                <Select value={selectedEmployerId} onValueChange={setSelectedEmployerId}>
+                  <SelectTrigger className="h-9 w-[155px]"><SelectValue placeholder="All companies" /></SelectTrigger><SelectContent><SelectItem value="all">All companies</SelectItem>{employers.map((employer) => <SelectItem key={employer.id} value={employer.id}>{employer.name}</SelectItem>)}</SelectContent>
+                </Select>
                 <Button variant="outline" size="sm" onClick={() => void loadWorkspace()} disabled={loading}>Refresh</Button>
               </div>
-              {loading ? <div className="empty">Loading jobs…</div> : filteredVacancies.length === 0 ? (
-                <div className="empty"><strong>No jobs collected yet</strong><span>Register a company source, then select “Extract jobs”.</span></div>
-              ) : (
-                <div className="vacancy-cards" aria-label="Collected vacancies">
-                  {filteredVacancies.map((vacancy) => (
-                    <button
-                      type="button"
-                      key={vacancy.id}
-                      className={`vacancy-card ${selectedVacancyId === vacancy.id ? "selected" : ""}`}
-                      onClick={() => void openVacancy(vacancy.id)}
-                      aria-pressed={selectedVacancyId === vacancy.id}
-                    >
-                      <span className="vacancy-card-heading">
-                        <strong>{vacancy.title}</strong>
-                        <Badge variant={vacancy.review_status === "verified" ? "default" : vacancy.review_status === "rejected" ? "destructive" : "secondary"}>{vacancy.review_status.replaceAll("_", " ")}</Badge>
-                      </span>
-                      <span className="vacancy-card-company">{vacancy.employer_name}</span>
-                      <span className="vacancy-card-meta">
-                        <span>{vacancy.location_text || "Location not specified"}</span>
-                        {vacancy.department && <span>{vacancy.department}</span>}
-                        <span>Seen {new Date(vacancy.last_seen_at).toLocaleDateString()}</span>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
+              <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3">
+                {loading ? <p className="py-12 text-center text-sm text-muted-foreground">Loading jobs…</p> : filteredVacancies.length === 0 ? <div className="py-12 text-center"><p className="text-sm font-medium">No vacancies found</p><p className="mt-1 text-xs text-muted-foreground">Register a company source, then extract jobs.</p></div> : filteredVacancies.map((vacancy) => (
+                  <button key={vacancy.id} type="button" onClick={() => void openVacancy(vacancy.id)} aria-pressed={selectedVacancyId === vacancy.id} className={`w-full rounded-lg border p-3 text-left transition-colors hover:border-primary/40 hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${selectedVacancyId === vacancy.id ? "border-primary bg-primary/5" : "bg-background"}`}>
+                    <span className="flex items-start justify-between gap-3"><strong className="text-sm font-semibold leading-snug">{vacancy.title}</strong><Badge variant={vacancy.review_status === "verified" ? "default" : vacancy.review_status === "rejected" ? "destructive" : "secondary"}>{vacancy.review_status.replaceAll("_", " ")}</Badge></span>
+                    <span className="mt-1 block text-xs font-medium text-muted-foreground">{vacancy.employer_name}</span>
+                    <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground"><span>{vacancy.location_text || "Location not specified"}</span>{vacancy.department && <span>{vacancy.department}</span>}<span>Seen {new Date(vacancy.last_seen_at).toLocaleDateString()}</span></span>
+                  </button>
+                ))}
+              </div>
             </section>
-
-            <section className="surface vacancy-detail">
-              {openingVacancyId ? (
-                <div className="empty large"><strong>Loading vacancy details…</strong><span>Retrieving the full job record.</span></div>
-              ) : selectedVacancy ? (
+            <section className="flex min-h-[420px] min-w-0 flex-col overflow-hidden rounded-xl border bg-card">
+              {openingVacancyId ? <div className="grid flex-1 place-content-center text-center"><p className="text-sm font-medium">Loading vacancy…</p><p className="mt-1 text-xs text-muted-foreground">Retrieving the full job record.</p></div> : selectedVacancy ? (
                 <>
-                  <div className="section-heading">
-                    <div className="vacancy-identity">
-                      {selectedVacancy.employer_logo_url
-                        ? <img className="employer-logo" src={selectedVacancy.employer_logo_url} alt={selectedVacancy.employer_name + " logo"} />
-                        : <span className="employer-avatar">{selectedVacancy.employer_name.slice(0, 1).toUpperCase()}</span>}
-                      <div><p className="eyebrow">VACANCY DETAILS</p><h3>{selectedVacancy.title}</h3><p className="muted">{selectedVacancy.employer_name} · {selectedVacancy.location_text || "Location not specified"}</p></div>
-                    </div>
-                    <Button variant="ghost" size="sm" onClick={() => { setSelectedVacancy(null); setSelectedVacancyId(null); }}>Clear selection</Button>
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-b p-4">
+                    <div className="flex min-w-0 items-center gap-3">{selectedVacancy.employer_logo_url ? <img className="h-10 w-10 rounded-md border object-contain" src={selectedVacancy.employer_logo_url} alt={selectedVacancy.employer_name + " logo"} /> : <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-muted font-semibold">{selectedVacancy.employer_name.slice(0, 1).toUpperCase()}</span>}<div className="min-w-0"><p className="text-xs text-muted-foreground">{selectedVacancy.employer_name} · {selectedVacancy.location_text || "Location not specified"}</p><h3 className="font-semibold leading-snug">{selectedVacancy.title}</h3></div></div>
+                    <Button variant="ghost" size="sm" onClick={() => { setSelectedVacancy(null); setSelectedVacancyId(null); }}>Clear</Button>
                   </div>
-                  <div className="detail-links">
-                    <a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">Greenhouse board ↗</a>
-                    <a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Open original job / apply ↗</a>
+                  <div className="flex flex-wrap items-center gap-2 border-b px-4 py-3">
+                    <Button asChild size="sm"><a href={selectedVacancy.application_url} target="_blank" rel="noreferrer">Open original job ↗</a></Button>
+                    <Button asChild size="sm" variant="outline"><a href={selectedVacancy.source_url} target="_blank" rel="noreferrer">View source ↗</a></Button>
+                    <Badge variant={selectedVacancy.review_status === "verified" ? "default" : selectedVacancy.review_status === "rejected" ? "destructive" : "secondary"}>{selectedVacancy.review_status.replaceAll("_", " ")}</Badge>
                   </div>
-                  <div className="vacancy-review">
-                    <div><label>Review status
-                      <select value={selectedVacancy.review_status} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setSelectedVacancy({ ...selectedVacancy, review_status: event.target.value as Vacancy["review_status"] })}>
-                        <option value="pending">Pending</option>
-                        <option value="needs_verification">Needs verification</option>
-                        <option value="verified">Verified</option>
-                        <option value="rejected">Rejected</option>
-                      </select>
-                    </label></div>
-                    <div><label>Review reason / notes
-                      <input value={reviewReason} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setReviewReason(event.target.value)} placeholder="Explain what needs checking…" />
-                    </label></div>
-                    <div className="review-actions">
-                      {!selectedVacancy.archived_at
-                        ? <><Button size="sm" onClick={() => void saveVacancyReview()} disabled={vacancySaving}>Save review</Button><Button variant="outline" size="sm" onClick={() => void archiveSelectedVacancy()} disabled={vacancySaving}>Archive vacancy</Button></>
-                        : <Button size="sm" onClick={() => void restoreSelectedVacancy()} disabled={vacancySaving}>Restore vacancy</Button>}
-                    </div>
-                  </div>
-                  <div className="detail-grid">
-                    <div>
-                      <h4>Job description</h4>
-                      {selectedVacancy.description ? (
-                        <iframe className="description-frame" title={"Description for " + selectedVacancy.title} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#315b9a}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + decodeGreenhouseContent(selectedVacancy.description || "") + "</body></html>"} />
-                      ) : <p className="empty description-empty">No job description was saved for this vacancy by the source. Check the original job posting to verify its content.</p>}
-                    </div>
-                    <div>
-                      <h4>Thungatha payload preview</h4>
-                      <p className="muted">Draft mapping for inspection only. Nothing is published from this screen.</p>
-                      <pre className="payload-preview">{JSON.stringify({
-                        title: selectedVacancy.title,
-                        company: selectedVacancy.employer_name,
-                        location: selectedVacancy.location_text,
-                        description: selectedVacancy.description ? decodeGreenhouseContent(selectedVacancy.description) : null,
-                        review_status: selectedVacancy.review_status,
-                        review_reason: selectedVacancy.review_reason,
-                        application_url: selectedVacancy.application_url,
-                        source_url: selectedVacancy.source_url,
-                        department: selectedVacancy.department,
-                        office: selectedVacancy.office,
-                      }, null, 2)}</pre>
-                    </div>
+                  <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
+                    <div><h4 className="mb-2 text-sm font-semibold">Job description</h4>{selectedVacancy.description ? <iframe className="h-[min(48vh,560px)] min-h-[320px] w-full rounded-lg border bg-background" title={"Description for " + selectedVacancy.title} sandbox="" srcDoc={"<!doctype html><html><head><meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src https: data:; style-src 'unsafe-inline';\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>body{font:14px/1.65 system-ui,sans-serif;color:#263449;margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:#315b9a}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" + decodeGreenhouseContent(selectedVacancy.description) + "</body></html>"} /> : <p className="rounded-lg bg-muted p-4 text-sm text-muted-foreground">No job description was saved by the source. Open the original listing to inspect it.</p>}</div>
+                    <details className="rounded-lg border"><summary className="cursor-pointer px-3 py-2 text-sm font-medium">Review and publishing checks</summary><div className="grid gap-3 border-t p-3">
+                      <label className="grid gap-1 text-xs font-medium">Review status<Select value={selectedVacancy.review_status} disabled={Boolean(selectedVacancy.archived_at)} onValueChange={(value) => setSelectedVacancy({ ...selectedVacancy, review_status: value as Vacancy["review_status"] })}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="pending">Pending</SelectItem><SelectItem value="needs_verification">Needs verification</SelectItem><SelectItem value="verified">Verified</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select></label>
+                      <label className="grid gap-1 text-xs font-medium">Review notes<input className="h-9 rounded-md border bg-background px-3 text-sm font-normal" value={reviewReason} disabled={Boolean(selectedVacancy.archived_at)} onChange={(event) => setReviewReason(event.target.value)} placeholder="What needs checking?" /></label>
+                      <div className="flex flex-wrap gap-2">{!selectedVacancy.archived_at ? <><Button size="sm" onClick={() => void saveVacancyReview()} disabled={vacancySaving}>Save review</Button><Button size="sm" variant="outline" onClick={() => void archiveSelectedVacancy()} disabled={vacancySaving}>Archive</Button></> : <Button size="sm" onClick={() => void restoreSelectedVacancy()} disabled={vacancySaving}>Restore vacancy</Button>}</div>
+                    </div></details>
+                    <details className="rounded-lg border"><summary className="cursor-pointer px-3 py-2 text-sm font-medium">Thungatha payload preview</summary><pre className="max-h-72 overflow-auto border-t bg-muted/30 p-3 text-xs">{JSON.stringify({title:selectedVacancy.title,company:selectedVacancy.employer_name,location:selectedVacancy.location_text,description:selectedVacancy.description ? decodeGreenhouseContent(selectedVacancy.description) : null,review_status:selectedVacancy.review_status,review_reason:selectedVacancy.review_reason,application_url:selectedVacancy.application_url,source_url:selectedVacancy.source_url,department:selectedVacancy.department,office:selectedVacancy.office},null,2)}</pre></details>
                   </div>
                 </>
-              ) : (
-                <div className="empty large vacancy-placeholder">
-                  <strong>Select a vacancy</strong>
-                  <span>Select any vacancy card on the left. Its full description and review controls will appear here.</span>
-                </div>
-              )}
+              ) : <div className="grid flex-1 place-content-center px-6 text-center"><p className="text-sm font-semibold">Select a vacancy</p><p className="mt-1 max-w-xs text-xs text-muted-foreground">Choose a job on the left to inspect its description and review details.</p></div>}
             </section>
           </div>
-        </>
+        </section>
       )}
 
       {page === "companies" && (
@@ -649,7 +574,7 @@ export default function App() {
         </>
       )}
 
-      <footer>Scout is a private operations workspace. Only verified, quality-checked records are eligible for publishing to Thungatha.</footer>
+      <footer className="mt-5 border-t pt-3 text-xs text-muted-foreground">Scout is a private operations workspace. Only verified, quality-checked records are eligible for publishing to Thungatha.</footer>
     </main>
   );
 }
