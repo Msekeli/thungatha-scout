@@ -42,6 +42,7 @@ def test_missing_migration_directory_fails_clearly(tmp_path: Path) -> None:
     with pytest.raises(FileNotFoundError, match="Migration directory does not exist"):
         discover_migrations(missing_directory)
 
+
 def test_duplicate_migration_versions_are_rejected(tmp_path: Path) -> None:
     first = tmp_path / "0001-create-employers.sql"
     duplicate = tmp_path / "0001-add-employer-index.sql"
