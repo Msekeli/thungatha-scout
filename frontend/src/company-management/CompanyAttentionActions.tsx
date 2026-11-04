@@ -34,40 +34,39 @@ export function CompanyAttentionActions({
       </div>
       <Button
         type="button"
-        className="rounded-lg border border-[var(--warning-text)]/15 bg-[var(--warning-surface)] px-3 py-2 text-left transition-colors hover:opacity-90"
+        variant="ghost"
+        className="h-auto w-full flex-col items-start justify-center rounded-lg border border-border bg-warning-surface px-3 py-2 text-left shadow-none hover:bg-warning-surface hover:opacity-90"
         onClick={() => discovered[0] && onSelectCompany(discovered[0])}
         disabled={discovered.length === 0}
       >
-        <strong className="block text-sm text-[var(--warning-text)]">
+        <strong className="block text-sm text-warning">
           {discovered.length} awaiting approval
         </strong>
-        <span className="text-[10px] text-[var(--warning-text)]">Review new company records</span>
+        <span className="text-[10px] text-warning">Review new company records</span>
       </Button>
       <Button
         type="button"
-        className="rounded-lg bg-[var(--warning-surface)] px-3 py-2 text-left hover:opacity-90"
+        variant="ghost"
+        className="h-auto w-full flex-col items-start justify-center rounded-lg border border-border bg-warning-surface px-3 py-2 text-left shadow-none hover:bg-warning-surface hover:opacity-90"
         onClick={() => needsReview[0] && onSelectCompany(needsReview[0])}
         disabled={needsReview.length === 0}
       >
-        <strong className="block text-sm text-[var(--warning-text)]">
+        <strong className="block text-sm text-warning">
           {needsReview.length} flagged for review
         </strong>
-        <span className="text-[10px] text-[var(--warning-text)]">
-          Resolve company identity concerns
-        </span>
+        <span className="text-[10px] text-warning">Resolve company identity concerns</span>
       </Button>
       <Button
         type="button"
-        className="rounded-lg border border-border bg-muted px-3 py-2 text-left transition-colors hover:bg-accent"
+        variant="ghost"
+        className="h-auto w-full flex-col items-start justify-center rounded-lg border border-border bg-muted px-3 py-2 text-left shadow-none transition-colors hover:bg-accent"
         onClick={() => uncheckedEmployer && onSelectCompany(uncheckedEmployer)}
         disabled={!uncheckedEmployer}
       >
         <strong className="block text-sm text-foreground">
           {uncheckedSources.length} sources need checks
         </strong>
-        <span className="text-[10px] text-muted-foreground">
-          Verify source and permission status
-        </span>
+        <span className="text-[10px] text-muted-foreground">Verify source and permission status</span>
       </Button>
     </section>
   );
