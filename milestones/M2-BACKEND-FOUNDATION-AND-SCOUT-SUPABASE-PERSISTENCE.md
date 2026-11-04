@@ -1,7 +1,7 @@
 # M2 — Backend Foundation and Scout Supabase Persistence
 
 **Status:** In progress — M2-C01 in review  
-**Updated:** 3 November 2026  
+**Updated:** 4 November 2026  
 **Depends on:** M0 — Repository Audit and Scope Lock
 
 ## Outcome
@@ -40,18 +40,30 @@ Inspect the live dev tree, existing Python experiments, dependency/runtime const
 
 The live `dev` tree was inspected through GitHub. No local checkout was available in this execution environment, so runtime commands were not run.
 
-**Current backend inventory**
-- `backend/pyproject.toml` defines a setuptools package, Python `>=3.11`, FastAPI, Pydantic Settings and Uvicorn. Development extras are HTTPX, pytest and Ruff. Pytest is configured for `test-suites/unit-tests` and `test-suites/integration-tests`.
-- `backend/scout/main.py` creates the FastAPI application and exposes `GET /health`.
-- `backend/scout/settings.py` owns the current Pydantic Settings configuration and cached settings factory.
-- `backend/test-suites/unit-tests/test_health_endpoint.py` is the only backend test currently present.
-- `backend/registry/ats-adapter-registry.json` and `backend/registry/employer-source-registry.json` are separate data registries and remain outside the Python package.
-- `backend/.env.example` contains non-secret local settings. No database client, migration tool, repository, auth validator or ATS adapter is currently present in this `dev` backend.
+**Current backend inventory — refreshed 4 November 2026**
 
-**Frontend inventory**
-- `frontend/` is a Vite + React 18 + TypeScript 5.7 + Tailwind CSS v3 skeleton.
-- `@supabase/supabase-js` is present for the browser authentication client. The frontend README correctly states that backend JWT validation and authorization are still required.
-- The frontend has a package manifest and entry files, but no dependency lockfile was found in the inspected directory listing. A build has not been run.
+- `backend/pyproject.toml` defines a setuptools package for Python 3.11+, FastAPI, Pydantic Settings, Psycopg 3 and Uvicorn. Development extras include HTTPX, pytest and Ruff. Pytest discovers unit and integration suites under `backend/test-suites/`.
+- `backend/scout/main.py` creates the FastAPI application, exposes `GET /health`, and registers RFC 9457-style Problem Details handlers for HTTP and request-validation errors.
+- `backend/scout/settings.py` provides Pydantic Settings and represents `SCOUT_DATABASE_URL` as a secret value.
+- `backend/scout/application/employer_service.py` defines employer/source creation payloads and service operations. Creation forces initial employer/source states and source permission to safe defaults rather than accepting approval state from the caller.
+- `backend/scout/persistence/` contains the Psycopg connection boundary, migration runner and employer/source repositories.
+- `backend/database-migrations/0001-create-employers-and-sources.sql` defines the initial employer/source schema, state constraints, evidence JSONB columns, foreign-key behavior and indexes.
+- `backend/test-suites/unit-tests/` currently contains tests for health/error responses, settings, database connection configuration, migration discovery/checksums, employer/source payload validation and the application-module line limit.
+- `backend/test-suites/integration-tests/test_supabase_persistence.py` is an opt-in cloud integration test. It must only use the dedicated Scout database, never the Thungatha destination.
+- `backend/registry/` keeps ATS adapter definitions separate from employer/source mappings.
+- `backend/.env.example` contains placeholder configuration only. No real credentials should be committed.
+
+**Current frontend inventory**
+
+- `frontend/` is a Vite + React 18 + TypeScript 5.7 + Tailwind CSS v3 skeleton with `@supabase/supabase-js`.
+- `frontend/src/App.tsx` currently provides a minimal Supabase email/password sign-in and sign-out shell. It is not yet an admin application.
+- `frontend/src/supabase.ts` uses only the browser Supabase URL and anon/publishable key. It does not contain a service-role credential.
+- The frontend has no checked-in package lockfile in the inspected tree. A production build has not been run in this environment.
+- Frontend sign-in is not sufficient authorization by itself. Backend JWT verification and administrator email allowlisting must be implemented before protected API operations are exposed.
+
+**Verification boundary**
+
+The repository was inspected remotely through GitHub. No local checkout, Python test execution, Ruff run, frontend dependency installation/build, or live Scout Supabase connection was available in this work session. Code presence is not proof of runtime success. The opt-in database integration test remains unverified here.
 
 **Historical implementation preservation**
 - `setup/backend-prototype` contains the earlier employer-discovery and Greenhouse analysis/discovery/jobs modules, verification and site-investigation code, tests, and `backend/data/companies.csv`.
@@ -79,7 +91,7 @@ Do not create these packages as empty placeholders. Add a package or module only
 **C01 outcome:** The current `scout` package is the smallest suitable starting point. No duplicate application skeleton or speculative directories are needed. C01 is **In review** pending user review; this record does not claim a local runtime or frontend build pass.
 
 ### M2-C02 — Backend application foundation
-**Status:** Not started
+**Status:** In progress — implementation present; local verification outstanding
 
 Create the minimal Python HTTP application and configuration boundary. Keep HTTP handlers thin and business logic in ordinary application modules. Preserve portability so the hosting provider can be selected without rewriting domain logic.
 
@@ -90,7 +102,7 @@ Create the minimal Python HTTP application and configuration boundary. Keep HTTP
 - No real credentials are committed.
 
 ### M2-C03 — Scout Supabase schema and persistence
-**Status:** Not started
+**Status:** In progress — initial migration and repositories present; live verification outstanding
 
 Connect only to the dedicated Scout Supabase project. Define migrations and repositories for employer and employer-source records first. Do not create the entire speculative schema before its query patterns and API needs are understood.
 
@@ -113,7 +125,7 @@ Inspect Thungatha's current database contract before defining the publication pr
 - Publishing remains disabled until its own milestone.
 
 ### M2-C05 — Verification and checkpoint review
-**Status:** Not started
+**Status:** In progress — unit coverage expanded; execution and review outstanding
 
 Add unit and database integration tests for the foundation. Record actual commands and results. Review secrets, migrations, error handling and provider portability.
 
