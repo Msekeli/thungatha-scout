@@ -27,6 +27,7 @@ import { CompanyProfileActions } from "./company-management/CompanyProfileAction
 import { CompanyDirectoryList } from "./company-management/CompanyDirectoryList";
 import { CompanySearchFilters } from "./company-management/CompanySearchFilters";
 import { CompanyProfileHeader } from "./company-management/CompanyProfileHeader";
+import { SourceReviewPanel } from "./employer-sources/SourceReviewPanel";
 import {
   Select,
   SelectContent,
@@ -1092,121 +1093,26 @@ export default function App() {
                               </Button>
                             )}
                           </div>
-                          <div className="grid gap-3 rounded-lg border border-border bg-muted/50 p-4">
-                            <div className="flex flex-wrap items-center justify-between gap-2">
-                              <strong className="text-xs font-semibold text-foreground">
-                                Verification & permission
-                              </strong>
-                              <span className="text-[10px] text-muted-foreground">
-                                Company approval does not approve this source
-                              </span>
-                            </div>
-                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                              <label>
-                                Source status
-                                <select
-                                  value={sourceDecision[source.id]?.status ?? source.status}
-                                  onChange={(event) =>
-                                    setSourceDecision((current) => ({
-                                      ...current,
-                                      [source.id]: {
-                                        status: event.target.value,
-                                        permission_status:
-                                          current[source.id]?.permission_status ??
-                                          source.permission_status,
-                                        evidence_url: current[source.id]?.evidence_url ?? "",
-                                        reason: current[source.id]?.reason ?? "",
-                                      },
-                                    }))
-                                  }
-                                >
-                                  <option value="discovered">Discovered</option>
-                                  <option value="pending_verification">Pending verification</option>
-                                  <option value="verified">Verified</option>
-                                  <option value="temporarily_unavailable">
-                                    Temporarily unavailable
-                                  </option>
-                                  <option value="invalid">Invalid</option>
-                                  <option value="needs_review">Needs review</option>
-                                  <option value="inactive">Inactive</option>
-                                </select>
-                              </label>
-                              <label>
-                                Permission
-                                <select
-                                  value={
-                                    sourceDecision[source.id]?.permission_status ??
-                                    source.permission_status
-                                  }
-                                  onChange={(event) =>
-                                    setSourceDecision((current) => ({
-                                      ...current,
-                                      [source.id]: {
-                                        status: current[source.id]?.status ?? source.status,
-                                        permission_status: event.target.value,
-                                        evidence_url: current[source.id]?.evidence_url ?? "",
-                                        reason: current[source.id]?.reason ?? "",
-                                      },
-                                    }))
-                                  }
-                                >
-                                  <option value="unknown">Unknown</option>
-                                  <option value="allowed">Allowed</option>
-                                  <option value="restricted">Restricted</option>
-                                  <option value="needs_review">Needs review</option>
-                                </select>
-                              </label>
-                            </div>
-                            <label>
-                              Evidence URL
-                              <input
-                                type="url"
-                                value={sourceDecision[source.id]?.evidence_url ?? ""}
-                                onChange={(event) =>
-                                  setSourceDecision((current) => ({
-                                    ...current,
-                                    [source.id]: {
-                                      status: current[source.id]?.status ?? source.status,
-                                      permission_status:
-                                        current[source.id]?.permission_status ??
-                                        source.permission_status,
-                                      evidence_url: event.target.value,
-                                      reason: current[source.id]?.reason ?? "",
-                                    },
-                                  }))
-                                }
-                                placeholder="Official employer page confirming this ATS relationship"
-                              />
-                            </label>
-                            <label>
-                              Decision notes
-                              <input
-                                value={sourceDecision[source.id]?.reason ?? ""}
-                                onChange={(event) =>
-                                  setSourceDecision((current) => ({
-                                    ...current,
-                                    [source.id]: {
-                                      status: current[source.id]?.status ?? source.status,
-                                      permission_status:
-                                        current[source.id]?.permission_status ??
-                                        source.permission_status,
-                                      evidence_url: current[source.id]?.evidence_url ?? "",
-                                      reason: event.target.value,
-                                    },
-                                  }))
-                                }
-                                placeholder="Why this source status and permission were chosen"
-                              />
-                            </label>
-                            <Button
-                              type="button"
-                              className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-                              disabled={saving}
-                              onClick={() => void updateSourceDecision(source)}
-                            >
-                              {saving ? "Saving…" : "Save source decision"}
-                            </Button>
-                          </div>
+                          <SourceReviewPanel
+                            source={source}
+                            decision={sourceDecision[source.id]}
+                            saving={saving}
+                            onChange={(field, value) =>
+                              setSourceDecision((current) => {
+                                const existing = current[source.id] ?? {
+                                  status: source.status,
+                                  permission_status: source.permission_status,
+                                  evidence_url: "",
+                                  reason: "",
+                                };
+                                return {
+                                  ...current,
+                                  [source.id]: { ...existing, [field]: value },
+                                };
+                              })
+                            }
+                            onSave={() => void updateSourceDecision(source)}
+                          />
                           <div className="grid gap-2 rounded-lg border border-border bg-muted/50 p-3">
                             <div className="flex flex-wrap items-center justify-between gap-2">
                               <strong className="text-xs font-semibold text-foreground">
