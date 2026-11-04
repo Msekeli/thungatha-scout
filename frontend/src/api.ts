@@ -51,6 +51,8 @@ export type ExtractionRun = {
   jobs_updated: number;
   complete: boolean;
   detail?: string | null;
+  started_at?: string;
+  finished_at?: string | null;
 };
 
 export type GreenhouseInspection = {
@@ -126,6 +128,8 @@ export const scoutApi = {
     request<ExtractionRun>(`/api/v1/sources/${sourceId}/extract`, {
       method: "POST",
     }),
+  listExtractionRuns: (sourceId: string) =>
+    request<ExtractionRun[]>(`/api/v1/sources/${sourceId}/extraction-runs`),
   inspectGreenhouse: (url: string) =>
     request<GreenhouseInspection>(
       `/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`,
