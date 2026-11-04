@@ -245,6 +245,22 @@ export default function App() {
     }
   }
 
+  async function setVacancyDecision(status: Vacancy["review_status"]) {
+    if (!selectedVacancy) return;
+    setVacancySaving(true);
+    setError("");
+    try {
+      const updated = await scoutApi.updateVacancyReview(selectedVacancy.id, status, reviewReason);
+      setSelectedVacancy(updated);
+      setVacancies((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setNotice(`Vacancy marked ${status.replaceAll("_", " ")}.`);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not save the vacancy decision.");
+    } finally {
+      setVacancySaving(false);
+    }
+  }
+
   async function archiveSelectedVacancy() {
     if (!selectedVacancy) return;
     const reason = window.prompt("Why are you archiving this vacancy?") ?? "";
