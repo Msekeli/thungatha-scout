@@ -119,3 +119,12 @@ def restore_vacancy(
     if vacancy is None:
         raise HTTPException(status_code=404, detail="Archived vacancy not found.")
     return vacancy
+
+
+@router.get("/vacancies/archived")
+def list_archived_vacancies(
+    limit: int = Query(default=200, ge=1, le=500),
+    offset: int = Query(default=0, ge=0),
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> list[dict[str, Any]]:
+    return service.list_archived_vacancies(limit, offset)
