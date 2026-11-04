@@ -23,12 +23,12 @@ export function CompanyAttentionActions({
     : undefined;
 
   return (
-    <section className="mb-3 grid gap-2 rounded-xl border border-scout-navy bg-scout-navy p-3 shadow-md md:grid-cols-3">
+    <section className="mb-3 grid gap-2 rounded-xl border border-white/80 bg-card p-3 text-card-foreground shadow-lg shadow-black/20 md:grid-cols-3">
       <div>
         <p className="text-[10px] font-bold uppercase tracking-wide text-scout-cyan">
           Suggested actions
         </p>
-        <p className="mt-1 text-xs text-white/70">
+        <p className="mt-1 text-xs text-muted-foreground">
           Work through these records to keep the company directory and sources reliable.
         </p>
       </div>
