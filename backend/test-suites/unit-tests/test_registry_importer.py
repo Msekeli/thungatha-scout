@@ -1,5 +1,7 @@
 from uuid import uuid4
 
+import pytest
+
 from scout.registry_importer import import_registry
 
 
@@ -51,29 +53,36 @@ class FakeConnection:
         raise AssertionError(f"Unexpected SQL: {query}")
 
 
-def test_registry_import_creates_employers_and_supported_sources_once() -> None:
+def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
     registry = {
         "employers": [
             {
-                "name": "Example Employer",
+                "name": "Example Greenhouse Employer",
                 "careers_url": "https://example.com/careers",
                 "organization_classification": "direct_employer",
                 "cape_town_presence_claimed": True,
-                "sources": [
-                    {
-                        "ats": "greenhouse",
-                        "official_source_url": "https://job-boards.greenhouse.io/example",
-                        "config": {"slug": "example"},
-                        "verification_evidence": [
-                            "https://example.com/careers"
-                        ],
+                "sources": [{
+                    "ats": "greenhouse",
+                    "official_source_url": "https://job-boards.greenhouse.io/example",
+                    "config": {"slug": "example"},
+                    "verification_evidence": ["https://example.com/careers"],
+                }],
+            },
+            {
+                "name": "Example Workday Employer",
+                "careers_url": "https://workday.example.com/careers",
+                "organization_classification": "direct_employer",
+                "sources": [{
+                    "ats": "workday",
+                    "official_source_url": "https://example.wd3.myworkdayjobs.com/Careers",
+                    "config": {
+                        "host_prefix": "example.wd3",
+                        "tenant": "example",
+                        "site": "Careers",
                     },
-                    {
-                        "ats": "placement_partner",
-                        "official_source_url": "https://placementpartner.example",
-                    },
-                ],
-            }
+                    "verification_evidence": [],
+                }],
+            },
         ]
     }
     connection = FakeConnection()
@@ -81,15 +90,22 @@ def test_registry_import_creates_employers_and_supported_sources_once() -> None:
     first = import_registry(registry, connection)
     second = import_registry(registry, connection)
 
-    assert first == {
-        "employers_created": 1,
-        "sources_created": 1,
-        "sources_skipped": 1,
+    assert first == {"employers_created": 2, "sources_created": 2}
+    assert second == {"employers_created": 0, "sources_created": 0}
+    assert len(connection.employers) == 2
+    assert len(connection.sources) == 2
+
+
+def test_registry_import_rejects_adapters_outside_v1_scope() -> None:
+    registry = {
+        "employers": [{
+            "name": "Unsupported",
+            "sources": [{
+                "ats": "lever",
+                "official_source_url": "https://jobs.example.com",
+            }],
+        }]
     }
-    assert second == {
-        "employers_created": 0,
-        "sources_created": 0,
-        "sources_skipped": 1,
-    }
-    assert len(connection.employers) == 1
-    assert len(connection.sources) == 1
+
+    with pytest.raises(ValueError, match="Greenhouse/Workday registry"):
+        import_registry(registry, FakeConnection())
