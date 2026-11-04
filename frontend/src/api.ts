@@ -25,6 +25,23 @@ export type EmployerSource = {
   permission_status: string;
 };
 
+export type GreenhouseInspection = {
+  outcome: string;
+  board_token: string;
+  board_name: string | null;
+  jobs: Array<{
+    id: number;
+    title: string;
+    absolute_url: string;
+    location?: { name?: string };
+    content?: string;
+  }>;
+  pages_fetched: number;
+  complete: boolean;
+  detail: string | null;
+  source_url: string;
+};
+
 type ProblemDetails = { title?: string; detail?: string };
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -66,4 +83,8 @@ export const scoutApi = {
       method: "POST",
       body: JSON.stringify({ ...payload, employer_id: employerId }),
     }),
+  inspectGreenhouse: (url: string) =>
+    request<GreenhouseInspection>(
+      `/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`,
+    ),
 };
