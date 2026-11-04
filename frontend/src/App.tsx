@@ -1,5 +1,12 @@
 import { useMemo, useState } from "react";
-import { Activity, BriefcaseBusiness, Building2, CircleAlert, RefreshCw, Sparkles } from "lucide-react";
+import {
+  Activity,
+  BriefcaseBusiness,
+  Building2,
+  CircleAlert,
+  RefreshCw,
+  Sparkles,
+} from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, GreenhouseInspection, CareersDiscovery } from "./api";
