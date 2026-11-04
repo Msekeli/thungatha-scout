@@ -15,9 +15,16 @@ pip install -e ".[dev]"
 cp .env.example .env
 ```
 
-Edit `.env` and set `SCOUT_DATABASE_URL` to the Supabase Transaction Pooler
-connection string. Keep the real password in `.env`; never put it in
-`.env.example` or commit it.
+Edit `.env` and set:
+
+- `SCOUT_DATABASE_URL` to the dedicated Scout Supabase Transaction Pooler URI.
+- `SCOUT_SUPABASE_URL` to the same Scout Supabase project URL.
+- `SCOUT_SUPABASE_PUBLISHABLE_KEY` to that project's publishable key.
+- `SCOUT_ADMIN_EMAIL` to the single administrator email allowed to use Scout.
+
+Keep passwords and keys in `.env`; never put real values in `.env.example`
+or commit them. Do not use the Thungatha destination project's URL or keys here.
+The publishable key is not a service-role key.
 
 ## Database migrations
 
@@ -52,6 +59,17 @@ SCOUT_RUN_DATABASE_INTEGRATION_TESTS=true pytest test-suites/integration-tests
 
 The integration test applies pending migrations before testing employer/source
 persistence. Do not enable it against the Thungatha destination project.
+
+## API authentication
+
+Protected FastAPI routes must declare the `require_admin` dependency from
+`scout.authentication`. It verifies Supabase user access tokens and enforces
+the configured administrator email. The health route is intentionally public.
+Do not expose service-role credentials to the browser.
+
+Asymmetric ES256/RS256 tokens are verified against Supabase JWKS. Legacy HS256
+tokens are validated by the Supabase Auth user endpoint. The latter requires
+the publishable key and a bounded Auth request.
 
 ## API
 
