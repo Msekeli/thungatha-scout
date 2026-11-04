@@ -4,11 +4,12 @@ from typing import Any
 import httpx
 import jwt
 from jwt import PyJWKClient
-from jwt.exceptions import InvalidTokenError
+from jwt.exceptions import InvalidTokenError, PyJWKClientConnectionError
+from starlette.concurrency import run_in_threadpool
 
 
 class AuthenticationServiceUnavailable(RuntimeError):
-    """Raised when Supabase cannot verify a legacy access token."""
+    """Raised when Supabase cannot verify an access token."""
 
 
 @lru_cache(maxsize=4)
@@ -22,8 +23,12 @@ def verify_asymmetric_access_token(
 ) -> dict[str, Any]:
     issuer = f"{supabase_url.rstrip('/')}/auth/v1"
     jwks_url = f"{issuer}/.well-known/jwks.json"
-    signing_key = _jwks_client(jwks_url).get_signing_key_from_jwt(token)
-    claims = jwt.decode(
+    try:
+        signing_key = _jwks_client(jwks_url).get_signing_key_from_jwt(token)
+    except PyJWKClientConnectionError as error:
+        raise AuthenticationServiceUnavailable from error
+
+    return jwt.decode(
         token,
         signing_key.key,
         algorithms=["ES256", "RS256"],
@@ -31,7 +36,6 @@ def verify_asymmetric_access_token(
         issuer=issuer,
         options={"require": ["exp", "iat", "sub"]},
     )
-    return claims
 
 
 async def verify_legacy_access_token(
@@ -71,10 +75,7 @@ async def verify_supabase_access_token(
     supabase_url: str,
     publishable_key: str,
 ) -> dict[str, Any]:
-    try:
-        algorithm = jwt.get_unverified_header(token).get("alg")
-    except InvalidTokenError:
-        raise
+    algorithm = jwt.get_unverified_header(token).get("alg")
 
     if algorithm == "HS256":
         return await verify_legacy_access_token(
@@ -85,4 +86,8 @@ async def verify_supabase_access_token(
     if algorithm not in {"ES256", "RS256"}:
         raise InvalidTokenError("Unsupported access token algorithm.")
 
-    return verify_asymmetric_access_token(token, supabase_url)
+    return await run_in_threadpool(
+        verify_asymmetric_access_token,
+        token,
+        supabase_url,
+    )
