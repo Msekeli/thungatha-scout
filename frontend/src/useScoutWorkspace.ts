@@ -9,7 +9,7 @@ type UseScoutWorkspaceResult = {
   vacancies: Vacancy[];
   setVacancies: Dispatch<SetStateAction<Vacancy[]>>;
   archivedVacancies: Vacancy[];
-  setArchivedVacancies: React.Dispatch<React.SetStateAction<Vacancy[]>>;
+  setArchivedVacancies: Dispatch<SetStateAction<Vacancy[]>>;
   dashboardSources: EmployerSource[];
   setDashboardSources: Dispatch<SetStateAction<EmployerSource[]>>;
   extractionRuns: Record<string, ExtractionRun[]>;
