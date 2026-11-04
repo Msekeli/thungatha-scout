@@ -219,3 +219,41 @@ def test_registry_import_refuses_ambiguous_source_reconciliation() -> None:
 
     with pytest.raises(ValueError, match="Cannot safely reconcile multiple"):
         import_registry(registry, connection)
+
+
+def test_registry_import_updates_config_when_source_url_already_matches() -> None:
+    connection = FakeConnection()
+    employer_id = uuid4()
+    connection.employers.append({
+        "id": employer_id,
+        "name": "Impact.com",
+        "website_url": "https://impact.com/careers/",
+    })
+    connection.sources.append({
+        "id": uuid4(),
+        "employer_id": employer_id,
+        "adapter_key": "greenhouse",
+        "source_url": "https://job-boards.greenhouse.io/impact",
+        "normalized_url": "https://job-boards.greenhouse.io/impact",
+        "adapter_config": {"slug": "earlycareersct"},
+        "status": "discovered",
+        "permission_status": "unknown",
+    })
+    registry = {
+        "employers": [{
+            "name": "Impact.com",
+            "careers_url": "https://impact.com/careers/",
+            "sources": [{
+                "ats": "greenhouse",
+                "official_source_url": "https://job-boards.greenhouse.io/impact",
+                "config": {"slug": "impact"},
+                "verification_evidence": [],
+            }],
+        }]
+    }
+
+    result = import_registry(registry, connection)
+
+    assert result["sources_updated"] == 1
+    assert result["sources_created"] == 0
+    assert connection.sources[0]["adapter_config"] == {"slug": "impact"}
