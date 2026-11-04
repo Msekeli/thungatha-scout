@@ -34,9 +34,7 @@ export function useCompanyProfileOperations({
       onError("");
       try {
         const updated = await scoutApi.updateEmployerStatus(employer.id, status);
-        setEmployers((current) =>
-          current.map((item) => (item.id === updated.id ? updated : item)),
-        );
+        setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
         onNotice(`${updated.name} marked ${status.replaceAll("_", " ")}.`);
       } catch (reason) {
         onError(reason instanceof Error ? reason.message : "Could not update company status.");
@@ -82,24 +80,14 @@ export function useCompanyProfileOperations({
         logoUrl.trim(),
         logoSourceUrl.trim(),
       );
-      setEmployers((current) =>
-        current.map((item) => (item.id === updated.id ? updated : item)),
-      );
+      setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
       onNotice("Company logo details saved.");
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not save company logo details.");
     } finally {
       setSaving(false);
     }
-  }, [
-    employer,
-    logoUrl,
-    logoSourceUrl,
-    setEmployers,
-    setSaving,
-    onNotice,
-    onError,
-  ]);
+  }, [employer, logoUrl, logoSourceUrl, setEmployers, setSaving, onNotice, onError]);
 
   return { updateStatus, deleteCompany, saveBranding };
 }
