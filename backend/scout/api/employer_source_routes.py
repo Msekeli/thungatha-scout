@@ -9,7 +9,10 @@ from scout.application.employer_contracts import (
     EmployerSourceCreate,
     EmployerSourceReviewUpdate,
 )
-from scout.application.employer_source_update_service import EmployerSourceUpdate
+from scout.application.employer_source_update_service import (
+    EmployerSourceUpdate,
+    EmployerSourceUpdateService,
+)
 from scout.api.employer_api_dependencies import (
     get_employer_service,
     get_employer_source_update_service,
