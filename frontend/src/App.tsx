@@ -1216,10 +1216,16 @@ export default function App() {
                         <div className="space-y-3 border-b border-border py-4" key={source.id}>
                           <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card p-3">
                             <div>
-                              <strong className="text-xs font-semibold capitalize text-foreground">{source.adapter_key}</strong>
-                              <small className="block break-all text-[10px] text-muted-foreground">{source.source_url}</small>
+                              <strong className="text-xs font-semibold capitalize text-foreground">
+                                {source.adapter_key}
+                              </strong>
+                              <small className="block break-all text-[10px] text-muted-foreground">
+                                {source.source_url}
+                              </small>
                             </div>
-                            <Badge variant="outline" className="capitalize">{source.status.replaceAll("_", " ")}</Badge>
+                            <Badge variant="outline" className="capitalize">
+                              {source.status.replaceAll("_", " ")}
+                            </Badge>
                             {source.adapter_key === "greenhouse" && (
                               <button
                                 className="button secondary"
@@ -1236,8 +1242,12 @@ export default function App() {
                           </div>
                           <div className="grid gap-3 rounded-lg border border-border bg-muted/50 p-4">
                             <div className="flex flex-wrap items-center justify-between gap-2">
-                              <strong className="text-xs font-semibold text-foreground">Verification & permission</strong>
-                              <span className="text-[10px] text-muted-foreground">Company approval does not approve this source</span>
+                              <strong className="text-xs font-semibold text-foreground">
+                                Verification & permission
+                              </strong>
+                              <span className="text-[10px] text-muted-foreground">
+                                Company approval does not approve this source
+                              </span>
                             </div>
                             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                               <label>
@@ -1347,8 +1357,12 @@ export default function App() {
                           </div>
                           <div className="grid gap-2 rounded-lg border border-border bg-muted/50 p-3">
                             <div className="flex flex-wrap items-center justify-between gap-2">
-                              <strong className="text-xs font-semibold text-foreground">Latest extraction</strong>
-                              <span className="text-[10px] text-muted-foreground">{runs.length} recorded run(s)</span>
+                              <strong className="text-xs font-semibold text-foreground">
+                                Latest extraction
+                              </strong>
+                              <span className="text-[10px] text-muted-foreground">
+                                {runs.length} recorded run(s)
+                              </span>
                             </div>
                             {latestRun ? (
                               <>
@@ -1363,7 +1377,9 @@ export default function App() {
                                   <span>{latestRun.complete ? "Complete" : "Incomplete"}</span>
                                 </div>
                                 {latestRun.detail && (
-                                  <p className="break-words text-[10px] leading-relaxed text-[var(--danger-text)]">{latestRun.detail}</p>
+                                  <p className="break-words text-[10px] leading-relaxed text-[var(--danger-text)]">
+                                    {latestRun.detail}
+                                  </p>
                                 )}
                                 <div className="flex flex-wrap justify-between gap-2 text-[10px] text-muted-foreground">
                                   <span>
@@ -1383,7 +1399,10 @@ export default function App() {
                                   <details className="border-t border-border pt-2 text-xs">
                                     <summary>Previous runs ({runs.length - 1})</summary>
                                     {runs.slice(1).map((run) => (
-                                      <div className="grid gap-1 border-t border-border py-2" key={run.id}>
+                                      <div
+                                        className="grid gap-1 border-t border-border py-2"
+                                        key={run.id}
+                                      >
                                         <strong>{run.outcome.replaceAll("_", " ")}</strong>
                                         <span>
                                           {run.jobs_received} received · {run.jobs_inserted} new ·{" "}
@@ -1401,16 +1420,23 @@ export default function App() {
                                 )}
                               </>
                             ) : (
-                              <p className="text-xs text-muted-foreground">No extraction runs recorded yet.</p>
+                              <p className="text-xs text-muted-foreground">
+                                No extraction runs recorded yet.
+                              </p>
                             )}
                           </div>
                         </div>
                       );
                     })
                   ) : (
-                    <p className="py-4 text-xs text-muted-foreground">No job source registered for this company.</p>
+                    <p className="py-4 text-xs text-muted-foreground">
+                      No job source registered for this company.
+                    </p>
                   )}
-                  <form className="mt-5 grid gap-3 rounded-lg border border-border bg-muted/50 p-4" onSubmit={createSource}>
+                  <form
+                    className="mt-5 grid gap-3 rounded-lg border border-border bg-muted/50 p-4"
+                    onSubmit={createSource}
+                  >
                     <h4>
                       {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
                     </h4>
@@ -1489,7 +1515,8 @@ export default function App() {
             Register a company and connect its official careers source.
           </p>
           <section className="w-full max-w-2xl rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
-            <form className="grid gap-4"
+            <form
+              className="grid gap-4"
               onSubmit={
                 discovery
                   ? registerDiscoveredEmployer
