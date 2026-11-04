@@ -1017,7 +1017,7 @@ export default function App() {
                   </span>
                 </div>
                 <button
-                  className="button primary"
+                  className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                   type="button"
                   onClick={() => {
                     setPage("add-company");
@@ -1102,7 +1102,7 @@ export default function App() {
                   <div className="flex flex-wrap gap-2 border-b border-border pb-4">
                     {selectedEmployer.status !== "approved" && (
                       <button
-                        className="button primary"
+                        className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                         disabled={saving}
                         onClick={() => void updateCompanyStatus("approved")}
                       >
@@ -1111,7 +1111,7 @@ export default function App() {
                     )}
                     {selectedEmployer.status !== "needs_review" && (
                       <button
-                        className="button secondary"
+                        className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                         disabled={saving}
                         onClick={() => void updateCompanyStatus("needs_review")}
                       >
@@ -1120,7 +1120,7 @@ export default function App() {
                     )}
                     {selectedEmployer.status !== "rejected" && (
                       <button
-                        className="button secondary"
+                        className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                         disabled={saving}
                         onClick={() => void updateCompanyStatus("rejected")}
                       >
@@ -1129,7 +1129,7 @@ export default function App() {
                     )}
                     {selectedEmployer.status !== "inactive" && (
                       <button
-                        className="button secondary"
+                        className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                         disabled={saving}
                         onClick={() => void updateCompanyStatus("inactive")}
                       >
@@ -1137,7 +1137,7 @@ export default function App() {
                       </button>
                     )}
                     <button
-                      className="button secondary ml-auto text-red-700"
+                      className="ml-auto inline-flex h-9 items-center justify-center rounded-md border border-destructive/30 bg-background px-4 py-2 text-sm font-medium text-destructive shadow-sm transition-colors hover:bg-destructive/10 disabled:pointer-events-none disabled:opacity-50"
                       disabled={saving}
                       onClick={() => void deleteCompany()}
                     >
@@ -1185,7 +1185,7 @@ export default function App() {
                         placeholder="Official company page where the logo is shown"
                       />
                     </label>
-                    <button className="button secondary" disabled={saving}>
+                    <button className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50" disabled={saving}>
                       {saving ? "Saving…" : "Save logo details"}
                     </button>
                   </form>
@@ -1228,7 +1228,7 @@ export default function App() {
                             </Badge>
                             {source.adapter_key === "greenhouse" && (
                               <button
-                                className="button secondary"
+                                className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                                 type="button"
                                 onClick={() => {
                                   setEditingSourceId(source.id);
@@ -1348,7 +1348,7 @@ export default function App() {
                             </label>
                             <button
                               type="button"
-                              className="button primary"
+                              className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                               disabled={saving}
                               onClick={() => void updateSourceDecision(source)}
                             >
@@ -1367,9 +1367,20 @@ export default function App() {
                             {latestRun ? (
                               <>
                                 <div className="flex flex-wrap items-center gap-2 text-[10px] text-muted-foreground">
-                                  <span className="rounded-md bg-secondary px-2 py-1 text-[10px] font-bold uppercase text-secondary-foreground">
+                                  <Badge
+                                    variant={
+                                      ["success", "empty"].includes(latestRun.outcome)
+                                        ? "default"
+                                        : ["not_found", "blocked", "malformed", "persistence_failure"].includes(
+                                              latestRun.outcome,
+                                            )
+                                          ? "destructive"
+                                          : "secondary"
+                                    }
+                                    className="capitalize"
+                                  >
                                     {latestRun.outcome.replaceAll("_", " ")}
-                                  </span>
+                                  </Badge>
                                   <span>
                                     {latestRun.jobs_received} received · {latestRun.jobs_inserted}{" "}
                                     new · {latestRun.jobs_updated} updated
@@ -1377,7 +1388,13 @@ export default function App() {
                                   <span>{latestRun.complete ? "Complete" : "Incomplete"}</span>
                                 </div>
                                 {latestRun.detail && (
-                                  <p className="break-words text-[10px] leading-relaxed text-[var(--danger-text)]">
+                                  <p
+                                    className={
+                                      ["success", "empty"].includes(latestRun.outcome)
+                                        ? "break-words text-[10px] leading-relaxed text-muted-foreground"
+                                        : "break-words text-[10px] leading-relaxed text-destructive"
+                                    }
+                                  >
                                     {latestRun.detail}
                                   </p>
                                 )}
@@ -1455,7 +1472,7 @@ export default function App() {
                     </label>
                     <button
                       type="button"
-                      className="button secondary"
+                      className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                       onClick={() => void inspectGreenhouse()}
                       disabled={inspecting || !sourceUrl.trim()}
                     >
@@ -1474,7 +1491,7 @@ export default function App() {
                       {editingSourceId && (
                         <button
                           type="button"
-                          className="button secondary"
+                          className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                           onClick={() => {
                             setEditingSourceId(null);
                             setSourceUrl("");
@@ -1485,7 +1502,7 @@ export default function App() {
                         </button>
                       )}
                       <button
-                        className="button primary"
+                        className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                         disabled={
                           saving ||
                           !inspection ||
@@ -1557,7 +1574,7 @@ export default function App() {
               </label>
               <button
                 type="button"
-                className="button secondary"
+                className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                 onClick={() => void discoverCareersPage()}
                 disabled={inspecting || !sourceUrl.trim()}
               >
@@ -1590,7 +1607,7 @@ export default function App() {
               <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
                 <button
                   type="button"
-                  className="button secondary"
+                  className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                   onClick={() => {
                     setPage("companies");
                     setDiscovery(null);
@@ -1600,7 +1617,7 @@ export default function App() {
                 </button>
                 {discovery && (
                   <button
-                    className="button primary"
+                    className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                     disabled={
                       saving ||
                       !discovery.complete ||
