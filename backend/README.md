@@ -61,6 +61,26 @@ SCOUT_RUN_DATABASE_INTEGRATION_TESTS=true pytest test-suites/integration-tests
 The integration test applies pending migrations before testing employer/source
 persistence. Do not enable it against the Thungatha destination project.
 
+## Import the checked-in employer registry
+
+The checked-in employer/source registry can be imported into the Scout database
+without manually recreating each record:
+
+```bash
+python -m scout.registry_importer
+```
+
+The import is repeat-safe: existing employer names and normalized source URLs
+are matched rather than duplicated. It imports supported Greenhouse and Workday
+sources only. Other ATS/career-site types are reported as skipped until their
+adapter is implemented.
+
+Registry evidence is retained as claims, but imported employers remain
+`discovered`, imported sources remain `discovered`, and source permission
+remains `unknown`. A registry entry marked verified is not automatically
+promoted to an approved database state. Confirm employer identity, Cape Town
+presence, source relationship and permission through the admin review process.
+
 ## Registry API
 
 The current local admin workflow exposes these endpoints without authentication
