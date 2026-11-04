@@ -20,13 +20,14 @@ export function JobsWorkspacePanel({ jobs, state }: Props) {
           {jobs.loading ? "Refreshing data…" : "Updated from Scout records"}
         </span>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={() => void jobs.loadWorkspace()}
-            disabled={jobs.loading || state.extracting}>
+          <Button variant="outline" size="sm"
+            className="h-8 border-input bg-background text-primary hover:bg-accent hover:text-accent-foreground"
+            onClick={() => void jobs.loadWorkspace()} disabled={jobs.loading || state.extracting}>
             <RefreshCw className={`mr-1 h-3.5 w-3.5 ${jobs.loading ? "animate-spin" : ""}`} />
             Refresh
           </Button>
-          <Button size="sm" onClick={() => void jobs.fetchJobs()}
-            disabled={jobs.loading || state.extracting}>
+          <Button size="sm" className="h-8 bg-scout-cyan text-scout-navy hover:brightness-95"
+            onClick={() => void jobs.fetchJobs()} disabled={jobs.loading || state.extracting}>
             <BriefcaseBusiness className="mr-1 h-3.5 w-3.5" />
             {state.extracting ? "Fetching jobs…" : "Fetch jobs"}
           </Button>
