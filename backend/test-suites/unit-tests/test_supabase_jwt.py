@@ -33,7 +33,7 @@ def test_legacy_hs256_token_uses_auth_user_endpoint(monkeypatch) -> None:
 
 
 def test_asymmetric_token_is_verified_against_project_claims(monkeypatch) -> None:
-    from datetime import datetime, timedelta, timezone
+    from datetime import UTC, datetime, timedelta
     from types import SimpleNamespace
 
     from cryptography.hazmat.primitives.asymmetric import ec
@@ -41,7 +41,7 @@ def test_asymmetric_token_is_verified_against_project_claims(monkeypatch) -> Non
     from scout.supabase_jwt import verify_asymmetric_access_token
 
     private_key = ec.generate_private_key(ec.SECP256R1())
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     token = jwt.encode(
         {
             "sub": "user-123",
