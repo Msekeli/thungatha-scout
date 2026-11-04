@@ -8,7 +8,10 @@ from scout.application.employer_service import (
     EmployerService,
     EmployerSourceCreate,
 )
-from scout.registry_loader import RegistryValidationError, validate_source_config
+from scout.registry_loader import (
+    RegistryValidationError,
+    validate_source_config,
+)
 
 router = APIRouter(prefix="/employers", tags=["employers"])
 
