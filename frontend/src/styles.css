@@ -197,3 +197,7 @@ main > header > div:first-child > span { background:#fff!important; color:#087f9
 .source-decision-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .source-decision .button { justify-self:start; }
 @media(max-width:760px) { main > header { margin:-16px -16px 0; padding:14px 16px; } .source-decision-grid { grid-template-columns:1fr; } }
+
+.company-filters { display:grid; grid-template-columns:1fr 150px; gap:8px; margin:-8px 0 12px; }
+.company-filters input,.company-filters select { font-size:11px; }
+@media(max-width:760px) { .company-filters { grid-template-columns:1fr; } }
