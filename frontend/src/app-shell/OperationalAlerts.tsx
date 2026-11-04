@@ -4,6 +4,8 @@ type OperationalAlertsProps = {
 };
 
 export function OperationalAlerts({ error, notice }: OperationalAlertsProps) {
+  if (!error && !notice) return null;
+
   return (
     <div className="space-y-2 pt-3" aria-live="polite">
       {error && (
