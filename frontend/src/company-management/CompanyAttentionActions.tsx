@@ -41,9 +41,7 @@ export function CompanyAttentionActions({
         <strong className="block text-sm text-[var(--warning-text)]">
           {discovered.length} awaiting approval
         </strong>
-        <span className="text-[10px] text-[var(--warning-text)]">
-          Review new company records
-        </span>
+        <span className="text-[10px] text-[var(--warning-text)]">Review new company records</span>
       </Button>
       <Button
         type="button"
