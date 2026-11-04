@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   Activity,
   BriefcaseBusiness,
@@ -31,6 +31,7 @@ import { useVacancyReview } from "./job-management/useVacancyReview";
 import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
 import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
 import { useScoutWorkspace } from "./useScoutWorkspace";
+import { useScoutDashboardMetrics } from "./useScoutDashboardMetrics";
 import { useCareersDiscovery } from "./employer-onboarding/useCareersDiscovery";
 import { useEmployerRegistration } from "./employer-onboarding/useEmployerRegistration";
 
@@ -179,45 +180,22 @@ export default function App() {
       item.name.toLowerCase().includes(companyQuery.toLowerCase()) &&
       (companyStatusFilter === "all" || item.status === companyStatusFilter),
   );
-  const visibleVacancies = showArchived ? archivedVacancies : vacancies;
-  const newVacancies24h = vacancies.filter(
-    (item) => item.first_seen_at && Date.now() - new Date(item.first_seen_at).getTime() < 86400000,
-  ).length;
-  const attentionCount = vacancies.filter(
-    (item) => item.review_status === "pending" || item.review_status === "needs_verification",
-  ).length;
-  const atsPerformance = useMemo(
-    () =>
-      Array.from(
-        new Set(["greenhouse", ...dashboardSources.map((source) => source.adapter_key)]),
-      ).map((adapter) => {
-        const adapterSources = dashboardSources.filter((source) => source.adapter_key === adapter);
-        const runs = adapterSources.flatMap((source) => extractionRuns[source.id] ?? []);
-        const latest = runs.sort(
-          (a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime(),
-        )[0];
-        return {
-          adapter,
-          sourceCount: adapterSources.length,
-          verified: adapterSources.filter(
-            (source) => source.status === "verified" && source.permission_status === "allowed",
-          ).length,
-          jobCount: vacancies.filter((job) =>
-            adapterSources.some((source) => source.id === job.source_id),
-          ).length,
-          latest,
-          failed: runs.filter((run) => !["success", "empty"].includes(run.outcome)).length,
-        };
-      }),
-    [dashboardSources, extractionRuns, vacancies],
-  );
-  const filteredVacancies = useMemo(
-    () =>
-      selectedEmployerId === "all"
-        ? visibleVacancies
-        : visibleVacancies.filter((item) => item.employer_id === selectedEmployerId),
-    [visibleVacancies, selectedEmployerId],
-  ).filter((item) => reviewFilter === "all" || item.review_status === reviewFilter);
+  const {
+    newVacancies24h,
+    attentionCount,
+    atsPerformance,
+    visibleVacancies,
+    filteredVacancies,
+  } = useScoutDashboardMetrics({
+    employers,
+    vacancies,
+    archivedVacancies,
+    dashboardSources,
+    extractionRuns,
+    showArchived,
+    selectedEmployerId,
+    reviewFilter,
+  });
 
   async function fetchJobs() {
     const eligibleSources = dashboardSources.filter(
