@@ -87,12 +87,13 @@ Checkpoints:
 - Registry schemas, loading and validation.
 - Common ATS adapter contract.
 - Greenhouse URL inspection and board configuration extraction.
-- Greenhouse vacancy retrieval, pagination, detail/content handling where supported, and normalisation.
+- Greenhouse vacancy retrieval, complete-board validation, full `content=true` description handling, and normalisation. The public Job Board list endpoint returns all published jobs; validate `meta.total` rather than inventing page-based pagination.
 - Backend API endpoints for source inspection, preview, connection test and retrieval.
 - Admin URL-entry, preview/confirmation and source-management workflow integrated against those endpoints.
+- Jobs workspace supports selecting a vacancy to inspect its full description and a clearly labelled draft Thungatha payload preview; inspection does not publish.
 - Validate the three selected Greenhouse employers using live evidence. The current candidate cohort is Takealot Group, Impact.com and Ozow; each employer/source relationship, Cape Town presence and live retrieval capability must be verified independently. Pending claims remain pending.
 
-Acceptance: adding another Greenhouse employer requires registry configuration, not employer-specific adapter code; supported URL forms, pagination, meaningful vacancy data and failure outcomes are tested; the admin can complete the source workflow end to end.
+Acceptance: adding another Greenhouse employer requires registry configuration, not employer-specific adapter code; supported URL forms, complete-board counts, full descriptions, meaningful vacancy data and failure outcomes are tested; the admin can complete source onboarding, extraction and vacancy inspection end to end.
 
 ### M4 — Workday vertical slice
 
@@ -153,7 +154,7 @@ Acceptance: one-email Supabase Auth restriction verified; public registration di
 1. Finish the outstanding M2 review items using the current repository and test evidence. Do not redo completed persistence work.
 2. Close any remaining M2 API/error and publishing-contract decisions as separate, bounded checkpoints; keep Scout operational persistence separate from Thungatha's destination.
 3. Continue M3: complete registry schema/loading/validation and the common adapter contract; extend Greenhouse inspection into persisted extraction and vacancy listing.
-4. Implement the Greenhouse backend slice and connect the corresponding admin URL-first workflow as soon as its API contract is stable.
+4. Complete the Greenhouse backend slice and connect the admin workflow: retrieve and persist full descriptions, inspect a selected vacancy in the Jobs workspace, and verify the draft Thungatha payload without publishing.
 5. Implement Workday and connect it to the same admin workflow.
 6. Run the six-employer validation cohort, keeping each verification claim evidence-backed and pending where necessary.
 7. Run the held-out fourth-employer compatibility test through the admin UI.
