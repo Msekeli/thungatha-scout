@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { Vacancy } from "../api";
 
 type VacancyRecordListProps = {
@@ -37,13 +38,14 @@ export function VacancyRecordList({
         </div>
       ) : (
         vacancies.map((vacancy) => (
-          <button
+          <Button
             key={vacancy.id}
             type="button"
+            variant="ghost"
             onClick={() => onOpenVacancy(vacancy.id)}
             aria-pressed={selectedVacancyId === vacancy.id}
             disabled={openingVacancyId === vacancy.id}
-            className={`w-full rounded-lg border p-3 text-left shadow-sm transition-all hover:border-ring hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-wait disabled:opacity-70 ${
+            className={`h-auto w-full justify-start rounded-lg border p-3 text-left font-normal shadow-sm transition-all hover:border-ring hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-wait disabled:opacity-70 ${
               selectedVacancyId === vacancy.id
                 ? "border-ring bg-accent shadow-sm"
                 : "border-border bg-card"
@@ -82,7 +84,7 @@ export function VacancyRecordList({
                 {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}
               </span>
             </span>
-          </button>
+          </Button>
         ))
       )}
     </div>
