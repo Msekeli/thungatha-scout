@@ -13,7 +13,7 @@ on:
 
 jobs:
   compliance:
-    name: Architecture & Line Limits
+    name: Architecture & Quality Gates
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -23,6 +23,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Install backend and test dependencies
+        working-directory: backend
+        run: python -m pip install -e ".[dev]"
+
+      - name: Run backend unit and integration test suites
+        working-directory: backend
+        run: python -m pytest -q
 
       - name: Verify file line limits (<= 100 lines)
         run: python3 scripts/check-file-line-limits.py
@@ -34,6 +42,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install frontend dependencies
         run: npm --prefix frontend ci
