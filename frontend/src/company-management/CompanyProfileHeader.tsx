@@ -1,61 +1,55 @@
 import type { FC } from "react";
-import type { Employer } from "../shared-contracts/employer-contracts";
+import { Badge } from "@/components/ui/badge";
+import type { Employer } from "../api";
 
 type CompanyProfileHeaderProps = {
   employer: Employer;
   jobsCount: number;
   sourcesCount: number;
-  onOpenBranding: () => void;
 };
 
 export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
   employer,
   jobsCount,
   sourcesCount,
-  onOpenBranding,
 }) => {
   return (
-    <div>
-      <div className="section-heading">
-        <div className="flex items-center gap-3">
-          {employer.logo_url ? (
-            <img src={employer.logo_url} alt={employer.name} className="employer-logo" />
-          ) : (
-            <span className="employer-avatar">{employer.name.slice(0, 1).toUpperCase()}</span>
-          )}
-          <div>
-            <p className="eyebrow">COMPANY PROFILE</p>
-            <h3 className="text-lg font-bold">{employer.name}</h3>
-          </div>
+    <>
+      <div className="mb-3 flex items-start justify-between gap-3 border-b border-border pb-3">
+        <div className="min-w-0">
+          <p className="text-[10px] font-semibold tracking-widest text-muted-foreground">
+            COMPANY PROFILE
+          </p>
+          <h3 className="mt-1 truncate text-base font-bold text-primary">{employer.name}</h3>
+          <p className="mt-1 break-all text-[11px] text-muted-foreground">
+            {employer.website_url ? (
+              <a
+                href={employer.website_url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-primary underline-offset-2 hover:underline"
+              >
+                {employer.website_url}
+              </a>
+            ) : (
+              "Official website not supplied"
+            )}
+          </p>
         </div>
-        <div className="flex items-center gap-2">
-          <button type="button" className="button secondary" onClick={onOpenBranding}>
-            Edit logo
-          </button>
-          <span className="review-state">{employer.status.replace("_", " ")}</span>
+        <Badge variant="outline" className="shrink-0 capitalize">
+          {employer.status.replaceAll("_", " ")}
+        </Badge>
+      </div>
+      <div className="mb-4 flex gap-7 border-y border-border py-3">
+        <div className="grid gap-0.5">
+          <strong className="text-base font-bold text-primary">{jobsCount}</strong>
+          <span className="text-[10px] text-muted-foreground">Jobs collected</span>
+        </div>
+        <div className="grid gap-0.5">
+          <strong className="text-base font-bold text-primary">{sourcesCount}</strong>
+          <span className="text-[10px] text-muted-foreground">Sources registered</span>
         </div>
       </div>
-
-      <p className="profile-website">
-        {employer.website_url ? (
-          <a href={employer.website_url} target="_blank" rel="noreferrer" className="text-link">
-            {employer.website_url} ↗
-          </a>
-        ) : (
-          "Official website not supplied"
-        )}
-      </p>
-
-      <div className="profile-stats">
-        <div>
-          <strong>{jobsCount}</strong>
-          <span>Jobs collected</span>
-        </div>
-        <div>
-          <strong>{sourcesCount}</strong>
-          <span>Sources registered</span>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
