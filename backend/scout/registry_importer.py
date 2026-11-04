@@ -14,7 +14,7 @@ def import_registry(
     registry: dict[str, Any],
     connection: Connection,
 ) -> dict[str, int]:
-    counts = {"employers_created": 0, "sources_created": 0, "sources_skipped": 0}
+    counts = {"employers_created": 0, "sources_created": 0}
 
     for item in registry["employers"]:
         employer = connection.execute(
@@ -62,8 +62,10 @@ def import_registry(
         for source in item.get("sources", []):
             adapter_key = source.get("ats")
             if adapter_key not in {"greenhouse", "workday"}:
-                counts["sources_skipped"] += 1
-                continue
+                raise ValueError(
+                    f"Unsupported V1 adapter '{adapter_key}' in the "
+                    "Greenhouse/Workday registry."
+                )
 
             adapter_config = source.get("config", {})
             validate_source_config(adapter_key, adapter_config)
@@ -119,7 +121,7 @@ def import_employer_registry(
     registry_path: Path | None = None,
 ) -> dict[str, int]:
     path = registry_path or (
-        REGISTRY_DIRECTORY / "employer-source-registry.json"
+        REGISTRY_DIRECTORY / "v1-supported-ats-employer-sources.json"
     )
     registry = json.loads(path.read_text(encoding="utf-8"))
     with connection_factory() as connection, connection.transaction():
@@ -131,6 +133,5 @@ if __name__ == "__main__":
     print(
         "Registry import complete: "
         f"{result['employers_created']} employers created, "
-        f"{result['sources_created']} sources created, "
-        f"{result['sources_skipped']} unsupported sources skipped."
+        f"{result['sources_created']} sources created."
     )
