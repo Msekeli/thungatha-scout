@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
-import type { Employer, EmployerSource } from "./api";
+import type { Employer, EmployerSource, GreenhouseInspection } from "./api";
 
 const emptyEmployer = {
   name: "",
@@ -18,6 +18,8 @@ export default function App() {
   const [sources, setSources] = useState<EmployerSource[]>([]);
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
+  const [greenhouseInspection, setGreenhouseInspection] = useState<GreenhouseInspection | null>(null);
+  const [inspecting, setInspecting] = useState(false);
   const [adapter, setAdapter] = useState<"greenhouse" | "workday">("greenhouse");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -79,6 +81,26 @@ export default function App() {
       setSources(await scoutApi.listSources(employer.id));
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load sources.");
+    }
+  }
+
+  async function inspectGreenhouse() {
+    setInspecting(true);
+    setError("");
+    setNotice("");
+    setGreenhouseInspection(null);
+    try {
+      const result = await scoutApi.inspectGreenhouse(sourceUrl);
+      setGreenhouseInspection(result);
+      if (result.outcome === "success" || result.outcome === "empty") {
+        setNotice(`Greenhouse board found: ${result.board_name ?? result.board_token}.`);
+      } else {
+        setError(result.detail ?? `Greenhouse inspection: ${result.outcome}.`);
+      }
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not inspect Greenhouse board.");
+    } finally {
+      setInspecting(false);
     }
   }
 
