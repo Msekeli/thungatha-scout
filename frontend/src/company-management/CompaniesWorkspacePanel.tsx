@@ -39,33 +39,8 @@ export function CompaniesWorkspacePanel({ state, jobs, companies, onboarding, on
             state.setError("");
             state.setNotice("");
           }} />
-        <CompanyProfilePanel employer={selectedEmployer} jobsCount={jobsCount}
-          sources={state.sources} extractionRuns={jobs.extractionRuns} decisions={companies.decisions}
-          logoUrl={state.logoUrl} logoSourceUrl={state.logoSourceUrl} sourceUrl={state.sourceUrl}
-          editingSourceId={state.editingSourceId} inspection={onboarding.inspection}
-          saving={state.saving} inspecting={onboarding.inspecting}
-          onUpdateStatus={(status) => void companies.updateStatus(status)}
-          onDelete={() => void companies.deleteCompany()}
-          onLogoUrlChange={state.setLogoUrl} onLogoSourceUrlChange={state.setLogoSourceUrl}
-          onSaveBranding={onSaveBranding}
-          onEditSource={(source) => {
-            state.setEditingSourceId(source.id);
-            state.setSourceUrl(source.source_url);
-            onboarding.setInspection(null);
-          }}
-          onDecisionChange={companies.updateField}
-          onSaveDecision={(source) => void companies.saveDecision(source)}
-          onChangeSourceUrl={(value) => {
-            state.setSourceUrl(value);
-            onboarding.setInspection(null);
-          }}
-          onInspect={() => void onboarding.inspectGreenhouseBoard(state.sourceUrl)}
-          onSaveSource={companies.saveSource}
-          onCancelEdit={() => {
-            state.setEditingSourceId(null);
-            state.setSourceUrl("");
-            onboarding.setInspection(null);
-          }} />
+        <CompanyProfilePanel state={state} jobs={jobs} companies={companies}
+          onboarding={onboarding} jobsCount={jobsCount} onSaveBranding={onSaveBranding} />
       </div>
     </>
   );
