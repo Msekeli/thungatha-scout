@@ -4,6 +4,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 from psycopg.errors import UniqueViolation
 
+from scout.application.employer_service import EmployerService
 from scout.application.employer_contracts import (
     EmployerSourceCreate,
     EmployerSourceReviewUpdate,
