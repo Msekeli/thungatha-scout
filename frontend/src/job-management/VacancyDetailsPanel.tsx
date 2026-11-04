@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { ShieldCheck } from "lucide-react";
 import type { Vacancy } from "../api";
 import { decodeGreenhouseContent } from "./html-content-decoder";
@@ -142,11 +142,12 @@ export function VacancyDetailsPanel({
           <div className="space-y-3 p-3">
             <label className="grid gap-1 text-xs font-medium text-muted-foreground">
               Decision notes
-              <Input
+              <Textarea
                 value={reviewReason}
                 disabled={archived}
                 onChange={(event) => onChangeReviewReason(event.target.value)}
                 placeholder="Record the reason for your decision"
+                aria-label="Vacancy decision notes"
               />
             </label>
             <div className="flex flex-wrap gap-2">
