@@ -575,9 +575,7 @@ export default function App() {
                 reviewReason={reviewReason}
                 saving={vacancySaving}
                 onChangeReviewReason={setReviewReason}
-                onClear={() => {
-                  clearSelection();
-                }}
+                onClear={clearSelection}
                 onDecision={(status) => void setVacancyDecision(status)}
                 onArchive={() => void archiveSelectedVacancy()}
                 onRestore={() => void restoreSelectedVacancy()}
