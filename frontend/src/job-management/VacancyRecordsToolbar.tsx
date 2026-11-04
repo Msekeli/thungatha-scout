@@ -86,7 +86,7 @@ export function VacancyRecordsToolbar({
         type="button"
         variant="outline"
         size="sm"
-        className="h-8 bg-card"
+        className="h-8 border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
         onClick={onRefresh}
         disabled={loading}
       >
