@@ -12,6 +12,7 @@ from scout.application.employer_service import (
     EmployerCreate,
     EmployerService,
     EmployerSourceCreate,
+    EmployerBrandingUpdate,
 )
 from scout.registry_loader import (
     RegistryValidationError,
@@ -48,6 +49,18 @@ def get_employer(
     service: EmployerService = Depends(get_employer_service),
 ) -> dict[str, Any]:
     employer = service.get_employer(employer_id)
+    if employer is None:
+        raise HTTPException(status_code=404, detail="Employer not found.")
+    return employer
+
+
+@router.patch("/{employer_id}/branding")
+def update_employer_branding(
+    employer_id: UUID,
+    payload: EmployerBrandingUpdate,
+    service: EmployerService = Depends(get_employer_service),
+) -> dict[str, Any]:
+    employer = service.update_branding(employer_id, payload)
     if employer is None:
         raise HTTPException(status_code=404, detail="Employer not found.")
     return employer
