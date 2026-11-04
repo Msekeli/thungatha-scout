@@ -30,49 +30,52 @@ export function useCompanySelection({
 }: UseCompanySelectionOptions) {
   const requestId = useRef(0);
 
-  const openCompany = useCallback(async (employer: Employer) => {
-    const currentRequest = ++requestId.current;
-    setEditingSourceId(null);
-    setSourceUrl("");
-    setInspection(null);
-    setSources([]);
-    setSelectedEmployerId(employer.id);
-    setLogoUrl(employer.logo_url ?? "");
-    setLogoSourceUrl(employer.logo_source_url ?? "");
-    setPage("companies");
-    onError("");
+  const openCompany = useCallback(
+    async (employer: Employer) => {
+      const currentRequest = ++requestId.current;
+      setEditingSourceId(null);
+      setSourceUrl("");
+      setInspection(null);
+      setSources([]);
+      setSelectedEmployerId(employer.id);
+      setLogoUrl(employer.logo_url ?? "");
+      setLogoSourceUrl(employer.logo_source_url ?? "");
+      setPage("companies");
+      onError("");
 
-    try {
-      const nextSources = await scoutApi.listSources(employer.id);
-      const runEntries = await Promise.all(
-        nextSources.map(
-          async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
-        ),
-      );
+      try {
+        const nextSources = await scoutApi.listSources(employer.id);
+        const runEntries = await Promise.all(
+          nextSources.map(
+            async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
+          ),
+        );
 
-      if (currentRequest !== requestId.current) return;
+        if (currentRequest !== requestId.current) return;
 
-      setSources(nextSources);
-      setExtractionRuns((current) => ({
-        ...current,
-        ...Object.fromEntries(runEntries),
-      }));
-    } catch (reason) {
-      if (currentRequest !== requestId.current) return;
-      onError(reason instanceof Error ? reason.message : "Could not load company sources.");
-    }
-  }, [
-    onError,
-    setEditingSourceId,
-    setExtractionRuns,
-    setInspection,
-    setLogoSourceUrl,
-    setLogoUrl,
-    setPage,
-    setSelectedEmployerId,
-    setSourceUrl,
-    setSources,
-  ]);
+        setSources(nextSources);
+        setExtractionRuns((current) => ({
+          ...current,
+          ...Object.fromEntries(runEntries),
+        }));
+      } catch (reason) {
+        if (currentRequest !== requestId.current) return;
+        onError(reason instanceof Error ? reason.message : "Could not load company sources.");
+      }
+    },
+    [
+      onError,
+      setEditingSourceId,
+      setExtractionRuns,
+      setInspection,
+      setLogoSourceUrl,
+      setLogoUrl,
+      setPage,
+      setSelectedEmployerId,
+      setSourceUrl,
+      setSources,
+    ],
+  );
 
   return { openCompany };
 }
