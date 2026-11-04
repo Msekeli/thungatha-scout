@@ -53,10 +53,14 @@ class FakeConnection:
             ]
             return FakeResult(rows)
         if "UPDATE employer_sources" in query:
-            row = next(item for item in self.sources if item["id"] == params[3])
+            source_id = params[2] if len(params) == 3 else params[3]
+            row = next(item for item in self.sources if item["id"] == source_id)
             row["source_url"] = params[0]
-            row["normalized_url"] = params[1]
-            row["adapter_config"] = params[2].obj
+            if len(params) == 4:
+                row["normalized_url"] = params[1]
+                row["adapter_config"] = params[2].obj
+            else:
+                row["adapter_config"] = params[1].obj
             return FakeResult(row)
         if "INSERT INTO employer_sources" in query:
             self.sources.append({
