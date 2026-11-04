@@ -24,13 +24,11 @@ async def require_admin(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    if not all(
-        [
-            settings.scout_supabase_url,
-            settings.scout_supabase_url.startswith("https://"),
-            settings.scout_supabase_publishable_key,
-            settings.scout_admin_email,
-        ]
+    if (
+        not settings.scout_supabase_url
+        or not settings.scout_supabase_url.startswith("https://")
+        or not settings.scout_supabase_publishable_key
+        or not settings.scout_admin_email
     ):
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
