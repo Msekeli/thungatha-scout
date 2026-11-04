@@ -942,7 +942,7 @@ export default function App() {
             </div>
             <Button
               type="button"
-              type="button"
+             
               className="rounded-lg border border-[var(--warning-text)]/15 bg-[var(--warning-surface)] px-3 py-2 text-left transition-colors hover:opacity-90"
               onClick={() => {
                 const target = employers.find((item) => item.status === "discovered");
@@ -958,7 +958,7 @@ export default function App() {
             </Button>
             <Button
               type="button"
-              type="button"
+             
               className="rounded-lg bg-[var(--warning-surface)] px-3 py-2 text-left hover:opacity-90"
               onClick={() => {
                 const target = employers.find((item) => item.status === "needs_review");
@@ -975,7 +975,7 @@ export default function App() {
             </Button>
             <Button
               type="button"
-              type="button"
+             
               className="rounded-lg border border-border bg-muted px-3 py-2 text-left transition-colors hover:bg-accent"
               onClick={() => {
                 const targetSource = dashboardSources.find(
@@ -1013,7 +1013,7 @@ export default function App() {
                 <Button
                   type="button"
                   className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-                  type="button"
+                 
                   onClick={() => {
                     setPage("add-company");
                     setError("");
@@ -1024,25 +1024,26 @@ export default function App() {
                 </Button>
               </div>
               <div className="mb-3 grid grid-cols-1 gap-2 sm:grid-cols-[minmax(0,1fr)_140px]">
-                <input
+                <Input
                   aria-label="Search companies"
                   value={companyQuery}
                   onChange={(event) => setCompanyQuery(event.target.value)}
                   placeholder="Search company name…"
                 />
-                <select
-                  aria-label="Filter companies by status"
-                  value={companyStatusFilter}
-                  onChange={(event) => setCompanyStatusFilter(event.target.value)}
-                >
-                  <option value="all">All statuses</option>
-                  <option value="discovered">Discovered</option>
-                  <option value="pending_review">Pending review</option>
-                  <option value="approved">Approved</option>
-                  <option value="needs_review">Needs review</option>
-                  <option value="rejected">Rejected</option>
-                  <option value="inactive">Inactive</option>
-                </select>
+                <Select value={companyStatusFilter} onValueChange={setCompanyStatusFilter}>
+                  <SelectTrigger aria-label="Filter companies by status" className="h-9">
+                    <SelectValue placeholder="All statuses" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All statuses</SelectItem>
+                    <SelectItem value="discovered">Discovered</SelectItem>
+                    <SelectItem value="pending_review">Pending review</SelectItem>
+                    <SelectItem value="approved">Approved</SelectItem>
+                    <SelectItem value="needs_review">Needs review</SelectItem>
+                    <SelectItem value="rejected">Rejected</SelectItem>
+                    <SelectItem value="inactive">Inactive</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               {visibleEmployers.map((employer) => (
                 <Button
@@ -1187,7 +1188,7 @@ export default function App() {
                               <Button
                                 type="button"
                                 className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
-                                type="button"
+                               
                                 onClick={() => {
                                   setEditingSourceId(source.id);
                                   setSourceUrl(source.source_url);
@@ -1306,7 +1307,7 @@ export default function App() {
                             </label>
                             <Button
                               type="button"
-                              type="button"
+                             
                               className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
                               disabled={saving}
                               onClick={() => void updateSourceDecision(source)}
@@ -1434,7 +1435,7 @@ export default function App() {
                     </label>
                     <Button
                       type="button"
-                      type="button"
+                     
                       className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                       onClick={() => void inspectGreenhouse()}
                       disabled={inspecting || !sourceUrl.trim()}
@@ -1454,7 +1455,7 @@ export default function App() {
                       {editingSourceId && (
                         <Button
                           type="button"
-                          type="button"
+                         
                           className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50"
                           onClick={() => {
                             setEditingSourceId(null);
