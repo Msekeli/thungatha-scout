@@ -76,7 +76,7 @@ export function DashboardOverview({
 
       <section className="rounded-xl border border-white/80 bg-card p-3 text-card-foreground shadow-lg shadow-black/20">
         <div className="mb-2 flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-xs font-bold text-white">
+          <h3 className="flex items-center gap-2 text-xs font-bold text-primary">
             <Activity className="h-4 w-4 text-scout-cyan" /> ATS performance
           </h3>
           <span className="text-right text-[10px] text-muted-foreground">
