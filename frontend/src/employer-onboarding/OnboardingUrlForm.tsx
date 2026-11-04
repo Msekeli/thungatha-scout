@@ -32,10 +32,7 @@ export const OnboardingUrlForm: FC<OnboardingUrlFormProps> = ({
 
       <label>
         ATS platform
-        <select
-          value={atsKey}
-          onChange={(event) => onChangeAtsKey(event.target.value)}
-        >
+        <select value={atsKey} onChange={(event) => onChangeAtsKey(event.target.value)}>
           <option value="greenhouse">Greenhouse</option>
           <option value="workday" disabled>
             Workday — coming next
@@ -49,9 +46,7 @@ export const OnboardingUrlForm: FC<OnboardingUrlFormProps> = ({
         onClick={onDetect}
         disabled={inspecting || !sourceUrl.trim()}
       >
-        {inspecting
-          ? "Detecting ATS and inspecting jobs…"
-          : "Detect ATS & preview jobs"}
+        {inspecting ? "Detecting ATS and inspecting jobs…" : "Detect ATS & preview jobs"}
       </button>
     </div>
   );

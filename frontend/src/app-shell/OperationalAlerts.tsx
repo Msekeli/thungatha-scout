@@ -5,10 +5,7 @@ type OperationalAlertsProps = {
   notice?: string | null;
 };
 
-export const OperationalAlerts: FC<OperationalAlertsProps> = ({
-  error,
-  notice,
-}) => {
+export const OperationalAlerts: FC<OperationalAlertsProps> = ({ error, notice }) => {
   return (
     <>
       {error && (

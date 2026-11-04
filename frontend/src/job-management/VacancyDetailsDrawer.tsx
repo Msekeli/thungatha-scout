@@ -101,9 +101,7 @@ export const VacancyDetailsDrawer: FC<VacancyDetailsDrawerProps> = ({
 
           {vacancy.description && (
             <div className="grid gap-2">
-              <span className="text-xs font-bold text-slate-700">
-                Job Description
-              </span>
+              <span className="text-xs font-bold text-slate-700">Job Description</span>
               <div
                 className="vacancy-description"
                 dangerouslySetInnerHTML={{

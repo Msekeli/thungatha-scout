@@ -8,9 +8,16 @@ main > header {
   color: #fff;
   box-shadow: 0 5px 18px #071b3526;
 }
-main > header h1, main > header h2 { color: #fff !important; }
-main > header p { color: #c8d8ea !important; }
-main > header nav button { color: #d9e6f3 !important; }
+main > header h1,
+main > header h2 {
+  color: #fff !important;
+}
+main > header p {
+  color: #c8d8ea !important;
+}
+main > header nav button {
+  color: #d9e6f3 !important;
+}
 main > header nav button:hover {
   background: #ffffff18 !important;
   color: #fff !important;
@@ -50,8 +57,13 @@ main > header nav button.active {
   text-align: center;
   font-size: 12px;
 }
-.empty strong { color: #344054; }
-.empty.large { min-height: 260px; align-content: center; }
+.empty strong {
+  color: #344054;
+}
+.empty.large {
+  min-height: 260px;
+  align-content: center;
+}
 
 .button {
   padding: 9px 13px;
@@ -60,10 +72,22 @@ main > header nav button.active {
   font-size: 11px;
   font-weight: 700;
 }
-.button:disabled { opacity: 0.6; cursor: wait; }
-.button.primary { background: var(--scout-navy-2); color: #fff; }
-.button.primary:hover { background: #1b4776; }
-.button.secondary { border: 1px solid #dce3ec; background: #fff; color: #526174; }
+.button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.button.primary {
+  background: var(--scout-navy-2);
+  color: #fff;
+}
+.button.primary:hover {
+  background: #1b4776;
+}
+.button.secondary {
+  border: 1px solid #dce3ec;
+  background: #fff;
+  color: #526174;
+}
 
 .alert {
   margin: 0 0 14px;
@@ -71,10 +95,23 @@ main > header nav button.active {
   border-radius: 8px;
   font-size: 12px;
 }
-.alert.error { background: #fff0f0; color: #a33131; }
-.alert.success { background: #eef8f1; color: #25653b; }
-footer { padding-top: 22px; color: #8a95a5; font-size: 10px; }
+.alert.error {
+  background: #fff0f0;
+  color: #a33131;
+}
+.alert.success {
+  background: #eef8f1;
+  color: #25653b;
+}
+footer {
+  padding-top: 22px;
+  color: #8a95a5;
+  font-size: 10px;
+}
 
 @media (max-width: 760px) {
-  main > header { margin: -16px -16px 0; padding: 14px 16px; }
+  main > header {
+    margin: -16px -16px 0;
+    padding: 14px 16px;
+  }
 }

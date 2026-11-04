@@ -6,13 +6,8 @@ type VacancyMetricsRowProps = {
   vacancies: Vacancy[];
 };
 
-export const VacancyMetricsRow: FC<VacancyMetricsRowProps> = ({
-  employerCount,
-  vacancies,
-}) => {
-  const verifiedCount = vacancies.filter(
-    (item) => item.review_status === "verified",
-  ).length;
+export const VacancyMetricsRow: FC<VacancyMetricsRowProps> = ({ employerCount, vacancies }) => {
+  const verifiedCount = vacancies.filter((item) => item.review_status === "verified").length;
 
   return (
     <section className="metric-row">

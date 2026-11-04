@@ -19,15 +19,9 @@ export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
       <div className="section-heading">
         <div className="flex items-center gap-3">
           {employer.logo_url ? (
-            <img
-              src={employer.logo_url}
-              alt={employer.name}
-              className="employer-logo"
-            />
+            <img src={employer.logo_url} alt={employer.name} className="employer-logo" />
           ) : (
-            <span className="employer-avatar">
-              {employer.name.slice(0, 1).toUpperCase()}
-            </span>
+            <span className="employer-avatar">{employer.name.slice(0, 1).toUpperCase()}</span>
           )}
           <div>
             <p className="eyebrow">COMPANY PROFILE</p>
@@ -35,27 +29,16 @@ export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            className="button secondary"
-            onClick={onOpenBranding}
-          >
+          <button type="button" className="button secondary" onClick={onOpenBranding}>
             Edit logo
           </button>
-          <span className="review-state">
-            {employer.status.replace("_", " ")}
-          </span>
+          <span className="review-state">{employer.status.replace("_", " ")}</span>
         </div>
       </div>
 
       <p className="profile-website">
         {employer.website_url ? (
-          <a
-            href={employer.website_url}
-            target="_blank"
-            rel="noreferrer"
-            className="text-link"
-          >
+          <a href={employer.website_url} target="_blank" rel="noreferrer" className="text-link">
             {employer.website_url} ↗
           </a>
         ) : (

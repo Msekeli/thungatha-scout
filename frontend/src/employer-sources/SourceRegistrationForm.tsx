@@ -32,9 +32,7 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
 
   return (
     <form className="source-form" onSubmit={onSaveSource}>
-      <h4>
-        {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
-      </h4>
+      <h4>{editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}</h4>
       <label>
         Official careers / job board URL
         <input

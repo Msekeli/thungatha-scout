@@ -24,7 +24,8 @@ export function useCompanyManagement(
 
   const visibleEmployers = useMemo(() => {
     return employers.filter((e) => {
-      const matchQuery = !companyQuery.trim() || e.name.toLowerCase().includes(companyQuery.toLowerCase());
+      const matchQuery =
+        !companyQuery.trim() || e.name.toLowerCase().includes(companyQuery.toLowerCase());
       const matchStatus = companyStatusFilter === "all" || e.status === companyStatusFilter;
       return matchQuery && matchStatus;
     });
@@ -41,7 +42,11 @@ export function useCompanyManagement(
     if (!selectedEmployer) return;
     setSaving(true);
     try {
-      const updated = await employerApiClient.updateEmployerBranding(selectedEmployer.id, logoUrl, logoSourceUrl);
+      const updated = await employerApiClient.updateEmployerBranding(
+        selectedEmployer.id,
+        logoUrl,
+        logoSourceUrl,
+      );
       setEmployers((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
       setBrandingModalOpen(false);
       onNotice("Company branding updated successfully.");
@@ -52,19 +57,25 @@ export function useCompanyManagement(
     }
   }, [selectedEmployer, logoUrl, logoSourceUrl, onNotice, onError]);
 
-  const updateStatus = useCallback(async (status: CompanyStatus) => {
-    if (!selectedEmployer) return;
-    setSaving(true);
-    try {
-      const updated = await employerApiClient.updateEmployerStatus(selectedEmployer.id, status as any);
-      setEmployers((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
-      onNotice(`Company marked as ${status.replace("_", " ")}.`);
-    } catch (err) {
-      onError(err instanceof Error ? err.message : "Could not update status.");
-    } finally {
-      setSaving(false);
-    }
-  }, [selectedEmployer, onNotice, onError]);
+  const updateStatus = useCallback(
+    async (status: CompanyStatus) => {
+      if (!selectedEmployer) return;
+      setSaving(true);
+      try {
+        const updated = await employerApiClient.updateEmployerStatus(
+          selectedEmployer.id,
+          status as any,
+        );
+        setEmployers((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
+        onNotice(`Company marked as ${status.replace("_", " ")}.`);
+      } catch (err) {
+        onError(err instanceof Error ? err.message : "Could not update status.");
+      } finally {
+        setSaving(false);
+      }
+    },
+    [selectedEmployer, onNotice, onError],
+  );
 
   const confirmDelete = useCallback(async () => {
     if (!selectedEmployer) return;
@@ -83,11 +94,28 @@ export function useCompanyManagement(
   }, [selectedEmployer, onNotice, onError]);
 
   return {
-    employers, setEmployers, selectedEmployerId, setSelectedEmployerId,
-    selectedEmployer, companyQuery, setCompanyQuery, companyStatusFilter,
-    setCompanyStatusFilter, visibleEmployers, brandingModalOpen, setBrandingModalOpen,
-    deletionDialogOpen, setDeletionDialogOpen, logoUrl, setLogoUrl,
-    logoSourceUrl, setLogoSourceUrl, saving, openBranding, saveBranding,
-    updateStatus, confirmDelete,
+    employers,
+    setEmployers,
+    selectedEmployerId,
+    setSelectedEmployerId,
+    selectedEmployer,
+    companyQuery,
+    setCompanyQuery,
+    companyStatusFilter,
+    setCompanyStatusFilter,
+    visibleEmployers,
+    brandingModalOpen,
+    setBrandingModalOpen,
+    deletionDialogOpen,
+    setDeletionDialogOpen,
+    logoUrl,
+    setLogoUrl,
+    logoSourceUrl,
+    setLogoSourceUrl,
+    saving,
+    openBranding,
+    saveBranding,
+    updateStatus,
+    confirmDelete,
   };
 }

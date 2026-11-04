@@ -34,26 +34,16 @@ export const VacancyArchiveActions: FC<VacancyArchiveActionsProps> = ({
           type="text"
           value={reason}
           onChange={(event) => onChangeReason(event.target.value)}
-          placeholder={
-            isArchived ? "Restoring vacancy" : "Role filled or cancelled"
-          }
+          placeholder={isArchived ? "Restoring vacancy" : "Role filled or cancelled"}
         />
       </label>
       <div className="flex justify-end gap-2">
         {isArchived ? (
-          <button
-            type="submit"
-            className="button secondary text-emerald-700"
-            disabled={saving}
-          >
+          <button type="submit" className="button secondary text-emerald-700" disabled={saving}>
             {saving ? "Restoring…" : "Restore vacancy"}
           </button>
         ) : (
-          <button
-            type="submit"
-            className="button secondary text-red-700"
-            disabled={saving}
-          >
+          <button type="submit" className="button secondary text-red-700" disabled={saving}>
             {saving ? "Archiving…" : "Archive vacancy"}
           </button>
         )}

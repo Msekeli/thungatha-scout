@@ -28,19 +28,14 @@ export const CompanyDeletionDialog: FC<CompanyDeletionDialogProps> = ({
         <DialogHeader>
           <DialogTitle className="text-red-700">Delete Company</DialogTitle>
           <DialogDescription className="text-xs text-slate-600">
-            Are you sure you want to delete <strong>{companyName}</strong>?
-            Companies with registered sources or historical vacancies cannot be
-            deleted and should be marked inactive instead.
+            Are you sure you want to delete <strong>{companyName}</strong>? Companies with
+            registered sources or historical vacancies cannot be deleted and should be marked
+            inactive instead.
           </DialogDescription>
         </DialogHeader>
 
         <div className="flex justify-end gap-2 pt-3">
-          <button
-            type="button"
-            className="button secondary"
-            onClick={onClose}
-            disabled={deleting}
-          >
+          <button type="button" className="button secondary" onClick={onClose} disabled={deleting}>
             Cancel
           </button>
           <button

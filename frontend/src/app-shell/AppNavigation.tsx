@@ -7,10 +7,7 @@ type AppNavigationProps = {
   onSelectPage: (page: AppPage) => void;
 };
 
-export const AppNavigation: FC<AppNavigationProps> = ({
-  activePage,
-  onSelectPage,
-}) => {
+export const AppNavigation: FC<AppNavigationProps> = ({ activePage, onSelectPage }) => {
   return (
     <nav className="flex items-center gap-1.5" aria-label="Main navigation">
       <button

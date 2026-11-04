@@ -5,9 +5,7 @@ type OnboardingPreviewCardProps = {
   discovery: CareersDiscovery | null;
 };
 
-export const OnboardingPreviewCard: FC<OnboardingPreviewCardProps> = ({
-  discovery,
-}) => {
+export const OnboardingPreviewCard: FC<OnboardingPreviewCardProps> = ({ discovery }) => {
   if (!discovery) return null;
 
   return (

@@ -22,29 +22,19 @@ export const CompanyDirectoryList: FC<CompanyDirectoryListProps> = ({
         <button
           key={employer.id}
           type="button"
-          className={`company-row ${
-            selectedEmployerId === employer.id ? "selected" : ""
-          }`}
+          className={`company-row ${selectedEmployerId === employer.id ? "selected" : ""}`}
           onClick={() => onSelectEmployer(employer)}
         >
           {employer.logo_url ? (
-            <img
-              src={employer.logo_url}
-              alt={employer.name}
-              className="employer-logo"
-            />
+            <img src={employer.logo_url} alt={employer.name} className="employer-logo" />
           ) : (
-            <span className="employer-avatar">
-              {employer.name.slice(0, 1).toUpperCase()}
-            </span>
+            <span className="employer-avatar">{employer.name.slice(0, 1).toUpperCase()}</span>
           )}
           <span>
             <strong>{employer.name}</strong>
             <small>{employer.city || "Location not confirmed"}</small>
           </span>
-          <span className="review-state text-[9px]">
-            {employer.status.replace("_", " ")}
-          </span>
+          <span className="review-state text-[9px]">{employer.status.replace("_", " ")}</span>
         </button>
       ))}
     </div>

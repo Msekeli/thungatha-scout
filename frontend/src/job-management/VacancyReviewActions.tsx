@@ -20,9 +20,7 @@ export const VacancyReviewActions: FC<VacancyReviewActionsProps> = ({
 
   return (
     <div className="review-actions-panel">
-      <h4 className="text-xs font-bold uppercase text-slate-700">
-        Review Decision
-      </h4>
+      <h4 className="text-xs font-bold uppercase text-slate-700">Review Decision</h4>
       <div className="review-button-group">
         <button
           type="button"

@@ -4,13 +4,10 @@ import type { Vacancy } from "../shared-contracts/vacancy-contracts";
 export const vacancyApiClient = {
   listVacancies: (employerId?: string) =>
     request<Vacancy[]>(
-      employerId
-        ? `/api/v1/employers/${employerId}/vacancies`
-        : "/api/v1/vacancies",
+      employerId ? `/api/v1/employers/${employerId}/vacancies` : "/api/v1/vacancies",
     ),
 
-  getVacancy: (vacancyId: string) =>
-    request<Vacancy>(`/api/v1/vacancies/${vacancyId}`),
+  getVacancy: (vacancyId: string) => request<Vacancy>(`/api/v1/vacancies/${vacancyId}`),
 
   updateVacancyReview: (
     vacancyId: string,
@@ -36,6 +33,5 @@ export const vacancyApiClient = {
       method: "POST",
     }),
 
-  listArchivedVacancies: () =>
-    request<Vacancy[]>("/api/v1/vacancies/archived"),
+  listArchivedVacancies: () => request<Vacancy[]>("/api/v1/vacancies/archived"),
 };

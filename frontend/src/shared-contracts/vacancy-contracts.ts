@@ -1,8 +1,4 @@
-export type VacancyReviewStatus =
-  | "pending"
-  | "needs_verification"
-  | "verified"
-  | "rejected";
+export type VacancyReviewStatus = "pending" | "needs_verification" | "verified" | "rejected";
 
 export type Vacancy = {
   id: string;

@@ -62,20 +62,27 @@ export function useVacancyManagement(
     }
   }, []);
 
-  const saveReview = useCallback(async (status: Vacancy["review_status"], reason: string) => {
-    if (!selectedVacancy) return;
-    setSaving(true);
-    try {
-      const updated = await vacancyApiClient.updateVacancyReview(selectedVacancy.id, status, reason);
-      setSelectedVacancy(updated);
-      setVacancies((prev) => prev.map((v) => (v.id === updated.id ? updated : v)));
-      onNotice(`Vacancy marked as ${status.replace("_", " ")}.`);
-    } catch (err) {
-      onError(err instanceof Error ? err.message : "Could not update review.");
-    } finally {
-      setSaving(false);
-    }
-  }, [selectedVacancy, onNotice, onError]);
+  const saveReview = useCallback(
+    async (status: Vacancy["review_status"], reason: string) => {
+      if (!selectedVacancy) return;
+      setSaving(true);
+      try {
+        const updated = await vacancyApiClient.updateVacancyReview(
+          selectedVacancy.id,
+          status,
+          reason,
+        );
+        setSelectedVacancy(updated);
+        setVacancies((prev) => prev.map((v) => (v.id === updated.id ? updated : v)));
+        onNotice(`Vacancy marked as ${status.replace("_", " ")}.`);
+      } catch (err) {
+        onError(err instanceof Error ? err.message : "Could not update review.");
+      } finally {
+        setSaving(false);
+      }
+    },
+    [selectedVacancy, onNotice, onError],
+  );
 
   const archive = useCallback(async () => {
     if (!selectedVacancy) return;
@@ -110,9 +117,24 @@ export function useVacancyManagement(
   }, [selectedVacancy, onNotice, onError]);
 
   return {
-    vacancies, setVacancies, displayedVacancies, showArchived, toggleArchived,
-    selectedEmployerId, setSelectedEmployerId, reviewFilter, setReviewFilter,
-    selectedVacancy, setSelectedVacancy, openingVacancyId, reviewReason,
-    setReviewReason, saving, openVacancy, saveReview, archive, restore,
+    vacancies,
+    setVacancies,
+    displayedVacancies,
+    showArchived,
+    toggleArchived,
+    selectedEmployerId,
+    setSelectedEmployerId,
+    reviewFilter,
+    setReviewFilter,
+    selectedVacancy,
+    setSelectedVacancy,
+    openingVacancyId,
+    reviewReason,
+    setReviewReason,
+    saving,
+    openVacancy,
+    saveReview,
+    archive,
+    restore,
   };
 }

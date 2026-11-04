@@ -63,12 +63,7 @@ export const CompanyBrandingModal: FC<CompanyBrandingModalProps> = ({
             />
           </label>
           <div className="flex justify-end gap-2 pt-2">
-            <button
-              type="button"
-              className="button secondary"
-              onClick={onClose}
-              disabled={saving}
-            >
+            <button type="button" className="button secondary" onClick={onClose} disabled={saving}>
               Cancel
             </button>
             <button type="submit" className="button primary" disabled={saving}>

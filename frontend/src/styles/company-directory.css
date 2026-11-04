@@ -4,7 +4,8 @@
   gap: 16px;
   align-items: start;
 }
-.company-directory, .company-profile {
+.company-directory,
+.company-profile {
   min-width: 0;
 }
 .company-filters {
@@ -24,7 +25,8 @@
   background: transparent;
   text-align: left;
 }
-.company-row:hover, .company-row.selected {
+.company-row:hover,
+.company-row.selected {
   border-color: #dce5ef;
   background: #f5f8fc;
 }
@@ -100,6 +102,10 @@
 }
 
 @media (max-width: 760px) {
-  .company-layout { grid-template-columns: 1fr; }
-  .company-filters { grid-template-columns: 1fr; }
+  .company-layout {
+    grid-template-columns: 1fr;
+  }
+  .company-filters {
+    grid-template-columns: 1fr;
+  }
 }

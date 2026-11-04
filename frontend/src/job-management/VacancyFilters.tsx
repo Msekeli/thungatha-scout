@@ -61,12 +61,7 @@ export const VacancyFilters: FC<VacancyFiltersProps> = ({
         >
           {showArchived ? "Show active" : "View archive"}
         </button>
-        <button
-          type="button"
-          className="button secondary"
-          onClick={onRefresh}
-          disabled={loading}
-        >
+        <button type="button" className="button secondary" onClick={onRefresh} disabled={loading}>
           Refresh
         </button>
       </div>

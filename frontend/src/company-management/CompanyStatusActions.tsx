@@ -17,15 +17,11 @@ export const CompanyStatusActions: FC<CompanyStatusActionsProps> = ({
   return (
     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 py-3">
       <div className="flex flex-wrap items-center gap-1.5">
-        <span className="text-[10px] font-bold uppercase text-slate-500">
-          Status:
-        </span>
+        <span className="text-[10px] font-bold uppercase text-slate-500">Status:</span>
         <button
           type="button"
           className={`button ${
-            currentStatus === "approved"
-              ? "primary bg-emerald-700"
-              : "secondary text-emerald-800"
+            currentStatus === "approved" ? "primary bg-emerald-700" : "secondary text-emerald-800"
           }`}
           disabled={saving}
           onClick={() => onUpdateStatus("approved")}
@@ -35,9 +31,7 @@ export const CompanyStatusActions: FC<CompanyStatusActionsProps> = ({
         <button
           type="button"
           className={`button ${
-            currentStatus === "needs_review"
-              ? "primary bg-amber-700"
-              : "secondary text-amber-800"
+            currentStatus === "needs_review" ? "primary bg-amber-700" : "secondary text-amber-800"
           }`}
           disabled={saving}
           onClick={() => onUpdateStatus("needs_review")}
@@ -47,9 +41,7 @@ export const CompanyStatusActions: FC<CompanyStatusActionsProps> = ({
         <button
           type="button"
           className={`button ${
-            currentStatus === "rejected"
-              ? "primary bg-red-700"
-              : "secondary text-red-800"
+            currentStatus === "rejected" ? "primary bg-red-700" : "secondary text-red-800"
           }`}
           disabled={saving}
           onClick={() => onUpdateStatus("rejected")}
@@ -59,9 +51,7 @@ export const CompanyStatusActions: FC<CompanyStatusActionsProps> = ({
         <button
           type="button"
           className={`button ${
-            currentStatus === "inactive"
-              ? "primary bg-slate-700"
-              : "secondary text-slate-600"
+            currentStatus === "inactive" ? "primary bg-slate-700" : "secondary text-slate-600"
           }`}
           disabled={saving}
           onClick={() => onUpdateStatus("inactive")}

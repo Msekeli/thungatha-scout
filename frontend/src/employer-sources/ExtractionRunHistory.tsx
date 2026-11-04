@@ -5,9 +5,7 @@ type ExtractionRunHistoryProps = {
   runs: ExtractionRun[];
 };
 
-export const ExtractionRunHistory: FC<ExtractionRunHistoryProps> = ({
-  runs,
-}) => {
+export const ExtractionRunHistory: FC<ExtractionRunHistoryProps> = ({ runs }) => {
   if (runs.length === 0) {
     return <p className="text-xs text-slate-500">No extraction runs recorded yet.</p>;
   }
@@ -39,15 +37,11 @@ export const ExtractionRunHistory: FC<ExtractionRunHistoryProps> = ({
       <div className="run-meta">
         <span>
           Started:{" "}
-          {latestRun.started_at
-            ? new Date(latestRun.started_at).toLocaleString()
-            : "Unknown"}
+          {latestRun.started_at ? new Date(latestRun.started_at).toLocaleString() : "Unknown"}
         </span>
         <span>
           Finished:{" "}
-          {latestRun.finished_at
-            ? new Date(latestRun.finished_at).toLocaleString()
-            : "In progress"}
+          {latestRun.finished_at ? new Date(latestRun.finished_at).toLocaleString() : "In progress"}
         </span>
       </div>
 
@@ -61,8 +55,8 @@ export const ExtractionRunHistory: FC<ExtractionRunHistoryProps> = ({
               <div key={run.id} className="older-run">
                 <strong>{run.outcome.replace("_", " ")}</strong>
                 <span>
-                  {run.jobs_received} received · {run.jobs_inserted} new ·{" "}
-                  {run.jobs_updated} updated
+                  {run.jobs_received} received · {run.jobs_inserted} new · {run.jobs_updated}{" "}
+                  updated
                 </span>
                 <small>{run.detail || "No additional detail"}</small>
               </div>

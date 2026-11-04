@@ -208,4 +208,3 @@ Critical safety tests:
 - Directory and file names must communicate domain responsibility using descriptive kebab-case (frontend) and snake_case (backend Python) conventions.
 - Monolithic containers are prohibited; UI pages compose focused presentation components, custom feature hooks, resource-specific API clients, and modular stylesheets.
 - Quality gates are enforced by `scripts/check-file-line-limits.py` and `scripts/check-naming-conventions.py`.
-
