@@ -63,7 +63,7 @@ Employer discovery and source verification continue in parallel with implementat
 | M0 | Repository Audit and Scope Lock | Accepted |
 | M1 | Employer Discovery and Source Registry | In progress; runs in parallel with implementation |
 | M2 | Backend Foundation and Scout Supabase Persistence | In progress; checkpoint review/remaining contract work |
-| M3 | Greenhouse Vertical Slice | Not started |
+| M3 | Greenhouse Vertical Slice | In progress — registry-backed inspection and live preview slice implemented; local verification pending |
 | M4 | Workday Vertical Slice | Not started |
 | M5 | Cross-cutting Admin UI and API Integration | In progress alongside M3 and M4 when its checkpoints begin |
 | M6 | Fourth-Employer Compatibility Test | Not started |
@@ -152,7 +152,7 @@ Acceptance: one-email Supabase Auth restriction verified; public registration di
 
 1. Finish the outstanding M2 review items using the current repository and test evidence. Do not redo completed persistence work.
 2. Close any remaining M2 API/error and publishing-contract decisions as separate, bounded checkpoints; keep Scout operational persistence separate from Thungatha's destination.
-3. Start M3 with registry schema/loading/validation, then define the common adapter contract.
+3. Continue M3: complete registry schema/loading/validation and the common adapter contract; extend Greenhouse inspection into persisted extraction and vacancy listing.
 4. Implement the Greenhouse backend slice and connect the corresponding admin URL-first workflow as soon as its API contract is stable.
 5. Implement Workday and connect it to the same admin workflow.
 6. Run the six-employer validation cohort, keeping each verification claim evidence-backed and pending where necessary.
