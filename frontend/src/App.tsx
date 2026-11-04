@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, GreenhouseInspection, Vacancy } from "./api";
+
+type Page = "jobs" | "companies" | "add-company";
 
 const emptyEmployer = {
   name: "",
@@ -13,50 +15,102 @@ const emptyEmployer = {
 };
 
 export default function App() {
+  const [page, setPage] = useState<Page>("jobs");
   const [employers, setEmployers] = useState<Employer[]>([]);
-  const [selected, setSelected] = useState<Employer | null>(null);
-  const [sources, setSources] = useState<EmployerSource[]>([]);
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
-  const [extracting, setExtracting] = useState(false);
+  const [selectedEmployerId, setSelectedEmployerId] = useState("all");
+  const [sources, setSources] = useState<EmployerSource[]>([]);
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
-  const [greenhouseInspection, setGreenhouseInspection] = useState<GreenhouseInspection | null>(null);
-  const [inspecting, setInspecting] = useState(false);
-  const [adapter, setAdapter] = useState<"greenhouse" | "workday">("greenhouse");
+  const [inspection, setInspection] = useState<GreenhouseInspection | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [extracting, setExtracting] = useState(false);
+  const [inspecting, setInspecting] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
-  const loadEmployers = useCallback(async (selectedEmployerId?: string) => {
+  const selectedEmployer = employers.find((item) => item.id === selectedEmployerId) ?? null;
+  const filteredVacancies = useMemo(
+    () => selectedEmployerId === "all"
+      ? vacancies
+      : vacancies.filter((item) => item.employer_id === selectedEmployerId),
+    [vacancies, selectedEmployerId],
+  );
+
+  const loadWorkspace = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
-      const result = await scoutApi.listEmployers();
-      setEmployers(result);
-      if (selectedEmployerId) {
-        const refreshed =
-          result.find((item) => item.id === selectedEmployerId) ?? null;
-        setSelected(refreshed);
-        const [nextSources, nextVacancies] = refreshed
-          ? await Promise.all([
-              scoutApi.listSources(refreshed.id),
-              scoutApi.listVacancies(refreshed.id),
-            ])
-          : [[], []];
-        setSources(nextSources);
-        setVacancies(nextVacancies);
+      const [nextEmployers, nextVacancies] = await Promise.all([
+        scoutApi.listEmployers(),
+        scoutApi.listVacancies(),
+      ]);
+      setEmployers(nextEmployers);
+      setVacancies(nextVacancies);
+      if (selectedEmployerId !== "all" && !nextEmployers.some((item) => item.id === selectedEmployerId)) {
+        setSelectedEmployerId("all");
       }
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not load employers.");
+      setError(reason instanceof Error ? reason.message : "Could not load Scout data.");
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [selectedEmployerId]);
 
-  useEffect(() => {
-    void loadEmployers();
-  }, [loadEmployers]);
+  useEffect(() => { void loadWorkspace(); }, [loadWorkspace]);
+
+  async function openCompany(employer: Employer) {
+    setSelectedEmployerId(employer.id);
+    setPage("companies");
+    setError("");
+    try {
+      setSources(await scoutApi.listSources(employer.id));
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not load company sources.");
+    }
+  }
+
+  async function extractJobs() {
+    setExtracting(true);
+    setError("");
+    setNotice("");
+    try {
+      const sourceGroups = await Promise.all(
+        employers.map(async (employer) => ({
+          employer: employer.name,
+          sources: await scoutApi.listSources(employer.id),
+        })),
+      );
+      const greenhouseSources = sourceGroups.flatMap((group) =>
+        group.sources
+          .filter((source) => source.adapter_key === "greenhouse")
+          .map((source) => ({ employer: group.employer, source })),
+      );
+      if (greenhouseSources.length === 0) {
+        setNotice("No Greenhouse sources are registered yet. Add a company and its official job source first.");
+        return;
+      }
+      const results = [];
+      for (const item of greenhouseSources) {
+        results.push({ employer: item.employer, run: await scoutApi.extractSource(item.source.id) });
+      }
+      const [nextVacancies] = await Promise.all([scoutApi.listVacancies()]);
+      setVacancies(nextVacancies);
+      const received = results.reduce((sum, item) => sum + item.run.jobs_received, 0);
+      const inserted = results.reduce((sum, item) => sum + item.run.jobs_inserted, 0);
+      const updated = results.reduce((sum, item) => sum + item.run.jobs_updated, 0);
+      const failed = results.filter((item) => !["success", "empty"].includes(item.run.outcome));
+      const summary = `Processed ${results.length} source(s): ${received} jobs received, ${inserted} new, ${updated} updated.`;
+      setNotice(failed.length
+        ? `${summary} ${failed.length} source(s) need attention: ${failed.map((item) => `${item.employer} — ${item.run.outcome}`).join("; ")}.`
+        : summary);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not extract jobs.");
+    } finally {
+      setExtracting(false);
+    }
+  }
 
   async function createEmployer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -69,47 +123,24 @@ export default function App() {
         website_url: form.website_url || null,
       });
       setForm(emptyEmployer);
-      setSelected(created);
+      await loadWorkspace();
+      setSelectedEmployerId(created.id);
       setSources([]);
-      setVacancies([]);
-      setNotice(`${created.name} added to the registry.`);
-      const result = await scoutApi.listEmployers();
-      setEmployers(result);
+      setPage("companies");
+      setNotice(`${created.name} added. Register its official Greenhouse source from the company profile.`);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not create employer.");
+      setError(reason instanceof Error ? reason.message : "Could not add company.");
     } finally {
       setSaving(false);
-    }
-  }
-
-  async function selectEmployer(employer: Employer) {
-    setSelected(employer);
-    setError("");
-    try {
-      const [nextSources, nextVacancies] = await Promise.all([
-        scoutApi.listSources(employer.id),
-        scoutApi.listVacancies(employer.id),
-      ]);
-      setSources(nextSources);
-      setVacancies(nextVacancies);
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not load sources.");
     }
   }
 
   async function inspectGreenhouse() {
     setInspecting(true);
     setError("");
-    setNotice("");
-    setGreenhouseInspection(null);
+    setInspection(null);
     try {
-      const result = await scoutApi.inspectGreenhouse(sourceUrl);
-      setGreenhouseInspection(result);
-      if (result.outcome === "success" || result.outcome === "empty") {
-        setNotice(`Greenhouse board found: ${result.board_name ?? result.board_token}.`);
-      } else {
-        setError(result.detail ?? `Greenhouse inspection: ${result.outcome}.`);
-      }
+      setInspection(await scoutApi.inspectGreenhouse(sourceUrl));
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not inspect Greenhouse board.");
     } finally {
@@ -117,69 +148,25 @@ export default function App() {
     }
   }
 
-  async function extractEmployerJobs() {
-    if (!selected) return;
-    const greenhouseSources = sources.filter((source) => source.adapter_key === "greenhouse");
-    if (greenhouseSources.length === 0) {
-      setError("This employer has no registered Greenhouse source.");
-      return;
-    }
-    setExtracting(true);
-    setError("");
-    setNotice("");
-    try {
-      const runs = [];
-      for (const source of greenhouseSources) {
-        runs.push(await scoutApi.extractSource(source.id));
-      }
-      const [nextVacancies, nextSources] = await Promise.all([
-        scoutApi.listVacancies(selected.id),
-        scoutApi.listSources(selected.id),
-      ]);
-      setVacancies(nextVacancies);
-      setSources(nextSources);
-      const received = runs.reduce((total, run) => total + run.jobs_received, 0);
-      const inserted = runs.reduce((total, run) => total + run.jobs_inserted, 0);
-      const updated = runs.reduce((total, run) => total + run.jobs_updated, 0);
-      const outcomes = runs.map((run) => {
-        const detail = run.detail ? ` — ${run.detail}` : "";
-        return `${run.outcome}: ${run.jobs_received} jobs received${detail}`;
-      });
-      const failures = runs.filter((run) => !["success", "empty"].includes(run.outcome));
-      const summary = `Extraction: ${received} received, ${inserted} new, ${updated} updated.`;
-      setNotice(`${summary} ${outcomes.join(" | ")}`);
-      if (failures.length > 0) {
-        setError(`${failures.length} Greenhouse source(s) did not complete successfully. Check the outcome details above.`);
-      }
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not extract employer vacancies.");
-    } finally {
-      setExtracting(false);
-    }
-  }
-
   async function createSource(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!selected) return;
+    if (!selectedEmployer) return;
     setSaving(true);
     setError("");
-    setNotice("");
     try {
-      const created = await scoutApi.createSource(selected.id, {
-        adapter_key: adapter,
+      const created = await scoutApi.createSource(selectedEmployer.id, {
+        adapter_key: "greenhouse",
         source_url: sourceUrl,
         normalized_url: sourceUrl,
-        employer_careers_url: selected.website_url ?? null,
-        adapter_config: adapter === "greenhouse"
-          ? { slug: greenhouseInspection?.board_token }
-          : {},
+        employer_careers_url: selectedEmployer.website_url ?? null,
+        adapter_config: { slug: inspection?.board_token },
       });
       setSources((current) => [...current, created]);
       setSourceUrl("");
-      setGreenhouseInspection(null);
-      setNotice("Source added. Verification and permission remain pending.");
+      setInspection(null);
+      setNotice("Greenhouse source registered. Verification and permission remain pending.");
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not add source.");
+      setError(reason instanceof Error ? reason.message : "Could not register source.");
     } finally {
       setSaving(false);
     }
@@ -188,148 +175,125 @@ export default function App() {
   return (
     <main className="app-shell">
       <header className="topbar">
-        <div>
-          <p className="eyebrow">THUNGATHA / OPERATIONS</p>
-          <h1>Scout</h1>
+        <div className="brand-lockup">
+          <span className="brand-mark">S</span>
+          <div><p className="eyebrow">THUNGATHA / OPERATIONS</p><h1>Scout</h1></div>
         </div>
-        <span className="environment">LOCAL ADMIN</span>
+        <span className="environment">PRIVATE ADMIN</span>
       </header>
 
-      <section className="intro">
-        <div>
-          <p className="eyebrow">EMPLOYER INTELLIGENCE</p>
-          <h2>Employer registry</h2>
-          <p>Register employers and their official vacancy sources before extraction.</p>
-        </div>
-        <div className="stat">
-          <strong>{employers.length}</strong>
-          <span>Employers registered</span>
-        </div>
-      </section>
+      <nav className="main-nav" aria-label="Main navigation">
+        <button className={page === "jobs" ? "active" : ""} onClick={() => setPage("jobs")}>Jobs</button>
+        <button className={page === "companies" ? "active" : ""} onClick={() => setPage("companies")}>Companies</button>
+        <button className="nav-add" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button>
+      </nav>
 
       {error && <div className="alert error" role="alert">{error}</div>}
       {notice && <div className="alert success" role="status">{notice}</div>}
 
-      <div className="workspace">
-        <section className="surface registry">
-          <div className="section-heading">
-            <div><p className="eyebrow">REGISTRY</p><h3>Employers</h3></div>
-            <button className="button secondary" onClick={() => void loadEmployers(selected?.id)}>Refresh</button>
-          </div>
-          {loading ? <p className="muted">Loading registry…</p> : employers.length === 0 ? (
-            <div className="empty"><strong>No employers yet</strong><span>Add your first employer using the form.</span></div>
-          ) : (
-            <div className="employer-list">
+      {page === "jobs" && (
+        <>
+          <section className="page-heading">
+            <div><p className="eyebrow">VACANCY WORKSPACE</p><h2>Jobs</h2><p>Collected vacancies from your registered companies.</p></div>
+            <button className="button primary extract-button" onClick={() => void extractJobs()} disabled={extracting || loading}>
+              {extracting ? "Extracting jobs…" : "↻ Extract jobs"}
+            </button>
+          </section>
+          <section className="metric-row">
+            <div className="metric-card"><span>Companies</span><strong>{employers.length}</strong></div>
+            <div className="metric-card"><span>Collected jobs</span><strong>{vacancies.length}</strong></div>
+            <div className="metric-card"><span>Companies with jobs</span><strong>{new Set(vacancies.map((item) => item.employer_id)).size}</strong></div>
+          </section>
+          <section className="surface jobs-panel">
+            <div className="jobs-toolbar">
+              <div><h3>All vacancies</h3><p className="muted">Select a company to narrow the list.</p></div>
+              <select aria-label="Filter jobs by company" value={selectedEmployerId} onChange={(event) => setSelectedEmployerId(event.target.value)}>
+                <option value="all">All companies</option>
+                {employers.map((employer) => <option key={employer.id} value={employer.id}>{employer.name}</option>)}
+              </select>
+              <button className="button secondary" onClick={() => void loadWorkspace()} disabled={loading}>Refresh</button>
+            </div>
+            {loading ? <div className="empty">Loading jobs…</div> : filteredVacancies.length === 0 ? (
+              <div className="empty"><strong>No jobs collected yet</strong><span>Register a company source, then select “Extract jobs”.</span></div>
+            ) : (
+              <div className="jobs-table-wrap">
+                <table className="jobs-table">
+                  <thead><tr><th>Position</th><th>Company</th><th>Location</th><th>Last seen</th><th></th></tr></thead>
+                  <tbody>
+                    {filteredVacancies.map((vacancy) => (
+                      <tr key={vacancy.id}>
+                        <td><strong>{vacancy.title}</strong>{vacancy.department && <small>{vacancy.department}</small>}</td>
+                        <td><button className="text-link" onClick={() => { const employer = employers.find((item) => item.id === vacancy.employer_id); if (employer) void openCompany(employer); }}>{vacancy.employer_name}</button></td>
+                        <td>{vacancy.location_text || "Not specified"}</td>
+                        <td>{new Date(vacancy.last_seen_at).toLocaleDateString()}</td>
+                        <td><a href={vacancy.application_url} target="_blank" rel="noreferrer">View job ↗</a></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </section>
+        </>
+      )}
+
+      {page === "companies" && (
+        <>
+          <section className="page-heading">
+            <div><p className="eyebrow">EMPLOYER DIRECTORY</p><h2>Companies</h2><p>Manage registered employers and their official job sources.</p></div>
+            <button className="button primary" onClick={() => setPage("add-company")}>+ Add company</button>
+          </section>
+          <div className="company-layout">
+            <section className="surface company-directory">
+              <div className="section-heading"><h3>Registered companies</h3><span>{employers.length}</span></div>
               {employers.map((employer) => (
-                <button
-                  className={`employer-item ${selected?.id === employer.id ? "selected" : ""}`}
-                  key={employer.id}
-                  onClick={() => void selectEmployer(employer)}
-                >
+                <button key={employer.id} className={`company-row ${selectedEmployerId === employer.id ? "selected" : ""}`} onClick={() => void openCompany(employer)}>
                   <span className="employer-avatar">{employer.name.slice(0, 1).toUpperCase()}</span>
-                  <span className="employer-copy"><strong>{employer.name}</strong><small>{employer.city ?? "Location unresolved"}</small></span>
+                  <span><strong>{employer.name}</strong><small>{employer.city || "Location not confirmed"}</small></span>
                   <span className="status">{employer.status.replaceAll("_", " ")}</span>
                 </button>
               ))}
-            </div>
-          )}
-        </section>
+              {!employers.length && <div className="empty">No companies registered.</div>}
+            </section>
+            <section className="surface company-profile">
+              {selectedEmployer ? (
+                <>
+                  <div className="section-heading"><div><p className="eyebrow">COMPANY PROFILE</p><h3>{selectedEmployer.name}</h3></div><span className="status">{selectedEmployer.status.replaceAll("_", " ")}</span></div>
+                  <p className="profile-website">{selectedEmployer.website_url || "Official website not supplied"}</p>
+                  <div className="profile-stats"><div><strong>{vacancies.filter((item) => item.employer_id === selectedEmployer.id).length}</strong><span>Jobs collected</span></div><div><strong>{sources.length}</strong><span>Sources registered</span></div></div>
+                  <div className="section-heading source-title"><h4>Job sources</h4></div>
+                  {sources.length ? sources.map((source) => <div className="source-item" key={source.id}><div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div><span className="status">{source.status.replaceAll("_", " ")}</span></div>) : <p className="muted">No job source registered for this company.</p>}
+                  <form className="source-form" onSubmit={createSource}>
+                    <h4>Register Greenhouse source</h4>
+                    <label>Official careers / job board URL<input type="url" value={sourceUrl} onChange={(event) => { setSourceUrl(event.target.value); setInspection(null); }} placeholder="https://job-boards.greenhouse.io/company" required /></label>
+                    <button type="button" className="button secondary" onClick={() => void inspectGreenhouse()} disabled={inspecting || !sourceUrl.trim()}>{inspecting ? "Checking source…" : "Check Greenhouse source"}</button>
+                    {inspection && <div className="inspection-preview"><strong>{inspection.board_name || inspection.board_token}</strong><span>{inspection.outcome} · {inspection.jobs.length} sample jobs</span>{inspection.detail && <small>{inspection.detail}</small>}</div>}
+                    <button className="button primary" disabled={saving || !inspection || !inspection.complete || !["success", "empty"].includes(inspection.outcome)}>{saving ? "Saving…" : "Save source"}</button>
+                  </form>
+                </>
+              ) : <div className="empty large"><strong>Select a company</strong><span>Choose a company to view its profile and registered job sources.</span></div>}
+            </section>
+          </div>
+        </>
+      )}
 
-        <section className="surface details">
-          {selected ? (
-            <>
-              <div className="section-heading">
-                <div><p className="eyebrow">EMPLOYER PROFILE</p><h3>{selected.name}</h3></div>
-                <span className="status">{selected.organization_type.replaceAll("_", " ")}</span>
-              </div>
-              <p className="muted">{selected.website_url || "Official website not supplied"}</p>
-              <div className="source-heading"><h4>Vacancy sources</h4><span>{sources.length} registered</span></div>
-              <button className="button primary" type="button" onClick={() => void extractEmployerJobs()} disabled={extracting || !sources.some((source) => source.adapter_key === "greenhouse")}>{extracting ? "Extracting vacancies…" : "Extract jobs from Greenhouse"}</button>
-              {sources.length === 0 ? <p className="muted">No ATS source registered yet.</p> : (
-                <div className="source-list">
-                  {sources.map((source) => (
-                    <div className="source-item" key={source.id}>
-                      <div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div>
-                      <span className="status">{source.status.replaceAll("_", " ")}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <div className="source-heading"><h4>Published vacancies</h4><span>{vacancies.length} active</span></div>
-              {vacancies.length === 0 ? (
-                <p className="muted">No vacancies have been extracted for this employer yet.</p>
-              ) : (
-                <div className="vacancy-list">
-                  {vacancies.map((vacancy) => (
-                    <article className="vacancy-item" key={vacancy.id}>
-                      <div>
-                        <strong>{vacancy.title}</strong>
-                        <small>{vacancy.location_text || "Location not supplied"}{vacancy.department ? ` · ${vacancy.department}` : ""}</small>
-                      </div>
-                      <a href={vacancy.application_url} target="_blank" rel="noreferrer">View vacancy</a>
-                    </article>
-                  ))}
-                </div>
-              )}
-              <form className="source-form" onSubmit={createSource}>
-                <h4>Add a source</h4>
-                <label>ATS platform
-                  <select value={adapter} onChange={(event) => setAdapter(event.target.value as "greenhouse" | "workday")}>
-                    <option value="greenhouse">Greenhouse</option>
-                    <option value="workday" disabled>Workday — planned for M4</option>
-                  </select>
-                </label>
-                <label>Careers / board URL
-                  <input type="url" value={sourceUrl} onChange={(event) => { setSourceUrl(event.target.value); setGreenhouseInspection(null); }} placeholder="https://…" required />
-                </label>
-                {adapter === "greenhouse" && (
-                  <button className="button secondary" type="button" onClick={() => void inspectGreenhouse()} disabled={inspecting || !sourceUrl.trim()}>
-                    {inspecting ? "Inspecting board…" : "Inspect Greenhouse board"}
-                  </button>
-                )}
-                {greenhouseInspection && (
-                  <div className="inspection-preview">
-                    <strong>{greenhouseInspection.board_name ?? greenhouseInspection.board_token}</strong>
-                    <span>{greenhouseInspection.outcome} · {greenhouseInspection.jobs.length} jobs · {greenhouseInspection.pages_fetched} page(s)</span>
-                    {greenhouseInspection.jobs.slice(0, 5).map((job) => (
-                      <a key={job.id} href={job.absolute_url} target="_blank" rel="noreferrer">{job.title}</a>
-                    ))}
-                    {!greenhouseInspection.complete && <small>Inventory is incomplete. Do not use this result for lifecycle reconciliation.</small>}
-                  </div>
-                )}
-                <button className="button primary" disabled={saving || (adapter === "greenhouse" && (!greenhouseInspection || !greenhouseInspection.complete || !["success", "empty"].includes(greenhouseInspection.outcome)))}>{saving ? "Saving…" : "Add source"}</button>
-              </form>
-            </>
-          ) : (
-            <div className="empty large"><strong>Select an employer</strong><span>Choose an employer to inspect its sources or add an ATS board.</span></div>
-          )}
-        </section>
+      {page === "add-company" && (
+        <>
+          <section className="page-heading"><div><p className="eyebrow">EMPLOYER ONBOARDING</p><h2>Add a company</h2><p>Register the employer first. You can add and verify its job source from its profile.</p></div></section>
+          <section className="surface add-company-panel">
+            <form onSubmit={createEmployer}>
+              <label>Company name<input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Company name" required /></label>
+              <label>Official website<input type="url" value={form.website_url} onChange={(event) => setForm({ ...form, website_url: event.target.value })} placeholder="https://company.co.za" /></label>
+              <label>Organization type<select value={form.organization_type} onChange={(event) => setForm({ ...form, organization_type: event.target.value })}><option value="unresolved">Needs classification</option><option value="direct_employer">Direct employer</option><option value="recruitment_agency">Recruitment agency</option><option value="staffing_company">Staffing company</option><option value="hybrid">Hybrid</option><option value="other">Other</option></select></label>
+              <div className="form-row"><label>City<input value={form.city} onChange={(event) => setForm({ ...form, city: event.target.value })} /></label><label>Province<input value={form.province} onChange={(event) => setForm({ ...form, province: event.target.value })} /></label></div>
+              <label>Country<input value={form.country} onChange={(event) => setForm({ ...form, country: event.target.value })} /></label>
+              <div className="form-actions"><button type="button" className="button secondary" onClick={() => setPage("companies")}>Cancel</button><button className="button primary" disabled={saving}>{saving ? "Saving company…" : "Add company"}</button></div>
+            </form>
+          </section>
+        </>
+      )}
 
-        <section className="surface create">
-          <div className="section-heading"><div><p className="eyebrow">NEW RECORD</p><h3>Add employer</h3></div></div>
-          <form onSubmit={createEmployer}>
-            <label>Employer name<input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Company name" required /></label>
-            <label>Official website<input type="url" value={form.website_url} onChange={(event) => setForm({ ...form, website_url: event.target.value })} placeholder="https://company.co.za" /></label>
-            <label>Organization type
-              <select value={form.organization_type} onChange={(event) => setForm({ ...form, organization_type: event.target.value })}>
-                <option value="unresolved">Unresolved</option>
-                <option value="direct_employer">Direct employer</option>
-                <option value="recruitment_agency">Recruitment agency</option>
-                <option value="staffing_company">Staffing company</option>
-                <option value="hybrid">Hybrid</option>
-                <option value="other">Other</option>
-              </select>
-            </label>
-            <div className="form-row">
-              <label>City<input value={form.city} onChange={(event) => setForm({ ...form, city: event.target.value })} /></label>
-              <label>Province<input value={form.province} onChange={(event) => setForm({ ...form, province: event.target.value })} /></label>
-            </div>
-            <label>Country<input value={form.country} onChange={(event) => setForm({ ...form, country: event.target.value })} /></label>
-            <button className="button primary" disabled={saving}>{saving ? "Saving…" : "Create employer"}</button>
-          </form>
-        </section>
-      </div>
-      <footer>Scout stores source claims as discovered. Adding a URL does not verify employer identity, source ownership or permission.</footer>
+      <footer>Scout is a private operations workspace. Only verified, quality-checked records are eligible for publishing to Thungatha.</footer>
     </main>
   );
 }
