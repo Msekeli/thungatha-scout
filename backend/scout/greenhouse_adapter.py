@@ -30,12 +30,16 @@ class GreenhouseResult:
 
 def parse_board_token(value: str) -> str:
     parsed = urlparse(value.strip())
+    try:
+        port = parsed.port
+    except ValueError as exception:
+        raise GreenhouseUrlError("URL contains an invalid port.") from exception
     if (
         parsed.scheme != "https"
         or parsed.hostname not in ALLOWED_BOARD_HOSTS
         or parsed.username is not None
         or parsed.password is not None
-        or parsed.port not in (None, 443)
+        or port not in (None, 443)
     ):
         raise GreenhouseUrlError(
             "URL must use a supported HTTPS Greenhouse job-board host."
@@ -132,7 +136,7 @@ class GreenhouseAdapter:
             and isinstance(job.get("title"), str)
             and bool(job["title"].strip())
             and isinstance(job.get("absolute_url"), str)
-            and job["absolute_url"].startswith("https://")
+            and job["absolute_url"].startswith(("https://", "http://"))
         )
 
     @staticmethod
