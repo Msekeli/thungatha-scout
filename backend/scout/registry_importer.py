@@ -171,5 +171,6 @@ if __name__ == "__main__":
     print(
         "Registry import complete: "
         f"{result['employers_created']} employers created, "
-        f"{result['sources_created']} sources created."
+        f"{result['sources_created']} sources created, "
+        f"{result['sources_updated']} sources updated."
     )
