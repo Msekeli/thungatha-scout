@@ -66,7 +66,7 @@ export function VacancyRecordList({
                 className={
                   vacancy.review_status === "pending" ||
                   vacancy.review_status === "needs_verification"
-                    ? "bg-[var(--warning-surface)] text-[var(--warning-text)] hover:bg-[var(--warning-surface)]"
+                    ? "bg-warning-surface text-warning hover:bg-warning-surface"
                     : ""
                 }
               >
