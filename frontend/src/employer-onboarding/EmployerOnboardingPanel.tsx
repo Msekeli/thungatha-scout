@@ -45,7 +45,7 @@ export function EmployerOnboardingPanel({
 }: EmployerOnboardingPanelProps) {
   return (
     <>
-      <p className="mb-3 text-xs text-muted-foreground">
+      <p className="mb-3 text-xs text-white/75">
         Register a company and connect its official careers source.
       </p>
       <section className="w-full max-w-2xl rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
