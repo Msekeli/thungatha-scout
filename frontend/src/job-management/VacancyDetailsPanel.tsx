@@ -59,7 +59,7 @@ export function VacancyDetailsPanel({
 
   return (
     <>
-      <div className="flex items-center justify-between gap-3 border-b border-border bg-primary p-4 text-primary-foreground">
+      <div className="flex items-center justify-between gap-3 border-b border-scout-navy bg-scout-navy p-4 text-white">
         <div className="min-w-0">
           <p className="text-[10px] font-medium text-scout-cyan">
             {vacancy.employer_name} · {vacancy.location_text || "Location unknown"}
@@ -70,7 +70,7 @@ export function VacancyDetailsPanel({
           type="button"
           variant="ghost"
           size="sm"
-          className="text-primary-foreground/75 hover:bg-card/10 hover:text-white"
+          className="text-white/75 hover:bg-white/10 hover:text-white"
           onClick={onClear}
         >
           Clear
