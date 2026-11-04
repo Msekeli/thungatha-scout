@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, ExtractionRun, Vacancy } from "./api";
 
 type UseScoutWorkspaceResult = {
   employers: Employer[];
-  setEmployers: React.Dispatch<React.SetStateAction<Employer[]>>;
+  setEmployers: Dispatch<SetStateAction<Employer[]>>;
   vacancies: Vacancy[];
-  setVacancies: React.Dispatch<React.SetStateAction<Vacancy[]>>;
+  setVacancies: Dispatch<SetStateAction<Vacancy[]>>;
   archivedVacancies: Vacancy[];
   setArchivedVacancies: React.Dispatch<React.SetStateAction<Vacancy[]>>;
   dashboardSources: EmployerSource[];
-  setDashboardSources: React.Dispatch<React.SetStateAction<EmployerSource[]>>;
+  setDashboardSources: Dispatch<SetStateAction<EmployerSource[]>>;
   extractionRuns: Record<string, ExtractionRun[]>;
-  setExtractionRuns: React.Dispatch<React.SetStateAction<Record<string, ExtractionRun[]>>>;
+  setExtractionRuns: Dispatch<SetStateAction<Record<string, ExtractionRun[]>>>;
   loading: boolean;
   loadWorkspace: () => Promise<void>;
 };
