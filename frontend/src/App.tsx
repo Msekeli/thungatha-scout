@@ -195,8 +195,13 @@ export default function App() {
     try {
       const vacancy = await scoutApi.getVacancy(vacancyId);
       if (requestId !== vacancyRequestRef.current) return;
-      setSelectedVacancy(vacancy);
-      setReviewReason(vacancy.review_reason ?? "");
+      const listRecord = visibleVacancies.find((item) => item.id === vacancyId);
+      const completeVacancy = {
+        ...vacancy,
+        description: vacancy.description ?? listRecord?.description ?? null,
+      };
+      setSelectedVacancy(completeVacancy);
+      setReviewReason(completeVacancy.review_reason ?? "");
     } catch (reason) {
       if (requestId !== vacancyRequestRef.current) return;
       setError(reason instanceof Error ? reason.message : "Could not load vacancy details.");
