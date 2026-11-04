@@ -93,7 +93,7 @@ Do not create these packages as empty placeholders. Add a package or module only
 **C01 outcome:** The current `scout` package is the smallest suitable starting point. No duplicate application skeleton or speculative directories are needed. C01 is **In review** pending user review; this record does not claim a local runtime or frontend build pass.
 
 ### M2-C02 — Backend application foundation
-**Status:** In progress — API error contract and administrator authentication implemented; local verification outstanding
+**Status:** In progress — employer/source registry API and admin UI implemented; local verification outstanding
 
 Create the minimal Python HTTP application and configuration boundary. Keep HTTP handlers thin and business logic in ordinary application modules. Preserve portability so the hosting provider can be selected without rewriting domain logic.
 
@@ -227,3 +227,34 @@ A single shared provider key such as `greenhouse` is unsafe for Scout because th
 - Never send raw/rejected/exception records or Scout operational metadata to Thungatha.
 
 **C04 outcome:** The actual destination schema, normalized JSON contract, controlled RPC functions, privileges and existing route behavior are documented. The transport choice and implementation remain deferred. No destination data was written and no publishing code was added.
+
+
+### Functional registry vertical slice — 4 November 2026
+
+The implementation sequence has been adjusted following the user's direction: build a working application workflow before spending further effort on authentication. Authentication code already present remains isolated and is not currently required by the local registry routes. This is a local-development sequencing decision, not approval to expose an unauthenticated API publicly. Authentication must be reinstated before external access or deployment.
+
+**Backend delivered**
+- Added `GET /api/v1/employers` with bounded pagination (`limit` 1–500, `offset` >= 0).
+- Added `POST /api/v1/employers`.
+- Added `GET /api/v1/employers/{id}`.
+- Added `GET /api/v1/employers/{id}/sources`.
+- Added `POST /api/v1/employers/{id}/sources`.
+- Added employer listing query to the existing repository and application service.
+- API routes reuse the existing employer/source application service and persistence repositories; no new ORM or database layer was introduced.
+- Added local Vite development CORS for localhost ports 5173.
+- Request validation and existing Problem Details error responses remain active.
+- Source creation still forces `status=discovered` and `permission_status=unknown`; API callers cannot approve their own sources.
+
+**Frontend delivered**
+- Replaced the sign-in placeholder screen with a working registry interface.
+- Added a typed API client using `VITE_SCOUT_API_URL`.
+- Admin can create employers, browse the employer list, select an employer, view registered ATS sources and add Greenhouse/Workday source URLs.
+- The interface displays discovered/pending status rather than implying that a newly added source is verified.
+- Added responsive styling for desktop and mobile widths.
+- Removed Supabase Auth browser configuration as a prerequisite for the current local registry workflow.
+
+**Current vertical-slice boundary**
+
+This slice registers employers and ATS source URLs. It does not yet parse/normalize board URLs, validate employer identity, retrieve vacancies, run adapter extraction, or publish jobs to Thungatha. The next functional slice should detect/validate the selected ATS source and run a real Greenhouse extraction through the backend, displaying discovered vacancies and extraction outcomes in the admin UI. Workday follows as the second adapter.
+
+**Verification boundary:** No local Python tests, Ruff checks, npm installation, TypeScript build or browser workflow was executed in this session. Added API tests use a fake application service and do not prove live Supabase persistence. The end-to-end cloud-backed workflow remains to be run locally by the user. Do not mark C02 or C05 accepted until those checks are observed and reviewed.
