@@ -318,3 +318,96 @@ footer { padding-top:22px; color:#8a95a5; font-size:10px; }
   .jobs-toolbar { position: static; }
   .jobs-table th { position: static; }
 }
+
+
+/* Vacancy selection and 60/40 workspace */
+.jobs-workspace {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+}
+.jobs-workspace > .surface {
+  min-height: 620px;
+  max-height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+.jobs-panel { min-width: 0; }
+.jobs-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+}
+.jobs-toolbar > div { flex-basis: 100%; }
+.jobs-toolbar select { flex: 1 1 140px; min-width: 0; }
+.vacancy-cards {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+}
+.vacancy-card {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e1e6ed;
+  border-radius: 9px;
+  background: #fff;
+  color: #263449;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+}
+.vacancy-card:hover { border-color: #9aafcc; background: #f8fafd; }
+.vacancy-card.selected {
+  border-color: #315b9a;
+  background: #edf3fb;
+  box-shadow: inset 3px 0 #315b9a;
+}
+.vacancy-card:focus-visible { outline: 3px solid #9bb5d9; outline-offset: 2px; }
+.vacancy-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.vacancy-card-heading strong { font-size: 13px; line-height: 1.4; }
+.vacancy-card-company { color: #526174; font-size: 11px; font-weight: 700; }
+.vacancy-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+  color: #8290a2;
+  font-size: 10px;
+}
+.vacancy-detail { margin-top: 0; min-width: 0; }
+.vacancy-detail .section-heading {
+  position: sticky;
+  top: -20px;
+  z-index: 2;
+  padding: 4px 0 14px;
+  background: #fff;
+}
+.vacancy-placeholder { min-height: 100%; align-content: center; }
+.description-frame {
+  display: block;
+  width: 100%;
+  min-height: 420px;
+  border: 1px solid #e1e6ed;
+  border-radius: 8px;
+  background: #fff;
+}
+.description-empty { text-align: left; padding: 16px 0; }
+.detail-grid { grid-template-columns: 1fr; }
+.payload-preview { max-height: 240px; }
+@media (max-width: 1000px) {
+  .jobs-workspace { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  .jobs-workspace > .surface { max-height: calc(100vh - 280px); }
+}
+@media (max-width: 760px) {
+  .jobs-workspace { grid-template-columns: 1fr; min-height: 0; }
+  .jobs-workspace > .surface { min-height: auto; max-height: none; overflow: visible; }
+  .jobs-table-wrap { max-height: 480px; overflow: auto; }
+  .jobs-toolbar { position: static; }
+  .vacancy-detail { min-height: 360px !important; }
+}
