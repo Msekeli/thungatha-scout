@@ -222,7 +222,7 @@ export default function App() {
   }
 
   return (
-    <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden bg-scout-navy px-4 pb-3 pt-4 text-white md:px-8">
+    <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden bg-[#050a14] px-4 pb-3 pt-4 text-white md:px-8">
       <AppShellHeader
         activePage={page}
         onSelectPage={setPage}
