@@ -117,3 +117,34 @@ def test_employer_source_api_rejects_mismatched_employer_ids() -> None:
         assert response.status_code == 422
     finally:
         app.dependency_overrides.clear()
+
+
+def test_employer_source_api_registers_discovered_source() -> None:
+    service = FakeEmployerService()
+    employer_id = uuid4()
+    service.employers.append(
+        {
+            "id": str(employer_id),
+            "name": "Example Employer",
+            "status": "discovered",
+        }
+    )
+    app.dependency_overrides[get_employer_service] = lambda: service
+    client = TestClient(app)
+
+    try:
+        response = client.post(
+            f"/api/v1/employers/{employer_id}/sources",
+            json={
+                "employer_id": str(employer_id),
+                "adapter_key": "greenhouse",
+                "source_url": "https://boards.greenhouse.io/example",
+                "normalized_url": "https://boards.greenhouse.io/example",
+            },
+        )
+
+        assert response.status_code == 201
+        assert response.json()["status"] == "discovered"
+        assert response.json()["permission_status"] == "unknown"
+    finally:
+        app.dependency_overrides.clear()
