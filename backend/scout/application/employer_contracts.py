@@ -48,8 +48,13 @@ class EmployerSourceCreate(BaseModel):
 
 class EmployerSourceReviewUpdate(BaseModel):
     status: Literal[
-        "discovered", "pending_verification", "verified",
-        "temporarily_unavailable", "invalid", "needs_review", "inactive",
+        "discovered",
+        "pending_verification",
+        "verified",
+        "temporarily_unavailable",
+        "invalid",
+        "needs_review",
+        "inactive",
     ]
     permission_status: Literal["unknown", "allowed", "restricted", "needs_review"]
     evidence_url: str | None = Field(default=None, max_length=2048)

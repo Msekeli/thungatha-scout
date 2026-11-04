@@ -26,7 +26,6 @@ def get_source_update_service() -> EmployerSourceUpdateService:
     return EmployerSourceUpdateService()
 
 
-
 @router.get("/{employer_id}/sources")
 def list_employer_sources(
     employer_id: UUID,
