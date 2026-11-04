@@ -38,6 +38,9 @@ class GreenhouseExtractionService:
         if not isinstance(token, str) or not token.strip():
             raise UnsupportedAdapterError("Greenhouse source has no board slug.")
 
+        with self._connection_factory() as connection, connection.transaction():
+            run_id = ExtractionRunRepository(connection).create(source_id)
+
         adapter = GreenhouseAdapter()
         try:
             result = await adapter.retrieve(token)
@@ -45,8 +48,6 @@ class GreenhouseExtractionService:
             await adapter.close()
 
         with self._connection_factory() as connection, connection.transaction():
-            runs = ExtractionRunRepository(connection)
-            run_id = runs.create(source_id)
             inserted = updated = 0
             if result.jobs:
                 inserted, updated = VacancyRepository(connection).upsert_batch(
@@ -55,7 +56,7 @@ class GreenhouseExtractionService:
                     source["source_url"],
                     result.jobs,
                 )
-            return runs.finish(
+            return ExtractionRunRepository(connection).finish(
                 run_id=run_id,
                 outcome=result.outcome,
                 received=len(result.jobs),
