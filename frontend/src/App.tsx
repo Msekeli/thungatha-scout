@@ -25,13 +25,9 @@ import { SourceRegistrationForm } from "./employer-sources/SourceRegistrationFor
 import { VacancyDetailsPanel } from "./job-management/VacancyDetailsPanel";
 import { VacancyRecordList } from "./job-management/VacancyRecordList";
 import { VacancyRecordsToolbar } from "./job-management/VacancyRecordsToolbar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { OnboardingUrlForm } from "./employer-onboarding/OnboardingUrlForm";
+import { OnboardingPreviewCard } from "./employer-onboarding/OnboardingPreviewCard";
+
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -962,63 +958,22 @@ export default function App() {
                     }
               }
             >
-              <label>
-                Careers / jobs listing URL
-                <Input
-                  type="url"
-                  value={sourceUrl}
-                  onChange={(event) => {
-                    setSourceUrl(event.target.value);
-                    setDiscovery(null);
-                    setForm({ ...form, website_url: event.target.value });
-                  }}
-                  placeholder="https://company.com/jobs"
-                  required
-                />
-              </label>
-              <label>
-                ATS platform
-                <Select
-                  value={atsKey}
-                  onValueChange={(value) => {
-                    setAtsKey(value);
-                    setDiscovery(null);
-                  }}
-                >
-                  <SelectTrigger className="h-9">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="greenhouse">Greenhouse</SelectItem>
-                    <SelectItem value="workday" disabled>
-                      Workday — coming next
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </label>
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                className="w-fit"
-                onClick={() => void discoverCareersPage()}
-                disabled={inspecting || !sourceUrl.trim()}
-              >
-                {inspecting ? "Detecting ATS and inspecting jobs…" : "Detect ATS & preview jobs"}
-              </Button>
-              {discovery && (
-                <div className="grid gap-2 rounded-lg border border-border bg-muted/50 p-3 text-xs">
-                  <strong>{discovery.jobs.length} vacancies found</strong>
-                  <span>
-                    Detected: {discovery.detected_adapter} · Board: {discovery.board_url}
-                  </span>
-                  <small>
-                    {discovery.complete
-                      ? "Vacancy preview is complete."
-                      : discovery.detail || "The preview is incomplete."}
-                  </small>
-                </div>
-              )}
+              <OnboardingUrlForm
+                sourceUrl={sourceUrl}
+                onChangeSourceUrl={(value) => {
+                  setSourceUrl(value);
+                  setDiscovery(null);
+                  setForm((current) => ({ ...current, website_url: value }));
+                }}
+                atsKey={atsKey}
+                onChangeAtsKey={(value) => {
+                  setAtsKey(value);
+                  setDiscovery(null);
+                }}
+                onDetect={() => void discoverCareersPage()}
+                inspecting={inspecting}
+              />
+              <OnboardingPreviewCard discovery={discovery} />
               {discovery && (
                 <label>
                   Company name
