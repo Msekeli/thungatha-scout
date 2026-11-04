@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Activity, BriefcaseBusiness, Building2, CircleAlert, Radar, RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
+import { Activity, BriefcaseBusiness, Building2, CircleAlert, Radar, RefreshCw, ShieldCheck, Sparkles, Trash2 } from "lucide-react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
 import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, CareersDiscovery, Vacancy } from "./api";
@@ -58,7 +58,6 @@ export default function App() {
   const [atsKey, setAtsKey] = useState("greenhouse");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [extracting, setExtracting] = useState(false);
   const [inspecting, setInspecting] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -67,7 +66,7 @@ export default function App() {
   const visibleVacancies = showArchived ? archivedVacancies : vacancies;
   const newVacancies24h = vacancies.filter((item) => item.first_seen_at && Date.now() - new Date(item.first_seen_at).getTime() < 86400000).length;
   const attentionCount = vacancies.filter((item) => item.review_status === "pending" || item.review_status === "needs_verification").length;
-  const atsPerformance = useMemo(() => ["greenhouse", "workday"].map((adapter) => {
+  const atsPerformance = useMemo(() => Array.from(new Set(["greenhouse", ...dashboardSources.map((source) => source.adapter_key)])).map((adapter) => {
     const adapterSources = dashboardSources.filter((source) => source.adapter_key === adapter);
     const runs = adapterSources.flatMap((source) => extractionRuns[source.id] ?? []);
     const latest = runs.sort((a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime())[0];
@@ -133,54 +132,33 @@ export default function App() {
     }
   }
 
-  async function extractJobs() {
-    setExtracting(true);
+  async function updateCompanyStatus(status: "approved" | "needs_review" | "rejected" | "inactive") {
+    if (!selectedEmployer) return;
+    setSaving(true);
     setError("");
-    setNotice("");
     try {
-      const sourceGroups = await Promise.all(
-        employers.map(async (employer) => ({
-          employer: employer.name,
-          sources: await scoutApi.listSources(employer.id),
-        })),
-      );
-      const greenhouseSources = sourceGroups.flatMap((group) =>
-        group.sources
-          .filter((source) => source.adapter_key === "greenhouse")
-          .map((source) => ({ employer: group.employer, source })),
-      );
-      if (greenhouseSources.length === 0) {
-        setNotice("No Greenhouse sources are registered yet. Add a company and its official job source first.");
-        return;
-      }
-      const results: Array<{ employer: string; run: ExtractionRun }> = [];
-      for (const item of greenhouseSources) {
-        results.push({ employer: item.employer, run: await scoutApi.extractSource(item.source.id) });
-      }
-      const [nextVacancies] = await Promise.all([scoutApi.listVacancies()]);
-      setVacancies(nextVacancies);
-      setExtractionRuns((current) => ({
-        ...current,
-        ...Object.fromEntries(results.map((item) => [
-          item.run.source_id,
-          [item.run, ...(current[item.run.source_id] ?? []).filter(
-            (run) => run.id !== item.run.id,
-          )].slice(0, 20),
-        ])),
-      }));
-      const received = results.reduce((sum, item) => sum + item.run.jobs_received, 0);
-      const inserted = results.reduce((sum, item) => sum + item.run.jobs_inserted, 0);
-      const updated = results.reduce((sum, item) => sum + item.run.jobs_updated, 0);
-      const failed = results.filter((item) => !["success", "empty"].includes(item.run.outcome));
-      const summary = `Processed ${results.length} source(s): ${received} jobs received, ${inserted} new, ${updated} updated.`;
-      setNotice(failed.length
-        ? `${summary} ${failed.length} source(s) need attention: ${failed.map((item) => `${item.employer} — ${item.run.outcome}`).join("; ")}.`
-        : summary);
+      const updated = await scoutApi.updateEmployerStatus(selectedEmployer.id, status);
+      setEmployers((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setNotice(`${updated.name} marked ${status.replaceAll("_", " ")}.`);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not extract jobs.");
-    } finally {
-      setExtracting(false);
-    }
+      setError(reason instanceof Error ? reason.message : "Could not update company status.");
+    } finally { setSaving(false); }
+  }
+
+  async function deleteCompany() {
+    if (!selectedEmployer) return;
+    if (!window.confirm(`Permanently delete ${selectedEmployer.name}? Companies with sources or vacancies cannot be deleted.`)) return;
+    setSaving(true);
+    setError("");
+    try {
+      await scoutApi.deleteEmployer(selectedEmployer.id);
+      setEmployers((current) => current.filter((item) => item.id !== selectedEmployer.id));
+      setSelectedEmployerId("all");
+      setSources([]);
+      setNotice("Company deleted.");
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Could not delete company.");
+    } finally { setSaving(false); }
   }
 
   async function saveEmployerBranding(event: FormEvent<HTMLFormElement>) {
@@ -388,26 +366,25 @@ export default function App() {
 
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden px-4 pb-3 pt-4 md:px-8">
-      <header className="flex items-center justify-between border-b pb-4">
+      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
         <div className="flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#0b1426] text-cyan-300 shadow-lg shadow-slate-900/20"><Radar className="h-6 w-6" /></span>
-          <div><p className="mb-1 text-[10px] font-bold tracking-[.2em] text-slate-500">THUNGATHA / OPERATIONS</p><h1 className="text-xl font-bold tracking-tight text-[#0b1426]">Scout <span className="text-cyan-600">/</span> Control Centre</h1></div>
+          <span className="grid h-10 w-10 place-items-center rounded-xl bg-[#0b1426] text-cyan-300 shadow-lg shadow-slate-900/20"><Radar className="h-6 w-6" /></span>
+          <div><p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-slate-500">THUNGATHA / OPERATIONS</p><h1 className="text-lg font-bold tracking-tight text-[#0b1426]">Scout</h1></div>
         </div>
-        <span className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1.5 text-[10px] font-bold tracking-wider text-[#16456b]">PRIVATE ADMIN</span>
+        <div className="flex-1 text-center"><p className="text-[9px] font-bold uppercase tracking-[.2em] text-cyan-700">{page === "jobs" ? "Operations overview" : page === "companies" ? "Employer directory" : "Employer onboarding"}</p><h2 className="text-lg font-bold tracking-tight text-[#0b1426]">{page === "jobs" ? "Ingestion Dashboard" : page === "companies" ? "Companies" : "Add a company"}</h2></div>
+        <nav className="flex items-center gap-1.5" aria-label="Main navigation">
+          <button className={`rounded-lg px-3 py-2 text-xs font-semibold ${page === "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`} onClick={() => setPage("jobs")}>Dashboard</button>
+          <button className={`rounded-lg px-3 py-2 text-xs font-semibold ${page !== "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`} onClick={() => setPage("companies")}>Companies</button>
+          {page === "jobs" ? <button className="rounded-lg p-2 text-slate-600 hover:bg-cyan-50 hover:text-cyan-800" title="Refresh dashboard data" onClick={() => void loadWorkspace()} disabled={loading}><RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} /></button> : <button className="rounded-lg bg-cyan-500 px-3 py-2 text-xs font-bold text-[#071426] shadow-sm hover:bg-cyan-400" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button>}
+        </nav>
       </header>
-
-      <nav className="flex items-center gap-1 border-b border-slate-200 py-2" aria-label="Main navigation">
-        <button className={`rounded-md px-3 py-2 text-sm font-semibold transition-colors ${page === "jobs" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`} onClick={() => setPage("jobs")}>Dashboard</button>
-        <button className={`rounded-md px-3 py-2 text-sm font-semibold transition-colors ${page === "companies" ? "bg-[#0b1426] text-white shadow-sm" : "text-slate-600 hover:bg-slate-100"}`} onClick={() => setPage("companies")}>Companies</button>
-        <button className="ml-auto rounded-md bg-cyan-500 px-3 py-2 text-sm font-semibold text-[#071426] shadow-sm hover:bg-cyan-400" onClick={() => { setPage("add-company"); setError(""); setNotice(""); }}>+ Add company</button>
-      </nav>
 
       {error && <div className="alert error" role="alert">{error}</div>}
       {notice && <div className="alert success" role="status">{notice}</div>}
 
       {page === "jobs" && (
         <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">
-          <div className="flex items-center justify-between gap-3"><div><p className="text-[10px] font-bold uppercase tracking-[.2em] text-cyan-700">Operations overview</p><h2 className="text-xl font-bold tracking-tight text-[#0b1426]">Ingestion dashboard <span className="ml-2 text-xs font-medium text-slate-500">{loading ? "Refreshing…" : "Live workspace data"}</span></h2></div><Button onClick={() => void extractJobs()} disabled={extracting || loading} className="bg-[#0b1426] text-white shadow-md hover:bg-[#142c4c]"><RefreshCw className={`h-4 w-4 ${extracting ? "animate-spin" : ""}`} />{extracting ? "Extracting…" : "Run extraction"}</Button></div>
+          <div className="flex justify-end"><span className="text-[10px] font-medium text-slate-400">{loading ? "Refreshing data…" : "Updated from Scout records"}</span></div>
           <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
             {[
               { label:"Collected vacancies", value:vacancies.length, note:"Active records", icon:BriefcaseBusiness, color:"text-cyan-700", bg:"bg-cyan-50" },
@@ -457,10 +434,7 @@ export default function App() {
 
       {page === "companies" && (
         <>
-          <section className="page-heading">
-            <div><p className="eyebrow">EMPLOYER DIRECTORY</p><h2>Companies</h2><p>Manage registered employers and their official job sources.</p></div>
-            <button className="button primary" onClick={() => setPage("add-company")}>+ Add company</button>
-          </section>
+          <p className="mb-3 text-xs text-slate-500">Manage company identity, verification, branding and registered ATS sources.</p>
           <div className="company-layout">
             <section className="surface company-directory">
               <div className="section-heading"><h3>Registered companies</h3><span>{employers.length}</span></div>
@@ -479,6 +453,13 @@ export default function App() {
               {selectedEmployer ? (
                 <>
                   <div className="section-heading"><div><p className="eyebrow">COMPANY PROFILE</p><h3>{selectedEmployer.name}</h3></div><span className="status">{selectedEmployer.status.replaceAll("_", " ")}</span></div>
+                  <div className="flex flex-wrap gap-2 border-b border-slate-100 pb-4">
+                    {selectedEmployer.status !== "approved" && <button className="button primary" disabled={saving} onClick={() => void updateCompanyStatus("approved")}>Approve company</button>}
+                    {selectedEmployer.status !== "needs_review" && <button className="button secondary" disabled={saving} onClick={() => void updateCompanyStatus("needs_review")}>Flag for review</button>}
+                    {selectedEmployer.status !== "rejected" && <button className="button secondary" disabled={saving} onClick={() => void updateCompanyStatus("rejected")}>Reject company</button>}
+                    {selectedEmployer.status !== "inactive" && <button className="button secondary" disabled={saving} onClick={() => void updateCompanyStatus("inactive")}>Deactivate</button>}
+                    <button className="button secondary ml-auto text-red-700" disabled={saving} onClick={() => void deleteCompany()}><Trash2 className="mr-1 inline h-3 w-3" />Delete</button>
+                  </div>
                   <p className="profile-website">{selectedEmployer.website_url || "Official website not supplied"}</p>
                   <form className="branding-form" onSubmit={saveEmployerBranding}>
                     <h4>Company logo</h4>
@@ -540,9 +521,7 @@ export default function App() {
 
       {page === "add-company" && (
         <>
-          <section className="page-heading">
-            <div><p className="eyebrow">EMPLOYER ONBOARDING</p><h2>Add a company</h2><p>Paste the official careers or jobs listing URL. Scout will identify its ATS.</p></div>
-          </section>
+          <p className="mb-3 text-xs text-slate-500">Register a company and connect its official careers source.</p>
           <section className="surface add-company-panel">
             <form onSubmit={discovery ? registerDiscoveredEmployer : (event) => { event.preventDefault(); void discoverCareersPage(); }}>
               <label>Careers / jobs listing URL
