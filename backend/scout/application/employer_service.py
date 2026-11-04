@@ -33,6 +33,13 @@ class EmployerCreate(BaseModel):
     location_evidence: list[dict[str, Any]] = Field(default_factory=list)
 
 
+class EmployerBrandingUpdate(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
+
+    logo_url: HttpUrl | None = None
+    logo_source_url: HttpUrl | None = None
+
+
 class EmployerSourceCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 
@@ -75,6 +82,18 @@ class EmployerService:
     def get_employer(self, employer_id: UUID) -> dict[str, Any] | None:
         with self._connection_factory() as connection:
             return EmployerRepository(connection).get_by_id(employer_id)
+
+    def update_branding(
+        self, employer_id: UUID, payload: EmployerBrandingUpdate
+    ) -> dict[str, Any] | None:
+        values = payload.model_dump()
+        for key in ("logo_url", "logo_source_url"):
+            if values[key] is not None:
+                values[key] = str(values[key])
+        with self._connection_factory() as connection, connection.transaction():
+            return EmployerRepository(connection).update_branding(
+                employer_id, values["logo_url"], values["logo_source_url"]
+            )
 
     def create_source(self, payload: EmployerSourceCreate) -> dict[str, Any]:
         values = payload.model_dump()
