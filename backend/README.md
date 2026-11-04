@@ -71,7 +71,12 @@ while the functional application is being built:
 - `GET /api/v1/employers/{id}` — read an employer.
 - `GET /api/v1/employers/{id}/sources` — list its ATS sources.
 - `POST /api/v1/employers/{id}/sources` — register a Greenhouse or Workday source; required adapter configuration is checked against the ATS registry.
-- `GET /api/v1/greenhouse/inspect?url={board_url}` — validate a Greenhouse board URL, retrieve board metadata and public vacancies, follow pagination links, and return an explicit retrieval outcome. This is a live source inspection/preview; it does not persist vacancies or activate the source.
+- `GET /api/v1/greenhouse/inspect?url={board_url}` — inspect a Greenhouse board URL, retrieve board metadata and the complete public jobs response with descriptions.
+- `POST /api/v1/sources/{source_id}/extract` — retrieve a registered Greenhouse source and upsert its vacancies into Scout.
+- `GET /api/v1/vacancies` — list active vacancies across employers.
+- `GET /api/v1/employers/{employer_id}/vacancies` — list active vacancies for one employer.
+
+The Greenhouse Job Board API returns the public jobs collection with `meta.total`; Scout checks that count against the returned array. An incomplete response is recorded as partial and is never used to expire missing vacancies. Repeated extraction upserts by `(source_id, external_job_id)` rather than creating duplicates.
 
 New employers and sources are stored as discovered; callers cannot set approval
 or permission states. This API is for local development only until authentication
