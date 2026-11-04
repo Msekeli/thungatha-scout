@@ -24,7 +24,10 @@ Edit `.env` and set:
 
 Keep passwords and keys in `.env`; never put real values in `.env.example`
 or commit them. Do not use the Thungatha destination project's URL or keys here.
-The publishable key is not a service-role key.
+The publishable key is not a service-role key. In the Scout Supabase Auth
+settings, disable public sign-ups and require email confirmation for the
+configured administrator account. The backend allowlist remains mandatory
+even when those dashboard controls are enabled.
 
 ## Database migrations
 
