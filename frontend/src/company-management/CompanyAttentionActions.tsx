@@ -23,12 +23,12 @@ export function CompanyAttentionActions({
     : undefined;
 
   return (
-    <section className="mb-3 grid gap-2 rounded-xl border border-border bg-card p-3 shadow-sm md:grid-cols-3">
+    <section className="mb-3 grid gap-2 rounded-xl border border-scout-navy bg-scout-navy p-3 shadow-md md:grid-cols-3">
       <div>
         <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground/70">
           Suggested actions
         </p>
-        <p className="mt-1 text-xs text-muted-foreground">
+        <p className="mt-1 text-xs text-white/70">
           Work through these records to keep the company directory and sources reliable.
         </p>
       </div>
@@ -59,7 +59,7 @@ export function CompanyAttentionActions({
       <Button
         type="button"
         variant="ghost"
-        className="h-auto w-full flex-col items-start justify-center rounded-lg border border-border bg-muted px-3 py-2 text-left shadow-none transition-colors hover:bg-accent"
+        className="h-auto w-full flex-col items-start justify-center rounded-lg border border-border bg-card px-3 py-2 text-left shadow-none transition-colors hover:bg-accent"
         onClick={() => uncheckedEmployer && onSelectCompany(uncheckedEmployer)}
         disabled={!uncheckedEmployer}
       >
