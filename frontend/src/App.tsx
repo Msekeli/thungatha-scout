@@ -141,8 +141,16 @@ export default function App() {
       const received = runs.reduce((total, run) => total + run.jobs_received, 0);
       const inserted = runs.reduce((total, run) => total + run.jobs_inserted, 0);
       const updated = runs.reduce((total, run) => total + run.jobs_updated, 0);
+      const outcomes = runs.map((run) => {
+        const detail = run.detail ? ` — ${run.detail}` : "";
+        return `${run.outcome}: ${run.jobs_received} jobs received${detail}`;
+      });
       const failures = runs.filter((run) => !["success", "empty"].includes(run.outcome));
-      setNotice(`Extraction finished: ${received} received, ${inserted} new, ${updated} updated.${failures.length ? ` ${failures.length} source(s) need attention.` : ""}`);
+      const summary = `Extraction: ${received} received, ${inserted} new, ${updated} updated.`;
+      setNotice(`${summary} ${outcomes.join(" | ")}`);
+      if (failures.length > 0) {
+        setError(`${failures.length} Greenhouse source(s) did not complete successfully. Check the outcome details above.`);
+      }
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not extract employer vacancies.");
     } finally {
