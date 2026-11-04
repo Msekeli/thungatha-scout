@@ -95,3 +95,26 @@ class GreenhouseExtractionService:
             if employer_id is not None:
                 return repository.list_for_employer(employer_id, limit, offset)
             return repository.list_all(limit, offset)
+
+
+    def get_vacancy(self, vacancy_id: UUID) -> dict[str, Any] | None:
+        with self._connection_factory() as connection:
+            return VacancyRepository(connection).get_by_id(vacancy_id)
+
+    def update_vacancy_review(
+        self, vacancy_id: UUID, review_status: str, review_reason: str | None
+    ) -> dict[str, Any] | None:
+        with self._connection_factory() as connection, connection.transaction():
+            return VacancyRepository(connection).update_review(
+                vacancy_id, review_status, review_reason
+            )
+
+    def archive_vacancy(
+        self, vacancy_id: UUID, reason: str | None = None
+    ) -> dict[str, Any] | None:
+        with self._connection_factory() as connection, connection.transaction():
+            return VacancyRepository(connection).archive(vacancy_id, reason)
+
+    def restore_vacancy(self, vacancy_id: UUID) -> dict[str, Any] | None:
+        with self._connection_factory() as connection, connection.transaction():
+            return VacancyRepository(connection).restore(vacancy_id)
