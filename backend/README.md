@@ -70,7 +70,8 @@ while the functional application is being built:
 - `POST /api/v1/employers` — register an employer.
 - `GET /api/v1/employers/{id}` — read an employer.
 - `GET /api/v1/employers/{id}/sources` — list its ATS sources.
-- `POST /api/v1/employers/{id}/sources` — register a Greenhouse or Workday source.
+- `POST /api/v1/employers/{id}/sources` — register a Greenhouse or Workday source; required adapter configuration is checked against the ATS registry.
+- `GET /api/v1/greenhouse/inspect?url={board_url}` — validate a Greenhouse board URL, retrieve board metadata and public vacancies, follow pagination links, and return an explicit retrieval outcome. This is a live source inspection/preview; it does not persist vacancies or activate the source.
 
 New employers and sources are stored as discovered; callers cannot set approval
 or permission states. This API is for local development only until authentication
