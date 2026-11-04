@@ -156,7 +156,7 @@ export function VacancyDetailsPanel({
                 variant="ghost"
                 disabled={saving || archived}
                 onClick={() => onDecision("verified")}
-                className="bg-success text-white shadow-sm hover:bg-success/90"
+                className="bg-success text-white shadow-sm hover:brightness-95"
               >
                 <ShieldCheck className="h-4 w-4" />
                 Mark verified
