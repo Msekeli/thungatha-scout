@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { scoutApi } from "./api";
-import type { Employer, EmployerSource, GreenhouseInspection, Vacancy } from "./api";
+import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection, Vacancy } from "./api";
 
 type Page = "jobs" | "companies" | "add-company";
 
@@ -20,6 +20,7 @@ export default function App() {
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
   const [sources, setSources] = useState<EmployerSource[]>([]);
+  const [extractionRuns, setExtractionRuns] = useState<Record<string, ExtractionRun[]>>({});
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
   const [editingSourceId, setEditingSourceId] = useState<string | null>(null);
@@ -66,7 +67,18 @@ export default function App() {
     setPage("companies");
     setError("");
     try {
-      setSources(await scoutApi.listSources(employer.id));
+      const nextSources = await scoutApi.listSources(employer.id);
+      setSources(nextSources);
+      const runEntries = await Promise.all(
+        nextSources.map(async (source) => [
+          source.id,
+          await scoutApi.listExtractionRuns(source.id),
+        ] as const),
+      );
+      setExtractionRuns((current) => ({
+        ...current,
+        ...Object.fromEntries(runEntries),
+      }));
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Could not load company sources.");
     }
@@ -98,6 +110,15 @@ export default function App() {
       }
       const [nextVacancies] = await Promise.all([scoutApi.listVacancies()]);
       setVacancies(nextVacancies);
+      setExtractionRuns((current) => ({
+        ...current,
+        ...Object.fromEntries(results.map((item) => [
+          item.run.source_id,
+          [item.run, ...(current[item.run.source_id] ?? []).filter(
+            (run) => run.id !== item.run.id,
+          )].slice(0, 20),
+        ])),
+      }));
       const received = results.reduce((sum, item) => sum + item.run.jobs_received, 0);
       const inserted = results.reduce((sum, item) => sum + item.run.jobs_inserted, 0);
       const updated = results.reduce((sum, item) => sum + item.run.jobs_updated, 0);
@@ -275,7 +296,37 @@ export default function App() {
                   <p className="profile-website">{selectedEmployer.website_url || "Official website not supplied"}</p>
                   <div className="profile-stats"><div><strong>{vacancies.filter((item) => item.employer_id === selectedEmployer.id).length}</strong><span>Jobs collected</span></div><div><strong>{sources.length}</strong><span>Sources registered</span></div></div>
                   <div className="section-heading source-title"><h4>Job sources</h4></div>
-                  {sources.length ? sources.map((source) => <div className="source-item" key={source.id}><div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div><span className="status">{source.status.replaceAll("_", " ")}</span>{source.adapter_key === "greenhouse" && <button className="button secondary" type="button" onClick={() => { setEditingSourceId(source.id); setSourceUrl(source.source_url); setInspection(null); }}>Edit source</button>}</div>) : <p className="muted">No job source registered for this company.</p>}
+                  {sources.length ? sources.map((source) => {
+                    const runs = extractionRuns[source.id] ?? [];
+                    const latestRun = runs[0];
+                    return (
+                      <div className="source-history" key={source.id}>
+                        <div className="source-item">
+                          <div><strong>{source.adapter_key}</strong><small>{source.source_url}</small></div>
+                          <span className="status">{source.status.replaceAll("_", " ")}</span>
+                          {source.adapter_key === "greenhouse" && <button className="button secondary" type="button" onClick={() => { setEditingSourceId(source.id); setSourceUrl(source.source_url); setInspection(null); }}>Edit source</button>}
+                        </div>
+                        <div className="run-history">
+                          <div className="run-heading"><strong>Latest extraction</strong><span>{runs.length} recorded run(s)</span></div>
+                          {latestRun ? (
+                            <>
+                              <div className="run-summary">
+                                <span className={`run-outcome ${latestRun.outcome}`}>{latestRun.outcome.replaceAll("_", " ")}</span>
+                                <span>{latestRun.jobs_received} received · {latestRun.jobs_inserted} new · {latestRun.jobs_updated} updated</span>
+                                <span>{latestRun.complete ? "Complete" : "Incomplete"}</span>
+                              </div>
+                              {latestRun.detail && <p className="run-detail">{latestRun.detail}</p>}
+                              <div className="run-meta">
+                                <span>Started: {latestRun.started_at ? new Date(latestRun.started_at).toLocaleString() : "Unknown"}</span>
+                                <span>Finished: {latestRun.finished_at ? new Date(latestRun.finished_at).toLocaleString() : "Not finished"}</span>
+                              </div>
+                              {runs.length > 1 && <details className="run-older"><summary>Previous runs ({runs.length - 1})</summary>{runs.slice(1).map((run) => <div className="older-run" key={run.id}><strong>{run.outcome.replaceAll("_", " ")}</strong><span>{run.jobs_received} received · {run.jobs_inserted} new · {run.jobs_updated} updated</span><small>{run.detail || "No additional detail"}</small><small>{run.started_at ? new Date(run.started_at).toLocaleString() : "Unknown time"}</small></div>)}</details>}
+                            </>
+                          ) : <p className="muted">No extraction runs recorded yet.</p>}
+                        </div>
+                      </div>
+                    );
+                  }) : <p className="muted">No job source registered for this company.</p>}
                   <form className="source-form" onSubmit={createSource}>
                     <h4>{editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}</h4>
                     <label>Official careers / job board URL<input type="url" value={sourceUrl} onChange={(event) => { setSourceUrl(event.target.value); setInspection(null); }} placeholder="https://job-boards.greenhouse.io/company" required /></label>
