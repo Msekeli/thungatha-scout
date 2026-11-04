@@ -79,7 +79,12 @@ def test_retrieves_jobs_and_follows_next_link() -> None:
 
 @pytest.mark.parametrize(
     ("status_code", "outcome"),
-    [\n        (403, "blocked"),\n        (404, "not_found"),\n        (429, "rate_limited"),\n        (503, "transient_failure"),\n    ],
+    [
+        (403, "blocked"),
+        (404, "not_found"),
+        (429, "rate_limited"),
+        (503, "transient_failure"),
+    ],
 )
 def test_maps_http_failures(status_code: int, outcome: str) -> None:
     def handler(request: httpx.Request) -> httpx.Response:
