@@ -1,33 +1,25 @@
 import { request } from "./scout-http-client";
 import type { Employer } from "../shared-contracts/employer-contracts";
 
+export type EmployerUpdate = {
+  name: string;
+  legal_name?: string | null;
+  website_url?: string | null;
+  organization_type: string;
+};
+
 export const employerApiClient = {
   listEmployers: () => request<Employer[]>("/api/v1/employers"),
-
   createEmployer: (payload: Record<string, unknown>) =>
-    request<Employer>("/api/v1/employers", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    }),
-
-  updateEmployerStatus: (
-    employerId: string,
-    status: "approved" | "needs_review" | "rejected" | "inactive",
-  ) =>
-    request<Employer>(`/api/v1/employers/${employerId}/status`, {
-      method: "PATCH",
-      body: JSON.stringify({ status }),
-    }),
-
+    request<Employer>("/api/v1/employers", { method: "POST", body: JSON.stringify(payload) }),
+  updateEmployer: (employerId: string, payload: EmployerUpdate) =>
+    request<Employer>(`/api/v1/employers/${employerId}`, { method: "PATCH", body: JSON.stringify(payload) }),
+  updateEmployerStatus: (employerId: string, status: "approved" | "needs_review" | "rejected" | "inactive") =>
+    request<Employer>(`/api/v1/employers/${employerId}/status`, { method: "PATCH", body: JSON.stringify({ status }) }),
   deleteEmployer: (employerId: string) =>
     request<void>(`/api/v1/employers/${employerId}`, { method: "DELETE" }),
-
   updateEmployerBranding: (employerId: string, logo_url: string, logo_source_url: string) =>
     request<Employer>(`/api/v1/employers/${employerId}/branding`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        logo_url: logo_url || null,
-        logo_source_url: logo_source_url || null,
-      }),
+      method: "PATCH", body: JSON.stringify({ logo_url: logo_url || null, logo_source_url: logo_source_url || null }),
     }),
 };
