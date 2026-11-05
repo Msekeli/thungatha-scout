@@ -1,4 +1,5 @@
 import { useCompanyProfileOperations } from "./useCompanyProfileOperations";
+import { useCompanyDetailsUpdate } from "./useCompanyDetailsUpdate";
 import { useCompanySelection } from "./useCompanySelection";
 import { useEmployerSourceReview } from "../employer-sources/useEmployerSourceReview";
 import { useEmployerSourceOperations } from "../employer-sources/useEmployerSourceOperations";
@@ -35,6 +36,7 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     onNotice: state.setNotice,
     onError: state.setError,
   });
+  const updateDetails = useCompanyDetailsUpdate({ employer, setEmployers: jobs.setEmployers, setSaving: state.setSaving, onNotice: state.setNotice, onError: state.setError });
   const sourceOperations = useEmployerSourceOperations({
     employer,
     sources: state.sources,
@@ -62,5 +64,5 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     onError: state.setError,
   });
 
-  return { employer, ...selection, ...profile, ...sourceOperations, ...sourceReview };
+  return { employer, ...selection, ...profile, updateDetails, ...sourceOperations, ...sourceReview };
 }
