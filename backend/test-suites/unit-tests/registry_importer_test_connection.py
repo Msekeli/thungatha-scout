@@ -24,6 +24,10 @@ class FakeConnection:
                 None,
             )
             return FakeResult(employer)
+        if "UPDATE employers SET website_url" in query:
+            employer = next(row for row in self.employers if row["id"] == params[1])
+            employer["website_url"] = params[0]
+            return FakeResult(employer)
         if "INSERT INTO employers" in query:
             employer = {
                 "id": uuid4(),
