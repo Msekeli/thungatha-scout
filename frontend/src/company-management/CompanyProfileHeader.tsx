@@ -50,7 +50,10 @@ export const CompanyProfileHeader: FC<Props> = ({
             )}
           </p>
         </div>
-        <Badge variant="outline" className="shrink-0 border-slate-600 bg-slate-800 text-slate-200 capitalize">
+        <Badge
+          variant="outline"
+          className="shrink-0 border-slate-600 bg-slate-800 text-slate-200 capitalize"
+        >
           {employer.status.replaceAll("_", " ")}
         </Badge>
       </div>
