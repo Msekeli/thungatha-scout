@@ -15,7 +15,7 @@ export const employerSourceApiClient = {
   listAllSources: () => request<EmployerSource[]>("/api/v1/employers/sources"),
 
   createSource: (employerId: string, payload: Record<string, unknown>) =>
-    request<EmployerSource[]>(`/api/v1/employers/${employerId}/sources`, {
+    request<EmployerSource>(`/api/v1/employers/${employerId}/sources`, {
       method: "POST",
       body: JSON.stringify({ ...payload, employer_id: employerId }),
     }),
