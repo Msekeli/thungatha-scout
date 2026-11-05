@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { Employer, EmployerSource, ExtractionRun } from "../api";
+import type { Employer, EmployerSource } from "../api";
 import { CompanyDirectoryList } from "./CompanyDirectoryList";
 import { CompanyDirectoryToolbar } from "./CompanyDirectoryToolbar";
 
@@ -9,7 +9,8 @@ type Props = {
   selectedEmployerId: string;
   searchQuery: string;
   sourceFilter: string;
-  extractionRuns: Record<string, ExtractionRun[]>;
+  currentJobsByEmployer: Record<string, number>;
+  jobChangesByEmployer: Record<string, number>;
   onSearchChange: (value: string) => void;
   onSourceFilterChange: (value: string) => void;
   onSelectEmployer: (employer: Employer) => void;
@@ -45,7 +46,8 @@ export const CompanyDirectoryPanel: FC<Props> = (props) => {
         <CompanyDirectoryList
           employers={visible}
           sources={props.sources}
-          extractionRuns={props.extractionRuns}
+          currentJobsByEmployer={props.currentJobsByEmployer}
+          jobChangesByEmployer={props.jobChangesByEmployer}
           selectedEmployerId={props.selectedEmployerId}
           onSelectEmployer={props.onSelectEmployer}
           emptyMessage={
