@@ -22,7 +22,7 @@ export default function App() {
   const addingCompany = state.page === "add-company";
 
   return (
-    <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden bg-[#050a14] px-4 pb-3 pt-4 text-white md:px-8">
+    <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden scout-app-shell px-4 pb-3 pt-4 md:px-8">
       <AppShellHeader
         activePage={addingCompany ? "companies" : state.page}
         onSelectPage={state.setPage}
@@ -56,10 +56,10 @@ export default function App() {
           }
         }}
       >
-        <DialogContent className="border-slate-700 bg-slate-950 text-white shadow-2xl shadow-black/50">
+        <DialogContent className="scout-company-dialog">
           <DialogHeader>
-            <DialogTitle className="text-white">Add a company</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
+            <DialogDescription className="scout-company-dialog-copy">
               Paste the official careers page or ATS board URL. Scout will inspect the source before
               registration.
             </DialogDescription>
@@ -81,7 +81,7 @@ export default function App() {
           />
         </DialogContent>
       </Dialog>
-      <footer className="mt-4 border-t border-white/15 pt-3 text-[10px] text-white/65">
+      <footer className="scout-app-footer">
         Scout is a private operations workspace. Only verified, quality-checked records are eligible
         for publishing to Thungatha.
       </footer>
