@@ -35,14 +35,14 @@ export function EmployerOnboardingPanel({
   const busy = inspecting || saving;
   return (
     <>
-      <p className="mb-3 text-xs text-slate-300">
+      <p className="mb-3 text-xs scout-company-muted">
         Add an employer from its official careers page. Scout will configure the source and import
         its vacancies.
       </p>
-      <section className="w-full max-w-2xl rounded-xl border border-slate-700 bg-slate-900 p-5 text-white shadow-xl shadow-black/30 sm:p-7">
+      <section className="scout-company-onboarding">
         <div className="mb-5">
-          <h2 className="text-base font-semibold text-white">Employer details</h2>
-          <p className="mt-1 text-sm text-slate-400">
+          <h2 className="text-base font-semibold scout-company-heading">Employer details</h2>
+          <p className="mt-1 text-sm scout-company-muted">
             Enter the careers page and confirm the company name before adding it.
           </p>
         </div>
@@ -53,11 +53,11 @@ export function EmployerOnboardingPanel({
             sourceUrl={sourceUrl}
             onChangeSourceUrl={onChangeSourceUrl}
           />
-          <div className="flex flex-col-reverse gap-3 border-t border-slate-700 pt-5 sm:flex-row sm:justify-end">
+          <div className="scout-company-form-actions">
             <Button
               type="button"
               variant="outline"
-              className="h-10 border-slate-600 bg-slate-900 px-5 text-slate-200 hover:bg-slate-800 hover:text-white"
+              className="h-10 border-slate-600 bg-slate-900 px-5 text-slate-200 hover:bg-slate-800 hover:scout-company-heading"
               onClick={onCancel}
               disabled={busy}
             >
@@ -65,7 +65,7 @@ export function EmployerOnboardingPanel({
             </Button>
             <Button
               type="submit"
-              className="h-10 bg-cyan-500 px-6 text-slate-950 shadow-sm hover:bg-cyan-400"
+              className="scout-company-add-button"
               disabled={busy || !sourceUrl.trim()}
             >
               {inspecting ? "Checking careers page…" : saving ? "Adding company…" : "Add Company"}
