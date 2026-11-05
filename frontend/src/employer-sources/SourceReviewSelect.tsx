@@ -1,4 +1,10 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Props = {
   label: string;
@@ -12,11 +18,18 @@ export function SourceReviewSelect({ label, value, onChange, options }: Props) {
     <label className="grid gap-1 text-xs font-medium text-slate-400">
       <span>{label}</span>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger aria-label={label} className="h-9 border-slate-700 bg-slate-950 text-xs text-white">
+        <SelectTrigger
+          aria-label={label}
+          className="h-9 border-slate-700 bg-slate-950 text-xs text-white"
+        >
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {options.map((option) => <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>)}
+          {options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </label>
