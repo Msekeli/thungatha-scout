@@ -37,6 +37,7 @@
     background: var(--scout-accent-soft);
     border-color: var(--scout-accent-border);
   }
+  .scout-company-card__logo { @apply h-8 w-8 rounded-lg bg-white object-contain p-1; }
   .scout-company-card__name { color: var(--foreground); }
   .scout-company-card__meta { color: var(--muted-foreground); }
   .scout-company-card__footer {
@@ -52,6 +53,10 @@
   .scout-company-link__url { @apply truncate; color: var(--muted-foreground); }
 
   .scout-company-heading { color: var(--foreground); }
+  .scout-company-divider { border-color: var(--scout-border); }
+  .scout-company-icon-accent { color: var(--scout-accent); }
+  .scout-company-danger-button { @apply ml-auto; }
+  .scout-company-danger-copy { color: var(--muted-foreground); }
   .scout-company-eyebrow { @apply text-[10px] font-bold uppercase tracking-[0.2em]; color: var(--scout-accent); }
   .scout-company-description { @apply text-xs; color: var(--muted-foreground); }
   .scout-company-count { color: var(--foreground); }
@@ -106,8 +111,6 @@
   .scout-company-action:hover { background: var(--scout-surface-hover); }
   .scout-company-delete { @apply ml-auto; }
   .scout-company-delete-dialog { border-color: var(--scout-danger-border); background: var(--scout-dialog); color: var(--foreground); }
-  .scout-company-danger-copy { color: var(--muted-foreground); }
-
   .scout-status { @apply border text-[10px] capitalize; }
   .scout-status--approved { background: var(--scout-success-surface); color: var(--scout-success-text); border-color: var(--scout-success-border); }
   .scout-status--review { background: var(--scout-warning-surface); color: var(--scout-warning-text); border-color: var(--scout-warning-border); }
