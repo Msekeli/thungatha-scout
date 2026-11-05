@@ -72,7 +72,7 @@
     min-height: 100vh;
     margin: 0;
     font-family: var(--font-sans);
-    background-color: #050a14;
+    background-color: var(--scout-app-background);
   }
 
   button,
