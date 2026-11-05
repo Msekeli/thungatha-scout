@@ -47,8 +47,14 @@ export function VacancyRecordList({
               >
                 <strong className="scout-vacancy-card__title">{vacancy.title}</strong>
                 <span className="scout-vacancy-card__metadata mt-3">
-                  <span><Building2 aria-hidden="true" />{vacancy.employer_name}</span>
-                  <span><MapPin aria-hidden="true" />{vacancy.location_text || "Location unknown"}</span>
+                  <span>
+                    <Building2 aria-hidden="true" />
+                    {vacancy.employer_name}
+                  </span>
+                  <span>
+                    <MapPin aria-hidden="true" />
+                    {vacancy.location_text || "Location unknown"}
+                  </span>
                   <span>
                     <CalendarDays aria-hidden="true" />
                     {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}
