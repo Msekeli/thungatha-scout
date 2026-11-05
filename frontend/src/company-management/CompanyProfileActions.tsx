@@ -77,10 +77,7 @@ export function CompanyProfileActions({
         open={deleteOpen}
         saving={saving}
         onOpenChange={setDeleteOpen}
-        onConfirm={() => {
-          onDelete();
-          setDeleteOpen(false);
-        }}
+        onConfirm={onDelete}
       />
     </div>
   );
