@@ -66,7 +66,6 @@ export function useEmployerRegistration({
       );
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not register employer and source.");
-      await loadWorkspace();
     } finally {
       setSaving(false);
     }
