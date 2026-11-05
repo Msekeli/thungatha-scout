@@ -51,7 +51,6 @@
     @apply h-[min(65vh,720px)] min-h-[360px] w-full rounded-xl border;
     background: var(--scout-surface);
     border-color: var(--scout-border);
-    color-scheme: dark;
   }
   .scout-vacancy-card__content {
     @apply flex w-full min-w-0 flex-1 flex-col justify-center gap-3 px-4 py-4;
