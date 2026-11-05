@@ -18,9 +18,10 @@ type Props = {
 
 export function CompanyEditFields({ fields, onChange }: Props) {
   const field = (label: string, key: keyof CompanyEditFieldValues, placeholder = "") => (
-    <label className="grid gap-1.5 text-sm font-medium">
+    <label className="scout-company-form-label">
       {label}
       <Input
+        className="scout-company-field"
         value={fields[key]}
         placeholder={placeholder}
         onChange={(event) => onChange(key, event.target.value)}
