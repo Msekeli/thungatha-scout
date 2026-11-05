@@ -9,18 +9,18 @@ export function CompanyDirectoryLinks({ employer, sources }: Props) {
   const careersUrl = careersSource?.employer_careers_url ?? employer.website_url;
   const careersLabel = careersSource ? "Careers" : "Website";
   return (
-    <div className="grid gap-2 border-t border-slate-700/80 bg-black/20 px-4 py-3">
+    <div className="scout-company-card__footer">
       {careersUrl && (
         <a
           href={careersUrl}
           target="_blank"
           rel="noreferrer"
           title={careersUrl}
-          className="flex min-w-0 items-center gap-2 text-xs text-cyan-300 hover:text-cyan-100"
+          className="scout-company-link"
         >
           <Globe2 className="h-3.5 w-3.5 shrink-0" />
           <span className="shrink-0">{careersLabel}</span>
-          <span className="truncate text-slate-400">{visibleUrl(careersUrl)}</span>
+          <span className="truncate scout-company-link__url">{visibleUrl(careersUrl)}</span>
           <ExternalLink className="ml-auto h-3 w-3 shrink-0" />
         </a>
       )}
@@ -31,7 +31,7 @@ export function CompanyDirectoryLinks({ employer, sources }: Props) {
           target="_blank"
           rel="noreferrer"
           title={source.source_url}
-          className="flex min-w-0 items-center gap-2 text-xs text-slate-300 hover:text-white"
+          className="scout-company-link"
         >
           <span className="grid h-5 w-5 shrink-0 place-items-center rounded bg-slate-700 text-[9px] font-bold uppercase text-cyan-200">
             {source.adapter_key === "greenhouse" ? "G" : "W"}
@@ -39,12 +39,12 @@ export function CompanyDirectoryLinks({ employer, sources }: Props) {
           <span className="shrink-0">
             {source.adapter_key === "greenhouse" ? "Greenhouse" : "Workday"}
           </span>
-          <span className="truncate text-slate-400">{visibleUrl(source.source_url)}</span>
+          <span className="truncate scout-company-link__url">{visibleUrl(source.source_url)}</span>
           <ExternalLink className="ml-auto h-3 w-3 shrink-0" />
         </a>
       ))}
       {!careersUrl && !sources.length && (
-        <span className="text-xs text-slate-500">No recruitment links registered</span>
+        <span className="text-xs scout-company-muted">No recruitment links registered</span>
       )}
     </div>
   );
