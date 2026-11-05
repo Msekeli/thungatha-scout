@@ -99,4 +99,3 @@ class EmployerRepository(EmployerDeleteOperations):
             """,
             (status, employer_id),
         ).fetchone()
-
