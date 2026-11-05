@@ -22,7 +22,7 @@ export function CompanyDirectoryCard({ employer, sources, selected, onSelect }: 
         variant="ghost"
         aria-pressed={selected}
         onClick={() => onSelect(employer)}
-        className="h-auto w-full items-start justify-start gap-3 rounded-none px-4 pb-3 pt-4 text-left font-normal hover:bg-white/[0.04]"
+        className="scout-company-card__trigger h-auto w-full items-start justify-start gap-3 rounded-none px-4 pb-3 pt-4 text-left font-normal"
       >
         <span className="scout-company-card__icon">
           {employer.logo_url ? (
