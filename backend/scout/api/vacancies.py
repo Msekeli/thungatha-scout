@@ -20,7 +20,9 @@ router.include_router(archive_router)
 def list_vacancies(
     employer_id: UUID | None = None,
     review_status: str | None = Query(default=None),
-    location_scope: str = Query(default="cape_town", pattern="^(cape_town|south_africa|all)$"),
+    location_scope: str = Query(
+        default="cape_town", pattern="^(cape_town|south_africa|all)$"
+    ),
     limit: int = Query(default=50, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
     service: GreenhouseExtractionService = Depends(get_extraction_service),

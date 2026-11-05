@@ -20,9 +20,7 @@ class VacancyReadOperations:
             conditions.append("v.review_status = %s")
             parameters.append(review_status)
         if location_scope == "cape_town":
-            conditions.append(
-                "(v.location_text ILIKE %s OR v.location_text ILIKE %s)"
-            )
+            conditions.append("(v.location_text ILIKE %s OR v.location_text ILIKE %s)")
             parameters.extend(["%Cape Town%", "%Stellenbosch%"])
         elif location_scope == "south_africa":
             conditions.append(
