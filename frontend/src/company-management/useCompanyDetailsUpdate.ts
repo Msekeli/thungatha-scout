@@ -22,8 +22,10 @@ export function useCompanyDetailsUpdate({ employer, setEmployers, setSaving, onN
       const updated = await scoutApi.updateEmployer(employer.id, values);
       setEmployers((current) => current.map((item) => item.id === updated.id ? updated : item));
       onNotice(`${updated.name} details updated.`);
+      return true;
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not update company details.");
+      return false;
     } finally {
       setSaving(false);
     }
