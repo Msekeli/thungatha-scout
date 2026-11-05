@@ -15,7 +15,7 @@ type Options = {
 
 export function useCompanyDetailsUpdate({ employer, setEmployers, setSaving, onNotice, onError }: Options) {
   return useCallback(async (values: Values) => {
-    if (!employer) return;
+    if (!employer) return false;
     setSaving(true);
     onError("");
     try {
