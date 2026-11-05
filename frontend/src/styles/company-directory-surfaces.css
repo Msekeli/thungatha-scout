@@ -42,6 +42,11 @@
   .scout-company-card__logo {
     @apply h-8 w-8 rounded-lg bg-white object-contain p-1;
   }
+  .scout-company-source-badge {
+    @apply grid h-5 w-5 shrink-0 place-items-center rounded text-[9px] font-bold uppercase;
+    background: var(--scout-surface-hover);
+    color: var(--scout-accent);
+  }
   .scout-company-card__name {
     color: hsl(var(--foreground));
   }
