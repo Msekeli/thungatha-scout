@@ -34,5 +34,11 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     if (result) await registration.register(event, result);
   };
 
-  return { inspecting: discovery.inspecting, submit };
+  return {
+    inspection: discovery.inspection,
+    setInspection: discovery.setInspection,
+    inspecting: discovery.inspecting,
+    inspectGreenhouseBoard: discovery.inspectGreenhouseBoard,
+    submit,
+  };
 }
