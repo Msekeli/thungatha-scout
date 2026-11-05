@@ -16,8 +16,15 @@ type VacancyDecisionOptions = {
 
 export function useVacancyDecisionActions(options: VacancyDecisionOptions) {
   const {
-    selectedVacancy, setSelectedVacancy, reviewReason, setReviewReason,
-    saving, setSaving, onVacancyUpdated, onNotice, onError,
+    selectedVacancy,
+    setSelectedVacancy,
+    reviewReason,
+    setReviewReason,
+    saving,
+    setSaving,
+    onVacancyUpdated,
+    onNotice,
+    onError,
   } = options;
   const [canUndoDecision, setCanUndoDecision] = useState(false);
   const previousDecisionRef = useRef<{
@@ -26,30 +33,43 @@ export function useVacancyDecisionActions(options: VacancyDecisionOptions) {
     reason: string | null;
   } | null>(null);
 
-  const saveDecision = useCallback(async (status: Vacancy["review_status"]) => {
-    if (!selectedVacancy) return;
-    setSaving(true);
-    onError("");
-    try {
-      const previousDecision = {
-        vacancyId: selectedVacancy.id,
-        status: selectedVacancy.review_status,
-        reason: selectedVacancy.review_reason ?? null,
-      };
-      const updated = await scoutApi.updateVacancyReview(
-        selectedVacancy.id, status, reviewReason,
-      );
-      previousDecisionRef.current = previousDecision;
-      setCanUndoDecision(true);
-      setSelectedVacancy(updated);
-      onVacancyUpdated(updated);
-      onNotice(`Vacancy marked ${status.replaceAll("_", " ")}.`);
-    } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not save the vacancy decision.");
-    } finally {
-      setSaving(false);
-    }
-  }, [selectedVacancy, reviewReason, setSelectedVacancy, setSaving, onVacancyUpdated, onNotice, onError]);
+  const saveDecision = useCallback(
+    async (status: Vacancy["review_status"]) => {
+      if (!selectedVacancy) return;
+      setSaving(true);
+      onError("");
+      try {
+        const previousDecision = {
+          vacancyId: selectedVacancy.id,
+          status: selectedVacancy.review_status,
+          reason: selectedVacancy.review_reason ?? null,
+        };
+        const updated = await scoutApi.updateVacancyReview(
+          selectedVacancy.id,
+          status,
+          reviewReason,
+        );
+        previousDecisionRef.current = previousDecision;
+        setCanUndoDecision(true);
+        setSelectedVacancy(updated);
+        onVacancyUpdated(updated);
+        onNotice(`Vacancy marked ${status.replaceAll("_", " ")}.`);
+      } catch (reason) {
+        onError(reason instanceof Error ? reason.message : "Could not save the vacancy decision.");
+      } finally {
+        setSaving(false);
+      }
+    },
+    [
+      selectedVacancy,
+      reviewReason,
+      setSelectedVacancy,
+      setSaving,
+      onVacancyUpdated,
+      onNotice,
+      onError,
+    ],
+  );
 
   const undoLastDecision = useCallback(async () => {
     const previousDecision = previousDecisionRef.current;
@@ -58,7 +78,9 @@ export function useVacancyDecisionActions(options: VacancyDecisionOptions) {
     onError("");
     try {
       const updated = await scoutApi.updateVacancyReview(
-        previousDecision.vacancyId, previousDecision.status, previousDecision.reason ?? "",
+        previousDecision.vacancyId,
+        previousDecision.status,
+        previousDecision.reason ?? "",
       );
       onVacancyUpdated(updated);
       if (selectedVacancy?.id === updated.id) {
@@ -73,7 +95,16 @@ export function useVacancyDecisionActions(options: VacancyDecisionOptions) {
     } finally {
       setSaving(false);
     }
-  }, [saving, onError, onVacancyUpdated, selectedVacancy, setSelectedVacancy, setReviewReason, setSaving, onNotice]);
+  }, [
+    saving,
+    onError,
+    onVacancyUpdated,
+    selectedVacancy,
+    setSelectedVacancy,
+    setReviewReason,
+    setSaving,
+    onNotice,
+  ]);
 
   return { saveDecision, undoLastDecision, canUndoDecision };
 }
