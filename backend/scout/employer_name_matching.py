@@ -2,8 +2,20 @@ import re
 from collections.abc import Sequence
 
 _SUFFIXES = {
-    "group", "holdings", "inc", "limited", "ltd", "plc", "company", "sa",
-    "labs", "technologies", "technology", "systems", "solutions", "global",
+    "group",
+    "holdings",
+    "inc",
+    "limited",
+    "ltd",
+    "plc",
+    "company",
+    "sa",
+    "labs",
+    "technologies",
+    "technology",
+    "systems",
+    "solutions",
+    "global",
 }
 _SUBDOMAINS = {"www", "careers", "jobs", "job", "apply", "work"}
 _MULTI_PART_SUFFIXES = {"co.za", "co.uk", "com.au", "co.nz", "com.br", "co.in"}
@@ -29,6 +41,8 @@ def company_aliases(name: str, title: str, hostname: str) -> list[str]:
 def board_name_matches(board_name: str, aliases: Sequence[str]) -> bool:
     actual = normalise_company_name(board_name)
     return any(
-        actual == alias or actual.startswith(alias) and actual[len(alias):] in _SUFFIXES
+        actual == alias
+        or actual.startswith(alias)
+        and actual[len(alias) :] in _SUFFIXES
         for alias in aliases
     )
