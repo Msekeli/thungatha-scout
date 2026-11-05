@@ -15,10 +15,12 @@ Out of scope for the initial release: a public job-search frontend duplicating T
 
 ## Geography and discovery rules
 
-- Initial location scope is **Cape Town only**; do not silently expand to all Western Cape or Stellenbosch.
-- Do not filter discovery by industry, company size, or job title.
-- Companies may be approved even when they currently have zero vacancies.
-- Approval requires evidence of company identity, Cape Town presence, organization type, and an official recruitment page.
+- The product's initial vacancy relevance scope is **Cape Town only**; do not silently expand to all Western Cape or Stellenbosch.
+- Do not use an employer's headquarters, registered address, city, province or country to determine whether its vacancies are relevant. Employer location is not a Companies-directory field or approval requirement.
+- Register employers across industries and sizes when there is a credible basis to expect them to recruit for Cape Town roles, including historical Cape Town vacancy activity. Do not require a currently open Cape Town vacancy at registration time.
+- Do not filter employer discovery by industry, company size, or job title.
+- Company registration and source management are broad; vacancy-location relevance is evaluated on each vacancy and handled by Thungatha's vacancy filtering/publication workflow.
+- Approval requires evidence of employer identity, organization type, and an official recruitment page/source relationship. Cape Town headquarters or physical presence is not required.
 - A careers page may redirect to an ATS if the relationship to the company is evidenced.
 - ATS board discovery alone does not prove employer identity.
 - Employer discovery uses two complementary channels: broad careers-page discovery and a separately measured ATS-footprint discovery process. ATS discovery improves coverage but does not replace employer-first verification.
@@ -93,7 +95,7 @@ The adapter registry must not contain employer-specific board identifiers or emp
 Keep these claims independent:
 
 1. Employer identity and organization classification.
-2. Employer's Cape Town presence.
+2. Evidence that the employer is a relevant recruitment source for Cape Town roles (for example, a history of Cape Town vacancies); this is not evidence of headquarters or physical presence.
 3. Relationship between the employer's official website/careers page and the external source or ATS board.
 4. Technical retrieval method and adapter capabilities.
 5. Source terms, permission and operational constraints.
