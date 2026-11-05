@@ -1,25 +1,16 @@
 import type { FormEvent } from "react";
-import type { EmployerSource, ExtractionRun, GreenhouseInspection } from "../api";
+import type { EmployerSource, GreenhouseInspection } from "../api";
 import { SourceRegistrationForm } from "./SourceRegistrationForm";
 import { EmployerSourceCard } from "./EmployerSourceCard";
-import type { SourceDecisionDraft } from "./SourceReviewPanel";
 
 type Props = {
   sources: EmployerSource[];
-  extractionRuns: Record<string, ExtractionRun[]>;
-  decisions: Record<string, SourceDecisionDraft>;
   sourceUrl: string;
   editingSourceId: string | null;
   inspection: GreenhouseInspection | null;
   saving: boolean;
   inspecting: boolean;
   onEditSource: (source: EmployerSource) => void;
-  onDecisionChange: (
-    source: EmployerSource,
-    field: keyof SourceDecisionDraft,
-    value: string,
-  ) => void;
-  onSaveDecision: (source: EmployerSource) => void;
   onChangeSourceUrl: (value: string) => void;
   onInspect: () => void;
   onSaveSource: (event: FormEvent<HTMLFormElement>) => void;
@@ -28,27 +19,23 @@ type Props = {
 
 export function CompanySourcesSection(props: Props) {
   return (
-    <>
-      <div className="mb-3 mt-6 flex items-center justify-between gap-3 border-b scout-company-divider pb-2">
-        <h4>Job sources</h4>
+    <section className="scout-company-sources">
+      <div className="mb-3 flex items-center justify-between border-b scout-company-divider pb-2">
+        <h4 className="text-sm font-semibold scout-company-heading">Recruitment sources</h4>
       </div>
       {props.sources.length ? (
-        props.sources.map((source) => (
-          <EmployerSourceCard
-            key={source.id}
-            source={source}
-            runs={props.extractionRuns[source.id] ?? []}
-            decision={props.decisions[source.id]}
-            saving={props.saving}
-            onEdit={props.onEditSource}
-            onDecisionChange={props.onDecisionChange}
-            onSaveDecision={props.onSaveDecision}
-          />
-        ))
+        <div className="grid gap-2">
+          {props.sources.map((source) => (
+            <EmployerSourceCard
+              key={source.id}
+              source={source}
+              saving={props.saving}
+              onEdit={props.onEditSource}
+            />
+          ))}
+        </div>
       ) : (
-        <p className="py-4 text-xs scout-company-muted">
-          No job source registered for this company.
-        </p>
+        <p className="py-2 text-xs scout-company-muted">No recruitment sources added yet.</p>
       )}
       <SourceRegistrationForm
         editingSourceId={props.editingSourceId}
@@ -61,6 +48,6 @@ export function CompanySourcesSection(props: Props) {
         inspecting={props.inspecting}
         saving={props.saving}
       />
-    </>
+    </section>
   );
 }
