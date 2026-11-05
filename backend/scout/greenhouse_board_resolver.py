@@ -88,11 +88,15 @@ async def resolve_greenhouse_board(
     aliases: Sequence[str],
 ) -> tuple[str, str]:
     results = await asyncio.gather(
-        *(_check_candidate(client, token, aliases) for token in candidates)
+        *(_check_candidate(client, token, aliases) for token in candidates),
+        return_exceptions=True,
     )
     for result in results:
-        if result:
+        if isinstance(result, tuple):
             return result
+    for result in results:
+        if isinstance(result, Exception):
+            raise result
     raise ValueError(
         "Greenhouse was detected, but its board could not be confirmed for this company. "
         "Check the careers URL or provide a Greenhouse board URL."
