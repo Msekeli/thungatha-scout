@@ -21,17 +21,17 @@ export function CompanyBrandingForm({
 }: CompanyBrandingFormProps) {
   return (
     <form
-      className="my-4 grid gap-3 rounded-xl border border-slate-700 bg-slate-900/80 p-4 text-white"
+      className="scout-company-form-section"
       onSubmit={onSubmit}
     >
       <div className="flex items-center gap-3">
         <h4>Company logo</h4>
-        <span className="text-[10px] text-slate-400">Optional</span>
+        <span className="text-[10px] scout-company-muted">Optional</span>
         {logoUrl && (
           <img
             src={logoUrl}
             alt="Company logo preview"
-            className="h-9 w-9 rounded-md border border-slate-700 bg-white object-contain p-1"
+            className="scout-company-card__logo"
           />
         )}
       </div>
@@ -42,10 +42,10 @@ export function CompanyBrandingForm({
           value={logoUrl}
           onChange={(event) => onLogoUrlChange(event.target.value)}
           placeholder="https://company.com/logo.png"
-          className="mt-1 border-slate-700 bg-slate-950 text-white"
+          className="scout-company-field mt-1"
         />
       </label>
-      <p className="text-[10px] text-slate-400">
+      <p className="text-[10px] scout-company-muted">
         Scout currently accepts a logo URL and its evidence URL. A logo is not required to register
         or approve a company.
       </p>
