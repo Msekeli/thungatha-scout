@@ -1,80 +1,28 @@
-import { Badge } from "@/components/ui/badge";
+import { ExternalLink, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { EmployerSource, ExtractionRun } from "../api";
-import { ExtractionRunHistory } from "./ExtractionRunHistory";
-import { SourceReviewPanel, type SourceDecisionDraft } from "./SourceReviewPanel";
+import type { EmployerSource } from "../api";
 
 type Props = {
   source: EmployerSource;
-  runs: ExtractionRun[];
-  decision: SourceDecisionDraft;
   saving: boolean;
   onEdit: (source: EmployerSource) => void;
-  onDecisionChange: (
-    source: EmployerSource,
-    field: keyof SourceDecisionDraft,
-    value: string,
-  ) => void;
-  onSaveDecision: (source: EmployerSource) => void;
 };
 
-export function EmployerSourceCard({
-  source,
-  runs,
-  decision,
-  saving,
-  onEdit,
-  onDecisionChange,
-  onSaveDecision,
-}: Props) {
+export function EmployerSourceCard({ source, saving, onEdit }: Props) {
   return (
-    <div className="space-y-3 border-b border-border py-4">
-      <div className="scout-company-source-card">
-        <div className="min-w-0 space-y-1">
-          <strong className="text-xs font-semibold capitalize scout-company-heading">
-            {source.adapter_key} source
-          </strong>
-          {source.employer_careers_url && (
-            <a
-              href={source.employer_careers_url}
-              target="_blank"
-              rel="noreferrer"
-              className="scout-company-link"
-            >
-              Official careers page · {source.employer_careers_url.replace(/^https?:\/\//, "")}
-            </a>
-          )}
-          <a
-            href={source.source_url}
-            target="_blank"
-            rel="noreferrer"
-            className="scout-company-link break-all text-[10px]"
-          >
-            {source.source_url}
-          </a>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="outline" className="capitalize">
-            {source.status.replaceAll("_", " ")}
-          </Badge>
-          <Badge variant="secondary" className="capitalize">
-            {source.permission_status.replaceAll("_", " ")}
-          </Badge>
-          {source.adapter_key === "greenhouse" && (
-            <Button type="button" variant="outline" size="sm" onClick={() => onEdit(source)}>
-              Edit source
-            </Button>
-          )}
-        </div>
+    <div className="scout-company-source-card">
+      <div className="min-w-0">
+        <p className="text-xs font-semibold capitalize scout-company-heading">{source.adapter_key}</p>
+        <a href={source.source_url} target="_blank" rel="noreferrer" className="mt-1 flex items-center gap-1 break-all text-xs scout-company-link">
+          {source.source_url}
+          <ExternalLink className="h-3 w-3 shrink-0" />
+        </a>
       </div>
-      <SourceReviewPanel
-        source={source}
-        decision={decision}
-        saving={saving}
-        onChange={(field, value) => onDecisionChange(source, field, value)}
-        onSave={() => onSaveDecision(source)}
-      />
-      <ExtractionRunHistory runs={runs} />
+      {source.adapter_key === "greenhouse" && (
+        <Button type="button" size="sm" variant="outline" disabled={saving} onClick={() => onEdit(source)}>
+          <Pencil className="mr-1.5 h-3.5 w-3.5" /> Edit URL
+        </Button>
+      )}
     </div>
   );
 }
