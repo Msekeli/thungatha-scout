@@ -23,7 +23,7 @@ export function CompanyProfileActions({ companyName, saving, editing, onDelete, 
         disabled={saving}
         onClick={onEdit}
       >
-        <Pencil className="mr-1.5 h-3.5 w-3.5" /> {editing ? "Editing company" : "Edit company"}
+        <Pencil className="mr-1.5 h-3.5 w-3.5" /> {editing ? "Cancel editing" : "Edit company"}
       </Button>
       <Button
         type="button"
