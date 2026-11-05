@@ -42,7 +42,14 @@ export function CompanySourcesSection(props: Props) {
                 <strong className="text-xs font-semibold capitalize text-foreground">
                   {source.adapter_key}
                 </strong>
-                <a href={source.source_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 break-all text-[10px] text-primary underline-offset-2 hover:underline">{source.source_url}</a>
+                <a
+                  href={source.source_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 break-all text-[10px] text-primary underline-offset-2 hover:underline"
+                >
+                  {source.source_url}
+                </a>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="outline" className="capitalize">
