@@ -71,7 +71,7 @@ export function SourceReviewPanel({ source, decision, saving, onChange, onSave }
       <label className="grid gap-1 text-xs font-medium scout-company-muted">
         Decision notes
         <Textarea
-          className="scout-company-field"
+          className="scout-company-textarea"
           value={decision?.reason ?? ""}
           onChange={(event) => onChange("reason", event.target.value)}
           placeholder="Why this source status and permission were chosen"
