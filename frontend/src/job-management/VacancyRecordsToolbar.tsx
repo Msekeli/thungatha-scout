@@ -1,6 +1,12 @@
 import { Button } from "@/components/ui/button";
 import type { Employer } from "../api";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type VacancyRecordsToolbarProps = {
   showArchived: boolean;
@@ -14,25 +20,78 @@ type VacancyRecordsToolbarProps = {
   loading: boolean;
 };
 
-export function VacancyRecordsToolbar({ showArchived, onShowArchivedChange, reviewFilter, onReviewFilterChange, selectedEmployerId, onEmployerChange, employers, onRefresh, loading }: VacancyRecordsToolbarProps) {
+export function VacancyRecordsToolbar({
+  showArchived,
+  onShowArchivedChange,
+  reviewFilter,
+  onReviewFilterChange,
+  selectedEmployerId,
+  onEmployerChange,
+  employers,
+  onRefresh,
+  loading,
+}: VacancyRecordsToolbarProps) {
   return (
     <div className="flex flex-wrap items-center gap-2 border-b border-border bg-card p-3">
-      <h3 className="mr-auto text-sm font-bold text-primary">{showArchived ? "Archived vacancies" : "Vacancy records"}</h3>
-      <Select value={showArchived ? "archived" : "active"} onValueChange={(value) => onShowArchivedChange(value === "archived")}>
-        <SelectTrigger aria-label="Choose active or archived vacancies" className="h-8 w-[125px] border-input bg-background text-xs text-foreground"><SelectValue /></SelectTrigger>
-        <SelectContent><SelectItem value="active">Active records</SelectItem><SelectItem value="archived">Archived</SelectItem></SelectContent>
+      <h3 className="mr-auto text-sm font-bold text-primary">
+        {showArchived ? "Archived vacancies" : "Vacancy records"}
+      </h3>
+      <Select
+        value={showArchived ? "archived" : "active"}
+        onValueChange={(value) => onShowArchivedChange(value === "archived")}
+      >
+        <SelectTrigger
+          aria-label="Choose active or archived vacancies"
+          className="h-8 w-[125px] border-input bg-background text-xs text-foreground"
+        >
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="active">Active records</SelectItem>
+          <SelectItem value="archived">Archived</SelectItem>
+        </SelectContent>
       </Select>
       <Select value={reviewFilter} onValueChange={onReviewFilterChange}>
-        <SelectTrigger aria-label="Filter vacancies by review state" className="h-8 w-[145px] border-input bg-background text-xs text-foreground"><SelectValue /></SelectTrigger>
+        <SelectTrigger
+          aria-label="Filter vacancies by review state"
+          className="h-8 w-[145px] border-input bg-background text-xs text-foreground"
+        >
+          <SelectValue />
+        </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All review states</SelectItem><SelectItem value="pending">Pending</SelectItem><SelectItem value="needs_verification">Needs verification</SelectItem><SelectItem value="verified">Verified</SelectItem><SelectItem value="rejected">Rejected</SelectItem>
+          <SelectItem value="all">All review states</SelectItem>
+          <SelectItem value="pending">Pending</SelectItem>
+          <SelectItem value="needs_verification">Needs verification</SelectItem>
+          <SelectItem value="verified">Verified</SelectItem>
+          <SelectItem value="rejected">Rejected</SelectItem>
         </SelectContent>
       </Select>
       <Select value={selectedEmployerId} onValueChange={onEmployerChange}>
-        <SelectTrigger aria-label="Filter vacancies by company" className="h-8 w-[140px] border-input bg-background text-xs text-foreground"><SelectValue placeholder="All companies" /></SelectTrigger>
-        <SelectContent><SelectItem value="all">All companies</SelectItem>{employers.map((employer) => <SelectItem key={employer.id} value={employer.id}>{employer.name}</SelectItem>)}</SelectContent>
+        <SelectTrigger
+          aria-label="Filter vacancies by company"
+          className="h-8 w-[140px] border-input bg-background text-xs text-foreground"
+        >
+          <SelectValue placeholder="All companies" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All companies</SelectItem>
+          {employers.map((employer) => (
+            <SelectItem key={employer.id} value={employer.id}>
+              {employer.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
       </Select>
-      <Button type="button" variant="outline" size="sm" className="h-8 border-input bg-background text-primary hover:bg-accent hover:text-accent-foreground" onClick={onRefresh} disabled={loading}>Refresh</Button>
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        className="h-8 border-input bg-background text-primary hover:bg-accent hover:text-accent-foreground"
+        onClick={onRefresh}
+        disabled={loading}
+      >
+        Refresh
+      </Button>
     </div>
   );
 }
