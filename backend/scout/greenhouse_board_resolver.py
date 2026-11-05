@@ -7,35 +7,39 @@ from scout.career_site_html_parser import CareersLinks, find_greenhouse_board_ca
 
 API_ROOT = "https://boards-api.greenhouse.io/v1/boards"
 _SUFFIXES = {"group", "holdings", "inc", "limited", "ltd", "plc", "company", "sa"}
+_SUBDOMAINS = {"www", "careers", "jobs", "job", "apply", "work"}
 
 
 def normalise_company_name(value: str) -> str:
     return re.sub(r"[^a-z0-9]", "", value.casefold())
 
 
+def domain_company_name(hostname: str) -> str:
+    labels = [part for part in hostname.split(".") if part and part not in _SUBDOMAINS]
+    if len(labels) >= 3 and labels[-2:] == ["co", "za"]:
+        return labels[-3]
+    return labels[-2] if len(labels) > 1 else labels[0] if labels else ""
+
+
 def company_aliases(name: str, title: str, hostname: str) -> list[str]:
-    labels = [part for part in hostname.split(".") if part]
-    labels = [part for part in labels if part not in {"www", "careers", "jobs", "job"}]
-    domain_name = labels[-3] if len(labels) >= 3 and labels[-2:] == ["co", "za"] else labels[-2] if len(labels) > 1 else labels[0] if labels else ""
-    values = [name, title.split("|")[0].split("—")[0], domain_name]
+    values = [name, title.split("|")[0].split("—")[0], domain_company_name(hostname)]
     return list(dict.fromkeys(normalise_company_name(value) for value in values if value.strip()))
 
 
 def board_name_matches(board_name: str, aliases: Sequence[str]) -> bool:
     actual = normalise_company_name(board_name)
-    for alias in aliases:
-        if actual == alias:
-            return True
-        if actual.startswith(alias) and actual[len(alias):] in _SUFFIXES:
-            return True
-    return False
+    return any(
+        actual == alias
+        or actual.startswith(alias) and actual[len(alias):] in _SUFFIXES
+        for alias in aliases
+    )
 
 
 def candidate_tokens(
     parser: CareersLinks, page_url: httpx.URL, company_name: str
 ) -> list[str]:
     candidates = find_greenhouse_board_candidates(parser, page_url)
-    for value in (company_name, page_url.host.split(".")[0]):
+    for value in (company_name, domain_company_name(page_url.host)):
         token = re.sub(r"[^a-z0-9-]", "", value.casefold().replace(" ", "-"))
         if token and token not in candidates:
             candidates.append(token)
