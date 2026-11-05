@@ -18,6 +18,13 @@ class VacancyIngestionOperations:
         inserted = updated = 0
         for job in jobs:
             if not is_south_african_vacancy(job):
+                self._connection.execute(
+                    """
+                    DELETE FROM vacancies
+                    WHERE source_id = %s AND external_job_id = %s
+                    """,
+                    (source_id, str(job["id"])),
+                )
                 continue
             raw = json.dumps(job, sort_keys=True, separators=(",", ":"))
             fingerprint = hashlib.sha256(raw.encode()).hexdigest()
