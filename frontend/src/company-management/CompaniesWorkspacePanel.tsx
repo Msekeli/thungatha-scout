@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { FormEvent } from "react";
 import {
   Dialog,
@@ -13,7 +12,6 @@ import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceCon
 import type { useEmployerOnboardingController } from "../employer-onboarding/useEmployerOnboardingController";
 import { CompanyDirectoryPanel } from "./CompanyDirectoryPanel";
 import { CompanyProfilePanel } from "./CompanyProfilePanel";
-import { useCompanyJobChanges } from "./useCompanyJobChanges";
 
 type Props = {
   state: ReturnType<typeof useScoutAppState>;
@@ -21,6 +19,8 @@ type Props = {
   companies: ReturnType<typeof useCompaniesWorkspaceController>;
   onboarding: ReturnType<typeof useEmployerOnboardingController>;
   onSaveBranding: (event: FormEvent<HTMLFormElement>) => void;
+  currentJobsByEmployer: Record<string, number>;
+  jobChangesByEmployer: Record<string, number>;
 };
 
 export function CompaniesWorkspacePanel({
@@ -29,12 +29,9 @@ export function CompaniesWorkspacePanel({
   companies,
   onboarding,
   onSaveBranding,
+  currentJobsByEmployer,
+  jobChangesByEmployer,
 }: Props) {
-  const { currentJobsByEmployer, jobChangesByEmployer } = useCompanyJobChanges(
-    state.page,
-    jobs.employers,
-    jobs.vacancies,
-  );
   const selectCompany = (employer: Parameters<typeof companies.openCompany>[0]) => {
     void companies.openCompany(employer);
   };
