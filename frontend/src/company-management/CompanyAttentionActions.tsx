@@ -20,21 +20,21 @@ export function CompanyAttentionActions({ employers, sources, onSelectCompany }:
       label: "Awaiting approval",
       count: discovered.length,
       icon: Building2,
-      tone: "text-amber-300",
+      tone: "scout-status--review",
       click: () => discovered[0] && onSelectCompany(discovered[0]),
     },
     {
       label: "Flagged for review",
       count: needsReview.length,
       icon: AlertCircle,
-      tone: "text-rose-300",
+      tone: "scout-status--rejected",
       click: () => needsReview[0] && onSelectCompany(needsReview[0]),
     },
     {
       label: "Sources to verify",
       count: unchecked.length,
       icon: ShieldAlert,
-      tone: "text-cyan-300",
+      tone: "scout-company-eyebrow",
       click: () => sourceEmployer && onSelectCompany(sourceEmployer),
     },
   ];
@@ -47,16 +47,16 @@ export function CompanyAttentionActions({ employers, sources, onSelectCompany }:
           variant="ghost"
           onClick={click}
           disabled={!count}
-          className="h-auto justify-start gap-3 rounded-xl border border-slate-800 bg-slate-900/80 px-4 py-3 text-left shadow-md shadow-black/10 hover:border-slate-600 hover:bg-slate-800"
+          className="scout-company-summary h-auto"
         >
           <span
-            className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/5 ${tone}`}
+            className={`scout-company-summary__icon ${tone}`}
           >
             <Icon className="h-4 w-4" />
           </span>
           <span className="min-w-0">
-            <strong className={`block text-lg font-bold leading-5 ${tone}`}>{count}</strong>
-            <span className="text-xs text-slate-400">{label}</span>
+            <strong className={`scout-company-summary__count ${tone}`}>{count}</strong>
+            <span className="scout-company-summary__label">{label}</span>
           </span>
         </Button>
       ))}
