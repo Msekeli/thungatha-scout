@@ -62,7 +62,6 @@ export function CompaniesWorkspacePanel({
         >
           <DialogHeader>
             <DialogTitle className="scout-company-heading">Company details</DialogTitle>
-            <DialogDescription className="scout-company-muted"></DialogDescription>
           </DialogHeader>
           <CompanyProfilePanel
             state={state}
