@@ -46,7 +46,7 @@ export function useEmployerRegistration({
     try {
       const employer = await scoutApi.createEmployer({
         ...form,
-        website_url: sourceUrl,
+        website_url: form.website_url.trim() || null,
       });
       const source = await scoutApi.createSource(employer.id, {
         adapter_key: discovery.detected_adapter,
