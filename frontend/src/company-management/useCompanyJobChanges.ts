@@ -37,7 +37,7 @@ export function useCompanyJobChanges(page: string, employers: Employer[], vacanc
     wasInCompanyArea.current = inCompanyArea;
   }, [inCompanyArea]);
 
-  return useMemo(() => {
+  const changes = useMemo(() => {
     if (!previousCounts) return {};
     return Object.fromEntries(
       Object.entries(currentCounts)
@@ -45,4 +45,6 @@ export function useCompanyJobChanges(page: string, employers: Employer[], vacanc
         .filter(([, change]) => change !== 0),
     ) as Snapshot;
   }, [currentCounts, previousCounts]);
+
+  return { currentJobsByEmployer: currentCounts, jobChangesByEmployer: changes };
 }
