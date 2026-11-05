@@ -22,7 +22,7 @@ class VacancyManagementService:
         self,
         employer_id: UUID | None = None,
         review_status: str | None = None,
-        location_scope: str = "cape_town",
+        location_scope: str = "south_africa",
         limit: int = 50,
         offset: int = 0,
     ) -> dict[str, Any]:
