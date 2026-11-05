@@ -17,7 +17,11 @@ def import_employer(
         (item["name"],),
     ).fetchone()
     careers_url = item.get("careers_url")
-    if employer is not None and employer["website_url"] not in (None, careers_url):
+    conflicting_website = (
+        employer is not None
+        and employer["website_url"] not in (None, careers_url)
+    )
+    if conflicting_website:
         raise ValueError(
             f"Employer name already exists with another website: {item['name']}"
         )
@@ -29,7 +33,9 @@ def import_employer(
         location_evidence.append(
             {
                 "claim": "Cape Town presence",
-                "status": item.get("cape_town_presence_status", "pending_verification"),
+                "status": item.get(
+                    "cape_town_presence_status", "pending_verification"
+                ),
             }
         )
     employer = connection.execute(
