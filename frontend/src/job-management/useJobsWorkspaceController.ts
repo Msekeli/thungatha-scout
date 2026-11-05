@@ -15,6 +15,11 @@ export function useJobsWorkspaceController(state: AppState) {
     state.setError,
     state.showArchived,
     dashboard.loadDashboardData,
+    {
+      employerId: state.selectedEmployerId,
+      reviewStatus: state.reviewFilter,
+      locationScope: state.locationScope,
+    },
   );
   const loadWorkspace = useCallback(async () => {
     await workspace.loadWorkspace();
