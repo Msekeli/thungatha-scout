@@ -43,11 +43,7 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
         onEdit={() => setEditing((current) => !current)}
         onDelete={() => void companies.deleteCompany()}
       />
-      <CompanySourcesPanel
-        state={state}
-        companies={companies}
-        onboarding={onboarding}
-      />
+      <CompanySourcesPanel state={state} companies={companies} onboarding={onboarding} />
     </section>
   );
 }
