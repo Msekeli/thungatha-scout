@@ -6,6 +6,9 @@ export type EmployerUpdate = {
   legal_name?: string | null;
   website_url?: string | null;
   organization_type: string;
+  city?: string | null;
+  province?: string | null;
+  country?: string | null;
 };
 
 export const employerApiClient = {
