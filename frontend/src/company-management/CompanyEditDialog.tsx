@@ -68,12 +68,12 @@ export function CompanyEditDialog({ employer, open, saving, onOpenChange, onSave
   };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="scout-company-dialog scout-company-edit-dialog">
         <DialogHeader>
-          <DialogTitle>Edit company</DialogTitle>
-          <DialogDescription>Update the company profile and its official links.</DialogDescription>
+          <DialogTitle className="scout-company-heading">Edit company</DialogTitle>
+          <DialogDescription className="scout-company-dialog-copy">Update the company profile and its official links.</DialogDescription>
         </DialogHeader>
-        <form onSubmit={submit} className="grid gap-4">
+        <form onSubmit={submit} className="scout-company-edit-fields">
           <CompanyEditFields fields={fields} onChange={change} />
           <div className="flex justify-end gap-2 border-t border-border pt-3">
             <Button
