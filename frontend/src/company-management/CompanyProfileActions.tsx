@@ -1,4 +1,4 @@
-import { Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type CompanyStatus = "approved" | "needs_review" | "rejected" | "inactive";
@@ -8,6 +8,7 @@ type CompanyProfileActionsProps = {
   saving: boolean;
   onUpdateStatus: (status: CompanyStatus) => void;
   onDelete: () => void;
+  onEdit: () => void;
 };
 
 export function CompanyProfileActions({
