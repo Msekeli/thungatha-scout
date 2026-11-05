@@ -34,6 +34,9 @@ class EmployerUpdate(BaseModel):
     legal_name: str | None = None
     website_url: HttpUrl | None = None
     organization_type: OrganizationType = "unresolved"
+    city: str | None = None
+    province: str | None = None
+    country: str | None = None
 
 
 class EmployerBrandingUpdate(BaseModel):
