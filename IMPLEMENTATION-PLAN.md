@@ -64,7 +64,7 @@ Employer discovery and source verification continue in parallel with implementat
 | M0        | Repository Audit and Scope Lock                    | Accepted                                                                                                |
 | M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                       |
 | M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                  |
-| M3        | Greenhouse Vertical Slice                          | In progress — registry-backed inspection and live preview slice implemented; local verification pending |
+| M3        | Greenhouse Vertical Slice                          | In progress — registry-backed inspection/live preview and inline Greenhouse board discovery implemented; local verification pending |
 | M4        | Workday Vertical Slice                             | Not started                                                                                             |
 | M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                              |
 | M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                             |
@@ -88,7 +88,7 @@ Checkpoints:
 
 - Registry schemas, loading and validation.
 - Common ATS adapter contract.
-- Greenhouse URL inspection and board configuration extraction from careers-page links, embeds and inline API configuration; do not require an individual job URL or employer-specific code.
+- Greenhouse URL inspection and board configuration extraction from careers-page links, embeds and inline API configuration; do not require an individual job URL or employer-specific code. Persist the pasted careers page as source evidence, separately from the employer homepage URL.
 - Greenhouse vacancy retrieval, complete-board validation, full `content=true` description handling, and normalisation. The public Job Board list endpoint returns all published jobs; validate `meta.total` rather than inventing page-based pagination.
 - Backend API endpoints for source inspection, preview, connection test and retrieval.
 - Admin URL-entry, preview/confirmation and source-management workflow integrated against those endpoints.
