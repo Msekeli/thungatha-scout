@@ -1,5 +1,4 @@
 import type { FormEvent } from "react";
-import type { CareersDiscovery } from "../api";
 import { Button } from "@/components/ui/button";
 import { OnboardingPreviewCard } from "./OnboardingPreviewCard";
 import { OnboardingUrlForm } from "./OnboardingUrlForm";
@@ -18,7 +17,7 @@ type EmployerOnboardingPanelProps = {
   onChangeSourceUrl: (value: string) => void;
   atsKey: string;
   onChangeAtsKey: (value: string) => void;
-  discovery: CareersDiscovery | null;
+  discovery: import("../api").CareersDiscovery | null;
   onDiscover: () => void;
   inspecting: boolean;
   form: EmployerRegistrationDraft;
@@ -45,7 +44,7 @@ export function EmployerOnboardingPanel({
   return (
     <>
       <p className="mb-3 text-xs text-white/75">
-        Register a company and connect its official careers source.
+        Add an employer using its official careers page.
       </p>
       <section className="w-full max-w-2xl rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
         <form className="grid gap-4" onSubmit={onSubmit}>
@@ -65,14 +64,8 @@ export function EmployerOnboardingPanel({
               Cancel
             </Button>
             {discovery && (
-              <Button
-                type="submit"
-                size="sm"
-                disabled={
-                  saving || !discovery.complete || !["success", "empty"].includes(discovery.outcome)
-                }
-              >
-                {saving ? "Registering and retrieving…" : "Confirm & register"}
+              <Button type="submit" size="sm" disabled={saving || inspecting}>
+                {saving ? "Adding company…" : "Add Company"}
               </Button>
             )}
           </div>
