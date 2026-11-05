@@ -43,13 +43,6 @@ export function JobsWorkspacePanel({ jobs, state, vacancyChange }: Props) {
       <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
         <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
           <VacancyRecordsToolbar
-            showArchived={state.showArchived}
-            onShowArchivedChange={(show) => {
-              state.setShowArchived(show);
-              jobs.clearSelection();
-            }}
-            reviewFilter={state.reviewFilter}
-            onReviewFilterChange={state.setReviewFilter}
             selectedEmployerId={state.selectedEmployerId}
             onEmployerChange={state.setSelectedEmployerId}
             employers={jobs.employers}
