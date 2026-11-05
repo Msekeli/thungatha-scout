@@ -8,7 +8,7 @@ HOSTS = {
     "job-boards.greenhouse.io",
     "job-boards.eu.greenhouse.io",
 }
-API_BOARD = re.compile(r"boards-api\.greenhouse\.io/v1/boards/([\w-]+)")
+API_BOARD = re.compile(r"boards-api\\.greenhouse\\.io/v1/boards/([\\w-]+)")
 
 
 class CareersLinks(HTMLParser):
@@ -40,22 +40,30 @@ class CareersLinks(HTMLParser):
             self.script_text += data
 
 
-def find_greenhouse_board_reference(
+def _board_token(link: httpx.URL) -> str | None:
+    parts = [part for part in link.path.split("/") if part]
+    if link.path.startswith("/embed/"):
+        return link.params.get("for")
+    return parts[0] if parts and parts[0] != "jobs" else None
+
+
+def find_greenhouse_board_candidates(
     parser: CareersLinks, page_url: httpx.URL
-) -> tuple[str, str] | None:
+) -> list[str]:
+    candidates: list[str] = []
+    if page_url.host in HOSTS:
+        token = _board_token(page_url)
+        if token:
+            candidates.append(token)
     for href in parser.links:
         link = page_url.join(href)
         if link.host not in HOSTS:
             continue
-        parts = [part for part in link.path.split("/") if part]
-        token = parts[0] if parts else ""
-        if token == "jobs" and len(parts) > 1:
-            token = parts[1]
-        if token:
-            board = link.copy_with(path=f"/{token}", query="", fragment="")
-            return token, str(board)
-    match = API_BOARD.search(parser.script_text.replace("\\/", "/"))
-    if match:
-        token = match.group(1)
-        return token, f"https://job-boards.greenhouse.io/{token}"
-    return None
+        token = _board_token(link)
+        if token and token not in candidates:
+            candidates.append(token)
+    scripts = parser.script_text.replace("\\\\/", "/")
+    for match in API_BOARD.finditer(scripts):
+        if match.group(1) not in candidates:
+            candidates.append(match.group(1))
+    return candidates
