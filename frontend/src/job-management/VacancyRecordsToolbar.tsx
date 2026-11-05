@@ -41,6 +41,18 @@ export function VacancyRecordsToolbar({
       <h3 className="mr-auto text-sm font-bold text-primary">
         {showArchived ? "Archived vacancies" : "Vacancy records"}
       </h3>
+      <Select value={locationScope} onValueChange={onLocationScopeChange}>
+        <SelectTrigger
+          aria-label="Filter vacancies by location"
+          className="h-8 w-[135px] border-input bg-background text-xs text-foreground"
+        >
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="cape_town">Cape Town</SelectItem>
+          <SelectItem value="all">All locations</SelectItem>
+        </SelectContent>
+      </Select>
       <Select
         value={showArchived ? "archived" : "active"}
         onValueChange={(value) => onShowArchivedChange(value === "archived")}
