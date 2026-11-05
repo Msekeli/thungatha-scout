@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { scoutApi } from "../api";
 import { useScoutWorkspace } from "../useScoutWorkspace";
 import { useScoutDashboardData } from "../useScoutDashboardData";
@@ -11,15 +11,16 @@ type AppState = ReturnType<typeof useScoutAppState>;
 
 export function useJobsWorkspaceController(state: AppState) {
   const dashboard = useScoutDashboardData(state.setError);
+  const vacancyFilters = useMemo(() => ({
+    employerId: state.selectedEmployerId,
+    reviewStatus: state.reviewFilter,
+    locationScope: state.locationScope,
+  }), [state.selectedEmployerId, state.reviewFilter, state.locationScope]);
   const workspace = useScoutWorkspace(
     state.setError,
     state.showArchived,
     dashboard.loadDashboardData,
-    {
-      employerId: state.selectedEmployerId,
-      reviewStatus: state.reviewFilter,
-      locationScope: state.locationScope,
-    },
+    vacancyFilters,
   );
   const loadWorkspace = useCallback(async () => {
     await workspace.loadWorkspace();
