@@ -27,13 +27,15 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     },
   });
 
-  const updateDetectedCompany = (name: string) =>
+  const setCompanyName = (name: string) =>
+    state.setForm((current) => ({ ...current, name }));
+  const fillDetectedCompany = (name: string) =>
     state.setForm((current) => ({
       ...current,
       name: current.name || name,
     }));
   const discover = () =>
-    void discovery.discover(state.sourceUrl, state.form.name, updateDetectedCompany);
+    void discovery.discover(state.sourceUrl, state.form.name, fillDetectedCompany);
   const submit = (event: FormEvent<HTMLFormElement>) => {
     if (discovery.discovery) {
       void registration.register(event);
@@ -43,5 +45,11 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     discover();
   };
 
-  return { ...discovery, register: registration.register, discover, submit, updateDetectedCompany };
+  return {
+    ...discovery,
+    register: registration.register,
+    discover,
+    submit,
+    updateDetectedCompany: setCompanyName,
+  };
 }
