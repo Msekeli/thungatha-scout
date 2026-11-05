@@ -18,7 +18,7 @@ export function CompanyProfileActions({ currentStatus, saving, onUpdateStatus, o
       <Button type="button" size="sm" variant="destructive" className="ml-auto" disabled={saving} onClick={() => setDeleteOpen(true)}><Trash2 className="mr-1.5 h-3.5 w-3.5" />Delete</Button>
       <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
         <DialogContent className="max-w-md">
-          <DialogHeader><DialogTitle>Permanently delete company?</DialogTitle><DialogDescription>This action cannot be undone. The company, its registered sources and collected vacancies are intended to be removed together.</DialogDescription></DialogHeader>
+          <DialogHeader><DialogTitle>Permanently delete company?</DialogTitle><DialogDescription>This action cannot be undone. Companies with linked sources or vacancies are currently protected by the backend and cannot yet be deleted.</DialogDescription></DialogHeader>
           <div className="flex justify-end gap-2 pt-3">
             <Button type="button" variant="outline" onClick={() => setDeleteOpen(false)} disabled={saving}>Cancel</Button>
             <Button type="button" variant="destructive" disabled={saving} onClick={() => { onDelete(); setDeleteOpen(false); }}>{saving ? "Deleting…" : "Delete permanently"}</Button>
