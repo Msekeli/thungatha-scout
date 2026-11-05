@@ -65,6 +65,16 @@
   .scout-company-link:hover {
     color: var(--scout-link-hover);
   }
+  .scout-vacancy-change--positive {
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+  }
+  .scout-vacancy-change--negative {
+    color: #fbbf24;
+    background: rgba(245, 158, 11, 0.14);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+  }
   .scout-company-link__url {
     @apply truncate;
     color: hsl(var(--muted-foreground));
