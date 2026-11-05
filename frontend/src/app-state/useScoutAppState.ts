@@ -18,6 +18,7 @@ export function useScoutAppState() {
   const [companyQuery, setCompanyQuery] = useState("");
   const [companySourceFilter, setCompanySourceFilter] = useState("all");
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
+  const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
   const [sources, setSources] = useState<EmployerSource[]>([]);
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
@@ -46,6 +47,8 @@ export function useScoutAppState() {
     setCompanySourceFilter,
     selectedEmployerId,
     setSelectedEmployerId,
+    selectedCompanyId,
+    setSelectedCompanyId,
     sources,
     setSources,
     form,
