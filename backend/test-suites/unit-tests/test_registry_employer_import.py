@@ -62,4 +62,5 @@ def test_existing_employer_without_website_gets_registry_careers_url() -> None:
     )
 
     assert result["employers_created"] == 0
+    assert result["employers_updated"] == 1
     assert connection.employers[0]["website_url"] == "https://example.com/careers"
