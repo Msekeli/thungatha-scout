@@ -4,12 +4,8 @@ import httpx
 import pytest
 
 from scout.career_site_html_parser import CareersLinks, find_greenhouse_board_candidates
-from scout.greenhouse_board_resolver import (
-    board_name_matches,
-    candidate_tokens,
-    company_aliases,
-    resolve_greenhouse_board,
-)
+from scout.employer_name_matching import board_name_matches, company_aliases
+from scout.greenhouse_board_resolver import candidate_tokens, resolve_greenhouse_board
 
 
 def test_parser_collects_board_link_and_inline_api_candidates() -> None:
