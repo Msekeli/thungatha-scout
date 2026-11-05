@@ -1,3 +1,5 @@
+import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+
 type Props = {
   vacancyCount: number;
   vacancyChange: number;
@@ -24,8 +26,8 @@ export function DashboardOverview({ vacancyCount, vacancyChange }: Props) {
               : Math.abs(vacancyChange) + " fewer vacancies since last visit"
           }
         >
-          {vacancyChange > 0 ? "+" : ""}
-          {vacancyChange}
+          {vacancyChange > 0 ? <ArrowUpRight className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}
+          {vacancyChange > 0 ? "+" : ""}{vacancyChange}
         </span>
       )}
     </div>
