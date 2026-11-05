@@ -44,7 +44,7 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
           placeholder="https://job-boards.greenhouse.io/company"
-          className="border-slate-700 bg-slate-950 scout-company-heading placeholder:text-slate-500"
+          className="scout-company-field"
           required
         />
       </label>
