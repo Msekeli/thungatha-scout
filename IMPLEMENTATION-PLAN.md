@@ -64,7 +64,7 @@ Employer discovery and source verification continue in parallel with implementat
 | M0        | Repository Audit and Scope Lock                    | Accepted                                                                                                                            |
 | M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                                                   |
 | M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                                              |
-| M3        | Greenhouse Vertical Slice                          | In progress — registry-backed inspection/live preview and inline Greenhouse board discovery implemented; local verification pending |
+| M3        | Greenhouse Vertical Slice                          | In progress — generic board-candidate resolution with Greenhouse metadata validation and detection-only onboarding implemented; local verification pending |
 | M4        | Workday Vertical Slice                             | Not started                                                                                                                         |
 | M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                                                          |
 | M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                         |
