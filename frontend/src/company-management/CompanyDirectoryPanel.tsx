@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import type { Employer, EmployerSource } from "../api";
+import type { Employer, EmployerSource, ExtractionRun } from "../api";
 import { CompanyDirectoryList } from "./CompanyDirectoryList";
 import { CompanyDirectoryToolbar } from "./CompanyDirectoryToolbar";
 
@@ -8,9 +8,10 @@ type Props = {
   sources: EmployerSource[];
   selectedEmployerId: string;
   searchQuery: string;
-  statusFilter: string;
+  sourceFilter: string;
+  extractionRuns: Record<string, ExtractionRun[]>;
   onSearchChange: (value: string) => void;
-  onStatusFilterChange: (value: string) => void;
+  onSourceFilterChange: (value: string) => void;
   onSelectEmployer: (employer: Employer) => void;
   onAddCompany: () => void;
 };
@@ -19,16 +20,19 @@ export const CompanyDirectoryPanel: FC<Props> = (props) => {
   const visible = props.employers.filter(
     (item) =>
       item.name.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
-      (props.statusFilter === "all" || item.status === props.statusFilter),
+      (props.sourceFilter === "all" ||
+        props.sources.some(
+          (source) => source.employer_id === item.id && source.adapter_key === props.sourceFilter,
+        )),
   );
   return (
     <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden scout-company-directory">
       <CompanyDirectoryToolbar
         count={props.employers.length}
         searchQuery={props.searchQuery}
-        statusFilter={props.statusFilter}
+        sourceFilter={props.sourceFilter}
         onSearchChange={props.onSearchChange}
-        onStatusFilterChange={props.onStatusFilterChange}
+        onSourceFilterChange={props.onSourceFilterChange}
         onAddCompany={props.onAddCompany}
       />
       <div className="mb-3 flex items-center justify-between text-xs scout-company-muted">
@@ -42,6 +46,7 @@ export const CompanyDirectoryPanel: FC<Props> = (props) => {
         <CompanyDirectoryList
           employers={visible}
           sources={props.sources}
+          extractionRuns={props.extractionRuns}
           selectedEmployerId={props.selectedEmployerId}
           onSelectEmployer={props.onSelectEmployer}
           emptyMessage={
