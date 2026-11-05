@@ -13,6 +13,7 @@ from scout.application.employer_contracts import (
     EmployerBrandingUpdate,
     EmployerCreate,
 )
+from scout.application.employer_service import EmployerService
 
 router = APIRouter(prefix="/employers", tags=["employers"])
 router.include_router(source_router)
@@ -26,6 +27,13 @@ def list_employers(
     service: EmployerService = Depends(get_employer_service),
 ) -> list[dict[str, Any]]:
     return service.list_employers(limit=limit, offset=offset)
+
+
+@router.get("/sources")
+def list_all_employer_sources(
+    service: EmployerService = Depends(get_employer_service),
+) -> list[dict[str, Any]]:
+    return service.list_all_sources()
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
