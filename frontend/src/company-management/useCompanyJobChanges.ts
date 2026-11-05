@@ -4,7 +4,7 @@ import type { Employer, Vacancy } from "../api";
 const STORAGE_KEY = "thungatha-scout-company-job-snapshot";
 type Snapshot = Record<string, number>;
 
-export function useCompanyJobChanges(page: string, employers: Employer[], vacancies: Vacancy[]) {
+export function useCompanyJobChanges(page: string, employers: Employer[], _vacancies: Vacancy[]) {
   const inCompanyArea = page !== "jobs";
   const currentCounts = useMemo(
     () =>
@@ -12,7 +12,7 @@ export function useCompanyJobChanges(page: string, employers: Employer[], vacanc
         counts[employer.id] = employer.vacancy_count ?? 0;
         return counts;
       }, {}),
-    [employers, vacancies],
+    [employers],
   );
   const currentCountsRef = useRef(currentCounts);
   const [previousCounts, setPreviousCounts] = useState<Snapshot | null>(null);
