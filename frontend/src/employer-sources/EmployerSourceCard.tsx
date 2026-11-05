@@ -29,9 +29,9 @@ export function EmployerSourceCard({
 }: Props) {
   return (
     <div className="space-y-3 border-b border-border py-4">
-      <div className="grid gap-3 rounded-xl border border-slate-700 bg-slate-900 p-3 sm:flex sm:items-center sm:justify-between">
+      <div className="scout-company-source-card">
         <div className="min-w-0 space-y-1">
-          <strong className="text-xs font-semibold capitalize text-white">
+          <strong className="text-xs font-semibold capitalize scout-company-heading">
             {source.adapter_key} source
           </strong>
           {source.employer_careers_url && (
@@ -39,7 +39,7 @@ export function EmployerSourceCard({
               href={source.employer_careers_url}
               target="_blank"
               rel="noreferrer"
-              className="block text-xs text-cyan-300 hover:underline"
+              className="scout-company-link"
             >
               Official careers page · {source.employer_careers_url.replace(/^https?:\/\//, "")}
             </a>
@@ -48,7 +48,7 @@ export function EmployerSourceCard({
             href={source.source_url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1 break-all text-[10px] text-slate-300 underline-offset-2 hover:text-cyan-200 hover:underline"
+            className="scout-company-link break-all text-[10px]"
           >
             {source.source_url}
           </a>
