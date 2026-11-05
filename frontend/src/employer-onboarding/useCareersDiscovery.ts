@@ -4,34 +4,26 @@ import type { CareersDiscovery, GreenhouseInspection } from "../api";
 
 type UseCareersDiscoveryOptions = {
   onError: (message: string) => void;
-  onNotice: (message: string) => void;
 };
 
-export function useCareersDiscovery({ onError, onNotice }: UseCareersDiscoveryOptions) {
-  const [discovery, setDiscovery] = useState<CareersDiscovery | null>(null);
+export function useCareersDiscovery({ onError }: UseCareersDiscoveryOptions) {
   const [inspection, setInspection] = useState<GreenhouseInspection | null>(null);
-  const [atsKey, setAtsKey] = useState("greenhouse");
   const [inspecting, setInspecting] = useState(false);
 
   async function discover(
     sourceUrl: string,
     companyName: string,
     onCompanyNameDetected: (name: string) => void,
-  ) {
+  ): Promise<CareersDiscovery | null> {
     setInspecting(true);
     onError("");
-    onNotice("");
-    setDiscovery(null);
     try {
-      if (atsKey !== "greenhouse") {
-        throw new Error("Workday discovery will be enabled in the Workday vertical slice.");
-      }
       const result = await scoutApi.discoverCareersPage(sourceUrl, companyName);
-      setDiscovery(result);
       onCompanyNameDetected(result.board_name || result.company_name || "");
-      onNotice("Greenhouse board confirmed. Register the company to start extraction.");
+      return result;
     } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not discover the careers source.");
+      onError(reason instanceof Error ? reason.message : "Could not inspect this careers page.");
+      return null;
     } finally {
       setInspecting(false);
     }
@@ -50,15 +42,5 @@ export function useCareersDiscovery({ onError, onNotice }: UseCareersDiscoveryOp
     }
   }
 
-  return {
-    discovery,
-    setDiscovery,
-    inspection,
-    setInspection,
-    atsKey,
-    setAtsKey,
-    inspecting,
-    discover,
-    inspectGreenhouseBoard,
-  };
+  return { inspection, setInspection, inspecting, discover, inspectGreenhouseBoard };
 }
