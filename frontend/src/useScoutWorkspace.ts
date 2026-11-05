@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "./api";
-import type { Employer, EmployerSource, ExtractionRun, Vacancy } from "./api";
+import type { Employer, Vacancy } from "./api";
 
 type UseScoutWorkspaceResult = {
   employers: Employer[];
@@ -10,57 +10,61 @@ type UseScoutWorkspaceResult = {
   setVacancies: Dispatch<SetStateAction<Vacancy[]>>;
   archivedVacancies: Vacancy[];
   setArchivedVacancies: Dispatch<SetStateAction<Vacancy[]>>;
-  dashboardSources: EmployerSource[];
-  setDashboardSources: Dispatch<SetStateAction<EmployerSource[]>>;
-  extractionRuns: Record<string, ExtractionRun[]>;
-  setExtractionRuns: Dispatch<SetStateAction<Record<string, ExtractionRun[]>>>;
   loading: boolean;
   loadWorkspace: () => Promise<void>;
+  loadArchivedVacancies: (force?: boolean) => Promise<void>;
 };
 
-export function useScoutWorkspace(onError: (message: string) => void): UseScoutWorkspaceResult {
+export function useScoutWorkspace(
+  onError: (message: string) => void,
+  showArchived: boolean,
+  loadDashboardData: () => Promise<void>,
+): UseScoutWorkspaceResult {
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [archivedVacancies, setArchivedVacancies] = useState<Vacancy[]>([]);
-  const [dashboardSources, setDashboardSources] = useState<EmployerSource[]>([]);
-  const [extractionRuns, setExtractionRuns] = useState<Record<string, ExtractionRun[]>>({});
   const [loading, setLoading] = useState(true);
+  const [archivedLoading, setArchivedLoading] = useState(false);
+  const [archivedLoaded, setArchivedLoaded] = useState(false);
+
+  const loadArchivedVacancies = useCallback(async (force = false) => {
+    if (archivedLoaded && !force) return;
+    setArchivedLoading(true);
+    try {
+      setArchivedVacancies(await scoutApi.listArchivedVacancies());
+      setArchivedLoaded(true);
+    } catch (reason) {
+      onError(reason instanceof Error ? reason.message : "Could not load archived vacancies.");
+    } finally {
+      setArchivedLoading(false);
+    }
+  }, [archivedLoaded, onError]);
 
   const loadWorkspace = useCallback(async () => {
     setLoading(true);
     onError("");
     try {
-      const [nextEmployers, nextVacancies, nextArchived] = await Promise.all([
+      const [nextEmployers, nextVacancies] = await Promise.all([
         scoutApi.listEmployers(),
         scoutApi.listVacancies(),
-        scoutApi.listArchivedVacancies(),
       ]);
       setEmployers(nextEmployers);
       setVacancies(nextVacancies);
-      setArchivedVacancies(nextArchived);
-
-      const sourceGroups = await Promise.all(
-        nextEmployers.map((employer) => scoutApi.listSources(employer.id)),
-      );
-      const allSources = sourceGroups.flat();
-      setDashboardSources(allSources);
-
-      const runEntries = await Promise.all(
-        allSources.map(
-          async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
-        ),
-      );
-      setExtractionRuns(Object.fromEntries(runEntries));
+      void loadDashboardData();
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not load Scout data.");
     } finally {
       setLoading(false);
     }
-  }, [onError]);
+  }, [onError, loadDashboardData]);
 
   useEffect(() => {
     void loadWorkspace();
   }, [loadWorkspace]);
+
+  useEffect(() => {
+    if (showArchived) void loadArchivedVacancies();
+  }, [showArchived, loadArchivedVacancies]);
 
   return {
     employers,
@@ -69,11 +73,8 @@ export function useScoutWorkspace(onError: (message: string) => void): UseScoutW
     setVacancies,
     archivedVacancies,
     setArchivedVacancies,
-    dashboardSources,
-    setDashboardSources,
-    extractionRuns,
-    setExtractionRuns,
-    loading,
+    loading: loading || (showArchived && archivedLoading),
     loadWorkspace,
+    loadArchivedVacancies,
   };
 }
