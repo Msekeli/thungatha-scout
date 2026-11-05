@@ -14,7 +14,7 @@ export function useScoutAppState() {
   const [page, setPage] = useState<ScoutPage>("jobs");
   const [showArchived, setShowArchived] = useState(false);
   const [reviewFilter, setReviewFilter] = useState("all");
-  const [locationScope, setLocationScope] = useState<VacancyLocationScope>("cape_town");
+  const [locationScope, setLocationScope] = useState<VacancyLocationScope>("south_africa");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
   const [companyQuery, setCompanyQuery] = useState("");
