@@ -45,7 +45,6 @@ export default function App() {
           onChangeSourceUrl={(value) => {
             state.setSourceUrl(value);
             onboarding.setDiscovery(null);
-            state.setForm((current) => ({ ...current, website_url: value }));
           }}
           atsKey={onboarding.atsKey}
           onChangeAtsKey={(value) => {
