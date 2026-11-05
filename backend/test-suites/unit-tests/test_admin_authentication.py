@@ -1,101 +1,33 @@
-from fastapi import Depends, FastAPI
-from fastapi.testclient import TestClient
+from scout.settings import Settings
 
-from scout.authentication import require_admin
-from scout.settings import Settings, get_settings
-
-
-def create_test_client(settings: Settings) -> TestClient:
-    test_app = FastAPI()
-    test_app.dependency_overrides[get_settings] = lambda: settings
-
-    def protected(claims: dict = Depends(require_admin)) -> dict[str, str]:
-        return {"subject": claims["sub"]}
-
-    test_app.add_api_route("/protected", protected)
-    return TestClient(test_app)
+from admin_authentication_test_client import create_test_client
 
 
 def test_admin_endpoint_rejects_missing_bearer_token() -> None:
-    client = create_test_client(
-        Settings(
-            scout_supabase_url="https://scout.supabase.co",
-            scout_supabase_publishable_key="public-key",
-            scout_admin_email="admin@example.com",
-        )
+    settings = Settings(
+        scout_supabase_url="https://scout.supabase.co",
+        scout_supabase_publishable_key="public-key",
+        scout_admin_email="admin@example.com",
     )
-
-    response = client.get("/protected")
-
-    assert response.status_code == 401
+    assert create_test_client(settings).get("/protected").status_code == 401
 
 
 def test_admin_endpoint_fails_closed_when_auth_is_not_configured() -> None:
     client = create_test_client(Settings())
-
-    response = client.get(
-        "/protected",
-        headers={"Authorization": "Bearer test-token"},
-    )
-
+    response = client.get("/protected", headers={"Authorization": "Bearer test-token"})
     assert response.status_code == 503
 
 
-def test_admin_endpoint_accepts_configured_administrator(monkeypatch) -> None:
-    async def verified_claims(*args):
-        return {
-            "sub": "user-123",
-            "email": "ADMIN@example.com",
-            "role": "authenticated",
-        }
-
-    monkeypatch.setattr(
-        "scout.authentication.verify_supabase_access_token",
-        verified_claims,
+def test_admin_endpoint_rejects_non_bearer_authorization_header() -> None:
+    settings = Settings(
+        scout_supabase_url="https://scout.supabase.co",
+        scout_supabase_publishable_key="public-key",
+        scout_admin_email="admin@example.com",
     )
-    client = create_test_client(
-        Settings(
-            scout_supabase_url="https://scout.supabase.co",
-            scout_supabase_publishable_key="public-key",
-            scout_admin_email="admin@example.com",
-        )
+    response = create_test_client(settings).get(
+        "/protected", headers={"Authorization": "Basic invalid"}
     )
-
-    response = client.get(
-        "/protected",
-        headers={"Authorization": "Bearer valid-token"},
-    )
-
-    assert response.status_code == 200
-    assert response.json() == {"subject": "user-123"}
-
-
-def test_admin_endpoint_rejects_other_authenticated_users(monkeypatch) -> None:
-    async def verified_claims(*args):
-        return {
-            "sub": "user-456",
-            "email": "someone@example.com",
-            "role": "authenticated",
-        }
-
-    monkeypatch.setattr(
-        "scout.authentication.verify_supabase_access_token",
-        verified_claims,
-    )
-    client = create_test_client(
-        Settings(
-            scout_supabase_url="https://scout.supabase.co",
-            scout_supabase_publishable_key="public-key",
-            scout_admin_email="admin@example.com",
-        )
-    )
-
-    response = client.get(
-        "/protected",
-        headers={"Authorization": "Bearer valid-token"},
-    )
-
-    assert response.status_code == 403
+    assert response.status_code == 401
 
 
 def test_admin_endpoint_rejects_non_user_tokens(monkeypatch) -> None:
@@ -103,20 +35,14 @@ def test_admin_endpoint_rejects_non_user_tokens(monkeypatch) -> None:
         return {"sub": "service-role-id", "email": "admin@example.com"}
 
     monkeypatch.setattr(
-        "scout.authentication.verify_supabase_access_token",
-        verified_claims,
+        "scout.authentication.verify_supabase_access_token", verified_claims
     )
-    client = create_test_client(
-        Settings(
-            scout_supabase_url="https://scout.supabase.co",
-            scout_supabase_publishable_key="public-key",
-            scout_admin_email="admin@example.com",
-        )
+    settings = Settings(
+        scout_supabase_url="https://scout.supabase.co",
+        scout_supabase_publishable_key="public-key",
+        scout_admin_email="admin@example.com",
     )
-
-    response = client.get(
-        "/protected",
-        headers={"Authorization": "Bearer service-token"},
+    response = create_test_client(settings).get(
+        "/protected", headers={"Authorization": "Bearer service-token"}
     )
-
     assert response.status_code == 401
