@@ -9,9 +9,7 @@ export function useCompanyJobChanges(page: string, employers: Employer[], vacanc
   const currentCounts = useMemo(
     () =>
       employers.reduce<Snapshot>((counts, employer) => {
-        counts[employer.id] = vacancies.filter(
-          (vacancy) => vacancy.employer_id === employer.id,
-        ).length;
+        counts[employer.id] = employer.vacancy_count ?? 0;
         return counts;
       }, {}),
     [employers, vacancies],
