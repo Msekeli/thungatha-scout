@@ -32,7 +32,9 @@
   }
   .scout-vacancy-card[data-selected="true"] {
     border-color: var(--scout-accent);
-    box-shadow: 0 0 0 1px var(--scout-accent), var(--scout-shadow);
+    box-shadow:
+      0 0 0 1px var(--scout-accent),
+      var(--scout-shadow);
   }
   .scout-vacancy-card__accent {
     @apply block h-[3px] w-full shrink-0;
