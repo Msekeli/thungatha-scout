@@ -36,7 +36,7 @@ export function OnboardingUrlForm({
           value={companyName}
           onChange={(event) => onChangeCompanyName(event.target.value)}
           placeholder="Enter company name"
-          className="h-11 border-slate-700 bg-slate-950 text-white placeholder:text-slate-400"
+          className="scout-company-field h-11"
         />
         <span className="scout-company-form-help">
           Leave blank to use the employer name detected from its careers source.
