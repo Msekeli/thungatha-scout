@@ -25,9 +25,7 @@ export function CompanyDirectoryToolbar(props: Props) {
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] scout-company-eyebrow">
             Employer directory
           </p>
-          <h3 className="mt-1 text-lg font-bold scout-company-heading">
-            Companies
-          </h3>
+          <h3 className="mt-1 text-lg font-bold scout-company-heading">Companies</h3>
           <p className="mt-1 text-xs scout-company-description">
             Manage employers and the recruitment sources they publish through.
           </p>

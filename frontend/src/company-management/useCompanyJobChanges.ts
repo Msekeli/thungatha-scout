@@ -4,11 +4,7 @@ import type { Employer, Vacancy } from "../api";
 const STORAGE_KEY = "thungatha-scout-company-job-snapshot";
 type Snapshot = Record<string, number>;
 
-export function useCompanyJobChanges(
-  page: string,
-  employers: Employer[],
-  vacancies: Vacancy[],
-) {
+export function useCompanyJobChanges(page: string, employers: Employer[], vacancies: Vacancy[]) {
   const inCompanyArea = page !== "jobs";
   const currentCounts = useMemo(
     () =>
@@ -35,10 +31,7 @@ export function useCompanyJobChanges(
         setPreviousCounts({});
       }
     } else if (!inCompanyArea && wasInCompanyArea.current) {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(currentCountsRef.current),
-      );
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(currentCountsRef.current));
       setPreviousCounts(null);
     }
     wasInCompanyArea.current = inCompanyArea;

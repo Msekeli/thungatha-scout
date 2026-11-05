@@ -27,11 +27,13 @@ export function CompanyDirectoryCard({
         <span
           className={
             "absolute right-4 top-5 inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold " +
-            (jobChange > 0
-              ? "scout-vacancy-change--positive"
-              : "scout-vacancy-change--negative")
+            (jobChange > 0 ? "scout-vacancy-change--positive" : "scout-vacancy-change--negative")
           }
-          aria-label={jobChange > 0 ? `${jobChange} more jobs since last visit` : `${Math.abs(jobChange)} fewer jobs since last visit`}
+          aria-label={
+            jobChange > 0
+              ? `${jobChange} more jobs since last visit`
+              : `${Math.abs(jobChange)} fewer jobs since last visit`
+          }
         >
           {jobChange > 0 ? (
             <ArrowUpRight className="h-3.5 w-3.5" />
