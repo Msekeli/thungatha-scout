@@ -1,4 +1,4 @@
-import { AlertCircle, BadgeCheck, Building2, ShieldAlert } from "lucide-react";
+import { AlertCircle, Building2, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource } from "../api";
 
