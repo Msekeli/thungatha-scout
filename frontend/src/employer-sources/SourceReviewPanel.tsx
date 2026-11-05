@@ -35,10 +35,10 @@ const permissionOptions = ["unknown", "allowed", "restricted", "needs_review"].m
 
 export function SourceReviewPanel({ source, decision, saving, onChange, onSave }: Props) {
   return (
-    <div className="grid gap-3 rounded-lg border border-slate-700 bg-slate-900 p-4">
+    <div className="scout-company-form-section">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <strong className="text-xs font-semibold text-white">Verification & permission</strong>
-        <span className="text-[10px] text-slate-400">
+        <strong className="text-xs font-semibold scout-company-heading">Verification & permission</strong>
+        <span className="text-[10px] scout-company-muted">
           Company approval does not approve this source
         </span>
       </div>
@@ -56,20 +56,20 @@ export function SourceReviewPanel({ source, decision, saving, onChange, onSave }
           options={permissionOptions}
         />
       </div>
-      <label className="grid gap-1 text-xs font-medium text-slate-400">
+      <label className="grid gap-1 text-xs font-medium scout-company-muted">
         Evidence URL
         <Input
           type="url"
-          className="border-slate-700 bg-slate-950 text-white placeholder:text-slate-500"
+          className="border-slate-700 bg-slate-950 scout-company-heading placeholder:text-slate-500"
           value={decision?.evidence_url ?? ""}
           onChange={(event) => onChange("evidence_url", event.target.value)}
           placeholder="Official employer page confirming this ATS relationship"
         />
       </label>
-      <label className="grid gap-1 text-xs font-medium text-slate-400">
+      <label className="grid gap-1 text-xs font-medium scout-company-muted">
         Decision notes
         <Textarea
-          className="border-slate-700 bg-slate-950 text-white placeholder:text-slate-500"
+          className="border-slate-700 bg-slate-950 scout-company-heading placeholder:text-slate-500"
           value={decision?.reason ?? ""}
           onChange={(event) => onChange("reason", event.target.value)}
           placeholder="Why this source status and permission were chosen"
