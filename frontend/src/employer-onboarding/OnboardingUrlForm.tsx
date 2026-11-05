@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/select";
 
 type OnboardingUrlFormProps = {
+  companyName: string;
+  onChangeCompanyName: (name: string) => void;
   sourceUrl: string;
   onChangeSourceUrl: (url: string) => void;
   atsKey: string;
@@ -18,6 +20,8 @@ type OnboardingUrlFormProps = {
 };
 
 export function OnboardingUrlForm({
+  companyName,
+  onChangeCompanyName,
   sourceUrl,
   onChangeSourceUrl,
   atsKey,
@@ -27,6 +31,16 @@ export function OnboardingUrlForm({
 }: OnboardingUrlFormProps) {
   return (
     <div className="grid gap-3">
+      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
+        Company name
+        <Input
+          value={companyName}
+          onChange={(event) => onChangeCompanyName(event.target.value)}
+          placeholder="e.g. Takealot Group"
+          required
+        />
+      </label>
+
       <label className="grid gap-1 text-xs font-medium text-muted-foreground">
         Careers / jobs listing URL
         <Input
