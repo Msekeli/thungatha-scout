@@ -11,7 +11,6 @@ import type { useScoutAppState } from "../app-state/useScoutAppState";
 import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
 import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceController";
 import type { useEmployerOnboardingController } from "../employer-onboarding/useEmployerOnboardingController";
-import { CompanyAttentionActions } from "./CompanyAttentionActions";
 import { CompanyDirectoryPanel } from "./CompanyDirectoryPanel";
 import { CompanyProfilePanel } from "./CompanyProfilePanel";
 
@@ -37,19 +36,14 @@ export function CompaniesWorkspacePanel({
   };
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden pt-4">
-      <CompanyAttentionActions
-        employers={jobs.employers}
-        sources={jobs.dashboardSources}
-        onSelectCompany={selectCompany}
-      />
       <CompanyDirectoryPanel
         employers={jobs.employers}
         sources={jobs.dashboardSources}
         selectedEmployerId={state.selectedEmployerId}
         searchQuery={state.companyQuery}
-        statusFilter={state.companyStatusFilter}
+        sourceFilter={state.companySourceFilter}
         onSearchChange={state.setCompanyQuery}
-        onStatusFilterChange={state.setCompanyStatusFilter}
+        onSourceFilterChange={state.setCompanySourceFilter}
         onSelectEmployer={selectCompany}
         onAddCompany={() => {
           state.setError("");
