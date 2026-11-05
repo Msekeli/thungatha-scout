@@ -1,4 +1,3 @@
-import type { FormEvent } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,7 +17,6 @@ type Props = {
   jobs: ReturnType<typeof useJobsWorkspaceController>;
   companies: ReturnType<typeof useCompaniesWorkspaceController>;
   onboarding: ReturnType<typeof useEmployerOnboardingController>;
-  onSaveBranding: (event: FormEvent<HTMLFormElement>) => void;
   currentJobsByEmployer: Record<string, number>;
   jobChangesByEmployer: Record<string, number>;
 };
@@ -28,7 +26,6 @@ export function CompaniesWorkspacePanel({
   jobs,
   companies,
   onboarding,
-  onSaveBranding,
   currentJobsByEmployer,
   jobChangesByEmployer,
 }: Props) {
@@ -67,7 +64,6 @@ export function CompaniesWorkspacePanel({
           <DialogHeader>
             <DialogTitle className="scout-company-heading">Company details</DialogTitle>
             <DialogDescription className="scout-company-muted">
-              Manage company details, current jobs and recruitment sources.
             </DialogDescription>
           </DialogHeader>
           <CompanyProfilePanel
@@ -75,7 +71,6 @@ export function CompaniesWorkspacePanel({
             jobs={jobs}
             companies={companies}
             onboarding={onboarding}
-            onSaveBranding={onSaveBranding}
           />
         </DialogContent>
       </Dialog>
