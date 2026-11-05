@@ -36,11 +36,6 @@ export function CompanyEditFields({ fields, onChange }: Props) {
         value={fields.organization_type}
         onChange={(value) => onChange("organization_type", value)}
       />
-      <div className="grid gap-3 sm:grid-cols-3">
-        {field("City", "city")}
-        {field("Province", "province")}
-        {field("Country", "country")}
-      </div>
     </>
   );
 }
