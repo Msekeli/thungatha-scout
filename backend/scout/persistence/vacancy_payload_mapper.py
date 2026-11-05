@@ -52,7 +52,7 @@ def map_greenhouse_job(
         "application_url": job["absolute_url"],
         "published_at": job.get("first_published"),
         "source_updated_at": job.get("updated_at"),
-        "raw_payload": Jsonb(dict(job)),
+        "raw_payload": Jsonb({\n            key: job[key]\n            for key in ("location", "departments", "offices")\n            if key in job\n        }),
         "fingerprint": fingerprint,
         "review_status": "needs_verification" if requires_verification else "pending",
         "review_reason": review_reason,
