@@ -1,7 +1,7 @@
 # Thungatha Scout — Implementation Plan
 
 **Status:** Active delivery roadmap  
-**Updated:** 4 November 2026  
+**Updated:** 5 November 2026  
 **Branch:** `dev`
 
 ## 1. Authority
@@ -88,7 +88,7 @@ Checkpoints:
 
 - Registry schemas, loading and validation.
 - Common ATS adapter contract.
-- Greenhouse URL inspection and board configuration extraction.
+- Greenhouse URL inspection and board configuration extraction from careers-page links, embeds and inline API configuration; do not require an individual job URL or employer-specific code.
 - Greenhouse vacancy retrieval, complete-board validation, full `content=true` description handling, and normalisation. The public Job Board list endpoint returns all published jobs; validate `meta.total` rather than inventing page-based pagination.
 - Backend API endpoints for source inspection, preview, connection test and retrieval.
 - Admin URL-entry, preview/confirmation and source-management workflow integrated against those endpoints.
