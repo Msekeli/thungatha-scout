@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import type { Employer } from "../api";
+import type { VacancyLocationScope } from "../shared-contracts/vacancy-contracts";
 import {
   Select,
   SelectContent,
@@ -9,71 +9,57 @@ import {
 } from "@/components/ui/select";
 
 type VacancyRecordsToolbarProps = {
-  showArchived: boolean;
-  onShowArchivedChange: (showArchived: boolean) => void;
-  reviewFilter: string;
-  onReviewFilterChange: (value: string) => void;
   selectedEmployerId: string;
   onEmployerChange: (value: string) => void;
   employers: Employer[];
-  onRefresh: () => void;
-  loading: boolean;
+  locationScope: VacancyLocationScope;
+  onLocationChange: (value: VacancyLocationScope) => void;
+  totalVacancies: number;
+  loadedVacancies: number;
 };
 
 export function VacancyRecordsToolbar({
-  showArchived,
-  onShowArchivedChange,
-  reviewFilter,
-  onReviewFilterChange,
   selectedEmployerId,
   onEmployerChange,
   employers,
-  onRefresh,
-  loading,
+  locationScope,
+  onLocationChange,
+  totalVacancies,
+  loadedVacancies,
 }: VacancyRecordsToolbarProps) {
   return (
     <div className="flex flex-wrap items-center gap-2 border-b border-border bg-card p-3">
-      <h3 className="mr-auto text-sm font-bold text-primary">
-        {showArchived ? "Archived vacancies" : "Vacancy records"}
-      </h3>
+      <div className="mr-auto">
+        <h3 className="text-sm font-bold text-primary">Vacancy records</h3>
+        <p className="text-xs text-muted-foreground" aria-live="polite">
+          {totalVacancies.toLocaleString()} matching vacancies · Showing{" "}
+          {loadedVacancies.toLocaleString()}
+        </p>
+      </div>
       <Select
-        value={showArchived ? "archived" : "active"}
-        onValueChange={(value) => onShowArchivedChange(value === "archived")}
+        value={locationScope}
+        onValueChange={(value) => onLocationChange(value as VacancyLocationScope)}
       >
         <SelectTrigger
-          aria-label="Choose active or archived vacancies"
-          className="h-8 w-[125px] border-input bg-background text-xs text-foreground"
-        >
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="active">Active records</SelectItem>
-          <SelectItem value="archived">Archived</SelectItem>
-        </SelectContent>
-      </Select>
-      <Select value={reviewFilter} onValueChange={onReviewFilterChange}>
-        <SelectTrigger
-          aria-label="Filter vacancies by review state"
+          aria-label="Filter vacancies by location"
           className="h-8 w-[145px] border-input bg-background text-xs text-foreground"
         >
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All review states</SelectItem>
-          <SelectItem value="pending">Pending</SelectItem>
-          <SelectItem value="needs_verification">Needs verification</SelectItem>
-          <SelectItem value="verified">Verified</SelectItem>
-          <SelectItem value="rejected">Rejected</SelectItem>
+          <SelectItem value="cape_town">Cape Town</SelectItem>
+          <SelectItem value="western_cape">Western Cape</SelectItem>
+          <SelectItem value="south_africa">South Africa</SelectItem>
         </SelectContent>
       </Select>
       <Select value={selectedEmployerId} onValueChange={onEmployerChange}>
         <SelectTrigger
           aria-label="Filter vacancies by company"
-          className="h-8 w-[140px] border-input bg-background text-xs text-foreground"
+          className="h-8 w-[160px] border-input bg-background text-xs text-foreground"
         >
           <SelectValue placeholder="All companies" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="max-h-[min(34rem,var(--radix-select-content-available-height))]">
           <SelectItem value="all">All companies</SelectItem>
           {employers.map((employer) => (
             <SelectItem key={employer.id} value={employer.id}>
@@ -82,16 +68,6 @@ export function VacancyRecordsToolbar({
           ))}
         </SelectContent>
       </Select>
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        className="h-8 border-input bg-background text-primary hover:bg-accent hover:text-accent-foreground"
-        onClick={onRefresh}
-        disabled={loading}
-      >
-        Refresh
-      </Button>
     </div>
   );
 }

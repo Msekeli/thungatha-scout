@@ -5,16 +5,35 @@ from uuid import UUID
 from psycopg.connection import Connection
 
 from scout.persistence.database_connection import get_database_connection
-from scout.persistence.employer_source_repository import EmployerSourceRepository
 from scout.persistence.vacancy_repository import VacancyRepository
 
 
 class VacancyManagementService:
     def __init__(
-        self,
-        connection_factory: Callable[[], Connection] | None = None,
+        self, connection_factory: Callable[[], Connection] | None = None
     ) -> None:
         self._connection_factory = connection_factory or get_database_connection
+
+    def get_dashboard_metrics(self) -> dict[str, int]:
+        with self._connection_factory() as connection:
+            return VacancyRepository(connection).get_dashboard_metrics()
+
+    def list_vacancy_page(
+        self,
+        employer_id: UUID | None = None,
+        review_status: str | None = None,
+        location_scope: str = "south_africa",
+        limit: int = 50,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        with self._connection_factory() as connection:
+            return VacancyRepository(connection).list_page(
+                employer_id=employer_id,
+                review_status=review_status,
+                location_scope=location_scope,
+                limit=limit,
+                offset=offset,
+            )
 
     def list_vacancies(
         self, employer_id: UUID | None = None, limit: int = 200, offset: int = 0

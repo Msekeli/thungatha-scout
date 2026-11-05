@@ -15,10 +15,12 @@ Out of scope for the initial release: a public job-search frontend duplicating T
 
 ## Geography and discovery rules
 
-- Initial location scope is **Cape Town only**; do not silently expand to all Western Cape or Stellenbosch.
-- Do not filter discovery by industry, company size, or job title.
-- Companies may be approved even when they currently have zero vacancies.
-- Approval requires evidence of company identity, Cape Town presence, organization type, and an official recruitment page.
+- The product's initial vacancy relevance scope is **Cape Town only**; do not silently expand to all Western Cape or Stellenbosch.
+- Do not use an employer's headquarters, registered address, city, province or country to determine whether its vacancies are relevant. Employer location is not a Companies-directory field or approval requirement.
+- Register employers across industries and sizes when there is a credible basis to expect them to recruit for Cape Town roles, including historical Cape Town vacancy activity. Do not require a currently open Cape Town vacancy at registration time.
+- Do not filter employer discovery by industry, company size, or job title.
+- Company registration and source management are broad; vacancy-location relevance is evaluated per vacancy. Scout admin provides three vacancy location views: Cape Town, Western Cape and South Africa. Backend matching recognizes common location abbreviations and verified Cape Town suburbs; abbreviations are not shown in the UI. These admin filters do not independently change publication eligibility, which remains restricted to the separately configured publication geography.
+- Approval requires evidence of employer identity, organization type, and an official recruitment page/source relationship. Cape Town headquarters or physical presence is not required.
 - A careers page may redirect to an ATS if the relationship to the company is evidenced.
 - ATS board discovery alone does not prove employer identity.
 - Employer discovery uses two complementary channels: broad careers-page discovery and a separately measured ATS-footprint discovery process. ATS discovery improves coverage but does not replace employer-first verification.
@@ -93,13 +95,13 @@ The adapter registry must not contain employer-specific board identifiers or emp
 Keep these claims independent:
 
 1. Employer identity and organization classification.
-2. Employer's Cape Town presence.
+2. Evidence that the employer is a relevant recruitment source for Cape Town roles (for example, a history of Cape Town vacancies); this is not evidence of headquarters or physical presence.
 3. Relationship between the employer's official website/careers page and the external source or ATS board.
 4. Technical retrieval method and adapter capabilities.
 5. Source terms, permission and operational constraints.
 6. Human approval to use/publish the source or resulting records.
 
-Evidence supporting one claim does not automatically verify another. In particular, a verified ATS board mapping does not establish Cape Town presence, source permission, adapter implementation readiness or approval.
+Evidence supporting one claim does not automatically verify another. In particular, a verified ATS board mapping does not establish employer identity, historical Cape Town recruitment relevance, source permission, adapter implementation readiness or approval.
 
 Unknown capabilities and unverified claims must remain explicitly unknown or pending. Do not infer a capability because an endpoint appears plausible or because one request succeeded. The current registry entries are an initial working dataset; their presence does not mean M1 persistence, schema validation, source approval or production readiness is complete.
 
@@ -241,3 +243,27 @@ Approved implementation stack: FastAPI backend; React + TypeScript + Vite + Tail
 - Before release, evaluate the completed application's actual runtime needs, scheduled workload, scraping dependencies, reliability, deployment effort and total cost. Confirm that the chosen provider can run both the HTTP API and unattended processing before committing to it.
 - Frontend and backend hosting are separate concerns. The React admin can be deployed independently; the backend hosting decision must account for API execution and automation.
 - No hosting provider, paid plan, subscription change or deployment is approved by this decision.
+
+## Decision record — permanent company deletion (5 November 2026)
+
+The administrator has explicitly selected permanent company deletion instead of archival for the Companies screen. This supersedes the earlier instruction to archive employers rather than physically delete them.
+
+- The delete action must clearly identify the company and require explicit confirmation.
+- Confirmed deletion removes the employer, its registered sources, extraction-run history and collected vacancies from Scout. Database foreign-key constraints must still be respected; a failed delete must be reported rather than partially completed.
+- A deleted company is not recoverable through the UI. If deleted by mistake, the administrator must register it again and re-verify its official sources.
+- The confirmation must disclose that linked operational history and vacancies are also deleted.
+- This is a deliberate data-retention trade-off: Scout loses the prior extraction and vacancy history for that employer. Do not describe this action as archive or soft delete.
+
+## Decision record — South Africa vacancy persistence boundary (5 November 2026)
+
+The supported vacancy catalogue is South Africa-wide. This supersedes earlier Cape Town-only vacancy relevance and publication statements.
+
+- Employers are managed independently of vacancies. An employer may remain registered and visible with zero currently qualifying South African vacancies.
+- A vacancy is persisted only when its location evidence identifies South Africa, a South African province, or a recognized South African city/region.
+- A remote vacancy is eligible only when the source explicitly identifies South Africa as the remote location or applicant-eligibility boundary. "Remote" alone is insufficient.
+- Missing, ambiguous, or non-South-African location evidence is not persisted as a normal vacancy. It must not enter the published catalogue.
+- The geographic gate runs before database upsert, not only in the admin UI or publication stage.
+- Existing out-of-scope vacancy rows are removed by migration 0005. Employer and source records are retained.
+- Location matching is deliberately conservative. False negatives should be reviewed and the allow-list expanded with evidence; unknown locations must not be assumed South African.
+- This rule applies to every adapter through the shared persistence boundary. Adapter-specific checks may add validation but must not weaken it.
+- The admin South Africa filter is a view over the already-qualified vacancy catalogue, not a substitute for ingestion validation.

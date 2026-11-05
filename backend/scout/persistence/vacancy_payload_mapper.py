@@ -15,16 +15,27 @@ def map_greenhouse_job(
     location = job.get("location")
     location_name = location.get("name") if isinstance(location, dict) else None
     location_text = location_name if isinstance(location_name, str) else None
-    location_normalized = location_text.lower() if location_text else ""
     departments = job.get("departments")
     offices = job.get("offices")
-    requires_verification = not location_text or any(
-        term in location_normalized for term in ("south africa", "remote")
+    office_names = (
+        [
+            item.get("name")
+            for item in offices
+            if isinstance(item, dict) and isinstance(item.get("name"), str)
+        ]
+        if isinstance(offices, list)
+        else []
     )
+    if office_names:
+        location_text = " | ".join(
+            ([location_text] if location_text else []) + office_names
+        )
+    location_normalized = (location_text or "").lower()
+    requires_verification = not location_text or "remote" in location_normalized
     review_reason = (
         "Location is missing from the source."
         if not location_text
-        else "Verify the stated South African or remote-work location and eligibility."
+        else "Verify South African remote-work eligibility."
         if requires_verification
         else None
     )
@@ -47,7 +58,13 @@ def map_greenhouse_job(
         "application_url": job["absolute_url"],
         "published_at": job.get("first_published"),
         "source_updated_at": job.get("updated_at"),
-        "raw_payload": Jsonb(dict(job)),
+        "raw_payload": Jsonb(
+            {
+                key: job[key]
+                for key in ("location", "departments", "offices")
+                if key in job
+            }
+        ),
         "fingerprint": fingerprint,
         "review_status": "needs_verification" if requires_verification else "pending",
         "review_reason": review_reason,

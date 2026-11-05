@@ -20,19 +20,12 @@ export function CompanyBrandingForm({
   onSubmit,
 }: CompanyBrandingFormProps) {
   return (
-    <form
-      className="my-4 grid gap-3 rounded-lg border border-border bg-muted/50 p-4"
-      onSubmit={onSubmit}
-    >
+    <form className="scout-company-form-section" onSubmit={onSubmit}>
       <div className="flex items-center gap-3">
         <h4>Company logo</h4>
-        <span className="text-[10px] text-muted-foreground/70">Optional</span>
+        <span className="text-[10px] scout-company-muted">Optional</span>
         {logoUrl && (
-          <img
-            src={logoUrl}
-            alt="Company logo preview"
-            className="h-9 w-9 rounded-md border border-border bg-card object-contain p-1"
-          />
+          <img src={logoUrl} alt="Company logo preview" className="scout-company-card__logo" />
         )}
       </div>
       <label>
@@ -42,10 +35,10 @@ export function CompanyBrandingForm({
           value={logoUrl}
           onChange={(event) => onLogoUrlChange(event.target.value)}
           placeholder="https://company.com/logo.png"
-          className="mt-1"
+          className="scout-company-field mt-1"
         />
       </label>
-      <p className="text-[10px] text-muted-foreground/70">
+      <p className="text-[10px] scout-company-muted">
         Scout currently accepts a logo URL and its evidence URL. A logo is not required to register
         or approve a company.
       </p>
@@ -56,7 +49,7 @@ export function CompanyBrandingForm({
           value={logoSourceUrl}
           onChange={(event) => onLogoSourceUrlChange(event.target.value)}
           placeholder="Official company page where the logo is shown"
-          className="mt-1"
+          className="scout-company-field mt-1"
         />
       </label>
       <Button type="submit" variant="outline" className="w-fit" disabled={saving}>

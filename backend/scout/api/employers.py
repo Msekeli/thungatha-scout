@@ -12,6 +12,7 @@ from scout.api.employer_status_routes import router as status_router
 from scout.application.employer_contracts import (
     EmployerBrandingUpdate,
     EmployerCreate,
+    EmployerUpdate,
 )
 from scout.application.employer_service import EmployerService
 
@@ -50,6 +51,18 @@ def get_employer(
     service: EmployerService = Depends(get_employer_service),
 ) -> dict[str, Any]:
     employer = service.get_employer(employer_id)
+    if employer is None:
+        raise HTTPException(status_code=404, detail="Employer not found.")
+    return employer
+
+
+@router.patch("/{employer_id}")
+def update_employer(
+    employer_id: UUID,
+    payload: EmployerUpdate,
+    service: EmployerService = Depends(get_employer_service),
+) -> dict[str, Any]:
+    employer = service.update_details(employer_id, payload)
     if employer is None:
         raise HTTPException(status_code=404, detail="Employer not found.")
     return employer

@@ -1,4 +1,13 @@
 export type VacancyReviewStatus = "pending" | "needs_verification" | "verified" | "rejected";
+export type VacancyLocationScope = "cape_town" | "western_cape" | "south_africa" | "all";
+
+export type VacancyPage = {
+  items: Vacancy[];
+  total: number;
+  limit: number;
+  offset: number;
+  has_more: boolean;
+};
 
 export type Vacancy = {
   id: string;

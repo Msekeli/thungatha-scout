@@ -1,0 +1,82 @@
+@layer components {
+  .scout-company-directory,
+  .scout-company-workspace {
+    @apply rounded-2xl border p-4 shadow-xl sm:p-5;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+    box-shadow: var(--scout-shadow);
+  }
+
+  .scout-company-card {
+    @apply overflow-hidden rounded-2xl border transition-all duration-200;
+    background: var(--scout-card-gradient);
+    border-color: var(--scout-border);
+    box-shadow: var(--scout-shadow);
+  }
+  .scout-company-card:hover {
+    border-color: var(--scout-border-hover);
+    transform: translateY(-2px);
+  }
+  .scout-company-card[data-selected="true"] {
+    border-color: var(--scout-accent);
+    box-shadow:
+      0 0 0 1px var(--scout-accent),
+      var(--scout-shadow);
+  }
+  .scout-company-card__trigger {
+    transition: background-color 160ms ease;
+  }
+  .scout-company-card__trigger:hover {
+    background: var(--scout-surface-hover);
+  }
+  .scout-company-card__accent {
+    height: 3px;
+    background: var(--scout-brand-gradient);
+  }
+  .scout-company-card__icon {
+    @apply grid h-11 w-11 shrink-0 place-items-center rounded-xl border;
+    color: var(--scout-accent);
+    background: var(--scout-accent-soft);
+    border-color: var(--scout-accent-border);
+  }
+  .scout-company-card__logo {
+    @apply h-8 w-8 rounded-lg bg-white object-contain p-1;
+  }
+  .scout-company-source-badge {
+    @apply grid h-5 w-5 shrink-0 place-items-center rounded text-[9px] font-bold uppercase;
+    background: var(--scout-surface-hover);
+    color: var(--scout-accent);
+  }
+  .scout-company-card__name {
+    color: hsl(var(--foreground));
+  }
+  .scout-company-card__meta {
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-company-card__footer {
+    @apply grid gap-2 px-4 py-3;
+    background: var(--scout-surface-raised);
+    border-top: 1px solid var(--scout-border);
+  }
+  .scout-company-link {
+    @apply flex min-w-0 items-center gap-2 text-xs no-underline transition-colors;
+    color: var(--scout-link);
+  }
+  .scout-company-link:hover {
+    color: var(--scout-link-hover);
+  }
+  .scout-vacancy-change--positive {
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+  }
+  .scout-vacancy-change--negative {
+    color: #fbbf24;
+    background: rgba(245, 158, 11, 0.14);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+  }
+  .scout-company-link__url {
+    @apply truncate;
+    color: hsl(var(--muted-foreground));
+  }
+}

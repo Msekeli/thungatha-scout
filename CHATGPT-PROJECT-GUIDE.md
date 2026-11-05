@@ -6,13 +6,13 @@ Use this document as the operating brief for ChatGPT conversations and implement
 
 Build Thungatha Scout as an unattended employer-sourced vacancy ingestion and publishing system. The administrator's main routine action is to paste official employer careers/ATS URLs, confirm employer identity and source relationship, and activate sources. Scout should then run without routine vacancy-by-vacancy approval.
 
-V1 scope: Cape Town; Greenhouse and Workday adapters; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. No public job-search frontend and no recruiter self-service.
+V1 scope: South Africa-wide vacancy eligibility; Greenhouse and Workday adapters; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. No public job-search frontend and no recruiter self-service.
 
 ## Current decisions — do not silently change
 
 - Frontend: React + TypeScript + Vite + Tailwind CSS v3. Hosting is deferred pending local verification.
 - Backend: FastAPI (Python) HTTP API plus separately executable scheduled/background processing. Keep provider-portable; hosting provider remains undecided.
-- Frontend styling: Tailwind CSS v3.
+- Frontend styling: Tailwind CSS v3 for layout and responsive structure; global CSS design tokens and semantic component classes in `frontend/src/styles/` own colours, surfaces, borders, shadows and status treatments. Avoid hardcoded visual palette utilities inside components.
 - Admin authentication: Supabase Auth, restricted to the one configured administrator email. Public sign-up/registration is disabled. Backend independently validates JWTs and checks the email allowlist for every protected operation; store the allowlisted email server-side. Browser uses only the Supabase URL and publishable/anon key.
 - Hosting: deliberately undecided until the application is implemented and verified locally. Keep FastAPI and scheduled/background processing provider-portable; choose hosting after measuring actual runtime, scraping dependencies, scheduling, reliability and cost. Do not add provider-specific infrastructure or paid resources before that decision.
 - Scout operational database: a dedicated Supabase PostgreSQL project.
@@ -36,7 +36,7 @@ V1 scope: Cape Town; Greenhouse and Workday adapters; private admin UI; automate
 8. Hard failures are suppressed with a reason. Uncertain/incomplete cases enter an exception queue.
 9. Admin can inspect exceptions, reject/unpublish, correct permitted fields, retry, pause/resume sources and archive records.
 
-An official ATS is provenance, not a guarantee of vacancy quality. A vacancy must have a meaningful title/description, credible in-scope location, usable application destination, stable identity, valid content and no unresolved high-confidence duplicate. Unknown location is not automatically Cape Town. Failed/partial extraction never expires jobs.
+An official ATS is provenance, not a guarantee of vacancy quality. A vacancy must have a meaningful title/description, credible South African location or explicit South Africa remote eligibility, usable application destination, stable identity, valid content and no unresolved high-confidence duplicate. Unknown location is not automatically Cape Town. Failed/partial extraction never expires jobs.
 
 AI may assist with extraction/classification but cannot invent evidence or bypass hard gates. Deterministic code owns identity, URLs, deduplication, freshness, state transitions and publishing. Record the reason/evidence/rule version for every automated decision.
 

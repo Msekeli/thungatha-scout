@@ -39,7 +39,6 @@ export function useScoutDashboardMetrics({
         const latest = [...runs].sort(
           (a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime(),
         )[0];
-
         return {
           adapter,
           sourceCount: adapterSources.length,

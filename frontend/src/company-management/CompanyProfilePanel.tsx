@@ -1,8 +1,8 @@
-import type { FormEvent } from "react";
+import { useState } from "react";
 import { CompanyProfileActions } from "./CompanyProfileActions";
 import { CompanyProfileHeader } from "./CompanyProfileHeader";
-import { CompanyBrandingForm } from "./CompanyBrandingForm";
-import { CompanySourcesSection } from "../employer-sources/CompanySourcesSection";
+import { CompanyInlineEditor } from "./CompanyInlineEditor";
+import { CompanySourcesPanel } from "./CompanySourcesPanel";
 import type { useScoutAppState } from "../app-state/useScoutAppState";
 import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
 import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceController";
@@ -13,77 +13,37 @@ type Props = {
   jobs: ReturnType<typeof useJobsWorkspaceController>;
   companies: ReturnType<typeof useCompaniesWorkspaceController>;
   onboarding: ReturnType<typeof useEmployerOnboardingController>;
-  jobsCount: number;
-  onSaveBranding: (event: FormEvent<HTMLFormElement>) => void;
 };
 
-export function CompanyProfilePanel({
-  state,
-  jobs,
-  companies,
-  onboarding,
-  jobsCount,
-  onSaveBranding,
-}: Props) {
+export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Props) {
   const employer = companies.employer;
+  const [editing, setEditing] = useState(false);
+  if (!employer) return null;
+  const jobsCount = jobs.vacancies.filter((item) => item.employer_id === employer.id).length;
+
   return (
-    <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
-      {employer ? (
-        <>
-          <CompanyProfileHeader
-            employer={employer}
-            jobsCount={jobsCount}
-            sourcesCount={state.sources.length}
-          />
-          <CompanyProfileActions
-            currentStatus={employer.status}
-            saving={state.saving}
-            onUpdateStatus={(status) => void companies.updateStatus(status)}
-            onDelete={() => void companies.deleteCompany()}
-          />
-          <CompanyBrandingForm
-            logoUrl={state.logoUrl}
-            logoSourceUrl={state.logoSourceUrl}
-            saving={state.saving}
-            onLogoUrlChange={state.setLogoUrl}
-            onLogoSourceUrlChange={state.setLogoSourceUrl}
-            onSubmit={onSaveBranding}
-          />
-          <CompanySourcesSection
-            sources={state.sources}
-            extractionRuns={jobs.extractionRuns}
-            decisions={companies.decisions}
-            sourceUrl={state.sourceUrl}
-            editingSourceId={state.editingSourceId}
-            inspection={onboarding.inspection}
-            saving={state.saving}
-            inspecting={onboarding.inspecting}
-            onEditSource={(source) => {
-              state.setEditingSourceId(source.id);
-              state.setSourceUrl(source.source_url);
-              onboarding.setInspection(null);
-            }}
-            onDecisionChange={companies.updateField}
-            onSaveDecision={(source) => void companies.saveDecision(source)}
-            onChangeSourceUrl={(value) => {
-              state.setSourceUrl(value);
-              onboarding.setInspection(null);
-            }}
-            onInspect={() => void onboarding.inspectGreenhouseBoard(state.sourceUrl)}
-            onSaveSource={companies.saveSource}
-            onCancelEdit={() => {
-              state.setEditingSourceId(null);
-              state.setSourceUrl("");
-              onboarding.setInspection(null);
-            }}
-          />
-        </>
+    <section className="flex min-h-0 min-w-0 flex-col gap-4 overflow-y-auto scout-company-profile">
+      {editing ? (
+        <CompanyInlineEditor
+          key={employer.id}
+          employer={employer}
+          saving={state.saving}
+          onCancel={() => setEditing(false)}
+          onSave={async (values) => {
+            if (await companies.updateDetails(values)) setEditing(false);
+          }}
+        />
       ) : (
-        <div className="grid min-h-[260px] content-center gap-2 px-6 text-center text-sm text-muted-foreground">
-          <strong>Select a company</strong>
-          <span>Choose a company to view its profile and registered job sources.</span>
-        </div>
+        <CompanyProfileHeader employer={employer} jobsCount={jobsCount} />
       )}
+      <CompanyProfileActions
+        companyName={employer.name}
+        saving={state.saving}
+        editing={editing}
+        onEdit={() => setEditing((current) => !current)}
+        onDelete={() => void companies.deleteCompany()}
+      />
+      <CompanySourcesPanel state={state} companies={companies} onboarding={onboarding} />
     </section>
   );
 }

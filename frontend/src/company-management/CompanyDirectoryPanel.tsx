@@ -1,67 +1,62 @@
 import type { FC } from "react";
-import type { Employer } from "../api";
-import { Button } from "@/components/ui/button";
+import type { Employer, EmployerSource } from "../api";
 import { CompanyDirectoryList } from "./CompanyDirectoryList";
-import { CompanySearchFilters } from "./CompanySearchFilters";
+import { CompanyDirectoryToolbar } from "./CompanyDirectoryToolbar";
 
-type CompanyDirectoryPanelProps = {
+type Props = {
   employers: Employer[];
+  sources: EmployerSource[];
   selectedEmployerId: string;
   searchQuery: string;
-  statusFilter: string;
+  sourceFilter: string;
+  currentJobsByEmployer: Record<string, number>;
+  jobChangesByEmployer: Record<string, number>;
   onSearchChange: (value: string) => void;
-  onStatusFilterChange: (value: string) => void;
+  onSourceFilterChange: (value: string) => void;
   onSelectEmployer: (employer: Employer) => void;
   onAddCompany: () => void;
 };
 
-export const CompanyDirectoryPanel: FC<CompanyDirectoryPanelProps> = ({
-  employers,
-  selectedEmployerId,
-  searchQuery,
-  statusFilter,
-  onSearchChange,
-  onStatusFilterChange,
-  onSelectEmployer,
-  onAddCompany,
-}) => {
-  const visibleEmployers = employers.filter(
-    (employer) =>
-      employer.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      (statusFilter === "all" || employer.status === statusFilter),
+export const CompanyDirectoryPanel: FC<Props> = (props) => {
+  const visible = props.employers.filter(
+    (item) =>
+      item.name.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
+      (props.sourceFilter === "all" ||
+        props.sources.some(
+          (source) => source.employer_id === item.id && source.adapter_key === props.sourceFilter,
+        )),
   );
-
   return (
-    <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
-      <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
-        <div className="flex items-center gap-3">
-          <h3>Registered companies</h3>
-          <span>
-            {visibleEmployers.length} / {employers.length}
-          </span>
-        </div>
-        <Button
-          type="button"
-          className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-          onClick={onAddCompany}
-        >
-          + Add company
-        </Button>
+    <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden scout-company-directory">
+      <CompanyDirectoryToolbar
+        searchQuery={props.searchQuery}
+        sourceFilter={props.sourceFilter}
+        onSearchChange={props.onSearchChange}
+        onSourceFilterChange={props.onSourceFilterChange}
+        onAddCompany={props.onAddCompany}
+      />
+      <div className="mb-3 flex items-center justify-between text-xs scout-company-muted">
+        <span>
+          Showing <strong className="scout-company-count">{visible.length}</strong> of{" "}
+          {props.employers.length} employers
+        </span>
+        <span className="hidden sm:inline">Select a card to manage its sources and details</span>
       </div>
-      <CompanySearchFilters
-        searchQuery={searchQuery}
-        onSearchChange={onSearchChange}
-        statusFilter={statusFilter}
-        onStatusFilterChange={onStatusFilterChange}
-      />
-      <CompanyDirectoryList
-        employers={visibleEmployers}
-        selectedEmployerId={selectedEmployerId}
-        onSelectEmployer={onSelectEmployer}
-        emptyMessage={
-          employers.length ? "No companies match these filters." : "No companies registered."
-        }
-      />
+      <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+        <CompanyDirectoryList
+          employers={visible}
+          sources={props.sources}
+          currentJobsByEmployer={props.currentJobsByEmployer}
+          jobChangesByEmployer={props.jobChangesByEmployer}
+          selectedEmployerId={props.selectedEmployerId}
+          onSelectEmployer={props.onSelectEmployer}
+          emptyMessage={
+            props.employers.length
+              ? "No companies match your search."
+              : "No companies registered yet."
+          }
+        />
+      </div>
     </section>
   );
 };

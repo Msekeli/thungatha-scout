@@ -27,6 +27,7 @@ export type Employer = {
   logo_url?: string | null;
   logo_source_url?: string | null;
   created_at?: string;
+  vacancy_count?: number;
 };
 
 export type RelationshipEvidence = {
@@ -40,6 +41,7 @@ export type EmployerSource = {
   employer_id: string;
   adapter_key: "greenhouse" | "workday";
   source_url: string;
+  employer_careers_url?: string | null;
   normalized_url: string;
   status: string;
   permission_status: string;

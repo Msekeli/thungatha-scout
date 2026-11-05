@@ -16,19 +16,37 @@ router = APIRouter(tags=["vacancies"])
 router.include_router(archive_router)
 
 
+@router.get("/vacancies/metrics")
+def get_vacancy_metrics(
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> dict[str, int]:
+    return service.get_dashboard_metrics()
+
+
 @router.get("/vacancies")
 def list_vacancies(
-    limit: int = Query(default=200, ge=1, le=500),
+    employer_id: UUID | None = None,
+    review_status: str | None = Query(default=None),
+    location_scope: str = Query(
+        default="south_africa", pattern="^(cape_town|western_cape|south_africa|all)$"
+    ),
+    limit: int = Query(default=50, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
     service: GreenhouseExtractionService = Depends(get_extraction_service),
-) -> list[dict[str, Any]]:
-    return service.list_vacancies(limit=limit, offset=offset)
+) -> dict[str, Any]:
+    return service.list_vacancy_page(
+        employer_id=employer_id,
+        review_status=review_status,
+        location_scope=location_scope,
+        limit=limit,
+        offset=offset,
+    )
 
 
 @router.get("/employers/{employer_id}/vacancies")
 def list_employer_vacancies(
     employer_id: UUID,
-    limit: int = Query(default=200, ge=1, le=500),
+    limit: int = Query(default=50, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
     service: GreenhouseExtractionService = Depends(get_extraction_service),
 ) -> list[dict[str, Any]]:

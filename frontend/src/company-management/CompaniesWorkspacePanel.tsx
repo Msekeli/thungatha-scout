@@ -1,9 +1,8 @@
-import type { FormEvent } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import type { useScoutAppState } from "../app-state/useScoutAppState";
 import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
 import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceController";
 import type { useEmployerOnboardingController } from "../employer-onboarding/useEmployerOnboardingController";
-import { CompanyAttentionActions } from "./CompanyAttentionActions";
 import { CompanyDirectoryPanel } from "./CompanyDirectoryPanel";
 import { CompanyProfilePanel } from "./CompanyProfilePanel";
 
@@ -12,7 +11,8 @@ type Props = {
   jobs: ReturnType<typeof useJobsWorkspaceController>;
   companies: ReturnType<typeof useCompaniesWorkspaceController>;
   onboarding: ReturnType<typeof useEmployerOnboardingController>;
-  onSaveBranding: (event: FormEvent<HTMLFormElement>) => void;
+  currentJobsByEmployer: Record<string, number>;
+  jobChangesByEmployer: Record<string, number>;
 };
 
 export function CompaniesWorkspacePanel({
@@ -20,47 +20,52 @@ export function CompaniesWorkspacePanel({
   jobs,
   companies,
   onboarding,
-  onSaveBranding,
+  currentJobsByEmployer,
+  jobChangesByEmployer,
 }: Props) {
-  const selectedEmployer = companies.employer;
-  const jobsCount = selectedEmployer
-    ? jobs.vacancies.filter((vacancy) => vacancy.employer_id === selectedEmployer.id).length
-    : 0;
-
+  const selectCompany = (employer: Parameters<typeof companies.openCompany>[0]) => {
+    void companies.openCompany(employer);
+  };
   return (
-    <>
-      <p className="mb-3 text-xs text-white/75">
-        Manage company identity, verification, branding and registered ATS sources.
-      </p>
-      <CompanyAttentionActions
+    <section className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden pt-4">
+      <CompanyDirectoryPanel
         employers={jobs.employers}
         sources={jobs.dashboardSources}
-        onSelectCompany={(employer) => void companies.openCompany(employer)}
+        selectedEmployerId={state.selectedCompanyId ?? ""}
+        searchQuery={state.companyQuery}
+        sourceFilter={state.companySourceFilter}
+        currentJobsByEmployer={currentJobsByEmployer}
+        jobChangesByEmployer={jobChangesByEmployer}
+        onSearchChange={state.setCompanyQuery}
+        onSourceFilterChange={state.setCompanySourceFilter}
+        onSelectEmployer={selectCompany}
+        onAddCompany={() => {
+          state.setError("");
+          state.setNotice("");
+          state.setPage("add-company");
+        }}
       />
-      <div className="grid min-h-0 gap-3 lg:grid-cols-[minmax(260px,0.8fr)_minmax(0,1.5fr)]">
-        <CompanyDirectoryPanel
-          employers={jobs.employers}
-          selectedEmployerId={state.selectedEmployerId}
-          searchQuery={state.companyQuery}
-          statusFilter={state.companyStatusFilter}
-          onSearchChange={state.setCompanyQuery}
-          onStatusFilterChange={state.setCompanyStatusFilter}
-          onSelectEmployer={(employer) => void companies.openCompany(employer)}
-          onAddCompany={() => {
-            state.setPage("add-company");
-            state.setError("");
-            state.setNotice("");
-          }}
-        />
-        <CompanyProfilePanel
-          state={state}
-          jobs={jobs}
-          companies={companies}
-          onboarding={onboarding}
-          jobsCount={jobsCount}
-          onSaveBranding={onSaveBranding}
-        />
-      </div>
-    </>
+      <Dialog
+        open={!!companies.employer}
+        onOpenChange={(open) => {
+          if (!open) state.setSelectedCompanyId(null);
+        }}
+      >
+        <DialogContent
+          className="scout-company-dialog !max-h-[70vh] !w-[95vw] !max-w-3xl"
+          overlayClassName="!bg-transparent !backdrop-blur-0"
+        >
+          <DialogHeader>
+            <DialogTitle className="scout-company-heading">Company details</DialogTitle>
+          </DialogHeader>
+          <CompanyProfilePanel
+            state={state}
+            jobs={jobs}
+            companies={companies}
+            onboarding={onboarding}
+          />
+        </DialogContent>
+      </Dialog>
+    </section>
   );
 }

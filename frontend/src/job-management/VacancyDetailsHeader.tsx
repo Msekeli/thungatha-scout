@@ -1,73 +1,39 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { CalendarDays, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
 
-const reviewLabel = (status: Vacancy["review_status"]) =>
-  ({
-    pending: "Pending review",
-    needs_verification: "Needs verification",
-    verified: "Verified",
-    rejected: "Rejected",
-  })[status];
-
-export function VacancyDetailsHeader({
-  vacancy,
-  onClear,
-}: {
-  vacancy: Vacancy;
-  onClear: () => void;
-}) {
+export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
+  const postedAt = vacancy.first_seen_at ?? vacancy.last_seen_at;
   return (
     <>
-      <div className="flex items-center justify-between gap-3 border-b border-border bg-card p-4 text-card-foreground">
-        <div className="min-w-0">
-          <p className="text-[10px] font-medium text-scout-cyan">
-            {vacancy.employer_name} · {vacancy.location_text || "Location unknown"}
-          </p>
-          <h3 className="mt-1 text-sm font-bold">{vacancy.title}</h3>
+      <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-b border-border bg-card p-4 text-card-foreground">
+        <div className="min-w-[120px]">
+          <p className="text-xs font-semibold text-scout-cyan">Company</p>
+          <p className="mt-0.5 text-sm font-semibold">{vacancy.employer_name}</p>
         </div>
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          className="text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-          onClick={onClear}
-        >
-          Clear
-        </Button>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <MapPin className="h-3.5 w-3.5 text-scout-cyan" />
+            {vacancy.location_text || "Location unknown"}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <CalendarDays className="h-3.5 w-3.5 text-scout-cyan" />
+            {new Date(postedAt).toLocaleDateString()}
+          </span>
+        </div>
+        <div className="min-w-[260px] flex-1 border-l border-border pl-6">
+          <p className="text-xs font-semibold text-muted-foreground">Position</p>
+          <h3 className="mt-0.5 text-base font-bold leading-snug text-foreground">
+            {vacancy.title}
+          </h3>
+        </div>
       </div>
-      <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3">
-        <Button
-          asChild
-          type="button"
-          size="sm"
-          className="bg-scout-cyan text-primary hover:opacity-90"
-        >
-          <a href={vacancy.application_url} target="_blank" rel="noreferrer">
-            Open source listing ↗
-          </a>
-        </Button>
+      <div className="border-b border-border px-4 py-3">
         <Button asChild size="sm" variant="outline">
           <a href={vacancy.source_url} target="_blank" rel="noreferrer">
             Source record ↗
           </a>
         </Button>
-        <Badge
-          variant={
-            vacancy.review_status === "verified"
-              ? "default"
-              : vacancy.review_status === "rejected"
-                ? "destructive"
-                : "secondary"
-          }
-          className={
-            vacancy.review_status === "pending" || vacancy.review_status === "needs_verification"
-              ? "bg-warning-surface text-warning hover:bg-warning-surface"
-              : ""
-          }
-        >
-          {reviewLabel(vacancy.review_status)}
-        </Badge>
       </div>
     </>
   );

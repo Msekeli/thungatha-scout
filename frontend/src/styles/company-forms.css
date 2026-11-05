@@ -1,0 +1,55 @@
+@layer components {
+  .scout-company-form-label {
+    @apply grid gap-2 text-sm font-medium;
+    color: hsl(var(--foreground));
+  }
+  .scout-company-form-help {
+    @apply text-xs font-normal;
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-company-textarea {
+    background: var(--scout-input);
+    color: hsl(var(--foreground));
+    border-color: var(--scout-border);
+  }
+  .scout-company-textarea::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-company-onboarding {
+    @apply w-full max-w-2xl rounded-xl border p-5 shadow-xl sm:p-7;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+    color: hsl(var(--foreground));
+    box-shadow: var(--scout-shadow);
+  }
+  .scout-company-form-actions {
+    @apply flex flex-col-reverse gap-3 border-t pt-5 sm:flex-row sm:justify-end;
+    border-color: var(--scout-border);
+  }
+  .scout-company-cancel-button {
+    @apply h-10 border px-5;
+    background: var(--scout-surface-raised);
+    color: hsl(var(--foreground));
+    border-color: var(--scout-border);
+  }
+  .scout-company-cancel-button:hover {
+    background: var(--scout-surface-hover);
+  }
+  .scout-company-add-button {
+    @apply h-10 px-6 shadow-sm;
+    background: var(--scout-accent);
+    color: var(--scout-accent-foreground);
+  }
+  .scout-company-add-button:hover {
+    background: var(--scout-accent-hover);
+  }
+  .scout-company-dialog-copy {
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-company-edit-dialog {
+    @apply max-w-2xl;
+  }
+  .scout-company-edit-fields {
+    @apply grid gap-4;
+  }
+}

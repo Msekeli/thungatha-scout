@@ -1,77 +1,47 @@
-import { Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CompanyDeleteDialog } from "./CompanyDeleteDialog";
 
-type CompanyStatus = "approved" | "needs_review" | "rejected" | "inactive";
-
-type CompanyProfileActionsProps = {
-  currentStatus: string;
+type Props = {
+  companyName: string;
   saving: boolean;
-  onUpdateStatus: (status: CompanyStatus) => void;
+  editing: boolean;
   onDelete: () => void;
+  onEdit: () => void;
 };
 
-export function CompanyProfileActions({
-  currentStatus,
-  saving,
-  onUpdateStatus,
-  onDelete,
-}: CompanyProfileActionsProps) {
+export function CompanyProfileActions({ companyName, saving, editing, onDelete, onEdit }: Props) {
+  const [deleteOpen, setDeleteOpen] = useState(false);
   return (
-    <div className="flex flex-wrap gap-2 border-b border-border pb-4">
-      {currentStatus !== "approved" && (
-        <Button
-          type="button"
-          size="sm"
-          disabled={saving}
-          onClick={() => onUpdateStatus("approved")}
-        >
-          Approve company
-        </Button>
-      )}
-      {currentStatus !== "needs_review" && (
-        <Button
-          type="button"
-          size="sm"
-          variant="outline"
-          disabled={saving}
-          onClick={() => onUpdateStatus("needs_review")}
-        >
-          Flag for review
-        </Button>
-      )}
-      {currentStatus !== "rejected" && (
-        <Button
-          type="button"
-          size="sm"
-          variant="outline"
-          disabled={saving}
-          onClick={() => onUpdateStatus("rejected")}
-        >
-          Reject company
-        </Button>
-      )}
-      {currentStatus !== "inactive" && (
-        <Button
-          type="button"
-          size="sm"
-          variant="outline"
-          disabled={saving}
-          onClick={() => onUpdateStatus("inactive")}
-        >
-          Deactivate
-        </Button>
-      )}
+    <div className="scout-company-actions">
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        className="scout-company-action"
+        disabled={saving}
+        onClick={onEdit}
+      >
+        <Pencil className="mr-1.5 h-3.5 w-3.5" /> {editing ? "Cancel editing" : "Edit company"}
+      </Button>
       <Button
         type="button"
         size="sm"
         variant="destructive"
-        className="ml-auto"
+        className="scout-company-delete"
         disabled={saving}
-        onClick={onDelete}
+        onClick={() => setDeleteOpen(true)}
       >
-        <Trash2 className="h-3.5 w-3.5" />
-        Delete
+        <Trash2 className="mr-1.5 h-3.5 w-3.5" /> Delete company
       </Button>
+      <CompanyDeleteDialog
+        companyName={companyName}
+        open={deleteOpen}
+        saving={saving}
+        onOpenChange={setDeleteOpen}
+        onConfirm={onDelete}
+      />
     </div>
   );
 }

@@ -1,75 +1,63 @@
+import { AlertCircle, Building2, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource } from "../api";
 
-type CompanyAttentionActionsProps = {
+type Props = {
   employers: Employer[];
   sources: EmployerSource[];
   onSelectCompany: (employer: Employer) => void;
 };
 
-export function CompanyAttentionActions({
-  employers,
-  sources,
-  onSelectCompany,
-}: CompanyAttentionActionsProps) {
-  const discovered = employers.filter((employer) => employer.status === "discovered");
-  const needsReview = employers.filter((employer) => employer.status === "needs_review");
-  const uncheckedSources = sources.filter(
-    (source) => source.status !== "verified" || source.permission_status !== "allowed",
+export function CompanyAttentionActions({ employers, sources, onSelectCompany }: Props) {
+  const discovered = employers.filter((item) => item.status === "discovered");
+  const needsReview = employers.filter((item) => item.status === "needs_review");
+  const unchecked = sources.filter(
+    (item) => item.status !== "verified" || item.permission_status !== "allowed",
   );
-  const firstUncheckedSource = uncheckedSources[0];
-  const uncheckedEmployer = firstUncheckedSource
-    ? employers.find((employer) => employer.id === firstUncheckedSource.employer_id)
-    : undefined;
-
+  const sourceEmployer = employers.find((item) => item.id === unchecked[0]?.employer_id);
+  const actions = [
+    {
+      label: "Awaiting approval",
+      count: discovered.length,
+      icon: Building2,
+      tone: "scout-company-tone--warning",
+      click: () => discovered[0] && onSelectCompany(discovered[0]),
+    },
+    {
+      label: "Flagged for review",
+      count: needsReview.length,
+      icon: AlertCircle,
+      tone: "scout-company-tone--danger",
+      click: () => needsReview[0] && onSelectCompany(needsReview[0]),
+    },
+    {
+      label: "Sources to verify",
+      count: unchecked.length,
+      icon: ShieldAlert,
+      tone: "scout-company-tone--accent",
+      click: () => sourceEmployer && onSelectCompany(sourceEmployer),
+    },
+  ];
   return (
-    <section className="mb-3 grid gap-2 rounded-xl border border-white/80 bg-card p-3 text-card-foreground shadow-lg shadow-black/20 md:grid-cols-3">
-      <div>
-        <p className="text-[10px] font-bold uppercase tracking-wide text-scout-cyan">
-          Suggested actions
-        </p>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Work through these records to keep the company directory and sources reliable.
-        </p>
-      </div>
-      <Button
-        type="button"
-        variant="ghost"
-        className="h-auto w-full flex-col items-start justify-center rounded-lg border border-border bg-warning-surface px-3 py-2 text-left shadow-none hover:bg-warning-surface hover:opacity-90"
-        onClick={() => discovered[0] && onSelectCompany(discovered[0])}
-        disabled={discovered.length === 0}
-      >
-        <strong className="block text-sm text-warning">
-          {discovered.length} awaiting approval
-        </strong>
-        <span className="text-[10px] text-warning">Review new company records</span>
-      </Button>
-      <Button
-        type="button"
-        variant="ghost"
-        className="h-auto w-full flex-col items-start justify-center rounded-lg border border-border bg-warning-surface px-3 py-2 text-left shadow-none hover:bg-warning-surface hover:opacity-90"
-        onClick={() => needsReview[0] && onSelectCompany(needsReview[0])}
-        disabled={needsReview.length === 0}
-      >
-        <strong className="block text-sm text-warning">
-          {needsReview.length} flagged for review
-        </strong>
-        <span className="text-[10px] text-warning">Resolve company identity concerns</span>
-      </Button>
-      <Button
-        type="button"
-        variant="ghost"
-        className="h-auto w-full flex-col items-start justify-center rounded-lg border border-border bg-card px-3 py-2 text-left shadow-none transition-colors hover:bg-accent"
-        onClick={() => uncheckedEmployer && onSelectCompany(uncheckedEmployer)}
-        disabled={!uncheckedEmployer}
-      >
-        <strong className="block text-sm text-foreground">
-          {uncheckedSources.length} sources need checks
-        </strong>
-        <span className="text-[10px] text-muted-foreground">
-          Verify source and permission status
-        </span>
-      </Button>
+    <section className="grid gap-2 sm:grid-cols-3">
+      {actions.map(({ label, count, icon: Icon, tone, click }) => (
+        <Button
+          key={label}
+          type="button"
+          variant="ghost"
+          onClick={click}
+          disabled={!count}
+          className="scout-company-summary h-auto"
+        >
+          <span className={`scout-company-summary__icon ${tone}`}>
+            <Icon className="h-4 w-4" />
+          </span>
+          <span className="min-w-0">
+            <strong className={`scout-company-summary__count ${tone}`}>{count}</strong>
+            <span className="scout-company-summary__label">{label}</span>
+          </span>
+        </Button>
+      ))}
     </section>
   );
 }

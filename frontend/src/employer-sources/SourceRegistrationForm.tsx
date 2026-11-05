@@ -33,20 +33,18 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
     ["success", "empty"].includes(inspection.outcome);
 
   return (
-    <form
-      className="mt-5 grid gap-3 rounded-lg border border-border bg-muted/50 p-4"
-      onSubmit={onSaveSource}
-    >
-      <h4 className="text-sm font-semibold text-foreground">
+    <form className="scout-company-form-section mt-5" onSubmit={onSaveSource}>
+      <h4 className="text-sm font-semibold scout-company-heading">
         {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
       </h4>
-      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
+      <label className="grid gap-1 text-xs font-medium scout-company-muted">
         Official careers / job board URL
         <Input
           type="url"
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
           placeholder="https://job-boards.greenhouse.io/company"
+          className="scout-company-field"
           required
         />
       </label>
@@ -62,15 +60,13 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
       </Button>
       {inspection && (
         <div className="grid gap-1 rounded-lg border border-border bg-card p-3 text-xs">
-          <strong className="text-foreground">
+          <strong className="scout-company-heading">
             {inspection.board_name || inspection.board_token}
           </strong>
-          <span className="text-muted-foreground">
+          <span className="scout-company-muted">
             {inspection.outcome} · {inspection.jobs.length} sample jobs
           </span>
-          {inspection.detail && (
-            <small className="text-muted-foreground">{inspection.detail}</small>
-          )}
+          {inspection.detail && <small className="scout-company-muted">{inspection.detail}</small>}
         </div>
       )}
       <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">

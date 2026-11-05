@@ -1,4 +1,5 @@
 import { useCompanyProfileOperations } from "./useCompanyProfileOperations";
+import { useCompanyDetailsUpdate } from "./useCompanyDetailsUpdate";
 import { useCompanySelection } from "./useCompanySelection";
 import { useEmployerSourceReview } from "../employer-sources/useEmployerSourceReview";
 import { useEmployerSourceOperations } from "../employer-sources/useEmployerSourceOperations";
@@ -9,16 +10,15 @@ type AppState = ReturnType<typeof useScoutAppState>;
 type Jobs = ReturnType<typeof useJobsWorkspaceController>;
 
 export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
-  const employer = jobs.employers.find((item) => item.id === state.selectedEmployerId) ?? null;
+  const employer = jobs.employers.find((item) => item.id === state.selectedCompanyId) ?? null;
   const selection = useCompanySelection({
     setSources: state.setSources,
     setExtractionRuns: jobs.setExtractionRuns,
-    setSelectedEmployerId: state.setSelectedEmployerId,
+    setSelectedCompanyId: state.setSelectedCompanyId,
     setLogoUrl: state.setLogoUrl,
     setLogoSourceUrl: state.setLogoSourceUrl,
     setSourceUrl: state.setSourceUrl,
     setEditingSourceId: state.setEditingSourceId,
-    setInspection: jobs.setInspection,
     setPage: state.setPage,
     onError: state.setError,
   });
@@ -28,9 +28,23 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     logoSourceUrl: state.logoSourceUrl,
     setEmployers: jobs.setEmployers,
     onDeleted: () => {
-      state.setSelectedEmployerId("all");
+      state.setSelectedCompanyId(null);
       state.setSources([]);
+      jobs.setDashboardSources((items) =>
+        items.filter((item) => item.employer_id !== employer?.id),
+      );
+      jobs.setVacancies((items) => items.filter((item) => item.employer_id !== employer?.id));
+      jobs.setArchivedVacancies((items) =>
+        items.filter((item) => item.employer_id !== employer?.id),
+      );
     },
+    setSaving: state.setSaving,
+    onNotice: state.setNotice,
+    onError: state.setError,
+  });
+  const updateDetails = useCompanyDetailsUpdate({
+    employer,
+    setEmployers: jobs.setEmployers,
     setSaving: state.setSaving,
     onNotice: state.setNotice,
     onError: state.setError,
@@ -50,7 +64,7 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     onNotice: state.setNotice,
   });
   const sourceReview = useEmployerSourceReview({
-    employerId: state.selectedEmployerId === "all" ? null : state.selectedEmployerId,
+    employerId: state.selectedCompanyId,
     onSourceUpdated: (updated) =>
       state.setSources((items) => items.map((item) => (item.id === updated.id ? updated : item))),
     onDashboardSourceUpdated: (updated) =>
@@ -62,5 +76,12 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     onError: state.setError,
   });
 
-  return { employer, ...selection, ...profile, ...sourceOperations, ...sourceReview };
+  return {
+    employer,
+    ...selection,
+    ...profile,
+    updateDetails,
+    ...sourceOperations,
+    ...sourceReview,
+  };
 }

@@ -1,0 +1,73 @@
+@layer components {
+  .scout-vacancy-count-card {
+    @apply relative flex min-h-[68px] min-w-[220px] items-center gap-3 overflow-hidden rounded-2xl border px-4 py-3 shadow-sm;
+    background: var(--scout-card-gradient);
+    border-color: var(--scout-border);
+    box-shadow: var(--scout-shadow);
+  }
+  .scout-vacancy-count-card::before {
+    content: "";
+    @apply absolute inset-x-0 top-0 h-[3px];
+    background: var(--scout-brand-gradient);
+  }
+  .scout-vacancy-count-card__icon {
+    @apply grid h-11 w-11 shrink-0 place-items-center rounded-xl border;
+    color: var(--scout-accent);
+    background: var(--scout-accent-soft);
+    border-color: var(--scout-accent-border);
+  }
+  .scout-vacancy-card {
+    @apply relative flex h-auto min-h-[92px] w-full flex-col items-stretch overflow-hidden rounded-2xl border p-0 text-left font-normal shadow-sm transition-all duration-200;
+    height: auto !important;
+    min-height: 92px;
+    white-space: normal;
+    background: var(--scout-card-gradient);
+    border-color: var(--scout-border);
+    color: hsl(var(--foreground));
+  }
+  .scout-vacancy-card:hover {
+    background: var(--scout-surface-hover);
+    border-color: var(--scout-border-hover);
+    transform: translateY(-1px);
+  }
+  .scout-vacancy-card[data-selected="true"] {
+    border-color: var(--scout-accent);
+    box-shadow:
+      0 0 0 1px var(--scout-accent),
+      var(--scout-shadow);
+  }
+  .scout-vacancy-card__exclude {
+    @apply h-8 w-8 shrink-0 rounded-lg;
+    color: var(--scout-warning-text);
+    background: var(--scout-warning-surface);
+    border: 1px solid var(--scout-warning-border);
+  }
+  .scout-vacancy-card__exclude:hover {
+    color: var(--scout-warning-text);
+    background: var(--scout-warning-surface);
+    filter: brightness(1.15);
+  }
+  .scout-vacancy-description {
+    @apply h-[min(65vh,720px)] min-h-[360px] w-full rounded-xl border;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+  }
+  .scout-vacancy-card__content {
+    @apply flex w-full min-w-0 flex-1 flex-col justify-center gap-3 px-4 py-4;
+  }
+  .scout-vacancy-card__title {
+    @apply block whitespace-normal text-sm font-semibold leading-snug;
+    color: var(--scout-accent);
+  }
+  .scout-vacancy-card__metadata {
+    @apply flex flex-wrap items-center gap-x-5 gap-y-2 text-xs;
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-vacancy-card__metadata > span {
+    @apply inline-flex min-w-0 items-center gap-1.5;
+  }
+  .scout-vacancy-card__metadata svg {
+    @apply h-3.5 w-3.5 shrink-0;
+    color: var(--scout-accent);
+  }
+}

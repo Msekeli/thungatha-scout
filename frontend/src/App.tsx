@@ -1,22 +1,29 @@
-import type { FormEvent } from "react";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { JobsWorkspacePanel } from "./job-management/JobsWorkspacePanel";
 import { CompaniesWorkspacePanel } from "./company-management/CompaniesWorkspacePanel";
 import { EmployerOnboardingPanel } from "./employer-onboarding/EmployerOnboardingPanel";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./components/ui/dialog";
 import { useScoutApplicationController } from "./useScoutApplicationController";
+import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges";
+import { useVacancyCountChange } from "./job-management/useVacancyCountChange";
 
 export default function App() {
   const { state, jobs, companies, onboarding } = useScoutApplicationController();
-  const saveBranding = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    await companies.saveBranding();
-  };
+  const companyJobChanges = useCompanyJobChanges(state.page, jobs.employers, jobs.vacancies);
+  const vacancyChange = useVacancyCountChange(state.page, jobs.dashboardMetrics.new_last_24_hours);
+  const addingCompany = state.page === "add-company";
 
   return (
-    <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden bg-[#050a14] px-4 pb-3 pt-4 text-white md:px-8">
+    <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden scout-app-shell px-4 pb-3 pt-4 md:px-8">
       <AppShellHeader
-        activePage={state.page}
+        activePage={addingCompany ? "companies" : state.page}
         onSelectPage={state.setPage}
         onRefresh={() => void jobs.loadWorkspace()}
         refreshing={jobs.loading}
@@ -29,32 +36,54 @@ export default function App() {
         onDismissError={state.dismissError}
         onDismissNotice={state.dismissNotice}
       />
-      {state.page === "jobs" && <JobsWorkspacePanel jobs={jobs} state={state} />}
-      {state.page === "companies" && (
+      {state.page === "jobs" && (
+        <JobsWorkspacePanel jobs={jobs} state={state} vacancyChange={vacancyChange} />
+      )}
+      {(state.page === "companies" || addingCompany) && (
         <CompaniesWorkspacePanel
           state={state}
           jobs={jobs}
           companies={companies}
           onboarding={onboarding}
-          onSaveBranding={saveBranding}
+          currentJobsByEmployer={companyJobChanges.currentJobsByEmployer}
+          jobChangesByEmployer={companyJobChanges.jobChangesByEmployer}
         />
       )}
-      {state.page === "add-company" && (
-        <EmployerOnboardingPanel
-          sourceUrl={state.sourceUrl}
-          onChangeSourceUrl={state.setSourceUrl}
-          inspecting={onboarding.inspecting}
-          form={state.form}
-          onChangeCompanyName={(value) => state.setForm((current) => ({ ...current, name: value }))}
-          saving={state.saving}
-          onSubmit={onboarding.submit}
-          onCancel={() => {
+      <Dialog
+        open={addingCompany}
+        onOpenChange={(open) => {
+          if (!open) {
             state.setPage("companies");
             state.setSourceUrl("");
-          }}
-        />
-      )}
-      <footer className="mt-5 border-t border-white/15 pt-3 text-[10px] text-white/65">
+          }
+        }}
+      >
+        <DialogContent className="scout-company-add-dialog">
+          <DialogHeader>
+            <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
+            <DialogDescription className="scout-company-dialog-copy">
+              Paste the official careers page or ATS board URL. Scout will inspect the source before
+              registration.
+            </DialogDescription>
+          </DialogHeader>
+          <EmployerOnboardingPanel
+            sourceUrl={state.sourceUrl}
+            onChangeSourceUrl={state.setSourceUrl}
+            inspecting={onboarding.inspecting}
+            form={state.form}
+            onChangeCompanyName={(value) =>
+              state.setForm((current) => ({ ...current, name: value }))
+            }
+            saving={state.saving}
+            onSubmit={onboarding.submit}
+            onCancel={() => {
+              state.setPage("companies");
+              state.setSourceUrl("");
+            }}
+          />
+        </DialogContent>
+      </Dialog>
+      <footer className="scout-app-footer">
         Scout is a private operations workspace. Only verified, quality-checked records are eligible
         for publishing to Thungatha.
       </footer>

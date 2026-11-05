@@ -1,25 +1,26 @@
 import { useCallback, useState } from "react";
 import type { EmployerSource } from "../api";
+import type { VacancyLocationScope } from "../shared-contracts/vacancy-contracts";
 
 export type ScoutPage = "jobs" | "companies" | "add-company";
+
 export const emptyEmployer = {
   name: "",
   website_url: "",
   organization_type: "unresolved",
-  city: "Cape Town",
-  province: "Western Cape",
-  country: "South Africa",
 };
 
 export function useScoutAppState() {
   const [page, setPage] = useState<ScoutPage>("jobs");
   const [showArchived, setShowArchived] = useState(false);
   const [reviewFilter, setReviewFilter] = useState("all");
+  const [locationScope, setLocationScope] = useState<VacancyLocationScope>("south_africa");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
   const [companyQuery, setCompanyQuery] = useState("");
-  const [companyStatusFilter, setCompanyStatusFilter] = useState("all");
+  const [companySourceFilter, setCompanySourceFilter] = useState("all");
   const [selectedEmployerId, setSelectedEmployerId] = useState("all");
+  const [selectedCompanyId, setSelectedCompanyId] = useState<string | null>(null);
   const [sources, setSources] = useState<EmployerSource[]>([]);
   const [form, setForm] = useState(emptyEmployer);
   const [sourceUrl, setSourceUrl] = useState("");
@@ -28,7 +29,6 @@ export function useScoutAppState() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
-
   const dismissError = useCallback(() => setError(""), []);
   const dismissNotice = useCallback(() => setNotice(""), []);
 
@@ -39,16 +39,20 @@ export function useScoutAppState() {
     setShowArchived,
     reviewFilter,
     setReviewFilter,
+    locationScope,
+    setLocationScope,
     logoUrl,
     setLogoUrl,
     logoSourceUrl,
     setLogoSourceUrl,
     companyQuery,
     setCompanyQuery,
-    companyStatusFilter,
-    setCompanyStatusFilter,
+    companySourceFilter,
+    setCompanySourceFilter,
     selectedEmployerId,
     setSelectedEmployerId,
+    selectedCompanyId,
+    setSelectedCompanyId,
     sources,
     setSources,
     form,

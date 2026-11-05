@@ -5,8 +5,13 @@ from uuid import UUID
 from psycopg.connection import Connection
 from psycopg.types.json import Jsonb
 
+from scout.persistence.employer_delete_operations import EmployerDeleteOperations
+from scout.persistence.employer_details_update_operations import (
+    EmployerDetailsUpdateOperations,
+)
 
-class EmployerRepository:
+
+class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperations):
     def __init__(self, connection: Connection) -> None:
         self._connection = connection
 
@@ -44,15 +49,24 @@ class EmployerRepository:
     def list_all(self, limit: int = 100, offset: int = 0) -> list[dict[str, Any]]:
         return self._connection.execute(
             """
-            SELECT * FROM employers
-            ORDER BY created_at DESC, id
+            SELECT e.*,
+                   COUNT(v.id) FILTER (
+                       WHERE v.status = 'active' AND v.archived_at IS NULL
+                   )::INTEGER AS vacancy_count
+            FROM employers e
+            LEFT JOIN vacancies v ON v.employer_id = e.id
+            GROUP BY e.id
+            ORDER BY e.created_at DESC, e.id
             LIMIT %s OFFSET %s
             """,
             (limit, offset),
         ).fetchall()
 
     def update_branding(
-        self, employer_id: UUID, logo_url: str | None, logo_source_url: str | None
+        self,
+        employer_id: UUID,
+        logo_url: str | None,
+        logo_source_url: str | None,
     ) -> dict[str, Any] | None:
         return self._connection.execute(
             """
@@ -72,10 +86,3 @@ class EmployerRepository:
             """,
             (status, employer_id),
         ).fetchone()
-
-    def delete(self, employer_id: UUID) -> bool:
-        cursor = self._connection.execute(
-            "DELETE FROM employers WHERE id = %s",
-            (employer_id,),
-        )
-        return cursor.rowcount > 0

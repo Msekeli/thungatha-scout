@@ -42,3 +42,25 @@ def test_existing_employer_with_different_website_is_rejected() -> None:
 
     with pytest.raises(ValueError, match="another website"):
         import_registry(registry, connection)
+
+
+def test_existing_employer_without_website_gets_registry_careers_url() -> None:
+    connection = FakeConnection()
+    connection.employers.append(
+        {"id": "existing-id", "name": "Example Employer", "website_url": None}
+    )
+    result = import_registry(
+        {
+            "employers": [
+                {
+                    "name": "Example Employer",
+                    "careers_url": "https://example.com/careers",
+                }
+            ]
+        },
+        connection,
+    )
+
+    assert result["employers_created"] == 0
+    assert result["employers_updated"] == 1
+    assert connection.employers[0]["website_url"] == "https://example.com/careers"

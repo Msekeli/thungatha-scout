@@ -1,53 +1,26 @@
-import type { FC } from "react";
-import { Badge } from "@/components/ui/badge";
 import type { Employer } from "../api";
 
-type CompanyProfileHeaderProps = {
+type Props = {
   employer: Employer;
   jobsCount: number;
-  sourcesCount: number;
 };
 
-export const CompanyProfileHeader: FC<CompanyProfileHeaderProps> = ({
-  employer,
-  jobsCount,
-  sourcesCount,
-}) => {
+export function CompanyProfileHeader({ employer, jobsCount }: Props) {
   return (
-    <div className="mb-4 rounded-xl border border-border bg-background p-4 text-foreground shadow-md shadow-black/10">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-[10px] font-semibold tracking-widest text-primary">COMPANY PROFILE</p>
-          <h3 className="mt-1 truncate text-base font-bold text-foreground">{employer.name}</h3>
-          <p className="mt-1 break-all text-[11px] text-muted-foreground">
-            {employer.website_url ? (
-              <a
-                href={employer.website_url}
-                target="_blank"
-                rel="noreferrer"
-                className="text-scout-cyan underline-offset-2 hover:underline"
-              >
-                {employer.website_url}
-              </a>
-            ) : (
-              "Official website not supplied"
-            )}
-          </p>
-        </div>
-        <Badge variant="outline" className="shrink-0 border-border text-foreground capitalize">
-          {employer.status.replaceAll("_", " ")}
-        </Badge>
-      </div>
-      <div className="mt-4 flex gap-7 border-t border-border pt-3">
-        <div className="grid gap-0.5">
-          <strong className="text-base font-bold text-foreground">{jobsCount}</strong>
-          <span className="text-[10px] text-muted-foreground">Jobs collected</span>
-        </div>
-        <div className="grid gap-0.5">
-          <strong className="text-base font-bold text-foreground">{sourcesCount}</strong>
-          <span className="text-[10px] text-muted-foreground">Sources registered</span>
-        </div>
-      </div>
+    <div className="scout-company-profile-header">
+      <p className="scout-company-eyebrow">COMPANY</p>
+      <h3 className="mt-1 text-lg font-bold scout-company-heading">{employer.name}</h3>
+      <a
+        href={employer.website_url ?? undefined}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-1 block truncate text-xs scout-company-link"
+      >
+        {employer.website_url ?? "No official website recorded"}
+      </a>
+      <p className="mt-3 text-sm font-medium scout-company-muted">
+        {jobsCount} current {jobsCount === 1 ? "job" : "jobs"}
+      </p>
     </div>
   );
-};
+}

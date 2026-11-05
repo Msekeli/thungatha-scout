@@ -17,6 +17,7 @@ def import_registry(
 ) -> dict[str, int]:
     counts = {
         "employers_created": 0,
+        "employers_updated": 0,
         "sources_created": 0,
         "sources_updated": 0,
     }
@@ -45,6 +46,7 @@ if __name__ == "__main__":
     print(
         "Registry import complete: "
         f"{result['employers_created']} employers created, "
+        f"{result['employers_updated']} existing employers updated, "
         f"{result['sources_created']} sources created, "
         f"{result['sources_updated']} sources updated."
     )

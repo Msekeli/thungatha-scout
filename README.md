@@ -6,7 +6,7 @@ Thungatha Scout is an unattended employer-sourced vacancy ingestion and publishi
 
 The administrator mainly adds employers by pasting official careers/ATS URLs and confirming employer identity and source ownership. Scout then automatically retrieves, normalises, validates, deduplicates and publishes qualifying vacancies. Uncertain or incomplete records go to an exception-review queue; routine vacancy-by-vacancy approval is not required.
 
-V1 adapters: Greenhouse and Workday. Initial geography: Cape Town. Scout is a private admin/operations system, not a public job-search frontend.
+V1 adapters: Greenhouse and Workday. Vacancy persistence scope: South Africa only; employers remain visible even when they have no qualifying vacancies. Scout is a private admin/operations system, not a public job-search frontend.
 
 ## Current architecture
 

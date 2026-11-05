@@ -27,6 +27,18 @@ class EmployerCreate(BaseModel):
     location_evidence: list[dict[str, Any]] = Field(default_factory=list)
 
 
+class EmployerUpdate(BaseModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
+
+    name: str = Field(min_length=1)
+    legal_name: str | None = None
+    website_url: HttpUrl | None = None
+    organization_type: OrganizationType = "unresolved"
+    city: str | None = None
+    province: str | None = None
+    country: str | None = None
+
+
 class EmployerBrandingUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 

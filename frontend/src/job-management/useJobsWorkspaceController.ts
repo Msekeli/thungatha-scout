@@ -1,4 +1,5 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
+import { scoutApi } from "../api";
 import { useScoutWorkspace } from "../useScoutWorkspace";
 import { useScoutDashboardData } from "../useScoutDashboardData";
 import { useScoutDashboardMetrics } from "../useScoutDashboardMetrics";
@@ -10,10 +11,19 @@ type AppState = ReturnType<typeof useScoutAppState>;
 
 export function useJobsWorkspaceController(state: AppState) {
   const dashboard = useScoutDashboardData(state.setError);
+  const vacancyFilters = useMemo(
+    () => ({
+      employerId: state.selectedEmployerId,
+      reviewStatus: state.reviewFilter,
+      locationScope: state.locationScope,
+    }),
+    [state.selectedEmployerId, state.reviewFilter, state.locationScope],
+  );
   const workspace = useScoutWorkspace(
     state.setError,
     state.showArchived,
     dashboard.loadDashboardData,
+    vacancyFilters,
   );
   const loadWorkspace = useCallback(async () => {
     await workspace.loadWorkspace();
@@ -28,6 +38,24 @@ export function useJobsWorkspaceController(state: AppState) {
     onNotice: state.setNotice,
     onError: state.setError,
   });
+  const excludeVacancy = useCallback(
+    async (vacancyId: string) => {
+      try {
+        const updated = await scoutApi.updateVacancyReview(
+          vacancyId,
+          "rejected",
+          "Excluded by administrator from Thungatha publication.",
+        );
+        workspace.setVacancies((items) =>
+          items.map((item) => (item.id === updated.id ? updated : item)),
+        );
+        state.setNotice("Vacancy excluded. It will not be published to Thungatha.");
+      } catch (reason) {
+        state.setError(reason instanceof Error ? reason.message : "Could not exclude vacancy.");
+      }
+    },
+    [workspace.setVacancies, state.setNotice, state.setError],
+  );
   const fetching = useVacancyFetching({
     dashboardSources: dashboard.dashboardSources,
     setExtracting: state.setExtracting,
@@ -45,6 +73,13 @@ export function useJobsWorkspaceController(state: AppState) {
     selectedEmployerId: state.selectedEmployerId,
     reviewFilter: state.reviewFilter,
   });
-
-  return { ...workspace, ...dashboard, ...review, ...fetching, ...metrics, loadWorkspace };
+  return {
+    ...workspace,
+    ...dashboard,
+    ...review,
+    ...fetching,
+    ...metrics,
+    loadWorkspace,
+    excludeVacancy,
+  };
 }

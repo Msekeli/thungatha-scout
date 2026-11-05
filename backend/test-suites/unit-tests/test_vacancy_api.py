@@ -13,6 +13,18 @@ def test_lists_vacancies_for_an_employer() -> None:
     ]
 
 
+def test_lists_vacancies_with_total_and_pagination_metadata() -> None:
+    with vacancy_client() as client:
+        response = client.get(
+            "/api/v1/vacancies?limit=50&offset=0&location_scope=cape_town"
+        )
+    assert response.status_code == 200
+    assert response.json()["total"] == 201
+    assert response.json()["limit"] == 50
+    assert response.json()["has_more"] is True
+    assert len(response.json()["items"]) == 1
+
+
 def test_gets_full_vacancy_detail() -> None:
     vacancy_id = uuid4()
     with vacancy_client() as client:
@@ -27,3 +39,16 @@ def test_lists_archived_vacancies() -> None:
         response = client.get("/api/v1/vacancies/archived")
     assert response.status_code == 200
     assert response.json()[0]["title"] == "Archived vacancy"
+
+
+def test_lists_vacancies_for_western_cape_scope() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies?location_scope=western_cape")
+    assert response.status_code == 200
+    assert response.json()["total"] == 201
+
+
+def test_rejects_unknown_location_scope() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies?location_scope=sweden")
+    assert response.status_code == 422

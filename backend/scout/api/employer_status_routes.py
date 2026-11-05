@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from psycopg.errors import ForeignKeyViolation
 
 from scout.api.employer_api_dependencies import get_employer_service
+from scout.application.employer_service import EmployerService
 
 router = APIRouter()
 
@@ -37,8 +38,7 @@ def delete_employer(
         raise HTTPException(
             status_code=409,
             detail=(
-                "This company has registered sources or vacancies. "
-                "Deactivate it instead of deleting its history."
+                "Company records could not be deleted because another record still references them."
             ),
         ) from exception
     if not deleted:

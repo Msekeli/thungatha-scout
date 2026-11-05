@@ -47,14 +47,6 @@ export function useCompanyProfileOperations({
 
   const deleteCompany = useCallback(async () => {
     if (!employer) return;
-    if (
-      !window.confirm(
-        `Permanently delete ${employer.name}? Companies with sources or vacancies cannot be deleted.`,
-      )
-    ) {
-      return;
-    }
-
     setSaving(true);
     onError("");
     try {

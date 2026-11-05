@@ -62,7 +62,7 @@ A name is not better merely because it is longer. It is better when it is accura
 - Validate registry JSON against an explicit schema/contract before application use. JSON syntax validity alone is insufficient.
 - Reject unknown adapter references and missing required configuration fields. Do not silently substitute defaults for required employer-specific identifiers.
 - Use explicit, documented status values. Preserve unknown or unverified values as null or an explicit pending state; never manufacture verification dates or evidence.
-- Treat employer identity, Cape Town presence, official source relationship, technical retrieval capability, source permission and human approval as separate claims/states.
+- Treat employer identity, historical Cape Town recruitment relevance, official source relationship, technical retrieval capability, source permission and human approval as separate claims/states. Do not use employer headquarters or address as a vacancy-location filter.
 - Registry edits require tests for valid records, malformed data, unknown adapters, missing configuration, invalid status values and unresolved verification state, as applicable.
 - Do not hardcode employer-specific board slugs, tenant/site identifiers or source URLs in adapter implementation when they belong in the employer/source registry.
 
@@ -80,6 +80,8 @@ A name is not better merely because it is longer. It is better when it is accura
 ## TypeScript / React admin UI
 
 - Use TypeScript strictness and explicit types for API contracts.
+- Keep visual design decisions in global stylesheets and design tokens. Define reusable semantic classes and theme variables in `frontend/src/styles/` and import them through `frontend/src/styles.css`.
+- Use Tailwind primarily for layout, spacing, sizing and responsive structure. Do not scatter hardcoded palette, surface, border, shadow or status colours across individual components. Components should consume semantic global classes/tokens so a theme change can be made centrally.
 - Keep components focused; separate data access, validation and presentation where useful.
 - Use accessible labels, keyboard navigation, visible loading/empty/error states and responsive layouts.
 - Validate forms and API responses at boundaries where needed.

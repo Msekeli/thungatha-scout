@@ -29,6 +29,16 @@ class FakeEmployerService:
             (row for row in self.employers if row["id"] == str(employer_id)), None
         )
 
+    def update_branding(self, employer_id, payload):
+        employer = self.get_employer(employer_id)
+        if employer is None:
+            return None
+        employer["logo_url"] = str(payload.logo_url) if payload.logo_url else None
+        employer["logo_source_url"] = (
+            str(payload.logo_source_url) if payload.logo_source_url else None
+        )
+        return employer
+
     def create_source(self, payload):
         row = {
             "id": str(uuid4()),
