@@ -27,6 +27,7 @@ export type Employer = {
   logo_url?: string | null;
   logo_source_url?: string | null;
   created_at?: string;
+  vacancy_count?: number;
 };
 
 export type RelationshipEvidence = {
