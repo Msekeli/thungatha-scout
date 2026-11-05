@@ -1,11 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import type { CareersDiscovery } from "../api";
 
-type OnboardingPreviewCardProps = {
+type OnboardingDetectionStatusProps = {
   discovery: CareersDiscovery | null;
 };
 
-export function OnboardingPreviewCard({ discovery }: OnboardingPreviewCardProps) {
+export function OnboardingDetectionStatus({ discovery }: OnboardingPreviewCardProps) {
   if (!discovery) return null;
 
   return (
