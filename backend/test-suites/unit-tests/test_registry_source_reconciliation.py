@@ -57,9 +57,7 @@ def test_single_existing_source_is_reconciled_to_new_url() -> None:
     source = source_row(connection, "old")
 
     result = import_registry(
-        registry_for(
-            "https://job-boards.greenhouse.io/new", {"slug": "new"}
-        ),
+        registry_for("https://job-boards.greenhouse.io/new", {"slug": "new"}),
         connection,
     )
 
@@ -75,9 +73,7 @@ def test_multiple_existing_sources_are_not_reconciled_automatically() -> None:
 
     with pytest.raises(ValueError, match="Cannot safely reconcile multiple"):
         import_registry(
-            registry_for(
-                "https://job-boards.greenhouse.io/new", {"slug": "new"}
-            ),
+            registry_for("https://job-boards.greenhouse.io/new", {"slug": "new"}),
             connection,
         )
 

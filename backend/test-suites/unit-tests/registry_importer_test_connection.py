@@ -41,9 +41,9 @@ class FakeConnection:
             return FakeResult(source)
         if "SELECT id, normalized_url" in query:
             matches = [
-                row for row in self.sources
-                if row["employer_id"] == params[0]
-                and row["adapter_key"] == params[1]
+                row
+                for row in self.sources
+                if row["employer_id"] == params[0] and row["adapter_key"] == params[1]
             ]
             return FakeResult(matches)
         if "UPDATE employer_sources" in query:

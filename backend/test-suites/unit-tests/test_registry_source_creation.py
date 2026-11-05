@@ -18,9 +18,7 @@ def test_new_source_is_discovered_and_permission_remains_unknown() -> None:
                             "https://job-boards.greenhouse.io/example"
                         ),
                         "config": {"slug": "example"},
-                        "verification_evidence": [
-                            "https://example.com/careers"
-                        ],
+                        "verification_evidence": ["https://example.com/careers"],
                     }
                 ],
             }

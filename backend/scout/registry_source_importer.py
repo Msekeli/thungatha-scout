@@ -62,9 +62,7 @@ def import_employer_sources(
                 f"for employer: {item['name']}"
             )
         if matches:
-            update_source(
-                connection, matches[0]["id"], source_url, config, True
-            )
+            update_source(connection, matches[0]["id"], source_url, config, True)
             counts["sources_updated"] += 1
             continue
         create_source(source, employer, careers_url, connection)

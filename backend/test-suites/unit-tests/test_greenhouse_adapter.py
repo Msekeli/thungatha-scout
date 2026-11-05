@@ -5,9 +5,7 @@ from scout.greenhouse_adapter import GreenhouseUrlError, parse_board_token
 
 def test_parse_supported_greenhouse_board_urls() -> None:
     assert (
-        parse_board_token(
-            "https://job-boards.greenhouse.io/takealotgroup"
-        )
+        parse_board_token("https://job-boards.greenhouse.io/takealotgroup")
         == "takealotgroup"
     )
     assert (
@@ -17,9 +15,7 @@ def test_parse_supported_greenhouse_board_urls() -> None:
         == "bashdotcom"
     )
     assert (
-        parse_board_token(
-            "https://boards.greenhouse.io/embed/job_board?for=example"
-        )
+        parse_board_token("https://boards.greenhouse.io/embed/job_board?for=example")
         == "example"
     )
 
