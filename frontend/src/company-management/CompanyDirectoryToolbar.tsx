@@ -51,7 +51,10 @@ export function CompanyDirectoryToolbar(props: Props) {
           />
         </div>
         <Select value={props.sourceFilter} onValueChange={props.onSourceFilterChange}>
-          <SelectTrigger aria-label="Filter companies by recruitment platform" className="scout-company-filter">
+          <SelectTrigger
+            aria-label="Filter companies by recruitment platform"
+            className="scout-company-filter"
+          >
             <SlidersHorizontal className="mr-2 h-4 w-4 scout-company-description" />
             <SelectValue placeholder="All job boards" />
           </SelectTrigger>
