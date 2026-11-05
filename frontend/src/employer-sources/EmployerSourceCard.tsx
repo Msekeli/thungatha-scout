@@ -41,7 +41,7 @@ export function EmployerSourceCard({
               rel="noreferrer"
               className="block text-xs text-cyan-300 hover:underline"
             >
-              Official careers page
+              Official careers page · {source.employer_careers_url.replace(/^https?:\/\//, "")}
             </a>
           )}
           <a
