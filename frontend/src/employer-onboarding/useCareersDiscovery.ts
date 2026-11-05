@@ -24,7 +24,7 @@ export function useCareersDiscovery({ onError, onNotice }: UseCareersDiscoveryOp
       }
       const result = await scoutApi.discoverCareersPage(sourceUrl);
       setDiscovery(result);
-      onCompanyNameDetected(result.company_name ?? "");
+      onCompanyNameDetected(result.board_name || result.company_name || "");
       onNotice(`Detected ${result.detected_adapter} and found ${result.jobs.length} vacancies.`);
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not discover the careers source.");
