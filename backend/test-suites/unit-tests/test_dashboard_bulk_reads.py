@@ -18,9 +18,7 @@ def test_employer_sources_are_loaded_with_one_bulk_query() -> None:
 def test_extraction_history_is_loaded_for_all_sources_in_one_query() -> None:
     rows = [{"source_id": "source-1", "outcome": "success"}]
     connection = FakeConnection(rows)
-    service = GreenhouseExtractionService(
-        connection_factory=lambda: connection
-    )
+    service = GreenhouseExtractionService(connection_factory=lambda: connection)
 
     result = service.list_all_extraction_runs()
 
