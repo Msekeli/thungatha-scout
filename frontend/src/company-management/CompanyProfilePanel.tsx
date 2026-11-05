@@ -70,9 +70,7 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding, onSave
       />
       <CompanyProfileActions
         companyName={employer.name}
-        currentStatus={employer.status}
         saving={state.saving}
-        onUpdateStatus={(status) => void companies.updateStatus(status)}
         onDelete={() => void companies.deleteCompany()}
         onEdit={() => setEditOpen(true)}
       />
