@@ -12,6 +12,5 @@ SPEC.loader.exec_module(CHECKER)
 def test_all_handwritten_source_files_respect_the_line_limit() -> None:
     violations = CHECKER.check_file_line_limits(REPOSITORY_ROOT)
     assert not violations, (
-        "Handwritten source files must remain at or below 100 lines: "
-        f"{violations}"
+        f"Handwritten source files must remain at or below 100 lines: {violations}"
     )
