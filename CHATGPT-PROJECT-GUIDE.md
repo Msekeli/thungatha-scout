@@ -12,7 +12,7 @@ V1 scope: Cape Town; Greenhouse and Workday adapters; private admin UI; automate
 
 - Frontend: React + TypeScript + Vite + Tailwind CSS v3. Hosting is deferred pending local verification.
 - Backend: FastAPI (Python) HTTP API plus separately executable scheduled/background processing. Keep provider-portable; hosting provider remains undecided.
-- Frontend styling: Tailwind CSS v3.
+- Frontend styling: Tailwind CSS v3 for layout and responsive structure; global CSS design tokens and semantic component classes in `frontend/src/styles/` own colours, surfaces, borders, shadows and status treatments. Avoid hardcoded visual palette utilities inside components.
 - Admin authentication: Supabase Auth, restricted to the one configured administrator email. Public sign-up/registration is disabled. Backend independently validates JWTs and checks the email allowlist for every protected operation; store the allowlisted email server-side. Browser uses only the Supabase URL and publishable/anon key.
 - Hosting: deliberately undecided until the application is implemented and verified locally. Keep FastAPI and scheduled/background processing provider-portable; choose hosting after measuring actual runtime, scraping dependencies, scheduling, reliability and cost. Do not add provider-specific infrastructure or paid resources before that decision.
 - Scout operational database: a dedicated Supabase PostgreSQL project.
