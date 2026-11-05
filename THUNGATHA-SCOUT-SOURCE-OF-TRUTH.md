@@ -241,3 +241,13 @@ Approved implementation stack: FastAPI backend; React + TypeScript + Vite + Tail
 - Before release, evaluate the completed application's actual runtime needs, scheduled workload, scraping dependencies, reliability, deployment effort and total cost. Confirm that the chosen provider can run both the HTTP API and unattended processing before committing to it.
 - Frontend and backend hosting are separate concerns. The React admin can be deployed independently; the backend hosting decision must account for API execution and automation.
 - No hosting provider, paid plan, subscription change or deployment is approved by this decision.
+
+## Decision record — permanent company deletion (5 November 2026)
+
+The administrator has explicitly selected permanent company deletion instead of archival for the Companies screen. This supersedes the earlier instruction to archive employers rather than physically delete them.
+
+- The delete action must clearly identify the company and require explicit confirmation.
+- Confirmed deletion removes the employer, its registered sources, extraction-run history and collected vacancies from Scout. Database foreign-key constraints must still be respected; a failed delete must be reported rather than partially completed.
+- A deleted company is not recoverable through the UI. If deleted by mistake, the administrator must register it again and re-verify its official sources.
+- The confirmation must disclose that linked operational history and vacancies are also deleted.
+- This is a deliberate data-retention trade-off: Scout loses the prior extraction and vacancy history for that employer. Do not describe this action as archive or soft delete.
