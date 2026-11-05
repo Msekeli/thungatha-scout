@@ -9,7 +9,9 @@ from scout.persistence.vacancy_repository import VacancyRepository
 
 
 class VacancyManagementService:
-    def __init__(self, connection_factory: Callable[[], Connection] | None = None) -> None:
+    def __init__(
+        self, connection_factory: Callable[[], Connection] | None = None
+    ) -> None:
         self._connection_factory = connection_factory or get_database_connection
 
     def get_dashboard_metrics(self) -> dict[str, int]:
@@ -17,13 +19,20 @@ class VacancyManagementService:
             return VacancyRepository(connection).get_dashboard_metrics()
 
     def list_vacancy_page(
-        self, employer_id: UUID | None = None, review_status: str | None = None,
-        location_scope: str = "cape_town", limit: int = 50, offset: int = 0,
+        self,
+        employer_id: UUID | None = None,
+        review_status: str | None = None,
+        location_scope: str = "cape_town",
+        limit: int = 50,
+        offset: int = 0,
     ) -> dict[str, Any]:
         with self._connection_factory() as connection:
             return VacancyRepository(connection).list_page(
-                employer_id=employer_id, review_status=review_status,
-                location_scope=location_scope, limit=limit, offset=offset,
+                employer_id=employer_id,
+                review_status=review_status,
+                location_scope=location_scope,
+                limit=limit,
+                offset=offset,
             )
 
     def list_vacancies(
@@ -43,9 +52,13 @@ class VacancyManagementService:
         self, vacancy_id: UUID, review_status: str, review_reason: str | None
     ) -> dict[str, Any] | None:
         with self._connection_factory() as connection, connection.transaction():
-            return VacancyRepository(connection).update_review(vacancy_id, review_status, review_reason)
+            return VacancyRepository(connection).update_review(
+                vacancy_id, review_status, review_reason
+            )
 
-    def archive_vacancy(self, vacancy_id: UUID, reason: str | None = None) -> dict[str, Any] | None:
+    def archive_vacancy(
+        self, vacancy_id: UUID, reason: str | None = None
+    ) -> dict[str, Any] | None:
         with self._connection_factory() as connection, connection.transaction():
             return VacancyRepository(connection).archive(vacancy_id, reason)
 
@@ -53,6 +66,8 @@ class VacancyManagementService:
         with self._connection_factory() as connection, connection.transaction():
             return VacancyRepository(connection).restore(vacancy_id)
 
-    def list_archived_vacancies(self, limit: int = 200, offset: int = 0) -> list[dict[str, Any]]:
+    def list_archived_vacancies(
+        self, limit: int = 200, offset: int = 0
+    ) -> list[dict[str, Any]]:
         with self._connection_factory() as connection:
             return VacancyRepository(connection).list_archived(limit, offset)

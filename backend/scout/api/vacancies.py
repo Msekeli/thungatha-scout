@@ -35,8 +35,11 @@ def list_vacancies(
     service: GreenhouseExtractionService = Depends(get_extraction_service),
 ) -> dict[str, Any]:
     return service.list_vacancy_page(
-        employer_id=employer_id, review_status=review_status,
-        location_scope=location_scope, limit=limit, offset=offset,
+        employer_id=employer_id,
+        review_status=review_status,
+        location_scope=location_scope,
+        limit=limit,
+        offset=offset,
     )
 
 
