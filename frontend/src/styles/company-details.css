@@ -1,0 +1,82 @@
+@layer components {
+  .scout-company-dialog {
+    @apply max-h-[90vh] w-[95vw] max-w-5xl overflow-y-auto shadow-2xl;
+    background: var(--scout-dialog);
+    color: hsl(var(--foreground));
+    border-color: var(--scout-border);
+    box-shadow: var(--scout-dialog-shadow);
+  }
+  .scout-company-profile-header {
+    @apply mb-4 rounded-xl border p-4 shadow-lg;
+    background: var(--scout-profile-gradient);
+    border-color: var(--scout-border);
+  }
+  .scout-company-metric {
+    @apply rounded-lg border p-2;
+    background: var(--scout-surface-raised);
+    border-color: var(--scout-border);
+  }
+  .scout-company-actions {
+    @apply flex flex-wrap gap-2 border-b pb-4;
+    border-color: var(--scout-border);
+  }
+  .scout-company-action {
+    background: var(--scout-surface-raised);
+    color: hsl(var(--foreground));
+    border-color: var(--scout-border);
+  }
+  .scout-company-action:hover {
+    background: var(--scout-surface-hover);
+  }
+  .scout-company-delete {
+    @apply ml-auto;
+  }
+  .scout-company-delete-dialog {
+    border-color: var(--scout-danger-border);
+    background: var(--scout-dialog);
+    color: hsl(var(--foreground));
+  }
+  .scout-status {
+    @apply border text-[10px] capitalize;
+  }
+  .scout-status--approved {
+    background: var(--scout-success-surface);
+    color: var(--scout-success-text);
+    border-color: var(--scout-success-border);
+  }
+  .scout-status--review {
+    background: var(--scout-warning-surface);
+    color: var(--scout-warning-text);
+    border-color: var(--scout-warning-border);
+  }
+  .scout-status--rejected {
+    background: var(--scout-danger-surface);
+    color: var(--scout-danger-text);
+    border-color: var(--scout-danger-border);
+  }
+  .scout-status--type {
+    background: var(--scout-type-surface);
+    color: var(--scout-type-text);
+    border-color: var(--scout-type-border);
+  }
+  .scout-company-form-section {
+    @apply my-4 grid gap-3 rounded-xl border p-4;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+    color: hsl(var(--foreground));
+  }
+  .scout-company-source-card {
+    @apply grid gap-3 rounded-xl border p-3 sm:flex sm:items-center sm:justify-between;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+  }
+  .scout-company-muted {
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-metric-positive {
+    color: var(--scout-success-text);
+  }
+  .scout-metric-negative {
+    color: var(--scout-warning-text);
+  }
+}
