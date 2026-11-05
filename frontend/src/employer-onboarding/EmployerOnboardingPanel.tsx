@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { OnboardingPreviewCard } from "./OnboardingDetectionStatus";
+import { OnboardingDetectionStatus } from "./OnboardingDetectionStatus";
 import { OnboardingUrlForm } from "./OnboardingUrlForm";
 
 type EmployerRegistrationDraft = {
