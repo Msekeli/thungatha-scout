@@ -18,13 +18,9 @@ def test_parser_collects_board_link_and_inline_api_candidates() -> None:
         '<a href="https://job-boards.greenhouse.io/northwind/jobs/123">Role</a>'
         "<script>fetch('https://boards-api.greenhouse.io/v1/boards/other-team/jobs')</script>"
     )
-
     assert find_greenhouse_board_candidates(
         parser, httpx.URL("https://northwind.example/jobs")
-    ) == [
-        "northwind",
-        "other-team",
-    ]
+    ) == ["northwind", "other-team"]
 
 
 def test_parser_reads_greenhouse_embed_for_parameter() -> None:
@@ -32,7 +28,16 @@ def test_parser_reads_greenhouse_embed_for_parameter() -> None:
     parser.feed(
         '<iframe src="https://boards.greenhouse.io/embed/job_board?for=northwind"></iframe>'
     )
+    assert find_greenhouse_board_candidates(
+        parser, httpx.URL("https://northwind.example")
+    ) == ["northwind"]
 
+
+def test_parser_reads_greenhouse_api_script_source() -> None:
+    parser = CareersLinks()
+    parser.feed(
+        '<script src="https://boards-api.greenhouse.io/v1/boards/northwind/jobs"></script>'
+    )
     assert find_greenhouse_board_candidates(
         parser, httpx.URL("https://northwind.example")
     ) == ["northwind"]
@@ -41,13 +46,11 @@ def test_parser_reads_greenhouse_embed_for_parameter() -> None:
 def test_job_identifier_is_not_mistaken_for_board_token() -> None:
     parser = CareersLinks()
     page_url = httpx.URL("https://careers.northwind.co.za/jobs?gh_jid=8857266002")
-
     assert candidate_tokens(parser, page_url, "") == ["northwind"]
 
 
 def test_company_aliases_match_board_metadata_without_employer_constants() -> None:
     aliases = company_aliases("Northwind", "Northwind Careers", "careers.northwind.com")
-
     assert board_name_matches("Northwind Group", aliases)
     assert not board_name_matches("Another Employer", aliases)
 
