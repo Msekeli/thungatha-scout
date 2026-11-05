@@ -62,7 +62,7 @@ A name is not better merely because it is longer. It is better when it is accura
 - Validate registry JSON against an explicit schema/contract before application use. JSON syntax validity alone is insufficient.
 - Reject unknown adapter references and missing required configuration fields. Do not silently substitute defaults for required employer-specific identifiers.
 - Use explicit, documented status values. Preserve unknown or unverified values as null or an explicit pending state; never manufacture verification dates or evidence.
-- Treat employer identity, Cape Town presence, official source relationship, technical retrieval capability, source permission and human approval as separate claims/states.
+- Treat employer identity, historical Cape Town recruitment relevance, official source relationship, technical retrieval capability, source permission and human approval as separate claims/states. Do not use employer headquarters or address as a vacancy-location filter.
 - Registry edits require tests for valid records, malformed data, unknown adapters, missing configuration, invalid status values and unresolved verification state, as applicable.
 - Do not hardcode employer-specific board slugs, tenant/site identifiers or source URLs in adapter implementation when they belong in the employer/source registry.
 
