@@ -56,7 +56,7 @@ export default function App() {
           }
         }}
       >
-        <DialogContent className="scout-company-dialog">
+        <DialogContent className="scout-company-add-dialog">
           <DialogHeader>
             <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
             <DialogDescription className="scout-company-dialog-copy">
