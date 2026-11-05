@@ -66,9 +66,9 @@ export const CompanyProfileHeader: FC<Props> = ({
           <div className="scout-company-metric">
             <div className="flex items-center gap-1 text-sm font-semibold">
               {delta > 0 ? (
-                <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+                <ArrowUpRight className="h-4 w-4 scout-metric-positive" />
               ) : (
-                <ArrowDownRight className="h-4 w-4 text-amber-500" />
+                <ArrowDownRight className="h-4 w-4 scout-metric-negative" />
               )}
               <span>{delta > 0 ? `+${delta}` : delta}</span>
             </div>
