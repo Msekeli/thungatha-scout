@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "./api";
 import type { Employer, Vacancy } from "./api";
+import type { VacancyLocationScope } from "./app-state/useScoutAppState";
 
 type UseScoutWorkspaceResult = {
   employers: Employer[];
@@ -18,6 +19,7 @@ type UseScoutWorkspaceResult = {
 export function useScoutWorkspace(
   onError: (message: string) => void,
   showArchived: boolean,
+  locationScope: VacancyLocationScope,
   loadDashboardData: () => Promise<void>,
 ): UseScoutWorkspaceResult {
   const [employers, setEmployers] = useState<Employer[]>([]);
@@ -27,21 +29,18 @@ export function useScoutWorkspace(
   const [archivedLoading, setArchivedLoading] = useState(false);
   const [archivedLoaded, setArchivedLoaded] = useState(false);
 
-  const loadArchivedVacancies = useCallback(
-    async (force = false) => {
-      if (archivedLoaded && !force) return;
-      setArchivedLoading(true);
-      try {
-        setArchivedVacancies(await scoutApi.listArchivedVacancies());
-        setArchivedLoaded(true);
-      } catch (reason) {
-        onError(reason instanceof Error ? reason.message : "Could not load archived vacancies.");
-      } finally {
-        setArchivedLoading(false);
-      }
-    },
-    [archivedLoaded, onError],
-  );
+  const loadArchivedVacancies = useCallback(async (force = false) => {
+    if (archivedLoaded && !force) return;
+    setArchivedLoading(true);
+    try {
+      setArchivedVacancies(await scoutApi.listArchivedVacancies());
+      setArchivedLoaded(true);
+    } catch (reason) {
+      onError(reason instanceof Error ? reason.message : "Could not load archived vacancies.");
+    } finally {
+      setArchivedLoading(false);
+    }
+  }, [archivedLoaded, onError]);
 
   const loadWorkspace = useCallback(async () => {
     setLoading(true);
@@ -49,7 +48,7 @@ export function useScoutWorkspace(
     try {
       const [nextEmployers, nextVacancies] = await Promise.all([
         scoutApi.listEmployers(),
-        scoutApi.listVacancies(),
+        scoutApi.listVacancies(locationScope),
       ]);
       setEmployers(nextEmployers);
       setVacancies(nextVacancies);
@@ -59,25 +58,16 @@ export function useScoutWorkspace(
     } finally {
       setLoading(false);
     }
-  }, [onError, loadDashboardData]);
+  }, [onError, loadDashboardData, locationScope]);
 
-  useEffect(() => {
-    void loadWorkspace();
-  }, [loadWorkspace]);
-
+  useEffect(() => { void loadWorkspace(); }, [loadWorkspace]);
   useEffect(() => {
     if (showArchived) void loadArchivedVacancies();
   }, [showArchived, loadArchivedVacancies]);
 
   return {
-    employers,
-    setEmployers,
-    vacancies,
-    setVacancies,
-    archivedVacancies,
-    setArchivedVacancies,
-    loading: loading || (showArchived && archivedLoading),
-    loadWorkspace,
-    loadArchivedVacancies,
+    employers, setEmployers, vacancies, setVacancies, archivedVacancies,
+    setArchivedVacancies, loading: loading || (showArchived && archivedLoading),
+    loadWorkspace, loadArchivedVacancies,
   };
 }
