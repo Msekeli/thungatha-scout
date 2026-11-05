@@ -4,13 +4,15 @@ from urllib.parse import urlparse
 
 import httpx
 
-from scout.career_site_html_parser import (
-    CareersLinks,
-    find_greenhouse_board_reference,
+from scout.career_site_html_parser import CareersLinks
+from scout.greenhouse_board_resolver import (
+    candidate_tokens,
+    company_aliases,
+    resolve_greenhouse_board,
 )
 
 
-async def discover_greenhouse(url: str) -> dict[str, str]:
+async def discover_greenhouse(url: str, company_name: str = "") -> dict[str, str]:
     parsed = urlparse(url.strip())
     if parsed.scheme != "https" or not parsed.hostname:
         raise ValueError("Enter a valid HTTPS careers or jobs URL.")
@@ -28,19 +30,17 @@ async def discover_greenhouse(url: str) -> dict[str, str]:
     async with httpx.AsyncClient(timeout=12, follow_redirects=False) as client:
         response = await client.get(url)
         response.raise_for_status()
+        parser = CareersLinks()
+        parser.feed(response.text)
+        aliases = company_aliases(company_name, parser.title_text, response.url.host)
+        candidates = candidate_tokens(parser, response.url, company_name)
+        token, board_name = await resolve_greenhouse_board(client, candidates, aliases)
 
-    parser = CareersLinks()
-    parser.feed(response.text)
-    reference = find_greenhouse_board_reference(parser, response.url)
-    if reference:
-        token, board_url = reference
-        return {
-            "careers_url": str(response.url),
-            "board_url": board_url,
-            "board_token": token,
-            "detected_adapter": "greenhouse",
-            "company_name": parser.title_text.split("|")[0].split("—")[0].strip(),
-        }
-    raise ValueError(
-        "No Greenhouse board reference was found in links or embedded scripts."
-    )
+    return {
+        "careers_url": str(response.url),
+        "board_url": f"https://job-boards.greenhouse.io/{token}",
+        "board_token": token,
+        "board_name": board_name,
+        "detected_adapter": "greenhouse",
+        "company_name": board_name,
+    }
