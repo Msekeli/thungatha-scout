@@ -27,6 +27,8 @@
     border-color: var(--scout-accent);
     box-shadow: 0 0 0 1px var(--scout-accent), var(--scout-shadow);
   }
+  .scout-company-card__trigger { transition: background-color 160ms ease; }
+  .scout-company-card__trigger:hover { background: var(--scout-surface-hover); }
   .scout-company-card__accent {
     height: 3px;
     background: var(--scout-brand-gradient);
@@ -119,4 +121,6 @@
   .scout-company-form-section { @apply my-4 grid gap-3 rounded-xl border p-4; background: var(--scout-surface); border-color: var(--scout-border); color: hsl(var(--foreground)); }
   .scout-company-source-card { @apply grid gap-3 rounded-xl border p-3 sm:flex sm:items-center sm:justify-between; background: var(--scout-surface); border-color: var(--scout-border); }
   .scout-company-muted { color: hsl(var(--muted-foreground)); }
+  .scout-metric-positive { color: var(--scout-success-text); }
+  .scout-metric-negative { color: var(--scout-warning-text); }
 }
