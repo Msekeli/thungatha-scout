@@ -80,6 +80,8 @@ A name is not better merely because it is longer. It is better when it is accura
 ## TypeScript / React admin UI
 
 - Use TypeScript strictness and explicit types for API contracts.
+- Keep visual design decisions in global stylesheets and design tokens. Define reusable semantic classes and theme variables in `frontend/src/styles/` and import them through `frontend/src/styles.css`.
+- Use Tailwind primarily for layout, spacing, sizing and responsive structure. Do not scatter hardcoded palette, surface, border, shadow or status colours across individual components. Components should consume semantic global classes/tokens so a theme change can be made centrally.
 - Keep components focused; separate data access, validation and presentation where useful.
 - Use accessible labels, keyboard navigation, visible loading/empty/error states and responsive layouts.
 - Validate forms and API responses at boundaries where needed.
