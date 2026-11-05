@@ -45,7 +45,7 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding, onSave
       .at(-1) ?? null;
   const jobsCount = jobs.vacancies.filter((item) => item.employer_id === employer.id).length;
   return (
-    <section className="flex min-h-0 min-w-0 flex-col overflow-y-auto bg-transparent p-1 text-white">
+    <section className="flex min-h-0 min-w-0 flex-col overflow-y-auto bg-transparent p-1 scout-company-heading">
       <CompanyEditDialog
         employer={employer}
         open={editOpen}
