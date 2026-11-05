@@ -33,7 +33,11 @@ export function AppShellHeader({
     <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-[#070d18] via-[#10152b] to-[#17122b] border-b border-cyan-400/20 px-4 py-[14px] text-white shadow-md md:-mx-8 md:px-8">
       <div className="flex items-center gap-3">
         <span className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-xl border border-white/15 bg-white/10 p-1 shadow-inner">
-          <img src="/branding/logo.svg" alt="Thungatha Scout logo" className="h-full w-full object-contain" />
+          <img
+            src="/branding/logo.svg"
+            alt="Thungatha Scout logo"
+            className="h-full w-full object-contain"
+          />
         </span>
         <div>
           <p className="mb-0.5 text-[9px] font-bold tracking-[.2em] text-white/65">
