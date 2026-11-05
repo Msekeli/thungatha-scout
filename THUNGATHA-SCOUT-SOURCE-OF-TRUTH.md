@@ -101,7 +101,7 @@ Keep these claims independent:
 5. Source terms, permission and operational constraints.
 6. Human approval to use/publish the source or resulting records.
 
-Evidence supporting one claim does not automatically verify another. In particular, a verified ATS board mapping does not establish Cape Town presence, source permission, adapter implementation readiness or approval.
+Evidence supporting one claim does not automatically verify another. In particular, a verified ATS board mapping does not establish employer identity, historical Cape Town recruitment relevance, source permission, adapter implementation readiness or approval.
 
 Unknown capabilities and unverified claims must remain explicitly unknown or pending. Do not infer a capability because an endpoint appears plausible or because one request succeeded. The current registry entries are an initial working dataset; their presence does not mean M1 persistence, schema validation, source approval or production readiness is complete.
 
