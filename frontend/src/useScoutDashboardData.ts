@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { scoutApi } from "./api";
 import type { EmployerSource, ExtractionRun } from "./api";
 
@@ -22,10 +22,6 @@ export function useScoutDashboardData(onError: (message: string) => void) {
       onError(reason instanceof Error ? reason.message : "Could not load dashboard history.");
     }
   }, [onError]);
-
-  useEffect(() => {
-    void loadDashboardData();
-  }, [loadDashboardData]);
 
   return { dashboardSources, extractionRuns, loadDashboardData };
 }
