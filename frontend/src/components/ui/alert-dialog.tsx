@@ -12,7 +12,9 @@ export function AlertDialogOverlay() {
   );
 }
 
-export function AlertDialogContent(props: ComponentPropsWithoutRef<typeof DialogPrimitive.Content>) {
+export function AlertDialogContent(
+  props: ComponentPropsWithoutRef<typeof DialogPrimitive.Content>,
+) {
   return (
     <DialogPrimitive.Portal>
       <AlertDialogOverlay />

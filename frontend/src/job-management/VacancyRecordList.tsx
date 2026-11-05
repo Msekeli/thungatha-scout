@@ -24,47 +24,88 @@ type VacancyRecordListProps = {
 
 export function VacancyRecordList(props: VacancyRecordListProps) {
   const [pendingExclusion, setPendingExclusion] = useState<Vacancy | null>(null);
-  const { vacancies, loading, selectedVacancyId, openingVacancyId, onOpenVacancy, onExcludeVacancy } = props;
+  const {
+    vacancies,
+    loading,
+    selectedVacancyId,
+    openingVacancyId,
+    onOpenVacancy,
+    onExcludeVacancy,
+  } = props;
 
   return (
     <>
       <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3">
         {loading ? (
-          <p className="py-12 text-center text-sm text-muted-foreground">Loading operational data…</p>
+          <p className="py-12 text-center text-sm text-muted-foreground">
+            Loading operational data…
+          </p>
         ) : vacancies.length === 0 ? (
           <div className="py-12 text-center">
             <p className="text-sm font-semibold">No matching records</p>
-            <p className="mt-1 text-xs text-muted-foreground">Adjust the filters or register a source.</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Adjust the filters or register a source.
+            </p>
           </div>
-        ) : vacancies.map((vacancy) => (
-          <article key={vacancy.id} className="scout-vacancy-card" data-selected={selectedVacancyId === vacancy.id}>
-            <div className="flex min-w-0 items-start gap-2 px-4 py-4">
-              <button type="button" className="min-w-0 flex-1 text-left" onClick={() => onOpenVacancy(vacancy.id)}
-                aria-pressed={selectedVacancyId === vacancy.id} disabled={openingVacancyId === vacancy.id}>
-                <strong className="scout-vacancy-card__title">{vacancy.title}</strong>
-                <span className="scout-vacancy-card__metadata mt-3">
-                  <span><Building2 aria-hidden="true" />{vacancy.employer_name}</span>
-                  <span><MapPin aria-hidden="true" />{vacancy.location_text || "Location unknown"}</span>
-                  <span><CalendarDays aria-hidden="true" />{new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}</span>
-                </span>
-              </button>
-              {vacancy.review_status !== "rejected" && (
-                <Button type="button" variant="ghost" size="icon" className="scout-vacancy-card__exclude"
-                  aria-label={"Exclude " + vacancy.title + " from Thungatha publication"}
-                  title="Exclude from publication" onClick={() => setPendingExclusion(vacancy)}>
-                  <Ban className="h-4 w-4" />
-                </Button>
-              )}
-            </div>
-          </article>
-        ))}
+        ) : (
+          vacancies.map((vacancy) => (
+            <article
+              key={vacancy.id}
+              className="scout-vacancy-card"
+              data-selected={selectedVacancyId === vacancy.id}
+            >
+              <div className="flex min-w-0 items-start gap-2 px-4 py-4">
+                <button
+                  type="button"
+                  className="min-w-0 flex-1 text-left"
+                  onClick={() => onOpenVacancy(vacancy.id)}
+                  aria-pressed={selectedVacancyId === vacancy.id}
+                  disabled={openingVacancyId === vacancy.id}
+                >
+                  <strong className="scout-vacancy-card__title">{vacancy.title}</strong>
+                  <span className="scout-vacancy-card__metadata mt-3">
+                    <span>
+                      <Building2 aria-hidden="true" />
+                      {vacancy.employer_name}
+                    </span>
+                    <span>
+                      <MapPin aria-hidden="true" />
+                      {vacancy.location_text || "Location unknown"}
+                    </span>
+                    <span>
+                      <CalendarDays aria-hidden="true" />
+                      {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}
+                    </span>
+                  </span>
+                </button>
+                {vacancy.review_status !== "rejected" && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="scout-vacancy-card__exclude"
+                    aria-label={"Exclude " + vacancy.title + " from Thungatha publication"}
+                    title="Exclude from publication"
+                    onClick={() => setPendingExclusion(vacancy)}
+                  >
+                    <Ban className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+            </article>
+          ))
+        )}
       </div>
-      <AlertDialog open={pendingExclusion !== null} onOpenChange={(open) => !open && setPendingExclusion(null)}>
+      <AlertDialog
+        open={pendingExclusion !== null}
+        onOpenChange={(open) => !open && setPendingExclusion(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Exclude vacancy from publication?</AlertDialogTitle>
             <AlertDialogDescription>
-              {pendingExclusion?.title} will remain in Scout, but it will not be published to Thungatha.
+              {pendingExclusion?.title} will remain in Scout, but it will not be published to
+              Thungatha.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -72,10 +113,12 @@ export function VacancyRecordList(props: VacancyRecordListProps) {
               <Button variant="outline">Cancel</Button>
             </AlertDialogCancel>
             <AlertDialogAction asChild>
-              <Button onClick={() => {
-                if (pendingExclusion) void onExcludeVacancy(pendingExclusion.id);
-                setPendingExclusion(null);
-              }}>
+              <Button
+                onClick={() => {
+                  if (pendingExclusion) void onExcludeVacancy(pendingExclusion.id);
+                  setPendingExclusion(null);
+                }}
+              >
                 Exclude vacancy
               </Button>
             </AlertDialogAction>
