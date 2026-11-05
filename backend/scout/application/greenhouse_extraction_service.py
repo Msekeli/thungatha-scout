@@ -87,3 +87,7 @@ class GreenhouseExtractionService(VacancyManagementService):
             if EmployerSourceRepository(connection).get_by_id(source_id) is None:
                 raise SourceNotFoundError("Employer source not found.")
             return ExtractionRunRepository(connection).list_for_source(source_id)
+
+    def list_all_extraction_runs(self) -> list[dict[str, Any]]:
+        with self._connection_factory() as connection:
+            return ExtractionRunRepository(connection).list_latest_for_all_sources()
