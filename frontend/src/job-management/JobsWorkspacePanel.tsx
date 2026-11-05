@@ -56,6 +56,8 @@ export function JobsWorkspacePanel({ jobs, state }: Props) {
               state.setShowArchived(show);
               jobs.clearSelection();
             }}
+            locationScope={state.locationScope}
+            onLocationScopeChange={state.setLocationScope}
             reviewFilter={state.reviewFilter}
             onReviewFilterChange={state.setReviewFilter}
             selectedEmployerId={state.selectedEmployerId}
