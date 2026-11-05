@@ -3,7 +3,9 @@ from uuid import UUID
 
 
 class VacancyReadOperations:
-    def list_for_employer(self, employer_id: UUID, limit: int = 200, offset: int = 0) -> list[dict[str, Any]]:
+    def list_for_employer(
+        self, employer_id: UUID, limit: int = 200, offset: int = 0
+    ) -> list[dict[str, Any]]:
         return self._connection.execute(
             """
             SELECT v.id, v.employer_id, v.source_id, v.external_job_id,

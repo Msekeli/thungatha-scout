@@ -36,12 +36,17 @@ def list_employer_vacancies(
 
 
 @router.get("/extraction-runs")
-def list_all_extraction_runs(service: GreenhouseExtractionService = Depends(get_extraction_service)) -> list[dict[str, Any]]:
+def list_all_extraction_runs(
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> list[dict[str, Any]]:
     return service.list_all_extraction_runs()
 
 
 @router.get("/sources/{source_id}/extraction-runs")
-def list_source_extraction_runs(source_id: UUID, service: GreenhouseExtractionService = Depends(get_extraction_service)) -> list[dict[str, Any]]:
+def list_source_extraction_runs(
+    source_id: UUID,
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> list[dict[str, Any]]:
     try:
         return service.list_extraction_runs(source_id)
     except SourceNotFoundError as exception:
@@ -49,7 +54,10 @@ def list_source_extraction_runs(source_id: UUID, service: GreenhouseExtractionSe
 
 
 @router.post("/sources/{source_id}/extract", status_code=status.HTTP_200_OK)
-async def extract_source(source_id: UUID, service: GreenhouseExtractionService = Depends(get_extraction_service)) -> dict[str, Any]:
+async def extract_source(
+    source_id: UUID,
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> dict[str, Any]:
     try:
         return await service.extract_source(source_id)
     except SourceNotFoundError as exception:
@@ -59,7 +67,10 @@ async def extract_source(source_id: UUID, service: GreenhouseExtractionService =
 
 
 @router.get("/vacancies/{vacancy_id}")
-def get_vacancy(vacancy_id: UUID, service: GreenhouseExtractionService = Depends(get_extraction_service)) -> dict[str, Any]:
+def get_vacancy(
+    vacancy_id: UUID,
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> dict[str, Any]:
     vacancy = service.get_vacancy(vacancy_id)
     if vacancy is None:
         raise HTTPException(status_code=404, detail="Vacancy not found.")
@@ -67,8 +78,14 @@ def get_vacancy(vacancy_id: UUID, service: GreenhouseExtractionService = Depends
 
 
 @router.patch("/vacancies/{vacancy_id}/review")
-def update_vacancy_review(vacancy_id: UUID, payload: VacancyReviewUpdate, service: GreenhouseExtractionService = Depends(get_extraction_service)) -> dict[str, Any]:
-    vacancy = service.update_vacancy_review(vacancy_id, payload.review_status, payload.review_reason)
+def update_vacancy_review(
+    vacancy_id: UUID,
+    payload: VacancyReviewUpdate,
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> dict[str, Any]:
+    vacancy = service.update_vacancy_review(
+        vacancy_id, payload.review_status, payload.review_reason
+    )
     if vacancy is None:
         raise HTTPException(status_code=404, detail="Vacancy not found or archived.")
     return vacancy
