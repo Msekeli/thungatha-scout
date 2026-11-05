@@ -49,8 +49,14 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
     def list_all(self, limit: int = 100, offset: int = 0) -> list[dict[str, Any]]:
         return self._connection.execute(
             """
-            SELECT * FROM employers
-            ORDER BY created_at DESC, id
+            SELECT e.*,
+                   COUNT(v.id) FILTER (
+                       WHERE v.status = 'active' AND v.archived_at IS NULL
+                   )::INTEGER AS vacancy_count
+            FROM employers e
+            LEFT JOIN vacancies v ON v.employer_id = e.id
+            GROUP BY e.id
+            ORDER BY e.created_at DESC, e.id
             LIMIT %s OFFSET %s
             """,
             (limit, offset),
