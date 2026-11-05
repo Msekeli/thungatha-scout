@@ -13,21 +13,30 @@ type Options = {
   onError: (message: string) => void;
 };
 
-export function useCompanyDetailsUpdate({ employer, setEmployers, setSaving, onNotice, onError }: Options) {
-  return useCallback(async (values: Values) => {
-    if (!employer) return false;
-    setSaving(true);
-    onError("");
-    try {
-      const updated = await scoutApi.updateEmployer(employer.id, values);
-      setEmployers((current) => current.map((item) => item.id === updated.id ? updated : item));
-      onNotice(`${updated.name} details updated.`);
-      return true;
-    } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not update company details.");
-      return false;
-    } finally {
-      setSaving(false);
-    }
-  }, [employer, setEmployers, setSaving, onNotice, onError]);
+export function useCompanyDetailsUpdate({
+  employer,
+  setEmployers,
+  setSaving,
+  onNotice,
+  onError,
+}: Options) {
+  return useCallback(
+    async (values: Values) => {
+      if (!employer) return false;
+      setSaving(true);
+      onError("");
+      try {
+        const updated = await scoutApi.updateEmployer(employer.id, values);
+        setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
+        onNotice(`${updated.name} details updated.`);
+        return true;
+      } catch (reason) {
+        onError(reason instanceof Error ? reason.message : "Could not update company details.");
+        return false;
+      } finally {
+        setSaving(false);
+      }
+    },
+    [employer, setEmployers, setSaving, onNotice, onError],
+  );
 }

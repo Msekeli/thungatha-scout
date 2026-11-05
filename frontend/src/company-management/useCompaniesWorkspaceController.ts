@@ -31,15 +31,25 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     onDeleted: () => {
       state.setSelectedEmployerId("all");
       state.setSources([]);
-      jobs.setDashboardSources((items) => items.filter((item) => item.employer_id !== employer?.id));
+      jobs.setDashboardSources((items) =>
+        items.filter((item) => item.employer_id !== employer?.id),
+      );
       jobs.setVacancies((items) => items.filter((item) => item.employer_id !== employer?.id));
-      jobs.setArchivedVacancies((items) => items.filter((item) => item.employer_id !== employer?.id));
+      jobs.setArchivedVacancies((items) =>
+        items.filter((item) => item.employer_id !== employer?.id),
+      );
     },
     setSaving: state.setSaving,
     onNotice: state.setNotice,
     onError: state.setError,
   });
-  const updateDetails = useCompanyDetailsUpdate({ employer, setEmployers: jobs.setEmployers, setSaving: state.setSaving, onNotice: state.setNotice, onError: state.setError });
+  const updateDetails = useCompanyDetailsUpdate({
+    employer,
+    setEmployers: jobs.setEmployers,
+    setSaving: state.setSaving,
+    onNotice: state.setNotice,
+    onError: state.setError,
+  });
   const sourceOperations = useEmployerSourceOperations({
     employer,
     sources: state.sources,
@@ -67,5 +77,12 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     onError: state.setError,
   });
 
-  return { employer, ...selection, ...profile, updateDetails, ...sourceOperations, ...sourceReview };
+  return {
+    employer,
+    ...selection,
+    ...profile,
+    updateDetails,
+    ...sourceOperations,
+    ...sourceReview,
+  };
 }

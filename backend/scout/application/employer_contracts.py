@@ -3,7 +3,14 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
-OrganizationType = Literal["direct_employer", "recruitment_agency", "staffing_company", "hybrid", "other", "unresolved"]
+OrganizationType = Literal[
+    "direct_employer",
+    "recruitment_agency",
+    "staffing_company",
+    "hybrid",
+    "other",
+    "unresolved",
+]
 
 
 class EmployerCreate(BaseModel):
@@ -45,7 +52,15 @@ class EmployerSourceCreate(BaseModel):
 
 
 class EmployerSourceReviewUpdate(BaseModel):
-    status: Literal["discovered", "pending_verification", "verified", "temporarily_unavailable", "invalid", "needs_review", "inactive"]
+    status: Literal[
+        "discovered",
+        "pending_verification",
+        "verified",
+        "temporarily_unavailable",
+        "invalid",
+        "needs_review",
+        "inactive",
+    ]
     permission_status: Literal["unknown", "allowed", "restricted", "needs_review"]
     evidence_url: str | None = Field(default=None, max_length=2048)
     reason: str | None = Field(default=None, max_length=2000)

@@ -33,7 +33,15 @@ export function CompanyProfilePanel({
     <section className="flex min-h-0 min-w-0 flex-col overflow-y-auto rounded-xl border border-border bg-card p-4 shadow-sm">
       {employer ? (
         <>
-          <CompanyEditDialog employer={employer} open={editOpen} saving={state.saving} onOpenChange={setEditOpen} onSave={async (values) => { if (await companies.updateDetails(values)) setEditOpen(false); }} />
+          <CompanyEditDialog
+            employer={employer}
+            open={editOpen}
+            saving={state.saving}
+            onOpenChange={setEditOpen}
+            onSave={async (values) => {
+              if (await companies.updateDetails(values)) setEditOpen(false);
+            }}
+          />
           <CompanyProfileHeader
             employer={employer}
             jobsCount={jobsCount}
