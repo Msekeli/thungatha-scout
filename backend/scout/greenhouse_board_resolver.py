@@ -5,7 +5,7 @@ from collections.abc import Sequence
 import httpx
 
 from scout.career_site_html_parser import CareersLinks, find_greenhouse_board_candidates
-from scout.employer_name_matching import board_name_matches
+from scout.employer_name_matching import board_name_matches, domain_company_name
 
 API_ROOT = "https://boards-api.greenhouse.io/v1/boards"
 
@@ -14,7 +14,7 @@ def candidate_tokens(
     parser: CareersLinks, page_url: httpx.URL, company_name: str
 ) -> list[str]:
     candidates = find_greenhouse_board_candidates(parser, page_url)
-    for value in (company_name, page_url.host.split(".")[0]):
+    for value in (company_name, domain_company_name(page_url.host)):
         token = re.sub(r"[^a-z0-9-]", "", value.casefold().replace(" ", "-"))
         if token and token not in candidates:
             candidates.append(token)
