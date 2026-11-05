@@ -12,10 +12,12 @@ import {
 } from "./components/ui/dialog";
 import { useScoutApplicationController } from "./useScoutApplicationController";
 import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges";
+import { useVacancyCountChange } from "./job-management/useVacancyCountChange";
 
 export default function App() {
   const { state, jobs, companies, onboarding } = useScoutApplicationController();
   const companyJobChanges = useCompanyJobChanges(state.page, jobs.employers, jobs.vacancies);
+  const vacancyChange = useVacancyCountChange(state.page, jobs.vacancies);
   const addingCompany = state.page === "add-company";
 
   return (
@@ -34,7 +36,9 @@ export default function App() {
         onDismissError={state.dismissError}
         onDismissNotice={state.dismissNotice}
       />
-      {state.page === "jobs" && <JobsWorkspacePanel jobs={jobs} state={state} />}
+      {state.page === "jobs" && (
+        <JobsWorkspacePanel jobs={jobs} state={state} vacancyChange={vacancyChange} />
+      )}
       {(state.page === "companies" || addingCompany) && (
         <CompaniesWorkspacePanel
           state={state}
