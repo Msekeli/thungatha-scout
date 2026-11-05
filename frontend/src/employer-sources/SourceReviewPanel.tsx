@@ -26,21 +26,21 @@ type SourceReviewPanelProps = {
 
 export function SourceReviewPanel(props: SourceReviewPanelProps) {
   return (
-    <div className="grid gap-3 rounded-lg border border-border bg-muted/50 p-4">
+    <div className="grid gap-3 rounded-lg border border-slate-700 bg-slate-900 p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <strong className="text-xs font-semibold text-foreground">Verification & permission</strong>
-        <span className="text-[10px] text-muted-foreground">
+        <strong className="text-xs font-semibold text-white">Verification & permission</strong>
+        <span className="text-[10px] text-slate-400">
           Company approval does not approve this source
         </span>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <div className="grid gap-1 text-xs font-medium text-muted-foreground">
+        <div className="grid gap-1 text-xs font-medium text-slate-400">
           <span>Source status</span>
           <Select
             value={decision?.status ?? source.status}
             onValueChange={(value) => onChange("status", value)}
           >
-            <SelectTrigger aria-label="Source status" className="h-9 bg-card text-xs">
+            <SelectTrigger aria-label="Source status" className="h-9 border-slate-700 bg-slate-950 text-xs text-white">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -54,13 +54,13 @@ export function SourceReviewPanel(props: SourceReviewPanelProps) {
             </SelectContent>
           </Select>
         </div>
-        <div className="grid gap-1 text-xs font-medium text-muted-foreground">
+        <div className="grid gap-1 text-xs font-medium text-slate-400">
           <span>Permission</span>
           <Select
             value={decision?.permission_status ?? source.permission_status}
             onValueChange={(value) => onChange("permission_status", value)}
           >
-            <SelectTrigger aria-label="Permission" className="h-9 bg-card text-xs">
+            <SelectTrigger aria-label="Permission" className="h-9 border-slate-700 bg-slate-950 text-xs text-white">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -72,20 +72,20 @@ export function SourceReviewPanel(props: SourceReviewPanelProps) {
           </Select>
         </div>
       </div>
-      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
+      <label className="grid gap-1 text-xs font-medium text-slate-400">
         Evidence URL
         <Input
           type="url"
-          className="bg-card"
+          className="border-slate-700 bg-slate-950 text-white placeholder:text-slate-500"
           value={decision?.evidence_url ?? ""}
           onChange={(event) => onChange("evidence_url", event.target.value)}
           placeholder="Official employer page confirming this ATS relationship"
         />
       </label>
-      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
+      <label className="grid gap-1 text-xs font-medium text-slate-400">
         Decision notes
         <Textarea
-          className="bg-card"
+          className="border-slate-700 bg-slate-950 text-white placeholder:text-slate-500"
           value={decision?.reason ?? ""}
           onChange={(event) => onChange("reason", event.target.value)}
           placeholder="Why this source status and permission were chosen"
