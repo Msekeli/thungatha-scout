@@ -45,7 +45,6 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
       />
       <CompanySourcesPanel
         state={state}
-        jobs={jobs}
         companies={companies}
         onboarding={onboarding}
       />
