@@ -24,13 +24,16 @@ def import_employer(
         )
     if employer is not None:
         if not existing_url and careers_url:
-            return connection.execute(
+            updated = connection.execute(
                 """
                 UPDATE employers SET website_url = %s, updated_at = NOW()
                 WHERE id = %s RETURNING id, website_url
                 """,
                 (careers_url, employer["id"]),
             ).fetchone()
+            if updated:
+                counts["employers_updated"] += 1
+                return updated
         return employer
 
     location_evidence = []
