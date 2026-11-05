@@ -20,9 +20,13 @@ export function VacancyDescriptionPreview({ vacancy }: { vacancy: Vacancy }) {
           sandbox=""
           srcDoc={
             '<!doctype html><html><head><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; img-src https: data:; style-src \'unsafe-inline\';"><meta name="viewport" content="width=device-width, initial-scale=1"><style>' +
-            'html{color-scheme:dark}body{font:14px/1.65 system-ui,sans-serif;color:hsl(' + foreground +
-            ');background:' + surface + ';margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:' +
-            link + '}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>' +
+            "html{color-scheme:dark}body{font:14px/1.65 system-ui,sans-serif;color:hsl(" +
+            foreground +
+            ");background:" +
+            surface +
+            ";margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:" +
+            link +
+            "}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" +
             content +
             "</body></html>"
           }
