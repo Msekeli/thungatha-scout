@@ -38,7 +38,9 @@ def test_employer_registry_api_validates_payloads() -> None:
 def test_employer_branding_api_updates_logo_metadata() -> None:
     service = FakeEmployerService()
     employer_id = uuid4()
-    service.employers.append({"id": str(employer_id), "name": "Example", "status": "discovered"})
+    service.employers.append(
+        {"id": str(employer_id), "name": "Example", "status": "discovered"}
+    )
     with client_for(get_employer_service, service) as client:
         response = client.patch(
             f"/api/v1/employers/{employer_id}/branding",
