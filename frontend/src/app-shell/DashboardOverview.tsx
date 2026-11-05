@@ -25,8 +25,8 @@ export function DashboardOverview({ vacancyCount, vacancyChange }: Props) {
           }
           aria-label={
             vacancyChange > 0
-              ? vacancyChange + " more vacancies since last visit"
-              : Math.abs(vacancyChange) + " fewer vacancies since last visit"
+              ? vacancyChange + " new vacancies in the last 24 hours"
+              : Math.abs(vacancyChange) + " vacancies removed from active inventory"
           }
         >
           {vacancyChange > 0 ? (
