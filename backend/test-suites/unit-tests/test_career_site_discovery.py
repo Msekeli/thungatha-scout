@@ -1,6 +1,6 @@
 from httpx import URL
 
-from scout.career_site_discovery import CareersLinks, _board_reference
+from scout.career_site_html_parser import CareersLinks, find_greenhouse_board_reference
 
 
 def test_careers_page_parser_collects_title_and_ats_links() -> None:
@@ -19,7 +19,7 @@ def test_board_reference_uses_greenhouse_job_board_links() -> None:
     parser = CareersLinks()
     parser.feed('<a href="https://job-boards.greenhouse.io/ozow/jobs/123">Role</a>')
 
-    assert _board_reference(parser, URL("https://ozow.com/jobs")) == (
+    assert find_greenhouse_board_reference(parser, URL("https://ozow.com/jobs")) == (
         "ozow",
         "https://job-boards.greenhouse.io/ozow",
     )
@@ -33,7 +33,7 @@ def test_board_reference_detects_inline_greenhouse_api_configuration() -> None:
         "</html>"
     )
 
-    assert _board_reference(parser, URL("https://ozow.com/jobs")) == (
+    assert find_greenhouse_board_reference(parser, URL("https://ozow.com/jobs")) == (
         "ozow",
         "https://job-boards.greenhouse.io/ozow",
     )
