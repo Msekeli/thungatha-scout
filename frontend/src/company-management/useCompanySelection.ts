@@ -1,7 +1,7 @@
 import { useCallback, useRef } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "../api";
-import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection } from "../api";
+import type { Employer, EmployerSource, ExtractionRun } from "../api";
 
 type UseCompanySelectionOptions = {
   setSources: Dispatch<SetStateAction<EmployerSource[]>>;
@@ -11,7 +11,6 @@ type UseCompanySelectionOptions = {
   setLogoSourceUrl: (url: string) => void;
   setSourceUrl: (url: string) => void;
   setEditingSourceId: (id: string | null) => void;
-  setInspection: (inspection: GreenhouseInspection | null) => void;
   setPage: (page: "companies") => void;
   onError: (message: string) => void;
 };
@@ -24,7 +23,6 @@ export function useCompanySelection({
   setLogoSourceUrl,
   setSourceUrl,
   setEditingSourceId,
-  setInspection,
   setPage,
   onError,
 }: UseCompanySelectionOptions) {
@@ -35,7 +33,6 @@ export function useCompanySelection({
       const currentRequest = ++requestId.current;
       setEditingSourceId(null);
       setSourceUrl("");
-      setInspection(null);
       setSources([]);
       setSelectedCompanyId(employer.id);
       setLogoUrl(employer.logo_url ?? "");
@@ -67,7 +64,6 @@ export function useCompanySelection({
       onError,
       setEditingSourceId,
       setExtractionRuns,
-      setInspection,
       setLogoSourceUrl,
       setLogoUrl,
       setPage,
