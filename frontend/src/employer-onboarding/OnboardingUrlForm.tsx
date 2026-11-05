@@ -32,12 +32,12 @@ export function OnboardingUrlForm({
   return (
     <div className="grid gap-3">
       <label className="grid gap-1 text-xs font-medium text-muted-foreground">
-        Careers / jobs listing URL
+        Official careers / jobs page URL
         <Input
           type="url"
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
-          placeholder="https://company.com/jobs"
+          placeholder="https://company.com/careers"
           required
         />
       </label>
@@ -47,7 +47,7 @@ export function OnboardingUrlForm({
         <Input
           value={companyName}
           onChange={(event) => onChangeCompanyName(event.target.value)}
-          placeholder="e.g. Ozow"
+          placeholder="Enter company name"
           required
         />
       </label>
@@ -75,7 +75,7 @@ export function OnboardingUrlForm({
         onClick={onDetect}
         disabled={inspecting || !sourceUrl.trim()}
       >
-        {inspecting ? "Detecting ATS and inspecting jobs…" : "Detect ATS & preview jobs"}
+        {inspecting ? "Checking Greenhouse board…" : "Detect ATS"}
       </Button>
     </div>
   );
