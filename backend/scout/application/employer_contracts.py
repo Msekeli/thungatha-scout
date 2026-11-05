@@ -15,6 +15,7 @@ OrganizationType = Literal[
 
 class EmployerCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
+
     name: str = Field(min_length=1)
     legal_name: str | None = None
     website_url: HttpUrl | None = None
@@ -28,6 +29,7 @@ class EmployerCreate(BaseModel):
 
 class EmployerUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
+
     name: str = Field(min_length=1)
     legal_name: str | None = None
     website_url: HttpUrl | None = None
@@ -36,12 +38,14 @@ class EmployerUpdate(BaseModel):
 
 class EmployerBrandingUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
+
     logo_url: HttpUrl | None = None
     logo_source_url: HttpUrl | None = None
 
 
 class EmployerSourceCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
+
     employer_id: UUID
     adapter_key: Literal["greenhouse", "workday"]
     source_url: HttpUrl
