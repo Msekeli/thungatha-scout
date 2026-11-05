@@ -12,7 +12,9 @@
     color: hsl(var(--foreground));
     border-color: var(--scout-border);
   }
-  .scout-company-textarea::placeholder { color: hsl(var(--muted-foreground)); }
+  .scout-company-textarea::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
   .scout-company-onboarding {
     @apply w-full max-w-2xl rounded-xl border p-5 shadow-xl sm:p-7;
     background: var(--scout-surface);
@@ -30,14 +32,24 @@
     color: hsl(var(--foreground));
     border-color: var(--scout-border);
   }
-  .scout-company-cancel-button:hover { background: var(--scout-surface-hover); }
+  .scout-company-cancel-button:hover {
+    background: var(--scout-surface-hover);
+  }
   .scout-company-add-button {
     @apply h-10 px-6 shadow-sm;
     background: var(--scout-accent);
     color: var(--scout-accent-foreground);
   }
-  .scout-company-add-button:hover { background: var(--scout-accent-hover); }
-  .scout-company-dialog-copy { color: hsl(var(--muted-foreground)); }
-  .scout-company-edit-dialog { @apply max-w-2xl; }
-  .scout-company-edit-fields { @apply grid gap-4; }
+  .scout-company-add-button:hover {
+    background: var(--scout-accent-hover);
+  }
+  .scout-company-dialog-copy {
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-company-edit-dialog {
+    @apply max-w-2xl;
+  }
+  .scout-company-edit-fields {
+    @apply grid gap-4;
+  }
 }

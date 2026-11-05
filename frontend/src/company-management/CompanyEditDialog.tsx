@@ -71,7 +71,9 @@ export function CompanyEditDialog({ employer, open, saving, onOpenChange, onSave
       <DialogContent className="scout-company-dialog scout-company-edit-dialog">
         <DialogHeader>
           <DialogTitle className="scout-company-heading">Edit company</DialogTitle>
-          <DialogDescription className="scout-company-dialog-copy">Update the company profile and its official links.</DialogDescription>
+          <DialogDescription className="scout-company-dialog-copy">
+            Update the company profile and its official links.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} className="scout-company-edit-fields">
           <CompanyEditFields fields={fields} onChange={change} />

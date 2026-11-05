@@ -68,5 +68,4 @@
     @apply text-xs;
     color: hsl(var(--muted-foreground));
   }
-
 }

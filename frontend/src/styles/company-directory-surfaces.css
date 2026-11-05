@@ -64,5 +64,4 @@
     @apply truncate;
     color: hsl(var(--muted-foreground));
   }
-
 }
