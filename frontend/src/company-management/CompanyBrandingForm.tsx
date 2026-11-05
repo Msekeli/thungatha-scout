@@ -56,7 +56,7 @@ export function CompanyBrandingForm({
           value={logoSourceUrl}
           onChange={(event) => onLogoSourceUrlChange(event.target.value)}
           placeholder="Official company page where the logo is shown"
-          className="mt-1"
+          className="scout-company-field mt-1"
         />
       </label>
       <Button type="submit" variant="outline" className="w-fit" disabled={saving}>
