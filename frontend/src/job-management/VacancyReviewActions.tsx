@@ -76,13 +76,7 @@ export function VacancyReviewActions({
               Restore
             </Button>
           ) : (
-            <Button
-              type="button"
-              size="sm"
-              variant="outline"
-              disabled={saving}
-              onClick={onArchive}
-            >
+            <Button type="button" size="sm" variant="outline" disabled={saving} onClick={onArchive}>
               Archive
             </Button>
           )}
