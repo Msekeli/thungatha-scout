@@ -14,7 +14,7 @@ type Props = {
 export function CompanyDirectoryCard({ employer, sources, selected, onSelect }: Props) {
   return (
     <article
-      className="scout-company-card"
+      className="scout-company-card" data-selected={selected}
     >
       <div className="scout-company-card__accent" />
       <Button
@@ -29,7 +29,7 @@ export function CompanyDirectoryCard({ employer, sources, selected, onSelect }: 
             <img
               src={employer.logo_url}
               alt=""
-              className="h-8 w-8 rounded-lg bg-white object-contain p-1"
+              className="scout-company-card__logo"
             />
           ) : (
             <Building2 className="h-5 w-5" />
@@ -40,7 +40,7 @@ export function CompanyDirectoryCard({ employer, sources, selected, onSelect }: 
             {employer.name}
           </strong>
           <span className="mt-1 flex items-center gap-2 text-xs scout-company-card__meta">
-            <BriefcaseBusiness className="h-3.5 w-3.5 text-cyan-300" />
+            <BriefcaseBusiness className="h-3.5 w-3.5 scout-company-card__meta" />
             {sources.length} registered source{sources.length === 1 ? "" : "s"}
           </span>
           <span className="mt-3 flex flex-wrap gap-1.5">
