@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+import { CalendarDays, Building2, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Vacancy } from "../api";
 
@@ -9,14 +9,6 @@ type VacancyRecordListProps = {
   openingVacancyId: string | null;
   onOpenVacancy: (vacancyId: string) => void;
 };
-
-const reviewLabel = (status: Vacancy["review_status"]) =>
-  ({
-    pending: "Pending review",
-    needs_verification: "Needs verification",
-    verified: "Verified",
-    rejected: "Rejected",
-  })[status];
 
 export function VacancyRecordList({
   vacancies,
@@ -45,43 +37,27 @@ export function VacancyRecordList({
             onClick={() => onOpenVacancy(vacancy.id)}
             aria-pressed={selectedVacancyId === vacancy.id}
             disabled={openingVacancyId === vacancy.id}
-            className={`h-auto w-full justify-start rounded-lg border p-3 text-left font-normal shadow-sm transition-all hover:border-ring hover:bg-accent/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-wait disabled:opacity-70 ${
-              selectedVacancyId === vacancy.id
-                ? "border-ring bg-accent shadow-sm"
-                : "border-border bg-card"
-            }`}
+            data-selected={selectedVacancyId === vacancy.id}
+            className="scout-vacancy-card"
           >
-            <span className="flex items-start justify-between gap-3">
-              <strong className="text-sm font-semibold leading-snug text-primary">
-                {vacancy.title}
-              </strong>
-              <Badge
-                variant={
-                  vacancy.review_status === "verified"
-                    ? "default"
-                    : vacancy.review_status === "rejected"
-                      ? "destructive"
-                      : "secondary"
-                }
-                className={
-                  vacancy.review_status === "pending" ||
-                  vacancy.review_status === "needs_verification"
-                    ? "bg-warning-surface text-warning hover:bg-warning-surface"
-                    : ""
-                }
-              >
-                {reviewLabel(vacancy.review_status)}
-              </Badge>
-            </span>
-            <span className="mt-1 block text-xs font-medium text-muted-foreground">
-              {vacancy.employer_name}
-            </span>
-            <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-muted-foreground">
-              <span>{vacancy.location_text || "Location unknown"}</span>
-              {vacancy.department && <span>{vacancy.department}</span>}
-              <span>
-                First seen{" "}
-                {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}
+            <span className="scout-vacancy-card__accent" />
+            <span className="scout-vacancy-card__content">
+              <strong className="scout-vacancy-card__title">{vacancy.title}</strong>
+              <span className="scout-vacancy-card__metadata">
+                <span>
+                  <Building2 aria-hidden="true" />
+                  {vacancy.employer_name}
+                </span>
+                <span>
+                  <MapPin aria-hidden="true" />
+                  {vacancy.location_text || "Location unknown"}
+                </span>
+                <span>
+                  <CalendarDays aria-hidden="true" />
+                  {new Date(
+                    vacancy.first_seen_at ?? vacancy.last_seen_at,
+                  ).toLocaleDateString()}
+                </span>
               </span>
             </span>
           </Button>
