@@ -12,9 +12,11 @@ import {
   DialogTitle,
 } from "./components/ui/dialog";
 import { useScoutApplicationController } from "./useScoutApplicationController";
+import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges";
 
 export default function App() {
   const { state, jobs, companies, onboarding } = useScoutApplicationController();
+  const companyJobChanges = useCompanyJobChanges(state.page, jobs.employers, jobs.vacancies);
   const saveBranding = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await companies.saveBranding();
@@ -45,6 +47,8 @@ export default function App() {
           companies={companies}
           onboarding={onboarding}
           onSaveBranding={saveBranding}
+          currentJobsByEmployer={companyJobChanges.currentJobsByEmployer}
+          jobChangesByEmployer={companyJobChanges.jobChangesByEmployer}
         />
       )}
       <Dialog
