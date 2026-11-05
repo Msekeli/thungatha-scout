@@ -47,7 +47,8 @@ export function VacancyRecordsToolbar({
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="cape_town">Cape Town + Stellenbosch</SelectItem>
+          <SelectItem value="cape_town">Cape Town</SelectItem>
+          <SelectItem value="western_cape">Western Cape</SelectItem>
           <SelectItem value="south_africa">South Africa</SelectItem>
         </SelectContent>
       </Select>
@@ -58,7 +59,7 @@ export function VacancyRecordsToolbar({
         >
           <SelectValue placeholder="All companies" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="max-h-[min(34rem,var(--radix-select-content-available-height))]">
           <SelectItem value="all">All companies</SelectItem>
           {employers.map((employer) => (
             <SelectItem key={employer.id} value={employer.id}>
