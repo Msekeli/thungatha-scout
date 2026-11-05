@@ -35,7 +35,7 @@ export const CompanyProfileHeader: FC<Props> = ({
     <div className="scout-company-profile-header">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-[10px] font-semibold tracking-widest scout-company-eyebrow">COMPANY PROFILE</p>
+          <p className="scout-company-eyebrow">COMPANY PROFILE</p>
           <h3 className="mt-1 truncate text-base font-bold scout-company-heading">{employer.name}</h3>
           <p className="mt-1 break-all text-[11px] scout-company-muted">
             {careersUrl ? (
@@ -43,7 +43,7 @@ export const CompanyProfileHeader: FC<Props> = ({
                 href={careersUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="scout-company-eyebrow underline-offset-2 hover:text-cyan-100 hover:underline"
+                className="scout-company-link underline-offset-2 hover:underline"
               >
                 {careersUrl}
               </a>
@@ -54,12 +54,12 @@ export const CompanyProfileHeader: FC<Props> = ({
         </div>
         <Badge
           variant="outline"
-          className="scout-status scout-status--review"
+          className={`scout-status ${employer.status === "approved" ? "scout-status--approved" : employer.status === "rejected" ? "scout-status--rejected" : "scout-status--review"}`}
         >
           {employer.status.replaceAll("_", " ")}
         </Badge>
       </div>
-      <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-700 pt-3 sm:grid-cols-3">
+      <div className="mt-4 grid grid-cols-2 gap-3 border-t pt-3 sm:grid-cols-3 scout-company-divider">
         <Metric value={jobsCount} label="Current jobs" />
         <Metric value={latestJobs ?? "—"} label="Latest run jobs" />
         {delta !== null && delta !== 0 && (
@@ -86,7 +86,7 @@ export const CompanyProfileHeader: FC<Props> = ({
 
 function Metric({ value, label }: { value: number | string; label: string }) {
   return (
-    <div className="rounded-lg border border-slate-700 bg-slate-950/70 p-2">
+    <div className="scout-company-metric">
       <strong className="text-base font-bold scout-company-heading">{value}</strong>
       <p className="text-[10px] scout-company-muted">{label}</p>
     </div>
