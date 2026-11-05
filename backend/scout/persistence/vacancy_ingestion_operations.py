@@ -4,6 +4,8 @@ from collections.abc import Mapping
 from typing import Any
 from uuid import UUID
 
+from scout.geography import is_south_african_vacancy
+
 
 class VacancyIngestionOperations:
     def upsert_batch(
@@ -15,6 +17,8 @@ class VacancyIngestionOperations:
     ) -> tuple[int, int]:
         inserted = updated = 0
         for job in jobs:
+            if not is_south_african_vacancy(job):
+                continue
             raw = json.dumps(job, sort_keys=True, separators=(",", ":"))
             fingerprint = hashlib.sha256(raw.encode()).hexdigest()
             values = self._values(employer_id, source_id, source_url, job, fingerprint)
@@ -58,7 +62,6 @@ class VacancyIngestionOperations:
                 updated += 1
         return inserted, updated
 
-    @staticmethod
     @staticmethod
     def _values(
         employer_id: UUID,
