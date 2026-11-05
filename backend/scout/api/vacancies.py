@@ -16,6 +16,13 @@ router = APIRouter(tags=["vacancies"])
 router.include_router(archive_router)
 
 
+@router.get("/vacancies/metrics")
+def get_vacancy_metrics(
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> dict[str, int]:
+    return service.get_dashboard_metrics()
+
+
 @router.get("/vacancies")
 def list_vacancies(
     employer_id: UUID | None = None,
@@ -28,11 +35,8 @@ def list_vacancies(
     service: GreenhouseExtractionService = Depends(get_extraction_service),
 ) -> dict[str, Any]:
     return service.list_vacancy_page(
-        employer_id=employer_id,
-        review_status=review_status,
-        location_scope=location_scope,
-        limit=limit,
-        offset=offset,
+        employer_id=employer_id, review_status=review_status,
+        location_scope=location_scope, limit=limit, offset=offset,
     )
 
 
