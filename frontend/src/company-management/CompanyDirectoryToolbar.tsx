@@ -23,42 +23,42 @@ export function CompanyDirectoryToolbar(props: Props) {
     <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] scout-company-eyebrow">
             Employer directory
           </p>
-          <h3 className="mt-1 text-lg font-bold text-white">
-            Companies <span className="ml-1 text-sm font-medium text-slate-500">{props.count}</span>
+          <h3 className="mt-1 text-lg font-bold scout-company-heading">
+            Companies <span className="ml-1 text-sm font-medium scout-company-muted">{props.count}</span>
           </h3>
-          <p className="mt-1 text-xs text-slate-400">
+          <p className="mt-1 text-xs scout-company-description">
             Manage employers and the recruitment sources they publish through.
           </p>
         </div>
         <Button
           type="button"
           onClick={props.onAddCompany}
-          className="bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-950/40 hover:bg-cyan-400"
+          className="scout-company-toolbar-button"
         >
           <Plus className="mr-1.5 h-4 w-4" /> Add company
         </Button>
       </div>
       <div className="mb-4 grid gap-2 sm:grid-cols-[minmax(0,1fr)_190px]">
         <div className="relative">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 scout-company-muted" />
           <Input
             type="search"
             value={props.searchQuery}
             onChange={(event) => props.onSearchChange(event.target.value)}
             placeholder="Search companies…"
             aria-label="Search companies"
-            className="h-10 border-slate-700 bg-slate-950/70 pl-9 text-white placeholder:text-slate-500 focus-visible:ring-cyan-400"
+            className="h-10 border-slate-700 bg-slate-950/70 pl-9 scout-company-heading placeholder:scout-company-muted focus-visible:ring-cyan-400"
           />
         </div>
         <Select value={props.statusFilter} onValueChange={props.onStatusFilterChange}>
           <SelectTrigger
             aria-label="Filter companies by status"
-            className="h-10 border-slate-700 bg-slate-950/70 text-slate-200"
+            className="scout-company-filter"
           >
-            <SlidersHorizontal className="mr-2 h-4 w-4 text-slate-400" />
+            <SlidersHorizontal className="mr-2 h-4 w-4 scout-company-description" />
             <SelectValue placeholder="All statuses" />
           </SelectTrigger>
           <SelectContent>
