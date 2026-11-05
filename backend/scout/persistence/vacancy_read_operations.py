@@ -4,7 +4,8 @@ from uuid import UUID
 
 class VacancyReadOperations:
     def list_for_employer(
-        self, employer_id: UUID, limit: int = 200, offset: int = 0
+        self, employer_id: UUID, limit: int = 200, offset: int = 0,
+        location_scope: str = "cape_town",
     ) -> list[dict[str, Any]]:
         return self._connection.execute(
             """
@@ -21,13 +22,19 @@ class VacancyReadOperations:
             JOIN employers e ON e.id = v.employer_id
             WHERE v.employer_id = %s AND v.status = 'active'
               AND v.archived_at IS NULL
+              AND (%s = 'all' OR
+                   v.location_text ILIKE '%%Cape Town%%' OR
+                   v.location_text ILIKE '%%Stellenbosch%%')
             ORDER BY v.source_updated_at DESC NULLS LAST, v.created_at DESC
             LIMIT %s OFFSET %s
             """,
-            (employer_id, limit, offset),
+            (employer_id, location_scope, limit, offset),
         ).fetchall()
 
-    def list_all(self, limit: int = 200, offset: int = 0) -> list[dict[str, Any]]:
+    def list_all(
+        self, limit: int = 200, offset: int = 0,
+        location_scope: str = "cape_town",
+    ) -> list[dict[str, Any]]:
         return self._connection.execute(
             """
             SELECT v.id, v.employer_id, v.source_id, v.external_job_id,
@@ -42,10 +49,13 @@ class VacancyReadOperations:
             JOIN employer_sources s ON s.id = v.source_id
             JOIN employers e ON e.id = v.employer_id
             WHERE v.status = 'active' AND v.archived_at IS NULL
+              AND (%s = 'all' OR
+                   v.location_text ILIKE '%%Cape Town%%' OR
+                   v.location_text ILIKE '%%Stellenbosch%%')
             ORDER BY v.source_updated_at DESC NULLS LAST, v.created_at DESC
             LIMIT %s OFFSET %s
             """,
-            (limit, offset),
+            (location_scope, limit, offset),
         ).fetchall()
 
     def get_by_id(self, vacancy_id: UUID) -> dict[str, Any] | None:
