@@ -40,7 +40,7 @@ export function CompaniesWorkspacePanel({
       <CompanyDirectoryPanel
         employers={jobs.employers}
         sources={jobs.dashboardSources}
-        selectedEmployerId={state.selectedEmployerId}
+        selectedEmployerId={state.selectedCompanyId ?? ""}
         searchQuery={state.companyQuery}
         sourceFilter={state.companySourceFilter}
         currentJobsByEmployer={currentJobsByEmployer}
@@ -57,7 +57,7 @@ export function CompaniesWorkspacePanel({
       <Dialog
         open={!!companies.employer}
         onOpenChange={(open) => {
-          if (!open) state.setSelectedEmployerId("all");
+          if (!open) state.setSelectedCompanyId(null);
         }}
       >
         <DialogContent className="scout-company-dialog">
