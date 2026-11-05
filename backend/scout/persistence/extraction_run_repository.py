@@ -50,3 +50,19 @@ class ExtractionRunRepository:
             """,
             (source_id,),
         ).fetchall()
+
+    def list_latest_for_all_sources(self) -> list[dict[str, Any]]:
+        return self._connection.execute(
+            """
+            SELECT id, source_id, outcome, jobs_received, jobs_inserted,
+                   jobs_updated, complete, detail, started_at, finished_at
+            FROM (
+                SELECT *, ROW_NUMBER() OVER (
+                    PARTITION BY source_id ORDER BY started_at DESC
+                ) AS source_rank
+                FROM extraction_runs
+            ) AS ranked
+            WHERE source_rank <= 20
+            ORDER BY source_id, started_at DESC
+            """
+        ).fetchall()
