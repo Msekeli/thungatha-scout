@@ -10,11 +10,11 @@ type AppState = ReturnType<typeof useScoutAppState>;
 type Jobs = ReturnType<typeof useJobsWorkspaceController>;
 
 export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
-  const employer = jobs.employers.find((item) => item.id === state.selectedEmployerId) ?? null;
+  const employer = jobs.employers.find((item) => item.id === state.selectedCompanyId) ?? null;
   const selection = useCompanySelection({
     setSources: state.setSources,
     setExtractionRuns: jobs.setExtractionRuns,
-    setSelectedEmployerId: state.setSelectedEmployerId,
+    setSelectedCompanyId: state.setSelectedCompanyId,
     setLogoUrl: state.setLogoUrl,
     setLogoSourceUrl: state.setLogoSourceUrl,
     setSourceUrl: state.setSourceUrl,
@@ -29,7 +29,7 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     logoSourceUrl: state.logoSourceUrl,
     setEmployers: jobs.setEmployers,
     onDeleted: () => {
-      state.setSelectedEmployerId("all");
+      state.setSelectedCompanyId(null);
       state.setSources([]);
       jobs.setDashboardSources((items) =>
         items.filter((item) => item.employer_id !== employer?.id),
@@ -65,7 +65,7 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     onNotice: state.setNotice,
   });
   const sourceReview = useEmployerSourceReview({
-    employerId: state.selectedEmployerId === "all" ? null : state.selectedEmployerId,
+    employerId: state.selectedCompanyId,
     onSourceUpdated: (updated) =>
       state.setSources((items) => items.map((item) => (item.id === updated.id ? updated : item))),
     onDashboardSourceUpdated: (updated) =>
