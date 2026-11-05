@@ -3,6 +3,7 @@
 @import "./styles/company-directory-surfaces.css";
 @import "./styles/company-directory-controls.css";
 @import "./styles/company-details.css";
+@import "./styles/company-forms.css";
 
 @tailwind base;
 @tailwind components;
