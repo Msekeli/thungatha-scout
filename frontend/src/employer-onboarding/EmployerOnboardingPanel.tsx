@@ -1,7 +1,6 @@
 import type { FormEvent } from "react";
 import type { CareersDiscovery } from "../api";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { OnboardingPreviewCard } from "./OnboardingPreviewCard";
 import { OnboardingUrlForm } from "./OnboardingUrlForm";
 
@@ -51,6 +50,8 @@ export function EmployerOnboardingPanel({
       <section className="w-full max-w-2xl rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
         <form className="grid gap-4" onSubmit={onSubmit}>
           <OnboardingUrlForm
+            companyName={form.name}
+            onChangeCompanyName={onChangeCompanyName}
             sourceUrl={sourceUrl}
             onChangeSourceUrl={onChangeSourceUrl}
             atsKey={atsKey}
@@ -59,17 +60,6 @@ export function EmployerOnboardingPanel({
             inspecting={inspecting}
           />
           <OnboardingPreviewCard discovery={discovery} />
-          {discovery && (
-            <label>
-              Company name
-              <Input
-                value={form.name}
-                onChange={(event) => onChangeCompanyName(event.target.value)}
-                placeholder="Detected company name"
-                required
-              />
-            </label>
-          )}
           <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
             <Button type="button" size="sm" variant="outline" onClick={onCancel}>
               Cancel
