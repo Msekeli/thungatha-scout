@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { OnboardingPreviewCard } from "./OnboardingPreviewCard";
+import { OnboardingPreviewCard } from "./OnboardingDetectionStatus";
 import { OnboardingUrlForm } from "./OnboardingUrlForm";
 
 type EmployerRegistrationDraft = {
@@ -56,7 +56,7 @@ export function EmployerOnboardingPanel({
             onDetect={onDiscover}
             inspecting={inspecting}
           />
-          <OnboardingPreviewCard discovery={discovery} />
+          <OnboardingDetectionStatus discovery={discovery} />
           <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">
             <Button type="button" size="sm" variant="outline" onClick={onCancel}>
               Cancel
