@@ -38,7 +38,7 @@ class VacancyReadOperations:
         if review_status is not None:
             conditions.append("v.review_status = %s")
             parameters.append(review_status)
-        if location_scope in {"cape_town", "western_cape", "south_africa"}:
+        if location_scope in {"cape_town", "western_cape"}:
             normalized_location = (
                 "regexp_replace(lower(coalesce(v.location_text, '')), "
                 "'[^a-z0-9]+', ' ', 'g')"
@@ -185,7 +185,7 @@ class VacancyReadOperations:
                 matches.append(f"{normalized_location} ~ %s")
                 parameters.append(r"(^| )" + term + r"( |$)")
             conditions.append("(" + " OR ".join(matches) + ")")
-        elif location_scope != "all":
+        elif location_scope not in {"all", "south_africa"}:
             raise ValueError("Unsupported vacancy location scope.")
 
         where_clause = " AND ".join(conditions)
