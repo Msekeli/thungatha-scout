@@ -1,5 +1,8 @@
 @layer base {
   :root {
+    --scout-app-background: #f8fafc;
+    --scout-footer-text: #64748b;
+    --scout-footer-border: rgb(100 116 139 / 25%);
     --scout-surface: #ffffff;
     --scout-surface-raised: #f1f5f9;
     --scout-surface-hover: #e8eef5;
@@ -33,6 +36,9 @@
     --scout-type-border: #ddd6fe;
   }
   .dark {
+    --scout-app-background: #050a14;
+    --scout-footer-text: rgb(255 255 255 / 65%);
+    --scout-footer-border: rgb(255 255 255 / 15%);
     --scout-surface: #0f172a;
     --scout-surface-raised: #080f1e;
     --scout-surface-hover: #1e293b;
