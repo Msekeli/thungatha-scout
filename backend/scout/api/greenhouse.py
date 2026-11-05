@@ -33,14 +33,10 @@ async def inspect_greenhouse_source(
 @router.get("/discover")
 async def discover_careers_source(
     url: str = Query(min_length=1, max_length=2048),
+    company_name: str = Query(default="", max_length=200),
 ) -> dict:
     try:
-        discovery = await discover_greenhouse(url)
-        adapter = GreenhouseAdapter()
-        try:
-            result = await adapter.retrieve(discovery["board_token"])
-        finally:
-            await adapter.close()
-        return asdict(result) | discovery | {"source_url": discovery["board_url"]}
+        discovery = await discover_greenhouse(url, company_name)
+        return discovery
     except (ValueError, httpx.HTTPError) as exception:
         raise HTTPException(status_code=422, detail=str(exception)) from exception
