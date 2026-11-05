@@ -15,9 +15,14 @@ def map_greenhouse_job(
     location = job.get("location")
     location_name = location.get("name") if isinstance(location, dict) else None
     location_text = location_name if isinstance(location_name, str) else None
-    location_normalized = location_text.lower() if location_text else ""
     departments = job.get("departments")
     offices = job.get("offices")
+    office_names = [
+        item.get("name") for item in offices
+        if isinstance(item, dict) and isinstance(item.get("name"), str)
+    ] if isinstance(offices, list) else []
+    if office_names:
+        location_text = " | ".join(([location_text] if location_text else []) + office_names)
     requires_verification = not location_text or any(
         term in location_normalized for term in ("south africa", "remote")
     )
