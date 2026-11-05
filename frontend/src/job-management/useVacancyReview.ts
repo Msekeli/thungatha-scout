@@ -34,12 +34,13 @@ export function useVacancyReview({
     setSaving(true);
     onError("");
     try {
-      previousDecisionRef.current = {
+      const previousDecision = {
         vacancyId: selectedVacancy.id,
         status: selectedVacancy.review_status,
         reason: selectedVacancy.review_reason ?? null,
       };
       const updated = await scoutApi.updateVacancyReview(selectedVacancy.id, status, reviewReason);
+      previousDecisionRef.current = previousDecision;
       setCanUndoDecision(true);
       setSelectedVacancy(updated);
       onVacancyUpdated(updated);
