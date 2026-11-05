@@ -31,6 +31,9 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     onDeleted: () => {
       state.setSelectedEmployerId("all");
       state.setSources([]);
+      jobs.setDashboardSources((items) => items.filter((item) => item.employer_id !== employer?.id));
+      jobs.setVacancies((items) => items.filter((item) => item.employer_id !== employer?.id));
+      jobs.setArchivedVacancies((items) => items.filter((item) => item.employer_id !== employer?.id));
     },
     setSaving: state.setSaving,
     onNotice: state.setNotice,
