@@ -19,7 +19,7 @@ Out of scope for the initial release: a public job-search frontend duplicating T
 - Do not use an employer's headquarters, registered address, city, province or country to determine whether its vacancies are relevant. Employer location is not a Companies-directory field or approval requirement.
 - Register employers across industries and sizes when there is a credible basis to expect them to recruit for Cape Town roles, including historical Cape Town vacancy activity. Do not require a currently open Cape Town vacancy at registration time.
 - Do not filter employer discovery by industry, company size, or job title.
-- Company registration and source management are broad; vacancy-location relevance is evaluated per vacancy. Scout admin supports a Cape Town + Stellenbosch view and a South Africa-wide view, but publication to Thungatha remains restricted to Cape Town and Stellenbosch.
+- Company registration and source management are broad; vacancy-location relevance is evaluated per vacancy. Scout admin provides three vacancy location views: Cape Town, Western Cape and South Africa. Backend matching recognizes common location abbreviations and verified Cape Town suburbs; abbreviations are not shown in the UI. These admin filters do not independently change publication eligibility, which remains restricted to the separately configured publication geography.
 - Approval requires evidence of employer identity, organization type, and an official recruitment page/source relationship. Cape Town headquarters or physical presence is not required.
 - A careers page may redirect to an ATS if the relationship to the company is evidenced.
 - ATS board discovery alone does not prove employer identity.
