@@ -54,9 +54,7 @@ export function VacancyRecordList({
                 </span>
                 <span>
                   <CalendarDays aria-hidden="true" />
-                  {new Date(
-                    vacancy.first_seen_at ?? vacancy.last_seen_at,
-                  ).toLocaleDateString()}
+                  {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}
                 </span>
               </span>
             </span>
