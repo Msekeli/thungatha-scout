@@ -37,8 +37,7 @@ def delete_employer(
         raise HTTPException(
             status_code=409,
             detail=(
-                "This company has registered sources or vacancies. "
-                "Deactivate it instead of deleting its history."
+                "Company records could not be deleted because another record still references them."
             ),
         ) from exception
     if not deleted:
