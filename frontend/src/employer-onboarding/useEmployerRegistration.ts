@@ -7,9 +7,6 @@ type EmployerRegistrationForm = {
   name: string;
   website_url: string;
   organization_type: string;
-  city: string;
-  province: string;
-  country: string;
 };
 
 type UseEmployerRegistrationOptions = {
