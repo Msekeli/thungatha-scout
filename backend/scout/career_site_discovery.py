@@ -43,7 +43,9 @@ class CareersLinks(HTMLParser):
             self.script_text += data
 
 
-def _board_reference(parser: CareersLinks, page_url: httpx.URL) -> tuple[str, str] | None:
+def _board_reference(
+    parser: CareersLinks, page_url: httpx.URL
+) -> tuple[str, str] | None:
     for href in parser.links:
         link = page_url.join(href)
         if link.host not in HOSTS:
