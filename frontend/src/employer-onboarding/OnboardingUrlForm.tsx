@@ -32,22 +32,22 @@ export function OnboardingUrlForm({
   return (
     <div className="grid gap-3">
       <label className="grid gap-1 text-xs font-medium text-muted-foreground">
-        Company name
-        <Input
-          value={companyName}
-          onChange={(event) => onChangeCompanyName(event.target.value)}
-          placeholder="e.g. Takealot Group"
-          required
-        />
-      </label>
-
-      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
         Careers / jobs listing URL
         <Input
           type="url"
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
           placeholder="https://company.com/jobs"
+          required
+        />
+      </label>
+
+      <label className="grid gap-1 text-xs font-medium text-muted-foreground">
+        Company name
+        <Input
+          value={companyName}
+          onChange={(event) => onChangeCompanyName(event.target.value)}
+          placeholder="e.g. Ozow"
           required
         />
       </label>
