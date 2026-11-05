@@ -60,7 +60,10 @@ export function CompaniesWorkspacePanel({
           if (!open) state.setSelectedCompanyId(null);
         }}
       >
-        <DialogContent className="scout-company-dialog">
+        <DialogContent
+          className="scout-company-dialog"
+          overlayClassName="!bg-transparent !backdrop-blur-0"
+        >
           <DialogHeader>
             <DialogTitle className="scout-company-heading">Company details</DialogTitle>
             <DialogDescription className="scout-company-muted">
