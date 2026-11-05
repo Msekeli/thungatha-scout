@@ -6,7 +6,9 @@ from psycopg.connection import Connection
 from psycopg.types.json import Jsonb
 
 from scout.persistence.employer_delete_operations import EmployerDeleteOperations
-from scout.persistence.employer_details_update_operations import EmployerDetailsUpdateOperations
+from scout.persistence.employer_details_update_operations import (
+    EmployerDetailsUpdateOperations,
+)
 
 
 class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperations):

@@ -1,4 +1,10 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Props = { value: string; onChange: (value: string) => void };
 
@@ -7,7 +13,9 @@ export function CompanyOrganizationTypeSelect({ value, onChange }: Props) {
     <label className="grid gap-1.5 text-sm font-medium">
       Organisation type
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger><SelectValue /></SelectTrigger>
+        <SelectTrigger>
+          <SelectValue />
+        </SelectTrigger>
         <SelectContent>
           <SelectItem value="direct_employer">Direct employer</SelectItem>
           <SelectItem value="recruitment_agency">Recruitment agency</SelectItem>
