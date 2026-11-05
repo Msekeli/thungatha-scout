@@ -17,9 +17,11 @@ export type GreenhouseInspection = {
   source_url: string;
 };
 
-export type CareersDiscovery = GreenhouseInspection & {
+export type CareersDiscovery = {
   careers_url: string;
   board_url: string;
+  board_token: string;
+  board_name: string;
   detected_adapter: "greenhouse";
-  company_name?: string;
+  company_name: string;
 };
