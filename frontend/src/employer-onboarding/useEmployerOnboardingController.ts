@@ -27,8 +27,7 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     },
   });
 
-  const setCompanyName = (name: string) =>
-    state.setForm((current) => ({ ...current, name }));
+  const setCompanyName = (name: string) => state.setForm((current) => ({ ...current, name }));
   const fillDetectedCompany = (name: string) =>
     state.setForm((current) => ({
       ...current,

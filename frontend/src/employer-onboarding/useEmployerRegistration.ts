@@ -57,7 +57,12 @@ export function useEmployerRegistration({
       const run = await scoutApi.extractSource(source.id);
       await loadWorkspace();
       onNotice(
-        employer.name + ": " + run.jobs_received + " vacancies retrieved; extraction " + run.outcome + ".",
+        employer.name +
+          ": " +
+          run.jobs_received +
+          " vacancies retrieved; extraction " +
+          run.outcome +
+          ".",
       );
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not register employer and source.");
