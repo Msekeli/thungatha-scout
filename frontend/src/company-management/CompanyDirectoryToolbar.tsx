@@ -47,7 +47,7 @@ export function CompanyDirectoryToolbar(props: Props) {
             onChange={(event) => props.onSearchChange(event.target.value)}
             placeholder="Search companies…"
             aria-label="Search companies"
-            className="h-10 border-slate-700 bg-slate-950/70 pl-9 scout-company-heading placeholder:scout-company-muted focus-visible:ring-cyan-400"
+            className="scout-company-field pl-9 focus-visible:ring-ring"
           />
         </div>
         <Select value={props.statusFilter} onValueChange={props.onStatusFilterChange}>
