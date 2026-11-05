@@ -14,7 +14,10 @@ type VacancyPageQuery = {
   offset?: number;
 };
 
+export type VacancyDashboardMetrics = { total_active: number; new_last_24_hours: number };
+
 export const vacancyApiClient = {
+  getVacancyMetrics: () => request<VacancyDashboardMetrics>("/api/v1/vacancies/metrics"),
   listVacancies: (query: VacancyPageQuery = { locationScope: "cape_town" }) => {
     const params = new URLSearchParams({
       location_scope: query.locationScope,
