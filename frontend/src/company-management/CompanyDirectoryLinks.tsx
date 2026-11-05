@@ -33,7 +33,7 @@ export function CompanyDirectoryLinks({ employer, sources }: Props) {
           title={source.source_url}
           className="scout-company-link"
         >
-          <span className="grid h-5 w-5 shrink-0 place-items-center rounded bg-slate-700 text-[9px] font-bold uppercase text-cyan-200">
+          <span className="scout-company-source-badge">
             {source.adapter_key === "greenhouse" ? "G" : "W"}
           </span>
           <span className="shrink-0">
