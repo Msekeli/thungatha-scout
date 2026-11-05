@@ -64,7 +64,7 @@ export function CompaniesWorkspacePanel({
           <DialogHeader>
             <DialogTitle className="scout-company-heading">Company details</DialogTitle>
             <DialogDescription className="scout-company-muted">
-              Review company information, job production, sources and extraction history.
+              Manage company details, current jobs and recruitment sources.
             </DialogDescription>
           </DialogHeader>
           <CompanyProfilePanel
