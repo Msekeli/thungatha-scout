@@ -15,12 +15,12 @@ type Props = {
 
 export function SourceReviewSelect({ label, value, onChange, options }: Props) {
   return (
-    <label className="grid gap-1 text-xs font-medium text-slate-400">
+    <label className="grid gap-1 text-xs font-medium scout-company-muted">
       <span>{label}</span>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger
           aria-label={label}
-          className="h-9 border-slate-700 bg-slate-950 text-xs text-white"
+          className="scout-company-field h-9 text-xs"
         >
           <SelectValue />
         </SelectTrigger>
