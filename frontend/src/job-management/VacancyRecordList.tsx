@@ -50,7 +50,7 @@ export function VacancyRecordList(props: VacancyRecordListProps) {
           }
         }}
       >
-        {loading ? (
+        {loading && vacancies.length === 0 ? (
           <p className="py-12 text-center text-sm text-muted-foreground">Loading vacancies…</p>
         ) : vacancies.length === 0 ? (
           <div className="py-12 text-center">
