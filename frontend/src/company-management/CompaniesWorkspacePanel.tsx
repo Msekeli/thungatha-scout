@@ -42,6 +42,7 @@ export function CompaniesWorkspacePanel({
         selectedEmployerId={state.selectedEmployerId}
         searchQuery={state.companyQuery}
         sourceFilter={state.companySourceFilter}
+        extractionRuns={jobs.extractionRuns}
         onSearchChange={state.setCompanyQuery}
         onSourceFilterChange={state.setCompanySourceFilter}
         onSelectEmployer={selectCompany}
