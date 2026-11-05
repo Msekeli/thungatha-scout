@@ -19,15 +19,46 @@ class VacancyReadOperations:
         if review_status is not None:
             conditions.append("v.review_status = %s")
             parameters.append(review_status)
-        if location_scope == "cape_town":
-            conditions.append("(v.location_text ILIKE %s OR v.location_text ILIKE %s)")
-            parameters.extend(["%Cape Town%", "%Stellenbosch%"])
-        elif location_scope == "south_africa":
-            conditions.append(
-                "(v.location_text ILIKE %s OR v.location_text ILIKE %s "
-                "OR v.location_text ILIKE %s)"
+        if location_scope in {"cape_town", "western_cape", "south_africa"}:
+            normalized_location = (
+                "regexp_replace(lower(coalesce(v.location_text, '')), "
+                "'[^a-z0-9]+', ' ', 'g')"
             )
-            parameters.extend(["%South Africa%", "%Cape Town%", "%Stellenbosch%"])
+            if location_scope == "cape_town":
+                location_terms = (
+                    "cape town", "ct", "cpt", "durbanville", "bellville",
+                    "brackenfell", "kraai fontein", "kraaifontein", "kuils river",
+                    "parow", "goodwood", "milnerton", "century city", "table view",
+                    "blouberg", "camps bay", "sea point", "claremont", "rondebosch",
+                    "wynberg", "plumstead", "tokai", "hout bay", "fish hoek",
+                    "muizenberg", "simons town", "noordhoek", "khayelitsha",
+                    "mitchells plain", "somerset west", "gordons bay",
+                )
+            elif location_scope == "western_cape":
+                location_terms = (
+                    "western cape", "wc", "cape town", "ct", "cpt", "stellenbosch",
+                    "durbanville", "bellville", "brackenfell", "kraaifontein",
+                    "kuils river", "parow", "goodwood", "milnerton", "century city",
+                    "table view", "blouberg", "camps bay", "sea point", "claremont",
+                    "rondebosch", "wynberg", "plumstead", "tokai", "hout bay",
+                    "fish hoek", "muizenberg", "simons town", "noordhoek",
+                    "khayelitsha", "mitchells plain", "somerset west", "gordons bay",
+                    "paarl", "wellington", "franschhoek", "worcester", "george",
+                    "mossel bay", "oudtshoorn", "knysna", "plettenberg bay",
+                    "hermanus", "swellen dam", "malmesbury", "saldanha",
+                )
+            else:
+                location_terms = (
+                    "south africa", "sa", "za", "zaf", "western cape", "wc",
+                    "eastern cape", "ec", "free state", "fs", "gauteng", "gp",
+                    "kwazulu natal", "kzn", "limpopo", "lp", "mpumalanga", "mp",
+                    "northern cape", "nc", "north west", "nw",
+                )
+            term_conditions = []
+            for term in location_terms:
+                term_conditions.append(f"{normalized_location} ~ %s")
+                parameters.append(r"(^| )" + term.replace(" ", r" ") + r"( |$)")
+            conditions.append("(" + " OR ".join(term_conditions) + ")")
         elif location_scope != "all":
             raise ValueError("Unsupported vacancy location scope.")
 
