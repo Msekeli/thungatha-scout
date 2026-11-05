@@ -1,3 +1,4 @@
+import asyncio
 import re
 from collections.abc import Sequence
 
@@ -7,20 +8,8 @@ from scout.career_site_html_parser import CareersLinks, find_greenhouse_board_ca
 
 API_ROOT = "https://boards-api.greenhouse.io/v1/boards"
 _SUFFIXES = {
-    "group",
-    "holdings",
-    "inc",
-    "limited",
-    "ltd",
-    "plc",
-    "company",
-    "sa",
-    "labs",
-    "technologies",
-    "technology",
-    "systems",
-    "solutions",
-    "global",
+    "group", "holdings", "inc", "limited", "ltd", "plc", "company", "sa",
+    "labs", "technologies", "technology", "systems", "solutions", "global",
 }
 _SUBDOMAINS = {"www", "careers", "jobs", "job", "apply", "work"}
 _MULTI_PART_SUFFIXES = {"co.za", "co.uk", "com.au", "co.nz", "com.br", "co.in"}
@@ -40,19 +29,13 @@ def domain_company_name(hostname: str) -> str:
 
 def company_aliases(name: str, title: str, hostname: str) -> list[str]:
     values = [name, title.split("|")[0].split("—")[0], domain_company_name(hostname)]
-    return list(
-        dict.fromkeys(
-            normalise_company_name(value) for value in values if value.strip()
-        )
-    )
+    return list(dict.fromkeys(normalise_company_name(v) for v in values if v.strip()))
 
 
 def board_name_matches(board_name: str, aliases: Sequence[str]) -> bool:
     actual = normalise_company_name(board_name)
     return any(
-        actual == alias
-        or actual.startswith(alias)
-        and actual[len(alias) :] in _SUFFIXES
+        actual == alias or actual.startswith(alias) and actual[len(alias):] in _SUFFIXES
         for alias in aliases
     )
 
@@ -68,23 +51,34 @@ def candidate_tokens(
     return candidates
 
 
+async def _check_candidate(
+    client: httpx.AsyncClient, token: str, aliases: Sequence[str]
+) -> tuple[str, str] | None:
+    response = await client.get(f"{API_ROOT}/{token}")
+    if response.status_code == 404:
+        return None
+    response.raise_for_status()
+    try:
+        payload = response.json()
+    except ValueError:
+        return None
+    board_name = payload.get("name") if isinstance(payload, dict) else None
+    if isinstance(board_name, str) and board_name_matches(board_name, aliases):
+        return token, board_name
+    return None
+
+
 async def resolve_greenhouse_board(
     client: httpx.AsyncClient,
     candidates: Sequence[str],
     aliases: Sequence[str],
 ) -> tuple[str, str]:
-    for token in candidates:
-        response = await client.get(f"{API_ROOT}/{token}")
-        if response.status_code == 404:
-            continue
-        response.raise_for_status()
-        try:
-            payload = response.json()
-            board_name = payload.get("name") if isinstance(payload, dict) else None
-        except ValueError:
-            continue
-        if isinstance(board_name, str) and board_name_matches(board_name, aliases):
-            return token, board_name
+    results = await asyncio.gather(
+        *(_check_candidate(client, token, aliases) for token in candidates)
+    )
+    for result in results:
+        if result:
+            return result
     raise ValueError(
         "Greenhouse was detected, but its board could not be confirmed for this company. "
         "Check the careers URL or provide a Greenhouse board URL."
