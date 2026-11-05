@@ -9,4 +9,6 @@ export const extractionApiClient = {
 
   listExtractionRuns: (sourceId: string) =>
     request<ExtractionRun[]>(`/api/v1/sources/${sourceId}/extraction-runs`),
+
+  listAllExtractionRuns: () => request<ExtractionRun[]>("/api/v1/extraction-runs"),
 };
