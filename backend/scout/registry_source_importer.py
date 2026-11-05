@@ -55,9 +55,13 @@ def _create_source(
         VALUES (%s, %s, %s, %s, %s, %s, 'discovered', 'unknown', %s)
         """,
         (
-            employer["id"], source["ats"], source["official_source_url"],
-            careers_url, source["official_source_url"],
-            Jsonb(source.get("config", {})), Jsonb(evidence),
+            employer["id"],
+            source["ats"],
+            source["official_source_url"],
+            careers_url,
+            source["official_source_url"],
+            Jsonb(source.get("config", {})),
+            Jsonb(evidence),
         ),
     )
 
@@ -87,9 +91,17 @@ def import_employer_sources(
             (source_url,),
         ).fetchone()
         if existing is not None:
-            if existing["employer_id"] != employer["id"] or existing["adapter_key"] != adapter_key:
-                raise ValueError(f"Source URL is already assigned elsewhere: {source_url}")
-            if existing["source_url"] != source_url or existing["adapter_config"] != config:
+            if (
+                existing["employer_id"] != employer["id"]
+                or existing["adapter_key"] != adapter_key
+            ):
+                raise ValueError(
+                    f"Source URL is already assigned elsewhere: {source_url}"
+                )
+            if (
+                existing["source_url"] != source_url
+                or existing["adapter_config"] != config
+            ):
                 _update_source(connection, existing["id"], source_url, config)
                 counts["sources_updated"] += 1
             continue
