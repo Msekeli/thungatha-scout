@@ -12,7 +12,6 @@ type EmployerRegistrationForm = {
 };
 
 type UseEmployerRegistrationOptions = {
-  discovery: CareersDiscovery | null;
   form: EmployerRegistrationForm;
   sourceUrl: string;
   loadWorkspace: () => Promise<void>;
@@ -22,26 +21,22 @@ type UseEmployerRegistrationOptions = {
   onRegistered: (result: { employer: Employer; source: EmployerSource }) => void;
 };
 
-export function useEmployerRegistration({
-  discovery,
-  form,
-  sourceUrl,
-  loadWorkspace,
-  setSaving,
-  onError,
-  onNotice,
-  onRegistered,
-}: UseEmployerRegistrationOptions) {
-  async function register(event: FormEvent<HTMLFormElement>) {
+export function useEmployerRegistration(options: UseEmployerRegistrationOptions) {
+  const { form, sourceUrl, loadWorkspace, setSaving, onError, onNotice, onRegistered } = options;
+
+  async function register(event: FormEvent<HTMLFormElement>, discovery: CareersDiscovery) {
     event.preventDefault();
-    if (!discovery || !form.name.trim()) return;
+    const companyName = form.name.trim() || discovery.company_name;
+    if (!companyName) return;
 
     setSaving(true);
     onError("");
     onNotice("");
+    let employer: Employer | null = null;
     try {
-      const employer = await scoutApi.createEmployer({
+      employer = await scoutApi.createEmployer({
         ...form,
+        name: companyName,
         website_url: form.website_url.trim() || null,
       });
       const source = await scoutApi.createSource(employer.id, {
@@ -52,20 +47,21 @@ export function useEmployerRegistration({
         adapter_config: { slug: discovery.board_token },
       });
       onRegistered({ employer, source });
-      onNotice(employer.name + " added. Greenhouse extraction started.");
+      onNotice(employer.name + " added. Importing vacancies…");
       const extraction = scoutApi.extractSource(source.id);
       const [, run] = await Promise.all([loadWorkspace(), extraction]);
       await loadWorkspace();
       onNotice(
-        employer.name +
-          ": " +
-          run.jobs_received +
-          " vacancies retrieved; extraction " +
-          run.outcome +
-          ".",
+        employer.name + ": " + run.jobs_received + " vacancies imported successfully.",
       );
     } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not register employer and source.");
+      const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
+      onError(
+        employer
+          ? employer.name + " was added, but vacancy import needs attention: " + detail
+          : "Could not add the company: " + detail,
+      );
+      if (employer) await loadWorkspace();
     } finally {
       setSaving(false);
     }
