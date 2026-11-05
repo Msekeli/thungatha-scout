@@ -2,6 +2,8 @@ import { useCallback, useState } from "react";
 import type { EmployerSource } from "../api";
 
 export type ScoutPage = "jobs" | "companies" | "add-company";
+export type VacancyLocationScope = "cape_town" | "all";
+
 export const emptyEmployer = {
   name: "",
   website_url: "",
@@ -14,6 +16,7 @@ export const emptyEmployer = {
 export function useScoutAppState() {
   const [page, setPage] = useState<ScoutPage>("jobs");
   const [showArchived, setShowArchived] = useState(false);
+  const [locationScope, setLocationScope] = useState<VacancyLocationScope>("cape_town");
   const [reviewFilter, setReviewFilter] = useState("all");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
@@ -33,39 +36,12 @@ export function useScoutAppState() {
   const dismissNotice = useCallback(() => setNotice(""), []);
 
   return {
-    page,
-    setPage,
-    showArchived,
-    setShowArchived,
-    reviewFilter,
-    setReviewFilter,
-    logoUrl,
-    setLogoUrl,
-    logoSourceUrl,
-    setLogoSourceUrl,
-    companyQuery,
-    setCompanyQuery,
-    companyStatusFilter,
-    setCompanyStatusFilter,
-    selectedEmployerId,
-    setSelectedEmployerId,
-    sources,
-    setSources,
-    form,
-    setForm,
-    sourceUrl,
-    setSourceUrl,
-    editingSourceId,
-    setEditingSourceId,
-    extracting,
-    setExtracting,
-    saving,
-    setSaving,
-    error,
-    setError,
-    notice,
-    setNotice,
-    dismissError,
-    dismissNotice,
+    page, setPage, showArchived, setShowArchived, locationScope, setLocationScope,
+    reviewFilter, setReviewFilter, logoUrl, setLogoUrl, logoSourceUrl, setLogoSourceUrl,
+    companyQuery, setCompanyQuery, companyStatusFilter, setCompanyStatusFilter,
+    selectedEmployerId, setSelectedEmployerId, sources, setSources, form, setForm,
+    sourceUrl, setSourceUrl, editingSourceId, setEditingSourceId,
+    extracting, setExtracting, saving, setSaving, error, setError, notice, setNotice,
+    dismissError, dismissNotice,
   };
 }
