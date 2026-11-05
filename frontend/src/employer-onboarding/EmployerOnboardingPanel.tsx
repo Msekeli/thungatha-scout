@@ -35,14 +35,14 @@ export function EmployerOnboardingPanel({
   const busy = inspecting || saving;
   return (
     <>
-      <p className="mb-3 text-xs text-white/75">
+      <p className="mb-3 text-xs text-slate-300">
         Add an employer from its official careers page. Scout will configure the source and import
         its vacancies.
       </p>
-      <section className="w-full max-w-2xl rounded-xl border border-slate-200 bg-white p-5 text-slate-900 shadow-xl shadow-black/20 sm:p-7">
+      <section className="w-full max-w-2xl rounded-xl border border border-slate-700 bg-slate-900 p-5 text-white shadow-xl shadow-black/30 sm:p-7">
         <div className="mb-5">
-          <h2 className="text-base font-semibold text-slate-900">Employer details</h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <h2 className="text-base font-semibold text-white">Employer details</h2>
+          <p className="mt-1 text-sm text-slate-400">
             Enter the careers page and confirm the company name before adding it.
           </p>
         </div>
@@ -53,11 +53,11 @@ export function EmployerOnboardingPanel({
             sourceUrl={sourceUrl}
             onChangeSourceUrl={onChangeSourceUrl}
           />
-          <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:justify-end">
+          <div className="flex flex-col-reverse gap-3 border-t border-slate-700 pt-5 sm:flex-row sm:justify-end">
             <Button
               type="button"
               variant="outline"
-              className="h-10 border-slate-300 bg-white px-5 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+              className="h-10 border-slate-300 bg-slate-950 px-5 text-slate-200 hover:bg-slate-100 hover:text-white"
               onClick={onCancel}
               disabled={busy}
             >
@@ -65,7 +65,7 @@ export function EmployerOnboardingPanel({
             </Button>
             <Button
               type="submit"
-              className="h-10 bg-[#155b91] px-6 text-white shadow-sm hover:bg-[#104873]"
+              className="h-10 bg-cyan-500 text-slate-950 px-6 text-white shadow-sm hover:bg-cyan-400"
               disabled={busy || !sourceUrl.trim()}
             >
               {inspecting ? "Checking careers page…" : saving ? "Adding company…" : "Add Company"}
