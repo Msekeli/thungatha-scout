@@ -17,11 +17,22 @@ type VacancyDetailsPanelProps = {
 };
 
 export function VacancyDetailsPanel({
-  vacancy, loading, reviewReason, saving, onChangeReviewReason,
-  onClear, onDecision, onArchive, onRestore,
+  vacancy,
+  loading,
+  reviewReason,
+  saving,
+  onChangeReviewReason,
+  onClear,
+  onDecision,
+  onArchive,
+  onRestore,
 }: VacancyDetailsPanelProps) {
   if (loading) {
-    return <div className="grid flex-1 place-content-center text-center text-sm text-muted-foreground">Loading vacancy…</div>;
+    return (
+      <div className="grid flex-1 place-content-center text-center text-sm text-muted-foreground">
+        Loading vacancy…
+      </div>
+    );
   }
   if (!vacancy) {
     return (
@@ -53,15 +64,19 @@ export function VacancyDetailsPanel({
             Publishing payload preview
           </summary>
           <pre className="max-h-64 overflow-auto border-t bg-muted p-3 text-xs">
-            {JSON.stringify({
-              title: vacancy.title,
-              company: vacancy.employer_name,
-              location: vacancy.location_text,
-              review_status: vacancy.review_status,
-              review_reason: vacancy.review_reason,
-              application_url: vacancy.application_url,
-              source_url: vacancy.source_url,
-            }, null, 2)}
+            {JSON.stringify(
+              {
+                title: vacancy.title,
+                company: vacancy.employer_name,
+                location: vacancy.location_text,
+                review_status: vacancy.review_status,
+                review_reason: vacancy.review_reason,
+                application_url: vacancy.application_url,
+                source_url: vacancy.source_url,
+              },
+              null,
+              2,
+            )}
           </pre>
         </details>
       </div>
