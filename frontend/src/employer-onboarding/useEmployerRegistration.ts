@@ -1,6 +1,7 @@
 import type { FormEvent } from "react";
 import { scoutApi } from "../api";
 import type { CareersDiscovery, Employer, EmployerSource } from "../api";
+import { runEmployerVacancyImport } from "./runEmployerVacancyImport";
 
 type EmployerRegistrationForm = {
   name: string;
@@ -47,11 +48,12 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
         adapter_config: { slug: discovery.board_token },
       });
       onRegistered({ employer, source });
-      onNotice(employer.name + " added. Importing vacancies…");
-      const extraction = scoutApi.extractSource(source.id);
-      const [, run] = await Promise.all([loadWorkspace(), extraction]);
-      await loadWorkspace();
-      onNotice(employer.name + ": " + run.jobs_received + " vacancies imported successfully.");
+      onNotice(employer.name + " added successfully. Vacancy import is running in the background.");
+      void runEmployerVacancyImport(source.id, employer.name, {
+        loadWorkspace,
+        onError,
+        onNotice,
+      });
     } catch (reason) {
       const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
       onError(
@@ -59,7 +61,7 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
           ? employer.name + " was added, but vacancy import needs attention: " + detail
           : "Could not add the company: " + detail,
       );
-      if (employer) await loadWorkspace();
+      if (employer) void loadWorkspace().catch(() => undefined);
     } finally {
       setSaving(false);
     }
