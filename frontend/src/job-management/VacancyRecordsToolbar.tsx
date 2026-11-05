@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import type { Employer } from "../api";
+import type { VacancyLocationScope } from "../app-state/useScoutAppState";
 import {
   Select,
   SelectContent,
@@ -11,6 +12,8 @@ import {
 type VacancyRecordsToolbarProps = {
   showArchived: boolean;
   onShowArchivedChange: (showArchived: boolean) => void;
+  locationScope: VacancyLocationScope;
+  onLocationScopeChange: (value: VacancyLocationScope) => void;
   reviewFilter: string;
   onReviewFilterChange: (value: string) => void;
   selectedEmployerId: string;
@@ -23,6 +26,8 @@ type VacancyRecordsToolbarProps = {
 export function VacancyRecordsToolbar({
   showArchived,
   onShowArchivedChange,
+  locationScope,
+  onLocationScopeChange,
   reviewFilter,
   onReviewFilterChange,
   selectedEmployerId,
