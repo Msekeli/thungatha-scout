@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowUpRight, Building2 } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource } from "../api";
 import { CompanyDirectoryLinks } from "./CompanyDirectoryLinks";
@@ -54,14 +54,15 @@ export function CompanyDirectoryCard({
           {employer.logo_url ? (
             <img src={employer.logo_url} alt="" className="scout-company-card__logo" />
           ) : (
-            <Building2 className="h-5 w-5" />
+            <BriefcaseBusiness className="h-5 w-5" />
           )}
         </span>
         <span className="min-w-0 flex-1">
           <strong className="block truncate text-sm font-semibold scout-company-card__name">
             {employer.name}
           </strong>
-          <span className="mt-1 block text-xs scout-company-card__meta">
+          <span className="mt-1 flex items-center gap-1.5 text-xs scout-company-card__meta">
+            <BriefcaseBusiness className="h-3.5 w-3.5 shrink-0" />
             {currentJobs} current {currentJobs === 1 ? "job" : "jobs"}
           </span>
         </span>
