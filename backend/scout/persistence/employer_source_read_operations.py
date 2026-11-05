@@ -18,3 +18,8 @@ class EmployerSourceReadOperations:
             """,
             (employer_id,),
         ).fetchall()
+
+    def list_all(self) -> list[dict[str, Any]]:
+        return self._connection.execute(
+            "SELECT * FROM employer_sources ORDER BY employer_id, created_at, id"
+        ).fetchall()
