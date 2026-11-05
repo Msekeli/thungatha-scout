@@ -80,3 +80,7 @@ class EmployerService:
     def list_sources(self, employer_id: UUID) -> list[dict[str, Any]]:
         with self._connection_factory() as connection:
             return EmployerSourceRepository(connection).list_for_employer(employer_id)
+
+    def list_all_sources(self) -> list[dict[str, Any]]:
+        with self._connection_factory() as connection:
+            return EmployerSourceRepository(connection).list_all()
