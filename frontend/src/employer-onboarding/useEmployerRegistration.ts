@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { scoutApi } from "../api";
-import type { CareersDiscovery, Employer, EmployerSource, ExtractionRun } from "../api";
+import type { CareersDiscovery, Employer, EmployerSource } from "../api";
 
 type EmployerRegistrationForm = {
   name: string;
@@ -19,11 +19,7 @@ type UseEmployerRegistrationOptions = {
   setSaving: (value: boolean) => void;
   onError: (message: string) => void;
   onNotice: (message: string) => void;
-  onRegistered: (result: {
-    employer: Employer;
-    source: EmployerSource;
-    run: ExtractionRun;
-  }) => void;
+  onRegistered: (result: { employer: Employer; source: EmployerSource }) => void;
 };
 
 export function useEmployerRegistration({
@@ -55,15 +51,16 @@ export function useEmployerRegistration({
         employer_careers_url: sourceUrl,
         adapter_config: { slug: discovery.board_token },
       });
+      onRegistered({ employer, source });
+      onNotice(employer.name + " added. Greenhouse extraction started.");
       const run = await scoutApi.extractSource(source.id);
       await loadWorkspace();
-
-      onRegistered({ employer, source, run });
       onNotice(
-        `${employer.name} registered. ${run.jobs_received} vacancies retrieved; ${run.outcome}.`,
+        employer.name + ": " + run.jobs_received + " vacancies retrieved; extraction " + run.outcome + ".",
       );
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not register employer and source.");
+      await loadWorkspace();
     } finally {
       setSaving(false);
     }
