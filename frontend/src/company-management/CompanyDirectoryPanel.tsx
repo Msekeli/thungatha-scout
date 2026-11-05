@@ -1,11 +1,13 @@
 import type { FC } from "react";
-import type { Employer } from "../api";
+import type { Employer, EmployerSource } from "../api";
 import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 import { CompanyDirectoryList } from "./CompanyDirectoryList";
 import { CompanySearchFilters } from "./CompanySearchFilters";
 
-type CompanyDirectoryPanelProps = {
+type Props = {
   employers: Employer[];
+  sources: EmployerSource[];
   selectedEmployerId: string;
   searchQuery: string;
   statusFilter: string;
@@ -15,53 +17,21 @@ type CompanyDirectoryPanelProps = {
   onAddCompany: () => void;
 };
 
-export const CompanyDirectoryPanel: FC<CompanyDirectoryPanelProps> = ({
-  employers,
-  selectedEmployerId,
-  searchQuery,
-  statusFilter,
-  onSearchChange,
-  onStatusFilterChange,
-  onSelectEmployer,
-  onAddCompany,
-}) => {
-  const visibleEmployers = employers.filter(
-    (employer) =>
-      employer.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-      (statusFilter === "all" || employer.status === statusFilter),
-  );
-
+export const CompanyDirectoryPanel: FC<Props> = ({ employers, sources, selectedEmployerId, searchQuery, statusFilter, onSearchChange, onStatusFilterChange, onSelectEmployer, onAddCompany }) => {
+  const visibleEmployers = employers.filter((employer) =>
+    employer.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (statusFilter === "all" || employer.status === statusFilter));
   return (
-    <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
-      <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
-        <div className="flex items-center gap-3">
-          <h3>Registered companies</h3>
-          <span>
-            {visibleEmployers.length} / {employers.length}
-          </span>
-        </div>
-        <Button
-          type="button"
-          className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
-          onClick={onAddCompany}
-        >
-          + Add company
-        </Button>
+    <section className="flex min-h-0 min-w-0 flex-col rounded-xl border border-border bg-card p-4 shadow-sm">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
+        <div><h3 className="text-base font-semibold text-foreground">Company directory</h3><p className="mt-1 text-xs text-muted-foreground">Your registered employers and their recruitment sources.</p></div>
+        <Button type="button" size="sm" onClick={onAddCompany}><Plus className="mr-1.5 h-4 w-4" />Add company</Button>
       </div>
-      <CompanySearchFilters
-        searchQuery={searchQuery}
-        onSearchChange={onSearchChange}
-        statusFilter={statusFilter}
-        onStatusFilterChange={onStatusFilterChange}
-      />
-      <CompanyDirectoryList
-        employers={visibleEmployers}
-        selectedEmployerId={selectedEmployerId}
-        onSelectEmployer={onSelectEmployer}
-        emptyMessage={
-          employers.length ? "No companies match these filters." : "No companies registered."
-        }
-      />
+      <CompanySearchFilters searchQuery={searchQuery} onSearchChange={onSearchChange} statusFilter={statusFilter} onStatusFilterChange={onStatusFilterChange} />
+      <div className="mb-3 text-xs text-muted-foreground">{visibleEmployers.length} of {employers.length} companies</div>
+      <div className="min-h-0 flex-1 overflow-y-auto pr-1">
+        <CompanyDirectoryList employers={visibleEmployers} sources={sources} selectedEmployerId={selectedEmployerId} onSelectEmployer={onSelectEmployer} emptyMessage={employers.length ? "No companies match these filters." : "No companies registered yet."} />
+      </div>
     </section>
   );
 };
