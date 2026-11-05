@@ -3,6 +3,25 @@ from uuid import UUID
 
 
 class VacancyReadOperations:
+    def get_dashboard_metrics(self) -> dict[str, int]:
+        row = self._connection.execute(
+            """
+            SELECT
+                COUNT(*) FILTER (
+                    WHERE status = 'active' AND archived_at IS NULL
+                ) AS total_active,
+                COUNT(*) FILTER (
+                    WHERE status = 'active' AND archived_at IS NULL
+                      AND first_seen_at >= NOW() - INTERVAL '24 hours'
+                ) AS new_last_24_hours
+            FROM vacancies
+            """
+        ).fetchone()
+        return {
+            "total_active": row["total_active"],
+            "new_last_24_hours": row["new_last_24_hours"],
+        }
+
     def list_page(
         self,
         employer_id: UUID | None = None,
@@ -24,162 +43,54 @@ class VacancyReadOperations:
                 "regexp_replace(lower(coalesce(v.location_text, '')), "
                 "'[^a-z0-9]+', ' ', 'g')"
             )
-            if location_scope == "cape_town":
-                location_terms = (
-                    "cape town",
-                    "ct",
-                    "cpt",
-                    "durbanville",
-                    "bellville",
-                    "brackenfell",
-                    "kraai fontein",
-                    "kraaifontein",
-                    "kuils river",
-                    "parow",
-                    "goodwood",
-                    "milnerton",
-                    "century city",
-                    "table view",
-                    "blouberg",
-                    "camps bay",
-                    "sea point",
-                    "claremont",
-                    "rondebosch",
-                    "wynberg",
-                    "plumstead",
-                    "tokai",
-                    "hout bay",
-                    "fish hoek",
-                    "muizenberg",
-                    "simons town",
-                    "noordhoek",
-                    "khayelitsha",
-                    "mitchells plain",
-                    "somerset west",
-                    "gordons bay",
-                )
-            elif location_scope == "western_cape":
-                location_terms = (
-                    "western cape",
-                    "wc",
-                    "cape town",
-                    "ct",
-                    "cpt",
-                    "stellenbosch",
-                    "durbanville",
-                    "bellville",
-                    "brackenfell",
-                    "kraaifontein",
-                    "kuils river",
-                    "parow",
-                    "goodwood",
-                    "milnerton",
-                    "century city",
-                    "table view",
-                    "blouberg",
-                    "camps bay",
-                    "sea point",
-                    "claremont",
-                    "rondebosch",
-                    "wynberg",
-                    "plumstead",
-                    "tokai",
-                    "hout bay",
-                    "fish hoek",
-                    "muizenberg",
-                    "simons town",
-                    "noordhoek",
-                    "khayelitsha",
-                    "mitchells plain",
-                    "somerset west",
-                    "gordons bay",
-                    "paarl",
-                    "wellington",
-                    "franschhoek",
-                    "worcester",
-                    "george",
-                    "mossel bay",
-                    "oudtshoorn",
-                    "knysna",
-                    "plettenberg bay",
-                    "hermanus",
-                    "swellen dam",
-                    "malmesbury",
+            terms = {
+                "cape_town": (
+                    "cape town", "ct", "cpt", "durbanville", "bellville",
+                    "brackenfell", "kraaifontein", "kuils river", "parow",
+                    "goodwood", "milnerton", "century city", "table view",
+                    "blouberg", "camps bay", "sea point", "claremont",
+                    "rondebosch", "wynberg", "plumstead", "tokai", "hout bay",
+                    "fish hoek", "muizenberg", "simons town", "noordhoek",
+                    "khayelitsha", "mitchells plain", "somerset west", "gordons bay",
+                ),
+                "western_cape": (
+                    "western cape", "wc", "cape town", "ct", "cpt", "stellenbosch",
+                    "durbanville", "bellville", "brackenfell", "kraaifontein",
+                    "kuils river", "parow", "goodwood", "milnerton", "century city",
+                    "table view", "blouberg", "camps bay", "sea point", "claremont",
+                    "rondebosch", "wynberg", "plumstead", "tokai", "hout bay",
+                    "fish hoek", "muizenberg", "simons town", "noordhoek",
+                    "khayelitsha", "mitchells plain", "somerset west", "gordons bay",
+                    "paarl", "wellington", "franschhoek", "worcester", "george",
+                    "mossel bay", "oudtshoorn", "knysna", "hermanus", "malmesbury",
                     "saldanha",
-                )
-            else:
-                location_terms = (
-                    "south africa",
-                    "sa",
-                    "za",
-                    "zaf",
-                    "western cape",
-                    "wc",
-                    "eastern cape",
-                    "ec",
-                    "free state",
-                    "fs",
-                    "gauteng",
-                    "gp",
-                    "kwazulu natal",
-                    "kzn",
-                    "limpopo",
-                    "lp",
-                    "mpumalanga",
-                    "mp",
-                    "northern cape",
-                    "nc",
-                    "north west",
-                    "nw",
-                    "cape town",
-                    "ct",
-                    "cpt",
-                    "stellenbosch",
-                    "durban",
-                    "johannesburg",
-                    "joburg",
-                    "pretoria",
-                    "tshwane",
-                    "soweto",
-                    "sandton",
-                    "midrand",
-                    "centurion",
-                    "randburg",
-                    "port elizabeth",
-                    "gqeberha",
-                    "east london",
-                    "mthatha",
-                    "bloemfontein",
-                    "kimberley",
-                    "polokwane",
-                    "nelspruit",
-                    "mbombela",
-                    "rustenburg",
-                    "potchefstroom",
-                    "newcastle",
-                    "pietermaritzburg",
-                    "richards bay",
-                    "george",
-                    "mossel bay",
-                    "knysna",
-                    "paarl",
+                ),
+                "south_africa": (
+                    "south africa", "sa", "za", "zaf", "western cape", "wc",
+                    "eastern cape", "ec", "free state", "fs", "gauteng", "gp",
+                    "kwazulu natal", "kzn", "limpopo", "lp", "mpumalanga", "mp",
+                    "northern cape", "nc", "north west", "nw", "cape town", "ct",
+                    "cpt", "stellenbosch", "durban", "johannesburg", "joburg",
+                    "pretoria", "tshwane", "soweto", "sandton", "midrand",
+                    "centurion", "randburg", "port elizabeth", "gqeberha",
+                    "east london", "mthatha", "bloemfontein", "kimberley",
+                    "polokwane", "nelspruit", "mbombela", "rustenburg",
+                    "potchefstroom", "newcastle", "pietermaritzburg",
+                    "richards bay", "george", "mossel bay", "knysna", "paarl",
                     "worcester",
-                )
-            term_conditions = []
-            for term in location_terms:
-                term_conditions.append(f"{normalized_location} ~ %s")
-                parameters.append(r"(^| )" + term.replace(" ", r" ") + r"( |$)")
-            conditions.append("(" + " OR ".join(term_conditions) + ")")
+                ),
+            }[location_scope]
+            matches = []
+            for term in terms:
+                matches.append(f"{normalized_location} ~ %s")
+                parameters.append(r"(^| )" + term + r"( |$)")
+            conditions.append("(" + " OR ".join(matches) + ")")
         elif location_scope != "all":
             raise ValueError("Unsupported vacancy location scope.")
 
         where_clause = " AND ".join(conditions)
         total = self._connection.execute(
-            f"""
-            SELECT COUNT(*) AS total
-            FROM vacancies v
-            WHERE {where_clause}
-            """,
+            f"SELECT COUNT(*) AS total FROM vacancies v WHERE {where_clause}",
             parameters,
         ).fetchone()["total"]
         items = self._connection.execute(
@@ -202,10 +113,7 @@ class VacancyReadOperations:
             [*parameters, limit, offset],
         ).fetchall()
         return {
-            "items": items,
-            "total": total,
-            "limit": limit,
-            "offset": offset,
+            "items": items, "total": total, "limit": limit, "offset": offset,
             "has_more": offset + len(items) < total,
         }
 
