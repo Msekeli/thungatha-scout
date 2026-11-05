@@ -20,9 +20,7 @@ export async function runEmployerVacancyImport(
     );
   } catch (reason) {
     const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
-    callbacks.onError(
-      employerName + " was added, but vacancy import needs attention: " + detail,
-    );
+    callbacks.onError(employerName + " was added, but vacancy import needs attention: " + detail);
     await callbacks.loadWorkspace().catch(() => undefined);
   }
 }
