@@ -1,4 +1,3 @@
-import type { FormEvent } from "react";
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { JobsWorkspacePanel } from "./job-management/JobsWorkspacePanel";
@@ -17,10 +16,6 @@ import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges"
 export default function App() {
   const { state, jobs, companies, onboarding } = useScoutApplicationController();
   const companyJobChanges = useCompanyJobChanges(state.page, jobs.employers, jobs.vacancies);
-  const saveBranding = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    await companies.saveBranding();
-  };
   const addingCompany = state.page === "add-company";
 
   return (
@@ -46,7 +41,6 @@ export default function App() {
           jobs={jobs}
           companies={companies}
           onboarding={onboarding}
-          onSaveBranding={saveBranding}
           currentJobsByEmployer={companyJobChanges.currentJobsByEmployer}
           jobChangesByEmployer={companyJobChanges.jobChangesByEmployer}
         />
