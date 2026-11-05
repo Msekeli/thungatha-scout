@@ -6,8 +6,12 @@ import httpx
 from scout.career_site_html_parser import CareersLinks, find_greenhouse_board_candidates
 
 API_ROOT = "https://boards-api.greenhouse.io/v1/boards"
-_SUFFIXES = {"group", "holdings", "inc", "limited", "ltd", "plc", "company", "sa"}
+_SUFFIXES = {
+    "group", "holdings", "inc", "limited", "ltd", "plc", "company", "sa",
+    "labs", "technologies", "technology", "systems", "solutions", "global",
+}
 _SUBDOMAINS = {"www", "careers", "jobs", "job", "apply", "work"}
+_MULTI_PART_SUFFIXES = {"co.za", "co.uk", "com.au", "co.nz", "com.br", "co.in"}
 
 
 def normalise_company_name(value: str) -> str:
@@ -16,7 +20,8 @@ def normalise_company_name(value: str) -> str:
 
 def domain_company_name(hostname: str) -> str:
     labels = [part for part in hostname.split(".") if part and part not in _SUBDOMAINS]
-    if len(labels) >= 3 and labels[-2:] == ["co", "za"]:
+    suffix = ".".join(labels[-2:])
+    if suffix in _MULTI_PART_SUFFIXES and len(labels) >= 3:
         return labels[-3]
     return labels[-2] if len(labels) > 1 else labels[0] if labels else ""
 
@@ -34,8 +39,7 @@ def board_name_matches(board_name: str, aliases: Sequence[str]) -> bool:
     actual = normalise_company_name(board_name)
     return any(
         actual == alias
-        or actual.startswith(alias)
-        and actual[len(alias) :] in _SUFFIXES
+        or actual.startswith(alias) and actual[len(alias):] in _SUFFIXES
         for alias in aliases
     )
 
