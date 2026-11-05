@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import type { Employer } from "../api";
 
 type Props = {
@@ -54,12 +53,6 @@ export const CompanyProfileHeader: FC<Props> = ({
             )}
           </p>
         </div>
-        <Badge
-          variant="outline"
-          className={`scout-status ${employer.status === "approved" ? "scout-status--approved" : employer.status === "rejected" ? "scout-status--rejected" : "scout-status--review"}`}
-        >
-          {employer.status.replaceAll("_", " ")}
-        </Badge>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-3 border-t pt-3 sm:grid-cols-3 scout-company-divider">
         <Metric value={jobsCount} label="Current jobs" />
