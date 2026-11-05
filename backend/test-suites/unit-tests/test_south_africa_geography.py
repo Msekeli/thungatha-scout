@@ -10,10 +10,12 @@ def test_accepts_explicit_south_africa_remote():
 
 
 def test_accepts_south_african_office_evidence():
-    assert is_south_african_vacancy({
-        "location": {"name": "Hybrid"},
-        "offices": [{"name": "Johannesburg, Gauteng"}],
-    })
+    assert is_south_african_vacancy(
+        {
+            "location": {"name": "Hybrid"},
+            "offices": [{"name": "Johannesburg, Gauteng"}],
+        }
+    )
 
 
 def test_rejects_remote_without_country_eligibility():
