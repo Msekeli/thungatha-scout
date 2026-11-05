@@ -8,7 +8,7 @@ HOSTS = {
     "job-boards.greenhouse.io",
     "job-boards.eu.greenhouse.io",
 }
-API_BOARD = re.compile(r"boards-api\\.greenhouse\\.io/v1/boards/([\\w-]+)")
+API_BOARD = re.compile(r"boards-api\.greenhouse\.io/v1/boards/([\w-]+)")
 
 
 class CareersLinks(HTMLParser):
@@ -62,7 +62,7 @@ def find_greenhouse_board_candidates(
         token = _board_token(link)
         if token and token not in candidates:
             candidates.append(token)
-    scripts = parser.script_text.replace("\\\\/", "/")
+    scripts = parser.script_text.replace("\\/", "/")
     for match in API_BOARD.finditer(scripts):
         if match.group(1) not in candidates:
             candidates.append(match.group(1))
