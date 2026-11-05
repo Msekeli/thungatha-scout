@@ -61,19 +61,17 @@ export const CompanyProfileHeader: FC<Props> = ({
       <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-3 sm:grid-cols-3">
         <Metric value={jobsCount} label="Current jobs" />
         <Metric value={latestJobs ?? "—"} label="Latest run jobs" />
-        <div className="rounded-lg bg-background/70 p-2">
-          <div className="flex items-center gap-1 text-sm font-semibold">
-            {delta === null || delta === 0 ? (
-              <Minus className="h-4 w-4 text-muted-foreground" />
-            ) : delta > 0 ? (
-              <ArrowUpRight className="h-4 w-4 text-emerald-500" />
-            ) : (
-              <ArrowDownRight className="h-4 w-4 text-amber-500" />
-            )}
-            <span>{delta === null ? "—" : delta > 0 ? `+${delta}` : delta}</span>
+        {delta !== null && delta !== 0 && (
+          <div className="rounded-lg bg-background/70 p-2">
+            <div className="flex items-center gap-1 text-sm font-semibold">
+              {delta > 0 ? <ArrowUpRight className="h-4 w-4 text-emerald-500" />
+                : <ArrowDownRight className="h-4 w-4 text-amber-500" />}
+              <span>{delta > 0 ? `+${delta}` : delta}</span>
+            </div>
+            <span className="text-[10px] text-muted-foreground">{changeLabel}</span>
           </div>
-          <span className="text-[10px] text-muted-foreground">{changeLabel}</span>
-        </div>
+        )}
+
       </div>
       <p className="mt-3 text-[10px] text-muted-foreground">
         {sourcesCount} registered source{sourcesCount === 1 ? "" : "s"}
