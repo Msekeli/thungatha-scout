@@ -1,0 +1,70 @@
+{
+  "description": "V1 employer sources supported by Scout ingestion. Only Greenhouse and Workday are permitted in this file.",
+  "supported_adapters": ["greenhouse", "workday"],
+  "employers": [
+    {
+      "name": "Takealot Group",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.takealot.com/careers",
+      "cape_town_presence_claimed": true,
+      "sources": [
+        {
+          "ats": "greenhouse",
+          "config": { "slug": "takealotgroup" },
+          "official_source_url": "https://job-boards.greenhouse.io/takealotgroup",
+          "verification_evidence": ["https://job-boards.greenhouse.io/takealotgroup"]
+        }
+      ]
+    },
+    {
+      "name": "Old Mutual",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.oldmutual.com/careers",
+      "cape_town_presence_claimed": true,
+      "sources": [
+        {
+          "ats": "workday",
+          "config": {
+            "host_prefix": "oldmutual.wd3",
+            "tenant": "oldmutual",
+            "site": "Old_Mutual_Careers"
+          },
+          "official_source_url": "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers",
+          "verification_evidence": ["https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers"]
+        }
+      ]
+    },
+    {
+      "name": "Pick n Pay",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.pnp.co.za/careers",
+      "cape_town_presence_claimed": true,
+      "sources": [
+        {
+          "ats": "workday",
+          "config": {
+            "host_prefix": "picknpay.wd3",
+            "tenant": "picknpay",
+            "site": "Pnet"
+          },
+          "official_source_url": "https://picknpay.wd3.myworkdayjobs.com/Pnet",
+          "verification_evidence": []
+        }
+      ]
+    },
+    {
+      "name": "Impact.com",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://impact.com/careers/",
+      "cape_town_presence_claimed": true,
+      "sources": [
+        {
+          "ats": "greenhouse",
+          "config": { "slug": "impact" },
+          "official_source_url": "https://job-boards.greenhouse.io/impact",
+          "verification_evidence": []
+        }
+      ]
+    }
+  ]
+}

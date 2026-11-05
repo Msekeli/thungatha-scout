@@ -1,0 +1,87 @@
+@layer base {
+  :root {
+    /* Light-led Scout surfaces, using the parent Thungatha blue palette */
+    --background: 0 0% 98%;
+    --foreground: 213 71% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 213 71% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 71% 11%;
+
+    --primary: 209 81% 22%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 209 76% 23%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 42%;
+    --accent: 199 90% 94%;
+    --accent-foreground: 204 80% 25%;
+    --destructive: 0 72% 51%;
+    --border: 214 20% 88%;
+    --input: 214 20% 82%;
+    --ring: 199 89% 48%;
+
+    /* Shared Thungatha / Scout brand colours */
+    --scout-navy-2: #0b3a66;
+    --scout-navy-3: #164b7a;
+    --scout-navy-muted: #2f4b68;
+    --scout-cyan: #38bdf8;
+
+    /* Semantic states retain their meaning across themes */
+    --success-surface: #bfe6ce;
+    --success-text: #0b4a27;
+    --warning-surface: #f6dca0;
+    --warning-text: #6a3705;
+    --danger-surface: #f8d1d1;
+    --danger-text: #8f2020;
+
+    --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --background: 219 60% 5%;
+    --foreground: 202 100% 95%;
+    --card: 219 48% 8%;
+    --card-foreground: 202 100% 95%;
+    --popover: 219 48% 8%;
+    --popover-foreground: 202 100% 95%;
+    --primary: 198 93% 60%;
+    --primary-foreground: 204 88% 6%;
+    --secondary: 219 50% 12%;
+    --secondary-foreground: 202 100% 95%;
+    --muted: 219 50% 12%;
+    --muted-foreground: 207 25% 65%;
+    --accent: 220 40% 18%;
+    --accent-foreground: 198 93% 60%;
+    --destructive: 0 62% 48%;
+    --border: 220 40% 18%;
+    --input: 220 40% 18%;
+    --ring: 198 93% 60%;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    font-family: var(--font-sans);
+    background-color: #050a14;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}

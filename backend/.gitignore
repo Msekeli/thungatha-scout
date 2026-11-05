@@ -1,0 +1,23 @@
+# Local environment secrets
+.env
+
+# Python virtual environment
+.venv/
+venv/
+
+# Python generated files
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Linting cache
+.ruff_cache/
+
+*.egg-info/

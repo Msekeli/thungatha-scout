@@ -1,0 +1,55 @@
+name: Architecture Compliance
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  pull_request:
+    branches:
+      - dev
+      - main
+  workflow_dispatch:
+
+jobs:
+  compliance:
+    name: Architecture & Quality Gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install backend and test dependencies
+        working-directory: backend
+        run: python -m pip install -e ".[dev]"
+
+      - name: Run backend unit and integration test suites
+        working-directory: backend
+        run: python -m pytest -q
+
+      - name: Verify file line limits (<= 100 lines)
+        run: python3 scripts/check-file-line-limits.py
+
+      - name: Verify descriptive naming conventions
+        run: python3 scripts/check-naming-conventions.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm --prefix frontend ci
+
+      - name: Run TypeScript typecheck
+        run: npm --prefix frontend run typecheck
+
+      - name: Run frontend production build
+        run: npm --prefix frontend run build

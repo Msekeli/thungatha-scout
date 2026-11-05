@@ -1,104 +1,173 @@
-# Thungatha Scout — Master Implementation Plan
+# Thungatha Scout — Implementation Plan
 
-**Document status:** Draft for review  
-**Purpose:** Master roadmap, milestone scope, dependencies, progress and acceptance tracking  
-**Product:** Thungatha Scout  
-**Parent product:** Thungatha  
-**Repository:** https://github.com/Msekeli/thungatha-scout
+**Status:** Active delivery roadmap  
+**Updated:** 5 November 2026  
+**Branch:** `dev`
 
-## 1. Purpose
+## 1. Authority
 
-This document defines the delivery roadmap for Thungatha Scout. It is the authoritative reference for milestone order, scope, dependencies, high-level outcomes, status and completion criteria.
+- `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` owns current product and architecture decisions.
+- `TECHNICAL-APPROACH.md` describes the current implementation design.
+- `CHATGPT-PROJECT-GUIDE.md` is the concise operating brief for ChatGPT Project work.
+- `AGENTS.md` and `CODING-STANDARDS.md` govern all repository contributors and coding agents.
+- Older milestone notes and research reports remain historical evidence. Where they conflict with the latest dated decision record, the latest decision record wins.
 
-Detailed checkpoint definitions, implementation tasks, verification evidence, unresolved issues and user-review records belong in the corresponding files under `milestones/`.
+## 2. Product outcome
 
-The existing `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` remains the source of truth for Scout's established decisions and historical observations. Do not replace it with this roadmap. Where a decision or scope conflict is found, stop and record it for review rather than silently rewriting either document.
+Scout is an unattended employer-sourced vacancy ingestion and publishing system for Thungatha. The administrator mainly adds employers by pasting official careers/ATS URLs and confirming employer/source identity. Scout then retrieves, validates, normalises, deduplicates, tracks and publishes qualifying vacancies automatically.
 
-## 2. Product boundary
+Human review is exception-based, not a mandatory approval step for every vacancy. Only records that pass deterministic publication gates are published. Uncertain or incomplete records are held for review.
 
-Thungatha is the user-facing job-search and career-management platform. Thungatha Scout is its trusted job-ingestion component. Scout discovers employers' official careers pages, uses supported career-site/ATS adapters to retrieve vacancies, validates and normalises records, tracks source evidence and freshness, and makes approved records available to Thungatha through a defined integration contract.
+V1 ATS adapters: Greenhouse and Workday. Initial geographic scope: Cape Town. No public job-search frontend or recruiter self-service.
 
-An ATS is a possible access mechanism; the employer's official careers publication is the source authority. An aggregator listing alone is not sufficient evidence of an official employer source.
+## 3. Current architecture
 
-Initial geographic scope: **Cape Town only**. Do not expand to the whole Western Cape or other cities without an explicit decision.
+| Responsibility                       | Technology / hosting                                                                                                                          |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Admin frontend                       | React + TypeScript + Vite + Tailwind CSS v3; hosting pending                                                                                  |
+| Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending                                                                             |
+| Scout operational database           | Dedicated Supabase PostgreSQL project                                                                                                         |
+| Thungatha publication destination    | Existing Thungatha Supabase PostgreSQL project                                                                                                |
+| ATS integrations                     | Greenhouse and Workday adapters                                                                                                               |
+| Admin authentication                 | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
-## 3. Delivery principles
+Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.
 
-- Inspect the current repository, branches, tests and experimental Greenhouse work before implementation changes.
-- Preserve existing data, reports and working code unless a reviewed migration or change explicitly authorises otherwise.
-- Prefer a small adapter contract and deterministic processing over a framework-heavy architecture.
-- Keep discovery, source validation, extraction, normalisation, deduplication, approval and publishing as distinct responsibilities.
-- Make uncertainty visible. Do not infer employer identity, source permission, job location or vacancy validity without evidence.
-- Human approval is an explicit backend state; AI output or code execution cannot approve or publish by itself.
-- Keep Azure usage and third-party AI calls bounded and observable.
-- Record only tests and commands actually run. Code being present is not evidence that it works.
-- No milestone or checkpoint is accepted without evidence and explicit user review.
+Scout and Thungatha databases are isolated. Scout retains raw operational, rejected, exception and history records. Only qualified published records cross to Thungatha.
 
-## 4. Milestone roadmap
+## 4. Operating rules
 
-| Milestone | Name | Status |
-|---|---|---|
-| M0 | Repository Audit and Scope Lock | Not started |
-| M1 | Employer Discovery and Source Registry | Not started |
-| M2 | Adapter Contract and Greenhouse Baseline | Not started |
-| M3 | Additional Career-Site/ATS Adapters | Not started |
-| M4 | Vacancy Normalisation, Deduplication and Freshness | Not started |
-| M5 | Review and Approval Workflow | Not started |
-| M6 | Thungatha Publishing Integration | Not started |
-| M7 | Scheduling, Observability and Recovery | Not started |
-| M8 | Admin Operations, Security and Release Acceptance | Not started |
+- Employer/source onboarding requires administrator confirmation of identity and official source relationship.
+- After activation, scheduled extraction and publication operate unattended.
+- Auto-publication requires all configured hard quality gates to pass.
+- Missing application URL, insufficient content, uncertain location, unresolved duplicate, malformed data, suspicious content or low-confidence classification creates an exception.
+- Do not equate official ATS provenance with vacancy quality.
+- AI can assist with extraction/classification but cannot bypass deterministic gates or fabricate evidence.
+- Every automated decision is auditable.
+- Failed/partial extraction cannot mark vacancies removed or expired.
+- Publishing is idempotent and recoverable.
+- No service-role credentials in the frontend.
+- Repository-wide architecture limits: no handwritten source file may exceed 100 physical lines; descriptive naming conventions are strictly enforced across backend and frontend.
 
-Statuses are provisional until the live repository has been audited against each milestone's exit criteria. Existing Greenhouse experiments may provide evidence toward a milestone, but they do not automatically satisfy its acceptance criteria.
+## 5. Delivery model
 
-## 5. Milestone summaries
+Build the product in **vertical slices**. A capability is not considered delivered merely because its adapter or API function works in isolation: expose it through the backend API, connect the relevant admin workflow, and verify the end-to-end path as soon as the underlying contract is stable.
 
-### M0 — Repository Audit and Scope Lock
-**Outcome:** An evidence-based inventory of existing code, data, tests, reports, branches and gaps; scope and unresolved decisions are reviewed before further implementation.
+Frontend and backend are therefore **cross-cutting implementation work**, not sequential silos. The admin foundation and shared UI patterns can be established early; each employer/source capability is then integrated progressively as its backend endpoint becomes available. Do not build a large disconnected frontend ahead of the API, and do not postpone all frontend work until both adapters are complete.
 
-### M1 — Employer Discovery and Source Registry
-**Outcome:** A repeatable discovery workflow records candidate employers, official careers pages, source evidence, geography, source type and review status without inventing identities or treating failed searches as empty results.
+Employer discovery and source verification continue in parallel with implementation. Research findings remain evidence until independently verified and recorded in the source registry; they do not block the first vertical slice.
 
-### M2 — Adapter Contract and Greenhouse Baseline
-**Outcome:** A documented adapter interface and a verified Greenhouse implementation provide a stable baseline without discarding existing experimental work.
+## 6. Milestones
 
-### M3 — Additional Career-Site/ATS Adapters
-**Outcome:** Additional adapters can be added independently behind the shared contract. Each source is evaluated separately for access, terms, data quality and operational limits before production approval.
+| Milestone | Name                                               | Status                                                                                                                                                     |
+| --------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| M0        | Repository Audit and Scope Lock                    | Accepted                                                                                                                                                   |
+| M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                                                                          |
+| M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                                                                     |
+| M3        | Greenhouse Vertical Slice                          | In progress — generic board-candidate resolution with Greenhouse metadata validation and detection-only onboarding implemented; local verification pending |
+| M4        | Workday Vertical Slice                             | Not started                                                                                                                                                |
+| M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                                                                                 |
+| M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                                                |
+| M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                                                                                |
+| M8        | Scheduling and Thungatha Publishing                | Not started                                                                                                                                                |
+| M9        | Security, Hosting, Recovery and Release Acceptance | Not started                                                                                                                                                |
 
-### M4 — Vacancy Normalisation, Deduplication and Freshness
-**Outcome:** Source records become consistent vacancy records with traceable provenance, conservative deduplication, repeatable updates and explicit freshness/availability states.
+### M2 — Backend foundation and Scout Supabase persistence
 
-### M5 — Review and Approval Workflow
-**Outcome:** An administrator can inspect ambiguous employers, sources, vacancies and errors; approval is recorded as an explicit backend state with audit evidence.
+Deliver a runnable Python backend, configuration/secrets boundary, Scout Supabase schema/migrations, health endpoint, API error contract, test setup and initial repositories.
 
-### M6 — Thungatha Publishing Integration
-**Outcome:** Approved, validated records are published idempotently through a documented contract. Unapproved or failed records cannot leak into the public feed.
+Acceptance: local startup; reproducible schema; connectivity test; employer/source persistence through backend services; documented API error behaviour; no secrets committed.
 
-### M7 — Scheduling, Observability and Recovery
-**Outcome:** Discovery, verification, extraction and reconciliation run on bounded schedules, with retries, failure visibility, safe recovery and cost controls.
+Close the persistence checkpoint using actual local/cloud test evidence. Define the Thungatha publishing boundary separately; do not mix destination credentials or tables into Scout persistence. Do not mark any checkpoint Accepted without explicit user approval.
 
-### M8 — Admin Operations, Security and Release Acceptance
-**Outcome:** The minimum operational interface, authentication/authorization, secrets handling, tests, deployment configuration, cost checks and user acceptance are complete.
+### M3 — Greenhouse vertical slice
 
-## 6. Status rules
+Deliver the reusable Greenhouse adapter and first complete employer/source workflow.
 
-Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accepted**.
+Checkpoints:
 
-A status must reflect verified work. “Accepted” requires:
-- exit criteria met;
-- commands/tests actually run and their results recorded;
-- evidence linked or summarised;
-- unresolved issues documented and judged non-blocking;
-- explicit user review/acceptance.
+- Registry schemas, loading and validation.
+- Common ATS adapter contract.
+- Greenhouse URL inspection and board configuration extraction from careers-page links, embeds, inline API configuration and generic employer/domain candidates. Validate candidate tokens against public Greenhouse board metadata and the supplied employer identity; a `gh_jid` value is a job ID, not a board token. Do not require an individual job URL or employer-specific code. Persist the pasted careers page as source evidence, separately from the employer homepage URL.
+- Greenhouse vacancy retrieval, complete-board validation, full `content=true` description handling, and normalisation. The public Job Board list endpoint returns all published jobs; validate `meta.total` rather than inventing page-based pagination.
+- Backend API endpoints for source inspection, preview, connection test and retrieval.
+- Admin URL-entry uses one Add Company action: detect/validate the ATS board as part of submission, register the employer/source, then start vacancy extraction. Detection must not retrieve vacancies. Show progress during remote discovery, confirm company/source registration immediately, and run vacancy extraction in the background with a later imported-count or failure notification in Companies. Keep registration copy neutral; do not present named employers as supported examples.
+- Jobs workspace supports selecting a vacancy to inspect its full description and a clearly labelled draft Thungatha payload preview; inspection does not publish.
+- Vacancy management includes a dedicated detail endpoint, separate original-job and apply links, review states (pending, needs verification, verified, rejected), review notes, and soft archive/restore. Lifecycle status remains separate from operator review status.
+- Employer branding persistence includes optional logo URL and source URL fields; the company profile can maintain those URLs and the admin displays a logo when supplied. Logo discovery/verification remains a separate follow-up.
+- Validate the three selected Greenhouse employers using live evidence. The current candidate cohort is Takealot Group, Impact.com and Ozow; each employer/source relationship, Cape Town presence and live retrieval capability must be verified independently. Pending claims remain pending.
 
-## 7. Change control
+Acceptance: adding another Greenhouse employer requires registry configuration, not employer-specific adapter code; supported URL forms, complete-board counts, full descriptions, meaningful vacancy data and failure outcomes are tested; the admin can complete source onboarding, extraction and vacancy inspection end to end.
 
-1. Do not silently change milestone sequence, approved scope or established source-of-truth decisions.
-2. Record the reason and evidence for proposed changes.
-3. Update the relevant milestone record and this plan only after the change is agreed.
-4. Distinguish observed fact, hypothesis, decision and open question.
-5. Keep prior evidence and historical findings; correct them by dated clarification rather than erasing history.
-6. Do not mark a milestone accepted merely because its code has been refactored or files have moved.
+### M4 — Workday vertical slice
 
-## 8. Current focus
+Deliver a reusable Workday adapter and integrate it into the same employer/source workflow.
 
-Begin with M0. Reconcile the live default branch and the known `setup/backend-prototype` branch with the existing source-of-truth document, preserve the Greenhouse experiment and reports, establish a real test baseline, and list the evidence required for later milestones. Do not start broad implementation until the audit is reviewed.
+Checkpoints:
+
+- Parse and validate host, tenant and site independently.
+- Implement observed public CXS retrieval and pagination.
+- Retrieve detail data where required and normalise vacancies.
+- Expose Workday inspection, preview, test and retrieval through the backend API.
+- Integrate Workday into the existing admin workflow; do not create a separate Workday-only UI.
+- Validate DigiOutsource plus the other two selected Workday employers, Old Mutual and Pick n Pay, using live evidence. Treat unverified host/tenant/site values as hypotheses until tested.
+
+Acceptance: DigiOutsource and at least two additional tenants are tested before broad compatibility is claimed; pagination, detail retrieval, empty results, blocked/rate-limited responses, malformed responses and partial failures are covered. Adding a tenant requires configuration, not employer-specific code.
+
+### M5 — Cross-cutting admin UI and API integration
+
+This milestone runs alongside M3 and M4. It is not a gate that begins only after both adapters are complete.
+
+Deliver the private React admin incrementally:
+
+- Admin app foundation, Supabase Auth sign-in and protected routes.
+- Companies and sources list/detail workflows.
+- URL-first Add Company flow: paste URL, detect supported ATS, preview metadata/configuration, allow manual fallback, confirm employer/source relationship.
+- Source connection test, operational status and useful error feedback.
+- Progressive Greenhouse and Workday integration as each API contract stabilises.
+- Dashboard, vacancies and exception/review views when their backend capabilities are ready.
+- Vacancy detail, review, and archive/restore controls integrated against the management API.
+
+Acceptance: the admin uses authenticated backend APIs; backend independently enforces the administrator allowlist; source add/edit/test/pause/resume/archive works; no service-role key or privileged credential reaches the browser. Each delivered vertical slice has an end-to-end test.
+
+### M6 — Fourth-employer compatibility test
+
+Select a held-out employer not used to implement the adapters. Paste its official careers/ATS URL through the admin workflow.
+
+Acceptance: Scout detects and configures the supported ATS, previews the source, retrieves meaningful vacancies and registers the source without employer-specific code changes. Record any unsupported URL patterns or manual fallback required. This is the generalisation test, not another implementation cohort.
+
+### M7 — Vacancy quality, lifecycle and exception review
+
+Implement normalisation, source-scoped identity, content hashing, vacancy version history, deterministic freshness/completeness/location/application URL/duplicate checks, exception queue and auditable decisions.
+
+Acceptance: qualifying records become auto-publish eligible; hard failures are suppressed; uncertain cases are held; unchanged records do not create versions; failed/partial runs do not expire vacancies; lifecycle reconciliation requires a sufficiently complete successful inventory.
+
+### M8 — Scheduling and Thungatha publishing
+
+Implement bounded recurring extraction, concurrency protection, retries/backoff, run metrics, source health and idempotent publishing to Thungatha.
+
+Acceptance: unattended run works; only records passing publication gates publish; duplicate publishing is prevented; failed publication recovers; destination receives only required clean fields. Keep Scout and Thungatha persistence isolated.
+
+### M9 — Security, hosting, recovery and release
+
+Complete authentication/authorization, secret handling, hosting-provider evaluation, deployment, monitoring, retention, backup/recovery, rollback and end-to-end verification.
+
+Hosting selection is intentionally deferred until the application is implemented and verified locally. Evaluate the actual API, scheduled-worker, scraping and runtime requirements before selecting a provider.
+
+Acceptance: one-email Supabase Auth restriction verified; public registration disabled; backend independently enforces the email allowlist; deployed frontend/backend; production configuration verified; critical flows tested; costs reviewed; user accepts release.
+
+## 7. Immediate execution sequence
+
+1. Finish the outstanding M2 review items using the current repository and test evidence. Do not redo completed persistence work.
+2. Close any remaining M2 API/error and publishing-contract decisions as separate, bounded checkpoints; keep Scout operational persistence separate from Thungatha's destination.
+3. Continue M3: complete registry schema/loading/validation and the common adapter contract; extend Greenhouse inspection into persisted extraction and vacancy listing.
+4. Complete the Greenhouse backend slice and connect the admin workflow: retrieve and persist full descriptions, inspect a selected vacancy in the Jobs workspace, and verify the draft Thungatha payload without publishing.
+5. Implement Workday and connect it to the same admin workflow.
+6. Run the six-employer validation cohort, keeping each verification claim evidence-backed and pending where necessary.
+7. Run the held-out fourth-employer compatibility test through the admin UI.
+8. Build the quality/lifecycle/exception pipeline, then scheduling and idempotent publishing.
+9. Verify the complete application locally before evaluating hosting, cost, backups and deployment.
+
+## 8. Acceptance and evidence
+
+Use statuses: Not started, In progress, Blocked, In review, Accepted. Never mark work accepted without recorded checks/evidence and explicit user acceptance. Record exactly which commands were run; do not claim tests or deployments that were not performed. Keep each checkpoint bounded, reviewable and reversible.

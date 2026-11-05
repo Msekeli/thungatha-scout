@@ -1,62 +1,31 @@
 # Thungatha Scout
 
-Thungatha Scout is a company-first discovery tool for finding direct employers that hire software developers and related technology roles, initially focused on Cape Town and the Western Cape.
+Thungatha Scout is an unattended employer-sourced vacancy ingestion and publishing system for Thungatha.
 
-## Initial goal
+## Product workflow
 
-Automate the early research process:
+The administrator mainly adds employers by pasting official careers/ATS URLs and confirming employer identity and source ownership. Scout then automatically retrieves, normalises, validates, deduplicates and publishes qualifying vacancies. Uncertain or incomplete records go to an exception-review queue; routine vacancy-by-vacancy approval is not required.
 
-1. Discover potential direct employers from public sources.
-2. Separate direct employers from recruitment agencies, job boards, and uncertain results.
-3. identify and inspect official company and careers pages.
-4. Record evidence and source URLs so results can be reviewed.
-5. Keep employer discovery distinct from vacancy extraction and job publication.
+V1 adapters: Greenhouse and Workday. Initial geography: Cape Town. Scout is a private admin/operations system, not a public job-search frontend.
 
-## Current milestone
+## Current architecture
 
-The first milestone is a local Python proof of concept to test company discovery using free-first sources and verify discovered careers URLs. A list of manually supplied URLs is useful as a benchmark, but is not the discovery mechanism itself.
+- **Frontend:** React + TypeScript + Vite, hosted on Vercel.
+- **Backend:** FastAPI (Python) HTTP API with separately executable scheduled/background processing. Keep it provider-portable; hosting selection is deferred until local implementation and workload verification are complete.
+- **Scout operational data:** dedicated Supabase PostgreSQL project.
+- **Thungatha destination:** existing Thungatha Supabase PostgreSQL project.
+- **Admin authentication:** Supabase Auth, restricted to one configured administrator email; public registration is disabled and the backend enforces the allowlist.
+- **Hosting:** frontend/backend provider decisions remain separate. Backend hosting is intentionally deferred until local implementation and workload verification are complete.
+- **Data boundary:** Scout retains raw operational, rejected, exception and extraction-history records. Only records passing deterministic publication gates are sent to Thungatha.
 
-No AI provider, paid search API, database, frontend, scheduled job, or integration with Thungatha is required for this first milestone.
+Do not use MongoDB or Azure Table Storage for the current v1 baseline. Do not share the operational database between Scout and Thungatha. The browser never receives privileged database credentials.
 
-## Project layout
+## Repository guidance
 
-```text
-thungatha-scout/
-├── frontend/           # Planned dashboard; not part of the current milestone
-├── backend/
-│   ├── app/            # Python application
-│   ├── tests/           # Automated tests
-│   ├── requirements.txt
-│   └── .env.example
-├── .gitignore
-└── README.md
-```
+Read `CHATGPT-PROJECT-GUIDE.md`, `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`, `TECHNICAL-APPROACH.md` and `CODING-STANDARDS.md` before substantial work. The latest dated decision record in the source of truth takes precedence over historical notes.
 
-## Current prototype dependencies
+## Cost and deployment
 
-- Python 3.14 (local development)
-- httpx
-- Beautiful Soup 4
+The Azure for Students credit is exhausted. Do not upgrade it, provision Azure resources or create paid infrastructure without explicit approval and a cost estimate. Supabase Free is for development/low-volume evaluation only until inactivity, backup and production availability requirements are resolved.
 
-Playwright can be added only when tests show that JavaScript-rendered pages prevent reliable inspection.
-
-## Run locally
-
-From the `backend` directory:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m app.main
-```
-
-## Principles
-
-- Prefer free approaches and avoid unnecessary paid services.
-- Treat search results as leads, not authoritative evidence.
-- Prioritize direct employers; do not mix recruitment agencies into the direct-employer directory.
-- Preserve evidence and URLs for review.
-- Never infer that a company is hiring solely because it has a careers page.
-- Keep human review available for uncertain employer or source classifications.
-- Do not write to the Thungatha application or publish jobs during this milestone.
+See `TECHNICAL-APPROACH.md` for the current architecture and pipeline, and `IMPLEMENTATION-PLAN.md` for milestone status.

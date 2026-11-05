@@ -21,10 +21,11 @@ The source-of-truth document must not be overwritten or silently reconciled with
 3. Make the smallest change that meets the agreed checkpoint.
 4. Preserve existing experimental Greenhouse work, historical reports, company data and user changes.
 5. Add or update tests for changed behavior.
-6. Run the relevant tests and quality checks. Never claim a command passed unless it was actually run.
-7. Report changed files, commands/results, evidence, unresolved issues and the next action.
-8. Update checkpoint progress records only with verified facts.
-9. Stop for user review when a checkpoint requires an explicit product, architecture, source-permission, security or cost decision.
+6. Keep every handwritten source-code file across the entire repository (backend Python modules, persistence repositories, API routes, adapters, frontend TypeScript/TSX components, hooks, API services, and stylesheets) at 100 physical lines or fewer. The automated line-limit check (`python3 scripts/check-file-line-limits.py`) and naming check (`python3 scripts/check-naming-conventions.py`) are mandatory quality gates. Do not evade them by minifying code; split by cohesive responsibility. Only documented technical exceptions (e.g. `main.tsx`, generated shadcn primitives) are permitted.
+7. Run the relevant tests and quality checks. Never claim a command passed unless it was actually run.
+8. Report changed files, commands/results, evidence, unresolved issues and the next action.
+9. Update checkpoint progress records only with verified facts.
+10. Stop for user review when a checkpoint requires an explicit product, architecture, source-permission, security or cost decision.
 
 ## Non-negotiable product rules
 
@@ -34,11 +35,37 @@ The source-of-truth document must not be overwritten or silently reconciled with
 - Company discovery includes all industries and company sizes; do not apply job-title filters during discovery.
 - Preserve unresolved identity, source classification and location states rather than guessing.
 - Search failure must not be reported as a successful search with zero results.
-- Human approval is an explicit backend state. AI cannot approve a source or publish records by itself.
+- Admin confirmation and activation are required for employer/source onboarding. After activation, qualifying vacancies publish automatically through deterministic gates; AI cannot approve sources, bypass gates or publish records by itself.
 - Do not bypass authentication, access controls, robots/terms restrictions or source quotas.
 - Do not overwrite `backend/data/companies.csv` or historical reports without an explicitly reviewed migration/change.
 - Publishing must be validated and idempotent; unapproved records must not reach Thungatha.
 - Avoid adding infrastructure or dependencies without a demonstrated requirement and user review.
+
+## Directory and file naming — mandatory for every contributor and AI tool
+
+This is a repository-wide rule for developers and AI coding agents, including Antigravity, Codex and Copilot. Follow it before creating, moving or renaming any directory or file. `CODING-STANDARDS.md` contains the detailed examples; this section is the mandatory workflow.
+
+- Names must tell a reader what the directory or file is responsible for. A reader must not need to open it or inspect sibling names to guess its purpose.
+- Prefer precise, descriptive names made from the fewest words that fully express the responsibility. Do not default to short generic labels. One-word names are allowed only when no clear descriptive alternative exists or a tool/framework mandates the exact name.
+- Use kebab-case for ordinary directory names and non-Python filenames. Use snake_case for Python modules and importable package directories because Python imports require it. Preserve exact framework/tool-required names only when the tool actually requires them.
+- Do not create vague labels such as `unit`, `integration`, `common`, `shared`, `misc`, `helpers`, `utils`, `lib`, `temp`, `api`, `types` or `data` when a more precise name is possible.
+- Test categories must be explicit: use `test-suites/unit-tests/`, `test-suites/integration-tests/`, and `test-suites/contract-tests/` when those categories exist. Never create `tests/unit/` or `tests/integration/`.
+- Python test filenames follow Python discovery conventions (for example, `test_employer_discovery.py`); their names must still identify the behavior under test.
+- Before creating a file or directory, inspect the current tree and relevant tooling. Check for an existing owner of the responsibility, avoid duplicate/nested names that repeat the parent, and confirm the proposed name is accurate.
+- Before renaming an existing path, search all imports, references, configuration, test discovery and CI workflows. Update every reference in the same change and run the affected checks. Do not rename framework-required paths casually.
+- Do not create empty placeholder directories for speculative future features. Create a directory when its responsibility and near-term contents are understood.
+- If the right name or responsibility is unclear, stop and ask rather than inventing a folder. Explain the proposed name and what belongs inside it.
+- When reviewing existing names, distinguish a required convention from a vague scaffold placeholder. Do not rename a folder merely to satisfy a mechanical word-count rule.
+
+## File and registry responsibilities
+
+- Every file must have one clearly defined primary responsibility. Do not combine unrelated concerns merely to reduce the number of files.
+- File names must describe that responsibility clearly and specifically. Split independently maintained concepts when necessary, but avoid unnecessary fragmentation and excessively long names.
+- The adapter definitions belong in `backend/registry/ats-adapter-registry.json`. This file describes adapter identity, implementation status, retrieval method, capabilities, configuration requirements and adapter-level constraints.
+- Employer/source mappings belong in `backend/registry/employer-source-registry.json`. This file describes organizations, official careers entry points, source-to-employer relationships, adapter configuration and verification evidence.
+- Do not put employer-specific board identifiers or employer verification evidence in the adapter registry. Do not put generic adapter capabilities in individual employer records.
+- Before implementing or changing an adapter, inspect the adapter registry and relevant employer/source mappings. Do not hardcode employer-specific configuration in adapter code.
+- Treat registry entries as data requiring validation. A registry status or a populated field is not, by itself, proof of source permission, Cape Town eligibility, implementation readiness or human approval.
 
 ## Security and cost
 
@@ -61,6 +88,7 @@ The source-of-truth document must not be overwritten or silently reconciled with
 ## Completion response
 
 At the end of a task, provide:
+
 - **Checkpoint:** identifier and status.
 - **Changes:** files and behavior changed.
 - **Verification:** exact commands and observed results.

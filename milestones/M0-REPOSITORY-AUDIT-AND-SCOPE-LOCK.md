@@ -1,94 +1,39 @@
 # M0 — Repository Audit and Scope Lock
 
-**Status:** Not started  
-**Outcome:** A repository-grounded baseline and reviewed scope before further implementation.  
-**Dependency:** None
+**Status:** Accepted (26 October 2026)  
+**Outcome:** Evidence-based repository baseline and reviewed scope before implementation.  
+**Audit report:** [M0 Repository Audit Report](M0-AUDIT-REPORT.md)
 
-## Purpose and scope
+## M0-C01 — Branch and artifact inventory
 
-Inspect the actual Scout repository and preserve its history. The existing `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` is not to be replaced or casually rewritten. It is a historical and decision reference that must be compared with the live code.
+**Status:** Accepted. Inspected `main`, `dev`, `research`, `setup/backend-prototype`, and `feature/cape-town-greenhouse-workday-api`. Recorded branch heads, artifacts, current scaffold, Greenhouse research, Workday client/tests and FastAPI experiment in `M0-AUDIT-REPORT.md`. Research branches were not modified.
 
-## Checkpoint status rules
+## M0-C02 — Source-of-truth reconciliation
 
-Use only: **Not started**, **In progress**, **Blocked**, **In review**, **Accepted**.
+**Status:** Accepted. The source-of-truth file supplied in project files has been restored at repository root as `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`. Its rules align with the documented direction: Cape Town only, employer-first sourcing, explicit uncertainty, human approval before publication, replaceable AI providers and bounded operational costs. Proposals remain proposals where validation is still required.
 
-Every checkpoint record must include changes made, commands/tests actually run, observed evidence, unresolved issues, next action, and user review status. Code written alone does not qualify as acceptance.
+## M0-C03 — Baseline verification
 
-## Checkpoints
+**Status:** Accepted — static baseline established; runtime checks remain unverified.
 
-### M0-C01 — Branch, repository and artifact inventory
+Observed baseline: `dev` has an Azure Functions Python v2 health entry point and `azure-functions` as its only backend dependency. Unit/integration folders contain placeholders only; the frontend has no `package.json` or runnable build/test configuration. No integrated canonical job model, ATS adapter, persistence layer, admin API or AI provider implementation exists on `dev`.
 
-**Goal:** establish the actual starting point.
+Checks actually performed: GitHub branch/tree/file retrieval across five branches; source inspection of `backend/function_app.py` and `backend/requirements.txt`; attempted `git clone https://github.com/Msekeli/thungatha-scout.git /tmp/thungatha-scout`, which failed because this environment could not resolve `github.com`.
 
-**Work**
-- Inspect default branch, known working branch, recent commits and pull requests.
-- Inventory source files, tests, scripts, configuration, reports, CSVs and generated artifacts.
-- Identify the Greenhouse experiment and any other adapters or utilities already present.
-- Record dirty working-tree state if working in a local checkout; do not discard user changes.
-- Do not overwrite `backend/data/companies.csv` or historical reports.
+No pytest, Ruff, Azure Functions host, frontend build, deployed health check or live-source test was run. No runtime/test pass is claimed. Since the scaffold has no runnable application test suite and the checkout could not be cloned here, runtime verification is explicitly carried into implementation work rather than misrepresented as complete.
 
-**Exit criteria**
-- A repository map and branch/commit baseline are recorded.
-- Existing data and experimental work are identified.
-- No unrelated files or code are changed.
+## M0-C04 — Scope and risk review
 
-### M0-C02 — Source-of-truth reconciliation
+**Status:** Accepted. Initial geography is Cape Town only; discovery is not filtered by industry, company size or job title. Official employer careers publication is authoritative; an ATS board alone does not prove employer identity. Failed searches remain distinct from successful empty results. Unknown identity/location/source/vacancy states remain explicit. Human approval is required before publishing; AI cannot approve or publish autonomously. Preserve historical research and do not merge experimental branches wholesale.
 
-**Goal:** compare established documentation with live implementation without silently changing either.
-
-**Work**
-- Compare the source-of-truth document, README, code, tests and report schemas.
-- Classify each finding as verified current behavior, historical observation, conflicting documentation, hypothesis or open question.
-- Apply the current agreed scope: Cape Town only for initial company discovery; all industries and job types remain eligible during discovery.
-- Record any mismatch that requires a decision instead of resolving it by assumption.
-
-**Exit criteria**
-- Conflicts and stale statements are listed with evidence.
-- The existing source-of-truth file remains unchanged unless the user explicitly approves a documented update.
-- Current scope and open decisions are reviewed.
-
-### M0-C03 — Baseline verification
-
-**Goal:** know which existing behaviors work before changes begin.
-
-**Work**
-- Identify the project's actual environment/setup instructions and test commands.
-- Run the available test suite and relevant CLI smoke tests where practical.
-- Record exact commands, exit codes, counts, and important output.
-- Distinguish a failed search backend from a successful search with zero results.
-- Test a known public Greenhouse board independently if the current code and source allow it.
-
-**Exit criteria**
-- A dated baseline report records actual results and limitations.
-- Historical test claims are not presented as current results.
-- Search failure and true-empty outcomes are separately represented or logged as gaps.
-
-### M0-C04 — Scope and risk review
-
-**Goal:** agree the smallest maintainable implementation path.
-
-**Work**
-- Confirm employer-first sourcing and official-careers-page evidence requirements.
-- Confirm source categories and how recruitment agencies, staffing companies and hybrid organisations are represented.
-- Confirm explicit human approval before publication.
-- Review the proposed adapter boundary, internal state storage, Supabase publication boundary, admin access, scheduling and cost constraints.
-- List decisions requiring user approval before implementation.
-
-**Exit criteria**
-- A reviewed gap list and ordered implementation recommendation exist.
-- No new paid service, AI provider, source, or database is approved by implication.
-- User has reviewed the audit and agreed the next milestone.
+Deferred to relevant implementation milestones: Azure region/hosting compatibility, Table Storage access patterns/keys, Supabase schema/stable IDs, admin authentication/deployment and source-specific terms/access.
 
 ## Progress record
 
-**Changes made:** None recorded yet.
+**Changes:** Added `milestones/M0-AUDIT-REPORT.md`; restored `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`; updated this checkpoint and the master plan.
 
-**Verification commands/tests actually run:** None recorded yet. Populate only after execution.
+**Evidence:** GitHub branch and file retrieval succeeded. Source-of-truth content was committed to `dev`. Local clone failed due to DNS/network resolution. No application tests/builds were run.
 
-**Observed results/evidence:** Pending live repository inspection.
+**Next action:** Start M1 — Employer Discovery and Source Registry. Establish a runnable checkout and add/run targeted tests as behavior is introduced.
 
-**Open issues or decisions:** Confirm branch state, existing test baseline, actual adapter inventory, source approval evidence and publication contract.
-
-**Next action:** Complete M0-C01 through M0-C03 against the live repository.
-
-**Reviewed/accepted by user:** No.
+**Reviewed/accepted by user:** User requested on 26 October 2026 that M0 be rechecked and closed. This accepts the repository audit and scope baseline, not runtime behavior that has not been tested.
