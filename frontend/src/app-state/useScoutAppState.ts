@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import type { EmployerSource } from "../api";
+import type { VacancyLocationScope } from "../shared-contracts/vacancy-contracts";
 
 export type ScoutPage = "jobs" | "companies" | "add-company";
 
@@ -13,6 +14,7 @@ export function useScoutAppState() {
   const [page, setPage] = useState<ScoutPage>("jobs");
   const [showArchived, setShowArchived] = useState(false);
   const [reviewFilter, setReviewFilter] = useState("all");
+  const [locationScope, setLocationScope] = useState<VacancyLocationScope>("cape_town");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
   const [companyQuery, setCompanyQuery] = useState("");
@@ -31,41 +33,12 @@ export function useScoutAppState() {
   const dismissNotice = useCallback(() => setNotice(""), []);
 
   return {
-    page,
-    setPage,
-    showArchived,
-    setShowArchived,
-    reviewFilter,
-    setReviewFilter,
-    logoUrl,
-    setLogoUrl,
-    logoSourceUrl,
-    setLogoSourceUrl,
-    companyQuery,
-    setCompanyQuery,
-    companySourceFilter,
-    setCompanySourceFilter,
-    selectedEmployerId,
-    setSelectedEmployerId,
-    selectedCompanyId,
-    setSelectedCompanyId,
-    sources,
-    setSources,
-    form,
-    setForm,
-    sourceUrl,
-    setSourceUrl,
-    editingSourceId,
-    setEditingSourceId,
-    extracting,
-    setExtracting,
-    saving,
-    setSaving,
-    error,
-    setError,
-    notice,
-    setNotice,
-    dismissError,
-    dismissNotice,
+    page, setPage, showArchived, setShowArchived, reviewFilter, setReviewFilter,
+    locationScope, setLocationScope, logoUrl, setLogoUrl, logoSourceUrl, setLogoSourceUrl,
+    companyQuery, setCompanyQuery, companySourceFilter, setCompanySourceFilter,
+    selectedEmployerId, setSelectedEmployerId, selectedCompanyId, setSelectedCompanyId,
+    sources, setSources, form, setForm, sourceUrl, setSourceUrl, editingSourceId,
+    setEditingSourceId, extracting, setExtracting, saving, setSaving, error, setError,
+    notice, setNotice, dismissError, dismissNotice,
   };
 }
