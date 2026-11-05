@@ -1,14 +1,14 @@
 import type { Vacancy } from "../api";
 import { decodeGreenhouseContent } from "./html-content-decoder";
 
-function readThemeToken(name: string, fallback: string): string {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+function readThemeToken(name: string): string {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
 export function VacancyDescriptionPreview({ vacancy }: { vacancy: Vacancy }) {
-  const surface = readThemeToken("--scout-surface", "hsl(219 48% 8%)");
-  const foreground = readThemeToken("--foreground", "202 100% 95%");
-  const link = readThemeToken("--scout-link", "var(--scout-accent)");
+  const surface = readThemeToken("--scout-surface");
+  const foreground = readThemeToken("--foreground");
+  const link = readThemeToken("--scout-link");
   const content = vacancy.description ? decodeGreenhouseContent(vacancy.description) : "";
   return (
     <div>
