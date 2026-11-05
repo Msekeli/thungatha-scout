@@ -28,7 +28,6 @@ export const CompanyDirectoryPanel: FC<Props> = (props) => {
   return (
     <section className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden scout-company-directory">
       <CompanyDirectoryToolbar
-        count={props.employers.length}
         searchQuery={props.searchQuery}
         sourceFilter={props.sourceFilter}
         onSearchChange={props.onSearchChange}
