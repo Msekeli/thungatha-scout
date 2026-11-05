@@ -25,7 +25,9 @@ export function CompanyDeleteDialog({ companyName, open, saving, onOpenChange, o
             <AlertTriangle className="h-5 w-5" /> Permanently delete company?
           </DialogTitle>
           <DialogDescription>
-            You are deleting <strong className="scout-company-heading">{companyName}</strong>. This permanently removes the company, its registered sources, extraction history and all collected vacancies from Scout. This cannot be undone.
+            You are deleting <strong className="scout-company-heading">{companyName}</strong>. This
+            permanently removes the company, its registered sources, extraction history and all
+            collected vacancies from Scout. This cannot be undone.
           </DialogDescription>
         </DialogHeader>
         <div className="flex justify-end gap-2 pt-3">

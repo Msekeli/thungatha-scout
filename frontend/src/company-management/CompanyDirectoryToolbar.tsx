@@ -27,17 +27,14 @@ export function CompanyDirectoryToolbar(props: Props) {
             Employer directory
           </p>
           <h3 className="mt-1 text-lg font-bold scout-company-heading">
-            Companies <span className="ml-1 text-sm font-medium scout-company-muted">{props.count}</span>
+            Companies{" "}
+            <span className="ml-1 text-sm font-medium scout-company-muted">{props.count}</span>
           </h3>
           <p className="mt-1 text-xs scout-company-description">
             Manage employers and the recruitment sources they publish through.
           </p>
         </div>
-        <Button
-          type="button"
-          onClick={props.onAddCompany}
-          className="scout-company-toolbar-button"
-        >
+        <Button type="button" onClick={props.onAddCompany} className="scout-company-toolbar-button">
           <Plus className="mr-1.5 h-4 w-4" /> Add company
         </Button>
       </div>
@@ -54,10 +51,7 @@ export function CompanyDirectoryToolbar(props: Props) {
           />
         </div>
         <Select value={props.statusFilter} onValueChange={props.onStatusFilterChange}>
-          <SelectTrigger
-            aria-label="Filter companies by status"
-            className="scout-company-filter"
-          >
+          <SelectTrigger aria-label="Filter companies by status" className="scout-company-filter">
             <SlidersHorizontal className="mr-2 h-4 w-4 scout-company-description" />
             <SelectValue placeholder="All statuses" />
           </SelectTrigger>

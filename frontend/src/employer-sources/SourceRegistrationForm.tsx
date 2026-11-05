@@ -33,10 +33,7 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
     ["success", "empty"].includes(inspection.outcome);
 
   return (
-    <form
-      className="scout-company-form-section mt-5"
-      onSubmit={onSaveSource}
-    >
+    <form className="scout-company-form-section mt-5" onSubmit={onSaveSource}>
       <h4 className="text-sm font-semibold scout-company-heading">
         {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
       </h4>
@@ -63,7 +60,9 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
       </Button>
       {inspection && (
         <div className="grid gap-1 rounded-lg border border-border bg-card p-3 text-xs">
-          <strong className="scout-company-heading">{inspection.board_name || inspection.board_token}</strong>
+          <strong className="scout-company-heading">
+            {inspection.board_name || inspection.board_token}
+          </strong>
           <span className="scout-company-muted">
             {inspection.outcome} · {inspection.jobs.length} sample jobs
           </span>

@@ -36,7 +36,9 @@ export const CompanyProfileHeader: FC<Props> = ({
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="scout-company-eyebrow">COMPANY PROFILE</p>
-          <h3 className="mt-1 truncate text-base font-bold scout-company-heading">{employer.name}</h3>
+          <h3 className="mt-1 truncate text-base font-bold scout-company-heading">
+            {employer.name}
+          </h3>
           <p className="mt-1 break-all text-[11px] scout-company-muted">
             {careersUrl ? (
               <a

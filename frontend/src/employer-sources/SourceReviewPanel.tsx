@@ -37,7 +37,9 @@ export function SourceReviewPanel({ source, decision, saving, onChange, onSave }
   return (
     <div className="scout-company-form-section">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <strong className="text-xs font-semibold scout-company-heading">Verification & permission</strong>
+        <strong className="text-xs font-semibold scout-company-heading">
+          Verification & permission
+        </strong>
         <span className="text-[10px] scout-company-muted">
           Company approval does not approve this source
         </span>

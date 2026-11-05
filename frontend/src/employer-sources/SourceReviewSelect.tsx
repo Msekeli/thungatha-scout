@@ -18,10 +18,7 @@ export function SourceReviewSelect({ label, value, onChange, options }: Props) {
     <label className="grid gap-1 text-xs font-medium scout-company-muted">
       <span>{label}</span>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger
-          aria-label={label}
-          className="scout-company-field h-9 text-xs"
-        >
+        <SelectTrigger aria-label={label} className="scout-company-field h-9 text-xs">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

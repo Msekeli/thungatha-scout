@@ -49,9 +49,7 @@ export function CompanyAttentionActions({ employers, sources, onSelectCompany }:
           disabled={!count}
           className="scout-company-summary h-auto"
         >
-          <span
-            className={`scout-company-summary__icon ${tone}`}
-          >
+          <span className={`scout-company-summary__icon ${tone}`}>
             <Icon className="h-4 w-4" />
           </span>
           <span className="min-w-0">

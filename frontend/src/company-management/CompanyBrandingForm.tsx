@@ -20,19 +20,12 @@ export function CompanyBrandingForm({
   onSubmit,
 }: CompanyBrandingFormProps) {
   return (
-    <form
-      className="scout-company-form-section"
-      onSubmit={onSubmit}
-    >
+    <form className="scout-company-form-section" onSubmit={onSubmit}>
       <div className="flex items-center gap-3">
         <h4>Company logo</h4>
         <span className="text-[10px] scout-company-muted">Optional</span>
         {logoUrl && (
-          <img
-            src={logoUrl}
-            alt="Company logo preview"
-            className="scout-company-card__logo"
-          />
+          <img src={logoUrl} alt="Company logo preview" className="scout-company-card__logo" />
         )}
       </div>
       <label>

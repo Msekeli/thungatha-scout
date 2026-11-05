@@ -13,9 +13,7 @@ type Props = {
 
 export function CompanyDirectoryCard({ employer, sources, selected, onSelect }: Props) {
   return (
-    <article
-      className="scout-company-card" data-selected={selected}
-    >
+    <article className="scout-company-card" data-selected={selected}>
       <div className="scout-company-card__accent" />
       <Button
         type="button"
@@ -26,11 +24,7 @@ export function CompanyDirectoryCard({ employer, sources, selected, onSelect }: 
       >
         <span className="scout-company-card__icon">
           {employer.logo_url ? (
-            <img
-              src={employer.logo_url}
-              alt=""
-              className="scout-company-card__logo"
-            />
+            <img src={employer.logo_url} alt="" className="scout-company-card__logo" />
           ) : (
             <Building2 className="h-5 w-5" />
           )}
@@ -47,7 +41,9 @@ export function CompanyDirectoryCard({ employer, sources, selected, onSelect }: 
             <Badge className="scout-status scout-status--type">
               {employer.organization_type.replaceAll("_", " ")}
             </Badge>
-            <Badge className={`scout-status ${employer.status === "approved" ? "scout-status--approved" : employer.status === "rejected" ? "scout-status--rejected" : "scout-status--review"}`}>
+            <Badge
+              className={`scout-status ${employer.status === "approved" ? "scout-status--approved" : employer.status === "rejected" ? "scout-status--rejected" : "scout-status--review"}`}
+            >
               {employer.status.replaceAll("_", " ")}
             </Badge>
           </span>
