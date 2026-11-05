@@ -3,10 +3,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from scout.api.employer_api_dependencies import (
-    get_employer_service,
-    get_employer_source_update_service,
-)
+from scout.api.employer_api_dependencies import get_employer_service
 from scout.api.employer_source_routes import router as source_router
 from scout.api.employer_status_routes import router as status_router
 from scout.application.employer_contracts import (
@@ -39,14 +36,16 @@ def list_all_employer_sources(
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 def create_employer(
-    payload: EmployerCreate, service: EmployerService = Depends(get_employer_service)
+    payload: EmployerCreate,
+    service: EmployerService = Depends(get_employer_service),
 ) -> dict[str, Any]:
     return service.create_employer(payload)
 
 
 @router.get("/{employer_id}")
 def get_employer(
-    employer_id: UUID, service: EmployerService = Depends(get_employer_service)
+    employer_id: UUID,
+    service: EmployerService = Depends(get_employer_service),
 ) -> dict[str, Any]:
     employer = service.get_employer(employer_id)
     if employer is None:
