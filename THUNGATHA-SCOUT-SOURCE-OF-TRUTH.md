@@ -253,3 +253,18 @@ The administrator has explicitly selected permanent company deletion instead of 
 - A deleted company is not recoverable through the UI. If deleted by mistake, the administrator must register it again and re-verify its official sources.
 - The confirmation must disclose that linked operational history and vacancies are also deleted.
 - This is a deliberate data-retention trade-off: Scout loses the prior extraction and vacancy history for that employer. Do not describe this action as archive or soft delete.
+
+
+## Decision record — South Africa vacancy persistence boundary (5 November 2026)
+
+The supported vacancy catalogue is South Africa-wide. This supersedes earlier Cape Town-only vacancy relevance and publication statements.
+
+- Employers are managed independently of vacancies. An employer may remain registered and visible with zero currently qualifying South African vacancies.
+- A vacancy is persisted only when its location evidence identifies South Africa, a South African province, or a recognized South African city/region.
+- A remote vacancy is eligible only when the source explicitly identifies South Africa as the remote location or applicant-eligibility boundary. "Remote" alone is insufficient.
+- Missing, ambiguous, or non-South-African location evidence is not persisted as a normal vacancy. It must not enter the published catalogue.
+- The geographic gate runs before database upsert, not only in the admin UI or publication stage.
+- Existing out-of-scope vacancy rows are removed by migration 0005. Employer and source records are retained.
+- Location matching is deliberately conservative. False negatives should be reviewed and the allow-list expanded with evidence; unknown locations must not be assumed South African.
+- This rule applies to every adapter through the shared persistence boundary. Adapter-specific checks may add validation but must not weaken it.
+- The admin South Africa filter is a view over the already-qualified vacancy catalogue, not a substitute for ingestion validation.
