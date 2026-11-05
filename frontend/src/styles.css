@@ -4,6 +4,7 @@
 @import "./styles/company-directory-controls.css";
 @import "./styles/company-details.css";
 @import "./styles/company-forms.css";
+@import "./styles/application-shell.css";
 
 @tailwind base;
 @tailwind components;
