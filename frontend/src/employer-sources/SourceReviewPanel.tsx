@@ -60,7 +60,7 @@ export function SourceReviewPanel({ source, decision, saving, onChange, onSave }
         Evidence URL
         <Input
           type="url"
-          className="border-slate-700 bg-slate-950 scout-company-heading placeholder:text-slate-500"
+          className="scout-company-field"
           value={decision?.evidence_url ?? ""}
           onChange={(event) => onChange("evidence_url", event.target.value)}
           placeholder="Official employer page confirming this ATS relationship"
@@ -69,7 +69,7 @@ export function SourceReviewPanel({ source, decision, saving, onChange, onSave }
       <label className="grid gap-1 text-xs font-medium scout-company-muted">
         Decision notes
         <Textarea
-          className="border-slate-700 bg-slate-950 scout-company-heading placeholder:text-slate-500"
+          className="scout-company-field"
           value={decision?.reason ?? ""}
           onChange={(event) => onChange("reason", event.target.value)}
           placeholder="Why this source status and permission were chosen"
