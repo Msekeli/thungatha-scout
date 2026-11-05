@@ -42,17 +42,7 @@ export default function App() {
       {state.page === "add-company" && (
         <EmployerOnboardingPanel
           sourceUrl={state.sourceUrl}
-          onChangeSourceUrl={(value) => {
-            state.setSourceUrl(value);
-            onboarding.setDiscovery(null);
-          }}
-          atsKey={onboarding.atsKey}
-          onChangeAtsKey={(value) => {
-            onboarding.setAtsKey(value);
-            onboarding.setDiscovery(null);
-          }}
-          discovery={onboarding.discovery}
-          onDiscover={onboarding.discover}
+          onChangeSourceUrl={state.setSourceUrl}
           inspecting={onboarding.inspecting}
           form={state.form}
           onChangeCompanyName={(value) => state.setForm((current) => ({ ...current, name: value }))}
@@ -60,7 +50,7 @@ export default function App() {
           onSubmit={onboarding.submit}
           onCancel={() => {
             state.setPage("companies");
-            onboarding.setDiscovery(null);
+            state.setSourceUrl("");
           }}
         />
       )}
