@@ -6,7 +6,7 @@ Use this document as the operating brief for ChatGPT conversations and implement
 
 Build Thungatha Scout as an unattended employer-sourced vacancy ingestion and publishing system. The administrator's main routine action is to paste official employer careers/ATS URLs, confirm employer identity and source relationship, and activate sources. Scout should then run without routine vacancy-by-vacancy approval.
 
-V1 scope: Cape Town; Greenhouse and Workday adapters; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. No public job-search frontend and no recruiter self-service.
+V1 scope: South Africa-wide vacancy eligibility; Greenhouse and Workday adapters; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. No public job-search frontend and no recruiter self-service.
 
 ## Current decisions — do not silently change
 
@@ -36,7 +36,7 @@ V1 scope: Cape Town; Greenhouse and Workday adapters; private admin UI; automate
 8. Hard failures are suppressed with a reason. Uncertain/incomplete cases enter an exception queue.
 9. Admin can inspect exceptions, reject/unpublish, correct permitted fields, retry, pause/resume sources and archive records.
 
-An official ATS is provenance, not a guarantee of vacancy quality. A vacancy must have a meaningful title/description, credible in-scope location, usable application destination, stable identity, valid content and no unresolved high-confidence duplicate. Unknown location is not automatically Cape Town. Failed/partial extraction never expires jobs.
+An official ATS is provenance, not a guarantee of vacancy quality. A vacancy must have a meaningful title/description, credible South African location or explicit South Africa remote eligibility, usable application destination, stable identity, valid content and no unresolved high-confidence duplicate. Unknown location is not automatically Cape Town. Failed/partial extraction never expires jobs.
 
 AI may assist with extraction/classification but cannot invent evidence or bypass hard gates. Deterministic code owns identity, URLs, deduplication, freshness, state transitions and publishing. Record the reason/evidence/rule version for every automated decision.
 
