@@ -6,9 +6,10 @@ from psycopg.connection import Connection
 from psycopg.types.json import Jsonb
 
 from scout.persistence.employer_delete_operations import EmployerDeleteOperations
+from scout.persistence.employer_details_update_operations import EmployerDetailsUpdateOperations
 
 
-class EmployerRepository(EmployerDeleteOperations):
+class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperations):
     def __init__(self, connection: Connection) -> None:
         self._connection = connection
 
@@ -52,28 +53,6 @@ class EmployerRepository(EmployerDeleteOperations):
             """,
             (limit, offset),
         ).fetchall()
-
-    def update_details(
-        self,
-        employer_id: UUID,
-        values: Mapping[str, Any],
-    ) -> dict[str, Any] | None:
-        return self._connection.execute(
-            """
-            UPDATE employers
-            SET name = %s, legal_name = %s, website_url = %s,
-                organization_type = %s, updated_at = NOW()
-            WHERE id = %s
-            RETURNING *
-            """,
-            (
-                values["name"],
-                values.get("legal_name"),
-                values.get("website_url"),
-                values["organization_type"],
-                employer_id,
-            ),
-        ).fetchone()
 
     def update_branding(
         self,
