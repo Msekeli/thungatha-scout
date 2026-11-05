@@ -31,7 +31,14 @@ export function useCompanyJobChanges(page: string, employers: Employer[], vacanc
         setPreviousCounts({});
       }
     } else if (!inCompanyArea && wasInCompanyArea.current) {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(currentCountsRef.current));
+      try {
+        window.localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(currentCountsRef.current),
+        );
+      } catch {
+        // Keep the directory usable when browser storage is unavailable.
+      }
       setPreviousCounts(null);
     }
     wasInCompanyArea.current = inCompanyArea;
