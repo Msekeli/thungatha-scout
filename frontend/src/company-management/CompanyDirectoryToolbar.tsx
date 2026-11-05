@@ -12,9 +12,9 @@ import {
 type Props = {
   count: number;
   searchQuery: string;
-  statusFilter: string;
+  sourceFilter: string;
   onSearchChange: (value: string) => void;
-  onStatusFilterChange: (value: string) => void;
+  onSourceFilterChange: (value: string) => void;
   onAddCompany: () => void;
 };
 
@@ -50,19 +50,15 @@ export function CompanyDirectoryToolbar(props: Props) {
             className="scout-company-field pl-9 focus-visible:ring-ring"
           />
         </div>
-        <Select value={props.statusFilter} onValueChange={props.onStatusFilterChange}>
-          <SelectTrigger aria-label="Filter companies by status" className="scout-company-filter">
+        <Select value={props.sourceFilter} onValueChange={props.onSourceFilterChange}>
+          <SelectTrigger aria-label="Filter companies by recruitment platform" className="scout-company-filter">
             <SlidersHorizontal className="mr-2 h-4 w-4 scout-company-description" />
-            <SelectValue placeholder="All statuses" />
+            <SelectValue placeholder="All job boards" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            <SelectItem value="discovered">Discovered</SelectItem>
-            <SelectItem value="pending_review">Pending review</SelectItem>
-            <SelectItem value="approved">Approved</SelectItem>
-            <SelectItem value="needs_review">Needs review</SelectItem>
-            <SelectItem value="rejected">Rejected</SelectItem>
-            <SelectItem value="inactive">Inactive</SelectItem>
+            <SelectItem value="all">All job boards</SelectItem>
+            <SelectItem value="greenhouse">Greenhouse</SelectItem>
+            <SelectItem value="workday">Workday</SelectItem>
           </SelectContent>
         </Select>
       </div>
