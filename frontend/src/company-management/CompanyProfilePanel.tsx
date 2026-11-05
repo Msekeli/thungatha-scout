@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { FormEvent } from "react";
 import { CompanyProfileActions } from "./CompanyProfileActions";
+import { CompanyEditDialog } from "./CompanyEditDialog";
 import { CompanyProfileHeader } from "./CompanyProfileHeader";
 import { CompanyBrandingForm } from "./CompanyBrandingForm";
 import { CompanySourcesSection } from "../employer-sources/CompanySourcesSection";
@@ -26,10 +28,12 @@ export function CompanyProfilePanel({
   onSaveBranding,
 }: Props) {
   const employer = companies.employer;
+  const [editOpen, setEditOpen] = useState(false);
   return (
     <section className="min-w-0 rounded-xl border border-border bg-card p-4 shadow-sm">
       {employer ? (
         <>
+          <CompanyEditDialog employer={employer} open={editOpen} saving={state.saving} onOpenChange={setEditOpen} onSave={async (values) => { if (await companies.updateDetails(values)) setEditOpen(false); }} />
           <CompanyProfileHeader
             employer={employer}
             jobsCount={jobsCount}
@@ -40,6 +44,7 @@ export function CompanyProfilePanel({
             saving={state.saving}
             onUpdateStatus={(status) => void companies.updateStatus(status)}
             onDelete={() => void companies.deleteCompany()}
+            onEdit={() => setEditOpen(true)}
           />
           <CompanyBrandingForm
             logoUrl={state.logoUrl}
