@@ -254,7 +254,6 @@ The administrator has explicitly selected permanent company deletion instead of 
 - The confirmation must disclose that linked operational history and vacancies are also deleted.
 - This is a deliberate data-retention trade-off: Scout loses the prior extraction and vacancy history for that employer. Do not describe this action as archive or soft delete.
 
-
 ## Decision record — South Africa vacancy persistence boundary (5 November 2026)
 
 The supported vacancy catalogue is South Africa-wide. This supersedes earlier Cape Town-only vacancy relevance and publication statements.
