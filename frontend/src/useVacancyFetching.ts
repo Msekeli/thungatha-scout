@@ -20,7 +20,6 @@ export function useVacancyFetching({
     const eligibleSources = dashboardSources.filter(
       (source) => source.status === "verified" && source.permission_status === "allowed",
     );
-
     if (!eligibleSources.length) {
       onError(
         "No job sources are both verified and permitted. Review company sources before fetching jobs.",
@@ -31,19 +30,17 @@ export function useVacancyFetching({
     setExtracting(true);
     onError("");
     onNotice("");
-
     try {
       const results = await Promise.allSettled(
         eligibleSources.map((source) => scoutApi.extractSource(source.id)),
       );
       const succeeded = results.filter((result) => result.status === "fulfilled").length;
       const failed = results.length - succeeded;
-
       await loadWorkspace();
       onNotice(
         failed
-          ? `Fetched from ${succeeded} source(s); ${failed} source(s) failed. Check the extraction history.`
-          : `Fetch completed for ${succeeded} verified source(s). Dashboard data has been refreshed.`,
+          ? `Fetched from ${succeeded} source(s); ${failed} failed. Check extraction history. Dashboard metrics are updating.`
+          : `Fetch completed for ${succeeded} verified source(s). Vacancies refreshed; dashboard metrics are updating.`,
       );
     } catch (reason) {
       onError(
