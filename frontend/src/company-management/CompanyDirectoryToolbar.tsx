@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/select";
 
 type Props = {
-  count: number;
   searchQuery: string;
   sourceFilter: string;
   onSearchChange: (value: string) => void;
@@ -27,8 +26,7 @@ export function CompanyDirectoryToolbar(props: Props) {
             Employer directory
           </p>
           <h3 className="mt-1 text-lg font-bold scout-company-heading">
-            Companies{" "}
-            <span className="ml-1 text-sm font-medium scout-company-muted">{props.count}</span>
+            Companies
           </h3>
           <p className="mt-1 text-xs scout-company-description">
             Manage employers and the recruitment sources they publish through.
