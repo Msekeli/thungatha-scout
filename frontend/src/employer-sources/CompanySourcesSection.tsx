@@ -29,7 +29,7 @@ type Props = {
 export function CompanySourcesSection(props: Props) {
   return (
     <>
-      <div className="mb-3 mt-6 flex items-center justify-between gap-3 border-b border-slate-700 pb-2">
+      <div className="mb-3 mt-6 flex items-center justify-between gap-3 border-b scout-company-divider pb-2">
         <h4>Job sources</h4>
       </div>
       {props.sources.length ? (
@@ -46,7 +46,7 @@ export function CompanySourcesSection(props: Props) {
           />
         ))
       ) : (
-        <p className="py-4 text-xs text-slate-400">No job source registered for this company.</p>
+        <p className="py-4 text-xs scout-company-muted">No job source registered for this company.</p>
       )}
       <SourceRegistrationForm
         editingSourceId={props.editingSourceId}
