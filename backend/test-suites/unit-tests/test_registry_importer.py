@@ -45,11 +45,13 @@ def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
 
     assert first == {
         "employers_created": 2,
+        "employers_updated": 0,
         "sources_created": 2,
         "sources_updated": 0,
     }
     assert second == {
         "employers_created": 0,
+        "employers_updated": 0,
         "sources_created": 0,
         "sources_updated": 0,
     }
