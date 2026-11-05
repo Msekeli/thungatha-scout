@@ -20,9 +20,12 @@ router.include_router(archive_router)
 def list_vacancies(
     limit: int = Query(default=200, ge=1, le=500),
     offset: int = Query(default=0, ge=0),
+    location_scope: str = Query(default="cape_town", pattern="^(cape_town|all)$"),
     service: GreenhouseExtractionService = Depends(get_extraction_service),
 ) -> list[dict[str, Any]]:
-    return service.list_vacancies(limit=limit, offset=offset)
+    return service.list_vacancies(
+        limit=limit, offset=offset, location_scope=location_scope
+    )
 
 
 @router.get("/employers/{employer_id}/vacancies")
@@ -30,9 +33,12 @@ def list_employer_vacancies(
     employer_id: UUID,
     limit: int = Query(default=200, ge=1, le=500),
     offset: int = Query(default=0, ge=0),
+    location_scope: str = Query(default="cape_town", pattern="^(cape_town|all)$"),
     service: GreenhouseExtractionService = Depends(get_extraction_service),
 ) -> list[dict[str, Any]]:
-    return service.list_vacancies(employer_id, limit, offset)
+    return service.list_vacancies(
+        employer_id, limit, offset, location_scope
+    )
 
 
 @router.get("/extraction-runs")
