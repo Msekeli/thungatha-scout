@@ -1,22 +1,23 @@
 import type { FC } from "react";
 import { ArrowDownRight, ArrowUpRight, Minus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import type { Employer, ExtractionRun } from "../api";
+import type { Employer } from "../api";
 
 type Props = {
   employer: Employer;
   jobsCount: number;
   sourcesCount: number;
-  latestRun?: ExtractionRun;
-  previousRun?: ExtractionRun;
+  latestJobs: number | null;
+  previousJobs: number | null;
+  lastRunAt: string | null;
 };
 
 export const CompanyProfileHeader: FC<Props> = ({
-  employer, jobsCount, sourcesCount, latestRun, previousRun,
+  employer, jobsCount, sourcesCount, latestJobs, previousJobs, lastRunAt,
 }) => {
-  const delta = latestRun && previousRun
-    ? latestRun.jobs_received - previousRun.jobs_received : null;
-  const changeLabel = delta === null ? "No comparison yet"
+  const delta = latestJobs !== null && previousJobs !== null
+    ? latestJobs - previousJobs : null;
+  const changeLabel = delta === null ? "Comparison unavailable"
     : delta > 0 ? `+${delta} jobs since previous run`
     : delta < 0 ? `${delta} jobs since previous run` : "No change since previous run";
   return (
@@ -26,12 +27,9 @@ export const CompanyProfileHeader: FC<Props> = ({
           <p className="text-[10px] font-semibold tracking-widest text-primary">COMPANY PROFILE</p>
           <h3 className="mt-1 truncate text-base font-bold text-foreground">{employer.name}</h3>
           <p className="mt-1 break-all text-[11px] text-muted-foreground">
-            {employer.website_url ? (
-              <a href={employer.website_url} target="_blank" rel="noreferrer"
-                className="inline-flex items-center gap-1 text-primary underline-offset-2 hover:underline">
-                {employer.website_url}
-              </a>
-            ) : "Official website not supplied"}
+            {employer.website_url ? <a href={employer.website_url} target="_blank" rel="noreferrer"
+              className="text-primary underline-offset-2 hover:underline">{employer.website_url}</a>
+              : "Official website not supplied"}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
             {[employer.city, employer.province, employer.country].filter(Boolean).join(", ") ||
@@ -44,7 +42,7 @@ export const CompanyProfileHeader: FC<Props> = ({
       </div>
       <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-3 sm:grid-cols-3">
         <Metric value={jobsCount} label="Current jobs" />
-        <Metric value={latestRun?.jobs_received ?? "—"} label="Latest run jobs" />
+        <Metric value={latestJobs ?? "—"} label="Latest run jobs" />
         <div className="rounded-lg bg-background/70 p-2">
           <div className="flex items-center gap-1 text-sm font-semibold">
             {delta === null || delta === 0 ? <Minus className="h-4 w-4 text-muted-foreground" />
@@ -57,17 +55,15 @@ export const CompanyProfileHeader: FC<Props> = ({
       </div>
       <p className="mt-3 text-[10px] text-muted-foreground">
         {sourcesCount} registered source{sourcesCount === 1 ? "" : "s"}
-        {latestRun?.finished_at ? ` · Last run ${new Date(latestRun.finished_at).toLocaleString()}` : ""}
+        {lastRunAt ? ` · Last run ${new Date(lastRunAt).toLocaleString()}` : ""}
       </p>
     </div>
   );
 };
 
 function Metric({ value, label }: { value: number | string; label: string }) {
-  return (
-    <div className="rounded-lg bg-background/70 p-2">
-      <strong className="text-base font-bold text-foreground">{value}</strong>
-      <p className="text-[10px] text-muted-foreground">{label}</p>
-    </div>
-  );
+  return <div className="rounded-lg bg-background/70 p-2">
+    <strong className="text-base font-bold text-foreground">{value}</strong>
+    <p className="text-[10px] text-muted-foreground">{label}</p>
+  </div>;
 }
