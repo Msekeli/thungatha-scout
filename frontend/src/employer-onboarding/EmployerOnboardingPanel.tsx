@@ -57,7 +57,7 @@ export function EmployerOnboardingPanel({
             <Button
               type="button"
               variant="outline"
-              className="h-10 border-slate-600 bg-slate-900 px-5 text-slate-200 hover:bg-slate-800 hover:scout-company-heading"
+              className="scout-company-cancel-button"
               onClick={onCancel}
               disabled={busy}
             >
