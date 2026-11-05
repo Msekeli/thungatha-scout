@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 
 type Props = {
   vacancyCount: number;
@@ -7,7 +7,10 @@ type Props = {
 
 export function DashboardOverview({ vacancyCount, vacancyChange }: Props) {
   return (
-    <div className="flex min-w-0 items-center gap-3">
+    <div className="scout-vacancy-count-card">
+      <span className="scout-vacancy-count-card__icon">
+        <BriefcaseBusiness className="h-5 w-5" aria-hidden="true" />
+      </span>
       <div className="min-w-0">
         <p className="text-xs font-medium text-muted-foreground">Collected vacancies</p>
         <p className="text-xl font-bold leading-tight text-primary">{vacancyCount}</p>
@@ -15,7 +18,7 @@ export function DashboardOverview({ vacancyCount, vacancyChange }: Props) {
       {vacancyChange !== 0 && (
         <span
           className={
-            "inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold " +
+            "ml-auto inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold " +
             (vacancyChange > 0
               ? "scout-vacancy-change--positive"
               : "scout-vacancy-change--negative")
