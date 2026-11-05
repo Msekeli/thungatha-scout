@@ -11,6 +11,7 @@ export async function runEmployerVacancyImport(
   employerName: string,
   callbacks: VacancyImportCallbacks,
 ) {
+  void callbacks.loadWorkspace().catch(() => undefined);
   try {
     const run = await scoutApi.extractSource(sourceId);
     await callbacks.loadWorkspace();
