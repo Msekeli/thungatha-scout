@@ -56,10 +56,10 @@ export default function App() {
           }
         }}
       >
-        <DialogContent>
+        <DialogContent className="border-slate-700 bg-slate-950 text-white shadow-2xl shadow-black/50">
           <DialogHeader>
-            <DialogTitle>Add a company</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-white">Add a company</DialogTitle>
+            <DialogDescription className="text-slate-400">
               Paste the official careers page or ATS board URL. Scout will inspect the source before
               registration.
             </DialogDescription>
