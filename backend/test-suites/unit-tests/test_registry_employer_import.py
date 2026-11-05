@@ -52,7 +52,10 @@ def test_existing_employer_without_website_gets_registry_careers_url() -> None:
     result = import_registry(
         {
             "employers": [
-                {"name": "Example Employer", "careers_url": "https://example.com/careers"}
+                {
+                    "name": "Example Employer",
+                    "careers_url": "https://example.com/careers",
+                }
             ]
         },
         connection,
