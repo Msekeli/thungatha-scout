@@ -35,6 +35,13 @@ def list_employer_vacancies(
     return service.list_vacancies(employer_id, limit, offset)
 
 
+@router.get("/extraction-runs")
+def list_all_extraction_runs(
+    service: GreenhouseExtractionService = Depends(get_extraction_service),
+) -> list[dict[str, Any]]:
+    return service.list_all_extraction_runs()
+
+
 @router.get("/sources/{source_id}/extraction-runs")
 def list_source_extraction_runs(
     source_id: UUID,
