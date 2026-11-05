@@ -13,7 +13,11 @@ export function useCareersDiscovery({ onError, onNotice }: UseCareersDiscoveryOp
   const [atsKey, setAtsKey] = useState("greenhouse");
   const [inspecting, setInspecting] = useState(false);
 
-  async function discover(sourceUrl: string, onCompanyNameDetected: (name: string) => void) {
+  async function discover(
+    sourceUrl: string,
+    companyName: string,
+    onCompanyNameDetected: (name: string) => void,
+  ) {
     setInspecting(true);
     onError("");
     onNotice("");
@@ -22,10 +26,10 @@ export function useCareersDiscovery({ onError, onNotice }: UseCareersDiscoveryOp
       if (atsKey !== "greenhouse") {
         throw new Error("Workday discovery will be enabled in the Workday vertical slice.");
       }
-      const result = await scoutApi.discoverCareersPage(sourceUrl);
+      const result = await scoutApi.discoverCareersPage(sourceUrl, companyName);
       setDiscovery(result);
       onCompanyNameDetected(result.board_name || result.company_name || "");
-      onNotice(`Detected ${result.detected_adapter} and found ${result.jobs.length} vacancies.`);
+      onNotice("Greenhouse board confirmed. Register the company to start extraction.");
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not discover the careers source.");
     } finally {
