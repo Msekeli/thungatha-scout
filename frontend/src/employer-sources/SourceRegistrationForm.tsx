@@ -46,7 +46,8 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
           type="url"
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
-          placeholder="https://job-boards.greenhouse.io/company" className="border-slate-700 bg-slate-950 text-white placeholder:text-slate-500"
+          placeholder="https://job-boards.greenhouse.io/company"
+          className="border-slate-700 bg-slate-950 text-white placeholder:text-slate-500"
           required
         />
       </label>
@@ -62,15 +63,11 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
       </Button>
       {inspection && (
         <div className="grid gap-1 rounded-lg border border-border bg-card p-3 text-xs">
-          <strong className="text-white">
-            {inspection.board_name || inspection.board_token}
-          </strong>
+          <strong className="text-white">{inspection.board_name || inspection.board_token}</strong>
           <span className="text-slate-400">
             {inspection.outcome} · {inspection.jobs.length} sample jobs
           </span>
-          {inspection.detail && (
-            <small className="text-slate-400">{inspection.detail}</small>
-          )}
+          {inspection.detail && <small className="text-slate-400">{inspection.detail}</small>}
         </div>
       )}
       <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border pt-3">

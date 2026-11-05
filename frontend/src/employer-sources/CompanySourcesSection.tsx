@@ -46,9 +46,7 @@ export function CompanySourcesSection(props: Props) {
           />
         ))
       ) : (
-        <p className="py-4 text-xs text-slate-400">
-          No job source registered for this company.
-        </p>
+        <p className="py-4 text-xs text-slate-400">No job source registered for this company.</p>
       )}
       <SourceRegistrationForm
         editingSourceId={props.editingSourceId}

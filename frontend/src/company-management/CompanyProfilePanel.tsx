@@ -57,7 +57,11 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding, onSave
       />
       <CompanyProfileHeader
         employer={employer}
-        careersUrl={state.sources.find((source) => source.employer_careers_url)?.employer_careers_url ?? employer.website_url ?? null}
+        careersUrl={
+          state.sources.find((source) => source.employer_careers_url)?.employer_careers_url ??
+          employer.website_url ??
+          null
+        }
         jobsCount={jobsCount}
         sourcesCount={state.sources.length}
         latestJobs={latestJobs}

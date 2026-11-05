@@ -40,7 +40,10 @@ export function SourceReviewPanel(props: SourceReviewPanelProps) {
             value={decision?.status ?? source.status}
             onValueChange={(value) => onChange("status", value)}
           >
-            <SelectTrigger aria-label="Source status" className="h-9 border-slate-700 bg-slate-950 text-xs text-white">
+            <SelectTrigger
+              aria-label="Source status"
+              className="h-9 border-slate-700 bg-slate-950 text-xs text-white"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -60,7 +63,10 @@ export function SourceReviewPanel(props: SourceReviewPanelProps) {
             value={decision?.permission_status ?? source.permission_status}
             onValueChange={(value) => onChange("permission_status", value)}
           >
-            <SelectTrigger aria-label="Permission" className="h-9 border-slate-700 bg-slate-950 text-xs text-white">
+            <SelectTrigger
+              aria-label="Permission"
+              className="h-9 border-slate-700 bg-slate-950 text-xs text-white"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

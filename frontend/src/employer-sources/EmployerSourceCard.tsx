@@ -35,8 +35,12 @@ export function EmployerSourceCard({
             {source.adapter_key} source
           </strong>
           {source.employer_careers_url && (
-            <a href={source.employer_careers_url} target="_blank" rel="noreferrer"
-              className="block text-xs text-cyan-300 hover:underline">
+            <a
+              href={source.employer_careers_url}
+              target="_blank"
+              rel="noreferrer"
+              className="block text-xs text-cyan-300 hover:underline"
+            >
               Official careers page
             </a>
           )}
