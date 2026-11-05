@@ -58,10 +58,10 @@ export function CompaniesWorkspacePanel({
         }}
       />
       <Dialog open={profileOpen && !!companies.employer} onOpenChange={setProfileOpen}>
-        <DialogContent className="max-h-[90vh] w-[95vw] max-w-5xl overflow-y-auto border-slate-700 bg-slate-950 text-white shadow-2xl shadow-black/50">
+        <DialogContent className="scout-company-dialog">
           <DialogHeader>
-            <DialogTitle className="text-white">Company details</DialogTitle>
-            <DialogDescription className="text-slate-400">
+            <DialogTitle className="scout-company-heading">Company details</DialogTitle>
+            <DialogDescription className="scout-company-muted">
               Review company information, job production, sources and extraction history.
             </DialogDescription>
           </DialogHeader>
