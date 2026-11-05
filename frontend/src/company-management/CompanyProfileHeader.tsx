@@ -37,7 +37,7 @@ export const CompanyProfileHeader: FC<Props> = ({
         <div className="min-w-0">
           <p className="text-[10px] font-semibold tracking-widest text-cyan-300">COMPANY PROFILE</p>
           <h3 className="mt-1 truncate text-base font-bold text-white">{employer.name}</h3>
-          <p className="mt-1 break-all text-[11px] text-muted-foreground">
+          <p className="mt-1 break-all text-[11px] text-slate-400">
             {careersUrl ? (
               <a
                 href={careersUrl}
@@ -88,7 +88,7 @@ function Metric({ value, label }: { value: number | string; label: string }) {
   return (
     <div className="rounded-lg border border-slate-700 bg-slate-950/70 p-2">
       <strong className="text-base font-bold text-white">{value}</strong>
-      <p className="text-[10px] text-muted-foreground">{label}</p>
+      <p className="text-[10px] text-slate-400">{label}</p>
     </div>
   );
 }
