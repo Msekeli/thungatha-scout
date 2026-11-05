@@ -32,7 +32,6 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     state.setForm((current) => ({
       ...current,
       name: current.name || name,
-      website_url: state.sourceUrl,
     }));
   const discover = () => void discovery.discover(state.sourceUrl, updateDetectedCompany);
   const submit = (event: FormEvent<HTMLFormElement>) => {
