@@ -19,7 +19,6 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     setLogoSourceUrl: state.setLogoSourceUrl,
     setSourceUrl: state.setSourceUrl,
     setEditingSourceId: state.setEditingSourceId,
-    setInspection: jobs.setInspection,
     setPage: state.setPage,
     onError: state.setError,
   });
