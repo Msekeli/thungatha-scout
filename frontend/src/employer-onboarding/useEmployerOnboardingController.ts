@@ -17,10 +17,9 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     setSaving: state.setSaving,
     onError: state.setError,
     onNotice: state.setNotice,
-    onRegistered: ({ employer, source, run }) => {
+    onRegistered: ({ employer, source }) => {
       state.setSelectedEmployerId(employer.id);
       state.setSources([source]);
-      jobs.setExtractionRuns((items) => ({ ...items, [source.id]: [run] }));
       state.setPage("companies");
       state.setSourceUrl("");
       discovery.setDiscovery(null);
@@ -33,14 +32,15 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
       ...current,
       name: current.name || name,
     }));
-  const discover = () => void discovery.discover(state.sourceUrl, updateDetectedCompany);
+  const discover = () =>
+    void discovery.discover(state.sourceUrl, state.form.name, updateDetectedCompany);
   const submit = (event: FormEvent<HTMLFormElement>) => {
     if (discovery.discovery) {
       void registration.register(event);
       return;
     }
     event.preventDefault();
-    void discovery.discover(state.sourceUrl, updateDetectedCompany);
+    discover();
   };
 
   return { ...discovery, register: registration.register, discover, submit, updateDetectedCompany };
