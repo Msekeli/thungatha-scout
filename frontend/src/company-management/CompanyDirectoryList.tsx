@@ -1,11 +1,12 @@
 import type { FC } from "react";
-import type { Employer, EmployerSource, ExtractionRun } from "../api";
+import type { Employer, EmployerSource } from "../api";
 import { CompanyDirectoryCard } from "./CompanyDirectoryCard";
 
 type Props = {
   employers: Employer[];
   sources: EmployerSource[];
-  extractionRuns: Record<string, ExtractionRun[]>;
+  currentJobsByEmployer: Record<string, number>;
+  jobChangesByEmployer: Record<string, number>;
   selectedEmployerId: string;
   onSelectEmployer: (employer: Employer) => void;
   emptyMessage?: string;
@@ -14,7 +15,8 @@ type Props = {
 export const CompanyDirectoryList: FC<Props> = ({
   employers,
   sources,
-  extractionRuns,
+  currentJobsByEmployer,
+  jobChangesByEmployer,
   selectedEmployerId,
   onSelectEmployer,
   emptyMessage = "No companies matched your criteria.",
@@ -32,7 +34,8 @@ export const CompanyDirectoryList: FC<Props> = ({
           key={employer.id}
           employer={employer}
           sources={sources.filter((source) => source.employer_id === employer.id)}
-          extractionRuns={extractionRuns}
+          currentJobs={currentJobsByEmployer[employer.id] ?? 0}
+          jobChange={jobChangesByEmployer[employer.id] ?? 0}
           selected={selectedEmployerId === employer.id}
           onSelect={onSelectEmployer}
         />
