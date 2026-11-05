@@ -22,9 +22,7 @@ def test_single_existing_source_is_reconciled_to_new_url() -> None:
     source = add_source(connection, "old")
 
     result = import_registry(
-        registry_for(
-            "https://job-boards.greenhouse.io/new", {"slug": "new"}
-        ),
+        registry_for("https://job-boards.greenhouse.io/new", {"slug": "new"}),
         connection,
     )
 
