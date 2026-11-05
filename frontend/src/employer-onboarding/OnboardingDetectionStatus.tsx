@@ -5,7 +5,7 @@ type OnboardingDetectionStatusProps = {
   discovery: CareersDiscovery | null;
 };
 
-export function OnboardingDetectionStatus({ discovery }: OnboardingPreviewCardProps) {
+export function OnboardingDetectionStatus({ discovery }: OnboardingDetectionStatusProps) {
   if (!discovery) return null;
 
   return (
