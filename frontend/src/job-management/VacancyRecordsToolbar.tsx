@@ -33,7 +33,6 @@ export function VacancyRecordsToolbar({
         <SelectContent>
           <SelectItem value="cape_town">Cape Town + Stellenbosch</SelectItem>
           <SelectItem value="south_africa">South Africa</SelectItem>
-          <SelectItem value="all">All locations</SelectItem>
         </SelectContent>
       </Select>
       <Select value={selectedEmployerId} onValueChange={onEmployerChange}>
