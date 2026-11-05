@@ -17,15 +17,19 @@ def test_legacy_hs256_token_uses_auth_user_endpoint(monkeypatch) -> None:
         return {"sub": "user"}
 
     monkeypatch.setattr("scout.supabase_jwt.verify_legacy_access_token", verify_legacy)
-    claims = asyncio.run(verify_supabase_access_token(
-        token, "https://scout.supabase.co", "publishable-key"
-    ))
+    claims = asyncio.run(
+        verify_supabase_access_token(
+            token, "https://scout.supabase.co", "publishable-key"
+        )
+    )
     assert claims == {"sub": "user"}
 
 
 def test_unsupported_jwt_algorithm_is_rejected() -> None:
     token = jwt.encode({"sub": "user"}, "test-secret", algorithm="HS384")
     with pytest.raises(InvalidTokenError, match="Unsupported"):
-        asyncio.run(verify_supabase_access_token(
-            token, "https://scout.supabase.co", "publishable-key"
-        ))
+        asyncio.run(
+            verify_supabase_access_token(
+                token, "https://scout.supabase.co", "publishable-key"
+            )
+        )

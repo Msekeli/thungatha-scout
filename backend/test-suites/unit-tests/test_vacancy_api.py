@@ -8,9 +8,9 @@ def test_lists_vacancies_for_an_employer() -> None:
     with vacancy_client() as client:
         response = client.get(f"/api/v1/employers/{employer_id}/vacancies")
     assert response.status_code == 200
-    assert response.json() == [{
-        "employer_id": str(employer_id), "title": "Software Engineer"
-    }]
+    assert response.json() == [
+        {"employer_id": str(employer_id), "title": "Software Engineer"}
+    ]
 
 
 def test_gets_full_vacancy_detail() -> None:

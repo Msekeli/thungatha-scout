@@ -10,8 +10,12 @@ from scout.main import app
 class FakeExtractionService:
     async def extract_source(self, source_id):
         return {
-            "id": str(uuid4()), "source_id": str(source_id), "outcome": "success",
-            "jobs_received": 2, "jobs_inserted": 2, "jobs_updated": 0,
+            "id": str(uuid4()),
+            "source_id": str(source_id),
+            "outcome": "success",
+            "jobs_received": 2,
+            "jobs_inserted": 2,
+            "jobs_updated": 0,
             "complete": True,
         }
 
@@ -20,14 +24,16 @@ class FakeExtractionService:
 
     def get_vacancy(self, vacancy_id):
         return {
-            "id": str(vacancy_id), "title": "Software Engineer",
+            "id": str(vacancy_id),
+            "title": "Software Engineer",
             "description": "<p>Build software.</p>",
             "review_status": "needs_verification",
         }
 
     def update_vacancy_review(self, vacancy_id, review_status, review_reason):
         return {
-            "id": str(vacancy_id), "review_status": review_status,
+            "id": str(vacancy_id),
+            "review_status": review_status,
             "review_reason": review_reason,
         }
 
@@ -41,11 +47,18 @@ class FakeExtractionService:
         return [{"id": str(uuid4()), "title": "Archived vacancy"}]
 
     def list_extraction_runs(self, source_id):
-        return [{
-            "id": str(uuid4()), "source_id": str(source_id), "outcome": "not_found",
-            "jobs_received": 0, "jobs_inserted": 0, "jobs_updated": 0,
-            "complete": False, "detail": "Greenhouse returned HTTP 404.",
-        }]
+        return [
+            {
+                "id": str(uuid4()),
+                "source_id": str(source_id),
+                "outcome": "not_found",
+                "jobs_received": 0,
+                "jobs_inserted": 0,
+                "jobs_updated": 0,
+                "complete": False,
+                "detail": "Greenhouse returned HTTP 404.",
+            }
+        ]
 
     def list_all_extraction_runs(self):
         return [{"source_id": "source-1", "outcome": "success"}]

@@ -31,9 +31,17 @@ def import_employer_sources(
             (source_url,),
         ).fetchone()
         if existing is not None:
-            if existing["employer_id"] != employer["id"] or existing["adapter_key"] != adapter_key:
-                raise ValueError(f"Source URL is already assigned elsewhere: {source_url}")
-            if existing["source_url"] != source_url or existing["adapter_config"] != config:
+            if (
+                existing["employer_id"] != employer["id"]
+                or existing["adapter_key"] != adapter_key
+            ):
+                raise ValueError(
+                    f"Source URL is already assigned elsewhere: {source_url}"
+                )
+            if (
+                existing["source_url"] != source_url
+                or existing["adapter_config"] != config
+            ):
                 update_source(connection, existing["id"], source_url, config)
                 counts["sources_updated"] += 1
             continue
@@ -52,9 +60,7 @@ def import_employer_sources(
                 f"for employer: {item['name']}"
             )
         if matches:
-            update_source(
-                connection, matches[0]["id"], source_url, config, True
-            )
+            update_source(connection, matches[0]["id"], source_url, config, True)
             counts["sources_updated"] += 1
             continue
         create_source(source, employer, careers_url, connection)

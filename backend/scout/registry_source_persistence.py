@@ -52,8 +52,12 @@ def create_source(
         VALUES (%s, %s, %s, %s, %s, %s, 'discovered', 'unknown', %s)
         """,
         (
-            employer["id"], source["ats"], source["official_source_url"],
-            careers_url, source["official_source_url"],
-            Jsonb(source.get("config", {})), Jsonb(evidence),
+            employer["id"],
+            source["ats"],
+            source["official_source_url"],
+            careers_url,
+            source["official_source_url"],
+            Jsonb(source.get("config", {})),
+            Jsonb(evidence),
         ),
     )

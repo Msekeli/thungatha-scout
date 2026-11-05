@@ -11,11 +11,19 @@ from scout.supabase_jwt import verify_asymmetric_access_token
 
 def signed_token(private_key, issuer: str) -> str:
     now = datetime.now(UTC)
-    return jwt.encode({
-        "sub": "user-123", "email": "admin@example.com",
-        "role": "authenticated", "aud": "authenticated", "iss": issuer,
-        "iat": now, "exp": now + timedelta(minutes=5),
-    }, private_key, algorithm="ES256")
+    return jwt.encode(
+        {
+            "sub": "user-123",
+            "email": "admin@example.com",
+            "role": "authenticated",
+            "aud": "authenticated",
+            "iss": issuer,
+            "iat": now,
+            "exp": now + timedelta(minutes=5),
+        },
+        private_key,
+        algorithm="ES256",
+    )
 
 
 def install_fake_jwks(monkeypatch, private_key, token: str) -> None:
@@ -24,9 +32,7 @@ def install_fake_jwks(monkeypatch, private_key, token: str) -> None:
             assert received_token == token
             return SimpleNamespace(key=private_key.public_key())
 
-    monkeypatch.setattr(
-        "scout.supabase_jwt._jwks_client", lambda url: FakeJwksClient()
-    )
+    monkeypatch.setattr("scout.supabase_jwt._jwks_client", lambda url: FakeJwksClient())
 
 
 def test_asymmetric_token_validates_signature_and_project_claims(monkeypatch) -> None:

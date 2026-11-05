@@ -16,19 +16,25 @@ class FakeEmployerService:
 
     def create_employer(self, payload):
         row = {
-            "id": str(uuid4()), "name": payload.name,
-            "status": "discovered", "organization_type": payload.organization_type,
+            "id": str(uuid4()),
+            "name": payload.name,
+            "status": "discovered",
+            "organization_type": payload.organization_type,
         }
         self.employers.append(row)
         return row
 
     def get_employer(self, employer_id):
-        return next((row for row in self.employers if row["id"] == str(employer_id)), None)
+        return next(
+            (row for row in self.employers if row["id"] == str(employer_id)), None
+        )
 
     def create_source(self, payload):
         row = {
-            "id": str(uuid4()), "employer_id": str(payload.employer_id),
-            "adapter_key": payload.adapter_key, "status": "discovered",
+            "id": str(uuid4()),
+            "employer_id": str(payload.employer_id),
+            "adapter_key": payload.adapter_key,
+            "status": "discovered",
             "permission_status": "unknown",
         }
         self.sources.append(row)
@@ -48,10 +54,13 @@ class FakeEmployerSourceUpdateService:
     def update_configuration(self, employer_id, source_id, payload):
         self.updated = (employer_id, source_id, payload)
         return {
-            "id": str(source_id), "employer_id": str(employer_id),
-            "adapter_key": payload.adapter_key, "source_url": str(payload.source_url),
+            "id": str(source_id),
+            "employer_id": str(employer_id),
+            "adapter_key": payload.adapter_key,
+            "source_url": str(payload.source_url),
             "normalized_url": str(payload.normalized_url),
-            "adapter_config": payload.adapter_config, "status": "discovered",
+            "adapter_config": payload.adapter_config,
+            "status": "discovered",
             "permission_status": "unknown",
         }
 

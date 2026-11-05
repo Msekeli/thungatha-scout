@@ -6,7 +6,8 @@ from greenhouse_adapter_test_client import retrieve_with_handler
 def test_retrieves_complete_job_board_in_single_jobs_request() -> None:
     requests = []
     job = {
-        "id": 1, "title": "Engineer",
+        "id": 1,
+        "title": "Engineer",
         "absolute_url": "https://job-boards.greenhouse.io/demo/jobs/1",
         "content": "<p>Build software</p>",
     }
@@ -31,11 +32,19 @@ def test_retrieves_complete_job_board_in_single_jobs_request() -> None:
 def test_reports_incomplete_inventory_when_meta_total_differs() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         if request.url.path.endswith("/jobs"):
-            return httpx.Response(200, json={
-                "jobs": [{"id": 1, "title": "Engineer",
-                          "absolute_url": "https://example.com/jobs/1"}],
-                "meta": {"total": 2},
-            })
+            return httpx.Response(
+                200,
+                json={
+                    "jobs": [
+                        {
+                            "id": 1,
+                            "title": "Engineer",
+                            "absolute_url": "https://example.com/jobs/1",
+                        }
+                    ],
+                    "meta": {"total": 2},
+                },
+            )
         return httpx.Response(200, json={"name": "Demo"})
 
     result = retrieve_with_handler(handler)

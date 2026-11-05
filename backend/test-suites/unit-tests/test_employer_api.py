@@ -8,11 +8,16 @@ from employer_api_test_doubles import FakeEmployerService, client_for
 def test_employer_registry_api_creates_and_lists_employers() -> None:
     service = FakeEmployerService()
     with client_for(get_employer_service, service) as client:
-        created = client.post("/api/v1/employers", json={
-            "name": "Example Employer", "website_url": "https://example.com",
-            "city": "Cape Town", "province": "Western Cape",
-            "country": "South Africa",
-        })
+        created = client.post(
+            "/api/v1/employers",
+            json={
+                "name": "Example Employer",
+                "website_url": "https://example.com",
+                "city": "Cape Town",
+                "province": "Western Cape",
+                "country": "South Africa",
+            },
+        )
         listed = client.get("/api/v1/employers")
     assert created.status_code == 201
     assert created.json()["status"] == "discovered"

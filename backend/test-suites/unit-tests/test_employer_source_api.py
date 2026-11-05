@@ -12,7 +12,8 @@ def test_employer_source_api_rejects_mismatched_employer_ids() -> None:
         response = client.post(
             f"/api/v1/employers/{employer_id}/sources",
             json={
-                "employer_id": str(uuid4()), "adapter_key": "greenhouse",
+                "employer_id": str(uuid4()),
+                "adapter_key": "greenhouse",
                 "source_url": "https://boards.greenhouse.io/example",
                 "normalized_url": "https://boards.greenhouse.io/example",
                 "adapter_config": {"slug": "example"},
@@ -29,7 +30,8 @@ def test_employer_source_api_registers_discovered_source() -> None:
         response = client.post(
             f"/api/v1/employers/{employer_id}/sources",
             json={
-                "employer_id": str(employer_id), "adapter_key": "greenhouse",
+                "employer_id": str(employer_id),
+                "adapter_key": "greenhouse",
                 "source_url": "https://boards.greenhouse.io/example",
                 "normalized_url": "https://boards.greenhouse.io/example",
                 "adapter_config": {"slug": "example"},
@@ -42,10 +44,13 @@ def test_employer_source_api_registers_discovered_source() -> None:
 
 def test_bulk_source_endpoint_returns_all_registered_sources() -> None:
     service = FakeEmployerService()
-    service.sources.append({
-        "id": "source-1", "employer_id": "employer-1",
-        "adapter_key": "greenhouse",
-    })
+    service.sources.append(
+        {
+            "id": "source-1",
+            "employer_id": "employer-1",
+            "adapter_key": "greenhouse",
+        }
+    )
     with client_for(get_employer_service, service) as client:
         response = client.get("/api/v1/employers/sources")
     assert response.status_code == 200

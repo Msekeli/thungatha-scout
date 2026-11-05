@@ -23,17 +23,22 @@ class FakeConnection:
             return FakeResult(row)
         if "INSERT INTO employers" in query:
             row = {
-                "id": uuid4(), "name": params[0], "website_url": params[1],
+                "id": uuid4(),
+                "name": params[0],
+                "website_url": params[1],
                 "location_evidence": params[3].obj,
             }
             self.employers.append(row)
             return FakeResult(row)
         if "SELECT id, employer_id, adapter_key" in query:
-            row = next((s for s in self.sources if s["normalized_url"] == params[0]), None)
+            row = next(
+                (s for s in self.sources if s["normalized_url"] == params[0]), None
+            )
             return FakeResult(row)
         if "SELECT id, normalized_url" in query:
             rows = [
-                s for s in self.sources
+                s
+                for s in self.sources
                 if s["employer_id"] == params[0] and s["adapter_key"] == params[1]
             ]
             return FakeResult(rows)
@@ -49,9 +54,13 @@ class FakeConnection:
             return FakeResult(row)
         if "INSERT INTO employer_sources" in query:
             row = {
-                "id": uuid4(), "employer_id": params[0], "adapter_key": params[1],
-                "source_url": params[2], "normalized_url": params[4],
-                "adapter_config": params[5].obj, "status": "discovered",
+                "id": uuid4(),
+                "employer_id": params[0],
+                "adapter_key": params[1],
+                "source_url": params[2],
+                "normalized_url": params[4],
+                "adapter_config": params[5].obj,
+                "status": "discovered",
                 "permission_status": "unknown",
                 "relationship_evidence": params[6].obj,
             }

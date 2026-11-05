@@ -6,12 +6,15 @@ import pytest
 from greenhouse_adapter_test_client import retrieve_with_handler
 
 
-@pytest.mark.parametrize("status_code,outcome", [
-    (403, "blocked"),
-    (404, "not_found"),
-    (429, "rate_limited"),
-    (503, "transient_failure"),
-])
+@pytest.mark.parametrize(
+    "status_code,outcome",
+    [
+        (403, "blocked"),
+        (404, "not_found"),
+        (429, "rate_limited"),
+        (503, "transient_failure"),
+    ],
+)
 def test_maps_http_failures(status_code: int, outcome: str) -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(status_code)

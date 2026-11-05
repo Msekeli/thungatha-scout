@@ -6,7 +6,8 @@ from admin_authentication_test_client import create_test_client
 def test_admin_endpoint_accepts_configured_administrator(monkeypatch) -> None:
     async def verified_claims(*args):
         return {
-            "sub": "user-123", "email": "ADMIN@example.com",
+            "sub": "user-123",
+            "email": "ADMIN@example.com",
             "role": "authenticated",
         }
 
@@ -28,7 +29,8 @@ def test_admin_endpoint_accepts_configured_administrator(monkeypatch) -> None:
 def test_admin_endpoint_rejects_other_authenticated_users(monkeypatch) -> None:
     async def verified_claims(*args):
         return {
-            "sub": "user-456", "email": "someone@example.com",
+            "sub": "user-456",
+            "email": "someone@example.com",
             "role": "authenticated",
         }
 
