@@ -17,7 +17,7 @@ import { useVacancyCountChange } from "./job-management/useVacancyCountChange";
 export default function App() {
   const { state, jobs, companies, onboarding } = useScoutApplicationController();
   const companyJobChanges = useCompanyJobChanges(state.page, jobs.employers, jobs.vacancies);
-  const vacancyChange = useVacancyCountChange(state.page, jobs.vacancies);
+  const vacancyChange = useVacancyCountChange(state.page, jobs.dashboardMetrics.new_last_24_hours);
   const addingCompany = state.page === "add-company";
 
   return (
