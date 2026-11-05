@@ -30,11 +30,7 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const result = await discovery.discover(
-      state.sourceUrl,
-      state.form.name,
-      fillDetectedCompany,
-    );
+    const result = await discovery.discover(state.sourceUrl, state.form.name, fillDetectedCompany);
     if (result) await registration.register(event, result);
   };
 

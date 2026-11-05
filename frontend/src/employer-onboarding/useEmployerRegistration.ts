@@ -51,9 +51,7 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
       const extraction = scoutApi.extractSource(source.id);
       const [, run] = await Promise.all([loadWorkspace(), extraction]);
       await loadWorkspace();
-      onNotice(
-        employer.name + ": " + run.jobs_received + " vacancies imported successfully.",
-      );
+      onNotice(employer.name + ": " + run.jobs_received + " vacancies imported successfully.");
     } catch (reason) {
       const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
       onError(

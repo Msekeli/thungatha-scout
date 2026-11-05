@@ -36,7 +36,8 @@ export function EmployerOnboardingPanel({
   return (
     <>
       <p className="mb-3 text-xs text-white/75">
-        Add an employer from its official careers page. Scout will configure the source and import its vacancies.
+        Add an employer from its official careers page. Scout will configure the source and import
+        its vacancies.
       </p>
       <section className="w-full max-w-2xl rounded-xl border border-slate-200 bg-white p-5 text-slate-900 shadow-xl shadow-black/20 sm:p-7">
         <div className="mb-5">
