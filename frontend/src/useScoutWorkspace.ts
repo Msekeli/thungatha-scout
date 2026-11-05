@@ -27,18 +27,21 @@ export function useScoutWorkspace(
   const [archivedLoading, setArchivedLoading] = useState(false);
   const [archivedLoaded, setArchivedLoaded] = useState(false);
 
-  const loadArchivedVacancies = useCallback(async (force = false) => {
-    if (archivedLoaded && !force) return;
-    setArchivedLoading(true);
-    try {
-      setArchivedVacancies(await scoutApi.listArchivedVacancies());
-      setArchivedLoaded(true);
-    } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not load archived vacancies.");
-    } finally {
-      setArchivedLoading(false);
-    }
-  }, [archivedLoaded, onError]);
+  const loadArchivedVacancies = useCallback(
+    async (force = false) => {
+      if (archivedLoaded && !force) return;
+      setArchivedLoading(true);
+      try {
+        setArchivedVacancies(await scoutApi.listArchivedVacancies());
+        setArchivedLoaded(true);
+      } catch (reason) {
+        onError(reason instanceof Error ? reason.message : "Could not load archived vacancies.");
+      } finally {
+        setArchivedLoading(false);
+      }
+    },
+    [archivedLoaded, onError],
+  );
 
   const loadWorkspace = useCallback(async () => {
     setLoading(true);
