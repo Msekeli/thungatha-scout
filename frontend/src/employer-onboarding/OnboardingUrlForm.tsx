@@ -15,22 +15,22 @@ export function OnboardingUrlForm({
 }: OnboardingUrlFormProps) {
   return (
     <div className="grid gap-5">
-      <label className="grid gap-2 text-sm font-medium text-slate-200">
+      <label className="scout-company-form-label">
         Official careers page URL
         <Input
           type="url"
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
           placeholder="https://company.com/careers"
-          className="h-11 border-slate-700 bg-slate-950 text-white placeholder:text-slate-400"
+          className="scout-company-field h-11"
           required
         />
-        <span className="text-xs font-normal text-slate-400">
+        <span className="scout-company-form-help">
           Paste the employer's careers or jobs page, not an individual vacancy link.
         </span>
       </label>
 
-      <label className="grid gap-2 text-sm font-medium text-slate-200">
+      <label className="scout-company-form-label">
         Company name
         <Input
           value={companyName}
@@ -38,7 +38,7 @@ export function OnboardingUrlForm({
           placeholder="Enter company name"
           className="h-11 border-slate-700 bg-slate-950 text-white placeholder:text-slate-400"
         />
-        <span className="text-xs font-normal text-slate-400">
+        <span className="scout-company-form-help">
           Leave blank to use the employer name detected from its careers source.
         </span>
       </label>
