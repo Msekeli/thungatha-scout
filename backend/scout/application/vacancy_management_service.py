@@ -15,6 +15,23 @@ class VacancyManagementService:
     ) -> None:
         self._connection_factory = connection_factory or get_database_connection
 
+    def list_vacancy_page(
+        self,
+        employer_id: UUID | None = None,
+        review_status: str | None = None,
+        location_scope: str = "cape_town",
+        limit: int = 50,
+        offset: int = 0,
+    ) -> dict[str, Any]:
+        with self._connection_factory() as connection:
+            return VacancyRepository(connection).list_page(
+                employer_id=employer_id,
+                review_status=review_status,
+                location_scope=location_scope,
+                limit=limit,
+                offset=offset,
+            )
+
     def list_vacancies(
         self, employer_id: UUID | None = None, limit: int = 200, offset: int = 0
     ) -> list[dict[str, Any]]:
