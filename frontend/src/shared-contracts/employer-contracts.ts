@@ -40,6 +40,7 @@ export type EmployerSource = {
   employer_id: string;
   adapter_key: "greenhouse" | "workday";
   source_url: string;
+  employer_careers_url?: string | null;
   normalized_url: string;
   status: string;
   permission_status: string;
