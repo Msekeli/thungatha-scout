@@ -17,7 +17,7 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     onError: state.setError,
     onNotice: state.setNotice,
     onRegistered: ({ employer, source }) => {
-      state.setSelectedEmployerId(employer.id);
+      state.setSelectedCompanyId(employer.id);
       state.setSources([source]);
       state.setPage("companies");
       state.setSourceUrl("");
