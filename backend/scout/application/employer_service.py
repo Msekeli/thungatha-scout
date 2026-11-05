@@ -17,7 +17,8 @@ from scout.persistence.employer_source_repository import EmployerSourceRepositor
 
 class EmployerService:
     def __init__(
-        self, connection_factory: Callable[[], Connection] | None = None
+        self,
+        connection_factory: Callable[[], Connection] | None = None,
     ) -> None:
         self._connection_factory = connection_factory or get_database_connection
 
@@ -29,7 +30,11 @@ class EmployerService:
         with self._connection_factory() as connection, connection.transaction():
             return EmployerRepository(connection).create(values)
 
-    def list_employers(self, limit: int = 100, offset: int = 0) -> list[dict[str, Any]]:
+    def list_employers(
+        self,
+        limit: int = 100,
+        offset: int = 0,
+    ) -> list[dict[str, Any]]:
         with self._connection_factory() as connection:
             return EmployerRepository(connection).list_all(limit=limit, offset=offset)
 
@@ -38,7 +43,9 @@ class EmployerService:
             return EmployerRepository(connection).get_by_id(employer_id)
 
     def update_details(
-        self, employer_id: UUID, payload: EmployerUpdate
+        self,
+        employer_id: UUID,
+        payload: EmployerUpdate,
     ) -> dict[str, Any] | None:
         values = payload.model_dump()
         if values["website_url"] is not None:
@@ -55,7 +62,9 @@ class EmployerService:
             return EmployerRepository(connection).delete(employer_id)
 
     def update_branding(
-        self, employer_id: UUID, payload: EmployerBrandingUpdate
+        self,
+        employer_id: UUID,
+        payload: EmployerBrandingUpdate,
     ) -> dict[str, Any] | None:
         values = payload.model_dump()
         for key in ("logo_url", "logo_source_url"):
@@ -63,7 +72,9 @@ class EmployerService:
                 values[key] = str(values[key])
         with self._connection_factory() as connection, connection.transaction():
             return EmployerRepository(connection).update_branding(
-                employer_id, values["logo_url"], values["logo_source_url"]
+                employer_id,
+                values["logo_url"],
+                values["logo_source_url"],
             )
 
     def create_source(self, payload: EmployerSourceCreate) -> dict[str, Any]:
