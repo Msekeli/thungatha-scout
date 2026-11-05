@@ -1,0 +1,72 @@
+@layer components {
+  .scout-company-heading {
+    color: hsl(var(--foreground));
+  }
+  .scout-company-divider {
+    border-color: var(--scout-border);
+  }
+  .scout-company-icon-accent {
+    color: var(--scout-accent);
+  }
+  .scout-company-danger-button {
+    @apply ml-auto;
+  }
+  .scout-company-danger-copy {
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-company-eyebrow {
+    @apply text-[10px] font-bold uppercase tracking-[0.2em];
+    color: var(--scout-accent);
+  }
+  .scout-company-description {
+    @apply text-xs;
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-company-count {
+    color: hsl(var(--foreground));
+  }
+  .scout-company-toolbar-button {
+    @apply shadow-lg transition-colors;
+    background: var(--scout-accent);
+    color: var(--scout-accent-foreground);
+  }
+  .scout-company-toolbar-button:hover {
+    background: var(--scout-accent-hover);
+  }
+  .scout-company-field {
+    @apply h-10;
+    background: var(--scout-input);
+    color: hsl(var(--foreground));
+    border-color: var(--scout-border);
+  }
+  .scout-company-field::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-company-filter {
+    @apply h-10;
+    background: var(--scout-input);
+    color: hsl(var(--foreground));
+    border-color: var(--scout-border);
+  }
+  .scout-company-summary {
+    @apply flex items-center gap-3 rounded-xl border px-4 py-3 text-left shadow-md;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+  }
+  .scout-company-summary:hover {
+    border-color: var(--scout-border-hover);
+    background: var(--scout-surface-hover);
+  }
+  .scout-company-summary__icon {
+    @apply grid h-9 w-9 shrink-0 place-items-center rounded-lg;
+    background: var(--scout-surface-raised);
+  }
+  .scout-company-summary__count {
+    @apply block text-lg font-bold leading-5;
+  }
+  .scout-company-summary__label {
+    @apply text-xs;
+    color: hsl(var(--muted-foreground));
+  }
+
+}
