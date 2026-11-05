@@ -15,7 +15,8 @@ class EmployerDetailsUpdateOperations:
             """
             UPDATE employers
             SET name = %s, legal_name = %s, website_url = %s,
-                organization_type = %s, updated_at = NOW()
+                organization_type = %s, city = %s, province = %s,
+                country = %s, updated_at = NOW()
             WHERE id = %s
             RETURNING *
             """,
@@ -24,6 +25,9 @@ class EmployerDetailsUpdateOperations:
                 values.get("legal_name"),
                 values.get("website_url"),
                 values["organization_type"],
+                values.get("city"),
+                values.get("province"),
+                values.get("country"),
                 employer_id,
             ),
         ).fetchone()
