@@ -41,11 +41,20 @@ export function CompanyInlineEditor({ employer, saving, onSave, onCancel }: Prop
       </label>
       <label className="scout-company-form-label">
         Official website
-        <Input name="website_url" type="url" defaultValue={employer.website_url ?? ""} placeholder="https://company.com" />
+        <Input
+          name="website_url"
+          type="url"
+          defaultValue={employer.website_url ?? ""}
+          placeholder="https://company.com"
+        />
       </label>
       <div className="flex justify-end gap-2">
-        <Button type="button" variant="outline" onClick={onCancel} disabled={saving}>Cancel</Button>
-        <Button type="submit" disabled={saving}>{saving ? "Saving…" : "Save changes"}</Button>
+        <Button type="button" variant="outline" onClick={onCancel} disabled={saving}>
+          Cancel
+        </Button>
+        <Button type="submit" disabled={saving}>
+          {saving ? "Saving…" : "Save changes"}
+        </Button>
       </div>
     </form>
   );
