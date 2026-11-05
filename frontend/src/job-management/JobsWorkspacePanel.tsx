@@ -60,19 +60,14 @@ export function JobsWorkspacePanel({ jobs, state, vacancyChange }: Props) {
             selectedVacancyId={jobs.selectedVacancyId}
             openingVacancyId={jobs.openingVacancyId}
             onOpenVacancy={(id) => void jobs.openVacancy(id, jobs.visibleVacancies)}
+            onExcludeVacancy={jobs.excludeVacancy}
           />
         </section>
         <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
           <VacancyDetailsPanel
             vacancy={jobs.selectedVacancy}
             loading={Boolean(jobs.openingVacancyId)}
-            reviewReason={jobs.reviewReason}
-            saving={jobs.saving}
-            onChangeReviewReason={jobs.setReviewReason}
-            onClear={jobs.clearSelection}
-            onDecision={(status) => void jobs.saveDecision(status)}
-            onArchive={() => void jobs.archive()}
-            onRestore={() => void jobs.restore()}
+
           />
         </section>
       </div>
