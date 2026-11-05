@@ -36,9 +36,7 @@ def list_employer_vacancies(
     location_scope: str = Query(default="cape_town", pattern="^(cape_town|all)$"),
     service: GreenhouseExtractionService = Depends(get_extraction_service),
 ) -> list[dict[str, Any]]:
-    return service.list_vacancies(
-        employer_id, limit, offset, location_scope
-    )
+    return service.list_vacancies(employer_id, limit, offset, location_scope)
 
 
 @router.get("/extraction-runs")

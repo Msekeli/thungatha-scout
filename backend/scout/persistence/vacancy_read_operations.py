@@ -4,7 +4,10 @@ from uuid import UUID
 
 class VacancyReadOperations:
     def list_for_employer(
-        self, employer_id: UUID, limit: int = 200, offset: int = 0,
+        self,
+        employer_id: UUID,
+        limit: int = 200,
+        offset: int = 0,
         location_scope: str = "cape_town",
     ) -> list[dict[str, Any]]:
         return self._connection.execute(
@@ -32,7 +35,9 @@ class VacancyReadOperations:
         ).fetchall()
 
     def list_all(
-        self, limit: int = 200, offset: int = 0,
+        self,
+        limit: int = 200,
+        offset: int = 0,
         location_scope: str = "cape_town",
     ) -> list[dict[str, Any]]:
         return self._connection.execute(

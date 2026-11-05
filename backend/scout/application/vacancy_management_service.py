@@ -11,13 +11,17 @@ from scout.persistence.vacancy_repository import VacancyRepository
 
 class VacancyManagementService:
     def __init__(
-        self, connection_factory: Callable[[], Connection] | None = None,
+        self,
+        connection_factory: Callable[[], Connection] | None = None,
     ) -> None:
         self._connection_factory = connection_factory or get_database_connection
 
     def list_vacancies(
-        self, employer_id: UUID | None = None, limit: int = 200,
-        offset: int = 0, location_scope: str = "cape_town",
+        self,
+        employer_id: UUID | None = None,
+        limit: int = 200,
+        offset: int = 0,
+        location_scope: str = "cape_town",
     ) -> list[dict[str, Any]]:
         with self._connection_factory() as connection:
             repository = VacancyRepository(connection)

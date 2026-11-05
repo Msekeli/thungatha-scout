@@ -13,14 +13,16 @@ export const vacancyApiClient = {
     vacancyId: string,
     review_status: Vacancy["review_status"],
     review_reason: string,
-  ) => request<Vacancy>(`/api/v1/vacancies/${vacancyId}/review`, {
-    method: "PATCH",
-    body: JSON.stringify({ review_status, review_reason: review_reason || null }),
-  }),
+  ) =>
+    request<Vacancy>(`/api/v1/vacancies/${vacancyId}/review`, {
+      method: "PATCH",
+      body: JSON.stringify({ review_status, review_reason: review_reason || null }),
+    }),
 
   archiveVacancy: (vacancyId: string, reason: string) =>
     request<Vacancy>(`/api/v1/vacancies/${vacancyId}/archive`, {
-      method: "POST", body: JSON.stringify({ reason: reason || null }),
+      method: "POST",
+      body: JSON.stringify({ reason: reason || null }),
     }),
   restoreVacancy: (vacancyId: string) =>
     request<Vacancy>(`/api/v1/vacancies/${vacancyId}/restore`, { method: "POST" }),
