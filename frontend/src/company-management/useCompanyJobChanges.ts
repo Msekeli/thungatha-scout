@@ -32,10 +32,7 @@ export function useCompanyJobChanges(page: string, employers: Employer[], vacanc
       }
     } else if (!inCompanyArea && wasInCompanyArea.current) {
       try {
-        window.localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify(currentCountsRef.current),
-        );
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(currentCountsRef.current));
       } catch {
         // Keep the directory usable when browser storage is unavailable.
       }
