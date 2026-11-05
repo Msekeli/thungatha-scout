@@ -23,14 +23,19 @@ def domain_company_name(hostname: str) -> str:
 
 def company_aliases(name: str, title: str, hostname: str) -> list[str]:
     values = [name, title.split("|")[0].split("—")[0], domain_company_name(hostname)]
-    return list(dict.fromkeys(normalise_company_name(value) for value in values if value.strip()))
+    return list(
+        dict.fromkeys(
+            normalise_company_name(value) for value in values if value.strip()
+        )
+    )
 
 
 def board_name_matches(board_name: str, aliases: Sequence[str]) -> bool:
     actual = normalise_company_name(board_name)
     return any(
         actual == alias
-        or actual.startswith(alias) and actual[len(alias):] in _SUFFIXES
+        or actual.startswith(alias)
+        and actual[len(alias) :] in _SUFFIXES
         for alias in aliases
     )
 

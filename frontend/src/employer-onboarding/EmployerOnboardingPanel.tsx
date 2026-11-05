@@ -43,9 +43,7 @@ export function EmployerOnboardingPanel({
 }: EmployerOnboardingPanelProps) {
   return (
     <>
-      <p className="mb-3 text-xs text-white/75">
-        Add an employer using its official careers page.
-      </p>
+      <p className="mb-3 text-xs text-white/75">Add an employer using its official careers page.</p>
       <section className="w-full max-w-2xl rounded-xl border border-border bg-card p-4 shadow-sm sm:p-6">
         <form className="grid gap-4" onSubmit={onSubmit}>
           <OnboardingUrlForm

@@ -19,7 +19,9 @@ def test_parser_collects_board_link_and_inline_api_candidates() -> None:
         "<script>fetch('https://boards-api.greenhouse.io/v1/boards/other-team/jobs')</script>"
     )
 
-    assert find_greenhouse_board_candidates(parser, httpx.URL("https://northwind.example/jobs")) == [
+    assert find_greenhouse_board_candidates(
+        parser, httpx.URL("https://northwind.example/jobs")
+    ) == [
         "northwind",
         "other-team",
     ]
@@ -31,9 +33,9 @@ def test_parser_reads_greenhouse_embed_for_parameter() -> None:
         '<iframe src="https://boards.greenhouse.io/embed/job_board?for=northwind"></iframe>'
     )
 
-    assert find_greenhouse_board_candidates(parser, httpx.URL("https://northwind.example")) == [
-        "northwind"
-    ]
+    assert find_greenhouse_board_candidates(
+        parser, httpx.URL("https://northwind.example")
+    ) == ["northwind"]
 
 
 def test_job_identifier_is_not_mistaken_for_board_token() -> None:
