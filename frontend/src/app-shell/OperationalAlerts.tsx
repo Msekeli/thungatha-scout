@@ -22,7 +22,7 @@ export function OperationalAlerts({
 }: OperationalAlertsProps) {
   useEffect(() => {
     if (!notice) return;
-    const timeout = window.setTimeout(onDismissNotice, 5000);
+    const timeout = window.setTimeout(onDismissNotice, 10000);
     return () => window.clearTimeout(timeout);
   }, [notice, onDismissNotice]);
 
