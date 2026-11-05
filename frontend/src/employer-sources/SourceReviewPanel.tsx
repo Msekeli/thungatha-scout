@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 export type SourceDecisionDraft = {
   status: string;
   permission_status: string;
