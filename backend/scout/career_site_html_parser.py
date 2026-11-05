@@ -8,6 +8,7 @@ HOSTS = {
     "job-boards.greenhouse.io",
     "job-boards.eu.greenhouse.io",
 }
+API_HOST = "boards-api.greenhouse.io"
 API_BOARD = re.compile(r"boards-api\.greenhouse\.io/v1/boards/([\w-]+)")
 
 
@@ -42,6 +43,8 @@ class CareersLinks(HTMLParser):
 
 def _board_token(link: httpx.URL) -> str | None:
     parts = [part for part in link.path.split("/") if part]
+    if link.host == API_HOST and len(parts) >= 3 and parts[:2] == ["v1", "boards"]:
+        return parts[2]
     if link.path.startswith("/embed/"):
         return link.params.get("for")
     return parts[0] if parts and parts[0] != "jobs" else None
@@ -51,13 +54,13 @@ def find_greenhouse_board_candidates(
     parser: CareersLinks, page_url: httpx.URL
 ) -> list[str]:
     candidates: list[str] = []
-    if page_url.host in HOSTS:
+    if page_url.host in HOSTS | {API_HOST}:
         token = _board_token(page_url)
         if token:
             candidates.append(token)
     for href in parser.links:
         link = page_url.join(href)
-        if link.host not in HOSTS:
+        if link.host not in HOSTS | {API_HOST}:
             continue
         token = _board_token(link)
         if token and token not in candidates:
