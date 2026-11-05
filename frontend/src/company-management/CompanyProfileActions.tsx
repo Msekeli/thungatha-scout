@@ -23,8 +23,8 @@ export function CompanyProfileActions({
 }: Props) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   return (
-    <div className="flex flex-wrap gap-2 border-b border-border pb-4">
-      <Button type="button" size="sm" variant="outline" disabled={saving} onClick={onEdit}>
+    <div className="flex flex-wrap gap-2 border-b border-slate-700 pb-4">
+      <Button type="button" size="sm" variant="outline" className="border-slate-600 bg-slate-900 text-slate-100 hover:bg-slate-800" disabled={saving} onClick={onEdit}>
         <Pencil className="mr-1.5 h-3.5 w-3.5" /> Edit company
       </Button>
       {currentStatus !== "approved" && (
@@ -36,6 +36,7 @@ export function CompanyProfileActions({
         <Button
           size="sm"
           variant="outline"
+          className="border-slate-600 bg-slate-900 text-slate-200 hover:bg-slate-800"
           disabled={saving}
           onClick={() => onUpdateStatus("needs_review")}
         >
