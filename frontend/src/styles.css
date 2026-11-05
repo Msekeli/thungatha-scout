@@ -38,8 +38,8 @@
     border-color: var(--scout-accent-border);
   }
   .scout-company-card__logo { @apply h-8 w-8 rounded-lg bg-white object-contain p-1; }
-  .scout-company-card__name { color: var(--foreground); }
-  .scout-company-card__meta { color: var(--muted-foreground); }
+  .scout-company-card__name { color: hsl(var(--foreground)); }
+  .scout-company-card__meta { color: hsl(var(--muted-foreground)); }
   .scout-company-card__footer {
     @apply grid gap-2 px-4 py-3;
     background: var(--scout-surface-raised);
@@ -50,16 +50,16 @@
     color: var(--scout-link);
   }
   .scout-company-link:hover { color: var(--scout-link-hover); }
-  .scout-company-link__url { @apply truncate; color: var(--muted-foreground); }
+  .scout-company-link__url { @apply truncate; color: hsl(var(--muted-foreground)); }
 
-  .scout-company-heading { color: var(--foreground); }
+  .scout-company-heading { color: hsl(var(--foreground)); }
   .scout-company-divider { border-color: var(--scout-border); }
   .scout-company-icon-accent { color: var(--scout-accent); }
   .scout-company-danger-button { @apply ml-auto; }
-  .scout-company-danger-copy { color: var(--muted-foreground); }
+  .scout-company-danger-copy { color: hsl(var(--muted-foreground)); }
   .scout-company-eyebrow { @apply text-[10px] font-bold uppercase tracking-[0.2em]; color: var(--scout-accent); }
-  .scout-company-description { @apply text-xs; color: var(--muted-foreground); }
-  .scout-company-count { color: var(--foreground); }
+  .scout-company-description { @apply text-xs; color: hsl(var(--muted-foreground)); }
+  .scout-company-count { color: hsl(var(--foreground)); }
   .scout-company-toolbar-button {
     @apply shadow-lg transition-colors;
     background: var(--scout-accent);
@@ -69,14 +69,14 @@
   .scout-company-field {
     @apply h-10;
     background: var(--scout-input);
-    color: var(--foreground);
+    color: hsl(var(--foreground));
     border-color: var(--scout-border);
   }
-  .scout-company-field::placeholder { color: var(--muted-foreground); }
+  .scout-company-field::placeholder { color: hsl(var(--muted-foreground)); }
   .scout-company-filter {
     @apply h-10;
     background: var(--scout-input);
-    color: var(--foreground);
+    color: hsl(var(--foreground));
     border-color: var(--scout-border);
   }
   .scout-company-summary {
@@ -87,12 +87,12 @@
   .scout-company-summary:hover { border-color: var(--scout-border-hover); background: var(--scout-surface-hover); }
   .scout-company-summary__icon { @apply grid h-9 w-9 shrink-0 place-items-center rounded-lg; background: var(--scout-surface-raised); }
   .scout-company-summary__count { @apply block text-lg font-bold leading-5; }
-  .scout-company-summary__label { @apply text-xs; color: var(--muted-foreground); }
+  .scout-company-summary__label { @apply text-xs; color: hsl(var(--muted-foreground)); }
 
   .scout-company-dialog {
     @apply max-h-[90vh] w-[95vw] max-w-5xl overflow-y-auto shadow-2xl;
     background: var(--scout-dialog);
-    color: var(--foreground);
+    color: hsl(var(--foreground));
     border-color: var(--scout-border);
     box-shadow: var(--scout-dialog-shadow);
   }
@@ -107,16 +107,16 @@
     border-color: var(--scout-border);
   }
   .scout-company-actions { @apply flex flex-wrap gap-2 border-b pb-4; border-color: var(--scout-border); }
-  .scout-company-action { background: var(--scout-surface-raised); color: var(--foreground); border-color: var(--scout-border); }
+  .scout-company-action { background: var(--scout-surface-raised); color: hsl(var(--foreground)); border-color: var(--scout-border); }
   .scout-company-action:hover { background: var(--scout-surface-hover); }
   .scout-company-delete { @apply ml-auto; }
-  .scout-company-delete-dialog { border-color: var(--scout-danger-border); background: var(--scout-dialog); color: var(--foreground); }
+  .scout-company-delete-dialog { border-color: var(--scout-danger-border); background: var(--scout-dialog); color: hsl(var(--foreground)); }
   .scout-status { @apply border text-[10px] capitalize; }
   .scout-status--approved { background: var(--scout-success-surface); color: var(--scout-success-text); border-color: var(--scout-success-border); }
   .scout-status--review { background: var(--scout-warning-surface); color: var(--scout-warning-text); border-color: var(--scout-warning-border); }
   .scout-status--rejected { background: var(--scout-danger-surface); color: var(--scout-danger-text); border-color: var(--scout-danger-border); }
   .scout-status--type { background: var(--scout-type-surface); color: var(--scout-type-text); border-color: var(--scout-type-border); }
-  .scout-company-form-section { @apply my-4 grid gap-3 rounded-xl border p-4; background: var(--scout-surface); border-color: var(--scout-border); color: var(--foreground); }
+  .scout-company-form-section { @apply my-4 grid gap-3 rounded-xl border p-4; background: var(--scout-surface); border-color: var(--scout-border); color: hsl(var(--foreground)); }
   .scout-company-source-card { @apply grid gap-3 rounded-xl border p-3 sm:flex sm:items-center sm:justify-between; background: var(--scout-surface); border-color: var(--scout-border); }
-  .scout-company-muted { color: var(--muted-foreground); }
+  .scout-company-muted { color: hsl(var(--muted-foreground)); }
 }
