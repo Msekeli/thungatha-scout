@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import type { Employer } from "../api";
 import {
   Select,
@@ -16,8 +15,6 @@ type VacancyRecordsToolbarProps = {
   selectedEmployerId: string;
   onEmployerChange: (value: string) => void;
   employers: Employer[];
-  onRefresh: () => void;
-  loading: boolean;
 };
 
 export function VacancyRecordsToolbar({
@@ -28,8 +25,6 @@ export function VacancyRecordsToolbar({
   selectedEmployerId,
   onEmployerChange,
   employers,
-  onRefresh,
-  loading,
 }: VacancyRecordsToolbarProps) {
   return (
     <div className="flex flex-wrap items-center gap-2 border-b border-border bg-card p-3">
@@ -82,16 +77,6 @@ export function VacancyRecordsToolbar({
           ))}
         </SelectContent>
       </Select>
-      <Button
-        type="button"
-        variant="outline"
-        size="sm"
-        className="h-8 border-input bg-background text-primary hover:bg-accent hover:text-accent-foreground"
-        onClick={onRefresh}
-        disabled={loading}
-      >
-        Refresh
-      </Button>
     </div>
   );
 }
