@@ -28,7 +28,7 @@ def list_vacancies(
     employer_id: UUID | None = None,
     review_status: str | None = Query(default=None),
     location_scope: str = Query(
-        default="cape_town", pattern="^(cape_town|western_cape|south_africa|all)$"
+        default="south_africa", pattern="^(cape_town|western_cape|south_africa|all)$"
     ),
     limit: int = Query(default=50, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
