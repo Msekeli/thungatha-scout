@@ -17,10 +17,13 @@ class EmployerUpdateServiceDouble:
             "name": payload.name,
             "website_url": str(payload.website_url) if payload.website_url else None,
             "organization_type": payload.organization_type,
+            "city": payload.city,
+            "province": payload.province,
+            "country": payload.country,
         }
 
 
-def test_employer_update_api_updates_company_identity():
+def test_employer_update_api_updates_company_identity_and_location():
     service = EmployerUpdateServiceDouble()
     employer_id = uuid4()
     app.dependency_overrides[get_employer_service] = lambda: service
@@ -31,10 +34,15 @@ def test_employer_update_api_updates_company_identity():
                 "name": "Updated Employer",
                 "website_url": "https://updated.example",
                 "organization_type": "direct_employer",
+                "city": "Cape Town",
+                "province": "Western Cape",
+                "country": "South Africa",
             },
         )
         assert response.status_code == 200
         assert response.json()["name"] == "Updated Employer"
+        assert response.json()["city"] == "Cape Town"
+        assert response.json()["province"] == "Western Cape"
         assert service.updated[0] == employer_id
     finally:
         app.dependency_overrides.clear()
