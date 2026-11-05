@@ -1,5 +1,4 @@
 @layer components {
-@layer components {
   .scout-company-directory,
   .scout-company-workspace {
     @apply rounded-2xl border p-4 shadow-xl sm:p-5;
