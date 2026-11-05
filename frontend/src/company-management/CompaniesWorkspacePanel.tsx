@@ -13,6 +13,7 @@ import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceCon
 import type { useEmployerOnboardingController } from "../employer-onboarding/useEmployerOnboardingController";
 import { CompanyDirectoryPanel } from "./CompanyDirectoryPanel";
 import { CompanyProfilePanel } from "./CompanyProfilePanel";
+import { useCompanyJobChanges } from "./useCompanyJobChanges";
 
 type Props = {
   state: ReturnType<typeof useScoutAppState>;
@@ -29,10 +30,13 @@ export function CompaniesWorkspacePanel({
   onboarding,
   onSaveBranding,
 }: Props) {
-  const [profileOpen, setProfileOpen] = useState(false);
+  const { currentJobsByEmployer, jobChangesByEmployer } = useCompanyJobChanges(
+    state.page,
+    jobs.employers,
+    jobs.vacancies,
+  );
   const selectCompany = (employer: Parameters<typeof companies.openCompany>[0]) => {
     void companies.openCompany(employer);
-    setProfileOpen(true);
   };
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden pt-4">
@@ -42,7 +46,8 @@ export function CompaniesWorkspacePanel({
         selectedEmployerId={state.selectedEmployerId}
         searchQuery={state.companyQuery}
         sourceFilter={state.companySourceFilter}
-        extractionRuns={jobs.extractionRuns}
+        currentJobsByEmployer={currentJobsByEmployer}
+        jobChangesByEmployer={jobChangesByEmployer}
         onSearchChange={state.setCompanyQuery}
         onSourceFilterChange={state.setCompanySourceFilter}
         onSelectEmployer={selectCompany}
@@ -52,7 +57,12 @@ export function CompaniesWorkspacePanel({
           state.setPage("add-company");
         }}
       />
-      <Dialog open={profileOpen && !!companies.employer} onOpenChange={setProfileOpen}>
+      <Dialog
+        open={!!companies.employer}
+        onOpenChange={(open) => {
+          if (!open) state.setSelectedEmployerId("all");
+        }}
+      >
         <DialogContent className="scout-company-dialog">
           <DialogHeader>
             <DialogTitle className="scout-company-heading">Company details</DialogTitle>
