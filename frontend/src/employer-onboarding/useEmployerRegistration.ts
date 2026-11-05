@@ -51,10 +51,10 @@ export function useEmployerRegistration({
         employer_careers_url: sourceUrl,
         adapter_config: { slug: discovery.board_token },
       });
-      await loadWorkspace();
       onRegistered({ employer, source });
       onNotice(employer.name + " added. Greenhouse extraction started.");
-      const run = await scoutApi.extractSource(source.id);
+      const extraction = scoutApi.extractSource(source.id);
+      const [, run] = await Promise.all([loadWorkspace(), extraction]);
       await loadWorkspace();
       onNotice(
         employer.name +
