@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "./api";
 import type { Employer, Vacancy, VacancyLocationScope, VacancyReviewStatus } from "./api";
+import type { VacancyDashboardMetrics } from "./api-services/vacancy-api-client";
 
 type UseScoutWorkspaceResult = {
   employers: Employer[];
@@ -9,6 +10,7 @@ type UseScoutWorkspaceResult = {
   vacancies: Vacancy[];
   setVacancies: Dispatch<SetStateAction<Vacancy[]>>;
   totalVacancies: number;
+  dashboardMetrics: VacancyDashboardMetrics;
   hasMoreVacancies: boolean;
   loadingMore: boolean;
   loadMoreVacancies: () => Promise<void>;
@@ -34,6 +36,7 @@ export function useScoutWorkspace(
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [totalVacancies, setTotalVacancies] = useState(0);
+  const [dashboardMetrics, setDashboardMetrics] = useState<VacancyDashboardMetrics>({ total_active: 0, new_last_24_hours: 0 });
   const [hasMoreVacancies, setHasMoreVacancies] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -87,9 +90,8 @@ export function useScoutWorkspace(
     setLoading(true);
     onError("");
     nextOffset.current = 0;
-    setVacancies([]);
     try {
-      const [nextEmployers, page] = await Promise.all([
+      const [nextEmployers, page, metrics] = await Promise.all([
         scoutApi.listEmployers(),
         scoutApi.listVacancies({
           employerId: filters.employerId,
@@ -98,8 +100,10 @@ export function useScoutWorkspace(
           limit: PAGE_SIZE,
           offset: 0,
         }),
+        scoutApi.getVacancyMetrics(),
       ]);
       setEmployers(nextEmployers);
+      setDashboardMetrics(metrics);
       setVacancies(page.items);
       setTotalVacancies(page.total);
       nextOffset.current = page.items.length;
@@ -125,6 +129,7 @@ export function useScoutWorkspace(
     vacancies,
     setVacancies,
     totalVacancies,
+    dashboardMetrics,
     hasMoreVacancies,
     loadingMore,
     loadMoreVacancies,
