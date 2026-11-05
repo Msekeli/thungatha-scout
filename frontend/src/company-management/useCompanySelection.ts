@@ -6,7 +6,7 @@ import type { Employer, EmployerSource, ExtractionRun, GreenhouseInspection } fr
 type UseCompanySelectionOptions = {
   setSources: Dispatch<SetStateAction<EmployerSource[]>>;
   setExtractionRuns: Dispatch<SetStateAction<Record<string, ExtractionRun[]>>>;
-  setSelectedEmployerId: (id: string) => void;
+  setSelectedCompanyId: (id: string | null) => void;
   setLogoUrl: (url: string) => void;
   setLogoSourceUrl: (url: string) => void;
   setSourceUrl: (url: string) => void;
@@ -19,7 +19,7 @@ type UseCompanySelectionOptions = {
 export function useCompanySelection({
   setSources,
   setExtractionRuns,
-  setSelectedEmployerId,
+  setSelectedCompanyId,
   setLogoUrl,
   setLogoSourceUrl,
   setSourceUrl,
@@ -37,7 +37,7 @@ export function useCompanySelection({
       setSourceUrl("");
       setInspection(null);
       setSources([]);
-      setSelectedEmployerId(employer.id);
+      setSelectedCompanyId(employer.id);
       setLogoUrl(employer.logo_url ?? "");
       setLogoSourceUrl(employer.logo_source_url ?? "");
       setPage("companies");
@@ -71,7 +71,7 @@ export function useCompanySelection({
       setLogoSourceUrl,
       setLogoUrl,
       setPage,
-      setSelectedEmployerId,
+      setSelectedCompanyId,
       setSourceUrl,
       setSources,
     ],
