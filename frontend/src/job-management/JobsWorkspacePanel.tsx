@@ -17,7 +17,10 @@ export function JobsWorkspacePanel({ jobs, state, vacancyChange }: Props) {
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">
       <div className="flex flex-wrap items-center justify-between gap-4 px-1 py-1">
-        <DashboardOverview vacancyCount={jobs.dashboardMetrics.total_active} vacancyChange={vacancyChange} />
+        <DashboardOverview
+          vacancyCount={jobs.dashboardMetrics.total_active}
+          vacancyChange={vacancyChange}
+        />
         <div className="flex shrink-0 gap-2">
           <Button
             variant="outline"

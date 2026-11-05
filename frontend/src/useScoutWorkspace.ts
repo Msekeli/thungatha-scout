@@ -36,7 +36,10 @@ export function useScoutWorkspace(
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [totalVacancies, setTotalVacancies] = useState(0);
-  const [dashboardMetrics, setDashboardMetrics] = useState<VacancyDashboardMetrics>({ total_active: 0, new_last_24_hours: 0 });
+  const [dashboardMetrics, setDashboardMetrics] = useState<VacancyDashboardMetrics>({
+    total_active: 0,
+    new_last_24_hours: 0,
+  });
   const [hasMoreVacancies, setHasMoreVacancies] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
