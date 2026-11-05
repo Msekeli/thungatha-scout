@@ -18,9 +18,16 @@ type UndoDecisionOptions = {
 
 export function useVacancyDecisionUndo(options: UndoDecisionOptions) {
   const {
-    selectedVacancy, setSelectedVacancy, setReviewReason, saving,
-    setSaving, decisionState, setCanUndoDecision, onVacancyUpdated,
-    onNotice, onError,
+    selectedVacancy,
+    setSelectedVacancy,
+    setReviewReason,
+    saving,
+    setSaving,
+    decisionState,
+    setCanUndoDecision,
+    onVacancyUpdated,
+    onNotice,
+    onError,
   } = options;
 
   return useCallback(async () => {
@@ -30,7 +37,9 @@ export function useVacancyDecisionUndo(options: UndoDecisionOptions) {
     onError("");
     try {
       const updated = await scoutApi.updateVacancyReview(
-        previous.vacancyId, previous.status, previous.reason ?? "",
+        previous.vacancyId,
+        previous.status,
+        previous.reason ?? "",
       );
       onVacancyUpdated(updated);
       if (selectedVacancy?.id === updated.id) {
@@ -46,7 +55,15 @@ export function useVacancyDecisionUndo(options: UndoDecisionOptions) {
       setSaving(false);
     }
   }, [
-    selectedVacancy, setSelectedVacancy, setReviewReason, saving, setSaving,
-    decisionState, setCanUndoDecision, onVacancyUpdated, onNotice, onError,
+    selectedVacancy,
+    setSelectedVacancy,
+    setReviewReason,
+    saving,
+    setSaving,
+    decisionState,
+    setCanUndoDecision,
+    onVacancyUpdated,
+    onNotice,
+    onError,
   ]);
 }

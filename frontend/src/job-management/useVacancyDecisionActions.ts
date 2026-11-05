@@ -20,10 +20,14 @@ export function useVacancyDecisionActions(options: VacancyDecisionOptions) {
   const [canUndoDecision, setCanUndoDecision] = useState(false);
   const decisionState = useRef<VacancyDecisionState["current"]>(null);
   const saveDecision = useVacancyDecisionSave({
-    ...options, decisionState, setCanUndoDecision,
+    ...options,
+    decisionState,
+    setCanUndoDecision,
   });
   const undoLastDecision = useVacancyDecisionUndo({
-    ...options, decisionState, setCanUndoDecision,
+    ...options,
+    decisionState,
+    setCanUndoDecision,
   });
 
   return { saveDecision, undoLastDecision, canUndoDecision };
