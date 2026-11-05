@@ -1,4 +1,5 @@
 from typing import Any
+from uuid import UUID
 
 from psycopg.connection import Connection
 from psycopg.types.json import Jsonb
@@ -6,7 +7,7 @@ from psycopg.types.json import Jsonb
 
 def update_source(
     connection: Connection,
-    source_id: Any,
+    source_id: UUID,
     source_url: str,
     adapter_config: dict[str, Any],
     update_normalized_url: bool = False,
