@@ -1,7 +1,6 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -58,7 +57,7 @@ export function CompaniesWorkspacePanel({
         }}
       >
         <DialogContent
-          className="scout-company-dialog"
+          className="scout-company-dialog !max-h-[70vh] !w-[95vw] !max-w-3xl"
           overlayClassName="!bg-transparent !backdrop-blur-0"
         >
           <DialogHeader>
