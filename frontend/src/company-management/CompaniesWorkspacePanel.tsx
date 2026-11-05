@@ -1,4 +1,8 @@
+import { useState } from "react";
 import type { FormEvent } from "react";
+import {
+  Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle,
+} from "@/components/ui/dialog";
 import type { useScoutAppState } from "../app-state/useScoutAppState";
 import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
 import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceController";
@@ -16,48 +20,38 @@ type Props = {
 };
 
 export function CompaniesWorkspacePanel({
-  state,
-  jobs,
-  companies,
-  onboarding,
-  onSaveBranding,
+  state, jobs, companies, onboarding, onSaveBranding,
 }: Props) {
-  const selectedEmployer = companies.employer;
-  const jobsCount = selectedEmployer
-    ? jobs.vacancies.filter((vacancy) => vacancy.employer_id === selectedEmployer.id).length
-    : 0;
+  const [profileOpen, setProfileOpen] = useState(false);
+  const selectCompany = (employer: Parameters<typeof companies.openCompany>[0]) => {
+    void companies.openCompany(employer);
+    setProfileOpen(true);
+  };
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden pt-4">
-      <CompanyAttentionActions
-        employers={jobs.employers}
-        sources={jobs.dashboardSources}
-        onSelectCompany={(employer) => void companies.openCompany(employer)}
-      />
-      <div className="grid min-h-0 flex-1 gap-4 xl:grid-cols-[minmax(0,1.35fr)_minmax(360px,0.85fr)]">
-        <CompanyDirectoryPanel
-          employers={jobs.employers}
-          sources={jobs.dashboardSources}
-          selectedEmployerId={state.selectedEmployerId}
-          searchQuery={state.companyQuery}
-          statusFilter={state.companyStatusFilter}
-          onSearchChange={state.setCompanyQuery}
-          onStatusFilterChange={state.setCompanyStatusFilter}
-          onSelectEmployer={(employer) => void companies.openCompany(employer)}
-          onAddCompany={() => {
-            state.setError("");
-            state.setNotice("");
-            state.setPage("add-company");
-          }}
-        />
-        <CompanyProfilePanel
-          state={state}
-          jobs={jobs}
-          companies={companies}
-          onboarding={onboarding}
-          jobsCount={jobsCount}
-          onSaveBranding={onSaveBranding}
-        />
-      </div>
+      <CompanyAttentionActions employers={jobs.employers} sources={jobs.dashboardSources}
+        onSelectCompany={selectCompany} />
+      <CompanyDirectoryPanel employers={jobs.employers} sources={jobs.dashboardSources}
+        selectedEmployerId={state.selectedEmployerId} searchQuery={state.companyQuery}
+        statusFilter={state.companyStatusFilter} onSearchChange={state.setCompanyQuery}
+        onStatusFilterChange={state.setCompanyStatusFilter} onSelectEmployer={selectCompany}
+        onAddCompany={() => {
+          state.setError("");
+          state.setNotice("");
+          state.setPage("add-company");
+        }} />
+      <Dialog open={profileOpen && !!companies.employer} onOpenChange={setProfileOpen}>
+        <DialogContent className="max-h-[90vh] w-[95vw] max-w-5xl overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Company details</DialogTitle>
+            <DialogDescription>
+              Review company information, job production, sources and extraction history.
+            </DialogDescription>
+          </DialogHeader>
+          <CompanyProfilePanel state={state} jobs={jobs} companies={companies}
+            onboarding={onboarding} onSaveBranding={onSaveBranding} />
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
