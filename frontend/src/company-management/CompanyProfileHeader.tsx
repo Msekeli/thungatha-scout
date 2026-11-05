@@ -5,6 +5,7 @@ import type { Employer } from "../api";
 
 type Props = {
   employer: Employer;
+  careersUrl: string | null;
   jobsCount: number;
   sourcesCount: number;
   latestJobs: number | null;
@@ -14,6 +15,7 @@ type Props = {
 
 export const CompanyProfileHeader: FC<Props> = ({
   employer,
+  careersUrl,
   jobsCount,
   sourcesCount,
   latestJobs,
@@ -36,14 +38,14 @@ export const CompanyProfileHeader: FC<Props> = ({
           <p className="text-[10px] font-semibold tracking-widest text-cyan-300">COMPANY PROFILE</p>
           <h3 className="mt-1 truncate text-base font-bold text-white">{employer.name}</h3>
           <p className="mt-1 break-all text-[11px] text-muted-foreground">
-            {employer.website_url ? (
+            {careersUrl ? (
               <a
-                href={employer.website_url}
+                href={careersUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="text-cyan-300 underline-offset-2 hover:text-cyan-100 hover:underline"
               >
-                {employer.website_url}
+                {careersUrl}
               </a>
             ) : (
               "Official careers link not recorded"
