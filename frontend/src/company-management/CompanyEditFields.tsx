@@ -20,8 +20,11 @@ export function CompanyEditFields({ fields, onChange }: Props) {
   const field = (label: string, key: keyof CompanyEditFieldValues, placeholder = "") => (
     <label className="grid gap-1.5 text-sm font-medium">
       {label}
-      <Input value={fields[key]} placeholder={placeholder}
-        onChange={(event) => onChange(key, event.target.value)} />
+      <Input
+        value={fields[key]}
+        placeholder={placeholder}
+        onChange={(event) => onChange(key, event.target.value)}
+      />
     </label>
   );
   return (
@@ -29,8 +32,10 @@ export function CompanyEditFields({ fields, onChange }: Props) {
       {field("Company name", "name")}
       {field("Legal name", "legal_name")}
       {field("Official website", "website_url", "https://company.com")}
-      <CompanyOrganizationTypeSelect value={fields.organization_type}
-        onChange={(value) => onChange("organization_type", value)} />
+      <CompanyOrganizationTypeSelect
+        value={fields.organization_type}
+        onChange={(value) => onChange("organization_type", value)}
+      />
       <div className="grid gap-3 sm:grid-cols-3">
         {field("City", "city")}
         {field("Province", "province")}
