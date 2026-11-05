@@ -120,10 +120,18 @@ export function useScoutWorkspace(
   }, [showArchived, loadArchivedVacancies]);
 
   return {
-    employers, setEmployers, vacancies, setVacancies, totalVacancies,
-    hasMoreVacancies, loadingMore, loadMoreVacancies,
-    archivedVacancies, setArchivedVacancies,
+    employers,
+    setEmployers,
+    vacancies,
+    setVacancies,
+    totalVacancies,
+    hasMoreVacancies,
+    loadingMore,
+    loadMoreVacancies,
+    archivedVacancies,
+    setArchivedVacancies,
     loading: loading || (showArchived && archivedLoading),
-    loadWorkspace, loadArchivedVacancies,
+    loadWorkspace,
+    loadArchivedVacancies,
   };
 }

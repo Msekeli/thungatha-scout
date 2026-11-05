@@ -22,9 +22,21 @@ class FakeExtractionService:
     def list_vacancies(self, employer_id=None, limit=200, offset=0):
         return [{"employer_id": str(employer_id), "title": "Software Engineer"}]
 
-    def list_vacancy_page(self, employer_id=None, review_status=None, location_scope="cape_town", limit=50, offset=0):
+    def list_vacancy_page(
+        self,
+        employer_id=None,
+        review_status=None,
+        location_scope="cape_town",
+        limit=50,
+        offset=0,
+    ):
         return {
-            "items": [{"employer_id": str(employer_id) if employer_id else None, "title": "Software Engineer"}],
+            "items": [
+                {
+                    "employer_id": str(employer_id) if employer_id else None,
+                    "title": "Software Engineer",
+                }
+            ],
             "total": 201,
             "limit": limit,
             "offset": offset,

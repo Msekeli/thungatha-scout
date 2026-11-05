@@ -15,7 +15,9 @@ def test_lists_vacancies_for_an_employer() -> None:
 
 def test_lists_vacancies_with_total_and_pagination_metadata() -> None:
     with vacancy_client() as client:
-        response = client.get("/api/v1/vacancies?limit=50&offset=0&location_scope=cape_town")
+        response = client.get(
+            "/api/v1/vacancies?limit=50&offset=0&location_scope=cape_town"
+        )
     assert response.status_code == 200
     assert response.json()["total"] == 201
     assert response.json()["limit"] == 50

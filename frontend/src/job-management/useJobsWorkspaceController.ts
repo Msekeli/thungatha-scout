@@ -11,11 +11,14 @@ type AppState = ReturnType<typeof useScoutAppState>;
 
 export function useJobsWorkspaceController(state: AppState) {
   const dashboard = useScoutDashboardData(state.setError);
-  const vacancyFilters = useMemo(() => ({
-    employerId: state.selectedEmployerId,
-    reviewStatus: state.reviewFilter,
-    locationScope: state.locationScope,
-  }), [state.selectedEmployerId, state.reviewFilter, state.locationScope]);
+  const vacancyFilters = useMemo(
+    () => ({
+      employerId: state.selectedEmployerId,
+      reviewStatus: state.reviewFilter,
+      locationScope: state.locationScope,
+    }),
+    [state.selectedEmployerId, state.reviewFilter, state.locationScope],
+  );
   const workspace = useScoutWorkspace(
     state.setError,
     state.showArchived,
