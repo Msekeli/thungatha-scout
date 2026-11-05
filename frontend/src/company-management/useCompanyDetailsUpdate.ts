@@ -3,7 +3,15 @@ import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "../api";
 import type { Employer } from "../api";
 
-type Values = { name: string; website_url: string | null; organization_type: string };
+type Values = {
+  name: string;
+  legal_name: string | null;
+  website_url: string | null;
+  organization_type: string;
+  city: string | null;
+  province: string | null;
+  country: string | null;
+};
 
 type Options = {
   employer: Employer | null;
