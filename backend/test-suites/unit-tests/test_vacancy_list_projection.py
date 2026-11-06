@@ -49,9 +49,11 @@ def test_export_query_returns_only_verified_publishable_records() -> None:
 
     export_query, parameters = connection.queries[1]
     assert result["total"] == 3
-    assert "e.status = 'approved'" in export_query
-    assert "s.status = 'verified'" in export_query
-    assert "s.permission_status = 'allowed'" in export_query
+    assert "v.status = 'active'" in export_query
+    assert "v.archived_at IS NULL" in export_query
+    assert "e.status" not in export_query
+    assert "s.status" not in export_query
+    assert "permission_status" not in export_query
     assert "scout_source_" in export_query
     assert "v.description" in export_query
     assert "raw_payload" not in export_query
