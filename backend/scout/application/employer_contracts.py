@@ -19,6 +19,8 @@ class EmployerCreate(BaseModel):
     name: str = Field(min_length=1)
     legal_name: str | None = None
     website_url: HttpUrl | None = None
+    logo_url: HttpUrl | None = None
+    logo_source_url: HttpUrl | None = None
     organization_type: OrganizationType = "unresolved"
     city: str | None = None
     province: str | None = None
