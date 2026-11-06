@@ -24,7 +24,7 @@ export function VacancyDescriptionPreview({ vacancy }: { vacancy: Vacancy }) {
             foreground +
             ");background:" +
             surface +
-            ";margin:18px;overflow-wrap:anywhere}h1,h2,h3{line-height:1.3}a{color:" +
+            ";margin:18px;overflow-wrap:anywhere}h1,h2,h3,h4{color:inherit!important;line-height:1.3;font-weight:700;margin:1em 0 .5em}a{color:" +
             link +
             "}img{max-width:100%;height:auto}ul,ol{padding-left:24px}</style></head><body>" +
             content +
