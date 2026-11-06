@@ -9,10 +9,7 @@ type VacancyFilters = {
   locationScope: VacancyLocationScope;
 };
 
-export function useVacancyPagination(
-  filters: VacancyFilters,
-  onError: (message: string) => void,
-) {
+export function useVacancyPagination(filters: VacancyFilters, onError: (message: string) => void) {
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [totalVacancies, setTotalVacancies] = useState(0);
   const [hasMoreVacancies, setHasMoreVacancies] = useState(false);
