@@ -5,9 +5,18 @@ import { VacancyDetailsHeader } from "./VacancyDetailsHeader";
 type VacancyDetailsPanelProps = {
   vacancy: Vacancy | null;
   loading: boolean;
+  saving: boolean;
+  onArchive: () => void;
+  onRestore: () => void;
 };
 
-export function VacancyDetailsPanel({ vacancy, loading }: VacancyDetailsPanelProps) {
+export function VacancyDetailsPanel({
+  vacancy,
+  loading,
+  saving,
+  onArchive,
+  onRestore,
+}: VacancyDetailsPanelProps) {
   if (loading) {
     return (
       <div className="grid flex-1 place-content-center text-center text-sm text-muted-foreground">
@@ -28,7 +37,12 @@ export function VacancyDetailsPanel({ vacancy, loading }: VacancyDetailsPanelPro
 
   return (
     <>
-      <VacancyDetailsHeader vacancy={vacancy} />
+      <VacancyDetailsHeader
+        vacancy={vacancy}
+        saving={saving}
+        onArchive={onArchive}
+        onRestore={onRestore}
+      />
       <div className="min-h-0 flex-1 overflow-y-auto p-4">
         <VacancyDescriptionPreview vacancy={vacancy} />
       </div>
