@@ -2,8 +2,24 @@ from html import escape, unescape
 from html.parser import HTMLParser
 from urllib.parse import urlparse
 
-ALLOWED_TAGS = {"p", "br", "h1", "h2", "h3", "h4", "ul", "ol", "li",
-                "strong", "b", "em", "i", "u", "blockquote", "a"}
+ALLOWED_TAGS = {
+    "p",
+    "br",
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "ul",
+    "ol",
+    "li",
+    "strong",
+    "b",
+    "em",
+    "i",
+    "u",
+    "blockquote",
+    "a",
+}
 VOID_TAGS = {"br"}
 DROP_CONTENT = {"script", "style", "iframe", "object", "svg"}
 
