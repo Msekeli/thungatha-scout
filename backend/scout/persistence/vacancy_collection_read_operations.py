@@ -26,7 +26,9 @@ class VacancyCollectionReadOperations:
                    v.source_updated_at, v.first_seen_at, v.last_seen_at,
                    v.last_checked_at, v.status, v.created_at, v.updated_at,
                    v.archived_at, v.archived_reason,
-                   s.adapter_key, e.name AS employer_name
+                   s.adapter_key, e.name AS employer_name,
+                   e.logo_url AS employer_logo_url,
+                   e.logo_source_url AS employer_logo_source_url
             FROM vacancies v
             JOIN employer_sources s ON s.id = v.source_id
             JOIN employers e ON e.id = v.employer_id
