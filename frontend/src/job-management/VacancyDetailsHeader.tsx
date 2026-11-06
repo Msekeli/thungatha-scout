@@ -4,10 +4,7 @@ import type { Vacancy } from "../api";
 import { getVacancyFreshness } from "./vacancy-freshness";
 
 export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
-  const freshness = getVacancyFreshness(
-    vacancy.source_updated_at,
-    vacancy.published_at,
-  );
+  const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
   return (
     <>
       <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-b border-border bg-card p-4 text-card-foreground">

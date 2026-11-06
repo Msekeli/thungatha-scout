@@ -39,7 +39,9 @@
   }
   .scout-vacancy-card[data-selected="true"] {
     border-color: var(--scout-accent);
-    box-shadow: 0 0 0 1px var(--scout-accent), var(--scout-shadow);
+    box-shadow:
+      0 0 0 1px var(--scout-accent),
+      var(--scout-shadow);
   }
   .scout-vacancy-card__exclude {
     @apply h-8 w-8 shrink-0 rounded-lg;

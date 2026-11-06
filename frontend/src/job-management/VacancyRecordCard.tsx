@@ -24,10 +24,7 @@ export function VacancyRecordCard({
   onRestore,
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
-  const freshness = getVacancyFreshness(
-    vacancy.source_updated_at,
-    vacancy.published_at,
-  );
+  const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
   const logoUrl =
     vacancy.employer_logo_url ||
     getCompanyIconUrl(vacancy.employer_website_url || vacancy.employer_careers_url);
@@ -68,7 +65,9 @@ export function VacancyRecordCard({
                   {freshness?.label ?? "Date unavailable"}
                 </span>
                 {freshness && (
-                  <span className={`scout-vacancy-freshness scout-vacancy-freshness--${freshness.tone}`}>
+                  <span
+                    className={`scout-vacancy-freshness scout-vacancy-freshness--${freshness.tone}`}
+                  >
                     {freshness.statusLabel}
                   </span>
                 )}
