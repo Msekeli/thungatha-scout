@@ -10,6 +10,8 @@ def test_active_vacancy_list_omits_full_description_payload() -> None:
     assert "v.title" in query
     assert "e.logo_url AS employer_logo_url" in query
     assert "e.logo_source_url AS employer_logo_source_url" in query
+    assert "e.logo_url AS employer_logo_url" in query
+    assert "e.logo_source_url AS employer_logo_source_url" in query
     assert "v.*" not in query
     assert "v.description" not in query
     assert "raw_payload" not in query
