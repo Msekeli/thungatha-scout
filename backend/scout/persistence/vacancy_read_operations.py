@@ -4,6 +4,9 @@ from scout.persistence.vacancy_collection_read_operations import (
 from scout.persistence.vacancy_detail_read_operations import (
     VacancyDetailReadOperations,
 )
+from scout.persistence.vacancy_export_read_operations import (
+    VacancyExportReadOperations,
+)
 from scout.persistence.vacancy_metrics_read_operations import (
     VacancyMetricsReadOperations,
 )
@@ -15,5 +18,6 @@ class VacancyReadOperations(
     VacancyPageReadOperations,
     VacancyCollectionReadOperations,
     VacancyDetailReadOperations,
+    VacancyExportReadOperations,
 ):
     pass
