@@ -18,6 +18,7 @@ class VacancyExportReadOperations:
                    v.external_job_id,
                    'scout_source_' || replace(s.id::text, '-', '') AS provider_key,
                    s.adapter_key AS provider_kind, e.name AS employer_name,
+                   e.logo_url, e.logo_source_url,
                    v.title, v.description, v.location_text, v.department,
                    v.office, v.source_url, v.application_url, v.published_at,
                    v.source_updated_at, v.content_fingerprint
