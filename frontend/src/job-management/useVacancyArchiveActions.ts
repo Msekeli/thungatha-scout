@@ -10,41 +10,39 @@ type Options = {
 };
 
 export function useVacancyArchiveActions({ setSavingId, onRefresh, onNotice, onError }: Options) {
-  const archive = useCallback(
-    async (vacancy: Vacancy) => {
-      const reason = window.prompt("Why are you archiving this vacancy?") ?? "";
-      if (!reason.trim()) return;
-      setSavingId(vacancy.id);
-      onError("");
+  const archive = useCallback(async (vacancy: Vacancy, reason: string): Promise<boolean> => {
+    setSavingId(vacancy.id);
+    onError("");
+    try {
+      await scoutApi.archiveVacancy(vacancy.id, reason);
+      onNotice("Vacancy archived. It remains available in the Archived jobs view.");
       try {
-        await scoutApi.archiveVacancy(vacancy.id, reason);
         await onRefresh();
-        onNotice("Vacancy archived. It remains available in the Archived jobs view.");
-      } catch (error) {
-        onError(error instanceof Error ? error.message : "Could not archive vacancy.");
-      } finally {
-        setSavingId(null);
+      } catch {
+        onError("Vacancy archived, but the list could not be refreshed.");
       }
-    },
-    [setSavingId, onRefresh, onNotice, onError],
-  );
+      return true;
+    } catch (error) {
+      onError(error instanceof Error ? error.message : "Could not archive vacancy.");
+      return false;
+    } finally {
+      setSavingId(null);
+    }
+  }, [setSavingId, onRefresh, onNotice, onError]);
 
-  const restore = useCallback(
-    async (vacancy: Vacancy) => {
-      setSavingId(vacancy.id);
-      onError("");
-      try {
-        await scoutApi.restoreVacancy(vacancy.id);
-        await onRefresh();
-        onNotice("Vacancy restored to the active jobs list.");
-      } catch (error) {
-        onError(error instanceof Error ? error.message : "Could not restore vacancy.");
-      } finally {
-        setSavingId(null);
-      }
-    },
-    [setSavingId, onRefresh, onNotice, onError],
-  );
+  const restore = useCallback(async (vacancy: Vacancy) => {
+    setSavingId(vacancy.id);
+    onError("");
+    try {
+      await scoutApi.restoreVacancy(vacancy.id);
+      await onRefresh();
+      onNotice("Vacancy restored to the active jobs list.");
+    } catch (error) {
+      onError(error instanceof Error ? error.message : "Could not restore vacancy.");
+    } finally {
+      setSavingId(null);
+    }
+  }, [setSavingId, onRefresh, onNotice, onError]);
 
   return { archive, restore };
 }
