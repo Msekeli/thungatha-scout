@@ -29,6 +29,9 @@
     --scout-warning-surface: #fef3c7;
     --scout-warning-text: #92400e;
     --scout-warning-border: #fde68a;
+    --scout-amber-surface: #ffedd5;
+    --scout-amber-text: #9a3412;
+    --scout-amber-border: #fed7aa;
     --scout-danger-surface: #fee2e2;
     --scout-danger-text: #991b1b;
     --scout-type-surface: #ede9fe;
@@ -65,6 +68,9 @@
     --scout-warning-surface: rgb(245 158 11 / 12%);
     --scout-warning-text: #fcd34d;
     --scout-warning-border: rgb(251 191 36 / 30%);
+    --scout-amber-surface: rgb(217 119 6 / 12%);
+    --scout-amber-text: #fdba74;
+    --scout-amber-border: rgb(251 146 60 / 30%);
     --scout-danger-surface: rgb(239 68 68 / 12%);
     --scout-danger-text: #fca5a5;
     --scout-type-surface: rgb(139 92 246 / 12%);
