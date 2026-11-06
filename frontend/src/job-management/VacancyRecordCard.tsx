@@ -2,6 +2,7 @@ import { Archive, CalendarDays, Building2, MapPin, RotateCcw } from "lucide-reac
 import { Button } from "@/components/ui/button";
 import type { Vacancy } from "../api";
 import { getCompanyIconUrl } from "../company-management/company-icon-url";
+import { getVacancyFreshness } from "./vacancy-freshness";
 
 type Props = {
   vacancy: Vacancy;
@@ -23,6 +24,10 @@ export function VacancyRecordCard({
   onRestore,
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
+  const freshness = getVacancyFreshness(
+    vacancy.source_updated_at,
+    vacancy.published_at,
+  );
   const logoUrl =
     vacancy.employer_logo_url ||
     getCompanyIconUrl(vacancy.employer_website_url || vacancy.employer_careers_url);
@@ -60,8 +65,13 @@ export function VacancyRecordCard({
                 </span>
                 <span className="scout-vacancy-card__metadata">
                   <CalendarDays aria-hidden="true" />
-                  {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}
+                  {freshness?.label ?? "Date unavailable"}
                 </span>
+                {freshness && (
+                  <span className={`scout-vacancy-freshness scout-vacancy-freshness--${freshness.tone}`}>
+                    {freshness.statusLabel}
+                  </span>
+                )}
               </span>
             </span>
           </span>
