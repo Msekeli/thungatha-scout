@@ -267,3 +267,12 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - Location matching is deliberately conservative. False negatives should be reviewed and the allow-list expanded with evidence; unknown locations must not be assumed South African.
 - This rule applies to every adapter through the shared persistence boundary. Adapter-specific checks may add validation but must not weaken it.
 - The admin South Africa filter is a view over the already-qualified vacancy catalogue, not a substitute for ingestion validation.
+
+
+## Decision record — export location scope (6 November 2026)
+
+- Vacancy export defaults to `south_africa`, matching the South Africa-wide persisted vacancy catalogue.
+- Export accepts the same location scopes as the admin vacancy view: `cape_town`, `western_cape`, and `south_africa`.
+- The selected scope filters the export query itself, including its total count and returned page. Changing the admin location filter must be reflected when the corresponding export is requested.
+- `all` remains an accepted compatibility value and does not add a geographic predicate; ingestion already limits the persisted catalogue to South African vacancies.
+- This is an export/read-scope decision only. It does not change the South Africa ingestion boundary or delete broader South African records.
