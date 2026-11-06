@@ -27,7 +27,6 @@ def test_bulk_extraction_history_returns_all_source_runs() -> None:
     assert response.json() == [{"source_id": "source-1", "outcome": "success"}]
 
 
-
 def test_removed_review_endpoint_is_not_available() -> None:
     vacancy_id = uuid4()
     with vacancy_client() as client:

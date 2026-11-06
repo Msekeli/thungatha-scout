@@ -96,7 +96,7 @@ export function useScoutWorkspace(
         scoutApi.listEmployers(),
         scoutApi.listVacancies({
           employerId: filters.employerId,
-            locationScope: filters.locationScope,
+          locationScope: filters.locationScope,
           limit: PAGE_SIZE,
           offset: 0,
         }),

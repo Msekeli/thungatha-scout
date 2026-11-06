@@ -48,6 +48,7 @@ class FakeExtractionService:
             "title": "Software Engineer",
             "description": "<p>Build software.</p>",
         }
+
     def archive_vacancy(self, vacancy_id, reason):
         return {"id": str(vacancy_id), "archived_reason": reason}
 
