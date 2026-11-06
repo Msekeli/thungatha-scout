@@ -18,14 +18,23 @@ export function getVacancyFreshness(
   now = Date.now(),
 ): VacancyFreshness | null {
   const updatedAt = parseTimestamp(sourceUpdatedAt);
-  const publishedDate = updatedAt ?? parseTimestamp(publishedAt);
-  if (!publishedDate) return null;
+  const effectiveDate = updatedAt ?? parseTimestamp(publishedAt);
+  if (!effectiveDate) return null;
 
-  const ageInDays = Math.max(0, Math.floor((now - publishedDate.getTime()) / 86_400_000));
+  const ageInDays = Math.max(
+    0,
+    Math.floor((now - effectiveDate.getTime()) / 86_400_000),
+  );
   const sourceLabel = updatedAt ? "Updated" : "Posted";
-  const dateLabel = publishedDate.toLocaleDateString();
+  const dateLabel = effectiveDate.toLocaleDateString();
   const tone: VacancyFreshnessTone =
-    ageInDays <= 7 ? "fresh" : ageInDays <= 14 ? "recent" : ageInDays <= 30 ? "aging" : "stale";
+    ageInDays <= 7
+      ? "fresh"
+      : ageInDays <= 14
+        ? "recent"
+        : ageInDays <= 30
+          ? "aging"
+          : "stale";
   const statusLabel =
     tone === "fresh"
       ? "Fresh"
