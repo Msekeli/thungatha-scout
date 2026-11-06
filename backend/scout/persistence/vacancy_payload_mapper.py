@@ -10,7 +10,7 @@ from scout.application.vacancy_description_sanitizer import (
 )
 
 _OFFICE_SUFFIX = re.compile(
-    r"\\s+(?:dc|office|hub|distribution centre|distribution center|"
+    r"\s+(?:dc|office|hub|distribution centre|distribution center|"
     r"cross dock facility|facility|warehouse)$",
     re.IGNORECASE,
 )
