@@ -3,9 +3,7 @@ from functools import lru_cache
 from pathlib import Path
 
 _TERMS_PATH = (
-    Path(__file__).resolve().parents[2]
-    / "registry"
-    / "vacancy-location-scopes.json"
+    Path(__file__).resolve().parents[2] / "registry" / "vacancy-location-scopes.json"
 )
 
 
@@ -22,8 +20,7 @@ def location_scope_condition(scope: str) -> tuple[str, list[str]]:
     if terms is None:
         raise ValueError("Unsupported vacancy location scope.")
     normalized = (
-        "regexp_replace(lower(coalesce(v.location_text, '')), "
-        "'[^a-z0-9]+', ' ', 'g')"
+        "regexp_replace(lower(coalesce(v.location_text, '')), '[^a-z0-9]+', ' ', 'g')"
     )
     conditions = [f"{normalized} ~ %s" for _ in terms]
     parameters = [rf"(^| ){term}( |$)" for term in terms]
