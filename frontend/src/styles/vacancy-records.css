@@ -39,9 +39,7 @@
   }
   .scout-vacancy-card[data-selected="true"] {
     border-color: var(--scout-accent);
-    box-shadow:
-      0 0 0 1px var(--scout-accent),
-      var(--scout-shadow);
+    box-shadow: 0 0 0 1px var(--scout-accent), var(--scout-shadow);
   }
   .scout-vacancy-card__exclude {
     @apply h-8 w-8 shrink-0 rounded-lg;
@@ -76,5 +74,28 @@
   .scout-vacancy-card__metadata svg {
     @apply h-3.5 w-3.5 shrink-0;
     color: var(--scout-accent);
+  }
+  .scout-vacancy-freshness {
+    @apply inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold;
+  }
+  .scout-vacancy-freshness--fresh {
+    color: var(--scout-success-text);
+    background: var(--scout-success-surface);
+    border-color: var(--scout-success-border);
+  }
+  .scout-vacancy-freshness--recent {
+    color: var(--scout-warning-text);
+    background: var(--scout-warning-surface);
+    border-color: var(--scout-warning-border);
+  }
+  .scout-vacancy-freshness--aging {
+    color: var(--scout-amber-text);
+    background: var(--scout-amber-surface);
+    border-color: var(--scout-amber-border);
+  }
+  .scout-vacancy-freshness--stale {
+    color: var(--scout-danger-text);
+    background: var(--scout-danger-surface);
+    border-color: var(--scout-danger-border);
   }
 }
