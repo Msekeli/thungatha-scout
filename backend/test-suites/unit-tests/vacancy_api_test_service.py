@@ -25,7 +25,6 @@ class FakeExtractionService:
     def list_vacancy_page(
         self,
         employer_id=None,
-        review_status=None,
         location_scope="cape_town",
         limit=50,
         offset=0,
@@ -48,16 +47,7 @@ class FakeExtractionService:
             "id": str(vacancy_id),
             "title": "Software Engineer",
             "description": "<p>Build software.</p>",
-            "review_status": "needs_verification",
         }
-
-    def update_vacancy_review(self, vacancy_id, review_status, review_reason):
-        return {
-            "id": str(vacancy_id),
-            "review_status": review_status,
-            "review_reason": review_reason,
-        }
-
     def archive_vacancy(self, vacancy_id, reason):
         return {"id": str(vacancy_id), "archived_reason": reason}
 

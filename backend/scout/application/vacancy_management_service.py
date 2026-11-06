@@ -21,7 +21,6 @@ class VacancyManagementService:
     def list_vacancy_page(
         self,
         employer_id: UUID | None = None,
-        review_status: str | None = None,
         location_scope: str = "south_africa",
         limit: int = 50,
         offset: int = 0,
@@ -29,7 +28,6 @@ class VacancyManagementService:
         with self._connection_factory() as connection:
             return VacancyRepository(connection).list_page(
                 employer_id=employer_id,
-                review_status=review_status,
                 location_scope=location_scope,
                 limit=limit,
                 offset=offset,
@@ -47,14 +45,6 @@ class VacancyManagementService:
     def get_vacancy(self, vacancy_id: UUID) -> dict[str, Any] | None:
         with self._connection_factory() as connection:
             return VacancyRepository(connection).get_by_id(vacancy_id)
-
-    def update_vacancy_review(
-        self, vacancy_id: UUID, review_status: str, review_reason: str | None
-    ) -> dict[str, Any] | None:
-        with self._connection_factory() as connection, connection.transaction():
-            return VacancyRepository(connection).update_review(
-                vacancy_id, review_status, review_reason
-            )
 
     def archive_vacancy(
         self, vacancy_id: UUID, reason: str | None = None

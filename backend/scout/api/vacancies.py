@@ -5,7 +5,6 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 from scout.api.vacancy_api_dependencies import get_extraction_service
 from scout.api.vacancy_archive_routes import router as archive_router
-from scout.api.vacancy_contracts import VacancyReviewUpdate
 from scout.application.greenhouse_extraction_service import (
     GreenhouseExtractionService,
     SourceNotFoundError,
@@ -26,7 +25,6 @@ def get_vacancy_metrics(
 @router.get("/vacancies")
 def list_vacancies(
     employer_id: UUID | None = None,
-    review_status: str | None = Query(default=None),
     location_scope: str = Query(
         default="south_africa", pattern="^(cape_town|western_cape|south_africa|all)$"
     ),
@@ -36,7 +34,6 @@ def list_vacancies(
 ) -> dict[str, Any]:
     return service.list_vacancy_page(
         employer_id=employer_id,
-        review_status=review_status,
         location_scope=location_scope,
         limit=limit,
         offset=offset,
@@ -92,18 +89,4 @@ def get_vacancy(
     vacancy = service.get_vacancy(vacancy_id)
     if vacancy is None:
         raise HTTPException(status_code=404, detail="Vacancy not found.")
-    return vacancy
-
-
-@router.patch("/vacancies/{vacancy_id}/review")
-def update_vacancy_review(
-    vacancy_id: UUID,
-    payload: VacancyReviewUpdate,
-    service: GreenhouseExtractionService = Depends(get_extraction_service),
-) -> dict[str, Any]:
-    vacancy = service.update_vacancy_review(
-        vacancy_id, payload.review_status, payload.review_reason
-    )
-    if vacancy is None:
-        raise HTTPException(status_code=404, detail="Vacancy not found or archived.")
     return vacancy

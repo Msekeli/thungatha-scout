@@ -30,15 +30,6 @@ def map_greenhouse_job(
         location_text = " | ".join(
             ([location_text] if location_text else []) + office_names
         )
-    location_normalized = (location_text or "").lower()
-    requires_verification = not location_text or "remote" in location_normalized
-    review_reason = (
-        "Location is missing from the source."
-        if not location_text
-        else "Verify South African remote-work eligibility."
-        if requires_verification
-        else None
-    )
     return {
         "employer_id": employer_id,
         "source_id": source_id,
@@ -66,6 +57,4 @@ def map_greenhouse_job(
             }
         ),
         "fingerprint": fingerprint,
-        "review_status": "needs_verification" if requires_verification else "pending",
-        "review_reason": review_reason,
     }

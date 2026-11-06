@@ -25,7 +25,6 @@ class VacancyReadOperations:
     def list_page(
         self,
         employer_id: UUID | None = None,
-        review_status: str | None = None,
         location_scope: str = "south_africa",
         limit: int = 50,
         offset: int = 0,
@@ -35,9 +34,6 @@ class VacancyReadOperations:
         if employer_id is not None:
             conditions.append("v.employer_id = %s")
             parameters.append(employer_id)
-        if review_status is not None:
-            conditions.append("v.review_status = %s")
-            parameters.append(review_status)
         if location_scope in {"cape_town", "western_cape"}:
             normalized_location = (
                 "regexp_replace(lower(coalesce(v.location_text, '')), "
@@ -200,7 +196,6 @@ class VacancyReadOperations:
                    v.source_url, v.application_url, v.published_at,
                    v.source_updated_at, v.first_seen_at, v.last_seen_at,
                    v.last_checked_at, v.status, v.created_at, v.updated_at,
-                   v.review_status, v.review_reason, v.reviewed_at,
                    v.archived_at, v.archived_reason,
                    s.adapter_key, e.name AS employer_name
             FROM vacancies v
@@ -230,7 +225,6 @@ class VacancyReadOperations:
                    v.source_url, v.application_url, v.published_at,
                    v.source_updated_at, v.first_seen_at, v.last_seen_at,
                    v.last_checked_at, v.status, v.created_at, v.updated_at,
-                   v.review_status, v.review_reason, v.reviewed_at,
                    v.archived_at, v.archived_reason,
                    s.adapter_key, e.name AS employer_name
             FROM vacancies v
@@ -252,7 +246,6 @@ class VacancyReadOperations:
                    v.source_url, v.application_url, v.published_at,
                    v.source_updated_at, v.first_seen_at, v.last_seen_at,
                    v.last_checked_at, v.status, v.created_at, v.updated_at,
-                   v.review_status, v.review_reason, v.reviewed_at,
                    v.archived_at, v.archived_reason,
                    s.adapter_key, e.name AS employer_name
             FROM vacancies v
@@ -287,7 +280,6 @@ class VacancyReadOperations:
                    v.source_url, v.application_url, v.published_at,
                    v.source_updated_at, v.first_seen_at, v.last_seen_at,
                    v.last_checked_at, v.status, v.created_at, v.updated_at,
-                   v.review_status, v.review_reason, v.reviewed_at,
                    v.archived_at, v.archived_reason,
                    s.adapter_key, e.name AS employer_name,
                    e.logo_url AS employer_logo_url

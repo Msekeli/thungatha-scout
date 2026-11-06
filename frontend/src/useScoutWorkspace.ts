@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "./api";
-import type { Employer, Vacancy, VacancyLocationScope, VacancyReviewStatus } from "./api";
+import type { Employer, Vacancy, VacancyLocationScope } from "./api";
 import type { VacancyDashboardMetrics } from "./api-services/vacancy-api-client";
 
 type UseScoutWorkspaceResult = {
@@ -29,7 +29,6 @@ export function useScoutWorkspace(
   loadDashboardData: () => Promise<void>,
   filters: {
     employerId: string;
-    reviewStatus: string;
     locationScope: VacancyLocationScope;
   },
 ): UseScoutWorkspaceResult {
@@ -56,7 +55,6 @@ export function useScoutWorkspace(
     try {
       const page = await scoutApi.listVacancies({
         employerId: filters.employerId,
-        reviewStatus: filters.reviewStatus as VacancyReviewStatus | "all",
         locationScope: filters.locationScope,
         limit: PAGE_SIZE,
         offset: nextOffset.current,
@@ -98,8 +96,7 @@ export function useScoutWorkspace(
         scoutApi.listEmployers(),
         scoutApi.listVacancies({
           employerId: filters.employerId,
-          reviewStatus: filters.reviewStatus as VacancyReviewStatus | "all",
-          locationScope: filters.locationScope,
+            locationScope: filters.locationScope,
           limit: PAGE_SIZE,
           offset: 0,
         }),

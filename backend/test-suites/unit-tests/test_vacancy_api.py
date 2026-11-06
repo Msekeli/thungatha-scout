@@ -31,7 +31,7 @@ def test_gets_full_vacancy_detail() -> None:
         response = client.get(f"/api/v1/vacancies/{vacancy_id}")
     assert response.status_code == 200
     assert response.json()["description"] == "<p>Build software.</p>"
-    assert response.json()["review_status"] == "needs_verification"
+    assert "review_status" not in response.json()
 
 
 def test_lists_archived_vacancies() -> None:
