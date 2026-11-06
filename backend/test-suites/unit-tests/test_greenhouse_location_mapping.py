@@ -5,7 +5,9 @@ from scout.persistence.vacancy_payload_mapper import map_greenhouse_job
 
 def map_job(location, offices):
     return map_greenhouse_job(
-        uuid4(), uuid4(), "https://boards.greenhouse.io/example/jobs/1",
+        uuid4(),
+        uuid4(),
+        "https://boards.greenhouse.io/example/jobs/1",
         {
             "id": 1,
             "title": "Software Engineer",

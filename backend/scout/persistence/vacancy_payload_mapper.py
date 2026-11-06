@@ -15,9 +15,17 @@ _OFFICE_SUFFIX = re.compile(
     re.IGNORECASE,
 )
 _BROAD_LOCATIONS = {
-    "south africa", "western cape", "eastern cape", "northern cape",
-    "gauteng", "kwazulu natal", "kwa zulu natal", "free state",
-    "north west", "limpopo", "mpumalanga",
+    "south africa",
+    "western cape",
+    "eastern cape",
+    "northern cape",
+    "gauteng",
+    "kwazulu natal",
+    "kwa zulu natal",
+    "free state",
+    "north west",
+    "limpopo",
+    "mpumalanga",
 }
 
 
@@ -32,7 +40,12 @@ def _office_location_names(offices: Any) -> list[str]:
         if not name:
             continue
         canonical = _OFFICE_SUFFIX.sub("", name).strip(" ,-/")
-        if canonical and canonical.casefold() not in {"head", "main", "regional", "national"}:
+        if canonical and canonical.casefold() not in {
+            "head",
+            "main",
+            "regional",
+            "national",
+        }:
             if canonical.casefold() not in {item.casefold() for item in names}:
                 names.append(canonical)
     return names
@@ -42,7 +55,9 @@ def _resolve_location_text(location: Any, offices: Any) -> str | None:
     location_name = (
         location.get("name").strip()
         if isinstance(location, dict) and isinstance(location.get("name"), str)
-        else location.strip() if isinstance(location, str) else ""
+        else location.strip()
+        if isinstance(location, str)
+        else ""
     )
     office_names = _office_location_names(offices)
     if office_names and (
@@ -64,9 +79,13 @@ def map_greenhouse_job(
     departments = job.get("departments")
     offices = job.get("offices")
     office_names = (
-        [item.get("name") for item in offices
-         if isinstance(item, dict) and isinstance(item.get("name"), str)]
-        if isinstance(offices, list) else []
+        [
+            item.get("name")
+            for item in offices
+            if isinstance(item, dict) and isinstance(item.get("name"), str)
+        ]
+        if isinstance(offices, list)
+        else []
     )
     return {
         "employer_id": employer_id,
@@ -85,10 +104,12 @@ def map_greenhouse_job(
         "application_url": job["absolute_url"],
         "published_at": job.get("first_published"),
         "source_updated_at": job.get("updated_at"),
-        "raw_payload": Jsonb({
-            key: job[key]
-            for key in ("location", "departments", "offices")
-            if key in job
-        }),
+        "raw_payload": Jsonb(
+            {
+                key: job[key]
+                for key in ("location", "departments", "offices")
+                if key in job
+            }
+        ),
         "fingerprint": fingerprint,
     }
