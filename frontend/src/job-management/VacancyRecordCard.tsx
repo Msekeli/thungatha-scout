@@ -50,19 +50,19 @@ export function VacancyRecordCard({
                 <Building2 aria-hidden="true" />
               )}
             </span>
-            <span className="min-w-0">
+            <span className="min-w-0 flex-1">
               <strong className="scout-vacancy-card__title">{vacancy.title}</strong>
-              <span className="block text-xs text-muted-foreground">{vacancy.employer_name}</span>
-            </span>
-          </span>
-          <span className="scout-vacancy-card__metadata mt-3">
-            <span>
-              <MapPin aria-hidden="true" />
-              {vacancy.location_text || "Location unknown"}
-            </span>
-            <span>
-              <CalendarDays aria-hidden="true" />
-              {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}
+              <span className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                <span className="font-medium">{vacancy.employer_name}</span>
+                <span className="scout-vacancy-card__metadata">
+                  <MapPin aria-hidden="true" />
+                  {vacancy.location_text || "Location unknown"}
+                </span>
+                <span className="scout-vacancy-card__metadata">
+                  <CalendarDays aria-hidden="true" />
+                  {new Date(vacancy.first_seen_at ?? vacancy.last_seen_at).toLocaleDateString()}
+                </span>
+              </span>
             </span>
           </span>
         </button>
