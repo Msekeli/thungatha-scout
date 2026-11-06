@@ -41,3 +41,18 @@ def test_employer_vacancy_list_keeps_employer_filter() -> None:
     query, parameters = connection.queries[0]
     assert "v.employer_id = %s" in query
     assert parameters == ["employer-id", 12, 3]
+
+def test_export_query_returns_only_verified_publishable_records() -> None:
+    connection = FakeConnection([{"total": 3}])
+    result = VacancyRepository(connection).export_page(limit=25, offset=0)
+
+    count_query, _ = connection.queries[0]
+    export_query, parameters = connection.queries[1]
+    assert result["total"] == 3
+    assert "e.status = 'approved'" in export_query
+    assert "s.status = 'verified'" in export_query
+    assert "s.permission_status = 'allowed'" in export_query
+    assert "scout_source_" in export_query
+    assert "v.description" in export_query
+    assert "raw_payload" not in export_query
+    assert parameters == (25, 0)
