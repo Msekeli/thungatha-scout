@@ -21,6 +21,7 @@ export type Vacancy = {
   office?: string | null;
   source_url: string;
   application_url: string;
+  published_at?: string | null;
   source_updated_at?: string | null;
   first_seen_at?: string;
   last_seen_at: string;
