@@ -53,8 +53,16 @@ export function CompanyDirectoryCard({
       >
         <span className="scout-company-card__icon">
           <Building2 className="h-5 w-5" />
-          {iconUrl && <img src={iconUrl} alt="" className="scout-company-card__logo"
-            onError={(event) => { event.currentTarget.style.display = "none"; }} />}
+          {iconUrl && (
+            <img
+              src={iconUrl}
+              alt=""
+              className="scout-company-card__logo"
+              onError={(event) => {
+                event.currentTarget.style.display = "none";
+              }}
+            />
+          )}
         </span>
         <span className="min-w-0 flex-1">
           <strong className="block truncate text-sm font-semibold scout-company-card__name">
