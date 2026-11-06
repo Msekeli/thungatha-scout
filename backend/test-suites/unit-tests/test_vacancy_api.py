@@ -53,6 +53,7 @@ def test_rejects_unknown_location_scope() -> None:
         response = client.get("/api/v1/vacancies?location_scope=sweden")
     assert response.status_code == 422
 
+
 def test_exports_active_vacancies_with_full_descriptions() -> None:
     with vacancy_client() as client:
         response = client.get("/api/v1/vacancies/export?limit=25&offset=50")

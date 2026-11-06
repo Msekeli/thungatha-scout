@@ -44,11 +44,13 @@ class FakeExtractionService:
 
     def export_vacancies(self, limit=50, offset=0):
         return {
-            "items": [{
-                "scout_vacancy_id": str(uuid4()),
-                "title": "Software Engineer",
-                "description": "Build software.",
-            }],
+            "items": [
+                {
+                    "scout_vacancy_id": str(uuid4()),
+                    "title": "Software Engineer",
+                    "description": "Build software.",
+                }
+            ],
             "total": 81,
             "limit": limit,
             "offset": offset,
