@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { CalendarDays, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
+import { getVacancyFreshness } from "./vacancy-freshness";
 
 export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
-  const postedAt = vacancy.first_seen_at ?? vacancy.last_seen_at;
+  const freshness = getVacancyFreshness(
+    vacancy.source_updated_at,
+    vacancy.published_at,
+  );
   return (
     <>
       <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-b border-border bg-card p-4 text-card-foreground">
@@ -18,8 +22,13 @@ export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
           </span>
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="h-3.5 w-3.5 text-scout-cyan" />
-            {new Date(postedAt).toLocaleDateString()}
+            {freshness?.label ?? "Date unavailable"}
           </span>
+          {freshness && (
+            <span className={`scout-vacancy-freshness scout-vacancy-freshness--${freshness.tone}`}>
+              {freshness.statusLabel}
+            </span>
+          )}
         </div>
         <div className="min-w-[260px] flex-1 border-l border-border pl-6">
           <p className="text-xs font-semibold text-muted-foreground">Position</p>
