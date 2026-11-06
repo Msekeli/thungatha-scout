@@ -69,6 +69,9 @@ export function JobsWorkspacePanel({ jobs, state, vacancyChange }: Props) {
           <VacancyDetailsPanel
             vacancy={jobs.selectedVacancy}
             loading={Boolean(jobs.openingVacancyId)}
+            saving={jobs.saving}
+            onArchive={() => void jobs.archive()}
+            onRestore={() => void jobs.restore()}
           />
         </section>
       </div>
