@@ -1,22 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Archive, CalendarDays, MapPin, RotateCcw } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
 
-type VacancyDetailsHeaderProps = {
-  vacancy: Vacancy;
-  saving: boolean;
-  onArchive: () => void;
-  onRestore: () => void;
-};
-
-export function VacancyDetailsHeader({
-  vacancy,
-  saving,
-  onArchive,
-  onRestore,
-}: VacancyDetailsHeaderProps) {
+export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
   const postedAt = vacancy.first_seen_at ?? vacancy.last_seen_at;
-  const archived = Boolean(vacancy.archived_at);
   return (
     <>
       <div className="flex flex-wrap items-center gap-x-8 gap-y-4 border-b border-border bg-card p-4 text-card-foreground">
@@ -41,24 +28,9 @@ export function VacancyDetailsHeader({
           </h3>
         </div>
       </div>
-      <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3">
-        <Button
-          size="sm"
-          variant="outline"
-          disabled={saving}
-          onClick={archived ? onRestore : onArchive}
-        >
-          {archived ? (
-            <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-          ) : (
-            <Archive className="mr-1.5 h-3.5 w-3.5" />
-          )}
-          {archived ? "Reinstate vacancy" : "Archive vacancy"}
-        </Button>
+      <div className="border-b border-border px-4 py-3">
         <Button asChild size="sm" variant="outline">
-          <a href={vacancy.source_url} target="_blank" rel="noreferrer">
-            Source record ↗
-          </a>
+          <a href={vacancy.source_url} target="_blank" rel="noreferrer">Source record ↗</a>
         </Button>
       </div>
     </>
