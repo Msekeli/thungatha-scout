@@ -36,9 +36,16 @@ class VacancyManagementService:
                 offset=offset,
             )
 
-    def export_vacancies(self, limit: int = 50, offset: int = 0) -> dict[str, Any]:
+    def export_vacancies(
+        self,
+        limit: int = 50,
+        offset: int = 0,
+        location_scope: str = "south_africa",
+    ) -> dict[str, Any]:
         with self._connection_factory() as connection:
-            page = VacancyRepository(connection).export_page(limit, offset)
+            page = VacancyRepository(connection).export_page(
+                limit, offset, location_scope
+            )
         for vacancy in page["items"]:
             vacancy["description"] = sanitize_vacancy_description(
                 vacancy.get("description")
