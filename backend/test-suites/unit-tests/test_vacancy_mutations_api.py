@@ -37,15 +37,25 @@ def test_removed_review_endpoint_is_not_available() -> None:
     assert response.status_code == 404
 
 
-def test_archives_and_restores_vacancy() -> None:
+def test_archives_and_restores_vacancy_with_a_standard_reason() -> None:
     vacancy_id = uuid4()
+    reason = "Duplicate vacancy"
     with vacancy_client() as client:
         archived = client.post(
             f"/api/v1/vacancies/{vacancy_id}/archive",
-            json={"reason": "Duplicate listing"},
+            json={"reason": reason},
         )
         restored = client.post(f"/api/v1/vacancies/{vacancy_id}/restore")
     assert archived.status_code == 200
-    assert archived.json()["archived_reason"] == "Duplicate listing"
+    assert archived.json()["archived_reason"] == reason
     assert restored.status_code == 200
     assert restored.json()["archived_at"] is None
+
+
+def test_archive_rejects_reasons_outside_the_supported_options() -> None:
+    with vacancy_client() as client:
+        response = client.post(
+            f"/api/v1/vacancies/{uuid4()}/archive",
+            json={"reason": "Some arbitrary text"},
+        )
+    assert response.status_code == 422
