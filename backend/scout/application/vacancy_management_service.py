@@ -33,6 +33,10 @@ class VacancyManagementService:
                 offset=offset,
             )
 
+    def export_vacancies(self, limit: int = 50, offset: int = 0) -> dict[str, Any]:
+        with self._connection_factory() as connection:
+            return VacancyRepository(connection).export_page(limit, offset)
+
     def list_vacancies(
         self, employer_id: UUID | None = None, limit: int = 200, offset: int = 0
     ) -> list[dict[str, Any]]:
