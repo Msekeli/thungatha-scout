@@ -103,6 +103,23 @@ New employers and sources are stored as discovered; callers cannot set approval
 or permission states. This API is for local development only until authentication
 is reinstated.
 
+## Sanitize existing vacancy descriptions
+
+The backfill uses the same HTML sanitizer as vacancy ingestion. It defaults to
+a read-only dry run and backs up each original description before updating it.
+
+Run from the backend directory with the Scout database URL configured in
+`.env`:
+
+```bash
+python -m scout.maintenance.sanitize_existing_vacancy_descriptions
+python -m scout.maintenance.sanitize_existing_vacancy_descriptions --apply
+```
+
+The backup table is `vacancy_description_sanitization_backups`. The apply
+operation and backups run in one database transaction. Re-running the command
+is safe: descriptions that are already sanitized are skipped.
+
 ## API
 
 ```bash
