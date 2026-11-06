@@ -42,7 +42,12 @@ export function VacancyDetailsHeader({
         </div>
       </div>
       <div className="flex flex-wrap items-center gap-2 border-b border-border px-4 py-3">
-        <Button size="sm" variant="outline" disabled={saving} onClick={archived ? onRestore : onArchive}>
+        <Button
+          size="sm"
+          variant="outline"
+          disabled={saving}
+          onClick={archived ? onRestore : onArchive}
+        >
           {archived ? (
             <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
           ) : (
