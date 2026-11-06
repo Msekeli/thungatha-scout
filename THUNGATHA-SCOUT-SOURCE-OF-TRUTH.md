@@ -275,3 +275,11 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - The selected scope filters the export query itself, including its total count and returned page. Changing the admin location filter must be reflected when the corresponding export is requested.
 - `all` remains an accepted compatibility value and does not add a geographic predicate; ingestion already limits the persisted catalogue to South African vacancies.
 - This is an export/read-scope decision only. It does not change the South Africa ingestion boundary or delete broader South African records.
+## Decision record — Greenhouse office-level location mapping (6 November 2026)
+
+- When a Greenhouse vacancy has a broad country/province location label and one or more specific office names, Scout uses the office names as the primary location evidence instead of displaying the broad label.
+- Generic operational suffixes such as DC, Office, Hub, Distribution Centre, Cross Dock Facility, Facility and Warehouse are removed from the display location when a place name precedes them. Equivalent office labels such as "Cape Town DC" and "Cape Town Office" therefore resolve to the same display location, "Cape Town".
+- Distinct office locations remain distinct; this mapping does not choose one arbitrarily when multiple places are attached to a vacancy.
+- A specific job-level location is retained when it is already more precise than a broad office label.
+- Original Greenhouse location, department and office objects remain in `raw_payload` for traceability.
+- This is source-field prioritisation and display normalization, not a general geocoder. It must not infer a city from employer headquarters or unrelated description text. Unknown or ambiguous office labels require a later evidence-based resolution step.
