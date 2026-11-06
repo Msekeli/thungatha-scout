@@ -19,3 +19,25 @@ def test_vacancy_detail_query_still_returns_full_record() -> None:
 
     assert result["description"] == "<p>Full details</p>"
     assert "SELECT v.*" in connection.queries[0][0]
+
+
+def test_cape_town_page_applies_location_scope_and_pagination() -> None:
+    connection = FakeConnection([{"total": 31}])
+    result = VacancyRepository(connection).list_page(
+        location_scope="cape_town", limit=10, offset=20
+    )
+
+    assert result["total"] == 31
+    assert result["has_more"] is True
+    assert "regexp_replace" in connection.queries[0][0]
+    assert len(connection.queries[0][1]) == 30
+    assert connection.queries[1][1][-2:] == [10, 20]
+
+
+def test_employer_vacancy_list_keeps_employer_filter() -> None:
+    connection = FakeConnection([])
+    VacancyRepository(connection).list_for_employer("employer-id", 12, 3)
+
+    query, parameters = connection.queries[0]
+    assert "v.employer_id = %s" in query
+    assert parameters == ["employer-id", 12, 3]
