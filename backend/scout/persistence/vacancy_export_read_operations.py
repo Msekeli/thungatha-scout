@@ -3,11 +3,7 @@ from typing import Any
 
 class VacancyExportReadOperations:
     def export_page(self, limit: int, offset: int) -> dict[str, Any]:
-        where = """
-            v.status = 'active' AND v.archived_at IS NULL
-            AND e.status = 'approved' AND s.status = 'verified'
-            AND s.permission_status = 'allowed'
-        """
+        where = "v.status = 'active' AND v.archived_at IS NULL"
         joins = """
             FROM vacancies v
             JOIN employers e ON e.id = v.employer_id
