@@ -4,6 +4,10 @@ from uuid import UUID
 
 from psycopg.types.json import Jsonb
 
+from scout.application.vacancy_description_sanitizer import (
+    sanitize_vacancy_description,
+)
+
 
 def map_greenhouse_job(
     employer_id: UUID,
@@ -35,7 +39,7 @@ def map_greenhouse_job(
         "source_id": source_id,
         "external_job_id": str(job["id"]),
         "title": job["title"].strip(),
-        "description": job.get("content"),
+        "description": sanitize_vacancy_description(job.get("content")),
         "location_text": location_text,
         "department": departments[0].get("name")
         if isinstance(departments, list)
