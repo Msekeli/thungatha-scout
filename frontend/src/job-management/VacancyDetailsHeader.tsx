@@ -30,7 +30,9 @@ export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
       </div>
       <div className="border-b border-border px-4 py-3">
         <Button asChild size="sm" variant="outline">
-          <a href={vacancy.source_url} target="_blank" rel="noreferrer">Source record ↗</a>
+          <a href={vacancy.source_url} target="_blank" rel="noreferrer">
+            Source record ↗
+          </a>
         </Button>
       </div>
     </>
