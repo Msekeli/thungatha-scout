@@ -42,6 +42,19 @@ class FakeExtractionService:
             "has_more": offset + 1 < 201,
         }
 
+    def export_vacancies(self, limit=50, offset=0):
+        return {
+            "items": [{
+                "scout_vacancy_id": str(uuid4()),
+                "title": "Software Engineer",
+                "description": "Build software.",
+            }],
+            "total": 81,
+            "limit": limit,
+            "offset": offset,
+            "has_more": offset + 1 < 81,
+        }
+
     def get_vacancy(self, vacancy_id):
         return {
             "id": str(vacancy_id),
