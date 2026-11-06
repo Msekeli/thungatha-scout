@@ -6,8 +6,10 @@ from scout.persistence.vacancy_location_scope import location_scope_condition
 def test_cape_town_scope_builds_location_predicates() -> None:
     condition, parameters = location_scope_condition("cape_town")
     assert "regexp_replace" in condition
-    assert len(parameters) == 30
+    assert len(parameters) == 28
     assert r"(^| )cape town( |$)" in parameters
+    assert r"(^| )ct( |$)" not in parameters
+    assert r"(^| )cpt( |$)" not in parameters
 
 
 def test_western_cape_scope_includes_regional_terms() -> None:
