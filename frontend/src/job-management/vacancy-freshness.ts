@@ -2,7 +2,6 @@ export type VacancyFreshnessTone = "fresh" | "recent" | "aging" | "stale";
 
 export type VacancyFreshness = {
   label: string;
-  dateLabel: string;
   tone: VacancyFreshnessTone;
   statusLabel: string;
 };
@@ -24,6 +23,7 @@ export function getVacancyFreshness(
 
   const ageInDays = Math.max(0, Math.floor((now - publishedDate.getTime()) / 86_400_000));
   const sourceLabel = updatedAt ? "Updated" : "Posted";
+  const dateLabel = publishedDate.toLocaleDateString();
   const tone: VacancyFreshnessTone =
     ageInDays <= 7 ? "fresh" : ageInDays <= 14 ? "recent" : ageInDays <= 30 ? "aging" : "stale";
   const statusLabel =
@@ -36,8 +36,7 @@ export function getVacancyFreshness(
           : "Stale";
 
   return {
-    label: `${sourceLabel} ${ageInDays} ${ageInDays === 1 ? "day" : "days"} ago`,
-    dateLabel: publishedDate.toLocaleDateString(),
+    label: `${sourceLabel} ${dateLabel} · ${ageInDays} ${ageInDays === 1 ? "day" : "days"} ago`,
     tone,
     statusLabel,
   };
