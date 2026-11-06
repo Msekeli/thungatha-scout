@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { useScoutWorkspace } from "../useScoutWorkspace";
+import { useScoutWorkspace } from "../use-scout-workspace";
 import { useScoutDashboardData } from "../useScoutDashboardData";
 import { useScoutDashboardMetrics } from "../useScoutDashboardMetrics";
 import { useVacancyFetching } from "../useVacancyFetching";
