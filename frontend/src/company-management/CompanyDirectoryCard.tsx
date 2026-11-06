@@ -2,6 +2,7 @@ import { ArrowDownRight, ArrowUpRight, BriefcaseBusiness, Building2 } from "luci
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource } from "../api";
 import { CompanyDirectoryLinks } from "./CompanyDirectoryLinks";
+import { getCompanyIconUrl } from "./company-icon-url";
 
 type Props = {
   employer: Employer;
@@ -51,11 +52,9 @@ export function CompanyDirectoryCard({
         className="scout-company-card__trigger h-auto w-full items-start justify-start gap-3 rounded-none px-4 pb-3 pt-4 pr-20 text-left font-normal"
       >
         <span className="scout-company-card__icon">
-          {employer.logo_url ? (
-            <img src={employer.logo_url} alt="" className="scout-company-card__logo" />
-          ) : (
-            <Building2 className="h-5 w-5" />
-          )}
+          <Building2 className="h-5 w-5" />
+          {iconUrl && <img src={iconUrl} alt="" className="scout-company-card__logo"
+            onError={(event) => { event.currentTarget.style.display = "none"; }} />}
         </span>
         <span className="min-w-0 flex-1">
           <strong className="block truncate text-sm font-semibold scout-company-card__name">
