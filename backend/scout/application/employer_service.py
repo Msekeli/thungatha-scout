@@ -25,8 +25,9 @@ class EmployerService:
     def create_employer(self, payload: EmployerCreate) -> dict[str, Any]:
         values = payload.model_dump()
         values["status"] = "discovered"
-        if values["website_url"] is not None:
-            values["website_url"] = str(values["website_url"])
+        for key in ("website_url", "logo_url", "logo_source_url"):
+            if values[key] is not None:
+                values[key] = str(values[key])
         with self._connection_factory() as connection, connection.transaction():
             return EmployerRepository(connection).create(values)
 
