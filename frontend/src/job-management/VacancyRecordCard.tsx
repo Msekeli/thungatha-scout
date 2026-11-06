@@ -1,6 +1,7 @@
 import { Archive, CalendarDays, Building2, MapPin, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Vacancy } from "../api";
+import { getCompanyIconUrl } from "../company-management/company-icon-url";
 
 type Props = {
   vacancy: Vacancy;
@@ -22,7 +23,7 @@ export function VacancyRecordCard({
   onRestore,
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
-  const logoUrl = vacancy.employer_logo_url;
+  const logoUrl = vacancy.employer_logo_url || getCompanyIconUrl(vacancy.employer_careers_url);
   return (
     <article className="scout-vacancy-card" data-selected={selected}>
       <div className="flex min-w-0 items-center gap-3 px-4 py-4">
