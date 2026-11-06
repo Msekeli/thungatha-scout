@@ -67,6 +67,7 @@ export function useScoutWorkspace(
   return {
     employers,
     setEmployers,
+    dashboardMetrics,
     ...activeVacancies,
     archivedVacancies: archived.archivedVacancies,
     setArchivedVacancies: archived.setArchivedVacancies,
