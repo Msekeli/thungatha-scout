@@ -58,17 +58,18 @@ export function CompanyDirectoryCard({
         className="scout-company-card__trigger h-auto w-full items-start justify-start gap-3 rounded-none px-4 pb-3 pt-4 pr-20 text-left font-normal"
       >
         <span className="scout-company-card__icon">
-          <Building2 className="h-5 w-5" />
-          {iconUrl && (
+          {iconUrl ? (
             <img
               src={iconUrl}
-              alt=""
+              alt={employer.name + " logo"}
               className="scout-company-card__logo"
               onError={(event) => {
                 event.currentTarget.style.display = "none";
+                event.currentTarget.parentElement?.querySelector("svg")?.removeAttribute("hidden");
               }}
             />
-          )}
+          ) : null}
+          <Building2 className="h-5 w-5" hidden={Boolean(iconUrl)} />
         </span>
         <span className="min-w-0 flex-1">
           <strong className="block truncate text-sm font-semibold scout-company-card__name">
