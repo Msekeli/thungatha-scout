@@ -5,18 +5,16 @@ from scout.persistence.vacancy_location_scope import location_scope_condition
 
 def test_cape_town_scope_builds_location_predicates() -> None:
     condition, parameters = location_scope_condition("cape_town")
-
     assert "regexp_replace" in condition
     assert len(parameters) == 30
-    assert r"(^| )cape\ town( |$)" in parameters
+    assert r"(^| )cape town( |$)" in parameters
 
 
 def test_western_cape_scope_includes_regional_terms() -> None:
     _, parameters = location_scope_condition("western_cape")
-
-    assert "western cape" in parameters
-    assert "stellenbosch" in parameters
-    assert "paarl" in parameters
+    assert r"(^| )western cape( |$)" in parameters
+    assert r"(^| )stellenbosch( |$)" in parameters
+    assert r"(^| )paarl( |$)" in parameters
 
 
 @pytest.mark.parametrize("scope", ["all", "south_africa"])
