@@ -21,9 +21,12 @@ export function CompanyDirectoryCard({
   selected,
   onSelect,
 }: Props) {
-  const iconUrl = employer.logo_url || getCompanyIconUrl(
-    employer.website_url || sources.find((source) => source.employer_careers_url)?.employer_careers_url,
-  );
+  const iconUrl =
+    employer.logo_url ||
+    getCompanyIconUrl(
+      employer.website_url ||
+        sources.find((source) => source.employer_careers_url)?.employer_careers_url,
+    );
   return (
     <article className="scout-company-card relative" data-selected={selected}>
       <div className="scout-company-card__accent" />
