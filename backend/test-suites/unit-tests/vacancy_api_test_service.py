@@ -42,7 +42,7 @@ class FakeExtractionService:
             "has_more": offset + 1 < 201,
         }
 
-    def export_vacancies(self, limit=50, offset=0):
+    def export_vacancies(self, limit=50, offset=0, location_scope="south_africa"):
         return {
             "items": [
                 {
@@ -55,6 +55,7 @@ class FakeExtractionService:
             "limit": limit,
             "offset": offset,
             "has_more": offset + 1 < 81,
+            "location_scope": location_scope,
         }
 
     def get_vacancy(self, vacancy_id):
