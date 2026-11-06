@@ -26,6 +26,7 @@ export type Vacancy = {
   last_seen_at: string;
   archived_at?: string | null;
   archived_reason?: string | null;
+  employer_website_url?: string | null;
   employer_careers_url?: string | null;
   employer_logo_url?: string | null;
   employer_logo_source_url?: string | null;
