@@ -284,3 +284,14 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - A specific job-level location is retained when it is already more precise than a broad office label.
 - Original Greenhouse location, department and office objects remain in `raw_payload` for traceability.
 - This is source-field prioritisation and display normalization, not a general geocoder. It must not infer a city from employer headquarters or unrelated description text. Unknown or ambiguous office labels require a later evidence-based resolution step.
+
+## Decision record — vacancy freshness date priority (6 November 2026)
+
+- Vacancy freshness represents the employer/source's latest recorded activity on the advertisement, not the date Scout first discovered it.
+- Use `source_updated_at` as the primary freshness timestamp when it is present and valid.
+- If `source_updated_at` is absent or invalid, fall back to the original `published_at` timestamp.
+- If neither timestamp is valid, display `Date unavailable`. Do not substitute `first_seen_at`, `last_seen_at`, or Scout's database timestamps because those describe Scout's observation activity, not the employer's advertisement date.
+- Preserve `published_at` and `source_updated_at` independently. Updating freshness must never overwrite the original publication timestamp.
+- Admin freshness bands: 0–7 days green (Fresh), 8–14 days yellow (Recent), 15–30 days amber (Aging), and over 30 days red (Stale).
+- Freshness is an activity signal, not proof that a vacancy remains open or that an employer has not hired. Age alone must not expire, remove, or suppress a vacancy.
+- Show the selected timestamp's date and relative age in the vacancy list and detail header.
