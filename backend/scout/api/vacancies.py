@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 from scout.api.vacancy_api_dependencies import get_extraction_service
 from scout.api.vacancy_archive_routes import router as archive_router
+from scout.api.vacancy_export_routes import router as export_router
 from scout.application.greenhouse_extraction_service import (
     GreenhouseExtractionService,
     SourceNotFoundError,
@@ -13,6 +14,7 @@ from scout.application.greenhouse_extraction_service import (
 
 router = APIRouter(tags=["vacancies"])
 router.include_router(archive_router)
+router.include_router(export_router)
 
 
 @router.get("/vacancies/metrics")
