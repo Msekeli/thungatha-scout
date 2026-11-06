@@ -2,31 +2,21 @@ import { useState } from "react";
 import { useVacancyArchiveActions } from "./useVacancyArchiveActions";
 import { useVacancySelection } from "./useVacancySelection";
 
-type UseVacancyManagementOptions = {
+type Options = {
   onRefresh: () => Promise<void>;
   onNotice: (message: string) => void;
   onError: (message: string) => void;
 };
 
-export function useVacancyManagement({
-  onRefresh,
-  onNotice,
-  onError,
-}: UseVacancyManagementOptions) {
-  const [saving, setSaving] = useState(false);
+export function useVacancyManagement({ onRefresh, onNotice, onError }: Options) {
+  const [savingVacancyId, setSavingVacancyId] = useState<string | null>(null);
   const selection = useVacancySelection({ onError });
   const archiveActions = useVacancyArchiveActions({
-    selectedVacancy: selection.selectedVacancy,
-    setSaving,
-    clearSelection: selection.clearSelection,
+    setSavingId: setSavingVacancyId,
     onRefresh,
     onNotice,
     onError,
   });
 
-  return {
-    ...selection,
-    saving,
-    ...archiveActions,
-  };
+  return { ...selection, savingVacancyId, ...archiveActions };
 }
