@@ -29,9 +29,7 @@ class VacancyArchiveOperations:
         ).fetchone()
         return self.get_by_id(vacancy_id) if row else None
 
-    def list_archived(
-        self, limit: int = 200, offset: int = 0
-    ) -> list[dict[str, Any]]:
+    def list_archived(self, limit: int = 200, offset: int = 0) -> list[dict[str, Any]]:
         return self._connection.execute(
             """
             SELECT v.id, v.employer_id, v.source_id, v.external_job_id,
