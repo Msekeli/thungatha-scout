@@ -4,6 +4,9 @@ from uuid import UUID
 
 from psycopg.connection import Connection
 
+from scout.application.vacancy_description_sanitizer import (
+    sanitize_vacancy_description,
+)
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.vacancy_repository import VacancyRepository
 
@@ -35,7 +38,12 @@ class VacancyManagementService:
 
     def export_vacancies(self, limit: int = 50, offset: int = 0) -> dict[str, Any]:
         with self._connection_factory() as connection:
-            return VacancyRepository(connection).export_page(limit, offset)
+            page = VacancyRepository(connection).export_page(limit, offset)
+        for vacancy in page["items"]:
+            vacancy["description"] = sanitize_vacancy_description(
+                vacancy.get("description")
+            )
+        return page
 
     def list_vacancies(
         self, employer_id: UUID | None = None, limit: int = 200, offset: int = 0
