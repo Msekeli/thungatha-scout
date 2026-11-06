@@ -46,7 +46,6 @@ def test_export_query_returns_only_verified_publishable_records() -> None:
     connection = FakeConnection([{"total": 3}])
     result = VacancyRepository(connection).export_page(limit=25, offset=0)
 
-    count_query, _ = connection.queries[0]
     export_query, parameters = connection.queries[1]
     assert result["total"] == 3
     assert "e.status = 'approved'" in export_query
