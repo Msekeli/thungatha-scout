@@ -65,6 +65,7 @@ def test_exports_active_vacancies_with_full_descriptions() -> None:
     assert payload["has_more"] is True
     assert payload["items"][0]["description"] == "Build software."
 
+
 def test_exports_vacancies_using_selected_location_scope() -> None:
     with vacancy_client() as client:
         response = client.get("/api/v1/vacancies/export?location_scope=cape_town")

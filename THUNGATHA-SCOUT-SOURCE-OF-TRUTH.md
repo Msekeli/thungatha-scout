@@ -268,7 +268,6 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - This rule applies to every adapter through the shared persistence boundary. Adapter-specific checks may add validation but must not weaken it.
 - The admin South Africa filter is a view over the already-qualified vacancy catalogue, not a substitute for ingestion validation.
 
-
 ## Decision record — export location scope (6 November 2026)
 
 - Vacancy export defaults to `south_africa`, matching the South Africa-wide persisted vacancy catalogue.
