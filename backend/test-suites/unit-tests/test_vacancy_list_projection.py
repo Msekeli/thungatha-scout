@@ -55,6 +55,8 @@ def test_export_query_returns_only_verified_publishable_records() -> None:
     assert "s.status" not in export_query
     assert "permission_status" not in export_query
     assert "scout_source_" in export_query
+    assert "e.logo_url" in export_query
+    assert "e.logo_source_url" in export_query
     assert "v.description" in export_query
     assert "raw_payload" not in export_query
     assert parameters == (25, 0)
