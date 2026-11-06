@@ -20,9 +20,13 @@ def map_greenhouse_job(
     departments = job.get("departments")
     offices = job.get("offices")
     office_names = (
-        [item.get("name") for item in offices
-         if isinstance(item, dict) and isinstance(item.get("name"), str)]
-        if isinstance(offices, list) else []
+        [
+            item.get("name")
+            for item in offices
+            if isinstance(item, dict) and isinstance(item.get("name"), str)
+        ]
+        if isinstance(offices, list)
+        else []
     )
     return {
         "employer_id": employer_id,
@@ -41,10 +45,12 @@ def map_greenhouse_job(
         "application_url": job["absolute_url"],
         "published_at": job.get("first_published"),
         "source_updated_at": job.get("updated_at"),
-        "raw_payload": Jsonb({
-            key: job[key]
-            for key in ("location", "departments", "offices")
-            if key in job
-        }),
+        "raw_payload": Jsonb(
+            {
+                key: job[key]
+                for key in ("location", "departments", "offices")
+                if key in job
+            }
+        ),
         "fingerprint": fingerprint,
     }

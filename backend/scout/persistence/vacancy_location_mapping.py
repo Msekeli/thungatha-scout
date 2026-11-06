@@ -7,9 +7,17 @@ _OFFICE_SUFFIX = re.compile(
     re.IGNORECASE,
 )
 _BROAD_LOCATIONS = {
-    "south africa", "western cape", "eastern cape", "northern cape",
-    "gauteng", "kwazulu natal", "kwa zulu natal", "free state",
-    "north west", "limpopo", "mpumalanga",
+    "south africa",
+    "western cape",
+    "eastern cape",
+    "northern cape",
+    "gauteng",
+    "kwazulu natal",
+    "kwa zulu natal",
+    "free state",
+    "north west",
+    "limpopo",
+    "mpumalanga",
 }
 _GENERIC_OFFICES = {"head", "main", "regional", "national"}
 
@@ -33,7 +41,9 @@ def resolve_greenhouse_location(location: Any, offices: Any) -> str | None:
     location_name = (
         location.get("name").strip()
         if isinstance(location, dict) and isinstance(location.get("name"), str)
-        else location.strip() if isinstance(location, str) else ""
+        else location.strip()
+        if isinstance(location, str)
+        else ""
     )
     office_names = _office_location_names(offices)
     if office_names and (
