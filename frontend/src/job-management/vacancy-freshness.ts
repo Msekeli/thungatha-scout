@@ -22,19 +22,18 @@ export function getVacancyFreshness(
   const publishedDate = updatedAt ?? parseTimestamp(publishedAt);
   if (!publishedDate) return null;
 
-  const ageInDays = Math.max(
-    0,
-    Math.floor((now - publishedDate.getTime()) / 86_400_000),
-  );
+  const ageInDays = Math.max(0, Math.floor((now - publishedDate.getTime()) / 86_400_000));
   const sourceLabel = updatedAt ? "Updated" : "Posted";
   const tone: VacancyFreshnessTone =
-    ageInDays <= 7 ? "fresh" :
-    ageInDays <= 14 ? "recent" :
-    ageInDays <= 30 ? "aging" : "stale";
+    ageInDays <= 7 ? "fresh" : ageInDays <= 14 ? "recent" : ageInDays <= 30 ? "aging" : "stale";
   const statusLabel =
-    tone === "fresh" ? "Fresh" :
-    tone === "recent" ? "Recent" :
-    tone === "aging" ? "Aging" : "Stale";
+    tone === "fresh"
+      ? "Fresh"
+      : tone === "recent"
+        ? "Recent"
+        : tone === "aging"
+          ? "Aging"
+          : "Stale";
 
   return {
     label: `${sourceLabel} ${ageInDays} ${ageInDays === 1 ? "day" : "days"} ago`,
