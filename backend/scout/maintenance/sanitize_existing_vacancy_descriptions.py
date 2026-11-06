@@ -14,6 +14,8 @@ def prepare_changes(rows: list[dict[str, Any]]) -> list[tuple[Any, str, str]]:
     changes = []
     for row in rows:
         original = row["description"]
+        if original is None:
+            continue
         sanitized = sanitize_vacancy_description(original)
         if sanitized != original:
             changes.append((row["id"], original, sanitized))
