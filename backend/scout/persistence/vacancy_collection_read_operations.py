@@ -14,8 +14,9 @@ class VacancyCollectionReadOperations:
     def _list_active(
         self, employer_id: UUID | None, limit: int, offset: int
     ) -> list[dict[str, Any]]:
-        employer_filter = " AND v.employer_id = %s" if employer_id else ""
-        parameters: list[Any] = [employer_id] if employer_id else []
+        has_employer_filter = employer_id is not None
+        employer_filter = " AND v.employer_id = %s" if has_employer_filter else ""
+        parameters: list[Any] = [employer_id] if has_employer_filter else []
         parameters.extend((limit, offset))
         return self._connection.execute(
             f"""
