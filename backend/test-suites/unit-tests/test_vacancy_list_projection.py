@@ -10,8 +10,6 @@ def test_active_vacancy_list_omits_full_description_payload() -> None:
     assert "v.title" in query
     assert "e.logo_url AS employer_logo_url" in query
     assert "e.logo_source_url AS employer_logo_source_url" in query
-    assert "e.logo_url AS employer_logo_url" in query
-    assert "e.logo_source_url AS employer_logo_source_url" in query
     assert "v.*" not in query
     assert "v.description" not in query
     assert "raw_payload" not in query
@@ -47,20 +45,25 @@ def test_employer_vacancy_list_keeps_employer_filter() -> None:
     assert parameters == ["employer-id", 12, 3]
 
 
-def test_export_query_returns_only_verified_publishable_records() -> None:
+def test_export_query_returns_the_public_scout_projection() -> None:
     connection = FakeConnection([{"total": 3}])
     result = VacancyRepository(connection).export_page(limit=25, offset=0)
 
     export_query, parameters = connection.queries[1]
     assert result["total"] == 3
+    assert result["location_scope"] == "south_africa"
     assert "v.status = 'active'" in export_query
     assert "v.archived_at IS NULL" in export_query
-    assert "e.status" not in export_query
-    assert "s.status" not in export_query
-    assert "permission_status" not in export_query
-    assert "scout_source_" in export_query
+    assert "v.id AS scout_vacancy_id" in export_query
+    assert "e.name AS employer_name" in export_query
     assert "e.logo_url" in export_query
-    assert "e.logo_source_url" in export_query
     assert "v.description" in export_query
+    assert "v.published_at" in export_query
+    assert "v.source_updated_at" in export_query
+    assert "v.first_seen_at" in export_query
     assert "raw_payload" not in export_query
+    assert "external_job_id" not in export_query
+    assert "source_url" not in export_query
+    assert "ORDER BY v.published_at DESC NULLS LAST" in export_query
+    assert "v.id ASC" in export_query
     assert parameters == (25, 0)
