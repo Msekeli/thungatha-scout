@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from vacancy_api_test_service import vacancy_client
+from vacancy_api_test_client import vacancy_client
 
 
 def test_extracts_a_registered_source() -> None:

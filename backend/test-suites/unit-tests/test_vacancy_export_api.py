@@ -1,12 +1,12 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
+from vacancy_api_test_service import FakeExtractionService
 
 from scout.api.vacancies import get_extraction_service
 from scout.main import app
 from scout.settings import Settings, get_settings
-from vacancy_api_test_service import FakeExtractionService
 
 
 def test_export_returns_the_documented_scout_contract() -> None:
@@ -24,9 +24,9 @@ def test_export_returns_the_documented_scout_contract() -> None:
                         "description": "<p>Build software.</p>",
                         "location_text": "Cape Town, South Africa",
                         "application_url": "https://jobs.example.com/apply/123",
-                        "published_at": datetime(2026, 11, 1, tzinfo=timezone.utc),
+                        "published_at": datetime(2026, 11, 1, tzinfo=UTC),
                         "source_updated_at": None,
-                        "first_seen_at": datetime(2026, 11, 2, tzinfo=timezone.utc),
+                        "first_seen_at": datetime(2026, 11, 2, tzinfo=UTC),
                     }
                 ],
                 "total": 1,
@@ -70,6 +70,10 @@ def test_export_requires_the_configured_server_to_server_key() -> None:
     try:
         with TestClient(app) as client:
             missing_key = client.get("/api/v1/vacancies/export")
+            invalid_key = client.get(
+                "/api/v1/vacancies/export",
+                headers={"X-Scout-Export-Key": "wrong-key"},
+            )
             valid_key = client.get(
                 "/api/v1/vacancies/export",
                 headers={"X-Scout-Export-Key": "test-export-key"},
@@ -78,6 +82,7 @@ def test_export_requires_the_configured_server_to_server_key() -> None:
         app.dependency_overrides.clear()
 
     assert missing_key.status_code == 401
+    assert invalid_key.status_code == 401
     assert valid_key.status_code == 200
 
 

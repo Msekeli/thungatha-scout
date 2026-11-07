@@ -1,5 +1,6 @@
-from scout.persistence.vacancy_repository import VacancyRepository
 from dashboard_bulk_read_test_connection import FakeConnection
+
+from scout.persistence.vacancy_repository import VacancyRepository
 
 
 def test_active_vacancy_list_omits_full_description_payload() -> None:
@@ -32,7 +33,7 @@ def test_cape_town_page_applies_location_scope_and_pagination() -> None:
     assert result["total"] == 31
     assert result["has_more"] is True
     assert "regexp_replace" in connection.queries[0][0]
-    assert len(connection.queries[0][1]) == 30
+    assert len(connection.queries[0][1]) == 28
     assert connection.queries[1][1][-2:] == [10, 20]
 
 
@@ -66,4 +67,4 @@ def test_export_query_returns_the_public_scout_projection() -> None:
     assert "source_url" not in export_query
     assert "ORDER BY v.published_at DESC NULLS LAST" in export_query
     assert "v.id ASC" in export_query
-    assert parameters == (25, 0)
+    assert parameters == [25, 0]

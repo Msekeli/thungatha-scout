@@ -1,11 +1,5 @@
-from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
-
-from fastapi.testclient import TestClient
-
-from scout.api.vacancies import get_extraction_service
-from scout.main import app
 
 
 class FakeExtractionService:
@@ -54,9 +48,9 @@ class FakeExtractionService:
                     "description": "Build software.",
                     "location_text": "Cape Town, South Africa",
                     "application_url": "https://jobs.example.com/apply/123",
-                    "published_at": datetime(2026, 11, 1, tzinfo=timezone.utc),
+                    "published_at": datetime(2026, 11, 1, tzinfo=UTC),
                     "source_updated_at": None,
-                    "first_seen_at": datetime(2026, 11, 2, tzinfo=timezone.utc),
+                    "first_seen_at": datetime(2026, 11, 2, tzinfo=UTC),
                 }
             ],
             "total": 81,
@@ -98,12 +92,3 @@ class FakeExtractionService:
 
     def list_all_extraction_runs(self):
         return [{"source_id": "source-1", "outcome": "success"}]
-
-
-@contextmanager
-def vacancy_client():
-    app.dependency_overrides[get_extraction_service] = FakeExtractionService
-    try:
-        yield TestClient(app)
-    finally:
-        app.dependency_overrides.clear()
