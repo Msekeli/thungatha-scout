@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
@@ -46,9 +47,16 @@ class FakeExtractionService:
         return {
             "items": [
                 {
-                    "scout_vacancy_id": str(uuid4()),
+                    "scout_vacancy_id": uuid4(),
+                    "employer_name": "Example Employer",
+                    "logo_url": None,
                     "title": "Software Engineer",
                     "description": "Build software.",
+                    "location_text": "Cape Town, South Africa",
+                    "application_url": "https://jobs.example.com/apply/123",
+                    "published_at": datetime(2026, 11, 1, tzinfo=timezone.utc),
+                    "source_updated_at": None,
+                    "first_seen_at": datetime(2026, 11, 2, tzinfo=timezone.utc),
                 }
             ],
             "total": 81,
