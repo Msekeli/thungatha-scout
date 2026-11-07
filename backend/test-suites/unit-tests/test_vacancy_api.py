@@ -63,7 +63,10 @@ def test_exports_active_vacancies_with_full_descriptions() -> None:
     assert payload["limit"] == 25
     assert payload["offset"] == 50
     assert payload["has_more"] is True
+    assert payload["location_scope"] == "south_africa"
     assert payload["items"][0]["description"] == "Build software."
+    assert "external_job_id" not in payload["items"][0]
+    assert "source_url" not in payload["items"][0]
 
 
 def test_exports_vacancies_using_selected_location_scope() -> None:
