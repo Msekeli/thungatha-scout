@@ -21,17 +21,15 @@ class VacancyExportReadOperations:
         ).fetchone()["total"]
         rows = self._connection.execute(
             f"""
-            SELECT v.id AS scout_vacancy_id, v.source_id AS scout_source_id,
-                   v.external_job_id,
-                   'scout_source_' || replace(s.id::text, '-', '') AS provider_key,
-                   s.adapter_key AS provider_kind, e.name AS employer_name,
-                   e.logo_url, e.logo_source_url,
-                   v.title, v.description, v.location_text, v.department,
-                   v.office, v.source_url, v.application_url, v.published_at,
-                   v.source_updated_at, v.content_fingerprint
+            SELECT v.id AS scout_vacancy_id, e.name AS employer_name,
+                   e.logo_url, v.title, v.description, v.location_text,
+                   v.application_url, v.published_at, v.source_updated_at,
+                   v.first_seen_at
             {joins}
             WHERE {where}
-            ORDER BY v.source_updated_at DESC NULLS LAST, v.created_at DESC
+            ORDER BY v.published_at DESC NULLS LAST,
+                     v.source_updated_at DESC NULLS LAST,
+                     v.created_at DESC, v.id ASC
             LIMIT %s OFFSET %s
             """,
             [*parameters, limit, offset],
@@ -42,4 +40,5 @@ class VacancyExportReadOperations:
             "limit": limit,
             "offset": offset,
             "has_more": offset + len(rows) < total,
+            "location_scope": location_scope,
         }
