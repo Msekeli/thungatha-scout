@@ -1,6 +1,6 @@
 from secrets import compare_digest
 
-from fastapi import Header, HTTPException, status
+from fastapi import Depends, Header, HTTPException, status
 from pydantic import SecretStr
 
 from scout.settings import Settings, get_settings
@@ -8,8 +8,8 @@ from scout.settings import Settings, get_settings
 
 def require_vacancy_export_access(
     export_key: str | None = Header(default=None, alias="X-Scout-Export-Key"),
+    settings: Settings = Depends(get_settings),
 ) -> None:
-    settings: Settings = get_settings()
     configured_key: SecretStr | None = settings.scout_export_api_key
 
     if configured_key is None:
