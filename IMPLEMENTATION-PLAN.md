@@ -18,7 +18,7 @@ Scout is an unattended employer-sourced vacancy ingestion and publishing system 
 
 Human review is exception-based, not a mandatory approval step for every vacancy. Only records that pass deterministic publication gates are published. Uncertain or incomplete records are held for review.
 
-V1 ATS adapters: Greenhouse and Workday. Initial geographic scope: Cape Town. No public job-search frontend or recruiter self-service.
+V1 ATS adapter: Greenhouse. Workday is deferred from active investigation and implementation until further notice. Initial geographic scope: Cape Town. No public job-search frontend or recruiter self-service.
 
 ## 3. Current architecture
 
@@ -28,7 +28,7 @@ V1 ATS adapters: Greenhouse and Workday. Initial geographic scope: Cape Town. No
 | Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending                                                                             |
 | Scout operational database           | Dedicated Supabase PostgreSQL project                                                                                                         |
 | Thungatha publication destination    | Existing Thungatha Supabase PostgreSQL project                                                                                                |
-| ATS integrations                     | Greenhouse and Workday adapters                                                                                                               |
+| ATS integrations                     | Greenhouse adapter; Workday deferred                                                                                                               |
 | Admin authentication                 | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
 Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.
@@ -102,7 +102,7 @@ Acceptance: adding another Greenhouse employer requires registry configuration, 
 
 ### M4 — ATS adapter expansion
 
-Expand beyond the initial five-platform catalogue using the evidence-based ranking in `docs/ATS-PLATFORM-RESEARCH.md`. Difficulty controls implementation order, not whether an employer/source is retained.
+Expand beyond Greenhouse using the evidence-based ranking and employer test cohort in `docs/ATS-PLATFORM-RESEARCH.md` and `backend/registry/ats-adapter-registry.json`. Difficulty controls implementation order, not whether an employer/source is retained.
 
 **First wave — easy public feeds and endpoints**
 
@@ -124,7 +124,6 @@ Expand beyond the initial five-platform catalogue using the evidence-based ranki
 
 - Simplify.hr: inspect real South African employer pages and network calls; no general public unauthenticated feed has yet been established.
 - eRecruit / Neptune: investigate employer portals individually. Do not conflate the Shoprite eRecruit portal with Graylink's separately marketed Neptune ATS.
-- Workday: observed public CXS POST listing plus detail GET; parse host, tenant and site independently, paginate conservatively and validate completeness.
 - Zoho Recruit: observed careers-page HTML/embedded data, not a documented public API.
 - SAP SuccessFactors: tenant-specific Career Site Builder/custom careers pages; do not build around the legacy RSS/XML response scheduled for deletion in May 2027.
 
@@ -155,7 +154,7 @@ Deliver the private React admin incrementally:
 - Companies and sources list/detail workflows.
 - URL-first Add Company flow: paste URL, detect supported ATS, preview metadata/configuration, allow manual fallback, confirm employer/source relationship.
 - Source connection test, operational status and useful error feedback.
-- Progressive Greenhouse and Workday integration as each API contract stabilises.
+- Progressive Greenhouse integration and first-wave ATS adapters as each API contract stabilises. Workday remains deferred.
 - Dashboard, vacancies and exception/review views when their backend capabilities are ready.
 - Vacancy detail, review, and archive/restore controls integrated against the management API.
 
