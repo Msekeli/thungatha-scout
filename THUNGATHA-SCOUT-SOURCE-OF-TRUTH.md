@@ -328,7 +328,6 @@ The earlier five-platform M4 scope is superseded by the research catalogue in `d
 - Do not use undocumented endpoints as if they were vendor-supported APIs. Record access method, source evidence, field completeness, redirect behavior and operational limits separately.
 - The research ranking is an implementation-effort estimate, not a market-share ranking. High-value difficult sources must not be excluded; move them into the hard-source backlog and revisit based on employer coverage.
 
-
 ## Decision record — first-wave employer test cohort and Workday deferral (8 November 2026)
 
 - The first-wave research cohort is Ashby, Lever, Teamtailor, Personio, Recruitee and Workable. Greenhouse remains the already-implemented reference adapter and is not part of this new research cohort.

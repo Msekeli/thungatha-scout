@@ -28,7 +28,7 @@ V1 ATS adapter: Greenhouse. Workday is deferred from active investigation and im
 | Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending                                                                             |
 | Scout operational database           | Dedicated Supabase PostgreSQL project                                                                                                         |
 | Thungatha publication destination    | Existing Thungatha Supabase PostgreSQL project                                                                                                |
-| ATS integrations                     | Greenhouse adapter; Workday deferred                                                                                                               |
+| ATS integrations                     | Greenhouse adapter; Workday deferred                                                                                                          |
 | Admin authentication                 | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
 Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.

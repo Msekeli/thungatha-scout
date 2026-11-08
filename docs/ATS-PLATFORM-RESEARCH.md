@@ -37,26 +37,26 @@ Difficulty is an engineering estimate based on documented retrieval method, requ
 
 The following company/career-page pairs are the initial research cohort for the first wave. These are **test targets**, not evidence that Scout has already extracted their vacancies. The ATS-hosted URL is a starting point; the investigator must inspect the actual page, redirects, browser network requests, scripts and embedded data, then reproduce the retrieval requests.
 
-| ATS | Company | Careers URL | Evidence / test note |
-| --- | --- | --- | --- |
-| Ashby | Midnite | https://jobs.ashbyhq.com/midnite | Confirmed Ashby-hosted board; Cape Town vacancy evidence found. |
-| Ashby | MyEdSpace | https://jobs.ashbyhq.com/myedspacecareers | Confirmed Ashby-hosted board; South Africa remote vacancy evidence found. |
-| Ashby | Tree Traction | https://jobs.ashbyhq.com/treetraction | Confirmed Ashby-hosted board; South Africa remote vacancy evidence found. |
-| Lever | Mama Money | https://jobs.lever.co/mamamoney | Confirmed Lever-hosted board; South Africa/Cape Town vacancy evidence found. |
-| Lever | Theodo | https://jobs.lever.co/theodo | Confirmed Lever-hosted board; South Africa vacancy evidence found. |
-| Lever | Wing Assistant | https://jobs.lever.co/getwingapp | Confirmed Lever-hosted board; South Africa vacancy evidence found. |
-| Teamtailor | Root Platform | https://root.teamtailor.com/jobs | Confirmed Teamtailor-hosted board; Cape Town vacancy evidence found. |
-| Teamtailor | Footasylum | https://footasylum.teamtailor.com/jobs | Confirmed Teamtailor-hosted board; international comparison. |
-| Teamtailor | TeamViewer | https://careers.teamviewer.com/jobs | Teamtailor custom careers domain; test non-default domain handling. |
-| Personio | ottonova | https://ottonova.jobs.personio.de/ | Confirmed Personio-hosted page; verify employer-enabled XML feed. |
-| Personio | Open | https://open.jobs.personio.com/ | Confirmed Personio-hosted page; verify current vacancies and XML feed. |
-| Personio | Openprovider | https://openprovider.jobs.personio.com/ | Confirmed Personio-hosted page; previously showed no open positions, useful for empty-board behavior. |
-| Recruitee | TransPerfect | https://transperfect.recruitee.com/ | Confirmed Recruitee-hosted page. |
-| Recruitee | Fastned | https://fastned.recruitee.com/ | Confirmed Recruitee-hosted page. |
-| Recruitee | Tether | https://tether.recruitee.com/ | Historical/variable: URL has redirected to main careers site; verify current platform status. |
-| Workable | LekkeSlaap | https://apply.workable.com/lekkeslaap/ | Confirmed Workable-hosted board; Cape Town/South Africa vacancy evidence found. |
-| Workable | Electrum | https://apply.workable.com/electrum/ | Confirmed Workable-hosted board; South African technology vacancy evidence found. |
-| Workable | GoTyme Bank | https://apply.workable.com/gotyme-za-south-africa/ | Confirmed Workable-hosted board; South African vacancy evidence found. |
+| ATS        | Company        | Careers URL                                        | Evidence / test note                                                                                  |
+| ---------- | -------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Ashby      | Midnite        | https://jobs.ashbyhq.com/midnite                   | Confirmed Ashby-hosted board; Cape Town vacancy evidence found.                                       |
+| Ashby      | MyEdSpace      | https://jobs.ashbyhq.com/myedspacecareers          | Confirmed Ashby-hosted board; South Africa remote vacancy evidence found.                             |
+| Ashby      | Tree Traction  | https://jobs.ashbyhq.com/treetraction              | Confirmed Ashby-hosted board; South Africa remote vacancy evidence found.                             |
+| Lever      | Mama Money     | https://jobs.lever.co/mamamoney                    | Confirmed Lever-hosted board; South Africa/Cape Town vacancy evidence found.                          |
+| Lever      | Theodo         | https://jobs.lever.co/theodo                       | Confirmed Lever-hosted board; South Africa vacancy evidence found.                                    |
+| Lever      | Wing Assistant | https://jobs.lever.co/getwingapp                   | Confirmed Lever-hosted board; South Africa vacancy evidence found.                                    |
+| Teamtailor | Root Platform  | https://root.teamtailor.com/jobs                   | Confirmed Teamtailor-hosted board; Cape Town vacancy evidence found.                                  |
+| Teamtailor | Footasylum     | https://footasylum.teamtailor.com/jobs             | Confirmed Teamtailor-hosted board; international comparison.                                          |
+| Teamtailor | TeamViewer     | https://careers.teamviewer.com/jobs                | Teamtailor custom careers domain; test non-default domain handling.                                   |
+| Personio   | ottonova       | https://ottonova.jobs.personio.de/                 | Confirmed Personio-hosted page; verify employer-enabled XML feed.                                     |
+| Personio   | Open           | https://open.jobs.personio.com/                    | Confirmed Personio-hosted page; verify current vacancies and XML feed.                                |
+| Personio   | Openprovider   | https://openprovider.jobs.personio.com/            | Confirmed Personio-hosted page; previously showed no open positions, useful for empty-board behavior. |
+| Recruitee  | TransPerfect   | https://transperfect.recruitee.com/                | Confirmed Recruitee-hosted page.                                                                      |
+| Recruitee  | Fastned        | https://fastned.recruitee.com/                     | Confirmed Recruitee-hosted page.                                                                      |
+| Recruitee  | Tether         | https://tether.recruitee.com/                      | Historical/variable: URL has redirected to main careers site; verify current platform status.         |
+| Workable   | LekkeSlaap     | https://apply.workable.com/lekkeslaap/             | Confirmed Workable-hosted board; Cape Town/South Africa vacancy evidence found.                       |
+| Workable   | Electrum       | https://apply.workable.com/electrum/               | Confirmed Workable-hosted board; South African technology vacancy evidence found.                     |
+| Workable   | GoTyme Bank    | https://apply.workable.com/gotyme-za-south-africa/ | Confirmed Workable-hosted board; South African vacancy evidence found.                                |
 
 **Evidence caution:** "Confirmed" here confirms the career-page/ATS association observed during research. It does not confirm that the XML/RSS/API endpoint is enabled, stable, complete or suitable for production. In particular, Personio XML availability depends on employer configuration; Tether's Recruitee URL has shown redirect behavior. Validate all endpoints live before implementation.
 
@@ -353,8 +353,8 @@ Never follow unlimited redirects, submit forms, or bypass access controls. Use b
 
 11. Simplify.hr
 12. eRecruit / Neptune investigation
-14. Zoho Recruit
-15. SAP SuccessFactors
+13. Zoho Recruit
+14. SAP SuccessFactors
 
 ### Separate source pipelines
 
