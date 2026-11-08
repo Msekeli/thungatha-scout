@@ -52,7 +52,7 @@ Human approval is an explicit backend state, not just a UI button. Publish appro
 
 ## Scheduling
 
-Initial proposal: company discovery weekly while coverage is growing; reduce to monthly/on-demand when yield becomes low; company/source verification weekly; vacancy extraction every 8 hours; publish after successful batches plus a recovery pass; daily reconciliation. Schedules must be configurable. Avoid overlapping runs and bound retries.
+Company discovery: weekly while coverage is growing; reduce to monthly/on-demand when yield becomes low. Company/source verification: weekly. Vacancy extraction: twice daily at 06:00 and 18:00 in the `Africa/Johannesburg` timezone. Each run starts at its scheduled time and may finish earlier when its work is complete; it must not be kept running merely to fill the time window. One hour is the maximum execution duration, not a target. A run that completes in 15 or 30 minutes exits normally. Enforce a hard one-hour timeout, prevent overlapping runs, and use bounded retries. Publish qualifying records after successful batches and run recovery for failed publication attempts. Reconcile lifecycle only from sufficiently complete successful extraction results; a failed/partial run must not expire vacancies. Schedules and execution limits must remain configurable.
 
 ## AI principles
 
@@ -295,3 +295,13 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - Admin freshness bands: 0–7 days green (Fresh), 8–14 days yellow (Recent), 15–30 days amber (Aging), and over 30 days red (Stale).
 - Freshness is an activity signal, not proof that a vacancy remains open or that an employer has not hired. Age alone must not expire, remove, or suppress a vacancy.
 - Show the selected timestamp's date and relative age in the vacancy list and detail header.
+
+
+## Decision record — twice-daily vacancy extraction window (8 November 2026)
+
+- Replace the earlier eight-hour vacancy extraction cadence with two scheduled starts per day: 06:00 and 18:00 South African time (`Africa/Johannesburg`).
+- Each scheduled run has a maximum duration of one hour, ending no later than 07:00 or 19:00 respectively.
+- One hour is a ceiling, not a required runtime. The worker exits as soon as its assigned work is complete; a 15-minute or 30-minute run is successful when all assigned work has completed.
+- Do not pad, sleep, or otherwise force a run to consume the full hour.
+- Prevent overlapping executions. If a run reaches the one-hour limit, record it as timed out/partial as appropriate and preserve completed per-source progress. Never treat a timeout or incomplete inventory as evidence that vacancies have disappeared.
+- This is the initial operating schedule; actual runtimes and source coverage will be measured after the complete extraction workflow is implemented and tested. The schedule and maximum duration remain configurable.
