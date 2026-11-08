@@ -102,7 +102,9 @@ Acceptance: adding another Greenhouse employer requires registry configuration, 
 
 ### M4 — ATS adapter expansion
 
-Expand beyond Greenhouse using the evidence-based ranking and employer test cohort in `docs/ATS-PLATFORM-RESEARCH.md`, `docs/ATS-EMPLOYER-TEST-TARGETS.jsonc` and `backend/registry/ats-adapter-registry.json`. Difficulty controls implementation order, not whether an employer/source is retained. Greenhouse remains implemented and is excluded from the new cohort. Workday is deferred from active investigation, implementation and test-target lists until further notice.
+Execute this milestone only through the individually reviewable checkpoints in `milestones/M4-ATS-ADAPTER-EXPANSION.md`. Do not attempt M4 as one large implementation. Start with M4-C01 Ashby investigation; complete its design, implementation, tests and live validation checkpoints, then stop for user review before proceeding to the next platform. The milestone document contains the required next-chat handoff prompt and the Greenhouse reference inspection requirements.
+
+Expand beyond Greenhouse using the evidence-based ranking and employer test cohort in `docs/ATS-PLATFORM-RESEARCH.md`, `docs/ATS-EMPLOYER-TEST-TARGETS.json` and `backend/registry/ats-adapter-registry.json`. Difficulty controls implementation order, not whether an employer/source is retained. Greenhouse remains implemented and is excluded from the new cohort. Workday is deferred from active investigation, implementation and test-target lists until further notice.
 
 **First wave — easy public feeds and endpoints**
 
