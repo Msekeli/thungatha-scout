@@ -60,7 +60,7 @@ The following company/career-page pairs are the initial research cohort for the 
 
 **Evidence caution:** "Confirmed" here confirms the career-page/ATS association observed during research. It does not confirm that the XML/RSS/API endpoint is enabled, stable, complete or suitable for production. In particular, Personio XML availability depends on employer configuration; Tether's Recruitee URL has shown redirect behavior. Validate all endpoints live before implementation.
 
-The machine-readable company cohort is maintained in `backend/registry/ats-adapter-registry.json` and `docs/ATS-EMPLOYER-TEST-TARGETS.jsonc`. Keep employer/source associations evidence-labelled; do not promote directory leads to confirmed integrations without checking the employer's own career page.
+The machine-readable company cohort is maintained in `backend/registry/ats-adapter-registry.json` and `docs/ATS-EMPLOYER-TEST-TARGETS.json`. Keep employer/source associations evidence-labelled; do not promote directory leads to confirmed integrations without checking the employer's own career page.
 
 ## Second- and third-wave employer test targets
 
