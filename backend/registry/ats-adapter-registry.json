@@ -13,7 +13,7 @@
   },
   "adapters": {
     "greenhouse": {
-      "status": "candidate",
+      "status": "implemented",
       "extraction_method": "json_api",
       "capabilities": {
         "pagination_supported": true,
@@ -22,7 +22,7 @@
       },
       "config_schema": ["slug"],
       "endpoint_pattern": "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true",
-      "notes": "Public job-board endpoint. Confirm response completeness and pagination behavior against representative boards before relying on the capability."
+      "notes": "Public job-board endpoint. User confirms the Greenhouse extraction-to-Thungatha flow has been exercised end to end; retain representative fixture/live-test evidence and complete remaining reliability checks before treating the adapter as production-ready."
     },
     "workday": {
       "status": "candidate",
