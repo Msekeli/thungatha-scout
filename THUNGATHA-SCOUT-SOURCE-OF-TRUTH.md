@@ -296,7 +296,6 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - Freshness is an activity signal, not proof that a vacancy remains open or that an employer has not hired. Age alone must not expire, remove, or suppress a vacancy.
 - Show the selected timestamp's date and relative age in the vacancy list and detail header.
 
-
 ## Decision record — twice-daily vacancy extraction window (8 November 2026)
 
 - Replace the earlier eight-hour vacancy extraction cadence with two scheduled starts per day: 06:00 and 18:00 South African time (`Africa/Johannesburg`).
