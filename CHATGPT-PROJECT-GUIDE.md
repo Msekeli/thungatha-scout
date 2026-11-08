@@ -22,6 +22,7 @@ V1 scope: South Africa-wide vacancy eligibility; Greenhouse and Workday adapters
 - Greenhouse and Workday only in v1. Do not add ATS providers without explicit scope approval.
 - The Azure for Students credit is exhausted. Never assume Azure hosting/storage is free. Do not upgrade subscriptions or provision paid Azure resources without explicit user approval and a cost estimate.
 - Supabase Free is suitable only for development/low-volume evaluation until inactivity pausing, backups, capacity and production reliability are addressed.
+- Vacancy extraction schedule: 06:00 and 18:00 `Africa/Johannesburg` time. Each run has a maximum one-hour window and must stop as soon as its assigned work is complete; one hour is a ceiling, not a target. Do not force runs to consume the window. Prevent overlap and preserve per-source progress on partial/time-limited runs.
 - Work on branch `dev` only unless the user explicitly instructs otherwise.
 
 ## Product workflow
