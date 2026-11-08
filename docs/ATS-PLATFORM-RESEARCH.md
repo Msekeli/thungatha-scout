@@ -62,44 +62,43 @@ The following company/career-page pairs are the initial research cohort for the 
 
 The machine-readable company cohort is maintained in `backend/registry/ats-adapter-registry.json` and the companion JSONC test-target file. Keep employer/source associations evidence-labelled; do not promote directory leads to confirmed integrations without checking the employer's own career page.
 
-
 ## Second- and third-wave employer test targets
 
 These are additional candidate employer/source pairs for technical investigation. Evidence labels distinguish a confirmed ATS-hosted career page from a directory lead or historical/variable association. A listed URL is not proof that the proposed extraction endpoint works.
 
 ### Second wave
 
-| ATS | Company | Careers URL | Evidence / test note |
-| --- | --- | --- | --- |
-| SmartRecruiters | WNS Global Services | https://careers.smartrecruiters.com/WNSGlobalServices144/wns-zaf-career-page | Confirmed South African board; Cape Town vacancy evidence found. |
-| SmartRecruiters | OUTsurance | https://careers.smartrecruiters.com/OUTsurance | Directory lead; verify live board and ATS association. |
-| SmartRecruiters | Anglo American | https://careers.smartrecruiters.com/angloamerican | Directory lead; verify live board and ATS association. |
-| BambooHR | Integrity360 | https://integrity360.bamboohr.com/careers | Confirmed BambooHR-hosted page; verify vacancy geography. |
-| BambooHR | Platform45 | https://platform45.bamboohr.com/careers | Confirmed by a vacancy advert linking to the BambooHR page. |
-| BambooHR | TreasuryONE | https://treasuryone.bamboohr.com/careers | Third-party directory lead; verify live page. |
-| Breezy HR | ShopriteX | https://shopritex.breezy.hr/ | Confirmed Breezy-hosted board; Cape Town vacancy evidence found. |
-| Breezy HR | Lula (Lulalend) | https://lulalend.breezy.hr/ | Confirmed Breezy-hosted board; Cape Town vacancy evidence found. This is Breezy HR, not BambooHR. |
-| Breezy HR | Absolute Pets | https://absolute-pets.breezy.hr/ | Confirmed Breezy-hosted employer board. |
-| Breezy HR | Totalstay | https://totalstay.breezy.hr/ | Confirmed Breezy-hosted board; Cape Town vacancy evidence found. |
-| Breezy HR | City Lodge Hotels | https://citylodgehotels.breezy.hr/ | Confirmed Breezy-hosted employer board. |
+| ATS             | Company             | Careers URL                                                                  | Evidence / test note                                                                              |
+| --------------- | ------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| SmartRecruiters | WNS Global Services | https://careers.smartrecruiters.com/WNSGlobalServices144/wns-zaf-career-page | Confirmed South African board; Cape Town vacancy evidence found.                                  |
+| SmartRecruiters | OUTsurance          | https://careers.smartrecruiters.com/OUTsurance                               | Directory lead; verify live board and ATS association.                                            |
+| SmartRecruiters | Anglo American      | https://careers.smartrecruiters.com/angloamerican                            | Directory lead; verify live board and ATS association.                                            |
+| BambooHR        | Integrity360        | https://integrity360.bamboohr.com/careers                                    | Confirmed BambooHR-hosted page; verify vacancy geography.                                         |
+| BambooHR        | Platform45          | https://platform45.bamboohr.com/careers                                      | Confirmed by a vacancy advert linking to the BambooHR page.                                       |
+| BambooHR        | TreasuryONE         | https://treasuryone.bamboohr.com/careers                                     | Third-party directory lead; verify live page.                                                     |
+| Breezy HR       | ShopriteX           | https://shopritex.breezy.hr/                                                 | Confirmed Breezy-hosted board; Cape Town vacancy evidence found.                                  |
+| Breezy HR       | Lula (Lulalend)     | https://lulalend.breezy.hr/                                                  | Confirmed Breezy-hosted board; Cape Town vacancy evidence found. This is Breezy HR, not BambooHR. |
+| Breezy HR       | Absolute Pets       | https://absolute-pets.breezy.hr/                                             | Confirmed Breezy-hosted employer board.                                                           |
+| Breezy HR       | Totalstay           | https://totalstay.breezy.hr/                                                 | Confirmed Breezy-hosted board; Cape Town vacancy evidence found.                                  |
+| Breezy HR       | City Lodge Hotels   | https://citylodgehotels.breezy.hr/                                           | Confirmed Breezy-hosted employer board.                                                           |
 
 ### Third wave
 
-| Platform | Company | Careers URL | Evidence / test note |
-| --- | --- | --- | --- |
-| Simplify.hr | Media24 | https://media24.simplify.hr/ | Confirmed Simplify.hr-hosted page. |
-| Simplify.hr | homechoice | https://homechoice.simplify.hr/ | Confirmed Simplify.hr-hosted page; Cape Town vacancy evidence found. |
-| Simplify.hr | Adendorff | https://adendorff.simplify.hr/ | Third-party directory lead; verify live page. |
-| Simplify.hr | Dis-Chem | https://dischem.simplify.hr/ | South African directory lead; verify live page. |
-| eRecruit | Shoprite Group | https://shoprite.erecruit.co/candidateapp/jobs/browse | Confirmed eRecruit candidate portal. Does not prove Graylink Neptune usage. |
-| eRecruit | Boxer | https://boxer.erecruit.co/candidateapp/Jobs/Browse | eRecruit portal URL identified from vacancy references. |
-| eRecruit | CCBA | https://ccba.erecruit.co/candidateapp/Jobs/Browse | eRecruit portal URL linked from vacancy references. |
-| eRecruit | Clover | https://clover.erecruit.co/candidateapp/Jobs/Browse | eRecruit portal URL identified from vacancy references. |
-| eRecruit | RCL Foods | https://rcl.erecruit.co/candidateapp/Jobs/Browse | Third-party directory lead; verify live page. |
-| Zoho Recruit | Chancen | https://chancen.zohorecruit.eu/jobs/Careers | Confirmed Zoho Recruit-hosted South African vacancy board. Only one employer board was independently confirmed in this research pass. |
-| SAP SuccessFactors | Sanlam | https://career5.successfactors.eu/career?company=sanlamlifeP2 | Historical/variable evidence; verify current use. |
-| SAP SuccessFactors | Gold Fields | https://careers.goldfields.com/ | Historical/variable evidence; current jobs may route through different systems. |
-| SAP SuccessFactors | Sasol | https://www.sasol.com/careers | Official careers page, but current SuccessFactors use is unverified. |
+| Platform           | Company        | Careers URL                                                   | Evidence / test note                                                                                                                  |
+| ------------------ | -------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Simplify.hr        | Media24        | https://media24.simplify.hr/                                  | Confirmed Simplify.hr-hosted page.                                                                                                    |
+| Simplify.hr        | homechoice     | https://homechoice.simplify.hr/                               | Confirmed Simplify.hr-hosted page; Cape Town vacancy evidence found.                                                                  |
+| Simplify.hr        | Adendorff      | https://adendorff.simplify.hr/                                | Third-party directory lead; verify live page.                                                                                         |
+| Simplify.hr        | Dis-Chem       | https://dischem.simplify.hr/                                  | South African directory lead; verify live page.                                                                                       |
+| eRecruit           | Shoprite Group | https://shoprite.erecruit.co/candidateapp/jobs/browse         | Confirmed eRecruit candidate portal. Does not prove Graylink Neptune usage.                                                           |
+| eRecruit           | Boxer          | https://boxer.erecruit.co/candidateapp/Jobs/Browse            | eRecruit portal URL identified from vacancy references.                                                                               |
+| eRecruit           | CCBA           | https://ccba.erecruit.co/candidateapp/Jobs/Browse             | eRecruit portal URL linked from vacancy references.                                                                                   |
+| eRecruit           | Clover         | https://clover.erecruit.co/candidateapp/Jobs/Browse           | eRecruit portal URL identified from vacancy references.                                                                               |
+| eRecruit           | RCL Foods      | https://rcl.erecruit.co/candidateapp/Jobs/Browse              | Third-party directory lead; verify live page.                                                                                         |
+| Zoho Recruit       | Chancen        | https://chancen.zohorecruit.eu/jobs/Careers                   | Confirmed Zoho Recruit-hosted South African vacancy board. Only one employer board was independently confirmed in this research pass. |
+| SAP SuccessFactors | Sanlam         | https://career5.successfactors.eu/career?company=sanlamlifeP2 | Historical/variable evidence; verify current use.                                                                                     |
+| SAP SuccessFactors | Gold Fields    | https://careers.goldfields.com/                               | Historical/variable evidence; current jobs may route through different systems.                                                       |
+| SAP SuccessFactors | Sasol          | https://www.sasol.com/careers                                 | Official careers page, but current SuccessFactors use is unverified.                                                                  |
 
 **Neptune research gap:** no three employers were reliably confirmed as Graylink Neptune customers. The eRecruit examples above must remain labelled eRecruit; do not infer that eRecruit and Graylink Neptune are the same product. Clicks' career portal is a discovery lead only: https://careers.clicksgroup.co.za/applicant/index.php?controller=Page&name=jobsearch. Its ATS identity has not been established.
 
