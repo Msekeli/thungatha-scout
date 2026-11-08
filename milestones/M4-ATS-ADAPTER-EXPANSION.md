@@ -10,6 +10,7 @@ Expand Scout's employer-source coverage beyond Greenhouse while retaining one sh
 ## Required reading
 
 Before starting any M4 checkpoint, read:
+
 - `AGENTS.md`
 - `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`
 - `IMPLEMENTATION-PLAN.md`
@@ -36,6 +37,7 @@ Before starting any M4 checkpoint, read:
 ## Two-checkpoint pattern
 
 **Checkpoint A — Investigate and design**
+
 - Inspect the actual employer career pages and the provider's public retrieval behavior.
 - Verify URL/tenant/slug identification, request method and parameters, response structure, pagination/detail behavior, available fields, completeness, error/empty behavior and candidate destination URLs.
 - Use the employer test cohort recorded in the JSON registry. Test multiple employers where the cohort provides them; distinguish confirmed evidence from directory leads and historical mappings.
@@ -44,6 +46,7 @@ Before starting any M4 checkpoint, read:
 - **No application-code changes in this checkpoint.** Stop for review if the retrieval method or source behavior is not sufficiently established.
 
 **Checkpoint B — Implement, integrate and verify**
+
 - Implement the smallest adapter consistent with the reviewed design.
 - Keep each module within the 100-line limit and each module focused on one responsibility.
 - Register the generic adapter definition and the employer/source-specific configuration in their correct registries.
@@ -56,27 +59,28 @@ Before starting any M4 checkpoint, read:
 
 Each row below is one adapter with exactly two checkpoints. Checkpoint A is investigation/design; Checkpoint B is implementation/integration/verification.
 
-| Order | Adapter / source | Checkpoint A | Checkpoint B | Target cohort / special condition |
-|---|---|---|---|---|
-| 1 | Ashby | M4-ASHBY-A | M4-ASHBY-B | Midnite, MyEdSpace, Tree Traction |
-| 2 | Lever | M4-LEVER-A | M4-LEVER-B | Mama Money, Theodo, Wing Assistant; verify regional host and pagination |
-| 3 | Teamtailor | M4-TEAMTAILOR-A | M4-TEAMTAILOR-B | Root Platform, Footasylum, TeamViewer; RSS and custom-domain handling |
-| 4 | Personio | M4-PERSONIO-A | M4-PERSONIO-B | ottonova, Open, Openprovider; XML feed may need employer enablement |
-| 5 | Recruitee | M4-RECRUITEE-A | M4-RECRUITEE-B | TransPerfect, Fastned, Tether; prefer public XML feed, verify current availability |
-| 6 | Workable | M4-WORKABLE-A | M4-WORKABLE-B | LekkeSlaap, Electrum, GoTyme Bank; validate observed public widget behavior |
-| 7 | SmartRecruiters | M4-SMARTRECRUITERS-A | M4-SMARTRECRUITERS-B | WNS Global Services, OUTsurance, Anglo American; verify each live board |
-| 8 | BambooHR | M4-BAMBOOHR-A | M4-BAMBOOHR-B | Integrity360, Platform45, TreasuryONE; list/detail behavior |
-| 9 | Breezy HR | M4-BREEZY-A | M4-BREEZY-B | ShopriteX, Lula, Absolute Pets, Totalstay, City Lodge Hotels; prove description/detail completeness |
-| 10 | Simplify.hr | M4-SIMPLIFY-A | M4-SIMPLIFY-B | Media24, homechoice, Adendorff, Dis-Chem; discover actual public retrieval behavior |
-| 11 | Zoho Recruit | M4-ZOHO-A | M4-ZOHO-B | Chancen is the only confirmed employer target; do not invent more |
-| 12 | SAP SuccessFactors | M4-SUCCESSFACTORS-A | M4-SUCCESSFACTORS-B | Sanlam, Gold Fields and Sasol are historical/variable leads; re-verify current tenant behavior |
-| 13 | eRecruit / Neptune | M4-ERECRUIT-NEPTUNE-A | M4-ERECRUIT-NEPTUNE-B | Investigate eRecruit portals separately from Graylink Neptune; do not claim they are the same ATS |
+| Order | Adapter / source   | Checkpoint A          | Checkpoint B          | Target cohort / special condition                                                                   |
+| ----- | ------------------ | --------------------- | --------------------- | --------------------------------------------------------------------------------------------------- |
+| 1     | Ashby              | M4-ASHBY-A            | M4-ASHBY-B            | Midnite, MyEdSpace, Tree Traction                                                                   |
+| 2     | Lever              | M4-LEVER-A            | M4-LEVER-B            | Mama Money, Theodo, Wing Assistant; verify regional host and pagination                             |
+| 3     | Teamtailor         | M4-TEAMTAILOR-A       | M4-TEAMTAILOR-B       | Root Platform, Footasylum, TeamViewer; RSS and custom-domain handling                               |
+| 4     | Personio           | M4-PERSONIO-A         | M4-PERSONIO-B         | ottonova, Open, Openprovider; XML feed may need employer enablement                                 |
+| 5     | Recruitee          | M4-RECRUITEE-A        | M4-RECRUITEE-B        | TransPerfect, Fastned, Tether; prefer public XML feed, verify current availability                  |
+| 6     | Workable           | M4-WORKABLE-A         | M4-WORKABLE-B         | LekkeSlaap, Electrum, GoTyme Bank; validate observed public widget behavior                         |
+| 7     | SmartRecruiters    | M4-SMARTRECRUITERS-A  | M4-SMARTRECRUITERS-B  | WNS Global Services, OUTsurance, Anglo American; verify each live board                             |
+| 8     | BambooHR           | M4-BAMBOOHR-A         | M4-BAMBOOHR-B         | Integrity360, Platform45, TreasuryONE; list/detail behavior                                         |
+| 9     | Breezy HR          | M4-BREEZY-A           | M4-BREEZY-B           | ShopriteX, Lula, Absolute Pets, Totalstay, City Lodge Hotels; prove description/detail completeness |
+| 10    | Simplify.hr        | M4-SIMPLIFY-A         | M4-SIMPLIFY-B         | Media24, homechoice, Adendorff, Dis-Chem; discover actual public retrieval behavior                 |
+| 11    | Zoho Recruit       | M4-ZOHO-A             | M4-ZOHO-B             | Chancen is the only confirmed employer target; do not invent more                                   |
+| 12    | SAP SuccessFactors | M4-SUCCESSFACTORS-A   | M4-SUCCESSFACTORS-B   | Sanlam, Gold Fields and Sasol are historical/variable leads; re-verify current tenant behavior      |
+| 13    | eRecruit / Neptune | M4-ERECRUIT-NEPTUNE-A | M4-ERECRUIT-NEPTUNE-B | Investigate eRecruit portals separately from Graylink Neptune; do not claim they are the same ATS   |
 
 **Order within waves:** Rows 1–6 are first wave; 7–9 second wave; 10–13 third wave. Complete and review each adapter's A/B pair before moving to the next adapter. Complete a wave review before beginning the next wave. If investigation proves a source is inaccessible, unsupported or partner-dependent, record the evidence and mark implementation blocked/deferred rather than fabricating an adapter.
 
 ## Separate pipeline: Placement Partner
 
 Placement Partner is a recruitment/staffing source, not a direct-employer ATS. Keep it separate from the ATS adapter rows:
+
 - **M4-PLACEMENT-PARTNER-A:** investigate agency IDs, public listing/detail retrieval, redirects and exact candidate application destinations.
 - **M4-PLACEMENT-PARTNER-B:** implement a separate agency-source workflow only after the investigation proves a permitted and reliable retrieval method.
 
