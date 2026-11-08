@@ -314,7 +314,6 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - Prevent overlapping executions. If a run reaches the one-hour limit, record it as timed out/partial as appropriate and preserve completed per-source progress. Never treat a timeout or incomplete inventory as evidence that vacancies have disappeared.
 - This is the initial operating schedule; actual runtimes and source coverage will be measured after the complete extraction workflow is implemented and tested. The schedule and maximum duration remain configurable.
 
-
 ## Decision record — expanded ATS and career-platform coverage (8 November 2026)
 
 The earlier five-platform M4 scope is superseded by the research catalogue in `docs/ATS-PLATFORM-RESEARCH.md` and `backend/registry/ats-adapter-registry.json`.

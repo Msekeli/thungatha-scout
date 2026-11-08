@@ -105,6 +105,7 @@ Acceptance: adding another Greenhouse employer requires registry configuration, 
 Expand beyond the initial five-platform catalogue using the evidence-based ranking in `docs/ATS-PLATFORM-RESEARCH.md`. Difficulty controls implementation order, not whether an employer/source is retained.
 
 **First wave — easy public feeds and endpoints**
+
 - Ashby: documented public Job Postings API.
 - Lever: documented public Postings API; validate global/EU host and pagination.
 - Teamtailor: documented public RSS feed.
@@ -114,11 +115,13 @@ Expand beyond the initial five-platform catalogue using the evidence-based ranki
 - Greenhouse remains the reference adapter; close outstanding reliability and acceptance evidence.
 
 **Second wave — public but more involved**
+
 - SmartRecruiters: official public Posting API; paginated list and detail retrieval.
 - BambooHR: observed public careers list/detail endpoints; descriptions require per-job detail calls.
 - Breezy HR: public JSON summary feed; description/detail behavior must be proven on real employer portals before treating extraction as complete.
 
 **Third wave — hard/local strategic platforms**
+
 - Simplify.hr: inspect real South African employer pages and network calls; no general public unauthenticated feed has yet been established.
 - eRecruit / Neptune: investigate employer portals individually. Do not conflate the Shoprite eRecruit portal with Graylink's separately marketed Neptune ATS.
 - Workday: observed public CXS POST listing plus detail GET; parse host, tenant and site independently, paginate conservatively and validate completeness.
@@ -126,11 +129,13 @@ Expand beyond the initial five-platform catalogue using the evidence-based ranki
 - SAP SuccessFactors: tenant-specific Career Site Builder/custom careers pages; do not build around the legacy RSS/XML response scheduled for deletion in May 2027.
 
 **Separate source pipelines**
+
 - Placement Partner remains in scope as a recruitment/staffing source adapter. Validate agency IDs, vacancy detail pages, redirect chains and final application destinations. Accept a redirect only when it preserves the exact vacancy/application journey; flag generic homepages, search pages, wrong jobs, login walls and broken links. Do not count agencies as direct employers.
 - JobAdder requires customer/partner-authorised OAuth2 API access unless a separate public agency page/widget is verified.
 - Leaply remains a discovery lead, not a confirmed public ATS adapter, until a candidate-facing vacancy board and public retrieval method are demonstrated.
 
 Checkpoints:
+
 - Update URL detection, source configuration validation and admin onboarding for each verified public platform using the same shared workflow.
 - Keep provider HTTP, parsing, pagination and detail retrieval inside adapters. Keep quality gates, deduplication, lifecycle and publishing shared.
 - Add fixtures and contract tests for each adapter; record representative live smoke-test evidence and source/application-link validation.
