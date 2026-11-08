@@ -331,7 +331,16 @@ The earlier five-platform M4 scope is superseded by the research catalogue in `d
 ## Decision record — first-wave employer test cohort and Workday deferral (8 November 2026)
 
 - The first-wave research cohort is Ashby, Lever, Teamtailor, Personio, Recruitee and Workable. Greenhouse remains the already-implemented reference adapter and is not part of this new research cohort.
-- Company names and career-page URLs for at least three candidate employers per first-wave ATS are recorded in `backend/registry/ats-adapter-registry.json`, `docs/ATS-PLATFORM-RESEARCH.md` and the companion JSONC test-target file.
+- Company names and career-page URLs for at least three candidate employers per first-wave ATS are recorded in `backend/registry/ats-adapter-registry.json`, `docs/ATS-PLATFORM-RESEARCH.md` and the strict JSON test-target file.
 - These company URLs are research targets, not proof that the proposed public endpoint/feed is enabled or that extraction has succeeded. Verify the actual career page, redirects, network requests, listing/detail retrieval, pagination and vacancy-specific application URL for each employer.
 - Workday is deferred from active research, implementation and test-target lists until further notice. Its previous CXS research is retained only as historical context; do not allocate current M4 work to Workday unless the user reactivates it.
 - Greenhouse is excluded from the new company cohort because its adapter is already implemented; outstanding Greenhouse reliability/acceptance work remains tracked separately.
+
+
+## Decision record — strict ATS target registry and checkpointed M4 delivery (8 November 2026)
+
+- The machine-readable employer/ATS test cohort is maintained as strict JSON in `docs/ATS-EMPLOYER-TEST-TARGETS.json`. Do not use JSONC or comments in machine-readable JSON files; explanatory notes belong in Markdown.
+- M4 must be delivered through the individual checkpoints in `milestones/M4-ATS-ADAPTER-EXPANSION.md`, not as one large implementation attempt.
+- Ashby is the first new adapter to investigate. The first next-chat task is M4-C01 investigation only; no application code changes until the evidence and design have been reviewed.
+- Greenhouse is the implemented architectural reference. Inspect its URL parsing, adapter contract, HTTP retrieval, response mapping, extraction orchestration, API route, registry configuration and tests. Reuse responsibilities and shared pipeline boundaries where appropriate, but do not copy provider-specific behavior blindly.
+- Every handwritten source-code file and test remains at or below 100 physical lines. Separate URL/config validation, provider transport, response mapping, extraction orchestration, persistence and API routing by single responsibility.
