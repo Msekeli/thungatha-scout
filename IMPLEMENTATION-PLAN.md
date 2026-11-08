@@ -102,21 +102,43 @@ Acceptance: adding another Greenhouse employer requires registry configuration, 
 
 ### M4 — ATS adapter expansion
 
-Expand Scout from the proven Greenhouse-to-Thungatha flow to every ATS/career-platform candidate already recorded in `backend/registry/ats-adapter-registry.json`. The current catalogue is Greenhouse, Workday, Lever, Breezy HR and Ashby. Greenhouse is the reference implementation; M4 must implement and validate the remaining four platforms through the same adapter contract and existing company/source workflow.
+Expand beyond the initial five-platform catalogue using the evidence-based ranking in `docs/ATS-PLATFORM-RESEARCH.md`. Difficulty controls implementation order, not whether an employer/source is retained.
+
+**First wave — easy public feeds and endpoints**
+- Ashby: documented public Job Postings API.
+- Lever: documented public Postings API; validate global/EU host and pagination.
+- Teamtailor: documented public RSS feed.
+- Personio: public XML feed when enabled by the employer.
+- Recruitee: public XML offer feed; do not rely on the token-protected Careers Site API.
+- Workable: validate the observed public careers-widget JSON endpoint against real boards.
+- Greenhouse remains the reference adapter; close outstanding reliability and acceptance evidence.
+
+**Second wave — public but more involved**
+- SmartRecruiters: official public Posting API; paginated list and detail retrieval.
+- BambooHR: observed public careers list/detail endpoints; descriptions require per-job detail calls.
+- Breezy HR: public JSON summary feed; description/detail behavior must be proven on real employer portals before treating extraction as complete.
+
+**Third wave — hard/local strategic platforms**
+- Simplify.hr: inspect real South African employer pages and network calls; no general public unauthenticated feed has yet been established.
+- eRecruit / Neptune: investigate employer portals individually. Do not conflate the Shoprite eRecruit portal with Graylink's separately marketed Neptune ATS.
+- Workday: observed public CXS POST listing plus detail GET; parse host, tenant and site independently, paginate conservatively and validate completeness.
+- Zoho Recruit: observed careers-page HTML/embedded data, not a documented public API.
+- SAP SuccessFactors: tenant-specific Career Site Builder/custom careers pages; do not build around the legacy RSS/XML response scheduled for deletion in May 2027.
+
+**Separate source pipelines**
+- Placement Partner remains in scope as a recruitment/staffing source adapter. Validate agency IDs, vacancy detail pages, redirect chains and final application destinations. Accept a redirect only when it preserves the exact vacancy/application journey; flag generic homepages, search pages, wrong jobs, login walls and broken links. Do not count agencies as direct employers.
+- JobAdder requires customer/partner-authorised OAuth2 API access unless a separate public agency page/widget is verified.
+- Leaply remains a discovery lead, not a confirmed public ATS adapter, until a candidate-facing vacancy board and public retrieval method are demonstrated.
 
 Checkpoints:
+- Update URL detection, source configuration validation and admin onboarding for each verified public platform using the same shared workflow.
+- Keep provider HTTP, parsing, pagination and detail retrieval inside adapters. Keep quality gates, deduplication, lifecycle and publishing shared.
+- Add fixtures and contract tests for each adapter; record representative live smoke-test evidence and source/application-link validation.
+- Revisit existing stored companies/sources idempotently; do not create duplicate employers or vacancies.
+- Distinguish documented APIs/feeds from observed undocumented endpoints and employer-authorised APIs.
+- A source may return HTTP 200 and still be incomplete. Validate meaningful vacancy content, full descriptions where expected, complete-board counts, stable IDs and exact candidate destinations.
 
-- Workday: implement observed public CXS listing, pagination and detail retrieval where required; validate host, tenant and site independently. Test DigiOutsource, Old Mutual and Pick n Pay using live evidence.
-- Lever: verify the public postings endpoint, board identifiers, pagination/complete-board behavior and vacancy fields against representative employer boards before implementation is considered complete.
-- Breezy HR: establish the supported public retrieval method and hosted-portal/widget URL patterns from official documentation and live employer evidence; do not assume an endpoint or customer directory.
-- Ashby: establish and test the public job-board endpoint, board identifier and response contract from official documentation and live employer evidence before implementation.
-- Update URL detection, manual platform selection, source configuration validation and admin onboarding so each supported adapter uses the same workflow.
-- Keep platform-specific HTTP, parsing, pagination and detail retrieval inside adapters. Keep quality gates, deduplication, lifecycle and publishing shared.
-- Add recorded fixtures and contract tests for each adapter, plus live smoke-test evidence for representative employers. Distinguish success-empty, blocked, rate-limited, malformed, partial and transient outcomes.
-- Revisit existing stored companies/sources through their configured adapter; update records idempotently and do not create duplicate employers or vacancies.
-- Keep `placement_partner` separate: it is a recruitment/staffing source pipeline in the registry, not a direct-employer ATS adapter. Evaluate it separately and never count its agencies toward direct-employer ATS coverage.
-
-Acceptance: all five ATS entries have a verified retrieval strategy, implemented adapter, registry schema/configuration, URL detection, shared admin integration, fixture/contract tests and representative live validation. Where a provider's public access method or terms cannot be established, record it as unsupported/blocked with evidence rather than claiming completion. Adding another employer on a supported platform requires configuration, not employer-specific code.
+Acceptance: each adapter has an evidenced employer/source relationship, verified retrieval and authentication method, configuration schema, URL detection, fixture/contract tests and representative live validation. Unsupported or blocked methods remain documented as such; they are not silently removed from discovery coverage. Adding another employer to a supported platform requires configuration, not employer-specific adapter code.
 
 ### M5 — Cross-cutting admin UI and API integration
 
@@ -179,7 +201,7 @@ Acceptance: one-email Supabase Auth restriction verified; public registration di
 2. Close any remaining M2 API/error and publishing-contract decisions as separate, bounded checkpoints; keep Scout operational persistence separate from Thungatha's destination.
 3. Continue M3: complete registry schema/loading/validation and the common adapter contract; extend Greenhouse inspection into persisted extraction and vacancy listing.
 4. Complete the Greenhouse backend slice and connect the admin workflow: retrieve and persist full descriptions, inspect a selected vacancy in the Jobs workspace, and verify the draft Thungatha payload without publishing.
-5. Implement the M4 ATS expansion: Workday, Lever, Breezy HR and Ashby, all using the proven Greenhouse adapter contract and shared admin workflow.
+5. Implement M4 in the ranked waves recorded in `docs/ATS-PLATFORM-RESEARCH.md`; start with the easy public feeds/endpoints, retain hard platforms and Placement Partner in the documented backlog, and use the shared adapter contract.
 6. Run the six-employer validation cohort, keeping each verification claim evidence-backed and pending where necessary.
 7. Run the held-out fourth-employer compatibility test through the admin UI.
 8. Build the quality/lifecycle/exception pipeline, then scheduling and idempotent publishing.
