@@ -64,8 +64,8 @@ Employer discovery and source verification continue in parallel with implementat
 | M0        | Repository Audit and Scope Lock                    | Accepted                                                                                                                                                   |
 | M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                                                                          |
 | M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                                                                     |
-| M3        | Greenhouse Vertical Slice                          | In progress — generic board-candidate resolution with Greenhouse metadata validation and detection-only onboarding implemented; local verification pending |
-| M4        | Workday Vertical Slice                             | Not started                                                                                                                                                |
+| M3        | Greenhouse Vertical Slice                          | In progress — user confirms extraction-to-Thungatha flow has been exercised; remaining Greenhouse/admin acceptance evidence must be recorded |
+| M4        | ATS Adapter Expansion                              | Not started                                                                                                                                                |
 | M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                                                                                 |
 | M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                                                |
 | M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                                                                                |
@@ -99,20 +99,23 @@ Checkpoints:
 
 Acceptance: adding another Greenhouse employer requires registry configuration, not employer-specific adapter code; supported URL forms, complete-board counts, full descriptions, meaningful vacancy data and failure outcomes are tested; the admin can complete source onboarding, extraction and vacancy inspection end to end.
 
-### M4 — Workday vertical slice
+### M4 — ATS adapter expansion
 
-Deliver a reusable Workday adapter and integrate it into the same employer/source workflow.
+Expand Scout from the proven Greenhouse-to-Thungatha flow to every ATS/career-platform candidate already recorded in `backend/registry/ats-adapter-registry.json`. The current catalogue is Greenhouse, Workday, Lever, Breezy HR and Ashby. Greenhouse is the reference implementation; M4 must implement and validate the remaining four platforms through the same adapter contract and existing company/source workflow.
 
 Checkpoints:
 
-- Parse and validate host, tenant and site independently.
-- Implement observed public CXS retrieval and pagination.
-- Retrieve detail data where required and normalise vacancies.
-- Expose Workday inspection, preview, test and retrieval through the backend API.
-- Integrate Workday into the existing admin workflow; do not create a separate Workday-only UI.
-- Validate DigiOutsource plus the other two selected Workday employers, Old Mutual and Pick n Pay, using live evidence. Treat unverified host/tenant/site values as hypotheses until tested.
+- Workday: implement observed public CXS listing, pagination and detail retrieval where required; validate host, tenant and site independently. Test DigiOutsource, Old Mutual and Pick n Pay using live evidence.
+- Lever: verify the public postings endpoint, board identifiers, pagination/complete-board behavior and vacancy fields against representative employer boards before implementation is considered complete.
+- Breezy HR: establish the supported public retrieval method and hosted-portal/widget URL patterns from official documentation and live employer evidence; do not assume an endpoint or customer directory.
+- Ashby: establish and test the public job-board endpoint, board identifier and response contract from official documentation and live employer evidence before implementation.
+- Update URL detection, manual platform selection, source configuration validation and admin onboarding so each supported adapter uses the same workflow.
+- Keep platform-specific HTTP, parsing, pagination and detail retrieval inside adapters. Keep quality gates, deduplication, lifecycle and publishing shared.
+- Add recorded fixtures and contract tests for each adapter, plus live smoke-test evidence for representative employers. Distinguish success-empty, blocked, rate-limited, malformed, partial and transient outcomes.
+- Revisit existing stored companies/sources through their configured adapter; update records idempotently and do not create duplicate employers or vacancies.
+- Keep `placement_partner` separate: it is a recruitment/staffing source pipeline in the registry, not a direct-employer ATS adapter. Evaluate it separately and never count its agencies toward direct-employer ATS coverage.
 
-Acceptance: DigiOutsource and at least two additional tenants are tested before broad compatibility is claimed; pagination, detail retrieval, empty results, blocked/rate-limited responses, malformed responses and partial failures are covered. Adding a tenant requires configuration, not employer-specific code.
+Acceptance: all five ATS entries have a verified retrieval strategy, implemented adapter, registry schema/configuration, URL detection, shared admin integration, fixture/contract tests and representative live validation. Where a provider's public access method or terms cannot be established, record it as unsupported/blocked with evidence rather than claiming completion. Adding another employer on a supported platform requires configuration, not employer-specific code.
 
 ### M5 — Cross-cutting admin UI and API integration
 
@@ -162,11 +165,12 @@ Acceptance: one-email Supabase Auth restriction verified; public registration di
 2. Close any remaining M2 API/error and publishing-contract decisions as separate, bounded checkpoints; keep Scout operational persistence separate from Thungatha's destination.
 3. Continue M3: complete registry schema/loading/validation and the common adapter contract; extend Greenhouse inspection into persisted extraction and vacancy listing.
 4. Complete the Greenhouse backend slice and connect the admin workflow: retrieve and persist full descriptions, inspect a selected vacancy in the Jobs workspace, and verify the draft Thungatha payload without publishing.
-5. Implement Workday and connect it to the same admin workflow.
+5. Implement the M4 ATS expansion: Workday, Lever, Breezy HR and Ashby, all using the proven Greenhouse adapter contract and shared admin workflow.
 6. Run the six-employer validation cohort, keeping each verification claim evidence-backed and pending where necessary.
 7. Run the held-out fourth-employer compatibility test through the admin UI.
 8. Build the quality/lifecycle/exception pipeline, then scheduling and idempotent publishing.
 9. Verify the complete application locally before evaluating hosting, cost, backups and deployment.
+10. Add Docker containerisation as a final packaging checkpoint after local application and worker acceptance; build one backend image with separate API and scheduled-worker commands, then verify both locally.
 
 ## 8. Acceptance and evidence
 
