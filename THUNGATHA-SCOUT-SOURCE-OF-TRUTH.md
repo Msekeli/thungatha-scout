@@ -1,7 +1,7 @@
 # Thungatha Scout — Source of Truth
 
 **Status:** Proposed baseline for review  
-**Updated:** 3 November 2026
+**Updated:** 8 November 2026
 
 ## Purpose
 
@@ -320,10 +320,19 @@ The earlier five-platform M4 scope is superseded by the research catalogue in `d
 
 - Keep all researched platforms and candidate employer sources in scope. Implementation difficulty changes sequencing, not employer eligibility or discovery coverage.
 - First-wave priorities are Ashby, Lever, Teamtailor RSS, Personio XML, Recruitee XML and Workable's observed public widget. Greenhouse remains the proven reference adapter and receives reliability/evidence closure.
-- Second wave: SmartRecruiters, BambooHR and Breezy HR. Third wave: Simplify.hr, eRecruit/Neptune investigation, Workday, Zoho Recruit and SAP SuccessFactors.
+- Second wave: SmartRecruiters, BambooHR and Breezy HR. Third wave: Simplify.hr, eRecruit/Neptune investigation, Zoho Recruit and SAP SuccessFactors. Workday is deferred from active investigation and implementation until further notice.
 - Placement Partner remains in scope as a separate recruitment-agency source pipeline. Validate redirect chains and final candidate destinations; accept redirects only when they preserve the exact vacancy/application journey.
 - JobAdder is partner/customer-authorised unless a separate public source is verified. Leaply is a discovery lead, not a confirmed public ATS adapter.
 - Personio and Workable are added candidates beyond the original supplied list because research found useful public vacancy retrieval routes.
 - Company names supplied as ATS examples remain discovery leads until the employer's own careers page establishes the platform relationship. A company may have multiple sources and multiple ATS platforms.
 - Do not use undocumented endpoints as if they were vendor-supported APIs. Record access method, source evidence, field completeness, redirect behavior and operational limits separately.
 - The research ranking is an implementation-effort estimate, not a market-share ranking. High-value difficult sources must not be excluded; move them into the hard-source backlog and revisit based on employer coverage.
+
+
+## Decision record — first-wave employer test cohort and Workday deferral (8 November 2026)
+
+- The first-wave research cohort is Ashby, Lever, Teamtailor, Personio, Recruitee and Workable. Greenhouse remains the already-implemented reference adapter and is not part of this new research cohort.
+- Company names and career-page URLs for at least three candidate employers per first-wave ATS are recorded in `backend/registry/ats-adapter-registry.json`, `docs/ATS-PLATFORM-RESEARCH.md` and the companion JSONC test-target file.
+- These company URLs are research targets, not proof that the proposed public endpoint/feed is enabled or that extraction has succeeded. Verify the actual career page, redirects, network requests, listing/detail retrieval, pagination and vacancy-specific application URL for each employer.
+- Workday is deferred from active research, implementation and test-target lists until further notice. Its previous CXS research is retained only as historical context; do not allocate current M4 work to Workday unless the user reactivates it.
+- Greenhouse is excluded from the new company cohort because its adapter is already implemented; outstanding Greenhouse reliability/acceptance work remains tracked separately.
