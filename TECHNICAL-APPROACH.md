@@ -156,7 +156,7 @@ Admin can also reject/unpublish a published vacancy, pause/resume a source, edit
 
 ## 9. Scheduling and resilience
 
-Use a hosted scheduler/worker mechanism appropriate to the chosen backend host. Cadence is configurable and selected after measuring source count, runtime and provider limits. Prevent overlapping runs per source. Apply bounded timeouts, retries, exponential backoff and rate-limit handling. Record run completeness, counts, duration and sanitised diagnostics. A failed source must not mass-suppress or expire vacancies.
+Use a hosted scheduler/worker mechanism appropriate to the chosen backend host. The initial vacancy extraction schedule is 06:00 and 18:00 in the `Africa/Johannesburg` timezone. Each run has a maximum execution duration of one hour (06:00–07:00 and 18:00–19:00); this is a hard ceiling, not a target runtime. The worker must exit immediately when its assigned work is complete, whether that takes 15 minutes, 30 minutes or the full hour. Never add artificial waiting to consume the window. Prevent overlapping executions with a durable lock/lease. Apply bounded per-source timeouts, retries, exponential backoff and rate-limit handling. Persist progress and outcomes per source so completed work is not needlessly repeated. Record run completeness, counts, actual duration and sanitised diagnostics. A timeout or failed/partial source must not be treated as a complete inventory or mass-suppress/expire vacancies. Keep the schedule and one-hour ceiling configurable; measure actual runtime after the full workflow is implemented.
 
 Publishing is idempotent and retryable. Keep a Scout-side publication ledger and reconcile destination state without copying operational history.
 
