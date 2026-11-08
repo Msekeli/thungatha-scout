@@ -70,7 +70,7 @@ Employer discovery and source verification continue in parallel with implementat
 | M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                                  |
 | M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                                                                  |
 | M8        | Scheduling and Thungatha Publishing                | Not started                                                                                                                                  |
-| M9        | Security, Hosting, Recovery and Release Acceptance | Not started
+| M9        | Security, Hosting, Recovery and Release Acceptance | Not started                                                                                                                                  |
 | M10       | Docker Containerisation and Packaging              | Not started                                                                                                                                  |
 
 ### M2 — Backend foundation and Scout Supabase persistence
