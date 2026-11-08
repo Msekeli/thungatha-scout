@@ -144,7 +144,7 @@ Acceptance: qualifying records become auto-publish eligible; hard failures are s
 
 ### M8 — Scheduling and Thungatha publishing
 
-Implement bounded recurring extraction, concurrency protection, retries/backoff, run metrics, source health and idempotent publishing to Thungatha.
+Implement bounded recurring extraction at 06:00 and 18:00 `Africa/Johannesburg` time, with a maximum one-hour execution window per run (06:00–07:00 and 18:00–19:00). The one-hour limit is a ceiling, not a target: finish and exit as soon as assigned work completes. Add concurrency protection, per-source progress, bounded retries/backoff, run metrics, source health and idempotent publishing to Thungatha.
 
 Acceptance: unattended run works; only records passing publication gates publish; duplicate publishing is prevented; failed publication recovers; destination receives only required clean fields. Keep Scout and Thungatha persistence isolated.
 
