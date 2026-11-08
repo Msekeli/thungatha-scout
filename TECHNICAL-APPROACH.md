@@ -9,7 +9,7 @@ Scout is an unattended employer-sourced vacancy ingestion and publishing system 
 
 Routine human approval of every vacancy is not part of the operating model. Human attention is reserved for exceptions and administrative control.
 
-V1 supports Greenhouse and Workday. Initial geography is Cape Town. Scout is not a public job-search frontend and has no recruiter self-service.
+V1 adapter target is the registry catalogue: Greenhouse, Workday, Lever, Breezy HR and Ashby. Greenhouse is the reference flow already exercised through publication to Thungatha; M4 expands the same adapter contract to the remaining four. Initial geography is Cape Town. Scout is not a public job-search frontend and has no recruiter self-service.
 
 ## 2. Deployment architecture
 
@@ -46,8 +46,8 @@ Never copy raw ATS payloads, rejected records, unresolved records or full extrac
 ## 4. Employer onboarding
 
 1. Admin pastes an official careers/ATS URL.
-2. Backend normalises and validates the URL and detects Greenhouse or Workday.
-3. If detection is uncertain, admin can choose/override the supported platform.
+2. Backend normalises and validates the URL and detects one of the configured registry adapters (Greenhouse, Workday, Lever, Breezy HR or Ashby).
+3. If detection is uncertain, admin can choose/override a platform whose adapter has passed verification.
 4. Adapter inspects the source and returns metadata, identifiers, test outcome and sample vacancies.
 5. Admin confirms employer identity, Cape Town evidence and the official source relationship; uncertain metadata requires manual confirmation.
 6. Backend registers employer/source idempotently.
@@ -86,7 +86,21 @@ Use observed public careers-site CXS JSON behavior, acknowledging it is undocume
 - tenant: `myhcm`
 - site: `digioutsource`
 
-Common listing route: `https://{host}/wday/cxs/{tenant}/{site}/jobs`. Validate each tenant. Test DigiOutsource and at least one other tenant before claiming broad compatibility. HTTP 200 alone is not a successful source test.
+Common listing route: `https://{host}/wday/cxs/{tenant}/{site}/jobs`. Validate each tenant. Test DigiOutsource, Old Mutual and Pick n Pay before claiming broad compatibility. HTTP 200 alone is not a successful source test.
+
+### Lever
+
+The registry records the public postings endpoint `https://api.lever.co/v0/postings/{slug}?mode=json` as a candidate. Verify board discovery, response completeness, pagination behavior, rate limits and representative employer records before approving the adapter.
+
+### Breezy HR
+
+The registry currently has no verified retrieval endpoint or configuration schema. Investigate official developer documentation and actual hosted career portals/widgets first. Implement only after the retrieval contract, access constraints and employer linkage are evidenced.
+
+### Ashby
+
+The registry currently has a candidate slug configuration but no verified endpoint. Establish the public job-board retrieval contract and response shape from official documentation and live employer evidence before implementation.
+
+`placement_partner` is separately catalogued for recruitment/staffing sources. It is not part of the direct-employer ATS adapter set and must remain a separate ingestion path.
 
 ## 6. Automated vacancy pipeline
 
@@ -178,7 +192,7 @@ Supabase Free can support development/low-volume evaluation subject to current l
 
 ## 12. Verification
 
-Unit tests cover URL parsing, adapters, config validation, normalisation, hashing, duplicate handling, quality gates, state transitions and idempotency. Contract tests use recorded ATS fixtures. PostgreSQL integration tests cover schema constraints and persistence. Live smoke tests for Greenhouse and Workday are separately recorded.
+Unit tests cover URL parsing, adapters, config validation, normalisation, hashing, duplicate handling, quality gates, state transitions and idempotency. Contract tests use recorded ATS fixtures. PostgreSQL integration tests cover schema constraints and persistence. Live smoke tests for every registry ATS adapter are separately recorded. Greenhouse is the reference end-to-end flow; Workday, Lever, Breezy HR and Ashby require representative live validation.
 
 Critical safety tests:
 
