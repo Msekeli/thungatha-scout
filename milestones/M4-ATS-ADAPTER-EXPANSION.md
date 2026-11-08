@@ -75,14 +75,14 @@ This is one checkpoint with two sequential activities:
 
 Each adapter has exactly two checkpoints. Complete A before B, and complete/review B before beginning the next adapter.
 
-| Order | Adapter | Checkpoint A — investigate, design, implement | Checkpoint B — integrate, verify | Employer test cohort and investigation focus |
-|---:|---|---|---|---|
-| 1 | Ashby | **M4-ASHBY-A** | **M4-ASHBY-B** | Midnite, MyEdSpace, Tree Traction. Verify public Job Postings API, board identity, response completeness, descriptions and application URLs. |
-| 2 | Lever | **M4-LEVER-A** | **M4-LEVER-B** | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs. |
-| 3 | Teamtailor | **M4-TEAMTAILOR-A** | **M4-TEAMTAILOR-B** | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs. |
-| 4 | Personio | **M4-PERSONIO-A** | **M4-PERSONIO-B** | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations. |
-| 5 | Recruitee | **M4-RECRUITEE-A** | **M4-RECRUITEE-B** | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
-| 6 | Workable | **M4-WORKABLE-A** | **M4-WORKABLE-B** | LekkeSlaap, Electrum, GoTyme Bank. Verify observed public careers-widget JSON behavior, board completeness, detail handling and application URLs. |
+| Order | Adapter    | Checkpoint A — investigate, design, implement | Checkpoint B — integrate, verify | Employer test cohort and investigation focus                                                                                                                                            |
+| ----: | ---------- | --------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     1 | Ashby      | **M4-ASHBY-A**                                | **M4-ASHBY-B**                   | Midnite, MyEdSpace, Tree Traction. Verify public Job Postings API, board identity, response completeness, descriptions and application URLs.                                            |
+|     2 | Lever      | **M4-LEVER-A**                                | **M4-LEVER-B**                   | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
+|     3 | Teamtailor | **M4-TEAMTAILOR-A**                           | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
+|     4 | Personio   | **M4-PERSONIO-A**                             | **M4-PERSONIO-B**                | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
+|     5 | Recruitee  | **M4-RECRUITEE-A**                            | **M4-RECRUITEE-B**               | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
+|     6 | Workable   | **M4-WORKABLE-A**                             | **M4-WORKABLE-B**                | LekkeSlaap, Electrum, GoTyme Bank. Verify observed public careers-widget JSON behavior, board completeness, detail handling and application URLs.                                       |
 
 ## First checkpoint instruction
 
