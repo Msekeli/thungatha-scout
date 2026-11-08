@@ -70,7 +70,8 @@ Employer discovery and source verification continue in parallel with implementat
 | M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                                  |
 | M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                                                                  |
 | M8        | Scheduling and Thungatha Publishing                | Not started                                                                                                                                  |
-| M9        | Security, Hosting, Recovery and Release Acceptance | Not started                                                                                                                                  |
+| M9        | Security, Hosting, Recovery and Release Acceptance | Not started
+| M10       | Docker Containerisation and Packaging              | Not started                                                                                                                                  |
 
 ### M2 — Backend foundation and Scout Supabase persistence
 
@@ -150,6 +151,19 @@ Acceptance: qualifying records become auto-publish eligible; hard failures are s
 Implement bounded recurring extraction at 06:00 and 18:00 `Africa/Johannesburg` time, with a maximum one-hour execution window per run (06:00–07:00 and 18:00–19:00). The one-hour limit is a ceiling, not a target: finish and exit as soon as assigned work completes. Add concurrency protection, per-source progress, bounded retries/backoff, run metrics, source health and idempotent publishing to Thungatha.
 
 Acceptance: unattended run works; only records passing publication gates publish; duplicate publishing is prevented; failed publication recovers; destination receives only required clean fields. Keep Scout and Thungatha persistence isolated.
+
+### M10 — Docker containerisation and packaging
+
+This is a final packaging checkpoint, not an early development dependency. Start only after the full application, API, scheduled worker and critical workflows pass local verification without Docker.
+
+- Add a backend Dockerfile and `.dockerignore` using the existing Python dependency/configuration setup.
+- Build one reusable backend image; support separate API and scheduled-worker commands without duplicating application code.
+- Keep Scout Supabase and Thungatha Supabase external; do not add a database container.
+- Pass secrets and environment-specific settings at runtime; never bake credentials into the image.
+- Verify image build, API startup/health, worker execution, graceful shutdown, timeout handling and database connectivity locally.
+- Document local build/run commands and the eventual host's runtime requirements.
+
+Acceptance: both API and worker run successfully from the same versioned image in local container tests; no credentials are embedded; application behavior matches the already accepted non-container local run. Docker packaging does not itself authorize cloud deployment or paid resources.
 
 ### M9 — Security, hosting, recovery and release
 
