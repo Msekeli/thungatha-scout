@@ -313,3 +313,18 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - Do not pad, sleep, or otherwise force a run to consume the full hour.
 - Prevent overlapping executions. If a run reaches the one-hour limit, record it as timed out/partial as appropriate and preserve completed per-source progress. Never treat a timeout or incomplete inventory as evidence that vacancies have disappeared.
 - This is the initial operating schedule; actual runtimes and source coverage will be measured after the complete extraction workflow is implemented and tested. The schedule and maximum duration remain configurable.
+
+
+## Decision record — expanded ATS and career-platform coverage (8 November 2026)
+
+The earlier five-platform M4 scope is superseded by the research catalogue in `docs/ATS-PLATFORM-RESEARCH.md` and `backend/registry/ats-adapter-registry.json`.
+
+- Keep all researched platforms and candidate employer sources in scope. Implementation difficulty changes sequencing, not employer eligibility or discovery coverage.
+- First-wave priorities are Ashby, Lever, Teamtailor RSS, Personio XML, Recruitee XML and Workable's observed public widget. Greenhouse remains the proven reference adapter and receives reliability/evidence closure.
+- Second wave: SmartRecruiters, BambooHR and Breezy HR. Third wave: Simplify.hr, eRecruit/Neptune investigation, Workday, Zoho Recruit and SAP SuccessFactors.
+- Placement Partner remains in scope as a separate recruitment-agency source pipeline. Validate redirect chains and final candidate destinations; accept redirects only when they preserve the exact vacancy/application journey.
+- JobAdder is partner/customer-authorised unless a separate public source is verified. Leaply is a discovery lead, not a confirmed public ATS adapter.
+- Personio and Workable are added candidates beyond the original supplied list because research found useful public vacancy retrieval routes.
+- Company names supplied as ATS examples remain discovery leads until the employer's own careers page establishes the platform relationship. A company may have multiple sources and multiple ATS platforms.
+- Do not use undocumented endpoints as if they were vendor-supported APIs. Record access method, source evidence, field completeness, redirect behavior and operational limits separately.
+- The research ranking is an implementation-effort estimate, not a market-share ranking. High-value difficult sources must not be excluded; move them into the hard-source backlog and revisit based on employer coverage.
