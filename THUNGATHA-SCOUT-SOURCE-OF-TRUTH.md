@@ -336,7 +336,6 @@ The earlier five-platform M4 scope is superseded by the research catalogue in `d
 - Workday is deferred from active research, implementation and test-target lists until further notice. Its previous CXS research is retained only as historical context; do not allocate current M4 work to Workday unless the user reactivates it.
 - Greenhouse is excluded from the new company cohort because its adapter is already implemented; outstanding Greenhouse reliability/acceptance work remains tracked separately.
 
-
 ## Decision record — strict ATS target registry and checkpointed M4 delivery (8 November 2026)
 
 - The machine-readable employer/ATS test cohort is maintained as strict JSON in `docs/ATS-EMPLOYER-TEST-TARGETS.json`. Do not use JSONC or comments in machine-readable JSON files; explanatory notes belong in Markdown.

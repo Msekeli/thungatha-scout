@@ -10,6 +10,7 @@ Extend Scout's employer-source coverage beyond the implemented Greenhouse adapte
 ## Authority and references
 
 Read these before starting:
+
 - `AGENTS.md`
 - `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`
 - `IMPLEMENTATION-PLAN.md`
@@ -39,26 +40,27 @@ Greenhouse is the working reference, not a template to copy blindly. Inspect its
 
 Each checkpoint has its own implementation, tests, evidence and review. A checkpoint is not Accepted until the user reviews the evidence.
 
-| Checkpoint | Scope | Exit evidence |
-|---|---|---|
-| M4-C01 | Investigate Ashby against real employer boards | Verified endpoints, request/response examples, config fields, vacancy fields, completeness behavior, limits and apply URL behavior; investigation report only |
-| M4-C02 | Compare Ashby findings with Greenhouse architecture and define the smallest adapter design | File-level design, responsibility boundaries, registry/config changes required, contract mapping and identified differences; no implementation yet |
-| M4-C03 | Implement Ashby URL recognition and configuration validation | Supported URL cases, invalid URL cases and registry-driven config tests |
-| M4-C04 | Implement Ashby provider retrieval | HTTP client behavior, timeout/error handling, successful/empty/partial outcomes and deterministic fixtures |
-| M4-C05 | Implement Ashby response mapping | Stable source ID, title, description, location, timestamps, vacancy URL and application URL mapping tests |
-| M4-C06 | Connect Ashby to the shared extraction/persistence workflow | Source can be extracted and persisted through shared services; no duplicate employer/vacancy records |
-| M4-C07 | Add Ashby API inspection/onboarding integration | URL detection, source preview and config validation work through the existing API/admin workflow where applicable |
-| M4-C08 | Ashby contract, regression and live validation | Unit/contract tests, at least three target-board checks where live boards permit, evidence of completeness and candidate destination validation |
-| M4-GATE | Review Ashby and common adapter pattern | User accepts the design/pattern before the next platform begins |
-| M4-C09 onward | Repeat the bounded adapter lifecycle for Lever, Teamtailor, Personio, Recruitee and Workable | Each platform has its own investigation, design, implementation, tests and live-validation checkpoints |
-| M4-WAVE2 | SmartRecruiters, BambooHR and Breezy HR | Start only after first-wave pattern review; preserve each platform's own evidence and limitations |
-| M4-WAVE3 | Simplify.hr, eRecruit/Neptune investigation, Zoho Recruit and SAP SuccessFactors | Investigate per-employer; do not assume a general public API or conflate eRecruit with Graylink Neptune |
+| Checkpoint    | Scope                                                                                        | Exit evidence                                                                                                                                                 |
+| ------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| M4-C01        | Investigate Ashby against real employer boards                                               | Verified endpoints, request/response examples, config fields, vacancy fields, completeness behavior, limits and apply URL behavior; investigation report only |
+| M4-C02        | Compare Ashby findings with Greenhouse architecture and define the smallest adapter design   | File-level design, responsibility boundaries, registry/config changes required, contract mapping and identified differences; no implementation yet            |
+| M4-C03        | Implement Ashby URL recognition and configuration validation                                 | Supported URL cases, invalid URL cases and registry-driven config tests                                                                                       |
+| M4-C04        | Implement Ashby provider retrieval                                                           | HTTP client behavior, timeout/error handling, successful/empty/partial outcomes and deterministic fixtures                                                    |
+| M4-C05        | Implement Ashby response mapping                                                             | Stable source ID, title, description, location, timestamps, vacancy URL and application URL mapping tests                                                     |
+| M4-C06        | Connect Ashby to the shared extraction/persistence workflow                                  | Source can be extracted and persisted through shared services; no duplicate employer/vacancy records                                                          |
+| M4-C07        | Add Ashby API inspection/onboarding integration                                              | URL detection, source preview and config validation work through the existing API/admin workflow where applicable                                             |
+| M4-C08        | Ashby contract, regression and live validation                                               | Unit/contract tests, at least three target-board checks where live boards permit, evidence of completeness and candidate destination validation               |
+| M4-GATE       | Review Ashby and common adapter pattern                                                      | User accepts the design/pattern before the next platform begins                                                                                               |
+| M4-C09 onward | Repeat the bounded adapter lifecycle for Lever, Teamtailor, Personio, Recruitee and Workable | Each platform has its own investigation, design, implementation, tests and live-validation checkpoints                                                        |
+| M4-WAVE2      | SmartRecruiters, BambooHR and Breezy HR                                                      | Start only after first-wave pattern review; preserve each platform's own evidence and limitations                                                             |
+| M4-WAVE3      | Simplify.hr, eRecruit/Neptune investigation, Zoho Recruit and SAP SuccessFactors             | Investigate per-employer; do not assume a general public API or conflate eRecruit with Graylink Neptune                                                       |
 
 ### First adapter: Ashby
 
 Use the employer test targets in `docs/ATS-EMPLOYER-TEST-TARGETS.json`: Midnite, MyEdSpace and Tree Traction. These are investigation targets, not proof that every endpoint or field works today.
 
 The investigation must establish:
+
 - How the official Ashby-hosted careers URL identifies the board slug, including supported URL variants and redirects.
 - The exact public Job Postings API request and response shape, including whether one request returns the complete published board.
 - Whether descriptions are inline and whether any detail request is needed.
