@@ -70,6 +70,15 @@ A recruiter portal may be considered later. Recruiter-submitted jobs require sep
 
 When decisions change, record date, reason, and impact; update affected documents. Inspect the live repository/tests before implementation. Historical Greenhouse-only notes and reports are evidence of prior experiments, not proof of current behavior.
 
+## Decision record — ATS adapter expansion (8 November 2026)
+
+- Greenhouse has been exercised end to end from vacancy extraction through publication to Thungatha, as confirmed by the user. Retain it as the reference adapter and record the exact test evidence in its milestone when available.
+- Expand M4 beyond Workday. Implement and validate every ATS already listed in `backend/registry/ats-adapter-registry.json`: Workday, Lever, Breezy HR and Ashby, using the shared adapter contract and the existing company/source workflow.
+- Revisit companies and sources already stored in Scout through their configured adapters. Re-extraction must be idempotent and must not create duplicate employers or vacancies.
+- `placement_partner` remains a separate recruitment/staffing pipeline, not a direct-employer ATS adapter. Evaluate it separately and do not count agencies toward direct-employer coverage.
+- Do not claim an adapter is supported until its public retrieval method, source relationship, access constraints, response completeness and representative live extraction are verified. If a platform cannot be accessed reliably or permissibly, record the limitation rather than fabricating support.
+- Docker containerisation is a final packaging milestone after the full application and worker pass local verification. One backend image should support separate API and worker commands; no database container is required.
+
 ## Decision record — dual-channel employer discovery (3 November 2026)
 
 The discovery strategy is clarified to address low unique-employer yield from ATS-only job extraction:
@@ -111,13 +120,13 @@ Every file has one clearly defined primary responsibility. Names should state th
 
 ## Decision record — v1 implementation baseline (3 November 2026)
 
-V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS platforms remain out of scope. The private React admin interface is required in v1; it is not a public job-search frontend.
+V1 covers the ATS/career-platform catalogue recorded in the adapter registry: Greenhouse, Workday, Lever, Breezy HR and Ashby. Greenhouse is the proven reference flow; the remaining four are to be implemented and validated through the common adapter contract. Recruiter self-service remains out of scope. The private React admin interface is required in v1; it is not a public job-search frontend.
 
 ### Product workflow
 
 - The employer is the primary management entity. An employer can have multiple independent recruitment sources; vacancies retain employer and source provenance.
 - Add Company is URL-first. The administrator pastes a careers/ATS URL; the backend detects the ATS, inspects the source and extracts employer metadata where reliable. The administrator confirms the employer identity and source relationship before registration.
-- Manual ATS selection is a fallback and override. V1 supports Greenhouse and Workday only.
+- Manual ATS selection is a fallback and override. V1 target support includes Greenhouse, Workday, Lever, Breezy HR and Ashby, subject to verified public retrieval methods, source restrictions and representative live tests.
 - Adding an employer to an existing adapter is configuration-driven and must not require employer-specific adapter code. A new ATS may require one new adapter implementation.
 - Adding a source to an existing employer must not create a duplicate employer. Archiving a source must not remove its employer or other sources.
 - Employer/source approval and vacancy approval are separate. Only approved, validated vacancy versions may publish.
