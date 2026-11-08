@@ -100,51 +100,31 @@ Checkpoints:
 
 Acceptance: adding another Greenhouse employer requires registry configuration, not employer-specific adapter code; supported URL forms, complete-board counts, full descriptions, meaningful vacancy data and failure outcomes are tested; the admin can complete source onboarding, extraction and vacancy inspection end to end.
 
-### M4 — ATS adapter expansion
+### M4 — First-wave ATS adapter expansion
 
-Execute this milestone only through the individually reviewable checkpoints in `milestones/M4-ATS-ADAPTER-EXPANSION.md`. Do not attempt M4 as one large implementation. Give every adapter exactly two checkpoints: investigation/design, then implementation/integration/verification. Complete and review each pair before moving to the next adapter. The milestone document lists all adapter pairs by wave and contains the first Ashby investigation handoff prompt.
+M4 is limited to the six first-wave adapters: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable. It contains exactly twelve checkpoints, two per adapter, as defined in `milestones/M4-ATS-ADAPTER-EXPANSION.md`.
 
-Expand beyond Greenhouse using the evidence-based ranking and employer test cohort in `docs/ATS-PLATFORM-RESEARCH.md`, `docs/ATS-EMPLOYER-TEST-TARGETS.json` and `backend/registry/ats-adapter-registry.json`. Difficulty controls implementation order, not whether an employer/source is retained. Greenhouse remains implemented and is excluded from the new cohort. Workday is deferred from active investigation, implementation and test-target lists until further notice.
+For each adapter, complete the checkpoints in order:
 
-**First wave — easy public feeds and endpoints**
+- **A — Investigate, design and implement.** First inspect real employer sources and prove the public retrieval behavior. Record the evidence and file-by-file design before writing code; the investigation activity does not commit code. Once the method and design are established, implement the adapter and focused unit tests within the same A checkpoint. If no permitted, reliable method is established, record an evidence-backed blocked/deferred outcome.
+- **B — Integrate and verify.** Register generic adapter capabilities and employer-specific source configuration in the correct registries; connect the adapter to the shared extraction/persistence and existing API/admin workflow; add contract/integration coverage; run regression and mandatory repository checks; perform representative live validation; record exact evidence and results.
 
-- Ashby: documented public Job Postings API.
-- Lever: documented public Postings API; validate global/EU host and pagination.
-- Teamtailor: documented public RSS feed.
-- Personio: public XML feed when enabled by the employer.
-- Recruitee: public XML offer feed; do not rely on the token-protected Careers Site API.
-- Workable: validate the observed public careers-widget JSON endpoint against real boards.
-- Greenhouse remains the reference adapter; close outstanding reliability and acceptance evidence.
+Complete and review both checkpoints for one adapter before starting the next adapter. Do not split these responsibilities into additional checkpoints.
 
-**Second wave — public but more involved**
+The six first-wave providers and target cohorts are:
 
-- SmartRecruiters: official public Posting API; paginated list and detail retrieval.
-- BambooHR: observed public careers list/detail endpoints; descriptions require per-job detail calls.
-- Breezy HR: public JSON summary feed; description/detail behavior must be proven on real employer portals before treating extraction as complete.
+- **Ashby:** Midnite, MyEdSpace, Tree Traction — public Job Postings API.
+- **Lever:** Mama Money, Theodo, Wing Assistant — public Postings API; verify regional host and pagination.
+- **Teamtailor:** Root Platform, Footasylum, TeamViewer — public RSS feed and custom-domain handling.
+- **Personio:** ottonova, Open, Openprovider — public XML feed when enabled by the employer.
+- **Recruitee:** TransPerfect, Fastned, Tether — verify current public XML offer feed availability; do not rely on the token-protected Careers Site API.
+- **Workable:** LekkeSlaap, Electrum, GoTyme Bank — validate observed public careers-widget JSON behavior.
 
-**Third wave — hard/local strategic platforms**
+Greenhouse remains the existing architectural reference and is not part of M4 delivery. SmartRecruiters, BambooHR, Breezy HR, Simplify.hr, eRecruit/Neptune, Zoho Recruit and SAP SuccessFactors belong to later-wave planning, not this milestone. Placement Partner is a separate recruitment/staffing source pipeline and is not part of M4. Workday remains deferred.
 
-- Simplify.hr: inspect real South African employer pages and network calls; no general public unauthenticated feed has yet been established.
-- eRecruit / Neptune: investigate employer portals individually. Do not conflate the Shoprite eRecruit portal with Graylink's separately marketed Neptune ATS.
-- Zoho Recruit: observed careers-page HTML/embedded data, not a documented public API.
-- SAP SuccessFactors: tenant-specific Career Site Builder/custom careers pages; do not build around the legacy RSS/XML response scheduled for deletion in May 2027.
+Across all adapters, keep provider HTTP, parsing, pagination and detail retrieval inside the adapter; keep quality gates, deduplication, lifecycle and publishing shared. Do not hardcode employer-specific slugs or tenant identifiers in adapter code. HTTP 200 alone is not acceptance: verify meaningful vacancy content, full descriptions where expected, complete-board counts, stable IDs and exact candidate destinations. Failed or partial runs must not imply that vacancies disappeared.
 
-**Separate source pipelines**
-
-- Placement Partner remains in scope as a recruitment/staffing source adapter. Validate agency IDs, vacancy detail pages, redirect chains and final application destinations. Accept a redirect only when it preserves the exact vacancy/application journey; flag generic homepages, search pages, wrong jobs, login walls and broken links. Do not count agencies as direct employers.
-- JobAdder requires customer/partner-authorised OAuth2 API access unless a separate public agency page/widget is verified.
-- Leaply remains a discovery lead, not a confirmed public ATS adapter, until a candidate-facing vacancy board and public retrieval method are demonstrated.
-
-Checkpoints:
-
-- Update URL detection, source configuration validation and admin onboarding for each verified public platform using the same shared workflow.
-- Keep provider HTTP, parsing, pagination and detail retrieval inside adapters. Keep quality gates, deduplication, lifecycle and publishing shared.
-- Add fixtures and contract tests for each adapter; record representative live smoke-test evidence and source/application-link validation.
-- Revisit existing stored companies/sources idempotently; do not create duplicate employers or vacancies.
-- Distinguish documented APIs/feeds from observed undocumented endpoints and employer-authorised APIs.
-- A source may return HTTP 200 and still be incomplete. Validate meaningful vacancy content, full descriptions where expected, complete-board counts, stable IDs and exact candidate destinations.
-
-Acceptance: each adapter has an evidenced employer/source relationship, verified retrieval and authentication method, configuration schema, URL detection, fixture/contract tests and representative live validation. Unsupported or blocked methods remain documented as such; they are not silently removed from discovery coverage. Adding another employer to a supported platform requires configuration, not employer-specific adapter code.
+**Acceptance:** all six adapters have completed their A/B checkpoints or have evidence-backed blocked/deferred outcomes; implemented adapters are registered and integrated through the shared workflow; relevant unit, contract, integration and regression tests pass; representative live evidence and gaps are recorded; adding another employer to a supported platform requires configuration rather than employer-specific adapter code. Follow the 100-physical-line limit and mandatory naming/line-limit checks for all handwritten source and test files.
 
 ### M5 — Cross-cutting admin UI and API integration
 
