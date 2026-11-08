@@ -24,15 +24,43 @@ The ranking below estimates implementation effort for one reusable adapter after
 |    9 | BambooHR           | Public careers list + per-job detail endpoints           | Observed public, undocumented                               | Moderate                  | Implement after employer-board validation        |
 |   10 | Breezy HR          | Public JSON list + HTML detail page                      | List is public/undocumented; details uncertain              | Moderate–hard             | Validate detail extraction first                 |
 |   11 | Zoho Recruit       | Public careers HTML with embedded data                   | Undocumented page behavior                                  | Hard                      | Build only against verified real boards          |
-|   12 | Workday            | Public careers CXS POST + detail GET                     | Observed public, undocumented                               | Hard                      | Implement after easy adapters                    |
-|   13 | SAP SuccessFactors | Tenant-specific Career Site Builder / XML / HTML         | Varies by tenant; legacy XML response retiring              | Hard                      | Do not rely on legacy RSS/XML                    |
-|   14 | Simplify.hr        | South African hosted careers pages                       | No general public endpoint verified                         | Hard                      | Inspect actual page/network calls                |
-|   15 | Neptune / eRecruit | Employer-specific portal and possible custom integration | No general public feed/API verified                         | Hard                      | Treat as employer-specific investigation         |
-|   16 | Placement Partner  | Agency vacancy pages and candidate redirects             | Public pages; identifiers and link behavior need validation | Hard                      | Keep separate agency pipeline                    |
-|   17 | JobAdder           | Customer API / possible agency widgets                   | OAuth2 customer authorization                               | Partner-dependent         | Do not build a global API adapter without access |
-|   18 | Leaply             | Recruitment engine / marketplace                         | No public vacancy feed verified                             | Not yet an ATS adapter    | Keep as discovery lead, investigate separately   |
+|   12 | SAP SuccessFactors | Tenant-specific Career Site Builder / XML / HTML         | Varies by tenant; legacy XML response retiring              | Hard                      | Do not rely on legacy RSS/XML                    |
+|   13 | Simplify.hr        | South African hosted careers pages                       | No general public endpoint verified                         | Hard                      | Inspect actual page/network calls                |
+|   14 | Neptune / eRecruit | Employer-specific portal and possible custom integration | No general public feed/API verified                         | Hard                      | Treat as employer-specific investigation         |
+|   15 | Placement Partner  | Agency vacancy pages and candidate redirects             | Public pages; identifiers and link behavior need validation | Hard                      | Keep separate agency pipeline                    |
+|   16 | JobAdder           | Customer API / possible agency widgets                   | OAuth2 customer authorization                               | Partner-dependent         | Do not build a global API adapter without access |
+|   17 | Leaply             | Recruitment engine / marketplace                         | No public vacancy feed verified                             | Not yet an ATS adapter    | Keep as discovery lead, investigate separately   |
 
 Difficulty is an engineering estimate based on documented retrieval method, request shape, pagination, field completeness, detail-page requirements and configuration variance. It is not a vendor quality rating.
+
+## First-wave employer test targets
+
+The following company/career-page pairs are the initial research cohort for the first wave. These are **test targets**, not evidence that Scout has already extracted their vacancies. The ATS-hosted URL is a starting point; the investigator must inspect the actual page, redirects, browser network requests, scripts and embedded data, then reproduce the retrieval requests.
+
+| ATS | Company | Careers URL | Evidence / test note |
+| --- | --- | --- | --- |
+| Ashby | Midnite | https://jobs.ashbyhq.com/midnite | Confirmed Ashby-hosted board; Cape Town vacancy evidence found. |
+| Ashby | MyEdSpace | https://jobs.ashbyhq.com/myedspacecareers | Confirmed Ashby-hosted board; South Africa remote vacancy evidence found. |
+| Ashby | Tree Traction | https://jobs.ashbyhq.com/treetraction | Confirmed Ashby-hosted board; South Africa remote vacancy evidence found. |
+| Lever | Mama Money | https://jobs.lever.co/mamamoney | Confirmed Lever-hosted board; South Africa/Cape Town vacancy evidence found. |
+| Lever | Theodo | https://jobs.lever.co/theodo | Confirmed Lever-hosted board; South Africa vacancy evidence found. |
+| Lever | Wing Assistant | https://jobs.lever.co/getwingapp | Confirmed Lever-hosted board; South Africa vacancy evidence found. |
+| Teamtailor | Root Platform | https://root.teamtailor.com/jobs | Confirmed Teamtailor-hosted board; Cape Town vacancy evidence found. |
+| Teamtailor | Footasylum | https://footasylum.teamtailor.com/jobs | Confirmed Teamtailor-hosted board; international comparison. |
+| Teamtailor | TeamViewer | https://careers.teamviewer.com/jobs | Teamtailor custom careers domain; test non-default domain handling. |
+| Personio | ottonova | https://ottonova.jobs.personio.de/ | Confirmed Personio-hosted page; verify employer-enabled XML feed. |
+| Personio | Open | https://open.jobs.personio.com/ | Confirmed Personio-hosted page; verify current vacancies and XML feed. |
+| Personio | Openprovider | https://openprovider.jobs.personio.com/ | Confirmed Personio-hosted page; previously showed no open positions, useful for empty-board behavior. |
+| Recruitee | TransPerfect | https://transperfect.recruitee.com/ | Confirmed Recruitee-hosted page. |
+| Recruitee | Fastned | https://fastned.recruitee.com/ | Confirmed Recruitee-hosted page. |
+| Recruitee | Tether | https://tether.recruitee.com/ | Historical/variable: URL has redirected to main careers site; verify current platform status. |
+| Workable | LekkeSlaap | https://apply.workable.com/lekkeslaap/ | Confirmed Workable-hosted board; Cape Town/South Africa vacancy evidence found. |
+| Workable | Electrum | https://apply.workable.com/electrum/ | Confirmed Workable-hosted board; South African technology vacancy evidence found. |
+| Workable | GoTyme Bank | https://apply.workable.com/gotyme-za-south-africa/ | Confirmed Workable-hosted board; South African vacancy evidence found. |
+
+**Evidence caution:** "Confirmed" here confirms the career-page/ATS association observed during research. It does not confirm that the XML/RSS/API endpoint is enabled, stable, complete or suitable for production. In particular, Personio XML availability depends on employer configuration; Tether's Recruitee URL has shown redirect behavior. Validate all endpoints live before implementation.
+
+The machine-readable company cohort is maintained in `backend/registry/ats-adapter-registry.json` and the companion JSONC test-target file. Keep employer/source associations evidence-labelled; do not promote directory leads to confirmed integrations without checking the employer's own career page.
 
 ## Platform findings
 
@@ -176,13 +204,15 @@ Implementation notes: inspect the actual page and script/data structure, parse d
 Primary product reference: https://www.zoho.com/recruit/career-site.html  
 Observed endpoint research: https://hiringindex.org/sources/zoho
 
-### 12. Workday — hard
+### Workday — deferred from active scope
 
 Observed public careers-site endpoint:
 `POST https://{tenant}.{cluster}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs`
 
 Typical request body:
 `{"appliedFacets":{},"limit":20,"offset":0,"searchText":""}`
+
+**Status: deferred by user instruction on 8 November 2026. Do not investigate or implement until reactivated.** The following notes are retained as historical research only.
 
 Workday does not publish this as a general public job-board API. The endpoint is the JSON service used by public career pages. It commonly returns 20 jobs per page; descriptions/details require another GET using the posting's `externalPath`. Host cluster, tenant and site are separate values and must be extracted from the actual employer URL. Large boards can hit result caps or unusual pagination behavior.
 
@@ -323,7 +353,6 @@ Never follow unlimited redirects, submit forms, or bypass access controls. Use b
 
 11. Simplify.hr
 12. eRecruit / Neptune investigation
-13. Workday
 14. Zoho Recruit
 15. SAP SuccessFactors
 
