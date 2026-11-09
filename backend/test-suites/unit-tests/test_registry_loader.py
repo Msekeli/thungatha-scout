@@ -27,3 +27,9 @@ def test_workday_source_requires_host_tenant_and_site() -> None:
 def test_registry_rejects_unknown_adapter() -> None:
     with pytest.raises(RegistryValidationError, match="Unknown adapter"):
         validate_source_config("unknown", {})
+
+def test_lever_source_requires_slug_and_region() -> None:
+    with pytest.raises(RegistryValidationError, match="slug, region"):
+        validate_source_config("lever", {"slug": "mamamoney"})
+
+    validate_source_config("lever", {"slug": "mamamoney", "region": "global"})
