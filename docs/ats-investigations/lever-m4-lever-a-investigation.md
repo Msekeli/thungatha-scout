@@ -165,7 +165,6 @@ The inspected HTML uses ordinary `div`, `p` and `strong` elements plus `&nbsp;` 
 
 **Checkpoint outcome:** M4-LEVER-A is accepted following user review. M4-LEVER-B is in progress; integration and regression verification remain outstanding.
 
-
 ## M4-LEVER-B integration update — 9 November 2026
 
 The adapter is now registered with the shared extraction service. The generic registry marks Lever as implemented and constrains its `region` configuration to `global` or `eu`. The employer/source registry contains pending configurations for Mama Money (`mamamoney`), Theodo (`theodo`) and Wing Assistant (`getwingapp`); employer identity/source relationship and permission have not been promoted to verified or allowed.
