@@ -4,8 +4,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from scout.api.vacancy_api_dependencies import get_extraction_service
-from scout.application.source_extraction_service import (
-    SourceExtractionService,
+from scout.application.source_extraction_service import SourceExtractionService
+from scout.application.source_extraction_errors import (
     SourceNotApprovedError,
     SourceNotFoundError,
     UnsupportedAdapterError,
