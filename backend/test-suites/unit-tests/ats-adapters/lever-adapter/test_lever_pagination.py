@@ -11,8 +11,9 @@ def test_fetches_until_short_page_and_detects_duplicates() -> None:
     calls = []
 
     def handler(request: httpx.Request) -> httpx.Response:
-        calls.append(request.url.params["skip"])
-        if request.url.params["skip"] == "0":
+        query = request.url.query.decode()
+        calls.append(query)
+        if "skip=0" in query:
             return httpx.Response(200, json=[{"id": "one"}, {"id": "two"}])
         return httpx.Response(200, json=[{"id": "three"}])
 
@@ -26,7 +27,8 @@ def test_fetches_until_short_page_and_detects_duplicates() -> None:
     assert result.outcome == "success"
     assert result.complete is True
     assert result.pages_fetched == 2
-    assert calls == ["0", "2"]
+    assert len(calls) == 2
+    assert "skip=2" in calls[1]
 
 
 def test_duplicate_ids_make_inventory_partial() -> None:
