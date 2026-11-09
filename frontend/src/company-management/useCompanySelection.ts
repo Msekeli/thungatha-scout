@@ -5,6 +5,7 @@ import type { Employer, EmployerSource, ExtractionRun } from "../api";
 
 type UseCompanySelectionOptions = {
   setSources: Dispatch<SetStateAction<EmployerSource[]>>;
+  setDashboardSources: Dispatch<SetStateAction<EmployerSource[]>>;
   setExtractionRuns: Dispatch<SetStateAction<Record<string, ExtractionRun[]>>>;
   setSelectedCompanyId: (id: string | null) => void;
   setLogoUrl: (url: string) => void;
@@ -17,6 +18,7 @@ type UseCompanySelectionOptions = {
 
 export function useCompanySelection({
   setSources,
+  setDashboardSources,
   setExtractionRuns,
   setSelectedCompanyId,
   setLogoUrl,
@@ -62,6 +64,11 @@ export function useCompanySelection({
         if (currentRequest !== requestId.current) return;
 
         setSources(previewedSources);
+        setDashboardSources((current) =>
+          current.map((source) =>
+            previewedSources.find((item) => item.id === source.id) ?? source,
+          ),
+        );
         setExtractionRuns((current) => ({
           ...current,
           ...Object.fromEntries(runEntries),
