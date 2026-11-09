@@ -8,7 +8,10 @@ from psycopg.connection import Connection
 from scout.persistence.database_connection import get_database_connection
 from scout.registry_employer_importer import import_employer
 from scout.registry_loader import REGISTRY_DIRECTORY
-from scout.registry_source_importer import import_employer_sources
+from scout.registry_source_importer import (
+    SUPPORTED_IMPORT_ADAPTERS,
+    import_employer_sources,
+)
 
 
 def import_registry(
@@ -23,9 +26,20 @@ def import_registry(
         "sources_skipped": 0,
     }
     for item in registry["employers"]:
+        supported = [
+            source for source in item.get("sources", [])
+            if source.get("ats") in SUPPORTED_IMPORT_ADAPTERS
+        ]
+        counts["sources_skipped"] += len(item.get("sources", [])) - len(supported)
+        if not supported:
+            continue
         employer = import_employer(item, connection, counts)
         import_employer_sources(
-            item, employer, item.get("careers_url"), connection, counts
+            {**item, "sources": supported},
+            employer,
+            item.get("careers_url"),
+            connection,
+            counts,
         )
     return counts
 
