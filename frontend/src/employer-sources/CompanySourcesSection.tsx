@@ -1,5 +1,5 @@
 import type { FormEvent } from "react";
-import type { EmployerSource, GreenhouseInspection } from "../api";
+import type { EmployerSource, SourceInspection } from "../api";
 import { SourceRegistrationForm } from "./SourceRegistrationForm";
 import { EmployerSourceCard } from "./EmployerSourceCard";
 
@@ -7,7 +7,7 @@ type Props = {
   sources: EmployerSource[];
   sourceUrl: string;
   editingSourceId: string | null;
-  inspection: GreenhouseInspection | null;
+  inspection: SourceInspection | null;
   saving: boolean;
   inspecting: boolean;
   onEditSource: (source: EmployerSource) => void;
