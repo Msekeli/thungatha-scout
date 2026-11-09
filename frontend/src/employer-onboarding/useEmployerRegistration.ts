@@ -56,10 +56,14 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
         normalized_url: discovery.board_url,
         employer_careers_url: sourceUrl,
         adapter_config: discovery.adapter_config,
-        discovery_preview: {
-          total_vacancies: discovery.total_vacancies ?? discovery.jobs?.length ?? 0,
-          jobs: discovery.jobs ?? [],
-        },
+        discovery_preview:
+          discovery.complete === true &&
+          (discovery.outcome === "success" || discovery.outcome === "empty")
+            ? {
+                total_vacancies: discovery.total_vacancies ?? discovery.jobs?.length ?? 0,
+                jobs: discovery.jobs ?? [],
+              }
+            : null,
       });
       onRegistered({ employer, source });
       onNotice(
