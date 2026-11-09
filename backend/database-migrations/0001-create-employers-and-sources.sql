@@ -62,8 +62,6 @@ CREATE TABLE employer_sources (
         )),
     relationship_evidence JSONB NOT NULL DEFAULT '[]'::jsonb
         CHECK (jsonb_typeof(relationship_evidence) = 'array'),
-    discovery_preview JSONB
-        CHECK (discovery_preview IS NULL OR jsonb_typeof(discovery_preview) = 'object'),
     verified_at TIMESTAMPTZ,
     last_checked_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
