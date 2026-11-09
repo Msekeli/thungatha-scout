@@ -73,9 +73,7 @@ export function CompanyDirectoryCard({
               className="scout-company-card__logo"
               onError={(event) => {
                 event.currentTarget.style.display = "none";
-                event.currentTarget.parentElement
-                  ?.querySelector("svg")
-                  ?.classList.remove("hidden");
+                event.currentTarget.parentElement?.querySelector("svg")?.classList.remove("hidden");
               }}
             />
           ) : null}
