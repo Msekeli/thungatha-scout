@@ -75,16 +75,17 @@ No live API response bodies, posting counts, page counts or exact apply URLs wer
 
 The user ran the public API retrieval locally against all three employer boards using `limit=100`, incrementing `skip` until a short page was returned.
 
-| Employer | Total records | Page sizes | Unique IDs | Missing IDs | Cape Town matches |
-| --- | ---: | --- | ---: | ---: | ---: |
-| Mama Money | 7 | 7 | 7 | 0 | 4 |
-| Theodo | 131 | 100, 31 | 131 | 0 | 3 |
-| Wing Assistant | 375 | 100, 100, 100, 75 | 375 | 0 | 4 |
-| **Total** | **513** | | **513** | **0** | **11** |
+| Employer       | Total records | Page sizes        | Unique IDs | Missing IDs | Cape Town matches |
+| -------------- | ------------: | ----------------- | ---------: | ----------: | ----------------: |
+| Mama Money     |             7 | 7                 |          7 |           0 |                 4 |
+| Theodo         |           131 | 100, 31           |        131 |           0 |                 3 |
+| Wing Assistant |           375 | 100, 100, 100, 75 |        375 |           0 |                 4 |
+| **Total**      |       **513** |                   |    **513** |       **0** |            **11** |
 
 All 513 records had an ID, title, categories, `createdAt` integer, `hostedUrl` and `applyUrl`. All three boards returned a final short page, supporting pagination completion for this observed snapshot. The exact job and application URLs were present in every record.
 
 Description completeness differs by board:
+
 - Mama Money: 7/7 records have non-empty `descriptionPlain`.
 - Theodo: 131/131 records have non-empty `descriptionPlain`.
 - Wing Assistant: 319/375 records have non-empty `descriptionPlain`; 56 are missing it.
@@ -94,6 +95,7 @@ The four Cape Town Wing Assistant matches all have IDs and exact hosted/applicat
 All `createdAt` values were integers across the 513 records. This confirms presence and type for this cohort snapshot, but does not independently prove the field's semantic meaning or justify treating it as a source-update timestamp. Keep `source_updated_at` null. Do not map `createdAt` to `published_at` until its meaning is sufficiently established.
 
 The observed workplace types were:
+
 - Mama Money: 6 onsite, 1 remote.
 - Theodo: 43 onsite, 88 hybrid.
 - Wing Assistant: 341 remote, 24 hybrid, 10 onsite.
