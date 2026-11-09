@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { scoutApi } from "../api";
-import type { CareersDiscovery, GreenhouseInspection } from "../api";
+import type { CareersDiscovery, SourceInspection } from "../api";
 
 type UseCareersDiscoveryOptions = {
   onError: (message: string) => void;
 };
 
 export function useCareersDiscovery({ onError }: UseCareersDiscoveryOptions) {
-  const [inspection, setInspection] = useState<GreenhouseInspection | null>(null);
+  const [inspection, setInspection] = useState<SourceInspection | null>(null);
   const [inspecting, setInspecting] = useState(false);
 
   async function discover(
@@ -29,18 +29,18 @@ export function useCareersDiscovery({ onError }: UseCareersDiscoveryOptions) {
     }
   }
 
-  async function inspectGreenhouseBoard(sourceUrl: string) {
+  async function inspectSource(sourceUrl: string) {
     setInspecting(true);
     onError("");
     setInspection(null);
     try {
-      setInspection(await scoutApi.inspectGreenhouse(sourceUrl));
+      setInspection(await scoutApi.inspectSource(sourceUrl));
     } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not inspect Greenhouse board.");
+      onError(reason instanceof Error ? reason.message : "Could not inspect this recruitment source.");
     } finally {
       setInspecting(false);
     }
   }
 
-  return { inspection, setInspection, inspecting, discover, inspectGreenhouseBoard };
+  return { inspection, setInspection, inspecting, discover, inspectSource };
 }
