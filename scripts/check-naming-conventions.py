@@ -26,16 +26,14 @@ DOCUMENTED_FILE_EXCEPTIONS = {
     "styles.css", "avatar.tsx", "badge.tsx", "button.tsx", "card.tsx",
     "dialog.tsx", "dropdown-menu.tsx", "input.tsx", "label.tsx",
     "select.tsx", "separator.tsx", "sheet.tsx", "skeleton.tsx",
-    "table.tsx", "tabs.tsx", "tooltip.tsx", "utils.ts", "textarea.tsx",
-    "alert.tsx",
+    "table.tsx", "tabs.tsx", "tooltip.tsx", "utils.ts", "textarea.tsx", "alert.tsx",
     "geography.py", "authentication.py", "settings.py", "vacancies.py",
     "employers.py", "api.ts", "supabase.ts",
 }
 
 IGNORED_DIRECTORIES = {
-    ".git", ".venv", "node_modules", "dist", "__pycache__",
-    ".pytest_cache", ".ruff_cache", ".mypy_cache",
-    ".egg-info", "thungatha_scout_backend.egg-info",
+    ".git", ".venv", "node_modules", "dist", "__pycache__", ".pytest_cache",
+    ".ruff_cache", ".mypy_cache", ".egg-info", "thungatha_scout_backend.egg-info",
 }
 
 
