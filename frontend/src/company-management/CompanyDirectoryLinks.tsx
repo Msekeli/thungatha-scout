@@ -42,7 +42,9 @@ export function CompanyDirectoryLinks({ employer, sources }: Props) {
           >
             <span className="scout-company-source-badge">{adapter.badge}</span>
             <span className="shrink-0">{adapter.label}</span>
-            <span className="truncate scout-company-link__url">{visibleUrl(source.source_url)}</span>
+            <span className="truncate scout-company-link__url">
+              {visibleUrl(source.source_url)}
+            </span>
             <ExternalLink className="ml-auto h-3 w-3 shrink-0" />
           </a>
         );
