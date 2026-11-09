@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-import scout.api.lever_routes as lever_routes
+from scout.api import lever_routes
 from scout.ats_adapters.lever_adapter.lever_url_parser import parse_lever_board_url
 from scout.main import app
 
