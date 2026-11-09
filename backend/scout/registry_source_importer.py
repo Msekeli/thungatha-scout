@@ -68,8 +68,12 @@ def import_employer_sources(
             )
         if matches:
             update_source(
-                connection, matches[0]["id"], source_url, config,
-                careers_url, update_normalized_url=True,
+                connection,
+                matches[0]["id"],
+                source_url,
+                config,
+                careers_url,
+                update_normalized_url=True,
             )
             counts["sources_updated"] += 1
             continue
