@@ -1,22 +1,14 @@
 from collections.abc import Mapping
 from typing import Any
-from uuid import UUID
-
-from psycopg.types.json import Jsonb
 
 from scout.application.vacancy_description_sanitizer import (
     sanitize_vacancy_description,
 )
+from scout.ats_adapters.ats_adapter_contracts import NormalizedVacancy
 from .greenhouse_vacancy_location_mapper import resolve_greenhouse_location
 
 
-def map_greenhouse_job(
-    employer_id: UUID,
-    source_id: UUID,
-    source_url: str,
-    job: Mapping[str, Any],
-    fingerprint: str,
-) -> dict[str, Any]:
+def map_greenhouse_job(job: Mapping[str, Any]) -> NormalizedVacancy:
     departments = job.get("departments")
     offices = job.get("offices")
     office_names = (
@@ -28,29 +20,22 @@ def map_greenhouse_job(
         if isinstance(offices, list)
         else []
     )
-    return {
-        "employer_id": employer_id,
-        "source_id": source_id,
-        "external_job_id": str(job["id"]),
-        "title": job["title"].strip(),
-        "description": sanitize_vacancy_description(job.get("content")),
-        "location_text": resolve_greenhouse_location(job.get("location"), offices),
-        "department": departments[0].get("name")
+    department = (
+        departments[0].get("name")
         if isinstance(departments, list)
         and departments
         and isinstance(departments[0], dict)
-        else None,
-        "office": office_names[0] if office_names else None,
-        "source_url": source_url,
-        "application_url": job["absolute_url"],
-        "published_at": job.get("first_published"),
-        "source_updated_at": job.get("updated_at"),
-        "raw_payload": Jsonb(
-            {
-                key: job[key]
-                for key in ("location", "departments", "offices")
-                if key in job
-            }
-        ),
-        "fingerprint": fingerprint,
-    }
+        else None
+    )
+    return NormalizedVacancy(
+        external_job_id=str(job["id"]),
+        title=job["title"].strip(),
+        description=sanitize_vacancy_description(job.get("content")),
+        location_text=resolve_greenhouse_location(job.get("location"), offices),
+        department=department,
+        office=office_names[0] if office_names else None,
+        application_url=job["absolute_url"],
+        published_at=job.get("first_published"),
+        source_updated_at=job.get("updated_at"),
+        raw_payload=dict(job),
+    )

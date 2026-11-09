@@ -1,5 +1,5 @@
-from scout.application.greenhouse_extraction_service import GreenhouseExtractionService
+from scout.application.source_extraction_service import SourceExtractionService
 
 
-def get_extraction_service() -> GreenhouseExtractionService:
-    return GreenhouseExtractionService()
+def get_extraction_service() -> SourceExtractionService:
+    return SourceExtractionService()
