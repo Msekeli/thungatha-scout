@@ -2,14 +2,14 @@
 
 **Investigation date:** 9 November 2026  
 **Checkpoint:** M4-LEVER-A  
-**Status:** Adapter implementation committed; local verification pending  
+**Status:** Accepted — 9 November 2026; M4-LEVER-B integration in progress  
 **Scope:** Mama Money, Theodo and Wing Assistant only
 
 ## Decision
 
 Lever is a materially simpler integration candidate than Ashby. Lever documents an unauthenticated public Postings API for published vacancies and explicitly states that published postings are publicly viewable and may be scraped by third parties. No partner-feed approval is documented as a prerequisite for reading these published postings.
 
-The public API is suitable for a shared Lever adapter. Live requests from the user's local environment verified all three cohort boards, pagination, stable IDs, vacancy descriptions/fallback, locations and exact job/application URLs. The adapter implementation is committed on `dev`; local tests and mandatory repository checks remain to be run before A can be reviewed.
+The public API is suitable for a shared Lever adapter. Live requests from the user's local environment verified all three cohort boards, pagination, stable IDs, vacancy descriptions/fallback, locations and exact job/application URLs. The adapter implementation is committed on `dev`; the user subsequently ran the focused tests and mandatory checks, then directed progression to M4-LEVER-B.
 
 ## Official public API contract
 
@@ -161,6 +161,15 @@ The inspected HTML uses ordinary `div`, `p` and `strong` elements plus `&nbsp;` 
 - Adapter implementation and focused tests committed on `dev`; see implementation commits `bde5d56`, `74043d2`, `385504e`, `f8d6e03`, `5d062d7`, `63e85bdb`, `b5e99e2`, `7222319`, `4e64868`, `32ccfbe`, `c61f14f`, `fdaf57d`, `8665cfd`, `ed0b001`, `640cfb3`, `f12ce29` and `653781e`.
 - The implementation is not yet registered in `source_extraction_service.py`; that integration and registry changes belong to M4-LEVER-B.
 - No Lever employer-specific records or generic adapter registry entries have been activated.
-- Tests and mandatory repository checks have not yet been run in the user's local checkout.
+- Focused Lever tests passed (10 passed in 0.91s); the line-limit check passed; the repository-wide naming check failed with 38 unrelated violations and no Lever adapter paths.
 
-**Checkpoint outcome:** Investigation and implementation activities for M4-LEVER-A are complete. Checkpoint A remains in progress pending local tests, mandatory checks and user review. Do not start M4-LEVER-B until A is reviewed.
+**Checkpoint outcome:** M4-LEVER-A is accepted following user review. M4-LEVER-B is in progress; integration and regression verification remain outstanding.
+
+
+## M4-LEVER-B integration update — 9 November 2026
+
+The adapter is now registered with the shared extraction service. The generic registry marks Lever as implemented and constrains its `region` configuration to `global` or `eu`. The employer/source registry contains pending configurations for Mama Money (`mamamoney`), Theodo (`theodo`) and Wing Assistant (`getwingapp`); employer identity/source relationship and permission have not been promoted to verified or allowed.
+
+The source create/update API contracts now accept Lever. The backend exposes `/lever/discover` (URL parsing/configuration only) and `/lever/inspect` (bounded public-board retrieval). The frontend Add Company and company source-management flows route supported Lever board URLs to those endpoints and persist the detected slug/region. URL discovery deliberately does not retrieve vacancies; the subsequent background extraction uses the shared persistence pipeline.
+
+B tests added for registry region validation, default factory registration, Lever source API creation, board URL parsing and URL-only discovery. The user must run the broader backend/frontend checks and live API/admin extraction validation before B can be accepted.
