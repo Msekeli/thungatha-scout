@@ -57,6 +57,7 @@ export function CompanyDirectoryToolbar(props: Props) {
           <SelectContent>
             <SelectItem value="all">All job boards</SelectItem>
             <SelectItem value="greenhouse">Greenhouse</SelectItem>
+            <SelectItem value="lever">Lever</SelectItem>
             <SelectItem value="workday">Workday</SelectItem>
           </SelectContent>
         </Select>
