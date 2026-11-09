@@ -11,7 +11,6 @@ from scout.persistence.employer_source_repository import EmployerSourceRepositor
 
 class EmployerSourceUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
-
     adapter_key: Literal["greenhouse", "lever", "workday"]
     source_url: HttpUrl
     normalized_url: HttpUrl
@@ -19,35 +18,16 @@ class EmployerSourceUpdate(BaseModel):
 
 
 class EmployerSourceUpdateService:
-    def __init__(
-        self,
-        connection_factory: Callable[[], Connection] | None = None,
-    ) -> None:
+    def __init__(self, connection_factory: Callable[[], Connection] | None = None) -> None:
         self._connection_factory = connection_factory or get_database_connection
 
     def update_configuration(
-        self,
-        employer_id: UUID,
-        source_id: UUID,
-        payload: EmployerSourceUpdate,
+        self, employer_id: UUID, source_id: UUID, payload: EmployerSourceUpdate
     ) -> dict[str, Any] | None:
         values = payload.model_dump()
         values["source_url"] = str(values["source_url"])
         values["normalized_url"] = str(values["normalized_url"])
         with self._connection_factory() as connection, connection.transaction():
             return EmployerSourceRepository(connection).update_configuration(
-                employer_id,
-                source_id,
-                values,
-            )
-
-    def update_review(
-        self,
-        employer_id: UUID,
-        source_id: UUID,
-        values: dict[str, Any],
-    ) -> dict[str, Any] | None:
-        with self._connection_factory() as connection, connection.transaction():
-            return EmployerSourceRepository(connection).update_review(
                 employer_id, source_id, values
             )

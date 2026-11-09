@@ -5,10 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from psycopg.errors import UniqueViolation
 
 from scout.application.employer_service import EmployerService
-from scout.application.employer_contracts import (
-    EmployerSourceCreate,
-    EmployerSourceReviewUpdate,
-)
+from scout.application.employer_contracts import EmployerSourceCreate
 from scout.application.employer_source_update_service import (
     EmployerSourceUpdate,
     EmployerSourceUpdateService,
@@ -39,10 +36,7 @@ def create_employer_source(
     service: EmployerService = Depends(get_employer_service),
 ) -> dict[str, Any]:
     if payload.employer_id != employer_id:
-        raise HTTPException(
-            status_code=422,
-            detail="Employer ID in the path and request body must match.",
-        )
+        raise HTTPException(status_code=422, detail="Employer IDs must match.")
     if service.get_employer(employer_id) is None:
         raise HTTPException(status_code=404, detail="Employer not found.")
     try:
@@ -50,25 +44,6 @@ def create_employer_source(
     except RegistryValidationError as exception:
         raise HTTPException(status_code=422, detail=str(exception)) from exception
     return service.create_source(payload)
-
-
-@router.patch("/{employer_id}/sources/{source_id}/review")
-def update_employer_source_review(
-    employer_id: UUID,
-    source_id: UUID,
-    payload: EmployerSourceReviewUpdate,
-    service: EmployerSourceUpdateService = Depends(get_employer_source_update_service),
-) -> dict[str, Any]:
-    if payload.status == "verified" and payload.permission_status == "allowed":
-        if not payload.evidence_url:
-            raise HTTPException(
-                status_code=422,
-                detail="Evidence URL is required to verify and permit a source.",
-            )
-    source = service.update_review(employer_id, source_id, payload.model_dump())
-    if source is None:
-        raise HTTPException(status_code=404, detail="Employer source not found.")
-    return source
 
 
 @router.put("/{employer_id}/sources/{source_id}")
@@ -84,9 +59,7 @@ def update_employer_source(
     except RegistryValidationError as exception:
         raise HTTPException(status_code=422, detail=str(exception)) from exception
     except UniqueViolation as exception:
-        raise HTTPException(
-            status_code=409, detail="That source URL is already registered."
-        ) from exception
+        raise HTTPException(status_code=409, detail="That source URL is already registered.") from exception
     if source is None:
         raise HTTPException(status_code=404, detail="Employer source not found.")
     return source
