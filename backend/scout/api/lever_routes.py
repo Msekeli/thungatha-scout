@@ -54,11 +54,17 @@ async def inspect_lever_source(
 async def discover_lever_source(
     url: str = Query(min_length=1, max_length=2048),
 ) -> dict:
-    result = await inspect_lever_board(url)
+    try:
+        config, board_url = parse_lever_board_url(url)
+    except ValueError as exception:
+        raise HTTPException(status_code=422, detail=str(exception)) from exception
     return {
-        key: result[key]
-        for key in (
-            "source_url", "careers_url", "board_url", "board_token", "board_name",
-            "detected_adapter", "adapter_config", "company_name",
-        )
+        "source_url": url,
+        "careers_url": url,
+        "board_url": board_url,
+        "board_token": config["slug"],
+        "board_name": None,
+        "detected_adapter": "lever",
+        "adapter_config": config,
+        "company_name": "",
     }
