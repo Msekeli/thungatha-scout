@@ -42,10 +42,10 @@ The official Postings API schema documents:
 | `applyUrl`                            | `application_url`      | Validate exact vacancy-specific application destination.                                                    |
 | `workplaceType`                       | raw/workplace metadata | Values documented as unspecified, on-site, remote or hybrid.                                                |
 | `salaryRange`, `salaryDescription`    | compensation metadata  | Optional; preserve without making it a required field.                                                      |
-| no documented publication timestamp   | `published_at`         | Leave null; do not infer a date from search indexing or page appearance.                                    |
+| no timestamp in official schema; `createdAt` reported in observed payloads | `published_at` | Treat `createdAt` as an undocumented candidate field only. Verify presence, units, meaning and consistency across all three live boards before mapping; otherwise leave null. |
 | no documented source-update timestamp | `source_updated_at`    | Leave null; do not substitute another timestamp.                                                            |
 
-The public list schema documents a unique posting ID and full description fields, but it does not document publication or source-update timestamps. Do not invent either value.
+The official public list schema documents a unique posting ID and full description fields, but does not list a timestamp field. A recent independent inspection of other Lever boards reports an additional `createdAt` value in milliseconds. This is not part of Lever's published schema and has not been verified against this cohort. Treat it as an observed-but-undocumented candidate field, not a guaranteed contract. No source-update timestamp is documented.
 
 ## Employer cohort and board evidence
 
@@ -79,7 +79,7 @@ No live API response bodies, posting counts, page counts or exact apply URLs wer
 4. Reject malformed responses and duplicate/missing posting IDs. Do not treat a partial page sequence as a successful complete extraction.
 5. Validate `hostedUrl` and `applyUrl` as exact posting-specific destinations. Do not replace them with a generic board URL.
 6. The public list includes description fields; use the single-posting endpoint only if live evidence shows that the list payload is incomplete.
-7. Record the absence of publication/update timestamps explicitly. Do not infer freshness from page order or external search indexing.
+7. Inspect whether `createdAt` is present on each cohort board, establish whether it is a Unix-millisecond creation/publication timestamp, and compare it with the public job page. Do not map it until validated. No source-update timestamp is documented.
 
 The official documentation notes that the public API does not support cross-origin requests from unrelated domains. Scout should retrieve through its backend, not directly from a user's browser. Confirm backend request behavior during live validation.
 
@@ -100,14 +100,15 @@ Register the generic Lever adapter definition and employer-specific site slugs/r
 1. Retrieve all three live JSON boards and record HTTP status, page sizes, total observed records, unique IDs, descriptions, locations, country, workplace type, hosted URLs and apply URLs.
 2. Test pagination to completion for each board; verify there are no missing or duplicate IDs across pages.
 3. Verify the global/EU API host for each employer and validate the exact job and application destinations.
-4. Record how missing publication and source-update timestamps are represented in normalized records.
+4. Check the undocumented `createdAt` candidate field on all three boards, confirm its units and meaning, and record how absent/invalid values are represented. No source-update timestamp is documented.
 5. Compare representative records across all three employers and confirm the same adapter configuration model works for all.
 
 ## Verification
 
 - Official Lever Postings API documentation reviewed: https://github.com/lever/postings-api
 - Official Lever developer FAQ reviewed: https://hire.lever.co/developer/support — distinguishes public Postings API from the authenticated Lever API.
-- Public board pages inspected through indexed results: Mama Money, Theodo and Wing Assistant.
+- Public board pages inspected through indexed results: Mama Money, Theodo and Wing Assistant. Theodo's Cape Town-filtered board exposes Frontend Software Engineer, Full Stack Software Engineer and Senior Full Stack Software Engineer roles; Mama Money's board exposes several Cape Town roles; Wing Assistant's board exposes Cape Town roles.
+- Independent third-party sampling reports `createdAt` in milliseconds on other Lever boards. This field is absent from Lever's official public schema and remains unverified for this cohort.
 - Live API requests attempted for all three site slugs; no HTTP responses were received because the research environments could not resolve/access the API hosts.
 - No adapter code or tests were changed.
 - No registry entries for Lever were changed.
