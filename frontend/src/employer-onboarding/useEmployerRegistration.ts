@@ -77,7 +77,7 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
       const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
       onError(
         employer
-          ? employer.name + " was added, but vacancy import needs attention: " + detail
+          ? employer.name + " was added, but source registration needs attention: " + detail
           : "Could not add the company: " + detail,
       );
       if (employer) void loadWorkspace().catch(() => undefined);
