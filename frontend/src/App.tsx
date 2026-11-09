@@ -31,8 +31,6 @@ export default function App() {
       <OperationalAlerts
         error={state.error}
         notice={state.notice}
-        canUndo={jobs.canUndoDecision}
-        onUndo={() => void jobs.undoLastDecision()}
         onDismissError={state.dismissError}
         onDismissNotice={state.dismissNotice}
       />
