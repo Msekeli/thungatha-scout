@@ -29,9 +29,7 @@
           "official_source_url": "https://job-boards.greenhouse.io/takealotgroup",
           "source_status": "verified",
           "source_verified_at": "2026-11-03T10:00:00Z",
-          "verification_evidence": [
-            "https://job-boards.greenhouse.io/takealotgroup"
-          ],
+          "verification_evidence": ["https://job-boards.greenhouse.io/takealotgroup"],
           "notes": "The supplied registry marks the public Greenhouse board mapping as verified. Cape Town presence remains a separate verification item."
         }
       ]
@@ -56,9 +54,7 @@
           "official_source_url": "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers",
           "source_status": "verified",
           "source_verified_at": "2026-11-03T10:15:00Z",
-          "verification_evidence": [
-            "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers"
-          ],
+          "verification_evidence": ["https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers"],
           "notes": "The supplied registry marks the Workday mapping as verified. Job-list retrieval uses POST; job descriptions may require a secondary GET. Confirm the site identifier and detail behavior in integration tests."
         }
       ]
