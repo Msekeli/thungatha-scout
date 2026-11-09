@@ -238,7 +238,6 @@ Critical safety tests:
 - Monolithic containers are prohibited; UI pages compose focused presentation components, custom feature hooks, resource-specific API clients, and modular stylesheets.
 - Quality gates are enforced by `scripts/check-file-line-limits.py` and `scripts/check-naming-conventions.py`.
 
-
 ## Current operating model override — 9 November 2026
 
 The company/source approval workflow described elsewhere in this document is obsolete.

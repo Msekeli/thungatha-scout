@@ -344,7 +344,6 @@ The earlier five-platform M4 scope is superseded by the research catalogue in `d
 - Greenhouse is the implemented architectural reference. Inspect its URL parsing, adapter contract, HTTP retrieval, response mapping, extraction orchestration, API route, registry configuration and tests. Reuse responsibilities and shared pipeline boundaries where appropriate, but do not copy provider-specific behavior blindly.
 - Every handwritten source-code file and test remains at or below 100 physical lines. Separate URL/config validation, provider transport, response mapping, extraction orchestration, persistence and API routing by single responsibility.
 
-
 ## Decision record — simplified company/source workflow (9 November 2026)
 
 This decision supersedes all earlier statements in this document requiring employer approval, source verification, source permission checks, Cape Town presence, or vacancy approval.

@@ -47,6 +47,8 @@ def test_extraction_service_accepts_registered_source_without_review_columns() -
 
     service = SourceExtractionService(connection_factory=FakeConnection)
     assert service is not None
+
+
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
