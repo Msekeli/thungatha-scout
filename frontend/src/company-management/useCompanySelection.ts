@@ -49,6 +49,10 @@ export function useCompanySelection({
             if (source.discovery_preview) return source;
             try {
               const preview = await scoutApi.previewSource(source.id);
+              if (
+                !preview.complete ||
+                !["success", "empty"].includes(preview.outcome)
+              ) return source;
               return { ...source, discovery_preview: preview.discovery_preview };
             } catch {
               return source;
