@@ -7,7 +7,7 @@ from scout.ats_adapters.lever_adapter.lever_url_parser import parse_lever_board_
 router = APIRouter(prefix="/lever", tags=["lever"])
 
 
-async def inspect_lever_board(source_url: str) -> dict:
+async def inspect_lever_board(source_url: str, company_name: str = "") -> dict:
     try:
         config, board_url = parse_lever_board_url(source_url)
     except ValueError as exception:
@@ -28,7 +28,7 @@ async def inspect_lever_board(source_url: str) -> dict:
     return {
         "outcome": result.outcome,
         "board_token": config["slug"],
-        "board_name": None,
+        "board_name": company_name or None,
         "jobs": jobs,
         "pages_fetched": result.pages_fetched,
         "complete": result.complete,
@@ -39,32 +39,21 @@ async def inspect_lever_board(source_url: str) -> dict:
         "detected_adapter": "lever",
         "adapter_config": config,
         "total_vacancies": result.total_vacancies,
-        "company_name": "",
+        "company_name": company_name,
     }
 
 
 @router.get("/inspect")
 async def inspect_lever_source(
     url: str = Query(min_length=1, max_length=2048),
+    company_name: str = Query(default="", max_length=200),
 ) -> dict:
-    return await inspect_lever_board(url)
+    return await inspect_lever_board(url, company_name)
 
 
 @router.get("/discover")
 async def discover_lever_source(
     url: str = Query(min_length=1, max_length=2048),
+    company_name: str = Query(default="", max_length=200),
 ) -> dict:
-    try:
-        config, board_url = parse_lever_board_url(url)
-    except ValueError as exception:
-        raise HTTPException(status_code=422, detail=str(exception)) from exception
-    return {
-        "source_url": url,
-        "careers_url": url,
-        "board_url": board_url,
-        "board_token": config["slug"],
-        "board_name": None,
-        "detected_adapter": "lever",
-        "adapter_config": config,
-        "company_name": "",
-    }
+    return await inspect_lever_board(url, company_name)
