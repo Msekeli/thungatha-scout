@@ -3,9 +3,7 @@ import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "../api";
 import type { Employer } from "../api";
 
-type EmployerStatus = "approved" | "needs_review" | "rejected" | "inactive";
-
-type UseCompanyProfileOperationsOptions = {
+type Options = {
   employer: Employer | null;
   logoUrl: string;
   logoSourceUrl: string;
@@ -17,34 +15,8 @@ type UseCompanyProfileOperationsOptions = {
 };
 
 export function useCompanyProfileOperations({
-  employer,
-  logoUrl,
-  logoSourceUrl,
-  setEmployers,
-  onDeleted,
-  setSaving,
-  onNotice,
-  onError,
-}: UseCompanyProfileOperationsOptions) {
-  const updateStatus = useCallback(
-    async (status: EmployerStatus) => {
-      if (!employer) return;
-
-      setSaving(true);
-      onError("");
-      try {
-        const updated = await scoutApi.updateEmployerStatus(employer.id, status);
-        setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
-        onNotice(`${updated.name} marked ${status.replaceAll("_", " ")}.`);
-      } catch (reason) {
-        onError(reason instanceof Error ? reason.message : "Could not update company status.");
-      } finally {
-        setSaving(false);
-      }
-    },
-    [employer, setEmployers, setSaving, onNotice, onError],
-  );
-
+  employer, logoUrl, logoSourceUrl, setEmployers, onDeleted, setSaving, onNotice, onError,
+}: Options) {
   const deleteCompany = useCallback(async () => {
     if (!employer) return;
     setSaving(true);
@@ -63,16 +35,13 @@ export function useCompanyProfileOperations({
 
   const saveBranding = useCallback(async () => {
     if (!employer) return;
-
     setSaving(true);
     onError("");
     try {
       const updated = await scoutApi.updateEmployerBranding(
-        employer.id,
-        logoUrl.trim(),
-        logoSourceUrl.trim(),
+        employer.id, logoUrl.trim(), logoSourceUrl.trim(),
       );
-      setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
+      setEmployers((current) => current.map((item) => item.id === updated.id ? updated : item));
       onNotice("Company logo details saved.");
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not save company logo details.");
@@ -81,5 +50,5 @@ export function useCompanyProfileOperations({
     }
   }, [employer, logoUrl, logoSourceUrl, setEmployers, setSaving, onNotice, onError]);
 
-  return { updateStatus, deleteCompany, saveBranding };
+  return { deleteCompany, saveBranding };
 }
