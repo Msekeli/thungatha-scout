@@ -11,7 +11,7 @@ type UseEmployerSourceOperationsOptions = {
   editingSourceId: string | null;
   setEditingSourceId: (value: string | null) => void;
   inspection: SourceInspection | null;
-  setInspection: (value: GreenhouseInspection | null) => void;
+  setInspection: (value: SourceInspection | null) => void;
   setSaving: (value: boolean) => void;
   onError: (message: string) => void;
   onNotice: (message: string) => void;
