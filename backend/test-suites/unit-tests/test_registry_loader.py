@@ -10,14 +10,8 @@ from scout.registry_loader import (
 def test_adapter_registry_contains_greenhouse_and_workday() -> None:
     adapters = load_adapter_registry()
 
-    assert (
-        adapters["greenhouse"]["extraction_method"]
-        == "documented_public_json_api"
-    )
-    assert (
-        adapters["workday"]["extraction_method"]
-        == "observed_public_cxs_json_post"
-    )
+    assert adapters["greenhouse"]["extraction_method"] == "documented_public_json_api"
+    assert adapters["workday"]["extraction_method"] == "observed_public_cxs_json_post"
 
 
 def test_greenhouse_source_requires_slug() -> None:
