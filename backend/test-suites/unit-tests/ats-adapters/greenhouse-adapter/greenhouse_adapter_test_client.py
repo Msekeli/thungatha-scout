@@ -3,7 +3,7 @@ from collections.abc import Callable
 
 import httpx
 
-from scout.greenhouse_adapter import GreenhouseAdapter
+from scout.ats_adapters.greenhouse_adapter.greenhouse_adapter import GreenhouseAdapter
 
 
 def retrieve_with_handler(handler: Callable, board: str = "demo"):

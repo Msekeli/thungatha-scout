@@ -75,6 +75,6 @@ class VacancyIngestionOperations:
         job: Mapping[str, Any],
         fingerprint: str,
     ) -> dict[str, Any]:
-        from scout.persistence.vacancy_payload_mapper import map_greenhouse_job
+        from scout.ats_adapters.greenhouse_adapter.greenhouse_vacancy_mapper import map_greenhouse_job
 
         return map_greenhouse_job(employer_id, source_id, source_url, job, fingerprint)

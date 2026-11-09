@@ -7,7 +7,7 @@ from psycopg.types.json import Jsonb
 from scout.application.vacancy_description_sanitizer import (
     sanitize_vacancy_description,
 )
-from scout.persistence.vacancy_location_mapping import resolve_greenhouse_location
+from .greenhouse_vacancy_location_mapper import resolve_greenhouse_location
 
 
 def map_greenhouse_job(

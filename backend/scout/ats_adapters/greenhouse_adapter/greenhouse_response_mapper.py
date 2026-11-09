@@ -2,7 +2,7 @@ from typing import Any
 
 import httpx
 
-from scout.greenhouse_contracts import GreenhouseResult
+from .greenhouse_contracts import GreenhouseResult
 
 
 class GreenhouseResponseMapper:

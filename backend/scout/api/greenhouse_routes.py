@@ -3,9 +3,9 @@ from dataclasses import asdict
 from fastapi import APIRouter, HTTPException, Query
 import httpx
 
-from scout.career_site_discovery import discover_greenhouse
-from scout.greenhouse_adapter import (
-    GreenhouseAdapter,
+from scout.ats_adapters.greenhouse_adapter.greenhouse_career_site_discovery import discover_greenhouse
+from scout.ats_adapters.greenhouse_adapter.greenhouse_adapter import GreenhouseAdapter
+from scout.ats_adapters.greenhouse_adapter.greenhouse_contracts import (
     GreenhouseUrlError,
     parse_board_token,
 )

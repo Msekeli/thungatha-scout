@@ -5,7 +5,7 @@ from uuid import UUID
 from psycopg.connection import Connection
 
 from scout.application.vacancy_management_service import VacancyManagementService
-from scout.greenhouse_adapter import GreenhouseAdapter
+from scout.ats_adapters.greenhouse_adapter.greenhouse_adapter import GreenhouseAdapter
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.employer_source_repository import EmployerSourceRepository
 from scout.persistence.extraction_run_repository import ExtractionRunRepository

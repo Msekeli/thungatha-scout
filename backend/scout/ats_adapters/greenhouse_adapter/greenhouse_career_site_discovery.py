@@ -4,9 +4,9 @@ from urllib.parse import urlparse
 
 import httpx
 
-from scout.career_site_html_parser import CareersLinks
+from .greenhouse_career_site_parser import CareersLinks
 from scout.employer_name_matching import company_aliases
-from scout.greenhouse_board_resolver import candidate_tokens, resolve_greenhouse_board
+from .greenhouse_board_resolver import candidate_tokens, resolve_greenhouse_board
 
 
 async def discover_greenhouse(url: str, company_name: str = "") -> dict[str, str]:

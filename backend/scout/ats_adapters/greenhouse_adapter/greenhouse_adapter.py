@@ -2,13 +2,13 @@ from typing import Any
 
 import httpx
 
-from scout.greenhouse_contracts import (
+from .greenhouse_contracts import (
     API_ROOT,
     GreenhouseResult,
     GreenhouseUrlError,
     parse_board_token,
 )
-from scout.greenhouse_response_mapper import GreenhouseResponseMapper
+from .greenhouse_response_mapper import GreenhouseResponseMapper
 
 
 class GreenhouseAdapter:

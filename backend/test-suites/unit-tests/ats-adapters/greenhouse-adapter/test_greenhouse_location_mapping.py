@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from scout.persistence.vacancy_payload_mapper import map_greenhouse_job
+from scout.ats_adapters.greenhouse_adapter.greenhouse_vacancy_mapper import map_greenhouse_job
 
 
 def map_job(location, offices):
