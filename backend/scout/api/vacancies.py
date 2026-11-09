@@ -71,17 +71,9 @@ def list_source_extraction_runs(
         raise HTTPException(status_code=404, detail=str(exception)) from exception
 
 
-@router.post("/sources/{source_id}/preview", status_code=status.HTTP_200_OK)
-async def preview_source(
-    source_id: UUID,
-    service: SourceExtractionService = Depends(get_extraction_service),
-) -> dict[str, Any]:
-    try:
-        return await service.preview_source(source_id)
-    except SourceNotFoundError as exception:
-        raise HTTPException(status_code=404, detail=str(exception)) from exception
-    except UnsupportedAdapterError as exception:
-        raise HTTPException(status_code=422, detail=str(exception)) from exception
+from scout.api.source_preview_routes import router as preview_router
+
+router.include_router(preview_router)
 
 
 @router.post("/sources/{source_id}/extract", status_code=status.HTTP_200_OK)
