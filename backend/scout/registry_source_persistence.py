@@ -17,11 +17,9 @@ def update_source(
     connection.execute(
         """
         UPDATE employer_sources
-        SET source_url = %s,
-            employer_careers_url = %s,
+        SET source_url = %s, employer_careers_url = %s,
             normalized_url = COALESCE(%s, normalized_url),
-            adapter_config = %s,
-            updated_at = NOW()
+            adapter_config = %s, updated_at = NOW()
         WHERE id = %s
         """,
         (source_url, careers_url, normalized_url, Jsonb(adapter_config), source_id),
@@ -34,26 +32,16 @@ def create_source(
     careers_url: str | None,
     connection: Connection,
 ) -> None:
-    evidence = [
-        {"url": url, "status": "claimed"}
-        for url in source.get("verification_evidence", [])
-    ]
     connection.execute(
         """
         INSERT INTO employer_sources (
             employer_id, adapter_key, source_url, employer_careers_url,
-            normalized_url, adapter_config, status, permission_status,
-            relationship_evidence
+            normalized_url, adapter_config
         )
-        VALUES (%s, %s, %s, %s, %s, %s, 'discovered', 'unknown', %s)
+        VALUES (%s, %s, %s, %s, %s, %s)
         """,
         (
-            employer["id"],
-            source["ats"],
-            source["official_source_url"],
-            careers_url,
-            source["official_source_url"],
-            Jsonb(source.get("config", {})),
-            Jsonb(evidence),
+            employer["id"], source["ats"], source["official_source_url"],
+            careers_url, source["official_source_url"], Jsonb(source.get("config", {})),
         ),
     )
