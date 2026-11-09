@@ -38,7 +38,7 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     inspection: discovery.inspection,
     setInspection: discovery.setInspection,
     inspecting: discovery.inspecting,
-    inspectGreenhouseBoard: discovery.inspectGreenhouseBoard,
+    inspectSource: discovery.inspectSource,
     submit,
   };
 }
