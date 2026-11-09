@@ -6,7 +6,6 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from scout.api.vacancy_api_dependencies import get_extraction_service
 from scout.application.source_extraction_service import SourceExtractionService
 from scout.application.source_extraction_errors import (
-    SourceNotApprovedError,
     SourceNotFoundError,
     UnsupportedAdapterError,
 )
@@ -41,7 +40,5 @@ async def extract_source(
         return await service.extract_source(source_id)
     except SourceNotFoundError as exception:
         raise HTTPException(status_code=404, detail=str(exception)) from exception
-    except SourceNotApprovedError as exception:
-        raise HTTPException(status_code=409, detail=str(exception)) from exception
     except UnsupportedAdapterError as exception:
         raise HTTPException(status_code=422, detail=str(exception)) from exception
