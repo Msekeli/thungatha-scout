@@ -40,8 +40,11 @@ export function CompanyDirectoryCard({
       {jobChange !== 0 && (
         <span
           className={
-            "absolute right-4 top-5 inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold " +
-            (jobChange > 0 ? "scout-vacancy-change--positive" : "scout-vacancy-change--negative")
+            "absolute right-4 top-5 inline-flex items-center gap-1 rounded-md px-2 py-1 " +
+            "text-xs font-semibold " +
+            (jobChange > 0
+              ? "scout-vacancy-change--positive"
+              : "scout-vacancy-change--negative")
           }
           aria-label={
             jobChange > 0
@@ -72,7 +75,9 @@ export function CompanyDirectoryCard({
               className="scout-company-card__logo"
               onError={(event) => {
                 event.currentTarget.style.display = "none";
-                event.currentTarget.parentElement?.querySelector("svg")?.removeAttribute("hidden");
+                event.currentTarget.parentElement
+                  ?.querySelector("svg")
+                  ?.removeAttribute("hidden");
               }}
             />
           ) : null}
