@@ -13,10 +13,14 @@ def map_lever_posting(job: Mapping[str, Any]) -> NormalizedVacancy:
     locations = categories.get("allLocations")
     if not isinstance(locations, list) or not locations:
         locations = [categories.get("location")]
-    location_text = ", ".join(
-        value.strip() for value in locations
-        if isinstance(value, str) and value.strip()
-    ) or None
+    location_text = (
+        ", ".join(
+            value.strip()
+            for value in locations
+            if isinstance(value, str) and value.strip()
+        )
+        or None
+    )
     department = categories.get("department")
     description = extract_lever_description(
         job.get("descriptionPlain"), job.get("description")

@@ -33,6 +33,8 @@ def map_http_failure(
     if outcome is None and response.is_success:
         return None
     return partial_response(
-        jobs, pages, f"Lever returned HTTP {response.status_code}.",
+        jobs,
+        pages,
+        f"Lever returned HTTP {response.status_code}.",
         outcome or "malformed",
     )
