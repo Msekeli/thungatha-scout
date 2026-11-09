@@ -11,9 +11,9 @@ class EmployerSourceCreateOperations:
             INSERT INTO employer_sources (
                 employer_id, adapter_key, source_url, employer_careers_url,
                 normalized_url, adapter_config, status, permission_status,
-                relationship_evidence
+                relationship_evidence, discovery_preview
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             RETURNING *
             """,
             (
@@ -26,6 +26,7 @@ class EmployerSourceCreateOperations:
                 values["status"],
                 values["permission_status"],
                 Jsonb(values.get("relationship_evidence", [])),
+                Jsonb(values["discovery_preview"]) if values.get("discovery_preview") else None,
             ),
         ).fetchone()
         return row
