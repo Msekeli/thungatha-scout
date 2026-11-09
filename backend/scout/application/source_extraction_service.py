@@ -17,16 +17,11 @@ from scout.persistence.extraction_run_repository import ExtractionRunRepository
 from scout.persistence.vacancy_repository import VacancyRepository
 
 
-class SourceNotFoundError(LookupError):
-    """Raised when an extraction references an unknown source."""
-
-
-class UnsupportedAdapterError(ValueError):
-    """Raised when a source references an unavailable adapter."""
-
-
-class SourceNotApprovedError(PermissionError):
-    """Raised when extraction is requested before source approval."""
+from scout.application.source_extraction_errors import (
+    SourceNotFoundError,
+    SourceNotApprovedError,
+    UnsupportedAdapterError,
+)
 
 
 class SourceExtractionService(VacancyManagementService):
