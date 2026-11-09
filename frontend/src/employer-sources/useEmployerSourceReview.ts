@@ -21,16 +21,23 @@ type UseEmployerSourceReviewOptions = {
 };
 
 export function useEmployerSourceReview({
-  employerId, onSourceUpdated, onDashboardSourceUpdated,
-  onSourceActivated, setSaving, onNotice, onError,
+  employerId,
+  onSourceUpdated,
+  onDashboardSourceUpdated,
+  onSourceActivated,
+  setSaving,
+  onNotice,
+  onError,
 }: UseEmployerSourceReviewOptions) {
   const [decisions, setDecisions] = useState<Record<string, SourceReviewDecision>>({});
 
   function updateField(source: EmployerSource, field: DecisionField, value: string) {
     setDecisions((current) => {
       const existing = current[source.id] ?? {
-        status: source.status, permission_status: source.permission_status,
-        evidence_url: "", reason: "",
+        status: source.status,
+        permission_status: source.permission_status,
+        evidence_url: "",
+        reason: "",
       };
       return { ...current, [source.id]: { ...existing, [field]: value } };
     });
@@ -39,17 +46,22 @@ export function useEmployerSourceReview({
   async function saveDecision(source: EmployerSource) {
     if (!employerId) return;
     const decision = decisions[source.id] ?? {
-      status: source.status, permission_status: source.permission_status,
-      evidence_url: "", reason: "",
+      status: source.status,
+      permission_status: source.permission_status,
+      evidence_url: "",
+      reason: "",
     };
-    if (decision.status === "verified" && decision.permission_status === "allowed" &&
-        !decision.evidence_url.trim()) {
+    if (
+      decision.status === "verified" &&
+      decision.permission_status === "allowed" &&
+      !decision.evidence_url.trim()
+    ) {
       onError("Add an evidence URL before verifying and permitting this source.");
       return;
     }
     const wasEligible = source.status === "verified" && source.permission_status === "allowed";
-    const becomesEligible = decision.status === "verified" &&
-      decision.permission_status === "allowed";
+    const becomesEligible =
+      decision.status === "verified" && decision.permission_status === "allowed";
     setSaving(true);
     onError("");
     onNotice("");
@@ -65,9 +77,11 @@ export function useEmployerSourceReview({
             `Source activated. Extraction ${run.outcome}: ${run.jobs_inserted} new, ${run.jobs_updated} updated vacancies.`,
           );
         } catch (reason) {
-          onError(reason instanceof Error
-            ? `Source review saved, but initial extraction failed: ${reason.message}`
-            : "Source review saved, but initial extraction failed.");
+          onError(
+            reason instanceof Error
+              ? `Source review saved, but initial extraction failed: ${reason.message}`
+              : "Source review saved, but initial extraction failed.",
+          );
         }
       } else {
         onNotice("Source verification and permission decision saved.");

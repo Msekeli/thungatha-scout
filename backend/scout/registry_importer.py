@@ -27,7 +27,8 @@ def import_registry(
     }
     for item in registry["employers"]:
         supported = [
-            source for source in item.get("sources", [])
+            source
+            for source in item.get("sources", [])
             if source.get("ats") in SUPPORTED_IMPORT_ADAPTERS
         ]
         counts["sources_skipped"] += len(item.get("sources", [])) - len(supported)
