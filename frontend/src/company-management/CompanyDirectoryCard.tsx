@@ -73,11 +73,13 @@ export function CompanyDirectoryCard({
               className="scout-company-card__logo"
               onError={(event) => {
                 event.currentTarget.style.display = "none";
-                event.currentTarget.parentElement?.querySelector("svg")?.removeAttribute("hidden");
+                event.currentTarget.parentElement
+                  ?.querySelector("svg")
+                  ?.classList.remove("hidden");
               }}
             />
           ) : null}
-          {!iconUrl && <Building2 className="h-5 w-5" />}
+          <Building2 className={"h-5 w-5" + (iconUrl ? " hidden" : "")} />
         </span>
         <span className="min-w-0 flex-1">
           <strong className="block truncate text-sm font-semibold scout-company-card__name">
