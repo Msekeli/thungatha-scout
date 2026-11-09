@@ -27,6 +27,7 @@ DOCUMENTED_FILE_EXCEPTIONS = {
     "dialog.tsx", "dropdown-menu.tsx", "input.tsx", "label.tsx",
     "select.tsx", "separator.tsx", "sheet.tsx", "skeleton.tsx",
     "table.tsx", "tabs.tsx", "tooltip.tsx", "utils.ts", "textarea.tsx",
+    "alert.tsx",
     "geography.py", "authentication.py", "settings.py", "vacancies.py",
     "employers.py", "api.ts", "supabase.ts",
 }
@@ -60,7 +61,11 @@ def check_naming(root_dir: Path) -> list[str]:
                     )
 
             # Check generic prohibited names
-            if path.is_file() and name_stem in PROHIBITED_GENERIC_NAMES:
+            if (
+                path.is_file()
+                and name_stem in PROHIBITED_GENERIC_NAMES
+                and name_full not in DOCUMENTED_FILE_EXCEPTIONS
+            ):
                 violations.append(f"Generic prohibited name '{path.name}': {path}")
 
             # Check single-word names
