@@ -10,17 +10,22 @@ def test_source_preview_is_saved_without_approval_fields() -> None:
     service.employers.append({"id": str(employer_id), "name": "Example"})
     preview = {
         "total_vacancies": 12,
-        "jobs": [{
-            "id": "job-1", "title": "Software Engineer",
-            "absolute_url": "https://jobs.example.com/job-1",
-            "location": {"name": "Cape Town"}, "content": "Build software.",
-        }],
+        "jobs": [
+            {
+                "id": "job-1",
+                "title": "Software Engineer",
+                "absolute_url": "https://jobs.example.com/job-1",
+                "location": {"name": "Cape Town"},
+                "content": "Build software.",
+            }
+        ],
     }
     with client_for(get_employer_service, service) as client:
         response = client.post(
             f"/api/v1/employers/{employer_id}/sources",
             json={
-                "employer_id": str(employer_id), "adapter_key": "lever",
+                "employer_id": str(employer_id),
+                "adapter_key": "lever",
                 "source_url": "https://jobs.lever.co/example",
                 "normalized_url": "https://jobs.lever.co/example",
                 "adapter_config": {"slug": "example", "region": "global"},

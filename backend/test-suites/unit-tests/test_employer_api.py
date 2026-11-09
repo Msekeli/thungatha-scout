@@ -10,10 +10,13 @@ def test_employer_registry_api_creates_and_lists_employers() -> None:
         created = client.post(
             "/api/v1/employers",
             json={
-                "name": "Example Employer", "website_url": "https://example.com",
+                "name": "Example Employer",
+                "website_url": "https://example.com",
                 "logo_url": "https://www.google.com/s2/favicons?domain=example.com&sz=128",
-                "logo_source_url": "https://example.com/careers", "city": "Cape Town",
-                "province": "Western Cape", "country": "South Africa",
+                "logo_source_url": "https://example.com/careers",
+                "city": "Cape Town",
+                "province": "Western Cape",
+                "country": "South Africa",
             },
         )
         listed = client.get("/api/v1/employers")
@@ -42,8 +45,10 @@ def test_employer_branding_api_updates_logo_metadata() -> None:
     with client_for(get_employer_service, service) as client:
         response = client.patch(
             f"/api/v1/employers/{employer_id}/branding",
-            json={"logo_url": "https://example.com/logo.png",
-                  "logo_source_url": "https://example.com/about"},
+            json={
+                "logo_url": "https://example.com/logo.png",
+                "logo_source_url": "https://example.com/about",
+            },
         )
     assert response.status_code == 200
     assert response.json()["logo_url"] == "https://example.com/logo.png"

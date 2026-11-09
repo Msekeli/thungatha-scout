@@ -15,12 +15,14 @@ def test_same_source_url_updates_changed_adapter_config() -> None:
 
 def test_single_existing_source_is_reconciled_to_new_url() -> None:
     connection = FakeConnection()
-    import_registry(registry_for(
-        "https://job-boards.greenhouse.io/old", {"slug": "old"}
-    ), connection)
+    import_registry(
+        registry_for("https://job-boards.greenhouse.io/old", {"slug": "old"}),
+        connection,
+    )
     source = connection.sources[0]
-    result = import_registry(registry_for(
-        "https://job-boards.greenhouse.io/new", {"slug": "new"}
-    ), connection)
+    result = import_registry(
+        registry_for("https://job-boards.greenhouse.io/new", {"slug": "new"}),
+        connection,
+    )
     assert result["sources_updated"] == 1
     assert source["normalized_url"].endswith("/new")
