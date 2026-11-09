@@ -1,7 +1,6 @@
 import re
 from urllib.parse import urlsplit
 
-
 LEVER_BOARD_HOSTS = {"jobs.lever.co": "global", "jobs.eu.lever.co": "eu"}
 
 
