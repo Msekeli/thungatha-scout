@@ -22,8 +22,7 @@ export function CompanyDirectoryCard({
   onSelect,
 }: Props) {
   const previewCount = sources.reduce(
-    (total, source) =>
-      Math.max(total, source.discovery_preview?.total_vacancies ?? 0),
+    (total, source) => Math.max(total, source.discovery_preview?.total_vacancies ?? 0),
     0,
   );
   const displayedJobs = currentJobs > 0 ? currentJobs : previewCount;

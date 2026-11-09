@@ -63,7 +63,8 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
       });
       onRegistered({ employer, source });
       onNotice(
-        employer.name + " added. " +
+        employer.name +
+          " added. " +
           (source.discovery_preview?.total_vacancies ?? 0) +
           " vacancies discovered. Extraction remains paused until the source is verified and permission is allowed.",
       );

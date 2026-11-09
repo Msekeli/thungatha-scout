@@ -26,7 +26,9 @@ class EmployerSourceCreateOperations:
                 values["status"],
                 values["permission_status"],
                 Jsonb(values.get("relationship_evidence", [])),
-                Jsonb(values["discovery_preview"]) if values.get("discovery_preview") else None,
+                Jsonb(values["discovery_preview"])
+                if values.get("discovery_preview")
+                else None,
             ),
         ).fetchone()
         return row
