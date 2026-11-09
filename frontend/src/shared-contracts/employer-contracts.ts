@@ -43,7 +43,6 @@ export type SourceDiscoveryPreview = {
     title: string;
     absolute_url?: string | null;
     location?: { name?: string | null };
-    content?: string | null;
   }[];
 };
 
