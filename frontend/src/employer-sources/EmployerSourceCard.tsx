@@ -24,6 +24,19 @@ export function EmployerSourceCard({ source, saving, onEdit }: Props) {
           {source.source_url}
           <ExternalLink className="h-3 w-3 shrink-0" />
         </a>
+        {source.discovery_preview && (
+          <div className="mt-2 space-y-1 text-xs scout-company-muted">
+            <p>
+              {source.discovery_preview.total_vacancies} vacancies discovered
+              <span className="ml-1">(preview only)</span>
+            </p>
+            {source.discovery_preview.jobs.slice(0, 5).map((job) => (
+              <p key={job.id} className="truncate" title={job.title}>
+                • {job.title}
+              </p>
+            ))}
+          </div>
+        )}
       </div>
       {source.adapter_key === "greenhouse" && (
         <Button
