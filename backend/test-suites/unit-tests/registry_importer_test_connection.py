@@ -30,9 +30,7 @@ class FakeConnection:
             return FakeResult(employer)
         if "INSERT INTO employers" in query:
             employer = {
-                "id": uuid4(),
-                "name": params[0],
-                "website_url": params[1],
+                "id": uuid4(), "name": params[0], "website_url": params[1],
                 "location_evidence": params[3].obj,
             }
             self.employers.append(employer)
@@ -45,31 +43,25 @@ class FakeConnection:
             return FakeResult(source)
         if "SELECT id, normalized_url" in query:
             matches = [
-                row
-                for row in self.sources
+                row for row in self.sources
                 if row["employer_id"] == params[0] and row["adapter_key"] == params[1]
             ]
             return FakeResult(matches)
         if "UPDATE employer_sources" in query:
-            source_id = params[3] if len(params) == 4 else params[2]
+            source_id = params[4]
             source = next(row for row in self.sources if row["id"] == source_id)
-            source["source_url"] = params[0]
-            if len(params) == 4:
-                source["normalized_url"] = params[1]
-                source["adapter_config"] = params[2].obj
-            else:
-                source["adapter_config"] = params[1].obj
+            source.update({
+                "source_url": params[0], "employer_careers_url": params[1],
+                "normalized_url": params[2] or source["normalized_url"],
+                "adapter_config": params[3].obj,
+            })
             return FakeResult(source)
         if "INSERT INTO employer_sources" in query:
             source = {
-                "id": uuid4(),
-                "employer_id": params[0],
-                "adapter_key": params[1],
-                "source_url": params[2],
-                "normalized_url": params[4],
-                "adapter_config": params[5].obj,
-                "status": "discovered",
-                "permission_status": "unknown",
+                "id": uuid4(), "employer_id": params[0], "adapter_key": params[1],
+                "source_url": params[2], "employer_careers_url": params[3],
+                "normalized_url": params[4], "adapter_config": params[5].obj,
+                "status": "discovered", "permission_status": "unknown",
                 "relationship_evidence": params[6].obj,
             }
             self.sources.append(source)
