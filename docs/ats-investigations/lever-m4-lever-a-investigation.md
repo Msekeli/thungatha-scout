@@ -126,12 +126,17 @@ After the three-board live contract is verified:
 
 Register the generic Lever adapter definition and employer-specific site slugs/regions in their existing registries only after A is implemented and reviewed. Do not hardcode employer identifiers in adapter code. Reuse the shared extraction and persistence workflow.
 
+## Description fallback investigation — 9 November 2026
+
+The user checked all four pages of Wing Assistant's board and found exactly one Cape Town vacancy with an empty `descriptionPlain`: **Inside Sales Manager** (`e5932534-4c7c-4117-babb-261420641c48`). Its list response contained an HTML `description` of 1,362 characters. The single-posting endpoint returned `descriptionPlain` length 0 and HTML `description` length 1,362. This establishes that the vacancy description is available as HTML even when the plain-text field is empty; it is not an absent-description record.
+
+Proposed mapping behavior: prefer non-empty `descriptionPlain`; otherwise convert non-empty HTML `description` to plain text using a tested HTML parser, while preserving the original raw payload. If both are empty, retain the vacancy as incomplete and do not allow it through completeness gates. Do not fetch the detail endpoint for every posting merely to repeat the same HTML value; the list response already contains the fallback field. Validate HTML-to-text extraction with representative fixtures before implementation.
+
 ## Remaining evidence before adapter implementation
 
-1. For Wing Assistant's 56 records with empty `descriptionPlain`, inspect whether the HTML `description` field is populated. Probe the single-posting endpoint for representative missing-description records, including the Cape Town **Inside Sales Manager** posting.
-2. Establish whether the detail endpoint reliably supplies a description for these records. If it does not, the adapter must preserve them as incomplete; do not infer descriptions from titles or external search snippets.
-3. Verify `createdAt` semantics before mapping it to `published_at`. It is an observed integer field, not documented in the official schema. Keep `source_updated_at` null.
-4. Then implement and test the adapter against the shared contract, including pagination completeness, duplicate/missing IDs, description fallback, exact destinations and incomplete-record handling.
+1. Inspect a representative HTML description fragment to confirm its structure and determine whether standard-library HTML parsing can preserve meaningful text and list boundaries.
+2. Verify `createdAt` semantics before mapping it to `published_at`. It is an observed integer field, not documented in the official schema. Keep `source_updated_at` null.
+3. Then implement and test the adapter against the shared contract, including pagination completeness, duplicate/missing IDs, description fallback, exact destinations and incomplete-record handling.
 
 ## Evidence required to complete investigation
 
@@ -148,10 +153,10 @@ Register the generic Lever adapter definition and employer-specific site slugs/r
 - Public board pages inspected through indexed results: Mama Money, Theodo and Wing Assistant. Theodo's Cape Town-filtered board exposes Frontend Software Engineer, Full Stack Software Engineer and Senior Full Stack Software Engineer roles; Mama Money's board exposes several Cape Town roles; Wing Assistant's board exposes Cape Town roles.
 - Independent third-party sampling reports `createdAt` in milliseconds on other Lever boards. This field is absent from Lever's official public schema and remains unverified for this cohort.
 - User-provided local API results: 513 records across the three boards, 513 unique IDs, zero missing IDs, 11 Cape Town matches, and all job/application URLs present.
-- Description completeness: Mama Money 7/7; Theodo 131/131; Wing Assistant 319/375. Wing's 56 missing `descriptionPlain` values require HTML/detail-endpoint investigation.
+- Description completeness: Mama Money 7/7 and Theodo 131/131 have non-empty `descriptionPlain`; Wing Assistant has 319/375 non-empty `descriptionPlain`. The remaining 56 have empty plain text; the Cape Town Inside Sales Manager case was verified to have a 1,362-character HTML description in both list and detail responses. Other 55 records' HTML fallback has not yet been sampled.
 - The initial external research environment could not retrieve API URLs; this limitation was overcome by local requests from the user's environment.
 - No adapter code or tests have been changed.
 - No registry entries for Lever have been changed.
 - No implementation commit has been created.
 
-**Checkpoint outcome:** Live public API access and pagination are verified for all three targets. M4-LEVER-A remains open only for Wing Assistant description fallback and timestamp semantics. Implementation is not yet authorised by the evidence until those points are resolved.
+**Checkpoint outcome:** Live public API access and pagination are verified for all three targets. M4-LEVER-A remains open only for Wing Assistant description fallback and timestamp semantics. Implementation remains pending one representative HTML-fragment inspection and a decision on the undocumented `createdAt` field.
