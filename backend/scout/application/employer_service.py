@@ -85,10 +85,6 @@ class EmployerService:
         values["source_url"] = str(values["source_url"])
         if values["employer_careers_url"] is not None:
             values["employer_careers_url"] = str(values["employer_careers_url"])
-        if values.get("discovery_preview") is not None:
-            values["discovery_preview"] = values["discovery_preview"].model_dump(
-                mode="json"
-            )
         values["normalized_url"] = str(values["normalized_url"])
         with self._connection_factory() as connection, connection.transaction():
             return EmployerSourceRepository(connection).create(values)
