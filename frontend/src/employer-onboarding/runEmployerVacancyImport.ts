@@ -11,12 +11,15 @@ export async function runEmployerVacancyImport(
   employerName: string,
   callbacks: VacancyImportCallbacks,
 ) {
-  void callbacks.loadWorkspace().catch(() => undefined);
   try {
     const run = await scoutApi.extractSource(sourceId);
     await callbacks.loadWorkspace();
     callbacks.onNotice(
-      employerName + ": " + run.jobs_received + " vacancies imported successfully.",
+      employerName + ": " +
+        run.jobs_received + " jobs received, " +
+        run.jobs_inserted + " added, " +
+        run.jobs_updated + " updated." +
+        (run.detail ? " " + run.detail : ""),
     );
   } catch (reason) {
     const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
