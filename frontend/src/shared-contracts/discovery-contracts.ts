@@ -15,6 +15,7 @@ export type SourceInspection = {
   complete: boolean;
   detail: string | null;
   source_url: string;
+  board_url?: string;
   detected_adapter: "greenhouse" | "lever";
   adapter_config: Record<string, string>;
   total_vacancies?: number | null;
