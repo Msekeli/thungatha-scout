@@ -21,11 +21,11 @@ def test_employer_rejects_blank_name() -> None:
         EmployerCreate(name="   ")
 
 
-def test_source_accepts_only_supported_v1_adapters() -> None:
+def test_source_rejects_unsupported_adapter() -> None:
     with pytest.raises(ValidationError):
         EmployerSourceCreate(
             employer_id=uuid4(),
-            adapter_key="lever",
+            adapter_key="ashby",
             source_url="https://jobs.example.com",
             normalized_url="https://jobs.example.com",
         )
