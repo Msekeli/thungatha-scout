@@ -1,14 +1,14 @@
 import type { FC, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { GreenhouseInspection } from "../api";
+import type { SourceInspection } from "../api";
 
 type SourceRegistrationFormProps = {
   editingSourceId: string | null;
   sourceUrl: string;
   onChangeSourceUrl: (value: string) => void;
   onInspect: () => void;
-  inspection: GreenhouseInspection | null;
+  inspection: SourceInspection | null;
   onSaveSource: (event: FormEvent<HTMLFormElement>) => void;
   onCancelEdit: () => void;
   inspecting: boolean;
@@ -35,7 +35,7 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
   return (
     <form className="scout-company-form-section mt-5" onSubmit={onSaveSource}>
       <h4 className="text-sm font-semibold scout-company-heading">
-        {editingSourceId ? "Update Greenhouse source" : "Register Greenhouse source"}
+        {editingSourceId ? "Update recruitment source" : "Register recruitment source"}
       </h4>
       <label className="grid gap-1 text-xs font-medium scout-company-muted">
         Official careers / job board URL
@@ -43,7 +43,7 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
           type="url"
           value={sourceUrl}
           onChange={(event) => onChangeSourceUrl(event.target.value)}
-          placeholder="https://job-boards.greenhouse.io/company"
+          placeholder="Paste an official careers or ATS board URL"
           className="scout-company-field"
           required
         />
@@ -56,7 +56,7 @@ export const SourceRegistrationForm: FC<SourceRegistrationFormProps> = ({
         onClick={onInspect}
         disabled={inspecting || !sourceUrl.trim()}
       >
-        {inspecting ? "Checking source…" : "Check Greenhouse source"}
+        {inspecting ? "Checking source…" : "Check source"}
       </Button>
       {inspection && (
         <div className="grid gap-1 rounded-lg border border-border bg-card p-3 text-xs">
