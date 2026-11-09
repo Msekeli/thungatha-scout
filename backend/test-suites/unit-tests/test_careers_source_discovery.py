@@ -46,6 +46,7 @@ def test_rejects_ambiguous_multiple_ats_boards(monkeypatch) -> None:
             discovery.discover_careers_source("https://example.com/careers", "Example")
         )
 
+
 def test_detects_careers_page_redirect_to_lever(monkeypatch) -> None:
     async def read_page(client, url):
         return "https://jobs.lever.co/theodo", []
@@ -59,9 +60,9 @@ def test_detects_careers_page_redirect_to_lever(monkeypatch) -> None:
 
     monkeypatch.setattr(discovery, "read_careers_page", read_page)
     monkeypatch.setattr(discovery, "_inspect_lever", inspect)
-    result = asyncio.run(discovery.discover_careers_source(
-        "https://www.theodo.com/careers", "Theodo"
-    ))
+    result = asyncio.run(
+        discovery.discover_careers_source("https://www.theodo.com/careers", "Theodo")
+    )
     assert result["detected_adapter"] == "lever"
 
 
@@ -74,7 +75,9 @@ def test_direct_greenhouse_board_keeps_greenhouse_adapter(monkeypatch) -> None:
         }
 
     monkeypatch.setattr(discovery, "_inspect_greenhouse", inspect)
-    result = asyncio.run(discovery.discover_careers_source(
-        "https://job-boards.greenhouse.io/example", "Example"
-    ))
+    result = asyncio.run(
+        discovery.discover_careers_source(
+            "https://job-boards.greenhouse.io/example", "Example"
+        )
+    )
     assert result["detected_adapter"] == "greenhouse"
