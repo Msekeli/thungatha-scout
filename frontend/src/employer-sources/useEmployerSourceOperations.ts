@@ -40,8 +40,8 @@ export function useEmployerSourceOperations({
     try {
       const payload = {
         adapter_key: inspection?.detected_adapter,
-        source_url: sourceUrl,
-        normalized_url: sourceUrl,
+        source_url: inspection?.board_url ?? sourceUrl,
+        normalized_url: inspection?.board_url ?? sourceUrl,
         adapter_config: inspection?.adapter_config ?? {},
       };
 
