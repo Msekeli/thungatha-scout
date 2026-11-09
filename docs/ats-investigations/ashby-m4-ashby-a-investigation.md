@@ -2,12 +2,12 @@
 
 **Investigation date:** 9 November 2026  
 **Checkpoint:** M4-ASHBY-A  
-**Status:** Blocked — live cohort evidence and source-use permission are not established  
+**Status:** Deferred — partner-feed enquiry sent; awaiting Ashby's response  
 **Scope:** Midnite, MyEdSpace and Tree Traction only
 
 ## Decision
 
-Do not implement or register the Ashby adapter yet. The documented public endpoint is technically suitable for a read-only careers-board integration, but this investigation could not verify the three target responses, stable vacancy identity or permission for Scout to ingest and republish the data as a third-party service.
+Do not implement or register the Ashby adapter while partner-feed access and source-use terms remain unresolved. The user has confirmed that an enquiry email was sent to Ashby on 9 November 2026; the team is awaiting a response. The documented public endpoint is technically suitable for a read-only careers-board integration, but live cohort responses and stable vacancy identity remain unverified.
 
 This is an evidence gap, not a conclusion that Ashby is technically unsupported.
 
@@ -37,6 +37,12 @@ Ashby's official [Integrations](https://www.ashbyhq.com/integrations) page descr
 5. The partner demonstrates the end-to-end integration for Ashby's approval before marketplace publication.
 
 Ashby says it prefers prospective partners to have a solution built and ready to provide a seamless customer experience before the introduction stage. This process is not proof that Scout qualifies, nor does it replace the specific request for a dedicated job feed. The practical enquiry should explicitly ask whether a vacancy-ingestion product such as Scout is eligible for the dedicated feed, what permission and customer opt-in terms apply, and whether a sandbox or sample feed can be provided.
+
+## Partner enquiry status
+
+- **Status:** Sent, awaiting response (user-confirmed 9 November 2026).
+- **Request:** Confirm Scout's eligibility for a Dedicated Partner Job Feed, partner onboarding requirements, employer opt-in, permitted ingestion/display use, and sample or sandbox access.
+- **Decision:** Keep Ashby deferred until Ashby responds. Do not implement against an assumed permission or an unprovisioned partner feed.
 
 ## Employer cohort and live verification
 
@@ -84,7 +90,7 @@ The adapter would register through the existing `SourceExtractionService` factor
 ## Evidence required to unblock
 
 1. Run the Ashby inspection script previously supplied and provide its output for all three slugs. It must include response status, job count, ID presence/uniqueness, `isListed`, descriptions, locations, publication timestamps, `jobUrl` and `applyUrl`.
-2. Establish source-use permission and access for Scout. Contact Ashby using the contact address listed in its Dedicated Partner Job Feeds documentation. Ask about partner eligibility, feed provisioning, customer opt-in, permitted use and sample/sandbox access.
+2. Await Ashby's response to the partner enquiry already sent. Confirm partner eligibility, feed provisioning, customer opt-in, permitted use and sample/sandbox access.
 3. Confirm that each employer's official careers site links to the recorded Ashby board, and preserve that evidence.
 
 ## Verification
@@ -93,9 +99,10 @@ The adapter would register through the existing `SourceExtractionService` factor
 - Official partner-feed documentation reviewed: https://developers.ashbyhq.com/docs/dedicated-partner-job-feeds — confirms required UUID `id`, `updatedAt`, hourly feed updates and per-customer opt-in.
 - Official integration-partner process reviewed: https://www.ashbyhq.com/integrations — confirms fit review, introduction, legal review, sandbox/technical support, build, validation and approval steps.
 - Clarification: public Job Postings API and Dedicated Partner Job Feed are separate contracts. The latter has stable identity/update fields; it is not currently provisioned for Scout.
+- User confirmed partner enquiry email sent on 9 November 2026; response pending.
 - Live API calls attempted for all three cohort slugs; no response data was available.
 - No adapter code or tests were changed.
 - No registry entries were changed.
 - No adapter implementation commit was created.
 
-**Checkpoint outcome:** Blocked pending cohort response evidence and source-use permission. Stop here; do not start M4-ASHBY-B.
+**Checkpoint outcome:** Deferred pending Ashby's partner-feed response and live cohort evidence. M4-ASHBY-B is deferred. The user approved moving to M4-LEVER-A while Ashby remains pending.
