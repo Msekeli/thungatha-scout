@@ -1,6 +1,7 @@
 import type { FormEvent } from "react";
 import { scoutApi } from "../api";
 import { getCompanyIconUrl } from "../company-management/company-icon-url";
+import { runEmployerVacancyImport } from "./runEmployerVacancyImport";
 import type { CareersDiscovery, Employer, EmployerSource } from "../api";
 
 type EmployerRegistrationForm = {
@@ -82,7 +83,11 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
           ? employer.name + " added. Vacancy preview is not available yet."
           : employer.name + " added. " + previewCount + " vacancies discovered.",
       );
-      await loadWorkspace();
+      await runEmployerVacancyImport(source.id, employer.name, {
+        loadWorkspace,
+        onError,
+        onNotice,
+      });
     } catch (reason) {
       const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
       onError(
