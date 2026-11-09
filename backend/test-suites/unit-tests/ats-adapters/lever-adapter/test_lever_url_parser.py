@@ -1,4 +1,7 @@
 import pytest
+from fastapi.testclient import TestClient
+
+from scout.main import app
 
 from scout.ats_adapters.lever_adapter.lever_url_parser import parse_lever_board_url
 
@@ -33,13 +36,15 @@ def test_reject_invalid_lever_board_urls(url: str) -> None:
         parse_lever_board_url(url)
 
 
-def test_lever_discovery_returns_configuration_without_retrieving_jobs() -> None:
-    import asyncio
+def test_lever_discovery_route_returns_configuration_without_retrieval() -> None:
+    response = TestClient(app).get(
+        "/api/v1/lever/discover",
+        params={"url": "https://jobs.lever.co/mamamoney"},
+    )
 
-    from scout.api.lever_routes import discover_lever_source
-
-    result = asyncio.run(discover_lever_source("https://jobs.lever.co/mamamoney"))
-
-    assert result["detected_adapter"] == "lever"
-    assert result["adapter_config"] == {"slug": "mamamoney", "region": "global"}
-    assert result["board_url"] == "https://jobs.lever.co/mamamoney"
+    assert response.status_code == 200
+    assert response.json()["detected_adapter"] == "lever"
+    assert response.json()["adapter_config"] == {
+        "slug": "mamamoney",
+        "region": "global",
+    }
