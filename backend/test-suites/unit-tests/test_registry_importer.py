@@ -1,10 +1,8 @@
-import pytest
-
 from registry_importer_test_connection import FakeConnection
 from scout.registry_importer import import_registry
 
 
-def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
+def test_registry_import_is_repeat_safe_for_supported_adapters() -> None:
     registry = {
         "employers": [
             {
@@ -36,6 +34,16 @@ def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
                     }
                 ],
             },
+            {
+                "name": "Mama Money",
+                "sources": [
+                    {
+                        "ats": "lever",
+                        "official_source_url": "https://jobs.lever.co/mamamoney",
+                        "config": {"slug": "mamamoney", "region": "global"},
+                    }
+                ],
+            },
         ]
     }
     connection = FakeConnection()
@@ -44,32 +52,39 @@ def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
     second = import_registry(registry, connection)
 
     assert first == {
-        "employers_created": 2,
+        "employers_created": 3,
         "employers_updated": 0,
-        "sources_created": 2,
+        "sources_created": 3,
         "sources_updated": 0,
+        "sources_skipped": 0,
     }
     assert second == {
         "employers_created": 0,
         "employers_updated": 0,
         "sources_created": 0,
         "sources_updated": 0,
+        "sources_skipped": 0,
     }
 
 
-def test_registry_import_rejects_adapters_outside_v1_scope() -> None:
+def test_registry_import_skips_unsupported_sources() -> None:
     registry = {
         "employers": [
             {
-                "name": "Unsupported",
+                "name": "Recruitment Agency",
                 "sources": [
                     {
-                        "ats": "lever",
-                        "official_source_url": "https://jobs.example.com",
+                        "ats": "placement_partner",
+                        "official_source_url": "https://example.com/jobs",
+                        "config": {"agency_id": "example"},
                     }
                 ],
             }
         ]
     }
-    with pytest.raises(ValueError, match="Greenhouse/Workday registry"):
-        import_registry(registry, FakeConnection())
+
+    result = import_registry(registry, FakeConnection())
+
+    assert result["employers_created"] == 1
+    assert result["sources_created"] == 0
+    assert result["sources_skipped"] == 1
