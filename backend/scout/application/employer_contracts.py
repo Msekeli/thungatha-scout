@@ -52,7 +52,7 @@ class EmployerSourceCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 
     employer_id: UUID
-    adapter_key: Literal["greenhouse", "workday"]
+    adapter_key: Literal["greenhouse", "lever", "workday"]
     source_url: HttpUrl
     employer_careers_url: HttpUrl | None = None
     normalized_url: HttpUrl
