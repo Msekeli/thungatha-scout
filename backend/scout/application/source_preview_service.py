@@ -44,7 +44,6 @@ class SourcePreviewService:
                 "absolute_url": vacancy.raw_payload.get("hostedUrl")
                 or vacancy.application_url,
                 "location": {"name": vacancy.location_text},
-                "content": vacancy.description,
             }
             for vacancy in result.vacancies[:5]
         ]
