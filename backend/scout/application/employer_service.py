@@ -10,6 +10,7 @@ from scout.application.employer_contracts import (
     EmployerSourceCreate,
     EmployerUpdate,
 )
+from scout.application.employer_source_mapper import source_create_values
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.employer_repository import EmployerRepository
 from scout.persistence.employer_source_repository import EmployerSourceRepository
@@ -79,17 +80,7 @@ class EmployerService:
             )
 
     def create_source(self, payload: EmployerSourceCreate) -> dict[str, Any]:
-        values = payload.model_dump()
-        values["status"] = "discovered"
-        values["permission_status"] = "unknown"
-        if payload.discovery_preview is not None:
-            values["discovery_preview"] = payload.discovery_preview.model_dump(
-                mode="json"
-            )
-        values["source_url"] = str(values["source_url"])
-        if values["employer_careers_url"] is not None:
-            values["employer_careers_url"] = str(values["employer_careers_url"])
-        values["normalized_url"] = str(values["normalized_url"])
+        values = source_create_values(payload)
         with self._connection_factory() as connection, connection.transaction():
             return EmployerSourceRepository(connection).create(values)
 
