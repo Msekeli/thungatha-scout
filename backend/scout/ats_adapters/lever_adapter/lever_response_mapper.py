@@ -2,6 +2,7 @@ from typing import Any
 
 import httpx
 
+from scout.ats_adapters.ats_adapter_contracts import AdapterOutcome
 from scout.ats_adapters.lever_adapter.lever_postings_contracts import (
     LeverPostingsResponse,
 )
@@ -11,7 +12,7 @@ def partial_response(
     jobs: list[dict[str, Any]],
     pages: int,
     detail: str,
-    outcome: str = "partial",
+    outcome: AdapterOutcome = "partial",
 ) -> LeverPostingsResponse:
     return LeverPostingsResponse(outcome, jobs, pages, False, detail)
 
@@ -32,8 +33,6 @@ def map_http_failure(
     if outcome is None and response.is_success:
         return None
     return partial_response(
-        jobs,
-        pages,
-        f"Lever returned HTTP {response.status_code}.",
+        jobs, pages, f"Lever returned HTTP {response.status_code}.",
         outcome or "malformed",
     )
