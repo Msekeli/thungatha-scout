@@ -70,6 +70,7 @@ Adapters own HTTP transport, platform parsing and pagination. They do not own qu
 Explicit outcomes: success with results, success empty, not found, blocked, rate-limited, timeout/transient, malformed and partial/incomplete.
 
 The shared implementation boundary lives in `scout.ats_adapters.ats_adapter_contracts`:
+
 - `ATSAdapter` defines configuration-based retrieval and adapter cleanup.
 - `ATSAdapterResult` carries the outcome, completeness and normalized vacancies.
 - `NormalizedVacancy` carries provider-independent identity, content, location,
