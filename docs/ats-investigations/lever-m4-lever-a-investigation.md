@@ -2,7 +2,7 @@
 
 **Investigation date:** 9 November 2026  
 **Checkpoint:** M4-LEVER-A  
-**Status:** Investigation in progress — public contract confirmed; live API payloads not yet retrieved  
+**Status:** Live cohort verification completed; Wing Assistant description fallback still under investigation  
 **Scope:** Mama Money, Theodo and Wing Assistant only
 
 ## Decision
@@ -71,6 +71,35 @@ The web retrieval environment could not open the three API URLs. A local Python 
 
 No live API response bodies, posting counts, page counts or exact apply URLs were obtained. The actual board pages were discoverable through search results, but that is not a substitute for inspecting the JSON contract against the cohort.
 
+## Live cohort verification — 9 November 2026
+
+The user ran the public API retrieval locally against all three employer boards using `limit=100`, incrementing `skip` until a short page was returned.
+
+| Employer | Total records | Page sizes | Unique IDs | Missing IDs | Cape Town matches |
+| --- | ---: | --- | ---: | ---: | ---: |
+| Mama Money | 7 | 7 | 7 | 0 | 4 |
+| Theodo | 131 | 100, 31 | 131 | 0 | 3 |
+| Wing Assistant | 375 | 100, 100, 100, 75 | 375 | 0 | 4 |
+| **Total** | **513** | | **513** | **0** | **11** |
+
+All 513 records had an ID, title, categories, `createdAt` integer, `hostedUrl` and `applyUrl`. All three boards returned a final short page, supporting pagination completion for this observed snapshot. The exact job and application URLs were present in every record.
+
+Description completeness differs by board:
+- Mama Money: 7/7 records have non-empty `descriptionPlain`.
+- Theodo: 131/131 records have non-empty `descriptionPlain`.
+- Wing Assistant: 319/375 records have non-empty `descriptionPlain`; 56 are missing it.
+
+The four Cape Town Wing Assistant matches all have IDs and exact hosted/application URLs. One, **Inside Sales Manager**, has an empty `descriptionPlain`. The other three Cape Town matches have non-empty descriptions. We have not yet checked whether Wing's `description` HTML field or the single-posting endpoint supplies the missing content.
+
+All `createdAt` values were integers across the 513 records. This confirms presence and type for this cohort snapshot, but does not independently prove the field's semantic meaning or justify treating it as a source-update timestamp. Keep `source_updated_at` null. Do not map `createdAt` to `published_at` until its meaning is sufficiently established.
+
+The observed workplace types were:
+- Mama Money: 6 onsite, 1 remote.
+- Theodo: 43 onsite, 88 hybrid.
+- Wing Assistant: 341 remote, 24 hybrid, 10 onsite.
+
+**Interpretation:** Lever's public API, pagination, identifiers and posting/application destinations are verified for all three targets. Theodo and Mama Money meet the observed description-completeness requirement. Wing Assistant needs a deliberate missing-description strategy. Missing descriptions must be represented as incomplete and must never be silently treated as complete or published through a bypass of Scout's completeness gates.
+
 ## Proposed retrieval and pagination behavior
 
 1. Resolve the site slug and region from the verified employer board URL. The current three targets use `jobs.lever.co`, so the initial expected host is global `api.lever.co`; confirm this from live requests.
@@ -95,6 +124,13 @@ After the three-board live contract is verified:
 
 Register the generic Lever adapter definition and employer-specific site slugs/regions in their existing registries only after A is implemented and reviewed. Do not hardcode employer identifiers in adapter code. Reuse the shared extraction and persistence workflow.
 
+## Remaining evidence before adapter implementation
+
+1. For Wing Assistant's 56 records with empty `descriptionPlain`, inspect whether the HTML `description` field is populated. Probe the single-posting endpoint for representative missing-description records, including the Cape Town **Inside Sales Manager** posting.
+2. Establish whether the detail endpoint reliably supplies a description for these records. If it does not, the adapter must preserve them as incomplete; do not infer descriptions from titles or external search snippets.
+3. Verify `createdAt` semantics before mapping it to `published_at`. It is an observed integer field, not documented in the official schema. Keep `source_updated_at` null.
+4. Then implement and test the adapter against the shared contract, including pagination completeness, duplicate/missing IDs, description fallback, exact destinations and incomplete-record handling.
+
 ## Evidence required to complete investigation
 
 1. Retrieve all three live JSON boards and record HTTP status, page sizes, total observed records, unique IDs, descriptions, locations, country, workplace type, hosted URLs and apply URLs.
@@ -109,9 +145,11 @@ Register the generic Lever adapter definition and employer-specific site slugs/r
 - Official Lever developer FAQ reviewed: https://hire.lever.co/developer/support — distinguishes public Postings API from the authenticated Lever API.
 - Public board pages inspected through indexed results: Mama Money, Theodo and Wing Assistant. Theodo's Cape Town-filtered board exposes Frontend Software Engineer, Full Stack Software Engineer and Senior Full Stack Software Engineer roles; Mama Money's board exposes several Cape Town roles; Wing Assistant's board exposes Cape Town roles.
 - Independent third-party sampling reports `createdAt` in milliseconds on other Lever boards. This field is absent from Lever's official public schema and remains unverified for this cohort.
-- Live API requests attempted for all three site slugs; no HTTP responses were received because the research environments could not resolve/access the API hosts.
-- No adapter code or tests were changed.
-- No registry entries for Lever were changed.
-- No implementation commit was created.
+- User-provided local API results: 513 records across the three boards, 513 unique IDs, zero missing IDs, 11 Cape Town matches, and all job/application URLs present.
+- Description completeness: Mama Money 7/7; Theodo 131/131; Wing Assistant 319/375. Wing's 56 missing `descriptionPlain` values require HTML/detail-endpoint investigation.
+- The initial external research environment could not retrieve API URLs; this limitation was overcome by local requests from the user's environment.
+- No adapter code or tests have been changed.
+- No registry entries for Lever have been changed.
+- No implementation commit has been created.
 
-**Checkpoint outcome:** M4-LEVER-A remains in investigation. Public third-party retrieval is documented and does not appear to require partner approval, but live cohort payloads and completeness must be verified before implementation.
+**Checkpoint outcome:** Live public API access and pagination are verified for all three targets. M4-LEVER-A remains open only for Wing Assistant description fallback and timestamp semantics. Implementation is not yet authorised by the evidence until those points are resolved.
