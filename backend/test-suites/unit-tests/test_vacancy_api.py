@@ -104,3 +104,19 @@ def test_extract_rejects_unapproved_source() -> None:
         app.dependency_overrides.clear()
 
     assert response.status_code == 409
+
+
+def test_previews_registered_source_without_persisting_vacancies() -> None:
+    from fastapi.testclient import TestClient
+    from scout.api.vacancy_api_dependencies import get_source_preview_service
+    from scout.main import app
+    from vacancy_api_test_service import FakeSourcePreviewService
+
+    app.dependency_overrides[get_source_preview_service] = FakeSourcePreviewService
+    try:
+        response = TestClient(app).post(f"/api/v1/sources/{uuid4()}/preview")
+    finally:
+        app.dependency_overrides.clear()
+
+    assert response.status_code == 200
+    assert response.json()["discovery_preview"]["total_vacancies"] == 7
