@@ -45,7 +45,7 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
         source_url: discovery.board_url,
         normalized_url: discovery.board_url,
         employer_careers_url: sourceUrl,
-        adapter_config: { slug: discovery.board_token },
+        adapter_config: discovery.adapter_config,
       });
       onRegistered({ employer, source });
       onNotice(employer.name + " added successfully. Vacancy import is running in the background.");
