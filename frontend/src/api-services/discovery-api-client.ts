@@ -11,7 +11,7 @@ function isLeverBoardUrl(value: string): boolean {
 
 export const discoveryApiClient = {
   discoverCareersPage: async (url: string, companyName: string) => {
-    const path = "/api/v1/sources/discover";
+    const path = isLeverBoardUrl(url) ? "/api/v1/lever/discover" : "/api/v1/greenhouse/discover";
     const result = await request<CareersDiscovery>(
       `${path}?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
     );
