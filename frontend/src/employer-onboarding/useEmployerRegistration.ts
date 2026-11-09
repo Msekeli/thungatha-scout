@@ -26,7 +26,18 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
   async function register(event: FormEvent<HTMLFormElement>, discovery: CareersDiscovery) {
     event.preventDefault();
     const companyName = form.name.trim() || discovery.company_name;
-    if (!companyName) return;
+    if (!companyName) {
+      onError("Enter the employer name before registering this recruitment source.");
+      return;
+    }
+    if (
+      discovery.detected_adapter === "lever" &&
+      (discovery.outcome !== "success" && discovery.outcome !== "empty" ||
+        discovery.complete !== true)
+    ) {
+      onError(discovery.detail || "The Lever board could not be inspected completely.");
+      return;
+    }
 
     setSaving(true);
     onError("");
