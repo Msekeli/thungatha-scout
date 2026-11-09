@@ -39,7 +39,7 @@ export type RelationshipEvidence = {
 export type EmployerSource = {
   id: string;
   employer_id: string;
-  adapter_key: "greenhouse" | "workday";
+  adapter_key: "greenhouse" | "lever" | "workday";
   source_url: string;
   employer_careers_url?: string | null;
   normalized_url: string;
