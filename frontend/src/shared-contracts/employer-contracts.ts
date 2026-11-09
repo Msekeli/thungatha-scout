@@ -36,6 +36,17 @@ export type RelationshipEvidence = {
   recorded_at?: string | null;
 };
 
+export type SourceDiscoveryPreview = {
+  total_vacancies: number;
+  jobs: {
+    id: string | number;
+    title: string;
+    absolute_url?: string | null;
+    location?: { name?: string | null };
+    content?: string | null;
+  }[];
+};
+
 export type EmployerSource = {
   id: string;
   employer_id: string;
@@ -46,4 +57,5 @@ export type EmployerSource = {
   status: string;
   permission_status: string;
   relationship_evidence?: RelationshipEvidence[];
+  discovery_preview?: SourceDiscoveryPreview | null;
 };
