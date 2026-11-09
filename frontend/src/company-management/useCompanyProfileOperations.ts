@@ -15,7 +15,14 @@ type Options = {
 };
 
 export function useCompanyProfileOperations({
-  employer, logoUrl, logoSourceUrl, setEmployers, onDeleted, setSaving, onNotice, onError,
+  employer,
+  logoUrl,
+  logoSourceUrl,
+  setEmployers,
+  onDeleted,
+  setSaving,
+  onNotice,
+  onError,
 }: Options) {
   const deleteCompany = useCallback(async () => {
     if (!employer) return;
@@ -39,9 +46,11 @@ export function useCompanyProfileOperations({
     onError("");
     try {
       const updated = await scoutApi.updateEmployerBranding(
-        employer.id, logoUrl.trim(), logoSourceUrl.trim(),
+        employer.id,
+        logoUrl.trim(),
+        logoSourceUrl.trim(),
       );
-      setEmployers((current) => current.map((item) => item.id === updated.id ? updated : item));
+      setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
       onNotice("Company logo details saved.");
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not save company logo details.");
