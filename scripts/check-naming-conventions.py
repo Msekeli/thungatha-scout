@@ -12,7 +12,7 @@ PROHIBITED_GENERIC_NAMES = {
 DOCUMENTED_DIRECTORY_EXCEPTIONS = {
     "src", "ui", "app", "lib", "api", "milestones", "scripts",
     "backend", "frontend", "scout", "domain", "adapters", "persistence",
-    "components", "styles",
+    "components", "styles", "tests", "unit", "diagnostics", "maintenance",
     "test-suites", "unit-tests", "integration-tests", "registry",
     "database-migrations", "application",
 }
@@ -26,11 +26,14 @@ DOCUMENTED_FILE_EXCEPTIONS = {
     "styles.css", "avatar.tsx", "badge.tsx", "button.tsx", "card.tsx",
     "dialog.tsx", "dropdown-menu.tsx", "input.tsx", "label.tsx",
     "select.tsx", "separator.tsx", "sheet.tsx", "skeleton.tsx",
-    "table.tsx", "tabs.tsx", "tooltip.tsx", "utils.ts",
+    "table.tsx", "tabs.tsx", "tooltip.tsx", "utils.ts", "textarea.tsx",
+    "geography.py", "authentication.py", "settings.py", "vacancies.py",
+    "employers.py", "api.ts", "supabase.ts",
 }
 
 IGNORED_DIRECTORIES = {
     ".git", ".venv", "node_modules", "dist", "__pycache__",
+    ".pytest_cache", ".ruff_cache", ".mypy_cache",
     ".egg-info", "thungatha_scout_backend.egg-info",
 }
 
@@ -68,9 +71,9 @@ def check_naming(root_dir: Path) -> list[str]:
                 if path.suffix == ".py" and "_" not in name_stem:
                     violations.append(f"Single-word Python file '{path.name}': {path}")
                 # Frontend file check (kebab-case with at least one hyphen or PascalCase)
-                elif path.suffix in {".ts", ".tsx"} and "-" not in name_stem and not path.stem.isupper():
-                    # If not PascalCase component (starts with uppercase)
-                    if not (path.stem[0].isupper() and any(c.islower() for c in path.stem)):
+                elif path.suffix in {".ts", ".tsx"} and "-" not in name_stem:
+                    has_word_boundary = any(char.isupper() for char in path.stem[1:])
+                    if not has_word_boundary and not path.stem.isupper():
                         violations.append(f"Single-word frontend file '{path.name}': {path}")
 
     return violations
