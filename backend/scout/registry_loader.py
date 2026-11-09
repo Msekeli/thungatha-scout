@@ -48,3 +48,9 @@ def validate_source_config(adapter_key: str, config: dict[str, Any]) -> None:
         raise RegistryValidationError(
             f"Adapter '{adapter_key}' is missing configuration: {fields}."
         )
+    for field, allowed_values in definition.get("config_values", {}).items():
+        if config.get(field) not in allowed_values:
+            choices = ", ".join(allowed_values)
+            raise RegistryValidationError(
+                f"Adapter '{adapter_key}' field '{field}' must be one of: {choices}."
+            )
