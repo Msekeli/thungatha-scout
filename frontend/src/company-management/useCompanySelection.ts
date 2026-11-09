@@ -88,6 +88,7 @@ export function useCompanySelection({
       setSelectedCompanyId,
       setSourceUrl,
       setSources,
+      setDashboardSources,
     ],
   );
 
