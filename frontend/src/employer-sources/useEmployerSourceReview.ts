@@ -62,7 +62,7 @@ export function useEmployerSourceReview({
           const run = await scoutApi.extractSource(source.id);
           await onSourceActivated();
           onNotice(
-            `Source activated. Extraction ${run.outcome}: ${run.inserted} new, ${run.updated} updated vacancies.`,
+            `Source activated. Extraction ${run.outcome}: ${run.jobs_inserted} new, ${run.jobs_updated} updated vacancies.`,
           );
         } catch (reason) {
           onError(reason instanceof Error
