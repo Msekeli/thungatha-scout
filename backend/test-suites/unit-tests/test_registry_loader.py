@@ -34,3 +34,7 @@ def test_lever_source_requires_slug_and_region() -> None:
         validate_source_config("lever", {"slug": "mamamoney"})
 
     validate_source_config("lever", {"slug": "mamamoney", "region": "global"})
+
+def test_lever_source_rejects_unknown_region() -> None:
+    with pytest.raises(RegistryValidationError, match="global, eu"):
+        validate_source_config("lever", {"slug": "mamamoney", "region": "us"})
