@@ -138,7 +138,7 @@
       "employer_id": "mama_money",
       "name": "Mama Money",
       "organization_classification": "unresolved",
-      "careers_url": "https://www.mamamoney.co.za/",
+      "careers_url": null,
       "cape_town_presence_claimed": false,
       "cape_town_presence_status": "pending_verification",
       "cape_town_evidence": [],
@@ -156,7 +156,8 @@
           "verification_evidence": [],
           "notes": "Public Lever board and live vacancy snapshot were observed during M4-LEVER-A. Employer identity/source relationship and permission still require administrator verification; do not activate automatically."
         }
-      ]
+      ],
+      "website_url": "https://www.mamamoney.co.za/"
     },
     {
       "employer_id": "theodo",
@@ -180,7 +181,8 @@
           "verification_evidence": [],
           "notes": "Public Lever board and live vacancy snapshot were observed during M4-LEVER-A. Employer identity/source relationship and permission still require administrator verification; do not activate automatically."
         }
-      ]
+      ],
+      "website_url": "https://www.theodo.com/"
     },
     {
       "employer_id": "wing_assistant",
@@ -204,7 +206,8 @@
           "verification_evidence": [],
           "notes": "Public Lever board and live vacancy snapshot were observed during M4-LEVER-A. Employer identity/source relationship and permission still require administrator verification; do not activate automatically."
         }
-      ]
+      ],
+      "website_url": "https://wingassistant.com/"
     }
   ]
 }
