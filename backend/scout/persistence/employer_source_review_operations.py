@@ -2,6 +2,8 @@ from collections.abc import Mapping
 from typing import Any
 from uuid import UUID
 
+from psycopg.types.json import Jsonb
+
 
 class EmployerSourceReviewOperations:
     def update_discovery_preview(
@@ -9,8 +11,6 @@ class EmployerSourceReviewOperations:
         source_id: UUID,
         preview: Mapping[str, Any],
     ) -> dict[str, Any] | None:
-        from psycopg.types.json import Jsonb
-
         return self._connection.execute(
             """
             UPDATE employer_sources
