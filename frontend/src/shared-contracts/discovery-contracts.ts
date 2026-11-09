@@ -31,4 +31,10 @@ export type CareersDiscovery = {
   detected_adapter: "greenhouse" | "lever";
   adapter_config: Record<string, string>;
   company_name: string;
+  outcome?: string;
+  jobs?: InspectionJob[];
+  pages_fetched?: number;
+  complete?: boolean;
+  detail?: string | null;
+  total_vacancies?: number | null;
 };
