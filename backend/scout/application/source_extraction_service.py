@@ -25,6 +25,10 @@ class UnsupportedAdapterError(ValueError):
     """Raised when a source references an unavailable adapter."""
 
 
+class SourceNotApprovedError(PermissionError):
+    """Raised when extraction is requested before source approval."""
+
+
 class SourceExtractionService(VacancyManagementService):
     def __init__(
         self,
@@ -45,6 +49,10 @@ class SourceExtractionService(VacancyManagementService):
             source = EmployerSourceRepository(connection).get_by_id(source_id)
         if source is None:
             raise SourceNotFoundError("Employer source not found.")
+        if source["status"] != "verified" or source["permission_status"] != "allowed":
+            raise SourceNotApprovedError(
+                "Source extraction requires verified status and allowed permission."
+            )
         adapter_factory = self._adapter_factories.get(source["adapter_key"])
         if adapter_factory is None:
             raise UnsupportedAdapterError("No adapter is registered for this source.")
