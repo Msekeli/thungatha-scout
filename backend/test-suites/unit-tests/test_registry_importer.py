@@ -1,4 +1,5 @@
 from registry_importer_test_connection import FakeConnection
+
 from scout.registry_importer import import_registry
 
 
