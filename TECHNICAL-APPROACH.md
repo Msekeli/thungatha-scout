@@ -69,6 +69,20 @@ Adapters own HTTP transport, platform parsing and pagination. They do not own qu
 
 Explicit outcomes: success with results, success empty, not found, blocked, rate-limited, timeout/transient, malformed and partial/incomplete.
 
+The shared implementation boundary lives in `scout.ats_adapters.ats_adapter_contracts`:
+- `ATSAdapter` defines configuration-based retrieval and adapter cleanup.
+- `ATSAdapterResult` carries the outcome, completeness and normalized vacancies.
+- `NormalizedVacancy` carries provider-independent identity, content, location,
+  department, application URL, timestamps and the retained raw provider payload.
+
+`SourceExtractionService` selects an adapter factory using the source's
+`adapter_key`, records the extraction run, and hands normalized vacancies to the
+shared persistence layer. Provider-specific HTTP and field mapping remain inside
+the corresponding `ats_adapters/<provider>_adapter/` package. Unexpected adapter
+exceptions are recorded as failed extraction outcomes; they are not treated as an
+empty board. Adding another provider should require an adapter implementation and
+factory registration, not a new persistence path.
+
 ### Greenhouse
 
 Use the documented public Job Board API for a known board token:
