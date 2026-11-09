@@ -42,6 +42,13 @@ async def _discover_from_page(url: str, company_name: str) -> dict:
                 continue
             visited.add(page_url)
             final_url, links = await read_careers_page(client, page_url)
+            final_host = urlsplit(final_url).hostname or ""
+            if final_host in LEVER_HOSTS:
+                _, board_url = parse_lever_board_url(final_url)
+                candidates[("lever", board_url)] = final_url
+            elif final_host in GREENHOUSE_HOSTS:
+                token = parse_board_token(final_url)
+                candidates[("greenhouse", token)] = final_url
             for href in links:
                 target = httpx.URL(final_url).join(href)
                 host = target.host
