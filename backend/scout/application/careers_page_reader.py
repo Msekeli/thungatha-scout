@@ -25,8 +25,11 @@ def validate_public_url(value: str) -> None:
     except ValueError as exception:
         raise ValueError("Careers URL contains an invalid port.") from exception
     if (
-        parsed.scheme != "https" or not parsed.hostname
-        or parsed.username or parsed.password or port not in (None, 443)
+        parsed.scheme != "https"
+        or not parsed.hostname
+        or parsed.username
+        or parsed.password
+        or port not in (None, 443)
     ):
         raise ValueError("Enter a public HTTPS careers or ATS URL.")
     try:

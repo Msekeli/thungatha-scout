@@ -23,9 +23,11 @@ def test_discovers_lever_through_intermediate_careers_page(monkeypatch) -> None:
 
     monkeypatch.setattr(discovery, "read_careers_page", read_page)
     monkeypatch.setattr(discovery, "_inspect_lever", inspect)
-    result = asyncio.run(discovery.discover_careers_source(
-        "https://www.theodo.com/en-uk/careers-at-theodo", "Theodo"
-    ))
+    result = asyncio.run(
+        discovery.discover_careers_source(
+            "https://www.theodo.com/en-uk/careers-at-theodo", "Theodo"
+        )
+    )
     assert result["detected_adapter"] == "lever"
     assert result["careers_url"] == "https://www.theodo.com/en-uk/careers-at-theodo"
     assert result["board_url"] == "https://jobs.lever.co/theodo"
@@ -40,6 +42,6 @@ def test_rejects_ambiguous_multiple_ats_boards(monkeypatch) -> None:
 
     monkeypatch.setattr(discovery, "read_careers_page", read_page)
     with pytest.raises(ValueError, match="unambiguous ATS board"):
-        asyncio.run(discovery.discover_careers_source(
-            "https://example.com/careers", "Example"
-        ))
+        asyncio.run(
+            discovery.discover_careers_source("https://example.com/careers", "Example")
+        )

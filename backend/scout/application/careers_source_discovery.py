@@ -12,13 +12,15 @@ from scout.application.careers_page_reader import read_careers_page
 
 LEVER_HOSTS = {"jobs.lever.co", "jobs.eu.lever.co"}
 GREENHOUSE_HOSTS = {
-    "boards.greenhouse.io", "job-boards.greenhouse.io",
+    "boards.greenhouse.io",
+    "job-boards.greenhouse.io",
     "job-boards.eu.greenhouse.io",
 }
 
 
 async def _inspect_lever(url: str, company_name: str) -> dict:
     from scout.api.lever_routes import inspect_lever_board
+
     return await inspect_lever_board(url, company_name)
 
 
@@ -49,7 +51,11 @@ async def _discover_from_page(url: str, company_name: str) -> dict:
                 elif host in GREENHOUSE_HOSTS:
                     token = parse_board_token(str(target))
                     candidates[("greenhouse", token)] = str(target)
-                elif depth < 2 and target.scheme == "https" and target.host == origin.hostname:
+                elif (
+                    depth < 2
+                    and target.scheme == "https"
+                    and target.host == origin.hostname
+                ):
                     queue.append((str(target), depth + 1))
     if len(candidates) != 1:
         raise ValueError(
