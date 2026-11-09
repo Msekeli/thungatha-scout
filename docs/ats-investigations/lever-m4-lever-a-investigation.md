@@ -117,11 +117,12 @@ The official documentation notes that the public API does not support cross-orig
 ## Implementation delivered in M4-LEVER-A
 
 - `backend/scout/ats_adapters/lever_adapter/lever_source_adapter.py` — shared `ATSAdapterResult` wrapper and lifecycle.
-- `backend/scout/ats_adapters/lever_adapter/lever_postings_client.py` — bounded HTTP retrieval, global/EU host selection, pagination, duplicate-ID detection and failure outcomes.
+- `backend/scout/ats_adapters/lever_adapter/lever_postings_client.py` — source configuration validation and HTTP client lifecycle.
+- `backend/scout/ats_adapters/lever_adapter/lever_pagination.py` — bounded HTTP pagination, duplicate-ID detection and completeness handling.
 - `backend/scout/ats_adapters/lever_adapter/lever_postings_contracts.py` and `lever_response_mapper.py` — provider response contract and HTTP failure mapping.
 - `backend/scout/ats_adapters/lever_adapter/lever_description_parser.py` — standard-library HTML-to-text fallback preserving paragraph boundaries.
 - `backend/scout/ats_adapters/lever_adapter/lever_vacancy_mapper.py` — Lever-to-`NormalizedVacancy` mapping; timestamp fields remain null and raw payload is retained.
-- Focused tests under `backend/test-suites/unit-tests/ats-adapters/lever-adapter/` cover description fallback, normalized mapping, pagination and duplicate IDs.
+- Focused tests under `backend/test-suites/unit-tests/ats-adapters/lever-adapter/` cover description fallback, normalized mapping, pagination, duplicate IDs, empty boards, rate limits and EU host selection.
 
 The adapter requires explicit `slug` and `region` source configuration. Employer-specific slugs are not embedded in adapter code. Registry activation and shared extraction-service registration remain M4-LEVER-B work.
 
