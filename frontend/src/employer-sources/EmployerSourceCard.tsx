@@ -32,7 +32,14 @@ export function EmployerSourceCard({ source, saving, onEdit }: Props) {
             </p>
             {source.discovery_preview.jobs.slice(0, 5).map((job) => (
               <p key={job.id} className="truncate" title={job.title}>
-                • {job.title}
+                •{" "}
+                {job.absolute_url ? (
+                  <a href={job.absolute_url} target="_blank" rel="noreferrer">
+                    {job.title}
+                  </a>
+                ) : (
+                  job.title
+                )}
               </p>
             ))}
           </div>
