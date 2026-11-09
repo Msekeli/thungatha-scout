@@ -1,6 +1,9 @@
 import pytest
 
-from scout.ats_adapters.greenhouse_adapter.greenhouse_contracts import GreenhouseUrlError, parse_board_token
+from scout.ats_adapters.greenhouse_adapter.greenhouse_contracts import (
+    GreenhouseUrlError,
+    parse_board_token,
+)
 
 
 def test_parse_supported_greenhouse_board_urls() -> None:

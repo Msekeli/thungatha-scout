@@ -4,7 +4,10 @@ from collections.abc import Sequence
 
 import httpx
 
-from .greenhouse_career_site_parser import CareersLinks, find_greenhouse_board_candidates
+from .greenhouse_career_site_parser import (
+    CareersLinks,
+    find_greenhouse_board_candidates,
+)
 from scout.employer_name_matching import board_name_matches, domain_company_name
 
 API_ROOT = "https://boards-api.greenhouse.io/v1/boards"

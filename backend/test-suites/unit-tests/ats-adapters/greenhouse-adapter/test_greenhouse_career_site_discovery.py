@@ -3,9 +3,15 @@ import asyncio
 import httpx
 import pytest
 
-from scout.ats_adapters.greenhouse_adapter.greenhouse_career_site_parser import CareersLinks, find_greenhouse_board_candidates
+from scout.ats_adapters.greenhouse_adapter.greenhouse_career_site_parser import (
+    CareersLinks,
+    find_greenhouse_board_candidates,
+)
 from scout.employer_name_matching import board_name_matches, company_aliases
-from scout.ats_adapters.greenhouse_adapter.greenhouse_board_resolver import candidate_tokens, resolve_greenhouse_board
+from scout.ats_adapters.greenhouse_adapter.greenhouse_board_resolver import (
+    candidate_tokens,
+    resolve_greenhouse_board,
+)
 
 
 def test_parser_collects_board_link_and_inline_api_candidates() -> None:
