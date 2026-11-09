@@ -8,6 +8,9 @@ export const emptyEmployer = {
   name: "",
   website_url: "",
   organization_type: "unresolved",
+  city: "",
+  province: "",
+  country: "South Africa",
 };
 
 export function useScoutAppState() {
