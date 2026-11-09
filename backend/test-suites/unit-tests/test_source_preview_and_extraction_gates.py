@@ -1,7 +1,7 @@
 import asyncio
-import pytest
 from uuid import uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 
 from scout.api.vacancy_api_dependencies import get_source_preview_service
