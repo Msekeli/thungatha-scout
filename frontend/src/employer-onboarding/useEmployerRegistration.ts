@@ -3,13 +3,11 @@ import { scoutApi } from "../api";
 import { getCompanyIconUrl } from "../company-management/company-icon-url";
 import { runEmployerVacancyImport } from "./runEmployerVacancyImport";
 import type { CareersDiscovery, Employer, EmployerSource } from "../api";
-
 type EmployerRegistrationForm = {
   name: string;
   website_url: string;
   organization_type: string;
 };
-
 type UseEmployerRegistrationOptions = {
   form: EmployerRegistrationForm;
   sourceUrl: string;
@@ -19,10 +17,8 @@ type UseEmployerRegistrationOptions = {
   onNotice: (message: string) => void;
   onRegistered: (result: { employer: Employer; source: EmployerSource }) => void;
 };
-
 export function useEmployerRegistration(options: UseEmployerRegistrationOptions) {
   const { form, sourceUrl, loadWorkspace, setSaving, onError, onNotice, onRegistered } = options;
-
   async function register(event: FormEvent<HTMLFormElement>, discovery: CareersDiscovery) {
     event.preventDefault();
     const companyName = form.name.trim() || discovery.company_name;
@@ -38,7 +34,6 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
       onError(discovery.detail || "The Lever board could not be inspected completely.");
       return;
     }
-
     setSaving(true);
     onError("");
     onNotice("");
@@ -100,6 +95,5 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
       setSaving(false);
     }
   }
-
   return { register };
 }
