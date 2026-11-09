@@ -13,6 +13,7 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
   const employer = jobs.employers.find((item) => item.id === state.selectedCompanyId) ?? null;
   const selection = useCompanySelection({
     setSources: state.setSources,
+    setDashboardSources: jobs.setDashboardSources,
     setExtractionRuns: jobs.setExtractionRuns,
     setSelectedCompanyId: state.setSelectedCompanyId,
     setLogoUrl: state.setLogoUrl,
