@@ -2,20 +2,16 @@ import type { Vacancy } from "../api";
 import { VacancyDescriptionPreview } from "./VacancyDescriptionPreview";
 import { VacancyDetailsHeader } from "./VacancyDetailsHeader";
 
-type VacancyDetailsPanelProps = {
-  vacancy: Vacancy | null;
-  loading: boolean;
-};
+type Props = { vacancy: Vacancy | null; loading: boolean };
 
-export function VacancyDetailsPanel({ vacancy, loading }: VacancyDetailsPanelProps) {
-  if (loading) {
+export function VacancyDetailsPanel({ vacancy, loading }: Props) {
+  if (loading)
     return (
       <div className="grid flex-1 place-content-center text-center text-sm text-muted-foreground">
         Loading vacancy…
       </div>
     );
-  }
-  if (!vacancy) {
+  if (!vacancy)
     return (
       <div className="grid flex-1 place-content-center px-6 text-center">
         <p className="text-sm font-semibold text-primary">Select a vacancy record</p>
@@ -24,8 +20,6 @@ export function VacancyDetailsPanel({ vacancy, loading }: VacancyDetailsPanelPro
         </p>
       </div>
     );
-  }
-
   return (
     <>
       <VacancyDetailsHeader vacancy={vacancy} />

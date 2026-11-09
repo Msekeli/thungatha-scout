@@ -13,7 +13,6 @@ export const emptyEmployer = {
 export function useScoutAppState() {
   const [page, setPage] = useState<ScoutPage>("jobs");
   const [showArchived, setShowArchived] = useState(false);
-  const [reviewFilter, setReviewFilter] = useState("all");
   const [locationScope, setLocationScope] = useState<VacancyLocationScope>("south_africa");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
@@ -37,8 +36,6 @@ export function useScoutAppState() {
     setPage,
     showArchived,
     setShowArchived,
-    reviewFilter,
-    setReviewFilter,
     locationScope,
     setLocationScope,
     logoUrl,

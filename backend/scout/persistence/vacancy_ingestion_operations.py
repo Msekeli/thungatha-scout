@@ -34,15 +34,13 @@ class VacancyIngestionOperations:
                 INSERT INTO vacancies (
                     employer_id, source_id, external_job_id, title, description,
                     location_text, department, office, source_url, application_url,
-                    published_at, source_updated_at, raw_payload, content_fingerprint,
-                    review_status, review_reason
+                    published_at, source_updated_at, raw_payload, content_fingerprint
                 )
                 VALUES (
                     %(employer_id)s, %(source_id)s, %(external_job_id)s,
                     %(title)s, %(description)s, %(location_text)s, %(department)s,
                     %(office)s, %(source_url)s, %(application_url)s,
-                    %(published_at)s, %(source_updated_at)s, %(raw_payload)s, %(fingerprint)s,
-                    %(review_status)s, %(review_reason)s
+                    %(published_at)s, %(source_updated_at)s, %(raw_payload)s, %(fingerprint)s
                 )
                 ON CONFLICT (source_id, external_job_id) DO UPDATE SET
                     title = EXCLUDED.title,

@@ -1,12 +1,17 @@
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
-class VacancyReviewUpdate(BaseModel):
-    review_status: Literal["pending", "needs_verification", "verified", "rejected"]
-    review_reason: str | None = Field(default=None, max_length=2000)
+VacancyArchiveReason = Literal[
+    "Job filled",
+    "Job closed or expired",
+    "Employer removed the listing",
+    "Duplicate vacancy",
+    "Outside Scout's coverage or eligibility",
+    "Other administrative reason",
+]
 
 
 class VacancyArchiveRequest(BaseModel):
-    reason: str | None = Field(default=None, max_length=2000)
+    reason: VacancyArchiveReason

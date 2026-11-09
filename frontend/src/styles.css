@@ -2,6 +2,7 @@
 @import "./styles/company-theme-tokens.css";
 @import "./styles/company-directory-surfaces.css";
 @import "./styles/vacancy-records.css";
+@import "./styles/vacancy-freshness.css";
 @import "./styles/company-directory-controls.css";
 @import "./styles/company-details.css";
 @import "./styles/company-forms.css";

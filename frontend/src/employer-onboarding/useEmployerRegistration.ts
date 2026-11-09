@@ -1,5 +1,6 @@
 import type { FormEvent } from "react";
 import { scoutApi } from "../api";
+import { getCompanyIconUrl } from "../company-management/company-icon-url";
 import type { CareersDiscovery, Employer, EmployerSource } from "../api";
 import { runEmployerVacancyImport } from "./runEmployerVacancyImport";
 
@@ -36,6 +37,8 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
         ...form,
         name: companyName,
         website_url: form.website_url.trim() || null,
+        logo_url: getCompanyIconUrl(sourceUrl),
+        logo_source_url: sourceUrl,
       });
       const source = await scoutApi.createSource(employer.id, {
         adapter_key: discovery.detected_adapter,

@@ -4,6 +4,11 @@ from uuid import UUID
 
 from psycopg.types.json import Jsonb
 
+from scout.application.vacancy_description_sanitizer import (
+    sanitize_vacancy_description,
+)
+from scout.persistence.vacancy_location_mapping import resolve_greenhouse_location
+
 
 def map_greenhouse_job(
     employer_id: UUID,
@@ -12,9 +17,6 @@ def map_greenhouse_job(
     job: Mapping[str, Any],
     fingerprint: str,
 ) -> dict[str, Any]:
-    location = job.get("location")
-    location_name = location.get("name") if isinstance(location, dict) else None
-    location_text = location_name if isinstance(location_name, str) else None
     departments = job.get("departments")
     offices = job.get("offices")
     office_names = (
@@ -26,34 +28,19 @@ def map_greenhouse_job(
         if isinstance(offices, list)
         else []
     )
-    if office_names:
-        location_text = " | ".join(
-            ([location_text] if location_text else []) + office_names
-        )
-    location_normalized = (location_text or "").lower()
-    requires_verification = not location_text or "remote" in location_normalized
-    review_reason = (
-        "Location is missing from the source."
-        if not location_text
-        else "Verify South African remote-work eligibility."
-        if requires_verification
-        else None
-    )
     return {
         "employer_id": employer_id,
         "source_id": source_id,
         "external_job_id": str(job["id"]),
         "title": job["title"].strip(),
-        "description": job.get("content"),
-        "location_text": location_text,
+        "description": sanitize_vacancy_description(job.get("content")),
+        "location_text": resolve_greenhouse_location(job.get("location"), offices),
         "department": departments[0].get("name")
         if isinstance(departments, list)
         and departments
         and isinstance(departments[0], dict)
         else None,
-        "office": offices[0].get("name")
-        if isinstance(offices, list) and offices and isinstance(offices[0], dict)
-        else None,
+        "office": office_names[0] if office_names else None,
         "source_url": source_url,
         "application_url": job["absolute_url"],
         "published_at": job.get("first_published"),
@@ -66,6 +53,4 @@ def map_greenhouse_job(
             }
         ),
         "fingerprint": fingerprint,
-        "review_status": "needs_verification" if requires_verification else "pending",
-        "review_reason": review_reason,
     }

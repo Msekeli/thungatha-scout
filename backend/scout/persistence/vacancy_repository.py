@@ -4,13 +4,13 @@ from scout.persistence.vacancy_ingestion_operations import (
     VacancyIngestionOperations,
 )
 from scout.persistence.vacancy_read_operations import VacancyReadOperations
-from scout.persistence.vacancy_review_operations import VacancyReviewOperations
+from scout.persistence.vacancy_archive_operations import VacancyArchiveOperations
 
 
 class VacancyRepository(
     VacancyIngestionOperations,
     VacancyReadOperations,
-    VacancyReviewOperations,
+    VacancyArchiveOperations,
 ):
     def __init__(self, connection: Connection) -> None:
         self._connection = connection

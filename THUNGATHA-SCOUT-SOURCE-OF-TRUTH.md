@@ -1,7 +1,7 @@
 # Thungatha Scout — Source of Truth
 
 **Status:** Proposed baseline for review  
-**Updated:** 3 November 2026
+**Updated:** 8 November 2026
 
 ## Purpose
 
@@ -52,7 +52,7 @@ Human approval is an explicit backend state, not just a UI button. Publish appro
 
 ## Scheduling
 
-Initial proposal: company discovery weekly while coverage is growing; reduce to monthly/on-demand when yield becomes low; company/source verification weekly; vacancy extraction every 8 hours; publish after successful batches plus a recovery pass; daily reconciliation. Schedules must be configurable. Avoid overlapping runs and bound retries.
+Company discovery: weekly while coverage is growing; reduce to monthly/on-demand when yield becomes low. Company/source verification: weekly. Vacancy extraction: twice daily at 06:00 and 18:00 in the `Africa/Johannesburg` timezone. Each run starts at its scheduled time and may finish earlier when its work is complete; it must not be kept running merely to fill the time window. One hour is the maximum execution duration, not a target. A run that completes in 15 or 30 minutes exits normally. Enforce a hard one-hour timeout, prevent overlapping runs, and use bounded retries. Publish qualifying records after successful batches and run recovery for failed publication attempts. Reconcile lifecycle only from sufficiently complete successful extraction results; a failed/partial run must not expire vacancies. Schedules and execution limits must remain configurable.
 
 ## AI principles
 
@@ -69,6 +69,15 @@ A recruiter portal may be considered later. Recruiter-submitted jobs require sep
 ## Decision governance
 
 When decisions change, record date, reason, and impact; update affected documents. Inspect the live repository/tests before implementation. Historical Greenhouse-only notes and reports are evidence of prior experiments, not proof of current behavior.
+
+## Decision record — ATS adapter expansion (8 November 2026)
+
+- Greenhouse has been exercised end to end from vacancy extraction through publication to Thungatha, as confirmed by the user. Retain it as the reference adapter and record the exact test evidence in its milestone when available.
+- Expand M4 beyond Workday. Implement and validate every ATS already listed in `backend/registry/ats-adapter-registry.json`: Workday, Lever, Breezy HR and Ashby, using the shared adapter contract and the existing company/source workflow.
+- Revisit companies and sources already stored in Scout through their configured adapters. Re-extraction must be idempotent and must not create duplicate employers or vacancies.
+- `placement_partner` remains a separate recruitment/staffing pipeline, not a direct-employer ATS adapter. Evaluate it separately and do not count agencies toward direct-employer coverage.
+- Do not claim an adapter is supported until its public retrieval method, source relationship, access constraints, response completeness and representative live extraction are verified. If a platform cannot be accessed reliably or permissibly, record the limitation rather than fabricating support.
+- Docker containerisation is a final packaging milestone after the full application and worker pass local verification. One backend image should support separate API and worker commands; no database container is required.
 
 ## Decision record — dual-channel employer discovery (3 November 2026)
 
@@ -111,13 +120,13 @@ Every file has one clearly defined primary responsibility. Names should state th
 
 ## Decision record — v1 implementation baseline (3 November 2026)
 
-V1 is limited to Greenhouse and Workday. Recruiter self-service and other ATS platforms remain out of scope. The private React admin interface is required in v1; it is not a public job-search frontend.
+V1 covers the ATS/career-platform catalogue recorded in the adapter registry: Greenhouse, Workday, Lever, Breezy HR and Ashby. Greenhouse is the proven reference flow; the remaining four are to be implemented and validated through the common adapter contract. Recruiter self-service remains out of scope. The private React admin interface is required in v1; it is not a public job-search frontend.
 
 ### Product workflow
 
 - The employer is the primary management entity. An employer can have multiple independent recruitment sources; vacancies retain employer and source provenance.
 - Add Company is URL-first. The administrator pastes a careers/ATS URL; the backend detects the ATS, inspects the source and extracts employer metadata where reliable. The administrator confirms the employer identity and source relationship before registration.
-- Manual ATS selection is a fallback and override. V1 supports Greenhouse and Workday only.
+- Manual ATS selection is a fallback and override. V1 target support includes Greenhouse, Workday, Lever, Breezy HR and Ashby, subject to verified public retrieval methods, source restrictions and representative live tests.
 - Adding an employer to an existing adapter is configuration-driven and must not require employer-specific adapter code. A new ATS may require one new adapter implementation.
 - Adding a source to an existing employer must not create a duplicate employer. Archiving a source must not remove its employer or other sources.
 - Employer/source approval and vacancy approval are separate. Only approved, validated vacancy versions may publish.
@@ -267,3 +276,70 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 - Location matching is deliberately conservative. False negatives should be reviewed and the allow-list expanded with evidence; unknown locations must not be assumed South African.
 - This rule applies to every adapter through the shared persistence boundary. Adapter-specific checks may add validation but must not weaken it.
 - The admin South Africa filter is a view over the already-qualified vacancy catalogue, not a substitute for ingestion validation.
+
+## Decision record — export location scope (6 November 2026)
+
+- Vacancy export defaults to `south_africa`, matching the South Africa-wide persisted vacancy catalogue.
+- Export accepts the same location scopes as the admin vacancy view: `cape_town`, `western_cape`, and `south_africa`.
+- The selected scope filters the export query itself, including its total count and returned page. Changing the admin location filter must be reflected when the corresponding export is requested.
+- `all` remains an accepted compatibility value and does not add a geographic predicate; ingestion already limits the persisted catalogue to South African vacancies.
+- This is an export/read-scope decision only. It does not change the South Africa ingestion boundary or delete broader South African records.
+
+## Decision record — Greenhouse office-level location mapping (6 November 2026)
+
+- When a Greenhouse vacancy has a broad country/province location label and one or more specific office names, Scout uses the office names as the primary location evidence instead of displaying the broad label.
+- Generic operational suffixes such as DC, Office, Hub, Distribution Centre, Cross Dock Facility, Facility and Warehouse are removed from the display location when a place name precedes them. Equivalent office labels such as "Cape Town DC" and "Cape Town Office" therefore resolve to the same display location, "Cape Town".
+- Distinct office locations remain distinct; this mapping does not choose one arbitrarily when multiple places are attached to a vacancy.
+- A specific job-level location is retained when it is already more precise than a broad office label.
+- Original Greenhouse location, department and office objects remain in `raw_payload` for traceability.
+- This is source-field prioritisation and display normalization, not a general geocoder. It must not infer a city from employer headquarters or unrelated description text. Unknown or ambiguous office labels require a later evidence-based resolution step.
+
+## Decision record — vacancy freshness date priority (6 November 2026)
+
+- Vacancy freshness represents the employer/source's latest recorded activity on the advertisement, not the date Scout first discovered it.
+- Use `source_updated_at` as the primary freshness timestamp when it is present and valid.
+- If `source_updated_at` is absent or invalid, fall back to the original `published_at` timestamp.
+- If neither timestamp is valid, display `Date unavailable`. Do not substitute `first_seen_at`, `last_seen_at`, or Scout's database timestamps because those describe Scout's observation activity, not the employer's advertisement date.
+- Preserve `published_at` and `source_updated_at` independently. Updating freshness must never overwrite the original publication timestamp.
+- Admin freshness bands: 0–7 days green (Fresh), 8–14 days yellow (Recent), 15–30 days amber (Aging), and over 30 days red (Stale).
+- Freshness is an activity signal, not proof that a vacancy remains open or that an employer has not hired. Age alone must not expire, remove, or suppress a vacancy.
+- Show the selected timestamp's date and relative age in the vacancy list and detail header.
+
+## Decision record — twice-daily vacancy extraction window (8 November 2026)
+
+- Replace the earlier eight-hour vacancy extraction cadence with two scheduled starts per day: 06:00 and 18:00 South African time (`Africa/Johannesburg`).
+- Each scheduled run has a maximum duration of one hour, ending no later than 07:00 or 19:00 respectively.
+- One hour is a ceiling, not a required runtime. The worker exits as soon as its assigned work is complete; a 15-minute or 30-minute run is successful when all assigned work has completed.
+- Do not pad, sleep, or otherwise force a run to consume the full hour.
+- Prevent overlapping executions. If a run reaches the one-hour limit, record it as timed out/partial as appropriate and preserve completed per-source progress. Never treat a timeout or incomplete inventory as evidence that vacancies have disappeared.
+- This is the initial operating schedule; actual runtimes and source coverage will be measured after the complete extraction workflow is implemented and tested. The schedule and maximum duration remain configurable.
+
+## Decision record — expanded ATS and career-platform coverage (8 November 2026)
+
+The earlier five-platform M4 scope is superseded by the research catalogue in `docs/ATS-PLATFORM-RESEARCH.md` and `backend/registry/ats-adapter-registry.json`.
+
+- Keep all researched platforms and candidate employer sources in scope. Implementation difficulty changes sequencing, not employer eligibility or discovery coverage.
+- First-wave priorities are Ashby, Lever, Teamtailor RSS, Personio XML, Recruitee XML and Workable's observed public widget. Greenhouse remains the proven reference adapter and receives reliability/evidence closure.
+- Second wave: SmartRecruiters, BambooHR and Breezy HR. Third wave: Simplify.hr, eRecruit/Neptune investigation, Zoho Recruit and SAP SuccessFactors. Workday is deferred from active investigation and implementation until further notice.
+- Placement Partner remains in scope as a separate recruitment-agency source pipeline. Validate redirect chains and final candidate destinations; accept redirects only when they preserve the exact vacancy/application journey.
+- JobAdder is partner/customer-authorised unless a separate public source is verified. Leaply is a discovery lead, not a confirmed public ATS adapter.
+- Personio and Workable are added candidates beyond the original supplied list because research found useful public vacancy retrieval routes.
+- Company names supplied as ATS examples remain discovery leads until the employer's own careers page establishes the platform relationship. A company may have multiple sources and multiple ATS platforms.
+- Do not use undocumented endpoints as if they were vendor-supported APIs. Record access method, source evidence, field completeness, redirect behavior and operational limits separately.
+- The research ranking is an implementation-effort estimate, not a market-share ranking. High-value difficult sources must not be excluded; move them into the hard-source backlog and revisit based on employer coverage.
+
+## Decision record — first-wave employer test cohort and Workday deferral (8 November 2026)
+
+- The first-wave research cohort is Ashby, Lever, Teamtailor, Personio, Recruitee and Workable. Greenhouse remains the already-implemented reference adapter and is not part of this new research cohort.
+- Company names and career-page URLs for at least three candidate employers per first-wave ATS are recorded in `backend/registry/ats-adapter-registry.json`, `docs/ATS-PLATFORM-RESEARCH.md` and the strict JSON test-target file.
+- These company URLs are research targets, not proof that the proposed public endpoint/feed is enabled or that extraction has succeeded. Verify the actual career page, redirects, network requests, listing/detail retrieval, pagination and vacancy-specific application URL for each employer.
+- Workday is deferred from active research, implementation and test-target lists until further notice. Its previous CXS research is retained only as historical context; do not allocate current M4 work to Workday unless the user reactivates it.
+- Greenhouse is excluded from the new company cohort because its adapter is already implemented; outstanding Greenhouse reliability/acceptance work remains tracked separately.
+
+## Decision record — strict ATS target registry and checkpointed M4 delivery (8 November 2026)
+
+- The machine-readable employer/ATS test cohort is maintained as strict JSON in `docs/ATS-EMPLOYER-TEST-TARGETS.json`. Do not use JSONC or comments in machine-readable JSON files; explanatory notes belong in Markdown.
+- M4 must be delivered through the individual checkpoints in `milestones/M4-ATS-ADAPTER-EXPANSION.md`, not as one large implementation attempt.
+- Ashby is the first new adapter to investigate. The first next-chat task is M4-C01 investigation only; no application code changes until the evidence and design have been reviewed.
+- Greenhouse is the implemented architectural reference. Inspect its URL parsing, adapter contract, HTTP retrieval, response mapping, extraction orchestration, API route, registry configuration and tests. Reuse responsibilities and shared pipeline boundaries where appropriate, but do not copy provider-specific behavior blindly.
+- Every handwritten source-code file and test remains at or below 100 physical lines. Separate URL/config validation, provider transport, response mapping, extraction orchestration, persistence and API routing by single responsibility.

@@ -15,17 +15,14 @@ pip install -e ".[dev]"
 cp .env.example .env
 ```
 
-Edit `.env` and set:
-
-- `SCOUT_DATABASE_URL` to the dedicated Scout Supabase Transaction Pooler URI.
-  Authentication is intentionally deferred during the initial functional
-  application build. Only the dedicated Scout database URL is required for the
-  current local registry workflow. Do not expose this unauthenticated development
-  API to the public internet. Authentication will be restored before deployment
-  or external access.
+Edit `.env` and set `SCOUT_DATABASE_URL` to the dedicated Scout Supabase
+Transaction Pooler URI. Never use the Thungatha destination project's URL or
+keys in Scout.
 
 Keep passwords and keys in `.env`; never put real values in `.env.example`
-or commit them. Do not use the Thungatha destination project's URL or keys here.
+or commit them. The local development API permits the export endpoint without
+a machine key only when `APP_ENV=development` or `APP_ENV=test`. Do not expose
+that development configuration to the public internet.
 
 ## Database migrations
 
@@ -82,26 +79,56 @@ remains `unknown`. A registry entry marked verified is not automatically
 promoted to an approved database state. Confirm employer identity, Cape Town
 presence, source relationship and permission through the admin review process.
 
-## Registry API
+## Vacancy export API
 
-The current local admin workflow exposes these endpoints without authentication
-while the functional application is being built:
+Scout exposes a read-only vacancy export for server-side consumers such as
+Thungatha:
 
-- `GET /api/v1/employers` — list employers (supports `limit` and `offset`).
-- `POST /api/v1/employers` — register an employer.
-- `GET /api/v1/employers/{id}` — read an employer.
-- `GET /api/v1/employers/{id}/sources` — list its ATS sources.
-- `POST /api/v1/employers/{id}/sources` — register a Greenhouse or Workday source; required adapter configuration is checked against the ATS registry.
-- `GET /api/v1/greenhouse/inspect?url={board_url}` — inspect a Greenhouse board URL, retrieve board metadata and the complete public jobs response with descriptions.
-- `POST /api/v1/sources/{source_id}/extract` — retrieve a registered Greenhouse source and upsert its vacancies into Scout.
-- `GET /api/v1/vacancies` — list active vacancies across employers.
-- `GET /api/v1/employers/{employer_id}/vacancies` — list active vacancies for one employer.
+- `GET /api/v1/vacancies/export`
+- Query parameters: `limit` (1–100, default 50), `offset` (default 0), and
+  `location_scope` (default `south_africa`; options: `cape_town`,
+  `western_cape`, `south_africa`, `all`).
+- Only active, non-archived vacancies are returned. The endpoint does not run
+  Greenhouse extraction or modify Scout records.
+- Results are ordered by original publication date, source update date,
+  creation date and immutable Scout vacancy UUID for stable pagination.
+- Descriptions are returned as sanitized HTML.
+- `published_at` is the original employer publication date;
+  `source_updated_at` is the latest employer-reported update date; and
+  `first_seen_at` is when Scout first discovered the vacancy. Missing source
+  dates remain null; discovery time is never substituted for publication time.
+- The export intentionally exposes Scout's contract, not Thungatha's database
+  schema. It omits raw ATS payloads and source-specific internal identifiers.
 
-The Greenhouse Job Board API returns the public jobs collection with `meta.total`; Scout checks that count against the returned array. An incomplete response is recorded as partial and is never used to expire missing vacancies. Repeated extraction upserts by `(source_id, external_job_id)` rather than creating duplicates.
+The JSON response contains `items`, `total`, `limit`, `offset`, `has_more`
+and `location_scope`. Each item contains `scout_vacancy_id`,
+`employer_name`, `logo_url`, `title`, `description`, `location_text`,
+`application_url`, `published_at`, `source_updated_at` and
+`first_seen_at`.
 
-New employers and sources are stored as discovered; callers cannot set approval
-or permission states. This API is for local development only until authentication
-is reinstated.
+Example local request:
+
+```bash
+curl "http://127.0.0.1:8000/api/v1/vacancies/export?limit=50&offset=0"
+```
+
+For server-to-server access, set a long random `SCOUT_EXPORT_API_KEY` in
+Scout's server environment and send the same secret from Thungatha in the
+`X-Scout-Export-Key` header. Once configured, the key is required in every
+environment. In production, the endpoint fails closed with HTTP 503 if the
+key is not configured; missing or incorrect keys receive HTTP 401. Never put
+this key in browser code or commit it.
+
+Example production request:
+
+```bash
+curl "https://YOUR_SCOUT_API_HOST/api/v1/vacancies/export?limit=50&offset=0" \
+  -H "X-Scout-Export-Key: YOUR_SERVER_SIDE_EXPORT_KEY"
+```
+
+Thungatha must call this endpoint from its server-side code, validate the
+response, map Scout fields to its own model and persist records in the
+Thungatha database. Scout never connects to the Thungatha database.
 
 ## API
 

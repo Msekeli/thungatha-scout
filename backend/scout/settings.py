@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     scout_supabase_url: str | None = None
     scout_supabase_publishable_key: SecretStr | None = None
     scout_admin_email: str | None = None
+    scout_export_api_key: SecretStr | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env",

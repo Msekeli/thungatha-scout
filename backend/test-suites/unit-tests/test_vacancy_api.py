@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from vacancy_api_test_service import vacancy_client
+from vacancy_api_test_client import vacancy_client
 
 
 def test_lists_vacancies_for_an_employer() -> None:
@@ -31,7 +31,7 @@ def test_gets_full_vacancy_detail() -> None:
         response = client.get(f"/api/v1/vacancies/{vacancy_id}")
     assert response.status_code == 200
     assert response.json()["description"] == "<p>Build software.</p>"
-    assert response.json()["review_status"] == "needs_verification"
+    assert "review_status" not in response.json()
 
 
 def test_lists_archived_vacancies() -> None:
@@ -51,4 +51,32 @@ def test_lists_vacancies_for_western_cape_scope() -> None:
 def test_rejects_unknown_location_scope() -> None:
     with vacancy_client() as client:
         response = client.get("/api/v1/vacancies?location_scope=sweden")
+    assert response.status_code == 422
+
+
+def test_exports_active_vacancies_with_full_descriptions() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies/export?limit=25&offset=50")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["total"] == 81
+    assert payload["limit"] == 25
+    assert payload["offset"] == 50
+    assert payload["has_more"] is True
+    assert payload["location_scope"] == "south_africa"
+    assert payload["items"][0]["description"] == "Build software."
+    assert "external_job_id" not in payload["items"][0]
+    assert "source_url" not in payload["items"][0]
+
+
+def test_exports_vacancies_using_selected_location_scope() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies/export?location_scope=cape_town")
+    assert response.status_code == 200
+    assert response.json()["location_scope"] == "cape_town"
+
+
+def test_rejects_unknown_export_location_scope() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies/export?location_scope=sweden")
     assert response.status_code == 422

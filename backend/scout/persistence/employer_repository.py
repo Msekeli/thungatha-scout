@@ -19,16 +19,19 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
         row = self._connection.execute(
             """
             INSERT INTO employers (
-                name, legal_name, website_url, organization_type, status,
-                city, province, country, identity_evidence, location_evidence
+                name, legal_name, website_url, logo_url, logo_source_url,
+                organization_type, status, city, province, country,
+                identity_evidence, location_evidence
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             RETURNING *
             """,
             (
                 values["name"],
                 values.get("legal_name"),
                 values.get("website_url"),
+                values.get("logo_url"),
+                values.get("logo_source_url"),
                 values["organization_type"],
                 values["status"],
                 values.get("city"),

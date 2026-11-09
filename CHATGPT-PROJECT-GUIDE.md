@@ -6,7 +6,7 @@ Use this document as the operating brief for ChatGPT conversations and implement
 
 Build Thungatha Scout as an unattended employer-sourced vacancy ingestion and publishing system. The administrator's main routine action is to paste official employer careers/ATS URLs, confirm employer identity and source relationship, and activate sources. Scout should then run without routine vacancy-by-vacancy approval.
 
-V1 scope: South Africa-wide vacancy eligibility; Greenhouse and Workday adapters; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. No public job-search frontend and no recruiter self-service.
+V1 scope: Cape Town initial vacancy relevance; ATS adapter target catalogue is Greenhouse, Workday, Lever, Breezy HR and Ashby; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. Greenhouse is the reference flow already exercised through Thungatha publication. No public job-search frontend and no recruiter self-service.
 
 ## Current decisions — do not silently change
 
@@ -19,15 +19,17 @@ V1 scope: South Africa-wide vacancy eligibility; Greenhouse and Workday adapters
 - Thungatha destination: the existing Thungatha Supabase PostgreSQL project.
 - Do not use MongoDB or Azure Table Storage in the current v1 architecture.
 - Do not put Scout's raw/uncleaned/exception/history data in Thungatha. Publish only clean records passing the deterministic gates.
-- Greenhouse and Workday only in v1. Do not add ATS providers without explicit scope approval.
+- Implement all ATS providers already recorded in `backend/registry/ats-adapter-registry.json`: Greenhouse, Workday, Lever, Breezy HR and Ashby. Do not silently add providers beyond this catalogue; update scope and registry when new providers are approved.
+- `placement_partner` is a separate recruitment/staffing pipeline, not a direct-employer ATS adapter.
 - The Azure for Students credit is exhausted. Never assume Azure hosting/storage is free. Do not upgrade subscriptions or provision paid Azure resources without explicit user approval and a cost estimate.
 - Supabase Free is suitable only for development/low-volume evaluation until inactivity pausing, backups, capacity and production reliability are addressed.
+- Vacancy extraction schedule: 06:00 and 18:00 `Africa/Johannesburg` time. Each run has a maximum one-hour window and must stop as soon as its assigned work is complete; one hour is a ceiling, not a target. Do not force runs to consume the window. Prevent overlap and preserve per-source progress on partial/time-limited runs.
 - Work on branch `dev` only unless the user explicitly instructs otherwise.
 
 ## Product workflow
 
 1. Admin pastes an official careers/ATS URL.
-2. Backend detects Greenhouse/Workday, inspects source metadata and returns a preview.
+2. Backend detects a configured registry adapter, inspects source metadata and returns a preview.
 3. Admin confirms employer identity, Cape Town evidence and official source relationship.
 4. Source is activated after meaningful retrieval validation.
 5. Scheduled workers retrieve vacancies.
@@ -64,7 +66,7 @@ Avoid retaining full HTML snapshots by default. Use bounded retention for any ra
 1. Confirm the separate Scout Supabase project and inspect Thungatha's existing publishing schema.
 2. Define Scout's PostgreSQL schema and explicit Thungatha publishing contract.
 3. Implement the Python backend foundation and persistence.
-4. Implement Greenhouse, then Workday.
+4. Keep Greenhouse as the proven reference adapter; expand support to Workday, Lever, Breezy HR and Ashby through the shared adapter contract. Revisit stored companies/sources using their configured adapters.
 5. Build the React admin against the backend API.
 6. Implement deterministic quality gates and exception review.
 7. Add unattended scheduling, idempotent publishing, deployment and recovery.

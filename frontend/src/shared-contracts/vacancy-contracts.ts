@@ -1,4 +1,3 @@
-export type VacancyReviewStatus = "pending" | "needs_verification" | "verified" | "rejected";
 export type VacancyLocationScope = "cape_town" | "western_cape" | "south_africa" | "all";
 
 export type VacancyPage = {
@@ -22,14 +21,14 @@ export type Vacancy = {
   office?: string | null;
   source_url: string;
   application_url: string;
+  published_at?: string | null;
   source_updated_at?: string | null;
   first_seen_at?: string;
   last_seen_at: string;
-  review_status: VacancyReviewStatus;
-  review_reason?: string | null;
-  reviewed_at?: string | null;
   archived_at?: string | null;
   archived_reason?: string | null;
+  employer_website_url?: string | null;
+  employer_careers_url?: string | null;
   employer_logo_url?: string | null;
   employer_logo_source_url?: string | null;
 };

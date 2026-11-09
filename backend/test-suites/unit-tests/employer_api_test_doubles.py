@@ -20,6 +20,10 @@ class FakeEmployerService:
             "name": payload.name,
             "status": "discovered",
             "organization_type": payload.organization_type,
+            "logo_url": str(payload.logo_url) if payload.logo_url else None,
+            "logo_source_url": str(payload.logo_source_url)
+            if payload.logo_source_url
+            else None,
         }
         self.employers.append(row)
         return row

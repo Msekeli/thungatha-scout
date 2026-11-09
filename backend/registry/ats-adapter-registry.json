@@ -1,32 +1,369 @@
 {
   "_metadata": {
     "project": "Thungatha Scout",
-    "description": "Reusable ATS/career-site adapter definitions, status, retrieval capabilities and configuration requirements.",
-    "updated_at": "2026-11-03",
-    "pilot_eligibility_rule": {
-      "minimum_verified_direct_employer_sources": 2,
-      "geography": "Cape Town",
-      "counting_unit": "unique direct employers",
-      "exclude_organization_classifications": ["recruitment_agency", "staffing_company"],
-      "note": "Eligibility is a validation rule, not proof that an adapter is implemented, permitted, or production-ready."
-    }
+    "description": "Reusable ATS and career-platform adapter definitions, retrieval capabilities, implementation difficulty and verification constraints.",
+    "updated_at": "2026-11-08",
+    "research_document": "docs/ATS-PLATFORM-RESEARCH.md",
+    "implementation_policy": "Prioritise public unauthenticated feeds and documented job-board endpoints. Do not infer support from an ATS name or a plausible URL. Verify each employer source and application destination independently.",
+    "difficulty_scale": {
+      "easy": "Documented public feed or endpoint, predictable board identifier, vacancy descriptions and application URLs available with few requests.",
+      "moderate": "Public endpoint/feed exists but has pagination, detail requests, XML/HTML parsing, incomplete fields or undocumented behavior.",
+      "hard": "Undocumented/custom career-site behavior, complex tenant configuration, multi-request extraction, or significant source-specific validation.",
+      "blocked_or_partner_dependent": "No established general public retrieval route; requires employer/agency credentials, partner access, or manual investigation."
+    },
+    "employer_verification_note": "Company examples are discovery leads unless an official company careers page or live source URL is explicitly recorded as evidence in the employer-source registry.",
+    "active_first_wave": ["ashby", "lever", "teamtailor", "personio", "recruitee", "workable"],
+    "deferred_platforms": ["workday"]
   },
   "adapters": {
     "greenhouse": {
-      "status": "candidate",
-      "extraction_method": "json_api",
+      "status": "implemented",
+      "difficulty": "easy",
+      "extraction_method": "documented_public_json_api",
       "capabilities": {
-        "pagination_supported": true,
+        "pagination_supported": false,
         "inline_descriptions": true,
         "authentication_required": false
       },
       "config_schema": ["slug"],
       "endpoint_pattern": "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true",
-      "notes": "Public job-board endpoint. Confirm response completeness and pagination behavior against representative boards before relying on the capability."
+      "notes": "Reference implementation. Official Job Board GET endpoints expose public job data without authentication. Validate meta.total and completeness; this endpoint returns the board's published jobs in one response."
+    },
+    "ashby": {
+      "status": "candidate",
+      "difficulty": "easy",
+      "extraction_method": "documented_public_json_api",
+      "capabilities": {
+        "pagination_supported": false,
+        "inline_descriptions": true,
+        "authentication_required": false
+      },
+      "config_schema": ["slug"],
+      "endpoint_pattern": "https://api.ashbyhq.com/posting-api/job-board/{slug}?includeCompensation=true",
+      "notes": "Use the public Job Postings API only. Do not use jobPosting.list/job.list; those require jobsRead credentials and can include unlisted postings unless filtered. Board slug is taken from jobs.ashbyhq.com/{slug}.",
+      "employer_test_targets": [
+        {
+          "company": "Midnite",
+          "careers_url": "https://jobs.ashbyhq.com/midnite",
+          "evidence_status": "confirmed",
+          "notes": "Ashby-hosted board; Cape Town vacancy evidence found."
+        },
+        {
+          "company": "MyEdSpace",
+          "careers_url": "https://jobs.ashbyhq.com/myedspacecareers",
+          "evidence_status": "confirmed",
+          "notes": "Ashby-hosted board; South Africa remote vacancy evidence found."
+        },
+        {
+          "company": "Tree Traction",
+          "careers_url": "https://jobs.ashbyhq.com/treetraction",
+          "evidence_status": "confirmed",
+          "notes": "Ashby-hosted board; South Africa remote vacancy evidence found."
+        }
+      ]
+    },
+    "lever": {
+      "status": "candidate",
+      "difficulty": "easy",
+      "extraction_method": "documented_public_json_api",
+      "capabilities": {
+        "pagination_supported": true,
+        "inline_descriptions": true,
+        "authentication_required": false
+      },
+      "config_schema": ["slug", "region"],
+      "endpoint_pattern": "https://api.lever.co/v0/postings/{slug}?mode=json",
+      "notes": "Official public Postings API; use api.eu.lever.co for EU-hosted boards. API supports skip/limit and job detail retrieval. Validate complete-board behavior and regional host from the actual employer board.",
+      "employer_test_targets": [
+        {
+          "company": "Mama Money",
+          "careers_url": "https://jobs.lever.co/mamamoney",
+          "evidence_status": "confirmed",
+          "notes": "Lever-hosted board; South Africa/Cape Town vacancy evidence found."
+        },
+        {
+          "company": "Theodo",
+          "careers_url": "https://jobs.lever.co/theodo",
+          "evidence_status": "confirmed",
+          "notes": "Lever-hosted board; South Africa vacancy evidence found."
+        },
+        {
+          "company": "Wing Assistant",
+          "careers_url": "https://jobs.lever.co/getwingapp",
+          "evidence_status": "confirmed",
+          "notes": "Lever-hosted board; South Africa vacancy evidence found."
+        }
+      ]
+    },
+    "teamtailor": {
+      "status": "candidate",
+      "difficulty": "easy",
+      "extraction_method": "documented_public_rss",
+      "capabilities": {
+        "pagination_supported": false,
+        "inline_descriptions": true,
+        "authentication_required": false
+      },
+      "config_schema": ["careers_url"],
+      "endpoint_pattern": "{careers_url}/jobs.rss",
+      "notes": "Official Teamtailor support documentation says append .rss to the main jobs page. Feed includes title, description, publication date, URL, remote status, global ID, locations and department. API is a separate authenticated product; prefer RSS.",
+      "employer_test_targets": [
+        {
+          "company": "Root Platform",
+          "careers_url": "https://root.teamtailor.com/jobs",
+          "evidence_status": "confirmed",
+          "notes": "Teamtailor-hosted board; Cape Town vacancy evidence found."
+        },
+        {
+          "company": "Footasylum",
+          "careers_url": "https://footasylum.teamtailor.com/jobs",
+          "evidence_status": "confirmed",
+          "notes": "Teamtailor-hosted board; international comparison."
+        },
+        {
+          "company": "TeamViewer",
+          "careers_url": "https://careers.teamviewer.com/jobs",
+          "evidence_status": "confirmed",
+          "notes": "Custom Teamtailor careers domain; test non-default domain handling."
+        }
+      ]
+    },
+    "personio": {
+      "status": "candidate",
+      "difficulty": "easy",
+      "extraction_method": "documented_public_xml_feed",
+      "capabilities": {
+        "pagination_supported": false,
+        "inline_descriptions": true,
+        "authentication_required": false
+      },
+      "config_schema": ["account_slug", "host"],
+      "endpoint_pattern": "https://{account_slug}.jobs.personio.com/xml?language=en",
+      "notes": "Official Personio help states the XML feed is accessible without credentials once enabled by the employer. Host may be jobs.personio.com or jobs.personio.de. Some employers may not enable the feed. XML redirects candidates to the Personio job page for application.",
+      "employer_test_targets": [
+        {
+          "company": "ottonova",
+          "careers_url": "https://ottonova.jobs.personio.de/",
+          "evidence_status": "confirmed",
+          "notes": "Personio-hosted careers page; verify employer-enabled XML feed."
+        },
+        {
+          "company": "Open",
+          "careers_url": "https://open.jobs.personio.com/",
+          "evidence_status": "confirmed",
+          "notes": "Personio-hosted careers page; verify current vacancies and XML feed."
+        },
+        {
+          "company": "Openprovider",
+          "careers_url": "https://openprovider.jobs.personio.com/",
+          "evidence_status": "confirmed",
+          "notes": "Personio-hosted careers page; previously showed no open positions, useful for empty-board behavior."
+        }
+      ]
+    },
+    "recruitee": {
+      "status": "candidate",
+      "difficulty": "easy",
+      "extraction_method": "public_xml_feed",
+      "capabilities": {
+        "pagination_supported": false,
+        "inline_descriptions": true,
+        "authentication_required": false
+      },
+      "config_schema": ["slug", "feed_format"],
+      "endpoint_pattern": "https://{slug}.recruitee.com/api/feeds/offers.xml",
+      "notes": "Prefer the public XML offer feed or raw XML feed, not the Careers Site API. The Careers Site API now requires a company-generated token; unauthenticated /api/offers calls are scheduled to return 401 from 10 February 2027. Verify XML feed availability per employer and capture apply URLs.",
+      "employer_test_targets": [
+        {
+          "company": "TransPerfect",
+          "careers_url": "https://transperfect.recruitee.com/",
+          "evidence_status": "confirmed",
+          "notes": "Recruitee-hosted careers page."
+        },
+        {
+          "company": "Fastned",
+          "careers_url": "https://fastned.recruitee.com/",
+          "evidence_status": "confirmed",
+          "notes": "Recruitee-hosted careers page."
+        },
+        {
+          "company": "Tether",
+          "careers_url": "https://tether.recruitee.com/",
+          "evidence_status": "historical_or_variable",
+          "notes": "Recruitee URL identified but redirected to main careers site; test current platform status."
+        }
+      ]
+    },
+    "workable": {
+      "status": "candidate",
+      "difficulty": "easy",
+      "extraction_method": "observed_public_json_widget",
+      "capabilities": {
+        "pagination_supported": false,
+        "inline_descriptions": true,
+        "authentication_required": false
+      },
+      "config_schema": ["slug"],
+      "endpoint_pattern": "https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true",
+      "notes": "Observed public widget endpoint, not the authenticated customer SPI API. Validate against real employer boards, response stability, throttling and exact application URL. Do not confuse this endpoint with /spi/v3/jobs, which requires an employer API token.",
+      "employer_test_targets": [
+        {
+          "company": "LekkeSlaap",
+          "careers_url": "https://apply.workable.com/lekkeslaap/",
+          "evidence_status": "confirmed",
+          "notes": "Workable-hosted board; Cape Town/South Africa vacancy evidence found."
+        },
+        {
+          "company": "Electrum",
+          "careers_url": "https://apply.workable.com/electrum/",
+          "evidence_status": "confirmed",
+          "notes": "Workable-hosted board; South African technology vacancy evidence found."
+        },
+        {
+          "company": "GoTyme Bank",
+          "careers_url": "https://apply.workable.com/gotyme-za-south-africa/",
+          "evidence_status": "confirmed",
+          "notes": "Workable-hosted board; South African vacancy evidence found."
+        }
+      ]
+    },
+    "smartrecruiters": {
+      "status": "candidate",
+      "difficulty": "moderate",
+      "extraction_method": "public_posting_api",
+      "capabilities": {
+        "pagination_supported": true,
+        "inline_descriptions": false,
+        "authentication_required": false
+      },
+      "config_schema": ["company_identifier"],
+      "endpoint_pattern": "https://api.smartrecruiters.com/v1/companies/{company_identifier}/postings",
+      "notes": "Official documentation classifies the Posting API as public/no-auth for public postings. Listing is paginated and full posting content may require detail requests. Do not use internal postings or customer credential routes. Validate public endpoint behavior and application URLs.",
+      "employer_test_targets": [
+        {
+          "company": "WNS Global Services",
+          "careers_url": "https://careers.smartrecruiters.com/WNSGlobalServices144/wns-zaf-career-page",
+          "evidence_status": "confirmed",
+          "notes": "South African board with Cape Town vacancy evidence."
+        },
+        {
+          "company": "OUTsurance",
+          "careers_url": "https://careers.smartrecruiters.com/OUTsurance",
+          "evidence_status": "directory_lead",
+          "notes": "ATS URL found in a South African employer listing; recheck that it is live."
+        },
+        {
+          "company": "Anglo American",
+          "careers_url": "https://careers.smartrecruiters.com/angloamerican",
+          "evidence_status": "directory_lead",
+          "notes": "Third-party directory lead; verify live board and current ATS association."
+        }
+      ]
+    },
+    "bamboohr": {
+      "status": "candidate",
+      "difficulty": "moderate",
+      "extraction_method": "observed_public_json_endpoints",
+      "capabilities": {
+        "pagination_supported": false,
+        "inline_descriptions": false,
+        "authentication_required": false
+      },
+      "config_schema": ["subdomain"],
+      "endpoint_pattern": "https://{subdomain}.bamboohr.com/careers/list",
+      "notes": "Undocumented public careers endpoints observed. /careers/list provides a lightweight list; /careers/{id}/detail is needed for full description and additional fields. Must verify real South African employer boards and per-job apply links before implementation.",
+      "employer_test_targets": [
+        {
+          "company": "Integrity360",
+          "careers_url": "https://integrity360.bamboohr.com/careers",
+          "evidence_status": "confirmed",
+          "notes": "BambooHR-hosted careers page; verify vacancy geography."
+        },
+        {
+          "company": "Platform45",
+          "careers_url": "https://platform45.bamboohr.com/careers",
+          "evidence_status": "confirmed",
+          "notes": "A job advert linked directly to this BambooHR careers page."
+        },
+        {
+          "company": "TreasuryONE",
+          "careers_url": "https://treasuryone.bamboohr.com/careers",
+          "evidence_status": "directory_lead",
+          "notes": "Third-party directory listing; verify the board is live."
+        }
+      ]
+    },
+    "breezy_hr": {
+      "status": "candidate",
+      "difficulty": "moderate",
+      "extraction_method": "observed_public_json_plus_html_detail",
+      "capabilities": {
+        "pagination_supported": false,
+        "inline_descriptions": false,
+        "authentication_required": false
+      },
+      "config_schema": ["slug"],
+      "endpoint_pattern": "https://{slug}.breezy.hr/json",
+      "notes": "Undocumented public JSON feed lists published jobs but omits descriptions. Documented API requires an account token and is not a cross-employer public API. Detail-page behavior is inconsistent across third-party investigations; test actual employer boards and structured data. Missing detail must not be treated as a complete extraction.",
+      "employer_test_targets": [
+        {
+          "company": "ShopriteX",
+          "careers_url": "https://shopritex.breezy.hr/",
+          "evidence_status": "confirmed",
+          "notes": "Breezy-hosted board; Cape Town vacancy evidence found."
+        },
+        {
+          "company": "Lula (Lulalend)",
+          "careers_url": "https://lulalend.breezy.hr/",
+          "evidence_status": "confirmed",
+          "notes": "Breezy-hosted board with Cape Town vacancy evidence; not BambooHR."
+        },
+        {
+          "company": "Absolute Pets",
+          "careers_url": "https://absolute-pets.breezy.hr/",
+          "evidence_status": "confirmed",
+          "notes": "Breezy-hosted employer board."
+        },
+        {
+          "company": "Totalstay",
+          "careers_url": "https://totalstay.breezy.hr/",
+          "evidence_status": "confirmed",
+          "notes": "Breezy-hosted board; Cape Town vacancy evidence found."
+        },
+        {
+          "company": "City Lodge Hotels",
+          "careers_url": "https://citylodgehotels.breezy.hr/",
+          "evidence_status": "confirmed",
+          "notes": "Breezy-hosted employer board."
+        }
+      ]
+    },
+    "zoho_recruit": {
+      "status": "candidate",
+      "difficulty": "hard",
+      "extraction_method": "observed_public_html_embedded_json",
+      "capabilities": {
+        "pagination_supported": null,
+        "inline_descriptions": null,
+        "authentication_required": false
+      },
+      "config_schema": ["tenant"],
+      "endpoint_pattern": "https://{tenant}.zohorecruit.com/jobs/Careers",
+      "notes": "No documented public vacancy API established. Public careers page may contain escaped job JSON in HTML. Requires robust parsing, tenant-specific validation and exact job/application link testing. Do not call this a supported API.",
+      "employer_test_targets": [
+        {
+          "company": "Chancen",
+          "careers_url": "https://chancen.zohorecruit.eu/jobs/Careers",
+          "evidence_status": "confirmed",
+          "notes": "Zoho Recruit-hosted careers page; South African vacancy board."
+        }
+      ],
+      "research_gap": "Only one employer board was independently confirmed in this research pass. Do not invent additional ATS associations."
     },
     "workday": {
-      "status": "candidate",
-      "extraction_method": "json_api_post",
+      "status": "deferred",
+      "difficulty": "hard",
+      "extraction_method": "observed_public_cxs_json_post",
       "capabilities": {
         "pagination_supported": true,
         "inline_descriptions": false,
@@ -34,40 +371,146 @@
       },
       "config_schema": ["host_prefix", "tenant", "site"],
       "endpoint_pattern": "https://{host_prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs",
-      "notes": "Uses a POST request for job-list retrieval. Job descriptions may require a secondary detail request. host_prefix includes the Workday host/version prefix, for example oldmutual.wd3."
+      "notes": "Observed public careers-site CXS endpoint, not a documented public job-board API. POST listing requests; common page size is 20; details require another request using externalPath. Host cluster, tenant, locale and site must be parsed independently; large boards may have result caps. Deferred from the active ATS investigation and implementation queue by user instruction on 8 November 2026; retain historical research only until reactivated."
     },
-    "lever": {
+    "sap_successfactors": {
       "status": "candidate",
-      "extraction_method": "json_api",
+      "difficulty": "hard",
+      "extraction_method": "career_site_specific_xml_or_html",
       "capabilities": {
         "pagination_supported": null,
-        "inline_descriptions": true,
-        "authentication_required": false
+        "inline_descriptions": null,
+        "authentication_required": null
       },
-      "config_schema": ["slug"],
-      "endpoint_pattern": "https://api.lever.co/v0/postings/{slug}?mode=json",
-      "notes": "Validate pagination, board coverage, and public access behavior before implementation."
+      "config_schema": ["careers_url", "career_site_type"],
+      "endpoint_pattern": "per_employer_career_site_configuration",
+      "notes": "No single general unauthenticated endpoint established for all tenants. Career Site Builder configuration and tenant-specific integrations matter. SAP's legacy RSS/XML career-site response is deprecated: end of development 14 November 2025 and deletion scheduled 14 May 2027. Do not build a new adapter around the retiring feed.",
+      "employer_test_targets": [
+        {
+          "company": "Sanlam",
+          "careers_url": "https://career5.successfactors.eu/career?company=sanlamlifeP2",
+          "evidence_status": "historical_or_variable",
+          "notes": "Historical vacancy/application evidence points to SuccessFactors; verify current use."
+        },
+        {
+          "company": "Gold Fields",
+          "careers_url": "https://careers.goldfields.com/",
+          "evidence_status": "historical_or_variable",
+          "notes": "Historical application material points to SuccessFactors; current jobs may route through different systems."
+        },
+        {
+          "company": "Sasol",
+          "careers_url": "https://www.sasol.com/careers",
+          "evidence_status": "unverified_candidate",
+          "notes": "Official careers page only; current SuccessFactors use was not established."
+        }
+      ],
+      "research_gap": "Confirm the ATS per vacancy; do not assume all current jobs use SuccessFactors."
     },
-    "breezy_hr": {
+    "simplify_hr": {
       "status": "candidate",
-      "extraction_method": "pending_verification",
+      "difficulty": "hard",
+      "extraction_method": "pending_public_endpoint_verification",
       "capabilities": null,
-      "config_schema": [],
+      "config_schema": ["careers_url", "company_identifier"],
       "endpoint_pattern": "pending_verification",
-      "notes": "Initial ATS investigation priority from the project source of truth. Do not implement until a supported public retrieval method and employer evidence are established."
+      "notes": "South African ATS with verified public employer career pages, including Media24 and homechoice. No documented public unauthenticated jobs API/feed established in this research. Inspect live page network/data and application destinations before selecting JSON, HTML or another method. Customer API/token access must not be assumed.",
+      "employer_test_targets": [
+        {
+          "company": "Media24",
+          "careers_url": "https://media24.simplify.hr/",
+          "evidence_status": "confirmed",
+          "notes": "Simplify.hr-hosted careers page."
+        },
+        {
+          "company": "homechoice",
+          "careers_url": "https://homechoice.simplify.hr/",
+          "evidence_status": "confirmed",
+          "notes": "Simplify.hr-hosted board; Cape Town vacancy evidence found."
+        },
+        {
+          "company": "Adendorff",
+          "careers_url": "https://adendorff.simplify.hr/",
+          "evidence_status": "directory_lead",
+          "notes": "Third-party directory lead; verify live page."
+        },
+        {
+          "company": "Dis-Chem",
+          "careers_url": "https://dischem.simplify.hr/",
+          "evidence_status": "directory_lead",
+          "notes": "ATS URL identified in a South African directory; verify live page."
+        }
+      ]
     },
-    "ashby": {
+    "neptune_erecruit": {
       "status": "candidate",
-      "extraction_method": "pending_verification",
+      "difficulty": "hard",
+      "extraction_method": "pending_public_endpoint_verification",
       "capabilities": null,
-      "config_schema": ["slug"],
+      "config_schema": ["careers_url", "tenant"],
+      "endpoint_pattern": "per_employer_career_site_configuration",
+      "notes": "Do not conflate Graylink's Neptune ATS with the eRecruit-hosted Shoprite careers portal. Shoprite's live portal is on shoprite.erecruit.co; Graylink independently markets Neptune as its ATS. No evidence found that these are the same product or that Shoprite's portal is Graylink Neptune. Inspect each employer site and network calls independently.",
+      "employer_test_targets": [
+        {
+          "company": "Shoprite Group",
+          "careers_url": "https://shoprite.erecruit.co/candidateapp/jobs/browse",
+          "evidence_status": "confirmed",
+          "notes": "Live eRecruit candidate portal; does not establish Graylink Neptune usage."
+        },
+        {
+          "company": "Boxer",
+          "careers_url": "https://boxer.erecruit.co/candidateapp/Jobs/Browse",
+          "evidence_status": "confirmed",
+          "notes": "eRecruit candidate portal URL identified from vacancy references."
+        },
+        {
+          "company": "CCBA",
+          "careers_url": "https://ccba.erecruit.co/candidateapp/Jobs/Browse",
+          "evidence_status": "confirmed",
+          "notes": "eRecruit candidate portal URL linked from vacancy references."
+        },
+        {
+          "company": "Clover",
+          "careers_url": "https://clover.erecruit.co/candidateapp/Jobs/Browse",
+          "evidence_status": "confirmed",
+          "notes": "eRecruit candidate portal URL identified from vacancy references."
+        },
+        {
+          "company": "RCL Foods",
+          "careers_url": "https://rcl.erecruit.co/candidateapp/Jobs/Browse",
+          "evidence_status": "directory_lead",
+          "notes": "Third-party directory lead; verify live board."
+        }
+      ],
+      "research_gap": "No three employer career URLs could be reliably confirmed as Graylink Neptune customers. The listed employers are eRecruit portal examples only and must not be labelled Graylink Neptune customers without separate evidence."
+    },
+    "leaply": {
+      "status": "candidate",
+      "difficulty": "blocked_or_partner_dependent",
+      "extraction_method": "pending_public_jobs_endpoint_verification",
+      "capabilities": null,
+      "config_schema": ["employer_or_campaign_identifier"],
       "endpoint_pattern": "pending_verification",
-      "notes": "Do not implement until the public endpoint, response shape, and employer relationship are verified."
+      "notes": "Available evidence describes Leaply as a recruitment engine/marketplace that sources, screens and verifies candidates, not a conventional employer ATS with a public vacancy board. No public job feed or employer-board URL pattern established. Keep as a discovery lead, not an ATS adapter, until candidate-facing job listings and retrieval are proven."
+    },
+    "jobadder": {
+      "status": "candidate",
+      "difficulty": "blocked_or_partner_dependent",
+      "extraction_method": "oauth2_customer_api",
+      "capabilities": {
+        "pagination_supported": null,
+        "inline_descriptions": null,
+        "authentication_required": true
+      },
+      "config_schema": ["oauth_client", "customer_authorization"],
+      "endpoint_pattern": "https://api.jobadder.com",
+      "notes": "API access requires OAuth2 and customer-authorized integration; partner documentation advises contacting the API team. Not a general unauthenticated cross-employer job-board API. A public agency widget or page can be investigated separately."
     },
     "placement_partner": {
       "status": "candidate",
+      "difficulty": "hard",
       "organization_scope": ["recruitment_agency", "staffing_company"],
-      "extraction_method": "html_scrape",
+      "extraction_method": "public_html_and_redirect_validation",
       "capabilities": {
         "pagination_supported": null,
         "inline_descriptions": null,
@@ -75,7 +518,7 @@
       },
       "config_schema": ["agency_id"],
       "endpoint_pattern": "https://placementpartner.co.za/live/agency.php?agency={agency_id}",
-      "notes": "Separate recruitment/staffing pipeline. Do not count these sources toward verified direct-employer adapter coverage. Validate access behavior and source restrictions before use."
+      "notes": "Keep in scope as a separate agency-source adapter. Discover and verify agency IDs, parse vacancy cards/details and validate every job destination. Accept redirects only when the final destination is the exact vacancy/application flow; flag generic agency homepages, search pages, unrelated jobs, login walls and broken links. Do not count agencies as direct employers."
     }
   }
 }
