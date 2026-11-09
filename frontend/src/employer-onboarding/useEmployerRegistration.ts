@@ -69,9 +69,8 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
       if (!registeredSource.discovery_preview) {
         try {
           const preview = await scoutApi.previewSource(source.id);
-          if (preview.complete && ["success", "empty"].includes(preview.outcome)) {
+          if (preview.complete && ["success", "empty"].includes(preview.outcome))
             registeredSource = { ...source, discovery_preview: preview.discovery_preview };
-          }
         } catch {
           // Registration remains successful when a read-only preview is unavailable.
         }
