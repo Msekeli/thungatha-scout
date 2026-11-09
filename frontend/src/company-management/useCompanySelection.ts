@@ -65,9 +65,7 @@ export function useCompanySelection({
 
         setSources(previewedSources);
         setDashboardSources((current) =>
-          current.map((source) =>
-            previewedSources.find((item) => item.id === source.id) ?? source,
-          ),
+          current.map((source) => previewedSources.find((item) => item.id === source.id) ?? source),
         );
         setExtractionRuns((current) => ({
           ...current,

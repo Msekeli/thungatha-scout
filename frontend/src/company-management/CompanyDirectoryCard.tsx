@@ -27,8 +27,7 @@ export function CompanyDirectoryCard({
   );
   const hasPreview = sources.some((source) => source.discovery_preview);
   const displayedJobs = currentJobs > 0 ? currentJobs : previewCount;
-  const jobLabel =
-    currentJobs > 0 || !hasPreview ? "current" : "discovered";
+  const jobLabel = currentJobs > 0 || !hasPreview ? "current" : "discovered";
   const iconUrl =
     employer.logo_url ||
     getCompanyIconUrl(
@@ -73,9 +72,7 @@ export function CompanyDirectoryCard({
               className="scout-company-card__logo"
               onError={(event) => {
                 event.currentTarget.style.display = "none";
-                event.currentTarget.parentElement
-                ?.querySelector("svg")
-                ?.removeAttribute("hidden");
+                event.currentTarget.parentElement?.querySelector("svg")?.removeAttribute("hidden");
               }}
             />
           ) : null}
