@@ -18,7 +18,9 @@ class EmployerSourceUpdate(BaseModel):
 
 
 class EmployerSourceUpdateService:
-    def __init__(self, connection_factory: Callable[[], Connection] | None = None) -> None:
+    def __init__(
+        self, connection_factory: Callable[[], Connection] | None = None
+    ) -> None:
         self._connection_factory = connection_factory or get_database_connection
 
     def update_configuration(

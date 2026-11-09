@@ -59,7 +59,9 @@ def update_employer_source(
     except RegistryValidationError as exception:
         raise HTTPException(status_code=422, detail=str(exception)) from exception
     except UniqueViolation as exception:
-        raise HTTPException(status_code=409, detail="That source URL is already registered.") from exception
+        raise HTTPException(
+            status_code=409, detail="That source URL is already registered."
+        ) from exception
     if source is None:
         raise HTTPException(status_code=404, detail="Employer source not found.")
     return source
