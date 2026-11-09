@@ -4,6 +4,7 @@ from uuid import UUID
 
 from psycopg.connection import Connection
 
+from scout.application.adapter_retrieval import retrieve_adapter_result
 from scout.application.vacancy_management_service import VacancyManagementService
 from scout.ats_adapters.ats_adapter_contracts import ATSAdapter
 from scout.ats_adapters.greenhouse_adapter.greenhouse_source_adapter import (
@@ -32,9 +33,11 @@ class SourceExtractionService(VacancyManagementService):
         factory = connection_factory or get_database_connection
         super().__init__(factory)
         self._connection_factory = factory
-        self._adapter_factories = adapter_factories or {
-            "greenhouse": GreenhouseSourceAdapter
-        }
+        self._adapter_factories = (
+            adapter_factories
+            if adapter_factories is not None
+            else {"greenhouse": GreenhouseSourceAdapter}
+        )
 
     async def extract_source(self, source_id: UUID) -> dict[str, Any]:
         with self._connection_factory() as connection:
@@ -48,10 +51,7 @@ class SourceExtractionService(VacancyManagementService):
         with self._connection_factory() as connection, connection.transaction():
             run_id = ExtractionRunRepository(connection).create(source_id)
         adapter = adapter_factory()
-        try:
-            result = await adapter.retrieve(source["adapter_config"])
-        finally:
-            await adapter.close()
+        result = await retrieve_adapter_result(adapter, source["adapter_config"])
 
         try:
             with self._connection_factory() as connection, connection.transaction():
