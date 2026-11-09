@@ -1,4 +1,5 @@
 import asyncio
+import pytest
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
@@ -39,10 +40,7 @@ def test_previews_registered_source_without_persisting_vacancies() -> None:
     assert response.json()["discovery_preview"]["total_vacancies"] == 7
 
 
-@pytest.mark.asyncio
-async def test_extraction_service_blocks_discovered_source_before_adapter_call() -> (
-    None
-):
+def test_extraction_service_blocks_discovered_source_before_adapter_call() -> None:
     class FakeCursor:
         def fetchone(self):
             return {
