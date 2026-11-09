@@ -6,6 +6,9 @@ from scout.registry_loader import validate_source_config
 from scout.registry_source_persistence import create_source, update_source
 
 
+SUPPORTED_IMPORT_ADAPTERS = {"greenhouse", "lever", "workday"}
+
+
 def import_employer_sources(
     item: dict[str, Any],
     employer: dict[str, Any],
@@ -15,11 +18,9 @@ def import_employer_sources(
 ) -> None:
     for source in item.get("sources", []):
         adapter_key = source.get("ats")
-        if adapter_key not in {"greenhouse", "workday"}:
-            raise ValueError(
-                f"Unsupported V1 adapter '{adapter_key}' in the "
-                "Greenhouse/Workday registry."
-            )
+        if adapter_key not in SUPPORTED_IMPORT_ADAPTERS:
+            counts["sources_skipped"] += 1
+            continue
         config = source.get("config", {})
         validate_source_config(adapter_key, config)
         source_url = source["official_source_url"]
