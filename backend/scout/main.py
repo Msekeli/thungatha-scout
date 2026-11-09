@@ -6,7 +6,6 @@ from fastapi.responses import JSONResponse
 from scout.api.employers import router as employers_router
 from scout.api.greenhouse_routes import router as greenhouse_router
 from scout.api.lever_routes import router as lever_router
-from scout.api.source_discovery_routes import router as source_discovery_router
 from scout.api.vacancies import router as vacancies_router
 from scout.settings import get_settings
 
@@ -22,7 +21,6 @@ app.add_middleware(
 app.include_router(employers_router, prefix=settings.api_prefix)
 app.include_router(greenhouse_router, prefix=settings.api_prefix)
 app.include_router(lever_router, prefix=settings.api_prefix)
-app.include_router(source_discovery_router, prefix=settings.api_prefix)
 app.include_router(vacancies_router, prefix=settings.api_prefix)
 
 
