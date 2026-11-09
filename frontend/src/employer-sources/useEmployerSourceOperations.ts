@@ -4,7 +4,6 @@ import type { Employer, EmployerSource, SourceInspection } from "../api";
 
 type UseEmployerSourceOperationsOptions = {
   employer: Employer | null;
-  sources: EmployerSource[];
   setSources: Dispatch<SetStateAction<EmployerSource[]>>;
   sourceUrl: string;
   setSourceUrl: (value: string) => void;
@@ -19,7 +18,6 @@ type UseEmployerSourceOperationsOptions = {
 
 export function useEmployerSourceOperations({
   employer,
-  sources,
   setSources,
   sourceUrl,
   setSourceUrl,
@@ -57,7 +55,9 @@ export function useEmployerSourceOperations({
           employer_careers_url: employer.website_url ?? null,
         });
         setSources((current) => [...current, created]);
-        onNotice(`${inspection?.detected_adapter ?? "Recruitment"} source registered. Verification and permission remain pending.`);
+        onNotice(
+          `${inspection?.detected_adapter ?? "Recruitment"} source registered. Verification and permission remain pending.`,
+        );
       }
 
       setEditingSourceId(null);
