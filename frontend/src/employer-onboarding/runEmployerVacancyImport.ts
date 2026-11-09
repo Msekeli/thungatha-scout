@@ -15,10 +15,14 @@ export async function runEmployerVacancyImport(
     const run = await scoutApi.extractSource(sourceId);
     await callbacks.loadWorkspace();
     callbacks.onNotice(
-      employerName + ": " +
-        run.jobs_received + " jobs received, " +
-        run.jobs_inserted + " added, " +
-        run.jobs_updated + " updated." +
+      employerName +
+        ": " +
+        run.jobs_received +
+        " jobs received, " +
+        run.jobs_inserted +
+        " added, " +
+        run.jobs_updated +
+        " updated." +
         (run.detail ? " " + run.detail : ""),
     );
   } catch (reason) {
