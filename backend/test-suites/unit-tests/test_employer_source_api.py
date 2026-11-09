@@ -56,6 +56,7 @@ def test_bulk_source_endpoint_returns_all_registered_sources() -> None:
     assert response.status_code == 200
     assert response.json() == service.sources
 
+
 def test_employer_source_api_accepts_lever_configuration() -> None:
     service = FakeEmployerService()
     employer_id = uuid4()

@@ -33,7 +33,6 @@ def test_reject_invalid_lever_board_urls(url: str) -> None:
         parse_lever_board_url(url)
 
 
-
 def test_lever_discovery_returns_configuration_without_retrieving_jobs() -> None:
     import asyncio
 
