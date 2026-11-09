@@ -5,6 +5,8 @@ from typing import Any
 # Conservative allow-list: ambiguous or missing locations are not persisted.
 _SOUTH_AFRICAN_PLACES = (
     "south africa",
+    "za",
+    "zaf",
     "western cape",
     "eastern cape",
     "northern cape",
