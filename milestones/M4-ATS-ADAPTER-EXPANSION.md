@@ -1,6 +1,6 @@
 # M4 — First-Wave ATS Adapter Expansion
 
-**Status:** Not started  
+**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A is next  
 **Scope:** Six first-wave ATS adapters only: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable.  
 **Checkpoint model:** Twelve checkpoints total — one A and one B for each adapter.
 
@@ -36,7 +36,7 @@ Before starting an M4 checkpoint, read:
 - HTTP 200 alone is not acceptance. Verify stable vacancy identity, meaningful content, descriptions, locations, timestamps, completeness and exact vacancy/application destinations.
 - Use deterministic fixtures/mocked HTTP for unit tests and contract tests. Record representative live evidence against the employer cohort.
 - No Docker, paid infrastructure, deployment or hosting work in M4.
-- Complete and review each adapter's A/B pair before starting the next adapter. Stop for user review at each checkpoint.
+- Complete and review each adapter's A/B pair before starting the next adapter. If checkpoint A is evidence-backed blocked/deferred and the user explicitly approves deferral, record checkpoint B as deferred and proceed to the next adapter. Stop for user review at each completed checkpoint.
 
 ## Checkpoint responsibilities
 
@@ -77,8 +77,8 @@ Each adapter has exactly two checkpoints. Complete A before B, and complete/revi
 
 | Order | Adapter    | Checkpoint A — investigate, design, implement | Checkpoint B — integrate, verify | Employer test cohort and investigation focus                                                                                                                                            |
 | ----: | ---------- | --------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     1 | Ashby      | **M4-ASHBY-A**                                | **M4-ASHBY-B**                   | Midnite, MyEdSpace, Tree Traction. Verify public Job Postings API, board identity, response completeness, descriptions and application URLs.                                            |
-|     2 | Lever      | **M4-LEVER-A**                                | **M4-LEVER-B**                   | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
+|     1 | Ashby      | **Deferred — enquiry sent; awaiting response** | **Deferred**                     | Midnite, MyEdSpace, Tree Traction. Reopen only after Ashby confirms partner-feed eligibility, feed access and employer opt-in requirements; see the Ashby investigation report.               |
+|     2 | Lever      | **In progress — M4-LEVER-A**                   | **M4-LEVER-B**                   | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
 |     3 | Teamtailor | **M4-TEAMTAILOR-A**                           | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
 |     4 | Personio   | **M4-PERSONIO-A**                             | **M4-PERSONIO-B**                | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
 |     5 | Recruitee  | **M4-RECRUITEE-A**                            | **M4-RECRUITEE-B**               | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
@@ -86,11 +86,11 @@ Each adapter has exactly two checkpoints. Complete A before B, and complete/revi
 
 ## First checkpoint instruction
 
-Start with **M4-ASHBY-A** on branch `dev`.
+Ashby is deferred following the user's explicit instruction. The user confirmed an enquiry email was sent on 9 November 2026; await Ashby's response before reopening Ashby. Proceed with **M4-LEVER-A** on branch `dev`.
 
-Read the required repository guidance and inspect the Greenhouse reference implementation before investigating Ashby. Use Midnite, MyEdSpace and Tree Traction as the employer cohort. Inspect their actual careers pages and public network/API behavior. Verify the public request, parameters, response structure, completeness, pagination/detail needs, stable IDs, descriptions, locations, timestamps, empty/error behavior and exact vacancy/application URLs. Compare behavior across the three employers.
+Read the required repository guidance and inspect the Greenhouse reference implementation before investigating Lever. Use Mama Money, Theodo and Wing Assistant as the employer cohort. Inspect their actual careers pages and public network/API behavior. Verify the public request, parameters, regional host, response structure, pagination, detail retrieval, stable IDs, descriptions, locations, timestamps, empty/error behavior and exact vacancy/application URLs. Compare behavior across the three employers.
 
-Map the findings to the existing adapter contract and shared extraction/persistence workflow. Produce the evidence report and file-by-file design first. **Do not commit code during investigation.** Once the investigation establishes a reliable and permitted retrieval method and the design is ready, implement the Ashby adapter and focused unit tests as the implementation activity within M4-ASHBY-A. Keep every handwritten source/test file within 100 physical lines. Record the implementation commit and exact test/check results. Stop for review before M4-ASHBY-B.
+Lever's official Postings API documentation states that published postings are publicly viewable and may be scraped by third parties. Use only this public published-postings API; do not use authenticated Lever API endpoints or internal/unlisted postings. Produce the evidence report and file-by-file design first. **Do not commit code during investigation.** Implement the Lever adapter and focused unit tests only after the three-employer evidence establishes reliable, complete retrieval. Keep every handwritten source/test file within 100 physical lines. Record the implementation commit and exact test/check results. Stop for review before M4-LEVER-B.
 
 ## M4 acceptance
 
