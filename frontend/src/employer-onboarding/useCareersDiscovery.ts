@@ -36,7 +36,9 @@ export function useCareersDiscovery({ onError }: UseCareersDiscoveryOptions) {
     try {
       setInspection(await scoutApi.inspectSource(sourceUrl));
     } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not inspect this recruitment source.");
+      onError(
+        reason instanceof Error ? reason.message : "Could not inspect this recruitment source.",
+      );
     } finally {
       setInspecting(false);
     }
