@@ -32,7 +32,7 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
     }
     if (
       discovery.detected_adapter === "lever" &&
-      (discovery.outcome !== "success" && discovery.outcome !== "empty" ||
+      ((discovery.outcome !== "success" && discovery.outcome !== "empty") ||
         discovery.complete !== true)
     ) {
       onError(discovery.detail || "The Lever board could not be inspected completely.");
