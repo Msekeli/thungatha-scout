@@ -1,6 +1,6 @@
 # M4 — First-Wave ATS Adapter Expansion
 
-**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A implementation committed, local verification pending  
+**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A accepted and M4-LEVER-B in progress  
 **Scope:** Six first-wave ATS adapters only: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable.  
 **Checkpoint model:** Twelve checkpoints total — one A and one B for each adapter.
 
@@ -78,7 +78,7 @@ Each adapter has exactly two checkpoints. Complete A before B, and complete/revi
 | Order | Adapter    | Checkpoint A — investigate, design, implement                          | Checkpoint B — integrate, verify | Employer test cohort and investigation focus                                                                                                                                            |
 | ----: | ---------- | ---------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |     1 | Ashby      | **Deferred — enquiry sent; awaiting response**                         | **Deferred**                     | Midnite, MyEdSpace, Tree Traction. Reopen only after Ashby confirms partner-feed eligibility, feed access and employer opt-in requirements; see the Ashby investigation report.         |
-|     2 | Lever      | **In progress — implementation committed; local verification pending** | **M4-LEVER-B**                   | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
+|     2 | Lever      | **Accepted — 9 November 2026** | **In progress — integration and verification**                   | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
 |     3 | Teamtailor | **M4-TEAMTAILOR-A**                                                    | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
 |     4 | Personio   | **M4-PERSONIO-A**                                                      | **M4-PERSONIO-B**                | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
 |     5 | Recruitee  | **M4-RECRUITEE-A**                                                     | **M4-RECRUITEE-B**               | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
@@ -86,7 +86,7 @@ Each adapter has exactly two checkpoints. Complete A before B, and complete/revi
 
 ## First checkpoint instruction
 
-Ashby is deferred following the user's explicit instruction. The user confirmed an enquiry email was sent on 9 November 2026; await Ashby's response before reopening Ashby. Proceed with **M4-LEVER-A** on branch `dev`.
+Ashby is deferred following the user's explicit instruction. The user confirmed an enquiry email was sent on 9 November 2026; await Ashby's response before reopening Ashby. Proceed with **M4-LEVER-B** on branch `dev`.
 
 Read the required repository guidance and inspect the Greenhouse reference implementation before investigating Lever. Use Mama Money, Theodo and Wing Assistant as the employer cohort. Inspect their actual careers pages and public network/API behavior. Verify the public request, parameters, regional host, response structure, pagination, detail retrieval, stable IDs, descriptions, locations, timestamps, empty/error behavior and exact vacancy/application URLs. Compare behavior across the three employers.
 
@@ -123,3 +123,23 @@ Implementation files:
 The adapter uses explicit `slug` and `region` configuration; current targets use the global host. It leaves `published_at` and `source_updated_at` null because the observed `createdAt` field is undocumented and its semantics are not established. Registry activation and registration in the shared extraction service are reserved for checkpoint B.
 
 **Verification status:** Tests and mandatory repository checks have not yet been run in the user's local checkout. M4-LEVER-A remains in progress until those checks are run and the user reviews the implementation. Do not begin M4-LEVER-B before that review.
+
+
+## M4-LEVER-A acceptance and M4-LEVER-B progress — 9 November 2026
+
+The user directed progression to M4-LEVER-B after reviewing the Lever implementation and local verification results. Record M4-LEVER-A as accepted.
+
+A verification evidence supplied by the user:
+- `pytest test-suites/unit-tests/ats-adapters/lever-adapter -q`: **10 passed in 0.91s**.
+- `python3 scripts/check-file-line-limits.py`: passed; all scanned source files satisfy the 100-line limit.
+- `python3 scripts/check-naming-conventions.py`: failed with 38 repository-wide violations. None of the listed paths is a new Lever adapter source/test file. The findings include unrelated backend/frontend paths and generated pytest/Ruff cache directories; do not claim the repository-wide naming gate passed.
+
+M4-LEVER-B implementation now committed on `dev`:
+- Registers `LeverSourceAdapter` in the shared `SourceExtractionService`; Greenhouse remains unchanged.
+- Marks Lever implemented in the generic ATS registry and restricts the region setting to `global` or `eu`.
+- Adds pending, non-activated employer/source configuration for Mama Money, Theodo and Wing Assistant. Employer identity/source relationship and permission remain pending administrator verification.
+- Adds Lever to source create/update API contracts and adds HTTPS board URL parsing plus Lever inspection/discovery routes.
+- Extends the admin onboarding/source-management flow to detect Lever board URLs and persist the returned slug/region configuration. Discovery parses and validates the URL only; vacancy retrieval remains in the explicit inspection or extraction step.
+- Adds tests for registry configuration, shared adapter registration, source API creation, URL parsing and URL-only discovery.
+
+**B verification still required:** run the focused Lever tests, full backend unit suite, backend formatting/lint checks, frontend typecheck/build/lint, mandatory line-limit and naming checks, and representative live validation through the new API/admin flow. No local execution of these B checks is claimed yet. Confirm that the extraction endpoint persists Lever vacancies through the existing repositories, preserves incomplete-run semantics, and remains idempotent across repeated runs.
