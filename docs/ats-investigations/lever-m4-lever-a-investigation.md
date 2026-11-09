@@ -2,14 +2,14 @@
 
 **Investigation date:** 9 November 2026  
 **Checkpoint:** M4-LEVER-A  
-**Status:** Live cohort verification completed; Wing Assistant description fallback still under investigation  
+**Status:** Adapter implementation committed; local verification pending  
 **Scope:** Mama Money, Theodo and Wing Assistant only
 
 ## Decision
 
 Lever is a materially simpler integration candidate than Ashby. Lever documents an unauthenticated public Postings API for published vacancies and explicitly states that published postings are publicly viewable and may be scraped by third parties. No partner-feed approval is documented as a prerequisite for reading these published postings.
 
-Do not implement yet. The API contract and employer boards are identified, but the live JSON responses for all three cohort members could not be retrieved from the available research environment. Confirm actual pagination, payload completeness, descriptions and vacancy/application destinations before implementation.
+The public API is suitable for a shared Lever adapter. Live requests from the user's local environment verified all three cohort boards, pagination, stable IDs, vacancy descriptions/fallback, locations and exact job/application URLs. The adapter implementation is committed on `dev`; local tests and mandatory repository checks remain to be run before A can be reviewed.
 
 ## Official public API contract
 
@@ -90,7 +90,7 @@ Description completeness differs by board:
 - Theodo: 131/131 records have non-empty `descriptionPlain`.
 - Wing Assistant: 319/375 records have non-empty `descriptionPlain`; 56 are missing it.
 
-The four Cape Town Wing Assistant matches all have IDs and exact hosted/application URLs. One, **Inside Sales Manager**, has an empty `descriptionPlain`. The other three Cape Town matches have non-empty descriptions. We have not yet checked whether Wing's `description` HTML field or the single-posting endpoint supplies the missing content.
+The four Cape Town Wing Assistant matches all have IDs and exact hosted/application URLs. One, **Inside Sales Manager**, has an empty `descriptionPlain`; its list and detail responses both contain a 1,362-character HTML `description`. The other three Cape Town matches have non-empty plain-text descriptions.
 
 All `createdAt` values were integers across the 513 records. This confirms presence and type for this cohort snapshot, but does not independently prove the field's semantic meaning or justify treating it as a source-update timestamp. Keep `source_updated_at` null. Do not map `createdAt` to `published_at` until its meaning is sufficiently established.
 
@@ -100,7 +100,7 @@ The observed workplace types were:
 - Theodo: 43 onsite, 88 hybrid.
 - Wing Assistant: 341 remote, 24 hybrid, 10 onsite.
 
-**Interpretation:** Lever's public API, pagination, identifiers and posting/application destinations are verified for all three targets. Theodo and Mama Money meet the observed description-completeness requirement. Wing Assistant needs a deliberate missing-description strategy. Missing descriptions must be represented as incomplete and must never be silently treated as complete or published through a bypass of Scout's completeness gates.
+**Interpretation:** Lever's public API, pagination, identifiers and posting/application destinations are verified for all three targets. All 11 observed Cape Town vacancies have descriptions either in plain text or HTML. The adapter prefers `descriptionPlain`, falls back to HTML-to-text extraction, and leaves description null only when both are empty. Shared deterministic completeness gates remain authoritative.
 
 ## Proposed retrieval and pagination behavior
 
@@ -114,29 +114,31 @@ The observed workplace types were:
 
 The official documentation notes that the public API does not support cross-origin requests from unrelated domains. Scout should retrieve through its backend, not directly from a user's browser. Confirm backend request behavior during live validation.
 
-## Proposed implementation layout
+## Implementation delivered in M4-LEVER-A
 
-After the three-board live contract is verified:
+- `backend/scout/ats_adapters/lever_adapter/lever_source_adapter.py` — shared `ATSAdapterResult` wrapper and lifecycle.
+- `backend/scout/ats_adapters/lever_adapter/lever_postings_client.py` — bounded HTTP retrieval, global/EU host selection, pagination, duplicate-ID detection and failure outcomes.
+- `backend/scout/ats_adapters/lever_adapter/lever_postings_contracts.py` and `lever_response_mapper.py` — provider response contract and HTTP failure mapping.
+- `backend/scout/ats_adapters/lever_adapter/lever_description_parser.py` — standard-library HTML-to-text fallback preserving paragraph boundaries.
+- `backend/scout/ats_adapters/lever_adapter/lever_vacancy_mapper.py` — Lever-to-`NormalizedVacancy` mapping; timestamp fields remain null and raw payload is retained.
+- Focused tests under `backend/test-suites/unit-tests/ats-adapters/lever-adapter/` cover description fallback, normalized mapping, pagination and duplicate IDs.
 
-- `backend/scout/ats_adapters/lever_adapter/lever_source_adapter.py` — adapter contract wrapper and lifecycle.
-- `backend/scout/ats_adapters/lever_adapter/lever_postings_client.py` — bounded HTTP retrieval and pagination.
-- `backend/scout/ats_adapters/lever_adapter/lever_response_parser.py` — response validation and page-completeness handling.
-- `backend/scout/ats_adapters/lever_adapter/lever_vacancy_mapper.py` — Lever-to-`NormalizedVacancy` mapping.
-- Focused tests under `backend/test-suites/unit-tests/ats-adapters/lever-adapter/`.
+The adapter requires explicit `slug` and `region` source configuration. Employer-specific slugs are not embedded in adapter code. Registry activation and shared extraction-service registration remain M4-LEVER-B work.
 
-Register the generic Lever adapter definition and employer-specific site slugs/regions in their existing registries only after A is implemented and reviewed. Do not hardcode employer identifiers in adapter code. Reuse the shared extraction and persistence workflow.
-
-## Description fallback investigation — 9 November 2026
+## Description fallback evidence — 9 November 2026
 
 The user checked all four pages of Wing Assistant's board and found exactly one Cape Town vacancy with an empty `descriptionPlain`: **Inside Sales Manager** (`e5932534-4c7c-4117-babb-261420641c48`). Its list response contained an HTML `description` of 1,362 characters. The single-posting endpoint returned `descriptionPlain` length 0 and HTML `description` length 1,362. This establishes that the vacancy description is available as HTML even when the plain-text field is empty; it is not an absent-description record.
 
-Proposed mapping behavior: prefer non-empty `descriptionPlain`; otherwise convert non-empty HTML `description` to plain text using a tested HTML parser, while preserving the original raw payload. If both are empty, retain the vacancy as incomplete and do not allow it through completeness gates. Do not fetch the detail endpoint for every posting merely to repeat the same HTML value; the list response already contains the fallback field. Validate HTML-to-text extraction with representative fixtures before implementation.
+The inspected HTML uses ordinary `div`, `p` and `strong` elements plus `&nbsp;` entities. The implementation uses Python's standard-library `HTMLParser`, converts non-breaking spaces, and preserves paragraph/list boundaries as newlines. It prefers non-empty `descriptionPlain`, then falls back to `description`; the original raw payload is retained. It does not fetch detail endpoints for every posting.
 
-## Remaining evidence before adapter implementation
+## Remaining verification before completing checkpoint A
 
-1. Inspect a representative HTML description fragment to confirm its structure and determine whether standard-library HTML parsing can preserve meaningful text and list boundaries.
-2. Verify `createdAt` semantics before mapping it to `published_at`. It is an observed integer field, not documented in the official schema. Keep `source_updated_at` null.
-3. Then implement and test the adapter against the shared contract, including pagination completeness, duplicate/missing IDs, description fallback, exact destinations and incomplete-record handling.
+1. Run the focused Lever unit tests locally.
+2. Run the mandatory file line-limit and naming checks.
+3. Run the broader backend unit suite and record exact results.
+4. Review the diff and confirm all source/test files remain within 100 physical lines.
+
+`createdAt` is present as an integer in all 513 observed records but is not in the official schema and its semantics are not independently established. The adapter deliberately leaves `published_at` and `source_updated_at` null; timestamp uncertainty is not a blocker for this implementation.
 
 ## Evidence required to complete investigation
 
@@ -155,8 +157,9 @@ Proposed mapping behavior: prefer non-empty `descriptionPlain`; otherwise conver
 - User-provided local API results: 513 records across the three boards, 513 unique IDs, zero missing IDs, 11 Cape Town matches, and all job/application URLs present.
 - Description completeness: Mama Money 7/7 and Theodo 131/131 have non-empty `descriptionPlain`; Wing Assistant has 319/375 non-empty `descriptionPlain`. The remaining 56 have empty plain text; the Cape Town Inside Sales Manager case was verified to have a 1,362-character HTML description in both list and detail responses. Other 55 records' HTML fallback has not yet been sampled.
 - The initial external research environment could not retrieve API URLs; this limitation was overcome by local requests from the user's environment.
-- No adapter code or tests have been changed.
-- No registry entries for Lever have been changed.
-- No implementation commit has been created.
+- Adapter implementation and focused tests committed on `dev`; see implementation commits `bde5d56`, `74043d2`, `385504e`, `f8d6e03`, `5d062d7`, `63e85bdb`, `b5e99e2`, `7222319`, `4e64868`, `32ccfbe`, `c61f14f`, `fdaf57d`, `8665cfd`, `ed0b001`, `640cfb3`, `f12ce29` and `653781e`.
+- The implementation is not yet registered in `source_extraction_service.py`; that integration and registry changes belong to M4-LEVER-B.
+- No Lever employer-specific records or generic adapter registry entries have been activated.
+- Tests and mandatory repository checks have not yet been run in the user's local checkout.
 
-**Checkpoint outcome:** Live public API access and pagination are verified for all three targets. M4-LEVER-A remains open only for Wing Assistant description fallback and timestamp semantics. Implementation remains pending one representative HTML-fragment inspection and a decision on the undocumented `createdAt` field.
+**Checkpoint outcome:** Investigation and implementation activities for M4-LEVER-A are complete. Checkpoint A remains in progress pending local tests, mandatory checks and user review. Do not start M4-LEVER-B until A is reviewed.
