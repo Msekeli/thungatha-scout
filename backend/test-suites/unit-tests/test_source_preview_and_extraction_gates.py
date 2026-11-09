@@ -1,6 +1,6 @@
+import asyncio
 from uuid import uuid4
 
-import pytest
 from fastapi.testclient import TestClient
 
 from scout.api.vacancy_api_dependencies import get_source_preview_service
@@ -63,4 +63,4 @@ async def test_extraction_service_blocks_discovered_source_before_adapter_call()
 
     service = SourceExtractionService(connection_factory=FakeConnection)
     with pytest.raises(SourceNotApprovedError):
-        await service.extract_source(uuid4())
+        asyncio.run(service.extract_source(uuid4()))
