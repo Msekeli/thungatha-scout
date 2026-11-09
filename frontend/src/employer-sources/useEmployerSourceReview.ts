@@ -10,70 +10,68 @@ type SourceReviewDecision = {
 };
 
 type DecisionField = keyof SourceReviewDecision;
-
 type UseEmployerSourceReviewOptions = {
   employerId: string | null;
   onSourceUpdated: (source: EmployerSource) => void;
   onDashboardSourceUpdated: (source: EmployerSource) => void;
+  onSourceActivated: () => Promise<void>;
   setSaving: (saving: boolean) => void;
   onNotice: (message: string) => void;
   onError: (message: string) => void;
 };
 
 export function useEmployerSourceReview({
-  employerId,
-  onSourceUpdated,
-  onDashboardSourceUpdated,
-  setSaving,
-  onNotice,
-  onError,
+  employerId, onSourceUpdated, onDashboardSourceUpdated,
+  onSourceActivated, setSaving, onNotice, onError,
 }: UseEmployerSourceReviewOptions) {
   const [decisions, setDecisions] = useState<Record<string, SourceReviewDecision>>({});
 
   function updateField(source: EmployerSource, field: DecisionField, value: string) {
     setDecisions((current) => {
       const existing = current[source.id] ?? {
-        status: source.status,
-        permission_status: source.permission_status,
-        evidence_url: "",
-        reason: "",
+        status: source.status, permission_status: source.permission_status,
+        evidence_url: "", reason: "",
       };
-
-      return {
-        ...current,
-        [source.id]: { ...existing, [field]: value },
-      };
+      return { ...current, [source.id]: { ...existing, [field]: value } };
     });
   }
 
   async function saveDecision(source: EmployerSource) {
     if (!employerId) return;
-
     const decision = decisions[source.id] ?? {
-      status: source.status,
-      permission_status: source.permission_status,
-      evidence_url: "",
-      reason: "",
+      status: source.status, permission_status: source.permission_status,
+      evidence_url: "", reason: "",
     };
-
-    if (
-      decision.status === "verified" &&
-      decision.permission_status === "allowed" &&
-      !decision.evidence_url.trim()
-    ) {
+    if (decision.status === "verified" && decision.permission_status === "allowed" &&
+        !decision.evidence_url.trim()) {
       onError("Add an evidence URL before verifying and permitting this source.");
       return;
     }
-
+    const wasEligible = source.status === "verified" && source.permission_status === "allowed";
+    const becomesEligible = decision.status === "verified" &&
+      decision.permission_status === "allowed";
     setSaving(true);
     onError("");
     onNotice("");
-
     try {
       const updated = await scoutApi.updateSourceReview(employerId, source.id, decision);
       onSourceUpdated(updated);
       onDashboardSourceUpdated(updated);
-      onNotice("Source verification and permission decision saved.");
+      if (!wasEligible && becomesEligible) {
+        try {
+          const run = await scoutApi.extractSource(source.id);
+          await onSourceActivated();
+          onNotice(
+            `Source activated. Extraction ${run.outcome}: ${run.inserted} new, ${run.updated} updated vacancies.`,
+          );
+        } catch (reason) {
+          onError(reason instanceof Error
+            ? `Source review saved, but initial extraction failed: ${reason.message}`
+            : "Source review saved, but initial extraction failed.");
+        }
+      } else {
+        onNotice("Source verification and permission decision saved.");
+      }
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not update source decision.");
     } finally {
