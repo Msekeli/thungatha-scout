@@ -5,7 +5,9 @@ from uuid import UUID
 from psycopg.connection import Connection
 
 from scout.persistence.employer_delete_operations import EmployerDeleteOperations
-from scout.persistence.employer_details_update_operations import EmployerDetailsUpdateOperations
+from scout.persistence.employer_details_update_operations import (
+    EmployerDetailsUpdateOperations,
+)
 
 
 class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperations):
@@ -23,9 +25,14 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
             RETURNING *
             """,
             (
-                values["name"], values.get("legal_name"), values.get("website_url"),
-                values.get("logo_url"), values.get("logo_source_url"),
-                values["organization_type"], values.get("city"), values.get("province"),
+                values["name"],
+                values.get("legal_name"),
+                values.get("website_url"),
+                values.get("logo_url"),
+                values.get("logo_source_url"),
+                values["organization_type"],
+                values.get("city"),
+                values.get("province"),
                 values.get("country"),
             ),
         ).fetchone()

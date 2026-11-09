@@ -5,7 +5,10 @@ from uuid import UUID
 from psycopg.connection import Connection
 
 from scout.application.employer_contracts import (
-    EmployerBrandingUpdate, EmployerCreate, EmployerSourceCreate, EmployerUpdate,
+    EmployerBrandingUpdate,
+    EmployerCreate,
+    EmployerSourceCreate,
+    EmployerUpdate,
 )
 from scout.application.employer_source_mapper import source_create_values
 from scout.persistence.database_connection import get_database_connection
@@ -14,7 +17,9 @@ from scout.persistence.employer_source_repository import EmployerSourceRepositor
 
 
 class EmployerService:
-    def __init__(self, connection_factory: Callable[[], Connection] | None = None) -> None:
+    def __init__(
+        self, connection_factory: Callable[[], Connection] | None = None
+    ) -> None:
         self._connection_factory = connection_factory or get_database_connection
 
     def create_employer(self, payload: EmployerCreate) -> dict[str, Any]:

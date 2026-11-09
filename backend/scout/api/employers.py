@@ -6,7 +6,11 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from scout.api.employer_api_dependencies import get_employer_service
 from scout.api.employer_delete_routes import router as delete_router
 from scout.api.employer_source_routes import router as source_router
-from scout.application.employer_contracts import EmployerBrandingUpdate, EmployerCreate, EmployerUpdate
+from scout.application.employer_contracts import (
+    EmployerBrandingUpdate,
+    EmployerCreate,
+    EmployerUpdate,
+)
 from scout.application.employer_service import EmployerService
 
 router = APIRouter(prefix="/employers", tags=["employers"])
