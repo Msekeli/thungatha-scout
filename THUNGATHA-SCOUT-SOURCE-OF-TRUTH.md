@@ -343,3 +343,17 @@ The earlier five-platform M4 scope is superseded by the research catalogue in `d
 - Ashby is the first new adapter to investigate. The first next-chat task is M4-C01 investigation only; no application code changes until the evidence and design have been reviewed.
 - Greenhouse is the implemented architectural reference. Inspect its URL parsing, adapter contract, HTTP retrieval, response mapping, extraction orchestration, API route, registry configuration and tests. Reuse responsibilities and shared pipeline boundaries where appropriate, but do not copy provider-specific behavior blindly.
 - Every handwritten source-code file and test remains at or below 100 physical lines. Separate URL/config validation, provider transport, response mapping, extraction orchestration, persistence and API routing by single responsibility.
+
+
+## Decision record — simplified company/source workflow (9 November 2026)
+
+This decision supersedes all earlier statements in this document requiring employer approval, source verification, source permission checks, Cape Town presence, or vacancy approval.
+
+- Admin registers a company and its careers/ATS source. No company approval status, source verification status, permission status, evidence workflow, or approval queue is required.
+- Greenhouse and Lever URL registration must detect the ATS and derive the board configuration from the URL. Registration must work for companies not present in a predefined employer registry. Adding an employer to an implemented ATS must not require employer-specific adapter code.
+- Employer headquarters/country and Cape Town presence do not determine vacancy relevance. Assess each vacancy using its own job-location data.
+- South Africa is the default vacancy scope. Only vacancies located in South Africa may be exported/published to Thungatha. This is a vacancy-location rule, not an employer-location rule.
+- Admin company actions: permanently delete a company. Deletion removes its dependent Scout sources, extraction runs, and vacancies.
+- Admin vacancy action: archive a vacancy. Do not introduce per-vacancy approval or verification.
+- Keep source inspection/preview and extraction history as operational tools; they are not approval workflows.
+- Keep adapter-specific retrieval inside adapters and shared ingestion, location filtering, deduplication, and export behavior in shared services.

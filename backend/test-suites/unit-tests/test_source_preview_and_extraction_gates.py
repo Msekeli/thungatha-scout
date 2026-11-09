@@ -47,3 +47,31 @@ def test_extraction_service_accepts_registered_source_without_review_columns() -
 
     service = SourceExtractionService(connection_factory=FakeConnection)
     assert service is not None
+from uuid import uuid4
+
+from fastapi.testclient import TestClient
+
+from scout.api.vacancy_api_dependencies import get_source_preview_service
+from scout.api.vacancies import get_extraction_service
+from scout.main import app
+from source_preview_api_test_service import FakeSourcePreviewService
+from vacancy_api_test_service import FakeExtractionService
+
+
+def test_extract_endpoint_does_not_enforce_source_approval() -> None:
+    app.dependency_overrides[get_extraction_service] = FakeExtractionService
+    try:
+        response = TestClient(app).post(f"/api/v1/sources/{uuid4()}/extract")
+    finally:
+        app.dependency_overrides.clear()
+    assert response.status_code != 409
+
+
+def test_previews_registered_source_without_persisting_vacancies() -> None:
+    app.dependency_overrides[get_source_preview_service] = FakeSourcePreviewService
+    try:
+        response = TestClient(app).post(f"/api/v1/sources/{uuid4()}/preview")
+    finally:
+        app.dependency_overrides.clear()
+    assert response.status_code == 200
+    assert response.json()["discovery_preview"]["total_vacancies"] == 7

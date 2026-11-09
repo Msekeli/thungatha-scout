@@ -197,3 +197,17 @@ Acceptance: one-email Supabase Auth restriction verified; public registration di
 ## 8. Acceptance and evidence
 
 Use statuses: Not started, In progress, Blocked, In review, Accepted. Never mark work accepted without recorded checks/evidence and explicit user acceptance. Record exactly which commands were run; do not claim tests or deployments that were not performed. Keep each checkpoint bounded, reviewable and reversible.
+
+
+## Operating-model correction — 9 November 2026
+
+The older implementation steps requiring employer/source verification, source permission decisions, company approval, Cape Town presence checks, or vacancy-by-vacancy approval are superseded.
+
+Current acceptance requirements:
+- Company and source registration is direct, without approval/verification states.
+- Greenhouse and Lever URLs are detected from pasted careers/board URLs and register employers outside the static registry.
+- South African relevance is evaluated per vacancy location, never from employer country or headquarters.
+- Only South African vacancies are exported to Thungatha; all is an internal unfiltered view and must not be the publication default.
+- Admin can permanently delete a company and archive a vacancy. No other approval workflow is required.
+- Preserve source previews and extraction-run history as operational diagnostics.
+- Keep provider adapters isolated and the shared ingestion/export pipeline maintainable.

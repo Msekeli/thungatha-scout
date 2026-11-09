@@ -237,3 +237,15 @@ Critical safety tests:
 - Directory and file names must communicate domain responsibility using descriptive kebab-case (frontend) and snake_case (backend Python) conventions.
 - Monolithic containers are prohibited; UI pages compose focused presentation components, custom feature hooks, resource-specific API clients, and modular stylesheets.
 - Quality gates are enforced by `scripts/check-file-line-limits.py` and `scripts/check-naming-conventions.py`.
+
+
+## Current operating model override — 9 November 2026
+
+The company/source approval workflow described elsewhere in this document is obsolete.
+
+1. Company and source registration has no approval, verification, evidence, or permission states.
+2. Greenhouse and Lever are URL-detected adapters. A pasted supported ATS board URL must be sufficient to derive board configuration and register the source, including employers absent from the static employer registry.
+3. Employer location is metadata only. Vacancy eligibility is decided from the vacancy's own location.
+4. South Africa is the default and publication scope. Export queries must explicitly filter South African vacancy locations; they must not treat south_africa as equivalent to all.
+5. Admin actions are limited to permanent company deletion and vacancy archiving. Source previews and extraction history remain operational diagnostics.
+6. Keep the architecture adapter-based and shared. New employers on an existing ATS require configuration, not new adapter code.
