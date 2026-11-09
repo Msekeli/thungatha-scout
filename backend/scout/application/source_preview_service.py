@@ -34,21 +34,29 @@ class SourcePreviewService:
         adapter_factory = self._adapter_factories.get(source["adapter_key"])
         if adapter_factory is None:
             raise ValueError("No adapter is registered for this source.")
-        result = await retrieve_adapter_result(adapter_factory(), source["adapter_config"])
+        result = await retrieve_adapter_result(
+            adapter_factory(), source["adapter_config"]
+        )
         jobs = [
             {
                 "id": vacancy.external_job_id,
                 "title": vacancy.title,
-                "absolute_url": vacancy.raw_payload.get("hostedUrl") or vacancy.application_url,
+                "absolute_url": vacancy.raw_payload.get("hostedUrl")
+                or vacancy.application_url,
                 "location": {"name": vacancy.location_text},
                 "content": vacancy.description,
             }
             for vacancy in result.vacancies[:5]
         ]
-        preview = {"total_vacancies": result.total_vacancies or len(result.vacancies), "jobs": jobs}
+        preview = {
+            "total_vacancies": result.total_vacancies or len(result.vacancies),
+            "jobs": jobs,
+        }
         if result.complete and result.outcome in {"success", "empty"}:
             with self._connection_factory() as connection, connection.transaction():
-                EmployerSourceRepository(connection).update_discovery_preview(source_id, preview)
+                EmployerSourceRepository(connection).update_discovery_preview(
+                    source_id, preview
+                )
         return {
             "outcome": result.outcome,
             "complete": result.complete,
