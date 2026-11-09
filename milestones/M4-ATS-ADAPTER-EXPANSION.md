@@ -113,6 +113,7 @@ Wing Assistant has 56 records without `descriptionPlain`; the Cape Town Inside S
 Implementation files:
 - `backend/scout/ats_adapters/lever_adapter/lever_source_adapter.py`
 - `backend/scout/ats_adapters/lever_adapter/lever_postings_client.py`
+- `backend/scout/ats_adapters/lever_adapter/lever_pagination.py`
 - `backend/scout/ats_adapters/lever_adapter/lever_postings_contracts.py`
 - `backend/scout/ats_adapters/lever_adapter/lever_response_mapper.py`
 - `backend/scout/ats_adapters/lever_adapter/lever_description_parser.py`
