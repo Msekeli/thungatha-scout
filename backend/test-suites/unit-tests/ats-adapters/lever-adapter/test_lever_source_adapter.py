@@ -46,7 +46,7 @@ def test_rejects_missing_source_configuration() -> None:
 
     try:
         asyncio.run(run())
-    except ValueError as error:
-        assert "slug and region" in str(error)
+    except TypeError as error:
+        assert "string slug and region" in str(error)
     else:
         raise AssertionError("Expected invalid configuration to fail.")
