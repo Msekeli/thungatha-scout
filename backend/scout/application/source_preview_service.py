@@ -48,10 +48,12 @@ class SourcePreviewService:
             }
             for vacancy in result.vacancies[:5]
         ]
-        preview = {
-            "total_vacancies": result.total_vacancies or len(result.vacancies),
-            "jobs": jobs,
-        }
+        total_vacancies = (
+            result.total_vacancies
+            if result.total_vacancies is not None
+            else len(result.vacancies)
+        )
+        preview = {"total_vacancies": total_vacancies, "jobs": jobs}
         if result.complete and result.outcome in {"success", "empty"}:
             with self._connection_factory() as connection, connection.transaction():
                 EmployerSourceRepository(connection).update_discovery_preview(
