@@ -12,6 +12,7 @@ def test_adapter_registry_contains_greenhouse_and_workday() -> None:
 
     assert adapters["greenhouse"]["extraction_method"] == "documented_public_json_api"
     assert adapters["workday"]["extraction_method"] == "observed_public_cxs_json_post"
+    assert adapters["lever"]["status"] == "implemented"
 
 
 def test_greenhouse_source_requires_slug() -> None:
