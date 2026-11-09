@@ -4,8 +4,12 @@ from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
 OrganizationType = Literal[
-    "direct_employer", "recruitment_agency", "staffing_company",
-    "hybrid", "other", "unresolved",
+    "direct_employer",
+    "recruitment_agency",
+    "staffing_company",
+    "hybrid",
+    "other",
+    "unresolved",
 ]
 
 

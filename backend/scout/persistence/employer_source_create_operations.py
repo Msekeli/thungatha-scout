@@ -16,10 +16,15 @@ class EmployerSourceCreateOperations:
             RETURNING *
             """,
             (
-                values["employer_id"], values["adapter_key"], values["source_url"],
-                values.get("employer_careers_url"), values["normalized_url"],
+                values["employer_id"],
+                values["adapter_key"],
+                values["source_url"],
+                values.get("employer_careers_url"),
+                values["normalized_url"],
                 Jsonb(values.get("adapter_config", {})),
-                Jsonb(values["discovery_preview"]) if values.get("discovery_preview") else None,
+                Jsonb(values["discovery_preview"])
+                if values.get("discovery_preview")
+                else None,
             ),
         ).fetchone()
 
@@ -35,8 +40,11 @@ class EmployerSourceCreateOperations:
             RETURNING *
             """,
             (
-                values["source_url"], values["normalized_url"],
-                Jsonb(values["adapter_config"]), employer_id, source_id,
+                values["source_url"],
+                values["normalized_url"],
+                Jsonb(values["adapter_config"]),
+                employer_id,
+                source_id,
                 values["adapter_key"],
             ),
         ).fetchone()

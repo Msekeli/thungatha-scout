@@ -10,7 +10,11 @@ type UseVacancyFetchingOptions = {
 };
 
 export function useVacancyFetching({
-  dashboardSources, setExtracting, loadWorkspace, onError, onNotice,
+  dashboardSources,
+  setExtracting,
+  loadWorkspace,
+  onError,
+  onNotice,
 }: UseVacancyFetchingOptions) {
   async function fetchJobs() {
     if (!dashboardSources.length) {
@@ -27,9 +31,11 @@ export function useVacancyFetching({
       const succeeded = results.filter((result) => result.status === "fulfilled").length;
       const failed = results.length - succeeded;
       await loadWorkspace();
-      onNotice(failed
-        ? `Fetched from ${succeeded} source(s); ${failed} failed. Check extraction history.`
-        : `Fetch completed for ${succeeded} source(s). Vacancies refreshed.`);
+      onNotice(
+        failed
+          ? `Fetched from ${succeeded} source(s); ${failed} failed. Check extraction history.`
+          : `Fetch completed for ${succeeded} source(s). Vacancies refreshed.`,
+      );
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not fetch jobs.");
     } finally {

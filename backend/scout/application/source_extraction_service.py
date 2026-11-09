@@ -11,7 +11,9 @@ from scout.application.source_extraction_errors import (
 )
 from scout.application.vacancy_management_service import VacancyManagementService
 from scout.ats_adapters.ats_adapter_contracts import ATSAdapter
-from scout.ats_adapters.greenhouse_adapter.greenhouse_source_adapter import GreenhouseSourceAdapter
+from scout.ats_adapters.greenhouse_adapter.greenhouse_source_adapter import (
+    GreenhouseSourceAdapter,
+)
 from scout.ats_adapters.lever_adapter.lever_source_adapter import LeverSourceAdapter
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.employer_source_repository import EmployerSourceRepository
@@ -44,26 +46,39 @@ class SourceExtractionService(VacancyManagementService):
 
         with self._connection_factory() as connection, connection.transaction():
             run_id = ExtractionRunRepository(connection).create(source_id)
-        result = await retrieve_adapter_result(adapter_factory(), source["adapter_config"])
+        result = await retrieve_adapter_result(
+            adapter_factory(), source["adapter_config"]
+        )
         try:
             with self._connection_factory() as connection, connection.transaction():
                 inserted = updated = 0
                 if result.vacancies:
                     inserted, updated = VacancyRepository(connection).upsert_batch(
-                        source["employer_id"], source_id, source["source_url"], result.vacancies
+                        source["employer_id"],
+                        source_id,
+                        source["source_url"],
+                        result.vacancies,
                     )
                 return ExtractionRunRepository(connection).finish(
-                    run_id=run_id, outcome=result.outcome, received=len(result.vacancies),
-                    inserted=inserted, updated=updated, complete=result.complete,
+                    run_id=run_id,
+                    outcome=result.outcome,
+                    received=len(result.vacancies),
+                    inserted=inserted,
+                    updated=updated,
+                    complete=result.complete,
                     detail=result.detail,
                 )
         except Exception as exception:
             detail = f"Persistence failed ({type(exception).__name__}): {exception}"
             with self._connection_factory() as connection, connection.transaction():
                 return ExtractionRunRepository(connection).finish(
-                    run_id=run_id, outcome="persistence_failure",
-                    received=len(result.vacancies), inserted=0, updated=0,
-                    complete=False, detail=detail,
+                    run_id=run_id,
+                    outcome="persistence_failure",
+                    received=len(result.vacancies),
+                    inserted=0,
+                    updated=0,
+                    complete=False,
+                    detail=detail,
                 )
 
     def list_extraction_runs(self, source_id: UUID) -> list[dict[str, Any]]:
