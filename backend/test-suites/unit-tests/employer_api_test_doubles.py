@@ -50,6 +50,11 @@ class FakeEmployerService:
             "adapter_key": payload.adapter_key,
             "status": "discovered",
             "permission_status": "unknown",
+            "discovery_preview": (
+                payload.discovery_preview.model_dump(mode="json")
+                if payload.discovery_preview
+                else None
+            ),
         }
         self.sources.append(row)
         return row
