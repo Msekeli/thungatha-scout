@@ -19,9 +19,16 @@ def test_western_cape_scope_includes_regional_terms() -> None:
     assert r"(^| )paarl( |$)" in parameters
 
 
-@pytest.mark.parametrize("scope", ["all", "south_africa"])
-def test_broad_scopes_do_not_add_location_predicates(scope: str) -> None:
-    assert location_scope_condition(scope) == ("", [])
+def test_south_africa_scope_adds_country_and_city_predicates() -> None:
+    condition, parameters = location_scope_condition("south_africa")
+    assert "regexp_replace" in condition
+    assert r"(^| )south africa( |$)" in parameters
+    assert r"(^| )gqeberha( |$)" in parameters
+    assert r"(^| )cape town( |$)" in parameters
+
+
+def test_all_scope_is_unfiltered() -> None:
+    assert location_scope_condition("all") == ("", [])
 
 
 def test_unknown_scope_is_rejected() -> None:

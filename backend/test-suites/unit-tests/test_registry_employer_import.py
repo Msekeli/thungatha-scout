@@ -4,63 +4,48 @@ from scout.registry_importer import import_registry
 from registry_importer_test_connection import FakeConnection
 
 
-def test_new_employer_keeps_location_claim_pending_review() -> None:
+def _employer_registry(name: str, careers_url: str) -> dict:
+    slug = name.lower().replace(" ", "-")
+    return {"employers": [{
+        "name": name, "careers_url": careers_url,
+        "sources": [{
+            "ats": "greenhouse",
+            "official_source_url": f"https://job-boards.greenhouse.io/{slug}",
+            "config": {"slug": slug},
+        }],
+    }]}
+
+
+def test_new_employer_import_does_not_create_presence_evidence() -> None:
     connection = FakeConnection()
     result = import_registry(
-        {
-            "employers": [
-                {
-                    "name": "Example Employer",
-                    "careers_url": "https://example.com/careers",
-                    "cape_town_presence_claimed": True,
-                }
-            ]
-        },
-        connection,
+        _employer_registry("Example Employer", "https://example.com/careers"), connection
     )
-
     assert result["employers_created"] == 1
-    assert connection.employers[0]["location_evidence"] == [
-        {"claim": "Cape Town presence", "status": "pending_verification"}
-    ]
+    assert "location_evidence" not in connection.employers[0]
 
 
 def test_existing_employer_with_different_website_is_rejected() -> None:
     connection = FakeConnection()
-    connection.employers.append(
-        {
-            "id": "existing-id",
-            "name": "Example Employer",
-            "website_url": "https://different.example.com/careers",
-        }
-    )
-    registry = {
-        "employers": [
-            {"name": "Example Employer", "careers_url": "https://example.com/careers"}
-        ]
-    }
-
+    connection.employers.append({
+        "id": "existing-id", "name": "Example Employer",
+        "website_url": "https://different.example.com/careers",
+    })
     with pytest.raises(ValueError, match="another website"):
-        import_registry(registry, connection)
+        import_registry(
+            _employer_registry("Example Employer", "https://example.com/careers"),
+            connection,
+        )
 
 
 def test_existing_employer_without_website_gets_registry_careers_url() -> None:
     connection = FakeConnection()
-    connection.employers.append(
-        {"id": "existing-id", "name": "Example Employer", "website_url": None}
-    )
+    connection.employers.append({
+        "id": "existing-id", "name": "Example Employer", "website_url": None,
+    })
     result = import_registry(
-        {
-            "employers": [
-                {
-                    "name": "Example Employer",
-                    "careers_url": "https://example.com/careers",
-                }
-            ]
-        },
-        connection,
+        _employer_registry("Example Employer", "https://example.com/careers"), connection
     )
-
     assert result["employers_created"] == 0
     assert result["employers_updated"] == 1
     assert connection.employers[0]["website_url"] == "https://example.com/careers"
