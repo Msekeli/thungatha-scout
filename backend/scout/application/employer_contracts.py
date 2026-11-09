@@ -48,6 +48,19 @@ class EmployerBrandingUpdate(BaseModel):
     logo_source_url: HttpUrl | None = None
 
 
+class DiscoveryPreviewJob(BaseModel):
+    id: str | int
+    title: str = Field(min_length=1, max_length=300)
+    absolute_url: HttpUrl | None = None
+    location: dict[str, str | None] | None = None
+    content: str | None = Field(default=None, max_length=30000)
+
+
+class SourceDiscoveryPreview(BaseModel):
+    total_vacancies: int = Field(ge=0)
+    jobs: list[DiscoveryPreviewJob] = Field(default_factory=list, max_length=5)
+
+
 class EmployerSourceCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 
@@ -58,6 +71,7 @@ class EmployerSourceCreate(BaseModel):
     normalized_url: HttpUrl
     adapter_config: dict[str, Any] = Field(default_factory=dict)
     relationship_evidence: list[dict[str, Any]] = Field(default_factory=list)
+    discovery_preview: SourceDiscoveryPreview | None = None
 
 
 class EmployerSourceReviewUpdate(BaseModel):
