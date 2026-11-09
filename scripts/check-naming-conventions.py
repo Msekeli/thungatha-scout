@@ -35,8 +35,6 @@ IGNORED_DIRECTORIES = {
     ".git", ".venv", "node_modules", "dist", "__pycache__", ".pytest_cache",
     ".ruff_cache", ".mypy_cache", ".egg-info", "thungatha_scout_backend.egg-info",
 }
-
-
 def check_naming(root_dir: Path) -> list[str]:
     violations: list[str] = []
     scan_roots = [root_dir / "backend", root_dir / "frontend" / "src"]
