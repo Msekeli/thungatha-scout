@@ -42,6 +42,17 @@ export function useCompanySelection({
 
       try {
         const nextSources = await scoutApi.listSources(employer.id);
+        const previewedSources = await Promise.all(
+          nextSources.map(async (source) => {
+            if (source.discovery_preview) return source;
+            try {
+              const preview = await scoutApi.previewSource(source.id);
+              return { ...source, discovery_preview: preview.discovery_preview };
+            } catch {
+              return source;
+            }
+          }),
+        );
         const runEntries = await Promise.all(
           nextSources.map(
             async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
@@ -50,7 +61,7 @@ export function useCompanySelection({
 
         if (currentRequest !== requestId.current) return;
 
-        setSources(nextSources);
+        setSources(previewedSources);
         setExtractionRuns((current) => ({
           ...current,
           ...Object.fromEntries(runEntries),
