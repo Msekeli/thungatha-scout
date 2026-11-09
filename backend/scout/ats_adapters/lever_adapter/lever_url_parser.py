@@ -8,7 +8,13 @@ LEVER_BOARD_HOSTS = {"jobs.lever.co": "global", "jobs.eu.lever.co": "eu"}
 def parse_lever_board_url(source_url: str) -> tuple[dict[str, str], str]:
     parsed = urlsplit(source_url)
     region = LEVER_BOARD_HOSTS.get(parsed.hostname or "")
-    if parsed.scheme != "https" or region is None:
+    if (
+        parsed.scheme != "https"
+        or region is None
+        or parsed.port is not None
+        or parsed.username is not None
+        or parsed.password is not None
+    ):
         raise ValueError("Use an HTTPS jobs.lever.co or jobs.eu.lever.co board URL.")
     segments = [segment for segment in parsed.path.split("/") if segment]
     if not segments or len(segments) > 2:
