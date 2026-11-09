@@ -2,7 +2,7 @@ import { ExternalLink, Globe2 } from "lucide-react";
 import type { Employer, EmployerSource } from "../api";
 
 type Props = { employer: Employer; sources: EmployerSource[] };
-const visibleUrl = (value: string) => value.replace(/^https?:\\/\\//, "");
+const visibleUrl = (value: string) => value.replace(/^https?:\/\//, "");
 const adapterLabels = {
   greenhouse: { label: "Greenhouse", badge: "G" },
   lever: { label: "Lever", badge: "L" },
