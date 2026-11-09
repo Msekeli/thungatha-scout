@@ -17,8 +17,17 @@ type Options = {
 };
 
 export function useEmployerSourceOperations({
-  employer, setSources, sourceUrl, setSourceUrl, editingSourceId, setEditingSourceId,
-  inspection, setInspection, setSaving, onError, onNotice,
+  employer,
+  setSources,
+  sourceUrl,
+  setSourceUrl,
+  editingSourceId,
+  setEditingSourceId,
+  inspection,
+  setInspection,
+  setSaving,
+  onError,
+  onNotice,
 }: Options) {
   async function saveSource(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -38,7 +47,8 @@ export function useEmployerSourceOperations({
         onNotice("Source configuration updated.");
       } else {
         const created = await scoutApi.createSource(employer.id, {
-          ...payload, employer_careers_url: employer.website_url ?? null,
+          ...payload,
+          employer_careers_url: employer.website_url ?? null,
         });
         setSources((current) => [...current, created]);
         onNotice(`${inspection?.detected_adapter ?? "Recruitment"} source registered.`);
