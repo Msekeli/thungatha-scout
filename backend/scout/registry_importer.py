@@ -20,6 +20,7 @@ def import_registry(
         "employers_updated": 0,
         "sources_created": 0,
         "sources_updated": 0,
+        "sources_skipped": 0,
     }
     for item in registry["employers"]:
         employer = import_employer(item, connection, counts)
@@ -34,7 +35,7 @@ def import_employer_registry(
     registry_path: Path | None = None,
 ) -> dict[str, int]:
     path = registry_path or (
-        REGISTRY_DIRECTORY / "v1-supported-ats-employer-sources.json"
+        REGISTRY_DIRECTORY / "employer-source-registry.json"
     )
     registry = json.loads(path.read_text(encoding="utf-8"))
     with connection_factory() as connection, connection.transaction():
@@ -48,5 +49,6 @@ if __name__ == "__main__":
         f"{result['employers_created']} employers created, "
         f"{result['employers_updated']} existing employers updated, "
         f"{result['sources_created']} sources created, "
-        f"{result['sources_updated']} sources updated."
+        f"{result['sources_updated']} sources updated, "
+        f"{result['sources_skipped']} unsupported sources skipped."
     )
