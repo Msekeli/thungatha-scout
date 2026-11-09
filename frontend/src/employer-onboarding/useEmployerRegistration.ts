@@ -2,7 +2,6 @@ import type { FormEvent } from "react";
 import { scoutApi } from "../api";
 import { getCompanyIconUrl } from "../company-management/company-icon-url";
 import type { CareersDiscovery, Employer, EmployerSource } from "../api";
-import { runEmployerVacancyImport } from "./runEmployerVacancyImport";
 
 type EmployerRegistrationForm = {
   name: string;
@@ -57,14 +56,18 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
         normalized_url: discovery.board_url,
         employer_careers_url: sourceUrl,
         adapter_config: discovery.adapter_config,
+        discovery_preview: {
+          total_vacancies: discovery.total_vacancies ?? discovery.jobs?.length ?? 0,
+          jobs: discovery.jobs ?? [],
+        },
       });
       onRegistered({ employer, source });
-      onNotice(employer.name + " added successfully. Vacancy import is running in the background.");
-      void runEmployerVacancyImport(source.id, employer.name, {
-        loadWorkspace,
-        onError,
-        onNotice,
-      });
+      onNotice(
+        employer.name + " added. " +
+          (source.discovery_preview?.total_vacancies ?? 0) +
+          " vacancies discovered. Extraction remains paused until the source is verified and permission is allowed.",
+      );
+      await loadWorkspace();
     } catch (reason) {
       const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
       onError(
