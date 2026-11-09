@@ -28,7 +28,7 @@ V1 ATS adapter: Greenhouse. Workday is deferred from active investigation and im
 | Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending                                                                             |
 | Scout operational database           | Dedicated Supabase PostgreSQL project                                                                                                         |
 | Thungatha publication destination    | Existing Thungatha Supabase PostgreSQL project                                                                                                |
-| ATS integrations                     | Greenhouse adapter; Workday deferred                                                                                                          |
+| ATS integrations                     | Greenhouse reference adapter; Lever integrated; Workday deferred                                                                                                          |
 | Admin authentication                 | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
 Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.
@@ -65,7 +65,7 @@ Employer discovery and source verification continue in parallel with implementat
 | M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                                                            |
 | M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                                                       |
 | M3        | Greenhouse Vertical Slice                          | In progress — user confirms extraction-to-Thungatha flow has been exercised; remaining Greenhouse/admin acceptance evidence must be recorded |
-| M4        | ATS Adapter Expansion                              | In progress — Ashby deferred; Lever M4-LEVER-A implementation committed, local verification pending                                          |
+| M4        | ATS Adapter Expansion                              | In progress — Ashby deferred; Lever M4-LEVER-A accepted, M4-LEVER-B integration in progress                                          |
 | M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                                                                   |
 | M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                                  |
 | M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                                                                  |
