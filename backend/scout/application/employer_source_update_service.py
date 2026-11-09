@@ -12,7 +12,7 @@ from scout.persistence.employer_source_repository import EmployerSourceRepositor
 class EmployerSourceUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
 
-    adapter_key: Literal["greenhouse", "workday"]
+    adapter_key: Literal["greenhouse", "lever", "workday"]
     source_url: HttpUrl
     normalized_url: HttpUrl
     adapter_config: dict[str, Any] = Field(default_factory=dict)
