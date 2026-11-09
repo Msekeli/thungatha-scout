@@ -29,7 +29,8 @@ async def retrieve_posting_pages(
             job_id = job.get("id")
             if not isinstance(job_id, str) or not job_id.strip() or job_id in seen_ids:
                 return partial_response(
-                    jobs, page_number + 1,
+                    jobs,
+                    page_number + 1,
                     "Lever returned a missing or duplicate posting ID.",
                 )
             seen_ids.add(job_id)
@@ -60,7 +61,9 @@ async def request_posting_page(
         )
     except (httpx.TimeoutException, httpx.TransportError):
         return partial_response(
-            jobs, page_number, "Lever request failed or timed out.",
+            jobs,
+            page_number,
+            "Lever request failed or timed out.",
             "transient_failure",
         )
     failure = map_http_failure(response, jobs, page_number)
@@ -74,7 +77,9 @@ async def request_posting_page(
         )
     if not isinstance(page, list) or not all(isinstance(x, dict) for x in page):
         return partial_response(
-            jobs, page_number, "Lever postings response must be a JSON array.",
+            jobs,
+            page_number,
+            "Lever postings response must be a JSON array.",
             "malformed",
         )
     return page

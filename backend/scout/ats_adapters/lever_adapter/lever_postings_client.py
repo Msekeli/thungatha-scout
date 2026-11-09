@@ -12,11 +12,14 @@ from scout.ats_adapters.lever_adapter.lever_postings_contracts import (
 
 class LeverPostingsClient:
     def __init__(
-        self, client: httpx.AsyncClient | None = None,
-        page_size: int = 100, max_pages: int = 100,
+        self,
+        client: httpx.AsyncClient | None = None,
+        page_size: int = 100,
+        max_pages: int = 100,
     ) -> None:
         self._client = client or httpx.AsyncClient(
-            timeout=30.0, follow_redirects=False,
+            timeout=30.0,
+            follow_redirects=False,
             headers={"Accept": "application/json"},
         )
         self._owns_client = client is None

@@ -45,6 +45,7 @@ def test_duplicate_ids_make_inventory_partial() -> None:
     assert result.outcome == "partial"
     assert result.complete is False
 
+
 def test_empty_board_is_a_complete_empty_result() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(200, json=[])

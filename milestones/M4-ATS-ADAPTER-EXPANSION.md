@@ -75,14 +75,14 @@ This is one checkpoint with two sequential activities:
 
 Each adapter has exactly two checkpoints. Complete A before B, and complete/review B before beginning the next adapter.
 
-| Order | Adapter    | Checkpoint A — investigate, design, implement  | Checkpoint B — integrate, verify | Employer test cohort and investigation focus                                                                                                                                            |
-| ----: | ---------- | ---------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|     1 | Ashby      | **Deferred — enquiry sent; awaiting response** | **Deferred**                     | Midnite, MyEdSpace, Tree Traction. Reopen only after Ashby confirms partner-feed eligibility, feed access and employer opt-in requirements; see the Ashby investigation report.         |
+| Order | Adapter    | Checkpoint A — investigate, design, implement                          | Checkpoint B — integrate, verify | Employer test cohort and investigation focus                                                                                                                                            |
+| ----: | ---------- | ---------------------------------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     1 | Ashby      | **Deferred — enquiry sent; awaiting response**                         | **Deferred**                     | Midnite, MyEdSpace, Tree Traction. Reopen only after Ashby confirms partner-feed eligibility, feed access and employer opt-in requirements; see the Ashby investigation report.         |
 |     2 | Lever      | **In progress — implementation committed; local verification pending** | **M4-LEVER-B**                   | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
-|     3 | Teamtailor | **M4-TEAMTAILOR-A**                            | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
-|     4 | Personio   | **M4-PERSONIO-A**                              | **M4-PERSONIO-B**                | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
-|     5 | Recruitee  | **M4-RECRUITEE-A**                             | **M4-RECRUITEE-B**               | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
-|     6 | Workable   | **M4-WORKABLE-A**                              | **M4-WORKABLE-B**                | LekkeSlaap, Electrum, GoTyme Bank. Verify observed public careers-widget JSON behavior, board completeness, detail handling and application URLs.                                       |
+|     3 | Teamtailor | **M4-TEAMTAILOR-A**                                                    | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
+|     4 | Personio   | **M4-PERSONIO-A**                                                      | **M4-PERSONIO-B**                | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
+|     5 | Recruitee  | **M4-RECRUITEE-A**                                                     | **M4-RECRUITEE-B**               | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
+|     6 | Workable   | **M4-WORKABLE-A**                                                      | **M4-WORKABLE-B**                | LekkeSlaap, Electrum, GoTyme Bank. Verify observed public careers-widget JSON behavior, board completeness, detail handling and application URLs.                                       |
 
 ## First checkpoint instruction
 
@@ -103,7 +103,6 @@ Lever's official Postings API documentation states that published postings are p
 - All handwritten source-code files and tests remain within the 100-line limit.
 - The user reviews each checkpoint before work proceeds to the next checkpoint.
 
-
 ## Lever M4-LEVER-A implementation update — 9 November 2026
 
 Live local requests verified 513 postings across Mama Money (7), Theodo (131) and Wing Assistant (375), with 513 unique IDs, no missing IDs, 11 Cape Town matches, and exact job/application URLs. Pagination completed with short final pages on all three boards.
@@ -111,6 +110,7 @@ Live local requests verified 513 postings across Mama Money (7), Theodo (131) an
 Wing Assistant has 56 records without `descriptionPlain`; the Cape Town Inside Sales Manager record was verified to contain a 1,362-character HTML description in both list and detail responses. The adapter prefers plain text and falls back to standard-library HTML-to-text extraction. If both are absent, description remains null for shared completeness gates. The raw provider payload is retained.
 
 Implementation files:
+
 - `backend/scout/ats_adapters/lever_adapter/lever_source_adapter.py`
 - `backend/scout/ats_adapters/lever_adapter/lever_postings_client.py`
 - `backend/scout/ats_adapters/lever_adapter/lever_pagination.py`
