@@ -20,11 +20,11 @@ Ashby's [Public Job Postings API](https://developers.ashbyhq.com/docs/public-job
 - The response contains an `apiVersion` and `jobs` array.
 - Documented job fields include title, location, secondary locations, department, team, workplace type, HTML/plain description, `publishedAt`, employment type, address, `jobUrl`, `applyUrl`, and `isListed`.
 - `isListed=false` means the posting is available only by direct link and should not be displayed in the board listing.
-- The endpoint is described for an organisation to populate its own careers page. The documentation does not establish pagination or a stable posting ID in its documented response schema.
+- The endpoint is described for an organisation to populate its own careers page. The documentation does not establish pagination, a stable posting ID or a source-updated timestamp in its documented response schema.
 
 The authenticated `jobPosting.list` and `jobPosting.info` endpoints require the `jobsRead` permission. They are not substitutes for the public endpoint and must not be used with employer credentials that Scout does not possess.
 
-Ashby separately documents [Dedicated Partner Job Feeds](https://developers.ashbyhq.com/docs/dedicated-partner-job-feeds). Ashby provisions these feeds for partners, and each Ashby customer must opt in to sharing its postings with that partner. This is the clearest documented route for third-party job-feed distribution. Scout's eligibility for this programme has not been established.
+Ashby's [Dedicated Partner Job Feeds](https://developers.ashbyhq.com/docs/dedicated-partner-job-feeds) documentation provides a separate, stronger third-party integration contract. Ashby provisions a dedicated JSON or XML feed for a partner; each customer must enable that partner integration in Ashby Admin before its published jobs are shared. The feed is updated hourly and explicitly requires a UUID `id`, `updatedAt`, `publishedAt`, `externalLink`, plain/HTML descriptions and structured locations. This resolves stable identity and update-time mapping for the partner-feed route, but does not grant Scout access: feed provisioning and employer opt-in are prerequisites. Scout's eligibility for this programme has not been established.
 
 ## Employer cohort and live verification
 
@@ -38,7 +38,7 @@ The repository identifies these board slugs:
 
 Direct requests to all three documented API URLs were attempted from the available web and command-line environments. The web requests were inaccessible and the command-line request failed DNS resolution. No response bodies, job counts or individual job records were obtained.
 
-A secondary technical article reports an `id` field in observed Ashby responses, but that is not sufficient evidence for Scout's three target boards. Do not use that claim as the identity contract without inspecting the actual responses.
+The official Dedicated Partner Job Feed schema specifies `id` as a required UUID and `updatedAt` as required. Those fields belong to the partner feed contract, not the documented public Job Postings API contract. Do not assume the public endpoint returns them.
 
 ## Field mapping proposal — pending live evidence
 
@@ -72,13 +72,14 @@ The adapter would register through the existing `SourceExtractionService` factor
 ## Evidence required to unblock
 
 1. Run the Ashby inspection script previously supplied and provide its output for all three slugs. It must include response status, job count, ID presence/uniqueness, `isListed`, descriptions, locations, publication timestamps, `jobUrl` and `applyUrl`.
-2. Establish source-use permission for Scout. Preferred route: contact Ashby about its Dedicated Partner Job Feeds programme and obtain partner onboarding/customer opt-in requirements. Do not infer permission merely because an unauthenticated endpoint responds.
+2. Establish source-use permission and access for Scout. Contact Ashby at the address listed in its Dedicated Partner Job Feeds documentation to request partner onboarding, feed provisioning and customer opt-in requirements. Do not infer permission merely because an unauthenticated endpoint responds.
 3. Confirm that each employer's official careers site links to the recorded Ashby board, and preserve that evidence.
 
 ## Verification
 
 - Official API documentation reviewed: https://developers.ashbyhq.com/docs/public-job-posting-api
-- Official partner-feed documentation reviewed: https://developers.ashbyhq.com/docs/dedicated-partner-job-feeds
+- Official partner-feed documentation reviewed: https://developers.ashbyhq.com/docs/dedicated-partner-job-feeds — confirms required UUID `id`, `updatedAt`, hourly feed updates and per-customer opt-in.
+- Clarification: public Job Postings API and Dedicated Partner Job Feed are separate contracts. The latter has stable identity/update fields; it is not currently provisioned for Scout.
 - Live API calls attempted for all three cohort slugs; no response data was available.
 - No adapter code or tests were changed.
 - No registry entries were changed.
