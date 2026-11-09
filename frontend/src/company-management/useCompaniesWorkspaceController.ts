@@ -51,7 +51,6 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
   });
   const sourceOperations = useEmployerSourceOperations({
     employer,
-    sources: state.sources,
     setSources: state.setSources,
     sourceUrl: state.sourceUrl,
     setSourceUrl: state.setSourceUrl,
