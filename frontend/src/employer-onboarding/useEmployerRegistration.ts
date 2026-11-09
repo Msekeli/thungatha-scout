@@ -65,12 +65,23 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
               }
             : null,
       });
-      onRegistered({ employer, source });
+      let registeredSource = source;
+      if (!registeredSource.discovery_preview) {
+        try {
+          const preview = await scoutApi.previewSource(source.id);
+          if (preview.complete && ["success", "empty"].includes(preview.outcome)) {
+            registeredSource = { ...source, discovery_preview: preview.discovery_preview };
+          }
+        } catch {
+          // Registration remains successful when a read-only preview is unavailable.
+        }
+      }
+      onRegistered({ employer, source: registeredSource });
+      const previewCount = registeredSource.discovery_preview?.total_vacancies;
       onNotice(
-        employer.name +
-          " added. " +
-          (source.discovery_preview?.total_vacancies ?? 0) +
-          " vacancies discovered. Extraction remains paused until the source is verified and permission is allowed.",
+        previewCount === undefined
+          ? employer.name + " added. Vacancy preview is not available yet."
+          : employer.name + " added. " + previewCount + " vacancies discovered.",
       );
       await loadWorkspace();
     } catch (reason) {
