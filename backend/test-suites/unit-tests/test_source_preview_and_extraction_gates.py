@@ -40,7 +40,9 @@ def test_previews_registered_source_without_persisting_vacancies() -> None:
 
 
 @pytest.mark.asyncio
-async def test_extraction_service_blocks_discovered_source_before_adapter_call() -> None:
+async def test_extraction_service_blocks_discovered_source_before_adapter_call() -> (
+    None
+):
     class FakeCursor:
         def fetchone(self):
             return {
