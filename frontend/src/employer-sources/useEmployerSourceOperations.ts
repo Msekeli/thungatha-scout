@@ -1,6 +1,6 @@
 import type { FormEvent, Dispatch, SetStateAction } from "react";
 import { scoutApi } from "../api";
-import type { Employer, EmployerSource, GreenhouseInspection } from "../api";
+import type { Employer, EmployerSource, SourceInspection } from "../api";
 
 type UseEmployerSourceOperationsOptions = {
   employer: Employer | null;
@@ -10,7 +10,7 @@ type UseEmployerSourceOperationsOptions = {
   setSourceUrl: (value: string) => void;
   editingSourceId: string | null;
   setEditingSourceId: (value: string | null) => void;
-  inspection: GreenhouseInspection | null;
+  inspection: SourceInspection | null;
   setInspection: (value: GreenhouseInspection | null) => void;
   setSaving: (value: boolean) => void;
   onError: (message: string) => void;
@@ -39,12 +39,10 @@ export function useEmployerSourceOperations({
     onError("");
     try {
       const payload = {
-        adapter_key: editingSourceId
-          ? sources.find((source) => source.id === editingSourceId)?.adapter_key
-          : "greenhouse",
+        adapter_key: inspection?.detected_adapter,
         source_url: sourceUrl,
         normalized_url: sourceUrl,
-        adapter_config: { slug: inspection?.board_token },
+        adapter_config: inspection?.adapter_config ?? {},
       };
 
       if (editingSourceId) {
@@ -59,7 +57,7 @@ export function useEmployerSourceOperations({
           employer_careers_url: employer.website_url ?? null,
         });
         setSources((current) => [...current, created]);
-        onNotice("Greenhouse source registered. Verification and permission remain pending.");
+        onNotice(`${inspection?.detected_adapter ?? "Recruitment"} source registered. Verification and permission remain pending.`);
       }
 
       setEditingSourceId(null);
