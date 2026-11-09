@@ -26,6 +26,18 @@ The authenticated `jobPosting.list` and `jobPosting.info` endpoints require the 
 
 Ashby's [Dedicated Partner Job Feeds](https://developers.ashbyhq.com/docs/dedicated-partner-job-feeds) documentation provides a separate, stronger third-party integration contract. Ashby provisions a dedicated JSON or XML feed for a partner; each customer must enable that partner integration in Ashby Admin before its published jobs are shared. The feed is updated hourly and explicitly requires a UUID `id`, `updatedAt`, `publishedAt`, `externalLink`, plain/HTML descriptions and structured locations. This resolves stable identity and update-time mapping for the partner-feed route, but does not grant Scout access: feed provisioning and employer opt-in are prerequisites. Scout's eligibility for this programme has not been established.
 
+## Partner onboarding route
+
+Ashby's official [Integrations](https://www.ashbyhq.com/integrations) page describes a separate prospective integration-partner process:
+
+1. Submit an integration enquiry; Ashby reviews fit and may follow up with questions.
+2. If the product is a fit, Ashby schedules an introduction call to understand the product and customer workflow.
+3. After validation, the parties complete legal review; Ashby then provides a sandbox and technical support contacts.
+4. The partner builds and validates the integration with Ashby's support.
+5. The partner demonstrates the end-to-end integration for Ashby's approval before marketplace publication.
+
+Ashby says it prefers prospective partners to have a solution built and ready to provide a seamless customer experience before the introduction stage. This process is not proof that Scout qualifies, nor does it replace the specific request for a dedicated job feed. The practical enquiry should explicitly ask whether a vacancy-ingestion product such as Scout is eligible for the dedicated feed, what permission and customer opt-in terms apply, and whether a sandbox or sample feed can be provided.
+
 ## Employer cohort and live verification
 
 The repository identifies these board slugs:
@@ -72,13 +84,14 @@ The adapter would register through the existing `SourceExtractionService` factor
 ## Evidence required to unblock
 
 1. Run the Ashby inspection script previously supplied and provide its output for all three slugs. It must include response status, job count, ID presence/uniqueness, `isListed`, descriptions, locations, publication timestamps, `jobUrl` and `applyUrl`.
-2. Establish source-use permission and access for Scout. Contact Ashby at the address listed in its Dedicated Partner Job Feeds documentation to request partner onboarding, feed provisioning and customer opt-in requirements. Do not infer permission merely because an unauthenticated endpoint responds.
+2. Establish source-use permission and access for Scout. Contact Ashby using the contact address listed in its Dedicated Partner Job Feeds documentation. Ask about partner eligibility, feed provisioning, customer opt-in, permitted use and sample/sandbox access.
 3. Confirm that each employer's official careers site links to the recorded Ashby board, and preserve that evidence.
 
 ## Verification
 
 - Official API documentation reviewed: https://developers.ashbyhq.com/docs/public-job-posting-api
 - Official partner-feed documentation reviewed: https://developers.ashbyhq.com/docs/dedicated-partner-job-feeds — confirms required UUID `id`, `updatedAt`, hourly feed updates and per-customer opt-in.
+- Official integration-partner process reviewed: https://www.ashbyhq.com/integrations — confirms fit review, introduction, legal review, sandbox/technical support, build, validation and approval steps.
 - Clarification: public Job Postings API and Dedicated Partner Job Feed are separate contracts. The latter has stable identity/update fields; it is not currently provisioned for Scout.
 - Live API calls attempted for all three cohort slugs; no response data was available.
 - No adapter code or tests were changed.
