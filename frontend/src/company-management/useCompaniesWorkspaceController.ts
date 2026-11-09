@@ -5,11 +5,18 @@ import { useEmployerSourceReview } from "../employer-sources/useEmployerSourceRe
 import { useEmployerSourceOperations } from "../employer-sources/useEmployerSourceOperations";
 import type { useScoutAppState } from "../app-state/useScoutAppState";
 import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
+import type { useEmployerOnboardingController } from "../employer-onboarding/useEmployerOnboardingController";
 
 type AppState = ReturnType<typeof useScoutAppState>;
 type Jobs = ReturnType<typeof useJobsWorkspaceController>;
 
-export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
+type Onboarding = ReturnType<typeof useEmployerOnboardingController>;
+
+export function useCompaniesWorkspaceController(
+  state: AppState,
+  jobs: Jobs,
+  onboarding: Onboarding,
+) {
   const employer = jobs.employers.find((item) => item.id === state.selectedCompanyId) ?? null;
   const selection = useCompanySelection({
     setSources: state.setSources,
@@ -57,8 +64,8 @@ export function useCompaniesWorkspaceController(state: AppState, jobs: Jobs) {
     setSourceUrl: state.setSourceUrl,
     editingSourceId: state.editingSourceId,
     setEditingSourceId: state.setEditingSourceId,
-    inspection: jobs.inspection,
-    setInspection: jobs.setInspection,
+    inspection: onboarding.inspection,
+    setInspection: onboarding.setInspection,
     setSaving: state.setSaving,
     onError: state.setError,
     onNotice: state.setNotice,
