@@ -30,11 +30,11 @@ Ashby separately documents [Dedicated Partner Job Feeds](https://developers.ashb
 
 The repository identifies these board slugs:
 
-| Employer | Board slug | API response |
-| --- | --- | --- |
-| Midnite | `midnite` | Not retrieved |
-| MyEdSpace | `myedspacecareers` | Not retrieved |
-| Tree Traction | `treetraction` | Not retrieved |
+| Employer      | Board slug         | API response  |
+| ------------- | ------------------ | ------------- |
+| Midnite       | `midnite`          | Not retrieved |
+| MyEdSpace     | `myedspacecareers` | Not retrieved |
+| Tree Traction | `treetraction`     | Not retrieved |
 
 Direct requests to all three documented API URLs were attempted from the available web and command-line environments. The web requests were inaccessible and the command-line request failed DNS resolution. No response bodies, job counts or individual job records were obtained.
 
@@ -42,18 +42,18 @@ A secondary technical article reports an `id` field in observed Ashby responses,
 
 ## Field mapping proposal — pending live evidence
 
-| Ashby field | Scout field | Rule |
-| --- | --- | --- |
-| `id` | `external_job_id` | Use only if present, non-empty and stable across repeated reads. |
-| `title` | `title` | Required; reject malformed records. |
-| `descriptionPlain` / `descriptionHtml` | `description` | Prefer plain text; preserve raw payload. |
-| `location` and `address` | `location_text` | Verify how secondary locations should be represented. |
-| `department` / `team` | `department` | Confirm a deterministic preference. |
-| `jobUrl` | source vacancy URL | Validate exact destination and URL shape. |
-| `applyUrl` | `application_url` | Required; validate destination. |
-| `publishedAt` | `published_at` | Parse as timezone-aware ISO-8601. |
-| no documented update timestamp | `source_updated_at` | Leave null; do not substitute publication time. |
-| `isListed` | listing filter | Exclude records where explicitly false. |
+| Ashby field                            | Scout field         | Rule                                                             |
+| -------------------------------------- | ------------------- | ---------------------------------------------------------------- |
+| `id`                                   | `external_job_id`   | Use only if present, non-empty and stable across repeated reads. |
+| `title`                                | `title`             | Required; reject malformed records.                              |
+| `descriptionPlain` / `descriptionHtml` | `description`       | Prefer plain text; preserve raw payload.                         |
+| `location` and `address`               | `location_text`     | Verify how secondary locations should be represented.            |
+| `department` / `team`                  | `department`        | Confirm a deterministic preference.                              |
+| `jobUrl`                               | source vacancy URL  | Validate exact destination and URL shape.                        |
+| `applyUrl`                             | `application_url`   | Required; validate destination.                                  |
+| `publishedAt`                          | `published_at`      | Parse as timezone-aware ISO-8601.                                |
+| no documented update timestamp         | `source_updated_at` | Leave null; do not substitute publication time.                  |
+| `isListed`                             | listing filter      | Exclude records where explicitly false.                          |
 
 Do not derive an ID from a URL path unless the cohort evidence proves the path component is stable and unique. Do not treat a missing ID as a successful normalized vacancy.
 
