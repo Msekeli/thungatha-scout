@@ -80,4 +80,3 @@ def test_rejects_unknown_export_location_scope() -> None:
     with vacancy_client() as client:
         response = client.get("/api/v1/vacancies/export?location_scope=sweden")
     assert response.status_code == 422
-

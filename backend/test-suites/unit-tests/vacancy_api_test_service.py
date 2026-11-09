@@ -92,4 +92,3 @@ class FakeExtractionService:
 
     def list_all_extraction_runs(self):
         return [{"source_id": "source-1", "outcome": "success"}]
-

@@ -76,4 +76,3 @@ def test_employer_source_api_accepts_lever_configuration() -> None:
     assert response.status_code == 201
     assert response.json()["adapter_key"] == "lever"
     assert response.json()["permission_status"] == "unknown"
-

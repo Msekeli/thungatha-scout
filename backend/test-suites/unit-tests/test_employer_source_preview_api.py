@@ -10,13 +10,15 @@ def test_source_preview_is_saved_without_approving_source() -> None:
     service.employers.append({"id": str(employer_id), "name": "Example"})
     preview = {
         "total_vacancies": 12,
-        "jobs": [{
-            "id": "job-1",
-            "title": "Software Engineer",
-            "absolute_url": "https://jobs.example.com/job-1",
-            "location": {"name": "Cape Town"},
-            "content": "Build software.",
-        }],
+        "jobs": [
+            {
+                "id": "job-1",
+                "title": "Software Engineer",
+                "absolute_url": "https://jobs.example.com/job-1",
+                "location": {"name": "Cape Town"},
+                "content": "Build software.",
+            }
+        ],
     }
     with client_for(get_employer_service, service) as client:
         response = client.post(
