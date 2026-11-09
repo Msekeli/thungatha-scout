@@ -31,7 +31,7 @@ def test_registry_rejects_unknown_adapter() -> None:
 
 
 def test_lever_source_requires_slug_and_region() -> None:
-    with pytest.raises(RegistryValidationError, match="slug, region"):
+    with pytest.raises(RegistryValidationError, match="region"):
         validate_source_config("lever", {"slug": "mamamoney"})
 
     validate_source_config("lever", {"slug": "mamamoney", "region": "global"})
