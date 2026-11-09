@@ -28,22 +28,22 @@ The separate Lever API at `/v1` is authenticated and exposes customer hiring dat
 
 The official Postings API schema documents:
 
-| Lever field | Scout field | Mapping rule |
-|---|---|---|
-| `id` | `external_job_id` | Required stable posting identifier; validate uniqueness across pages. |
-| `text` | `title` | Required job title. |
-| `descriptionPlain` | `description` | Prefer complete plain-text description. Preserve raw payload. |
-| `description` | raw description | Styled HTML alternative; preserve as received. |
-| `categories.location` | `location_text` | Primary location. |
-| `categories.allLocations` | `location_text` | Preserve multiple locations; define deterministic normalized formatting. |
-| `categories.department` / `team` | `department` | Map only when populated. |
-| `country` | country metadata | ISO 3166-1 alpha-2 country code; retain in raw payload unless the normalized contract has a matching field. |
-| `hostedUrl` | source vacancy URL | Validate exact posting destination. |
-| `applyUrl` | `application_url` | Validate exact vacancy-specific application destination. |
-| `workplaceType` | raw/workplace metadata | Values documented as unspecified, on-site, remote or hybrid. |
-| `salaryRange`, `salaryDescription` | compensation metadata | Optional; preserve without making it a required field. |
-| no documented publication timestamp | `published_at` | Leave null; do not infer a date from search indexing or page appearance. |
-| no documented source-update timestamp | `source_updated_at` | Leave null; do not substitute another timestamp. |
+| Lever field                           | Scout field            | Mapping rule                                                                                                |
+| ------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `id`                                  | `external_job_id`      | Required stable posting identifier; validate uniqueness across pages.                                       |
+| `text`                                | `title`                | Required job title.                                                                                         |
+| `descriptionPlain`                    | `description`          | Prefer complete plain-text description. Preserve raw payload.                                               |
+| `description`                         | raw description        | Styled HTML alternative; preserve as received.                                                              |
+| `categories.location`                 | `location_text`        | Primary location.                                                                                           |
+| `categories.allLocations`             | `location_text`        | Preserve multiple locations; define deterministic normalized formatting.                                    |
+| `categories.department` / `team`      | `department`           | Map only when populated.                                                                                    |
+| `country`                             | country metadata       | ISO 3166-1 alpha-2 country code; retain in raw payload unless the normalized contract has a matching field. |
+| `hostedUrl`                           | source vacancy URL     | Validate exact posting destination.                                                                         |
+| `applyUrl`                            | `application_url`      | Validate exact vacancy-specific application destination.                                                    |
+| `workplaceType`                       | raw/workplace metadata | Values documented as unspecified, on-site, remote or hybrid.                                                |
+| `salaryRange`, `salaryDescription`    | compensation metadata  | Optional; preserve without making it a required field.                                                      |
+| no documented publication timestamp   | `published_at`         | Leave null; do not infer a date from search indexing or page appearance.                                    |
+| no documented source-update timestamp | `source_updated_at`    | Leave null; do not substitute another timestamp.                                                            |
 
 The public list schema documents a unique posting ID and full description fields, but it does not document publication or source-update timestamps. Do not invent either value.
 
@@ -51,11 +51,11 @@ The public list schema documents a unique posting ID and full description fields
 
 The repository's target cohort contains these Lever-hosted boards:
 
-| Employer | Site slug | Careers board | Current board evidence |
-|---|---|---|---|
-| Mama Money | `mamamoney` | https://jobs.lever.co/mamamoney | Search-indexed board content includes Cape Town roles such as Recon & FinOps Manager and System Administrator. |
-| Theodo | `theodo` | https://jobs.lever.co/theodo | Search-indexed board content includes Software Engineer roles in Cape Town under Theodo UK. |
-| Wing Assistant | `getwingapp` | https://jobs.lever.co/getwingapp | Search-indexed board content includes Cape Town and South Africa remote vacancies. |
+| Employer       | Site slug    | Careers board                    | Current board evidence                                                                                         |
+| -------------- | ------------ | -------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Mama Money     | `mamamoney`  | https://jobs.lever.co/mamamoney  | Search-indexed board content includes Cape Town roles such as Recon & FinOps Manager and System Administrator. |
+| Theodo         | `theodo`     | https://jobs.lever.co/theodo     | Search-indexed board content includes Software Engineer roles in Cape Town under Theodo UK.                    |
+| Wing Assistant | `getwingapp` | https://jobs.lever.co/getwingapp | Search-indexed board content includes Cape Town and South Africa remote vacancies.                             |
 
 These observations confirm that the public boards contain vacancy listings and relevant South African/Cape Town examples. They do not establish API response counts, pagination completeness or exact JSON field values.
 
