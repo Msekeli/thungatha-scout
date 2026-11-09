@@ -52,12 +52,15 @@ class SourceExtractionService(VacancyManagementService):
         adapter_factory = self._adapter_factories.get(source["adapter_key"])
         if adapter_factory is None:
             raise UnsupportedAdapterError("No adapter is registered for this source.")
-        result = await retrieve_adapter_result(adapter_factory(), source["adapter_config"])
+        result = await retrieve_adapter_result(
+            adapter_factory(), source["adapter_config"]
+        )
         jobs = [
             {
                 "id": vacancy.external_job_id,
                 "title": vacancy.title,
-                "absolute_url": vacancy.raw_payload.get("hostedUrl") or vacancy.application_url,
+                "absolute_url": vacancy.raw_payload.get("hostedUrl")
+                or vacancy.application_url,
                 "location": {"name": vacancy.location_text},
                 "content": vacancy.description,
             }
