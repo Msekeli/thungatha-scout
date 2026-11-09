@@ -21,6 +21,13 @@ export function CompanyDirectoryCard({
   selected,
   onSelect,
 }: Props) {
+  const previewCount = sources.reduce(
+    (total, source) =>
+      Math.max(total, source.discovery_preview?.total_vacancies ?? 0),
+    0,
+  );
+  const displayedJobs = currentJobs > 0 ? currentJobs : previewCount;
+  const jobLabel = currentJobs > 0 ? "current" : "discovered";
   const iconUrl =
     employer.logo_url ||
     getCompanyIconUrl(
@@ -77,7 +84,7 @@ export function CompanyDirectoryCard({
           </strong>
           <span className="mt-1 flex items-center gap-1.5 text-xs scout-company-card__meta">
             <BriefcaseBusiness className="h-3.5 w-3.5 shrink-0" />
-            {currentJobs} current {currentJobs === 1 ? "job" : "jobs"}
+            {displayedJobs} {jobLabel} {displayedJobs === 1 ? "job" : "jobs"}
           </span>
         </span>
       </Button>
