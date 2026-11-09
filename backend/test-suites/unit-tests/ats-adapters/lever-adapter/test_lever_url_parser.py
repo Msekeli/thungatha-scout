@@ -1,9 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from scout.main import app
-
 from scout.ats_adapters.lever_adapter.lever_url_parser import parse_lever_board_url
+from scout.main import app
 
 
 @pytest.mark.parametrize(
