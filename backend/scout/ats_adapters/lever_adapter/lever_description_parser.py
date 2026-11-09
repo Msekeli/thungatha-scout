@@ -1,9 +1,10 @@
-from html.parser import HTMLParser
 import re
+from html.parser import HTMLParser
+from typing import ClassVar
 
 
 class LeverDescriptionParser(HTMLParser):
-    BLOCK_TAGS = {"p", "div", "br", "li", "h1", "h2", "h3", "h4"}
+    BLOCK_TAGS: ClassVar[set[str]] = {"p", "div", "br", "li", "h1", "h2", "h3", "h4"}
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
