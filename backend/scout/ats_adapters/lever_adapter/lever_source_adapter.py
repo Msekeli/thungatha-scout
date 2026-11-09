@@ -18,7 +18,7 @@ class LeverSourceAdapter:
         slug = source_config.get("slug")
         region = source_config.get("region")
         if not isinstance(slug, str) or not isinstance(region, str):
-            raise ValueError("Lever source configuration requires slug and region.")
+            raise TypeError("Lever source configuration requires string slug and region.")
         result = await self._client.retrieve(slug, region)
         vacancies = []
         mapping_errors = 0
