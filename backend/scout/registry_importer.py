@@ -34,9 +34,7 @@ def import_employer_registry(
     connection_factory: Callable[[], Connection] = get_database_connection,
     registry_path: Path | None = None,
 ) -> dict[str, int]:
-    path = registry_path or (
-        REGISTRY_DIRECTORY / "employer-source-registry.json"
-    )
+    path = registry_path or (REGISTRY_DIRECTORY / "employer-source-registry.json")
     registry = json.loads(path.read_text(encoding="utf-8"))
     with connection_factory() as connection, connection.transaction():
         return import_registry(registry, connection)
