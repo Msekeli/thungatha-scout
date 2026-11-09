@@ -13,28 +13,25 @@ def map_lever_posting(job: Mapping[str, Any]) -> NormalizedVacancy:
     locations = categories.get("allLocations")
     if not isinstance(locations, list) or not locations:
         locations = [categories.get("location")]
-    location_text = (
-        ", ".join(
-            value.strip()
-            for value in locations
-            if isinstance(value, str) and value.strip()
-        )
-        or None
-    )
+    location_text = ", ".join(
+        value.strip() for value in locations
+        if isinstance(value, str) and value.strip()
+    ) or None
     department = categories.get("department")
     description = extract_lever_description(
         job.get("descriptionPlain"), job.get("description")
     )
     application_url = job.get("applyUrl")
+    hosted_url = job.get("hostedUrl")
     title = job.get("text")
     job_id = job.get("id")
-    if not all(
-        isinstance(value, str) and value.strip()
-        for value in (job_id, title, application_url)
-    ):
-        raise ValueError("Lever posting is missing its ID, title or apply URL.")
+    required = (job_id, title, application_url, hosted_url)
+    if not all(isinstance(value, str) and value.strip() for value in required):
+        raise ValueError("Lever posting is missing its ID, title or job URLs.")
     if not application_url.startswith(("https://", "http://")):
         raise ValueError("Lever application URL must be absolute.")
+    if not hosted_url.startswith(("https://", "http://")):
+        raise ValueError("Lever hosted URL must be absolute.")
     return NormalizedVacancy(
         external_job_id=job_id,
         title=title.strip(),
