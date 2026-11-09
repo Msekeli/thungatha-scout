@@ -1,6 +1,6 @@
 # M4 — First-Wave ATS Adapter Expansion
 
-**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A is next  
+**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A implementation committed, local verification pending  
 **Scope:** Six first-wave ATS adapters only: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable.  
 **Checkpoint model:** Twelve checkpoints total — one A and one B for each adapter.
 
@@ -78,7 +78,7 @@ Each adapter has exactly two checkpoints. Complete A before B, and complete/revi
 | Order | Adapter    | Checkpoint A — investigate, design, implement  | Checkpoint B — integrate, verify | Employer test cohort and investigation focus                                                                                                                                            |
 | ----: | ---------- | ---------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |     1 | Ashby      | **Deferred — enquiry sent; awaiting response** | **Deferred**                     | Midnite, MyEdSpace, Tree Traction. Reopen only after Ashby confirms partner-feed eligibility, feed access and employer opt-in requirements; see the Ashby investigation report.         |
-|     2 | Lever      | **In progress — M4-LEVER-A**                   | **M4-LEVER-B**                   | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
+|     2 | Lever      | **In progress — implementation committed; local verification pending** | **M4-LEVER-B**                   | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
 |     3 | Teamtailor | **M4-TEAMTAILOR-A**                            | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
 |     4 | Personio   | **M4-PERSONIO-A**                              | **M4-PERSONIO-B**                | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
 |     5 | Recruitee  | **M4-RECRUITEE-A**                             | **M4-RECRUITEE-B**               | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
@@ -102,3 +102,23 @@ Lever's official Postings API documentation states that published postings are p
 - Failed or partial extraction cannot imply that vacancies disappeared or expired.
 - All handwritten source-code files and tests remain within the 100-line limit.
 - The user reviews each checkpoint before work proceeds to the next checkpoint.
+
+
+## Lever M4-LEVER-A implementation update — 9 November 2026
+
+Live local requests verified 513 postings across Mama Money (7), Theodo (131) and Wing Assistant (375), with 513 unique IDs, no missing IDs, 11 Cape Town matches, and exact job/application URLs. Pagination completed with short final pages on all three boards.
+
+Wing Assistant has 56 records without `descriptionPlain`; the Cape Town Inside Sales Manager record was verified to contain a 1,362-character HTML description in both list and detail responses. The adapter prefers plain text and falls back to standard-library HTML-to-text extraction. If both are absent, description remains null for shared completeness gates. The raw provider payload is retained.
+
+Implementation files:
+- `backend/scout/ats_adapters/lever_adapter/lever_source_adapter.py`
+- `backend/scout/ats_adapters/lever_adapter/lever_postings_client.py`
+- `backend/scout/ats_adapters/lever_adapter/lever_postings_contracts.py`
+- `backend/scout/ats_adapters/lever_adapter/lever_response_mapper.py`
+- `backend/scout/ats_adapters/lever_adapter/lever_description_parser.py`
+- `backend/scout/ats_adapters/lever_adapter/lever_vacancy_mapper.py`
+- Focused unit tests in `backend/test-suites/unit-tests/ats-adapters/lever-adapter/`
+
+The adapter uses explicit `slug` and `region` configuration; current targets use the global host. It leaves `published_at` and `source_updated_at` null because the observed `createdAt` field is undocumented and its semantics are not established. Registry activation and registration in the shared extraction service are reserved for checkpoint B.
+
+**Verification status:** Tests and mandatory repository checks have not yet been run in the user's local checkout. M4-LEVER-A remains in progress until those checks are run and the user reviews the implementation. Do not begin M4-LEVER-B before that review.
