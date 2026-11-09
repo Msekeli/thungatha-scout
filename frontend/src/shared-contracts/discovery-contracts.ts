@@ -1,12 +1,12 @@
 export type InspectionJob = {
-  id: number;
+  id: string | number;
   title: string;
-  absolute_url: string;
-  location?: { name?: string };
-  content?: string;
+  absolute_url?: string | null;
+  location?: { name?: string | null };
+  content?: string | null;
 };
 
-export type GreenhouseInspection = {
+export type SourceInspection = {
   outcome: string;
   board_token: string;
   board_name: string | null;
@@ -15,13 +15,19 @@ export type GreenhouseInspection = {
   complete: boolean;
   detail: string | null;
   source_url: string;
+  detected_adapter: "greenhouse" | "lever";
+  adapter_config: Record<string, string>;
+  total_vacancies?: number | null;
 };
+
+export type GreenhouseInspection = SourceInspection;
 
 export type CareersDiscovery = {
   careers_url: string;
   board_url: string;
   board_token: string;
-  board_name: string;
-  detected_adapter: "greenhouse";
+  board_name: string | null;
+  detected_adapter: "greenhouse" | "lever";
+  adapter_config: Record<string, string>;
   company_name: string;
 };
