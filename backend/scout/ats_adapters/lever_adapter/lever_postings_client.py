@@ -13,11 +13,14 @@ from scout.ats_adapters.lever_adapter.lever_response_mapper import (
 
 class LeverPostingsClient:
     def __init__(
-        self, client: httpx.AsyncClient | None = None,
-        page_size: int = 100, max_pages: int = 100,
+        self,
+        client: httpx.AsyncClient | None = None,
+        page_size: int = 100,
+        max_pages: int = 100,
     ) -> None:
         self._client = client or httpx.AsyncClient(
-            timeout=30.0, follow_redirects=False,
+            timeout=30.0,
+            follow_redirects=False,
             headers={"Accept": "application/json"},
         )
         self._owns_client = client is None
@@ -44,9 +47,14 @@ class LeverPostingsClient:
             page = response
             for job in page:
                 job_id = job.get("id")
-                if not isinstance(job_id, str) or not job_id.strip() or job_id in seen_ids:
+                if (
+                    not isinstance(job_id, str)
+                    or not job_id.strip()
+                    or job_id in seen_ids
+                ):
                     return partial_response(
-                        jobs, page_number + 1,
+                        jobs,
+                        page_number + 1,
                         "Lever returned a missing or duplicate posting ID.",
                     )
                 seen_ids.add(job_id)
@@ -55,7 +63,8 @@ class LeverPostingsClient:
                 outcome = "success" if jobs else "empty"
                 return LeverPostingsResponse(outcome, jobs, page_number + 1, True)
         return partial_response(
-            jobs, self._max_pages,
+            jobs,
+            self._max_pages,
             "Lever pagination reached the configured page limit.",
         )
 
@@ -73,7 +82,9 @@ class LeverPostingsClient:
             )
         except (httpx.TimeoutException, httpx.TransportError):
             return partial_response(
-                jobs, page_number, "Lever request failed or timed out.",
+                jobs,
+                page_number,
+                "Lever request failed or timed out.",
                 "transient_failure",
             )
         failure = map_http_failure(response, jobs, page_number)
@@ -87,7 +98,9 @@ class LeverPostingsClient:
             )
         if not isinstance(page, list) or not all(isinstance(x, dict) for x in page):
             return partial_response(
-                jobs, page_number,
-                "Lever postings response must be a JSON array.", "malformed",
+                jobs,
+                page_number,
+                "Lever postings response must be a JSON array.",
+                "malformed",
             )
         return page
