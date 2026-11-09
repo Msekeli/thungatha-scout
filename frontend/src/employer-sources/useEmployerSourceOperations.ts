@@ -2,7 +2,7 @@ import type { FormEvent, Dispatch, SetStateAction } from "react";
 import { scoutApi } from "../api";
 import type { Employer, EmployerSource, SourceInspection } from "../api";
 
-type UseEmployerSourceOperationsOptions = {
+type Options = {
   employer: Employer | null;
   setSources: Dispatch<SetStateAction<EmployerSource[]>>;
   sourceUrl: string;
@@ -17,22 +17,12 @@ type UseEmployerSourceOperationsOptions = {
 };
 
 export function useEmployerSourceOperations({
-  employer,
-  setSources,
-  sourceUrl,
-  setSourceUrl,
-  editingSourceId,
-  setEditingSourceId,
-  inspection,
-  setInspection,
-  setSaving,
-  onError,
-  onNotice,
-}: UseEmployerSourceOperationsOptions) {
+  employer, setSources, sourceUrl, setSourceUrl, editingSourceId, setEditingSourceId,
+  inspection, setInspection, setSaving, onError, onNotice,
+}: Options) {
   async function saveSource(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!employer) return;
-
     setSaving(true);
     onError("");
     try {
@@ -42,24 +32,17 @@ export function useEmployerSourceOperations({
         normalized_url: inspection?.board_url ?? sourceUrl,
         adapter_config: inspection?.adapter_config ?? {},
       };
-
       if (editingSourceId) {
         await scoutApi.updateSource(employer.id, editingSourceId, payload);
         setSources(await scoutApi.listSources(employer.id));
-        onNotice(
-          "Source configuration updated. Its verification and permission states were preserved.",
-        );
+        onNotice("Source configuration updated.");
       } else {
         const created = await scoutApi.createSource(employer.id, {
-          ...payload,
-          employer_careers_url: employer.website_url ?? null,
+          ...payload, employer_careers_url: employer.website_url ?? null,
         });
         setSources((current) => [...current, created]);
-        onNotice(
-          `${inspection?.detected_adapter ?? "Recruitment"} source registered. Verification and permission remain pending.`,
-        );
+        onNotice(`${inspection?.detected_adapter ?? "Recruitment"} source registered.`);
       }
-
       setEditingSourceId(null);
       setSourceUrl("");
       setInspection(null);
@@ -69,6 +52,5 @@ export function useEmployerSourceOperations({
       setSaving(false);
     }
   }
-
   return { saveSource };
 }
