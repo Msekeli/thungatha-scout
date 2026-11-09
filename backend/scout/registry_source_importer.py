@@ -26,7 +26,8 @@ def import_employer_sources(
         source_url = source["official_source_url"]
         existing = connection.execute(
             """
-            SELECT id, employer_id, adapter_key, source_url, adapter_config
+            SELECT id, employer_id, adapter_key, source_url, adapter_config,
+                   employer_careers_url
             FROM employer_sources WHERE normalized_url = %s
             """,
             (source_url,),
@@ -43,9 +44,12 @@ def import_employer_sources(
             changed = (
                 existing["source_url"] != source_url
                 or existing["adapter_config"] != config
+                or existing.get("employer_careers_url") != careers_url
             )
             if changed:
-                update_source(connection, existing["id"], source_url, config)
+                update_source(
+                    connection, existing["id"], source_url, config, careers_url
+                )
                 counts["sources_updated"] += 1
             continue
 
@@ -63,7 +67,10 @@ def import_employer_sources(
                 f"for employer: {item['name']}"
             )
         if matches:
-            update_source(connection, matches[0]["id"], source_url, config, True)
+            update_source(
+                connection, matches[0]["id"], source_url, config,
+                careers_url, update_normalized_url=True,
+            )
             counts["sources_updated"] += 1
             continue
         create_source(source, employer, careers_url, connection)
