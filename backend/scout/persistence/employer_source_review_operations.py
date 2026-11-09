@@ -4,6 +4,23 @@ from uuid import UUID
 
 
 class EmployerSourceReviewOperations:
+    def update_discovery_preview(
+        self,
+        source_id: UUID,
+        preview: Mapping[str, Any],
+    ) -> dict[str, Any] | None:
+        from psycopg.types.json import Jsonb
+
+        return self._connection.execute(
+            """
+            UPDATE employer_sources
+            SET discovery_preview = %s, last_checked_at = NOW(), updated_at = NOW()
+            WHERE id = %s
+            RETURNING *
+            """,
+            (Jsonb(preview), source_id),
+        ).fetchone()
+
     def update_review(
         self,
         employer_id: UUID,
