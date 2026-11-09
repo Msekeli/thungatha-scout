@@ -53,7 +53,6 @@ class DiscoveryPreviewJob(BaseModel):
     title: str = Field(min_length=1, max_length=300)
     absolute_url: HttpUrl | None = None
     location: dict[str, str | None] | None = None
-    content: str | None = Field(default=None, max_length=30000)
 
 
 class SourceDiscoveryPreview(BaseModel):
