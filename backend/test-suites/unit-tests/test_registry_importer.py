@@ -82,4 +82,3 @@ def test_registry_import_skips_unsupported_only_employers() -> None:
     assert result["employers_created"] == 0
     assert result["sources_created"] == 0
     assert result["sources_skipped"] == 1
-
