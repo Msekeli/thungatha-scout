@@ -40,8 +40,6 @@ class ATSAdapterResult:
 
 
 class ATSAdapter(Protocol):
-    async def retrieve(
-        self, source_config: Mapping[str, Any]
-    ) -> ATSAdapterResult: ...
+    async def retrieve(self, source_config: Mapping[str, Any]) -> ATSAdapterResult: ...
 
     async def close(self) -> None: ...

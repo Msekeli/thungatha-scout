@@ -23,9 +23,7 @@ class VacancyIngestionOperations:
                     (source_id, vacancy.external_job_id),
                 )
                 continue
-            raw = json.dumps(
-                vacancy.raw_payload, sort_keys=True, separators=(",", ":")
-            )
+            raw = json.dumps(vacancy.raw_payload, sort_keys=True, separators=(",", ":"))
             fingerprint = hashlib.sha256(raw.encode()).hexdigest()
             values = map_normalized_vacancy(
                 employer_id, source_id, source_url, vacancy, fingerprint

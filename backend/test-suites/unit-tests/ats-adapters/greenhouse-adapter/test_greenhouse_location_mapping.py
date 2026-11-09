@@ -37,7 +37,5 @@ def test_distinct_office_locations_are_preserved():
 
 
 def test_specific_job_location_is_not_replaced_by_office_label():
-    mapped = map_job(
-        {"name": "Cape Town"}, [{"name": "Cape Town Office"}]
-    )
+    mapped = map_job({"name": "Cape Town"}, [{"name": "Cape Town Office"}])
     assert mapped.location_text == "Cape Town"

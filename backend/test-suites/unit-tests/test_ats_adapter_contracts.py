@@ -24,7 +24,10 @@ def test_normalized_vacancy_has_provider_independent_fields() -> None:
 
 def test_adapter_result_distinguishes_empty_from_failure() -> None:
     result = ATSAdapterResult(
-        outcome="empty", vacancies=[], pages_fetched=1, complete=True,
+        outcome="empty",
+        vacancies=[],
+        pages_fetched=1,
+        complete=True,
         total_vacancies=0,
     )
 

@@ -58,21 +58,31 @@ class SourceExtractionService(VacancyManagementService):
                 inserted = updated = 0
                 if result.vacancies:
                     inserted, updated = VacancyRepository(connection).upsert_batch(
-                        source["employer_id"], source_id, source["source_url"],
+                        source["employer_id"],
+                        source_id,
+                        source["source_url"],
                         result.vacancies,
                     )
                 return ExtractionRunRepository(connection).finish(
-                    run_id=run_id, outcome=result.outcome,
-                    received=len(result.vacancies), inserted=inserted,
-                    updated=updated, complete=result.complete, detail=result.detail,
+                    run_id=run_id,
+                    outcome=result.outcome,
+                    received=len(result.vacancies),
+                    inserted=inserted,
+                    updated=updated,
+                    complete=result.complete,
+                    detail=result.detail,
                 )
         except Exception as exception:
             detail = f"Persistence failed ({type(exception).__name__}): {exception}"
             with self._connection_factory() as connection, connection.transaction():
                 return ExtractionRunRepository(connection).finish(
-                    run_id=run_id, outcome="persistence_failure",
-                    received=len(result.vacancies), inserted=0, updated=0,
-                    complete=False, detail=detail,
+                    run_id=run_id,
+                    outcome="persistence_failure",
+                    received=len(result.vacancies),
+                    inserted=0,
+                    updated=0,
+                    complete=False,
+                    detail=detail,
                 )
 
     def list_extraction_runs(self, source_id: UUID) -> list[dict[str, Any]]:
