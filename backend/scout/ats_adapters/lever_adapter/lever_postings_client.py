@@ -1,23 +1,14 @@
-from dataclasses import dataclass
 import re
-from typing import Any
 
 import httpx
 
-from scout.ats_adapters.ats_adapter_contracts import AdapterOutcome
+from scout.ats_adapters.lever_adapter.lever_postings_contracts import (
+    LeverPostingsResponse,
+)
 from scout.ats_adapters.lever_adapter.lever_response_mapper import (
     map_http_failure,
     partial_response,
 )
-
-
-@dataclass(frozen=True)
-class LeverPostingsResponse:
-    outcome: AdapterOutcome
-    jobs: list[dict[str, Any]]
-    pages_fetched: int
-    complete: bool
-    detail: str | None = None
 
 
 class LeverPostingsClient:
