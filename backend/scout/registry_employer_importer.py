@@ -16,7 +16,7 @@ def import_employer(
         """,
         (item["name"],),
     ).fetchone()
-    careers_url = item.get("careers_url")
+    careers_url = item.get("website_url") or item.get("careers_url")
     existing_url = (employer.get("website_url") or "").strip() if employer else ""
     if existing_url and careers_url and existing_url != careers_url:
         raise ValueError(
