@@ -31,7 +31,8 @@ class LeverSourceAdapter:
         complete = result.complete
         detail = result.detail
         if mapping_errors:
-            outcome = "partial"
+            if outcome in {"success", "empty"}:
+                outcome = "partial"
             complete = False
             detail = f"{mapping_errors} Lever postings failed normalization."
         return ATSAdapterResult(
