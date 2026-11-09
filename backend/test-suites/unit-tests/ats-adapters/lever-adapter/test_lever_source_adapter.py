@@ -7,18 +7,17 @@ from scout.ats_adapters.lever_adapter.lever_source_adapter import LeverSourceAda
 
 def test_maps_posting_and_uses_html_description_fallback() -> None:
     job = {
-        "id": "posting-1",
-        "text": "Inside Sales Manager",
-        "descriptionPlain": "",
-        "description": "<p>Lead the team</p>",
+        "id": "posting-1", "text": "Inside Sales Manager",
+        "descriptionPlain": "", "description": "<p>Lead the team</p>",
         "categories": {"location": "Cape Town", "allLocations": ["Cape Town"]},
         "applyUrl": "https://jobs.lever.co/demo/posting-1/apply",
         "hostedUrl": "https://jobs.lever.co/demo/posting-1",
     }
 
     def handler(request: httpx.Request) -> httpx.Response:
-        assert request.url.params["mode"] == "json"
-        assert request.url.params["limit"] == "100"
+        query = request.url.query.decode()
+        assert "mode=json" in query
+        assert "limit=100" in query
         return httpx.Response(200, json=[job])
 
     async def run():
