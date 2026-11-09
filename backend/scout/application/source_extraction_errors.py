@@ -4,7 +4,3 @@ class SourceNotFoundError(LookupError):
 
 class UnsupportedAdapterError(ValueError):
     """Raised when a source references an unavailable adapter."""
-
-
-class SourceNotApprovedError(PermissionError):
-    """Raised when extraction is requested before source approval."""
