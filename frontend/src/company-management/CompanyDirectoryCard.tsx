@@ -77,7 +77,7 @@ export function CompanyDirectoryCard({
               }}
             />
           ) : null}
-          <Building2 className="h-5 w-5" hidden={Boolean(iconUrl)} />
+          {!iconUrl && <Building2 className="h-5 w-5" />}
         </span>
         <span className="min-w-0 flex-1">
           <strong className="block truncate text-sm font-semibold scout-company-card__name">
