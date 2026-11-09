@@ -24,8 +24,23 @@ def test_parse_lever_board_url(url: str, slug: str, region: str) -> None:
         "https://lever.co/mamamoney",
         "https://jobs.lever.co/",
         "https://jobs.lever.co/a/b/c",
+        "https://jobs.lever.co:8443/mamamoney",
+        "https://user@jobs.lever.co/mamamoney",
     ],
 )
 def test_reject_invalid_lever_board_urls(url: str) -> None:
     with pytest.raises(ValueError):
         parse_lever_board_url(url)
+
+
+
+def test_lever_discovery_returns_configuration_without_retrieving_jobs() -> None:
+    import asyncio
+
+    from scout.api.lever_routes import discover_lever_source
+
+    result = asyncio.run(discover_lever_source("https://jobs.lever.co/mamamoney"))
+
+    assert result["detected_adapter"] == "lever"
+    assert result["adapter_config"] == {"slug": "mamamoney", "region": "global"}
+    assert result["board_url"] == "https://jobs.lever.co/mamamoney"
