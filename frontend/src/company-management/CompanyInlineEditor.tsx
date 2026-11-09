@@ -25,11 +25,11 @@ export function CompanyInlineEditor({ employer, saving, onSave, onCancel }: Prop
     onSave({
       name: String(data.get("name") ?? "").trim(),
       website_url: String(data.get("website_url") ?? "").trim() || null,
-      legal_name: employer.legal_name,
+      legal_name: employer.legal_name ?? null,
       organization_type: employer.organization_type,
-      city: employer.city,
-      province: employer.province,
-      country: employer.country,
+      city: employer.city ?? null,
+      province: employer.province ?? null,
+      country: employer.country ?? null,
     });
   };
 
