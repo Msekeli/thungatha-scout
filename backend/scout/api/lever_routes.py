@@ -34,6 +34,7 @@ async def inspect_lever_board(source_url: str) -> dict:
         "complete": result.complete,
         "detail": result.detail,
         "source_url": source_url,
+        "careers_url": source_url,
         "board_url": board_url,
         "detected_adapter": "lever",
         "adapter_config": config,
@@ -57,7 +58,7 @@ async def discover_lever_source(
     return {
         key: result[key]
         for key in (
-            "source_url", "board_url", "board_token", "board_name",
+            "source_url", "careers_url", "board_url", "board_token", "board_name",
             "detected_adapter", "adapter_config", "company_name",
         )
     }
