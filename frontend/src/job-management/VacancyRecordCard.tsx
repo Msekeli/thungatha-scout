@@ -60,7 +60,9 @@ export function VacancyRecordCard({
                   <MapPin aria-hidden="true" />
                   {vacancy.location_text || "Location unknown"}
                 </span>
-                <span className={`scout-vacancy-date ${freshness ? `scout-vacancy-date--${freshness.tone}` : ""}`}>
+                <span
+                  className={`scout-vacancy-date ${freshness ? `scout-vacancy-date--${freshness.tone}` : ""}`}
+                >
                   <CalendarDays aria-hidden="true" />
                   {freshness?.label ?? "Date unavailable"}
                 </span>
