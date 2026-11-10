@@ -187,6 +187,201 @@
           "notes": "Custom-domain public RSS feed retrieved on 10 November 2026; default first 100 and offset pagination verified. M4 technical test target; pending administrator verification and activation."
         }
       ]
+    },
+    {
+      "employer_id": "biovac",
+      "name": "Biovac",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://biovac.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "biovac_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://biovac.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://biovac.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ],
+      "website_url": "https://www.biovac.co.za/"
+    },
+    {
+      "employer_id": "approvalmax",
+      "name": "ApprovalMax",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://approvalmax.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "approvalmax_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://approvalmax.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://approvalmax.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ],
+      "website_url": "https://approvalmax.com/"
+    },
+    {
+      "employer_id": "scissero",
+      "name": "Scissero",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://scissero.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "scissero_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://scissero.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://scissero.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ],
+      "website_url": "https://scissero.com/"
+    },
+    {
+      "employer_id": "atomos_wealth",
+      "name": "Atomos Wealth",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://atomoswealth.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "atomos_wealth_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://atomoswealth.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://atomoswealth.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ],
+      "website_url": "https://atomos.co.uk/"
+    },
+    {
+      "employer_id": "ikue",
+      "name": "IKUE",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://ikue.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "ikue_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://ikue.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://ikue.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ],
+      "website_url": "https://ikue.io/"
+    },
+    {
+      "employer_id": "capago_international",
+      "name": "Capago International",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://capago.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "capago_international_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://capago.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://capago.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ],
+      "website_url": "https://www.capago.eu/"
+    },
+    {
+      "employer_id": "paystack",
+      "name": "Paystack",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://careers.paystack.com/jobs",
+      "sources": [
+        {
+          "source_id": "paystack_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://careers.paystack.com/jobs"
+          },
+          "official_source_url": "https://careers.paystack.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ],
+      "website_url": "https://paystack.com/"
+    },
+    {
+      "employer_id": "softswiss",
+      "name": "SOFTSWISS",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://softswiss.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "softswiss_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://softswiss.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://softswiss.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ],
+      "website_url": "https://www.softswiss.com/"
+    },
+    {
+      "employer_id": "eleven_investments",
+      "name": "11 Investments Ltd",
+      "organization_classification": "hybrid",
+      "careers_url": "https://11investmentsltd.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "eleven_investments_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://11investmentsltd.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://11investmentsltd.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ]
+    },
+    {
+      "employer_id": "chapter2",
+      "name": "Chapter 2",
+      "organization_classification": "recruitment_agency",
+      "careers_url": "https://chapter2.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "chapter2_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://chapter2.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://chapter2.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ]
+    },
+    {
+      "employer_id": "clicks_talent",
+      "name": "Clicks Talent",
+      "organization_classification": "other",
+      "careers_url": "https://clickstalentbv-1749060007.teamtailor.com/jobs",
+      "sources": [
+        {
+          "source_id": "clicks_talent_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://clickstalentbv-1749060007.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://clickstalentbv-1749060007.teamtailor.com/jobs",
+          "notes": "Teamtailor-hosted careers page identified; RSS feed for this additional employer has not yet been independently live-validated. Pending administrator verification and activation."
+        }
+      ]
     }
   ]
 }
