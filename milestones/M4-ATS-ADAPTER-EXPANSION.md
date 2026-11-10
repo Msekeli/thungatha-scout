@@ -211,3 +211,18 @@ GitHub Actions run `42797905496` completed successfully for implementation commi
 The repository formatting workflow completed successfully. The final documentation commit was checked by GitHub Actions run `42798126678`, which passed the backend suite, repository-quality checks, TypeScript typecheck and frontend production build. No Teamtailor code test currently depends on a live external feed. The three public RSS feeds were fetched manually by the user, and adapter behavior is covered by deterministic fixtures and mocked HTTP. A live end-to-end extraction from the running Scout API remains a post-pull validation step.
 
 **Checkpoint state:** M4-TEAMTAILOR-A and M4-TEAMTAILOR-B are implemented and automated checks are green, but remain **awaiting user review/acceptance**. The three employer source configurations remain pending administrator verification and activation. Do not start Personio until the user accepts this checkpoint pair.
+
+
+### Companies directory verification fix — 10 November 2026
+
+The user's local Companies screenshot showed that Teamtailor was missing from the ATS filter. The card renderer already had a Teamtailor label, but the toolbar filter options did not. Added the Teamtailor filter option.
+
+A second blocker was found while tracing why the registered Teamtailor test targets would not appear in the local directory after a registry import: the registry importer allowlist still excluded Teamtailor, and the database source-adapter CHECK constraint only allowed Greenhouse, Lever and Workday. Added Teamtailor to the importer allowlist and created migration `0011-add-teamtailor-adapter.sql`. The importer test now verifies a Teamtailor employer/source is imported.
+
+**Local verification steps after pulling:**
+
+1. Run `python -m scout.persistence.migration_runner` from `backend/` to apply migration 0011.
+2. Run `python -m scout.registry_importer` from `backend/` to import the three Teamtailor test targets as discovered records.
+3. Refresh Companies and select Teamtailor in the job-board filter. Root Platform, Footasylum and TeamViewer should then be listed, provided their records are not already present under conflicting normalized source URLs.
+
+The registry importer is repeat-safe. It does not approve employers or verify source permission; those states remain subject to the existing review workflow.

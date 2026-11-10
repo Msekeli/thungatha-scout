@@ -68,7 +68,7 @@ python -m scout.registry_importer
 ```
 
 The importer reads `registry/employer-source-registry.json` and supports the
-implemented Greenhouse, Lever and Workday adapters. Unsupported source adapters
+implemented Greenhouse, Lever, Teamtailor and Workday adapters. Unsupported source adapters
 are skipped and reported. The import is repeat-safe: existing employer names
 and normalized source URLs are matched rather than duplicated.
 

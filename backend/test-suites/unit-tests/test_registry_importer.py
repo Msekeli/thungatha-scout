@@ -32,6 +32,17 @@ def test_registry_import_is_repeat_safe_for_supported_adapters() -> None:
                 ],
             },
             {
+                "name": "Root Platform",
+                "careers_url": "https://root.teamtailor.com/jobs",
+                "sources": [
+                    {
+                        "ats": "teamtailor",
+                        "official_source_url": "https://root.teamtailor.com/jobs",
+                        "config": {"careers_url": "https://root.teamtailor.com/jobs"},
+                    }
+                ],
+            },
+            {
                 "name": "Mama Money",
                 "sources": [
                     {
@@ -47,9 +58,9 @@ def test_registry_import_is_repeat_safe_for_supported_adapters() -> None:
     first = import_registry(registry, connection)
     second = import_registry(registry, connection)
     assert first == {
-        "employers_created": 3,
+        "employers_created": 4,
         "employers_updated": 0,
-        "sources_created": 3,
+        "sources_created": 4,
         "sources_updated": 0,
         "sources_skipped": 0,
     }

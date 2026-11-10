@@ -6,7 +6,7 @@ from scout.registry_loader import validate_source_config
 from scout.registry_source_persistence import create_source, update_source
 
 
-SUPPORTED_IMPORT_ADAPTERS = {"greenhouse", "lever", "workday"}
+SUPPORTED_IMPORT_ADAPTERS = {"greenhouse", "lever", "teamtailor", "workday"}
 
 
 def import_employer_sources(
