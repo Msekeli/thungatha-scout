@@ -18,13 +18,18 @@ function getAgeLabel(age: number): string {
   return days + " " + (days === 1 ? "day" : "days") + " ago";
 }
 
-export function getVacancyFreshness(sourceUpdatedAt?: string | null, publishedAt?: string | null, now = Date.now()): VacancyFreshness | null {
+export function getVacancyFreshness(
+  sourceUpdatedAt?: string | null,
+  publishedAt?: string | null,
+  now = Date.now(),
+): VacancyFreshness | null {
   const updatedAt = parseTimestamp(sourceUpdatedAt);
   const effectiveDate = updatedAt ?? parseTimestamp(publishedAt);
   if (!effectiveDate) return null;
   const age = Math.max(0, now - effectiveDate.getTime());
   const days = Math.floor(age / 86_400_000);
-  const tone: VacancyFreshnessTone = days <= 7 ? "fresh" : days <= 14 ? "recent" : days <= 30 ? "aging" : "stale";
+  const tone: VacancyFreshnessTone =
+    days <= 7 ? "fresh" : days <= 14 ? "recent" : days <= 30 ? "aging" : "stale";
   return {
     dateLabel: (updatedAt ? "Updated " : "Posted ") + effectiveDate.toLocaleDateString(),
     ageLabel: getAgeLabel(age),
