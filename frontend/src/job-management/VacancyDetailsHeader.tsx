@@ -17,11 +17,9 @@ export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
             <MapPin className="h-3.5 w-3.5 text-scout-cyan" />
             {vacancy.location_text || "Location unknown"}
           </span>
-          <span
-            className={`scout-vacancy-date ${freshness ? `scout-vacancy-date--${freshness.tone}` : ""}`}
-          >
-            <CalendarDays className="h-3.5 w-3.5" />
-            {freshness?.label ?? "Date unavailable"}
+          <span className={`scout-vacancy-date ${freshness ? `scout-vacancy-date--${freshness.tone}` : ""}`}>
+            <CalendarDays className="h-3.5 w-3.5 text-muted-foreground" />
+            {freshness?.label ?? "Date not stated"}
           </span>
         </div>
         <div className="min-w-[260px] flex-1 border-l border-border pl-6">
