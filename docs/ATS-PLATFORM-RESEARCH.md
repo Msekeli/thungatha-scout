@@ -429,16 +429,15 @@ The order inside the hard group should be adjusted if verified employer-source e
 
 This is a technical platform assessment, not proof of a complete South African ATS customer census. Vendors generally do not publish a global customer directory. Several findings rely on observed public endpoints documented by independent engineering investigations rather than vendor-supported contracts. Such routes must be live-tested and rechecked before production. Company examples supplied as leads have deliberately not been promoted to verified mappings without official evidence.
 
-
 ## Teamtailor RSS live verification — 10 November 2026
 
 The three M4 employer test feeds were fetched directly with `curl` and parsed as RSS 2.0 XML:
 
-| Employer | Feed | Observed result |
-| --- | --- | --- |
-| Root Platform | `https://root.teamtailor.com/jobs.rss` | 3 items |
-| Footasylum | `https://footasylum.teamtailor.com/jobs.rss` | 80 items |
-| TeamViewer | `https://careers.teamviewer.com/jobs.rss` | Default first 100 items |
+| Employer      | Feed                                         | Observed result         |
+| ------------- | -------------------------------------------- | ----------------------- |
+| Root Platform | `https://root.teamtailor.com/jobs.rss`       | 3 items                 |
+| Footasylum    | `https://footasylum.teamtailor.com/jobs.rss` | 80 items                |
+| TeamViewer    | `https://careers.teamviewer.com/jobs.rss`    | Default first 100 items |
 
 The TeamViewer feed also returned two different vacancies for `?per_page=2` and `?offset=100&per_page=2`. This verifies that `offset` and `per_page` work on a custom careers domain. The overall TeamViewer vacancy total was not established; the default 100-item response must not be treated as the complete board.
 

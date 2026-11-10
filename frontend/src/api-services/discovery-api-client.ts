@@ -36,9 +36,7 @@ export const discoveryApiClient = {
       );
       const slug = result.board_token || new URL(url).pathname.split("/").filter(Boolean)[0] || "";
       const detectedName =
-        result.board_name?.trim() ||
-        result.company_name?.trim() ||
-        displayNameFromSlug(slug);
+        result.board_name?.trim() || result.company_name?.trim() || displayNameFromSlug(slug);
       return {
         ...result,
         board_name: result.board_name || detectedName,
@@ -55,18 +53,16 @@ export const discoveryApiClient = {
 
   inspectSource: async (url: string): Promise<SourceInspection> => {
     if (isLeverBoardUrl(url)) {
-      return request<SourceInspection>(
-        `/api/v1/lever/inspect?url=${encodeURIComponent(url)}`,
-      );
+      return request<SourceInspection>(`/api/v1/lever/inspect?url=${encodeURIComponent(url)}`);
     }
     try {
       return await request<SourceInspection>(
         `/api/v1/teamtailor/inspect?url=${encodeURIComponent(url)}`,
       );
     } catch {
-      const result = await request<
-        Omit<SourceInspection, "detected_adapter" | "adapter_config">
-      >(`/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`);
+      const result = await request<Omit<SourceInspection, "detected_adapter" | "adapter_config">>(
+        `/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`,
+      );
       return {
         ...result,
         detected_adapter: "greenhouse",

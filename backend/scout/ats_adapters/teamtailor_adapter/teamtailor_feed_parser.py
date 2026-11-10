@@ -33,7 +33,9 @@ def _validate_channel_link(value: str | None, careers_url: str) -> None:
     if actual.hostname != expected.hostname:
         raise NotTeamtailorFeedError("RSS feed belongs to a different careers site.")
     if actual.path.rstrip("/") != expected.path.rstrip("/"):
-        raise NotTeamtailorFeedError("RSS feed does not match the supplied careers URL.")
+        raise NotTeamtailorFeedError(
+            "RSS feed does not match the supplied careers URL."
+        )
 
 
 def _parse_item(item: ElementTree.Element) -> dict:
@@ -44,7 +46,10 @@ def _parse_item(item: ElementTree.Element) -> dict:
     namespace = f"{{{TEAMTAILOR_NAMESPACE}}}"
     locations = item.find(f"{namespace}locations")
     job["locations"] = (
-        [_location(node, namespace) for node in locations.findall(f"{namespace}location")]
+        [
+            _location(node, namespace)
+            for node in locations.findall(f"{namespace}location")
+        ]
         if locations is not None
         else []
     )

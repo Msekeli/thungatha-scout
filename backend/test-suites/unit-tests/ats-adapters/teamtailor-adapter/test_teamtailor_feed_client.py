@@ -20,7 +20,11 @@ def test_fetches_offset_pages_until_short_final_page() -> None:
 
     def handler(request: httpx.Request) -> httpx.Response:
         calls.append(dict(request.url.params))
-        content = XML.format(items=item("one") + item("two") if "offset=0" in str(request.url) else item("three"))
+        content = XML.format(
+            items=item("one") + item("two")
+            if "offset=0" in str(request.url)
+            else item("three")
+        )
         return httpx.Response(200, text=content)
 
     async def run():

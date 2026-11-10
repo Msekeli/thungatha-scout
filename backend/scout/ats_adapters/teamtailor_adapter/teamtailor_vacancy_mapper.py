@@ -12,7 +12,9 @@ from scout.ats_adapters.ats_adapter_contracts import NormalizedVacancy
 
 def map_teamtailor_job(job: Mapping[str, Any]) -> NormalizedVacancy:
     identifier, title, link = job.get("guid"), job.get("title"), job.get("link")
-    if not all(isinstance(value, str) and value.strip() for value in (identifier, title, link)):
+    if not all(
+        isinstance(value, str) and value.strip() for value in (identifier, title, link)
+    ):
         raise ValueError("Teamtailor vacancy requires a GUID, title and advert URL.")
     parsed = urlsplit(link)
     if parsed.scheme != "https" or not parsed.hostname:
@@ -28,7 +30,9 @@ def map_teamtailor_job(job: Mapping[str, Any]) -> NormalizedVacancy:
         title=title.strip(),
         description=description or None,
         location_text=location_text,
-        department=department.strip() if isinstance(department, str) and department.strip() else None,
+        department=department.strip()
+        if isinstance(department, str) and department.strip()
+        else None,
         office=names[0] if names else None,
         application_url=link,
         published_at=_publication_date(job.get("pubDate")),

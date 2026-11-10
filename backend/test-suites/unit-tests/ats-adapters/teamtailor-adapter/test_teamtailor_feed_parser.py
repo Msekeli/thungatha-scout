@@ -33,6 +33,8 @@ def test_parses_documented_fields_and_teamtailor_namespace() -> None:
 
 def test_rejects_non_teamtailor_feed_and_wrong_custom_domain() -> None:
     with pytest.raises(NotTeamtailorFeedError):
-        parse_teamtailor_feed(b"<rss><channel /></rss>", "https://root.teamtailor.com/jobs")
+        parse_teamtailor_feed(
+            b"<rss><channel /></rss>", "https://root.teamtailor.com/jobs"
+        )
     with pytest.raises(NotTeamtailorFeedError):
         parse_teamtailor_feed(XML, "https://other.example/jobs")

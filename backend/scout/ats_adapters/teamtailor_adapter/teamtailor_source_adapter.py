@@ -40,9 +40,16 @@ class TeamtailorSourceAdapter:
         outcome, complete, detail = result.outcome, result.complete, result.detail
         if errors:
             outcome = "partial" if outcome in {"success", "empty"} else outcome
-            complete, detail = False, f"{errors} Teamtailor vacancies failed normalization."
+            complete, detail = (
+                False,
+                f"{errors} Teamtailor vacancies failed normalization.",
+            )
         return ATSAdapterResult(
-            outcome, vacancies, result.pages_fetched, complete, detail,
+            outcome,
+            vacancies,
+            result.pages_fetched,
+            complete,
+            detail,
             len(vacancies) if complete else None,
         )
 

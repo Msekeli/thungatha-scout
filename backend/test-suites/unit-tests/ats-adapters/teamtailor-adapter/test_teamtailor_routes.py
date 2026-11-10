@@ -13,8 +13,15 @@ class FakeTeamtailorAdapter:
 
     async def retrieve(self, config):
         vacancy = NormalizedVacancy(
-            "job-1", "Engineer", "Build software", "Cape Town", "Engineering",
-            None, "https://root.teamtailor.com/jobs/job-1", None, None,
+            "job-1",
+            "Engineer",
+            "Build software",
+            "Cape Town",
+            "Engineering",
+            None,
+            "https://root.teamtailor.com/jobs/job-1",
+            None,
+            None,
             {"link": "https://root.teamtailor.com/jobs/job-1"},
         )
         return ATSAdapterResult("success", [vacancy], 1, True, None, 1)
@@ -24,7 +31,9 @@ class FakeTeamtailorAdapter:
 
 
 def test_teamtailor_discovery_returns_adapter_config(monkeypatch) -> None:
-    monkeypatch.setattr(teamtailor_routes, "TeamtailorSourceAdapter", FakeTeamtailorAdapter)
+    monkeypatch.setattr(
+        teamtailor_routes, "TeamtailorSourceAdapter", FakeTeamtailorAdapter
+    )
     response = TestClient(app).get(
         "/api/v1/teamtailor/discover",
         params={"url": "https://root.teamtailor.com/jobs"},

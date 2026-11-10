@@ -168,7 +168,6 @@ The earlier generic `npm run lint` command is not a defined frontend script; the
 
 **Acceptance:** M4-LEVER-A and M4-LEVER-B are accepted. The Lever adapter is registered in the shared extraction service, available through admin onboarding, and verified with persisted live vacancy results. This acceptance does not claim that the full six-adapter M4 milestone is complete. Ashby remains deferred pending the partner response.
 
-
 ## M4-TEAMTAILOR-A investigation and implementation — 10 November 2026
 
 The user supplied direct terminal evidence for the three registered test feeds:

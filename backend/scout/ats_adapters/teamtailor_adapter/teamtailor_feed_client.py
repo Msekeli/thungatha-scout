@@ -37,35 +37,81 @@ class TeamtailorFeedClient:
             try:
                 response = await self._client.get(
                     feed_url,
-                    params={"offset": page * self._page_size, "per_page": self._page_size},
+                    params={
+                        "offset": page * self._page_size,
+                        "per_page": self._page_size,
+                    },
                 )
             except (httpx.TimeoutException, httpx.TransportError):
-                return _failure(jobs, page, "Teamtailor request failed or timed out.", "transient_failure", title)
+                return _failure(
+                    jobs,
+                    page,
+                    "Teamtailor request failed or timed out.",
+                    "transient_failure",
+                    title,
+                )
             if not response.is_success:
-                outcome = {401: "blocked", 403: "blocked", 404: "not_found", 429: "rate_limited"}.get(response.status_code)
-                outcome = outcome or ("transient_failure" if response.status_code >= 500 else "malformed")
-                return _failure(jobs, page, f"Teamtailor returned HTTP {response.status_code}.", outcome, title)
+                outcome = {
+                    401: "blocked",
+                    403: "blocked",
+                    404: "not_found",
+                    429: "rate_limited",
+                }.get(response.status_code)
+                outcome = outcome or (
+                    "transient_failure" if response.status_code >= 500 else "malformed"
+                )
+                return _failure(
+                    jobs,
+                    page,
+                    f"Teamtailor returned HTTP {response.status_code}.",
+                    outcome,
+                    title,
+                )
             try:
                 feed = parse_teamtailor_feed(response.content, careers_url)
             except NotTeamtailorFeedError:
                 raise
             except (ElementTree.ParseError, ValueError) as exception:
-                return _failure(jobs, page, f"Invalid Teamtailor RSS: {exception}", "malformed", title)
+                return _failure(
+                    jobs,
+                    page,
+                    f"Invalid Teamtailor RSS: {exception}",
+                    "malformed",
+                    title,
+                )
             if title and feed.channel_title and title != feed.channel_title:
-                return _failure(jobs, page, "Teamtailor channel title changed during pagination.", "partial", title)
+                return _failure(
+                    jobs,
+                    page,
+                    "Teamtailor channel title changed during pagination.",
+                    "partial",
+                    title,
+                )
             title = feed.channel_title or title
             for job in feed.jobs:
                 identifier = job.get("guid")
                 if isinstance(identifier, str) and identifier.strip():
                     if identifier in seen:
-                        return _failure(jobs, page + 1, "Duplicate Teamtailor vacancy ID.", "partial", title)
+                        return _failure(
+                            jobs,
+                            page + 1,
+                            "Duplicate Teamtailor vacancy ID.",
+                            "partial",
+                            title,
+                        )
                     seen.add(identifier)
                 jobs.append(job)
             if len(feed.jobs) < self._page_size:
                 return TeamtailorFeedResult(
                     "success" if jobs else "empty", jobs, page + 1, True, None, title
                 )
-        return _failure(jobs, self._max_pages, "Teamtailor pagination reached its page limit.", "partial", title)
+        return _failure(
+            jobs,
+            self._max_pages,
+            "Teamtailor pagination reached its page limit.",
+            "partial",
+            title,
+        )
 
 
 def _failure(jobs, pages, detail, outcome, title):
