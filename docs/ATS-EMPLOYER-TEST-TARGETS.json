@@ -105,72 +105,6 @@
               "careers_url": "https://careers.teamviewer.com/jobs",
               "evidence_status": "confirmed",
               "notes": "Custom-domain RSS feed verified: first 100 vacancies returned and offset pagination returned later vacancies."
-            },
-            {
-              "company": "Biovac",
-              "careers_url": "https://biovac.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Official Teamtailor-hosted careers page; multiple current Cape Town vacancies and Cape Town employer identity confirmed. RSS retrieval for this additional target remains pending live validation."
-            },
-            {
-              "company": "ApprovalMax",
-              "careers_url": "https://approvalmax.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Official Teamtailor-hosted careers page; current Account Executive (EMEA) role is listed in Cape Town. RSS retrieval for this additional target remains pending live validation."
-            },
-            {
-              "company": "Scissero",
-              "careers_url": "https://scissero.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Official Teamtailor-hosted careers page; current Junior Funds Paralegal role explicitly accepts Johannesburg/Cape Town, South Africa, fully remote. RSS retrieval for this additional target remains pending live validation."
-            },
-            {
-              "company": "Atomos Wealth",
-              "careers_url": "https://atomoswealth.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Official Teamtailor-hosted careers page; current Central Operations Administrator role is located in Tygervalley, Cape Town. RSS retrieval for this additional target remains pending live validation."
-            },
-            {
-              "company": "IKUE",
-              "careers_url": "https://ikue.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Official Teamtailor-hosted careers page; vacancies list Cape Town and Johannesburg, fully remote. Careers page also identifies UK and South African operations. RSS retrieval for this additional target remains pending live validation."
-            },
-            {
-              "company": "Capago International",
-              "careers_url": "https://capago.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Official Teamtailor-hosted careers page lists a dedicated Capago South Africa - Cape Town location. No current Cape Town vacancy was shown in this research pass; zero vacancies do not disqualify the employer. RSS retrieval remains pending live validation."
-            },
-            {
-              "company": "Paystack",
-              "careers_url": "https://careers.paystack.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Custom-domain Teamtailor career site confirmed by the official Paystack careers page linking to careers.paystack.com job postings; posting page identifies Teamtailor as ATS. Multiple current Cape Town roles and a Cape Town office are listed. RSS retrieval remains pending live validation."
-            },
-            {
-              "company": "SOFTSWISS",
-              "careers_url": "https://softswiss.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Teamtailor-hosted vacancy page verified; current Africa Lead Generation Specialist role lists Cape Town among eligible locations. Employer has a global remote hiring footprint. RSS retrieval remains pending live validation."
-            },
-            {
-              "company": "11 Investments Ltd",
-              "careers_url": "https://11investmentsltd.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Teamtailor-hosted careers page verified; Cape Town-based roles and Cape Town presence are listed. Group includes multiple recruitment businesses, so retain as hybrid and exclude from direct-employer coverage until reviewed. RSS retrieval remains pending live validation."
-            },
-            {
-              "company": "Chapter 2",
-              "careers_url": "https://chapter2.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Teamtailor-hosted careers page lists South African Talent Operations and a Cape Town location facet, currently with zero Cape Town vacancies. Retain separately as a recruitment/talent-services organization; confirm Cape Town operating presence before approval. RSS retrieval remains pending live validation."
-            },
-            {
-              "company": "Clicks Talent",
-              "careers_url": "https://clickstalentbv-1749060007.teamtailor.com/jobs",
-              "evidence_status": "confirmed",
-              "notes": "Teamtailor-hosted careers page lists a Cape Town fully remote talent-representation role. Organization is a talent representation/influencer agency rather than a conventional direct employer; keep separately classified as other. RSS retrieval remains pending live validation."
             }
           ]
         },
@@ -561,6 +495,5 @@
       "Do not bypass authentication, CAPTCHA, bot protection or other access controls.",
       "Test at least three employer boards per ATS where possible; do not generalise from one employer."
     ]
-  },
-  "updated_date": "2026-11-10"
+  }
 }
