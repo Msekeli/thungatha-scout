@@ -18,7 +18,10 @@ export function normalizeCareersUrl(value: string): string {
 }
 
 export function normalizeEmployerName(value: string): string {
-  return value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  return value
+    .toLocaleLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
 export function findEmployerDuplicate(

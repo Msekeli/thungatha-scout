@@ -81,8 +81,8 @@ export function EmployerOnboardingPanel({
             <div className="rounded-lg border border-blue-500/40 bg-blue-500/10 p-3 text-sm">
               <p className="font-semibold">This company is already in Scout.</p>
               <p className="mt-1">
-                This URL will be added as another recruitment source under {duplicate.employer.name}.
-                Scout will not create a second company.
+                This URL will be added as another recruitment source under {duplicate.employer.name}
+                . Scout will not create a second company.
               </p>
               <Button
                 type="button"

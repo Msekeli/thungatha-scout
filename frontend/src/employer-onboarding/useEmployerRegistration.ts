@@ -23,7 +23,17 @@ type UseEmployerRegistrationOptions = {
 };
 
 export function useEmployerRegistration(options: UseEmployerRegistrationOptions) {
-  const { form, sourceUrl, employers, sources, loadWorkspace, setSaving, onError, onNotice, onRegistered } = options;
+  const {
+    form,
+    sourceUrl,
+    employers,
+    sources,
+    loadWorkspace,
+    setSaving,
+    onError,
+    onNotice,
+    onRegistered,
+  } = options;
 
   async function register(event: FormEvent<HTMLFormElement>, discovery: CareersDiscovery) {
     event.preventDefault();
@@ -43,7 +53,9 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
 
     const duplicate = findEmployerDuplicate(sourceUrl, companyName, employers, sources);
     if (duplicate?.kind === "source") {
-      onError("This recruitment source is already registered under " + duplicate.employer.name + ".");
+      onError(
+        "This recruitment source is already registered under " + duplicate.employer.name + ".",
+      );
       return;
     }
 
@@ -52,15 +64,16 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
     onNotice("");
     let employer: Employer | null = null;
     try {
-      employer = duplicate?.kind === "employer"
-        ? duplicate.employer
-        : await scoutApi.createEmployer({
-            ...form,
-            name: companyName,
-            website_url: form.website_url.trim() || null,
-            logo_url: getCompanyIconUrl(sourceUrl),
-            logo_source_url: sourceUrl,
-          });
+      employer =
+        duplicate?.kind === "employer"
+          ? duplicate.employer
+          : await scoutApi.createEmployer({
+              ...form,
+              name: companyName,
+              website_url: form.website_url.trim() || null,
+              logo_url: getCompanyIconUrl(sourceUrl),
+              logo_source_url: sourceUrl,
+            });
 
       const source = await scoutApi.createSource(employer.id, {
         adapter_key: discovery.detected_adapter,
