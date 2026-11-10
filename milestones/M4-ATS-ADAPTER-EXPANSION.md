@@ -212,7 +212,6 @@ The repository formatting workflow completed successfully. The final documentati
 
 **Checkpoint state:** M4-TEAMTAILOR-A and M4-TEAMTAILOR-B are implemented and automated checks are green, but remain **awaiting user review/acceptance**. The three employer source configurations remain pending administrator verification and activation. Do not start Personio until the user accepts this checkpoint pair.
 
-
 ### Companies directory verification fix — 10 November 2026
 
 The user's local Companies screenshot showed that Teamtailor was missing from the ATS filter. The card renderer already had a Teamtailor label, but the toolbar filter options did not. Added the Teamtailor filter option.
