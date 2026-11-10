@@ -1,6 +1,6 @@
 # M4 — First-Wave ATS Adapter Expansion
 
-**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A and M4-LEVER-B accepted; Teamtailor M4-TEAMTAILOR-A implementation in progress  
+**Status:** Teamtailor M4-TEAMTAILOR-A/B implemented and CI-verified; awaiting user review. Ashby remains deferred; Lever M4-LEVER-A and M4-LEVER-B accepted.  
 **Scope:** Six first-wave ATS adapters only: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable.  
 **Checkpoint model:** Twelve checkpoints total — one A and one B for each adapter.
 
@@ -79,16 +79,16 @@ Each adapter has exactly two checkpoints. Complete A before B, and complete/revi
 | ----: | ---------- | ---------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |     1 | Ashby      | **Deferred — enquiry sent; awaiting response** | **Deferred**                     | Midnite, MyEdSpace, Tree Traction. Reopen only after Ashby confirms partner-feed eligibility, feed access and employer opt-in requirements; see the Ashby investigation report.         |
 |     2 | Lever      | **Accepted — 9 November 2026**                 | **Accepted — 10 November 2026**  | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
-|     3 | Teamtailor | **In progress — 10 Nov 2026**                  | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
+|     3 | Teamtailor | **Implemented — 10 Nov 2026**                 | **Implemented — 10 Nov 2026**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
 |     4 | Personio   | **M4-PERSONIO-A**                              | **M4-PERSONIO-B**                | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
 |     5 | Recruitee  | **M4-RECRUITEE-A**                             | **M4-RECRUITEE-B**               | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
 |     6 | Workable   | **M4-WORKABLE-A**                              | **M4-WORKABLE-B**                | LekkeSlaap, Electrum, GoTyme Bank. Verify observed public careers-widget JSON behavior, board completeness, detail handling and application URLs.                                       |
 
 ## First checkpoint instruction
 
-Ashby is deferred following the user's explicit instruction. The user confirmed an enquiry email was sent on 9 November 2026; await Ashby's response before reopening Ashby. Lever M4-LEVER-A and M4-LEVER-B are accepted. Proceed with **M4-TEAMTAILOR-A** on branch `dev`.
+Ashby remains deferred following the user's explicit instruction; await its partner response before reopening it. Lever M4-LEVER-A and M4-LEVER-B are accepted. Teamtailor M4-TEAMTAILOR-A/B implementation and CI verification are complete on branch `dev`. Stop for user review; do not start Personio until Teamtailor is accepted.
 
-Read the required repository guidance and inspect the Greenhouse reference implementation before investigating Lever. Use Mama Money, Theodo and Wing Assistant as the employer cohort. Inspect their actual careers pages and public network/API behavior. Verify the public request, parameters, regional host, response structure, pagination, detail retrieval, stable IDs, descriptions, locations, timestamps, empty/error behavior and exact vacancy/application URLs. Compare behavior across the three employers.
+The next planned adapter is Personio. Do not begin it until the user has reviewed and accepted the Teamtailor A/B checkpoint pair.
 
 Lever's official Postings API documentation states that published postings are publicly viewable and may be scraped by third parties. Use only this public published-postings API; do not use authenticated Lever API endpoints or internal/unlisted postings. Produce the evidence report and file-by-file design first. **Do not commit code during investigation.** Implement the Lever adapter and focused unit tests only after the three-employer evidence establishes reliable, complete retrieval. Keep every handwritten source/test file within 100 physical lines. Record the implementation commit and exact test/check results. Stop for review before M4-LEVER-B.
 
@@ -190,10 +190,25 @@ Integration changes add Teamtailor to both shared adapter factories, backend cre
 
 **Important mapping boundary:** Teamtailor's `link` is the vacancy advert page. The adapter preserves it exactly and uses it as the available user-facing destination; it does not claim the feed supplies a direct application-form URL. `source_updated_at` remains null because no such timestamp was observed. Remote status, role, division, optional company metadata and location details remain in the raw provider payload where the shared vacancy contract has no dedicated fields.
 
-**Verification status:** focused tests have been added for URL parsing, namespaced RSS mapping, offset pagination, incomplete later-page behavior, adapter mapping, route discovery and shared registry/service registration. Local execution was unavailable in the implementation environment. The repository's GitHub Actions architecture-compliance workflow must complete before this checkpoint can be presented for acceptance. Live feed behavior was verified manually by the user; live extraction through the new adapter remains to be confirmed.
+**Verification status:** focused deterministic tests cover URL parsing, Teamtailor namespace and field mapping, offset pagination, incomplete later-page behavior, empty and malformed feeds, multiple locations, description sanitization, required identity fields, HTTP failures, timeouts, route discovery/fallback and shared registry/service registration. GitHub Actions architecture compliance is green. The user manually verified the public feeds; a live extraction through the new adapter and administrator approval/activation of employer sources remain outstanding.
 
 ### Teamtailor CI remediation — 10 November 2026
 
 The first GitHub Actions architecture-compliance run after the Teamtailor implementation executed the complete backend suite: **176 passed, 1 skipped, 1 failed**. The only failure was the repository-wide line-limit test, which identified two pre-existing files that the formatter had expanded to 101 lines: `backend/scout/geography.py` and `frontend/src/job-management/VacancyRecordCard.tsx`. The formatting workflow also expanded the Teamtailor pagination client beyond the 100-line standard. These responsibilities were split into focused modules. The next compliance run passed backend tests, the repository-wide line-limit check and naming-convention check. No Teamtailor test failure was reported in that run.
 
-The second architecture-compliance run then reached frontend typechecking and identified one missing Teamtailor entry in the company directory's ATS label map. The label map is being updated and the frontend typecheck/build gates will be rerun before M4-TEAMTAILOR-A/B are presented for acceptance.
+The second architecture-compliance run identified a missing Teamtailor entry in the company directory's ATS label map. That entry was added. The subsequent complete compliance run passed all backend, repository-quality and frontend gates.
+
+
+### Final Teamtailor verification — 10 November 2026
+
+GitHub Actions run `42797905496` completed successfully for implementation commit `ca6d791878599aa79032a0f9e0b1864fb6974876`:
+
+- Backend unit and integration suites: **187 passed, 1 skipped**.
+- Repository-wide source line limit: passed.
+- Descriptive naming conventions: passed.
+- Frontend TypeScript typecheck: passed.
+- Frontend production build: passed.
+
+The repository formatting workflow also completed successfully. Its formatting-only commit is on `dev`; the final documentation commit will trigger another architecture-compliance run. No Teamtailor code test currently depends on a live external feed. The three public RSS feeds were fetched manually by the user, and adapter behavior is covered by deterministic fixtures and mocked HTTP. A live end-to-end extraction from the running Scout API remains a post-pull validation step.
+
+**Checkpoint state:** M4-TEAMTAILOR-A and M4-TEAMTAILOR-B are implemented and automated checks are green, but remain **awaiting user review/acceptance**. The three employer source configurations remain pending administrator verification and activation. Do not start Personio until the user accepts this checkpoint pair.
