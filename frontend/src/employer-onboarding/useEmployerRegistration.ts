@@ -27,11 +27,11 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
       return;
     }
     if (
-      discovery.detected_adapter === "lever" &&
+      ["lever", "teamtailor"].includes(discovery.detected_adapter) &&
       ((discovery.outcome !== "success" && discovery.outcome !== "empty") ||
         discovery.complete !== true)
     ) {
-      onError(discovery.detail || "The Lever board could not be inspected completely.");
+      onError(discovery.detail || "The ATS board could not be inspected completely.");
       return;
     }
     setSaving(true);

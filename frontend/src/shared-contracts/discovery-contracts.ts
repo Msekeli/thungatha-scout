@@ -16,7 +16,7 @@ export type SourceInspection = {
   detail: string | null;
   source_url: string;
   board_url?: string;
-  detected_adapter: "greenhouse" | "lever";
+  detected_adapter: "greenhouse" | "lever" | "teamtailor";
   adapter_config: Record<string, string>;
   total_vacancies?: number | null;
 };
@@ -28,7 +28,7 @@ export type CareersDiscovery = {
   board_url: string;
   board_token: string;
   board_name: string | null;
-  detected_adapter: "greenhouse" | "lever";
+  detected_adapter: "greenhouse" | "lever" | "teamtailor";
   adapter_config: Record<string, string>;
   company_name: string;
   outcome?: string;

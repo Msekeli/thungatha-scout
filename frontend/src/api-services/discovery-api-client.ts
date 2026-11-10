@@ -16,38 +16,62 @@ function displayNameFromSlug(slug: string): string {
     .trim();
 }
 
+async function discoverTeamtailor(url: string, companyName: string) {
+  return request<CareersDiscovery>(
+    `/api/v1/teamtailor/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
+  );
+}
+
+async function discoverGreenhouse(url: string, companyName: string) {
+  return request<CareersDiscovery>(
+    `/api/v1/greenhouse/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
+  );
+}
+
 export const discoveryApiClient = {
   discoverCareersPage: async (url: string, companyName: string) => {
-    const isLever = isLeverBoardUrl(url);
-    const path = isLever ? "/api/v1/lever/discover" : "/api/v1/greenhouse/discover";
-    const result = await request<CareersDiscovery>(
-      `${path}?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
-    );
-    const slug = result.board_token || new URL(url).pathname.split("/").filter(Boolean)[0] || "";
-    const detectedName =
-      result.board_name?.trim() ||
-      result.company_name?.trim() ||
-      (isLever ? displayNameFromSlug(slug) : "");
-
-    return {
-      ...result,
-      board_name: result.board_name || detectedName,
-      company_name: result.company_name || detectedName,
-      adapter_config: result.adapter_config ?? { slug },
-    };
+    if (isLeverBoardUrl(url)) {
+      const result = await request<CareersDiscovery>(
+        `/api/v1/lever/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
+      );
+      const slug = result.board_token || new URL(url).pathname.split("/").filter(Boolean)[0] || "";
+      const detectedName =
+        result.board_name?.trim() ||
+        result.company_name?.trim() ||
+        displayNameFromSlug(slug);
+      return {
+        ...result,
+        board_name: result.board_name || detectedName,
+        company_name: result.company_name || detectedName,
+        adapter_config: result.adapter_config ?? { slug },
+      };
+    }
+    try {
+      return await discoverTeamtailor(url, companyName);
+    } catch {
+      return discoverGreenhouse(url, companyName);
+    }
   },
 
   inspectSource: async (url: string): Promise<SourceInspection> => {
     if (isLeverBoardUrl(url)) {
-      return request<SourceInspection>(`/api/v1/lever/inspect?url=${encodeURIComponent(url)}`);
+      return request<SourceInspection>(
+        `/api/v1/lever/inspect?url=${encodeURIComponent(url)}`,
+      );
     }
-    const result = await request<Omit<SourceInspection, "detected_adapter" | "adapter_config">>(
-      `/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`,
-    );
-    return {
-      ...result,
-      detected_adapter: "greenhouse",
-      adapter_config: { slug: result.board_token },
-    };
+    try {
+      return await request<SourceInspection>(
+        `/api/v1/teamtailor/inspect?url=${encodeURIComponent(url)}`,
+      );
+    } catch {
+      const result = await request<
+        Omit<SourceInspection, "detected_adapter" | "adapter_config">
+      >(`/api/v1/greenhouse/inspect?url=${encodeURIComponent(url)}`);
+      return {
+        ...result,
+        detected_adapter: "greenhouse",
+        adapter_config: { slug: result.board_token },
+      };
+    }
   },
 };

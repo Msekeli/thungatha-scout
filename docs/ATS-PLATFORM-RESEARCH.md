@@ -428,3 +428,29 @@ The order inside the hard group should be adjusted if verified employer-source e
 ## Research limitations
 
 This is a technical platform assessment, not proof of a complete South African ATS customer census. Vendors generally do not publish a global customer directory. Several findings rely on observed public endpoints documented by independent engineering investigations rather than vendor-supported contracts. Such routes must be live-tested and rechecked before production. Company examples supplied as leads have deliberately not been promoted to verified mappings without official evidence.
+
+
+## Teamtailor RSS live verification — 10 November 2026
+
+The three M4 employer test feeds were fetched directly with `curl` and parsed as RSS 2.0 XML:
+
+| Employer | Feed | Observed result |
+| --- | --- | --- |
+| Root Platform | `https://root.teamtailor.com/jobs.rss` | 3 items |
+| Footasylum | `https://footasylum.teamtailor.com/jobs.rss` | 80 items |
+| TeamViewer | `https://careers.teamviewer.com/jobs.rss` | Default first 100 items |
+
+The TeamViewer feed also returned two different vacancies for `?per_page=2` and `?offset=100&per_page=2`. This verifies that `offset` and `per_page` work on a custom careers domain. The overall TeamViewer vacancy total was not established; the default 100-item response must not be treated as the complete board.
+
+Observed item fields:
+
+- RSS fields: `title`, HTML-encoded `description`, `pubDate`, `link`, `remoteStatus` and `guid`.
+- Teamtailor namespace: `https://teamtailor.com/locations`; namespaced fields include `locations`, `department`, `role` and, where present, `division`.
+- Location elements can contain `name`, `address`, `zip`, `city` and `country`. Multiple locations were observed on the same vacancy (up to three in the inspected sample).
+- TeamViewer additionally exposed `company_name` and `company_uuid`; these are optional and must not be required for other employers.
+
+Implementation mapping: `guid` is the external vacancy ID; `link` is preserved exactly as the vacancy advert URL and used as the user-facing destination because the advert page contains the apply action. It is not represented as a verified direct application-form URL. `pubDate` is parsed as a timezone-aware timestamp. Remote status, role, division, company metadata and the original provider item are retained in the raw payload. There is no verified source-updated timestamp in the observed feed.
+
+Pagination is bounded using `per_page=100` and increasing `offset`; a short page marks completion. A page failure after earlier pages yields a partial result and must not be used to expire missing vacancies. Exact total counts, snapshot consistency during pagination and GUID stability across vacancy edits were not independently established.
+
+Primary provider documentation: https://support.teamtailor.com/en/articles/11171756-rss-feed-how-to-guide

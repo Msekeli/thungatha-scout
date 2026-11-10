@@ -1,6 +1,6 @@
 # M4 — First-Wave ATS Adapter Expansion
 
-**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A and M4-LEVER-B accepted; next adapter is Teamtailor  
+**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A and M4-LEVER-B accepted; Teamtailor M4-TEAMTAILOR-A implementation in progress  
 **Scope:** Six first-wave ATS adapters only: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable.  
 **Checkpoint model:** Twelve checkpoints total — one A and one B for each adapter.
 
@@ -79,14 +79,14 @@ Each adapter has exactly two checkpoints. Complete A before B, and complete/revi
 | ----: | ---------- | ---------------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |     1 | Ashby      | **Deferred — enquiry sent; awaiting response** | **Deferred**                     | Midnite, MyEdSpace, Tree Traction. Reopen only after Ashby confirms partner-feed eligibility, feed access and employer opt-in requirements; see the Ashby investigation report.         |
 |     2 | Lever      | **Accepted — 9 November 2026**                 | **Accepted — 10 November 2026**  | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
-|     3 | Teamtailor | **M4-TEAMTAILOR-A**                            | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
+|     3 | Teamtailor | **In progress — 10 Nov 2026**                  | **M4-TEAMTAILOR-B**              | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
 |     4 | Personio   | **M4-PERSONIO-A**                              | **M4-PERSONIO-B**                | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
 |     5 | Recruitee  | **M4-RECRUITEE-A**                             | **M4-RECRUITEE-B**               | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
 |     6 | Workable   | **M4-WORKABLE-A**                              | **M4-WORKABLE-B**                | LekkeSlaap, Electrum, GoTyme Bank. Verify observed public careers-widget JSON behavior, board completeness, detail handling and application URLs.                                       |
 
 ## First checkpoint instruction
 
-Ashby is deferred following the user's explicit instruction. The user confirmed an enquiry email was sent on 9 November 2026; await Ashby's response before reopening Ashby. Proceed with **M4-LEVER-B** on branch `dev`.
+Ashby is deferred following the user's explicit instruction. The user confirmed an enquiry email was sent on 9 November 2026; await Ashby's response before reopening Ashby. Lever M4-LEVER-A and M4-LEVER-B are accepted. Proceed with **M4-TEAMTAILOR-A** on branch `dev`.
 
 Read the required repository guidance and inspect the Greenhouse reference implementation before investigating Lever. Use Mama Money, Theodo and Wing Assistant as the employer cohort. Inspect their actual careers pages and public network/API behavior. Verify the public request, parameters, regional host, response structure, pagination, detail retrieval, stable IDs, descriptions, locations, timestamps, empty/error behavior and exact vacancy/application URLs. Compare behavior across the three employers.
 
@@ -167,3 +167,28 @@ The user reviewed the end-to-end admin results and accepted the Lever integratio
 The earlier generic `npm run lint` command is not a defined frontend script; the two explicit repository checks above are the available size and naming checks. Backend unit tests and frontend checks were run after the geography line-limit correction.
 
 **Acceptance:** M4-LEVER-A and M4-LEVER-B are accepted. The Lever adapter is registered in the shared extraction service, available through admin onboarding, and verified with persisted live vacancy results. This acceptance does not claim that the full six-adapter M4 milestone is complete. Ashby remains deferred pending the partner response.
+
+
+## M4-TEAMTAILOR-A investigation and implementation — 10 November 2026
+
+The user supplied direct terminal evidence for the three registered test feeds:
+
+- Root Platform: `https://root.teamtailor.com/jobs.rss`, 3 vacancies.
+- Footasylum: `https://footasylum.teamtailor.com/jobs.rss`, 80 vacancies.
+- TeamViewer: `https://careers.teamviewer.com/jobs.rss`, 100 vacancies in the default response.
+- TeamViewer pagination: `?per_page=2` returned two items; `?offset=100&per_page=2` returned different later items.
+- The feeds use RSS 2.0 and the Teamtailor location namespace. Observed fields and limitations are recorded in `docs/ATS-PLATFORM-RESEARCH.md`.
+
+Implementation uses the existing `ATSAdapter` contract and shared extraction/preview services. It does not introduce a separate extraction pipeline. Provider-specific modules own careers-URL validation, RSS parsing, bounded pagination, failure classification and vacancy mapping. The frontend probes the Teamtailor feed before falling back to Greenhouse for non-Lever careers URLs; this allows custom Teamtailor domains without hardcoding employer hostnames.
+
+Implementation files:
+
+- `backend/scout/ats_adapters/teamtailor_adapter/`
+- `backend/scout/api/teamtailor_routes.py`
+- `backend/test-suites/unit-tests/ats-adapters/teamtailor-adapter/`
+
+Integration changes add Teamtailor to both shared adapter factories, backend create/update contracts, frontend adapter contracts, API router registration, onboarding discovery and preview URL selection. The generic adapter registry now records public RSS pagination support and the correct `{careers_url}.rss` endpoint pattern. Employer/source registry entries are technical test configurations only; notes explicitly leave administrator verification and activation pending.
+
+**Important mapping boundary:** Teamtailor's `link` is the vacancy advert page. The adapter preserves it exactly and uses it as the available user-facing destination; it does not claim the feed supplies a direct application-form URL. `source_updated_at` remains null because no such timestamp was observed. Remote status, role, division, optional company metadata and location details remain in the raw provider payload where the shared vacancy contract has no dedicated fields.
+
+**Verification status:** focused tests have been added for URL parsing, namespaced RSS mapping, offset pagination, incomplete later-page behavior, adapter mapping, route discovery and shared registry/service registration. Local execution was unavailable in the implementation environment. The repository's GitHub Actions architecture-compliance workflow must complete before this checkpoint can be presented for acceptance. Live feed behavior was verified manually by the user; live extraction through the new adapter remains to be confirmed.

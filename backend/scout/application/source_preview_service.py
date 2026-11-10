@@ -10,6 +10,9 @@ from scout.ats_adapters.greenhouse_adapter.greenhouse_source_adapter import (
     GreenhouseSourceAdapter,
 )
 from scout.ats_adapters.lever_adapter.lever_source_adapter import LeverSourceAdapter
+from scout.ats_adapters.teamtailor_adapter.teamtailor_source_adapter import (
+    TeamtailorSourceAdapter,
+)
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.employer_source_repository import EmployerSourceRepository
 
@@ -24,6 +27,7 @@ class SourcePreviewService:
         self._adapter_factories = adapter_factories or {
             "greenhouse": GreenhouseSourceAdapter,
             "lever": LeverSourceAdapter,
+            "teamtailor": TeamtailorSourceAdapter,
         }
 
     async def preview_source(self, source_id: UUID) -> dict[str, Any]:
@@ -41,7 +45,8 @@ class SourcePreviewService:
             {
                 "id": vacancy.external_job_id,
                 "title": vacancy.title,
-                "absolute_url": vacancy.raw_payload.get("hostedUrl")
+                "absolute_url": vacancy.raw_payload.get("link")
+                or vacancy.raw_payload.get("hostedUrl")
                 or vacancy.application_url,
                 "location": {"name": vacancy.location_text},
             }
