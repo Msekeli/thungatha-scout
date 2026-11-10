@@ -3,15 +3,15 @@
     @apply inline-flex items-center gap-1.5 font-medium;
   }
   .scout-vacancy-date--fresh {
-    color: var(--scout-success-text);
+    color: #34d399 !important;
   }
   .scout-vacancy-date--recent {
-    color: var(--scout-warning-text);
+    color: #facc15 !important;
   }
   .scout-vacancy-date--aging {
-    color: var(--scout-amber-text);
+    color: #f59e0b !important;
   }
   .scout-vacancy-date--stale {
-    color: var(--scout-danger-text);
+    color: #f87171 !important;
   }
 }
