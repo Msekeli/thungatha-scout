@@ -57,3 +57,32 @@ def test_failed_later_page_is_partial_not_complete() -> None:
     assert result.outcome == "partial"
     assert result.complete is False
     assert len(result.jobs) == 2
+
+
+def test_empty_board_is_a_complete_empty_result() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, text=XML.format(items=""))
+
+    async def run():
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            return await TeamtailorFeedClient(client).retrieve(BASE, BASE + ".rss")
+
+    result = asyncio.run(run())
+    assert result.outcome == "empty"
+    assert result.complete is True
+    assert result.jobs == []
+
+
+def test_malformed_teamtailor_xml_is_not_reported_as_empty() -> None:
+    malformed = '<rss xmlns:tt="https://teamtailor.com/locations"><channel>'
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, text=malformed)
+
+    async def run():
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            return await TeamtailorFeedClient(client).retrieve(BASE, BASE + ".rss")
+
+    result = asyncio.run(run())
+    assert result.outcome == "malformed"
+    assert result.complete is False
