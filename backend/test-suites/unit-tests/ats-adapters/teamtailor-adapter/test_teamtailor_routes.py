@@ -44,3 +44,21 @@ def test_teamtailor_discovery_returns_adapter_config(monkeypatch) -> None:
         "careers_url": "https://root.teamtailor.com/jobs"
     }
     assert response.json()["jobs"][0]["absolute_url"].endswith("job-1")
+
+
+class MissingTeamtailorAdapter(FakeTeamtailorAdapter):
+    channel_title = None
+
+    async def retrieve(self, config):
+        return ATSAdapterResult("not_found", [], 0, False, "Feed not found.", None)
+
+
+def test_non_teamtailor_jobs_url_can_fall_back_to_other_discovery(monkeypatch) -> None:
+    monkeypatch.setattr(
+        teamtailor_routes, "TeamtailorSourceAdapter", MissingTeamtailorAdapter
+    )
+    response = TestClient(app).get(
+        "/api/v1/teamtailor/discover",
+        params={"url": "https://example.com/jobs"},
+    )
+    assert response.status_code == 404

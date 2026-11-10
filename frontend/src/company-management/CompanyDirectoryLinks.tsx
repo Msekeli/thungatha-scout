@@ -6,6 +6,7 @@ const visibleUrl = (value: string) => value.replace(/^https?:\/\//, "");
 const adapterLabels = {
   greenhouse: { label: "Greenhouse", badge: "G" },
   lever: { label: "Lever", badge: "L" },
+  teamtailor: { label: "Teamtailor", badge: "T" },
   workday: { label: "Workday", badge: "W" },
 } as const;
 

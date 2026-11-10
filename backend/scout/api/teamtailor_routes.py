@@ -27,6 +27,10 @@ async def inspect_teamtailor_board(source_url: str, company_name: str = "") -> d
         raise HTTPException(status_code=404, detail=str(exception)) from exception
     finally:
         await adapter.close()
+    if result.outcome == "not_found" and result.pages_fetched == 0:
+        raise HTTPException(
+            status_code=404, detail="No Teamtailor RSS feed was found for this URL."
+        )
     host = urlsplit(board_url).hostname or board_url
     detected_name = company_name.strip() or adapter.channel_title or host
     jobs = [
