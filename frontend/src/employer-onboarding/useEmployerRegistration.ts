@@ -2,7 +2,9 @@ import type { FormEvent } from "react";
 import { scoutApi } from "../api";
 import { getCompanyIconUrl } from "../company-management/company-icon-url";
 import { runEmployerVacancyImport } from "./runEmployerVacancyImport";
+import { findEmployerDuplicate } from "./findEmployerDuplicate";
 import type { CareersDiscovery, Employer, EmployerSource } from "../api";
+
 type EmployerRegistrationForm = {
   name: string;
   website_url: string;
@@ -11,14 +13,18 @@ type EmployerRegistrationForm = {
 type UseEmployerRegistrationOptions = {
   form: EmployerRegistrationForm;
   sourceUrl: string;
+  employers: Employer[];
+  sources: EmployerSource[];
   loadWorkspace: () => Promise<void>;
   setSaving: (value: boolean) => void;
   onError: (message: string) => void;
   onNotice: (message: string) => void;
   onRegistered: (result: { employer: Employer; source: EmployerSource }) => void;
 };
+
 export function useEmployerRegistration(options: UseEmployerRegistrationOptions) {
-  const { form, sourceUrl, loadWorkspace, setSaving, onError, onNotice, onRegistered } = options;
+  const { form, sourceUrl, employers, sources, loadWorkspace, setSaving, onError, onNotice, onRegistered } = options;
+
   async function register(event: FormEvent<HTMLFormElement>, discovery: CareersDiscovery) {
     event.preventDefault();
     const companyName = form.name.trim() || discovery.company_name;
@@ -34,18 +40,28 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
       onError(discovery.detail || "The ATS board could not be inspected completely.");
       return;
     }
+
+    const duplicate = findEmployerDuplicate(sourceUrl, companyName, employers, sources);
+    if (duplicate?.kind === "source") {
+      onError("This recruitment source is already registered under " + duplicate.employer.name + ".");
+      return;
+    }
+
     setSaving(true);
     onError("");
     onNotice("");
     let employer: Employer | null = null;
     try {
-      employer = await scoutApi.createEmployer({
-        ...form,
-        name: companyName,
-        website_url: form.website_url.trim() || null,
-        logo_url: getCompanyIconUrl(sourceUrl),
-        logo_source_url: sourceUrl,
-      });
+      employer = duplicate?.kind === "employer"
+        ? duplicate.employer
+        : await scoutApi.createEmployer({
+            ...form,
+            name: companyName,
+            website_url: form.website_url.trim() || null,
+            logo_url: getCompanyIconUrl(sourceUrl),
+            logo_source_url: sourceUrl,
+          });
+
       const source = await scoutApi.createSource(employer.id, {
         adapter_key: discovery.detected_adapter,
         source_url: discovery.board_url,

@@ -78,6 +78,8 @@ export default function App() {
               state.setPage("companies");
               state.setSourceUrl("");
             }}
+            duplicate={onboarding.duplicate}
+            onOpenExisting={onboarding.openExistingCompany}
           />
         </DialogContent>
       </Dialog>

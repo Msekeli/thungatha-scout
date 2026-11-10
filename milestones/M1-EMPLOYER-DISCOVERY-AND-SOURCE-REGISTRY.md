@@ -239,3 +239,8 @@ The product's first implementation slice is now explicitly focused on registerin
 - Immediate implementation begins with M2 in IMPLEMENTATION-PLAN.md. Revisit remaining M1 discovery work after the first Greenhouse and Workday registration/extraction workflows provide a working baseline.
 
 **Next action:** preserve the discovery experiment and continue implementation through M2/M3/M4. The first live compatibility tests are a Greenhouse board and https://myhcm.wd3.myworkdayjobs.com/digioutsource.
+
+
+### Duplicate-aware Add Company workflow — 10 November 2026
+
+The Add Company frontend now checks loaded employer and source records before submission. Exact careers/source URL matches are identified as already registered and block duplicate registration, with a shortcut to open the existing company. When the company name matches an existing employer but the URL is new, the UI explains that the URL will be added as another source; registration reuses the existing employer record. Registration repeats the duplicate check immediately before persistence to guard against stale UI state. URL comparison ignores hostname case, a leading www, query strings, fragments and trailing slashes. Employer-name matching is normalized exact matching, not fuzzy identity resolution.
