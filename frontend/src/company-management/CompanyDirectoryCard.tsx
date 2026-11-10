@@ -85,7 +85,8 @@ export function CompanyDirectoryCard({
           </strong>
           <span className="mt-1 flex items-center gap-1.5 text-xs scout-company-card__meta">
             <BriefcaseBusiness className="h-3.5 w-3.5 shrink-0" />
-            {displayedJobs} {jobLabel} {displayedJobs === 1 ? "job" : "jobs"}
+            <strong className="font-bold text-emerald-400">{displayedJobs}</strong>
+            <span>{jobLabel} {displayedJobs === 1 ? "job" : "jobs"}</span>
           </span>
         </span>
       </Button>
