@@ -27,11 +27,18 @@ async def request_teamtailor_feed_page(
         )
     except httpx.HTTPError:
         return _failure(
-            previous_jobs, offset // page_size, "Teamtailor request failed.", "transient_failure", channel_title
+            previous_jobs,
+            offset // page_size,
+            "Teamtailor request failed.",
+            "transient_failure",
+            channel_title,
         )
     if not response.is_success:
         outcome = {
-            401: "blocked", 403: "blocked", 404: "not_found", 429: "rate_limited"
+            401: "blocked",
+            403: "blocked",
+            404: "not_found",
+            429: "rate_limited",
         }.get(response.status_code)
         outcome = outcome or (
             "transient_failure" if response.status_code >= 500 else "malformed"

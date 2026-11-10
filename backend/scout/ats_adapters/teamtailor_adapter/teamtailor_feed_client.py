@@ -35,8 +35,13 @@ class TeamtailorFeedClient:
         jobs, seen, title = [], set(), None
         for page in range(self._max_pages):
             result = await request_teamtailor_feed_page(
-                self._client, careers_url, feed_url, page * self._page_size,
-                self._page_size, jobs, title,
+                self._client,
+                careers_url,
+                feed_url,
+                page * self._page_size,
+                self._page_size,
+                jobs,
+                title,
             )
             if isinstance(result, TeamtailorFeedResult):
                 return result
@@ -45,14 +50,21 @@ class TeamtailorFeedClient:
                 identifier = job.get("guid")
                 if isinstance(identifier, str) and identifier.strip():
                     if identifier in seen:
-                        return _partial(jobs, page + 1, title, "Duplicate Teamtailor vacancy ID.")
+                        return _partial(
+                            jobs, page + 1, title, "Duplicate Teamtailor vacancy ID."
+                        )
                     seen.add(identifier)
                 jobs.append(job)
             if len(result.jobs) < self._page_size:
                 return TeamtailorFeedResult(
                     "success" if jobs else "empty", jobs, page + 1, True, None, title
                 )
-        return _partial(jobs, self._max_pages, title, "Teamtailor pagination reached its page limit.")
+        return _partial(
+            jobs,
+            self._max_pages,
+            title,
+            "Teamtailor pagination reached its page limit.",
+        )
 
 
 def _partial(jobs, pages, title, detail):

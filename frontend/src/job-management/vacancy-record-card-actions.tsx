@@ -8,12 +8,7 @@ type Props = {
   onRestore: () => void;
 };
 
-export function VacancyRecordCardActions({
-  archived,
-  saving,
-  onArchive,
-  onRestore,
-}: Props) {
+export function VacancyRecordCardActions({ archived, saving, onArchive, onRestore }: Props) {
   return (
     <Button
       type="button"

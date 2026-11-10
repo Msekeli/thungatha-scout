@@ -192,7 +192,6 @@ Integration changes add Teamtailor to both shared adapter factories, backend cre
 
 **Verification status:** focused tests have been added for URL parsing, namespaced RSS mapping, offset pagination, incomplete later-page behavior, adapter mapping, route discovery and shared registry/service registration. Local execution was unavailable in the implementation environment. The repository's GitHub Actions architecture-compliance workflow must complete before this checkpoint can be presented for acceptance. Live feed behavior was verified manually by the user; live extraction through the new adapter remains to be confirmed.
 
-
 ### Teamtailor CI remediation — 10 November 2026
 
 The first GitHub Actions architecture-compliance run after the Teamtailor implementation executed the complete backend suite: **176 passed, 1 skipped, 1 failed**. The only failure was the repository-wide line-limit test, which identified two pre-existing files that the formatter had expanded to 101 lines: `backend/scout/geography.py` and `frontend/src/job-management/VacancyRecordCard.tsx`. The formatting workflow also expanded the Teamtailor pagination client beyond the 100-line standard. These responsibilities are being split into focused modules before rerunning the full compliance workflow. No Teamtailor test failure was reported in that run.
