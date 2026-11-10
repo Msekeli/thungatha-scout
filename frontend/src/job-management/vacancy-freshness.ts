@@ -12,6 +12,16 @@ function parseTimestamp(value?: string | null): Date | null {
   return Number.isNaN(timestamp.getTime()) ? null : timestamp;
 }
 
+function getAgeLabel(ageInMilliseconds: number): string {
+  if (ageInMilliseconds < 3_600_000) return "less than 1 hour ago";
+  if (ageInMilliseconds < 86_400_000) {
+    const hours = Math.floor(ageInMilliseconds / 3_600_000);
+    return `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+  }
+  const days = Math.floor(ageInMilliseconds / 86_400_000);
+  return `${days} ${days === 1 ? "day" : "days"} ago`;
+}
+
 export function getVacancyFreshness(
   sourceUpdatedAt?: string | null,
   publishedAt?: string | null,
@@ -21,7 +31,8 @@ export function getVacancyFreshness(
   const effectiveDate = updatedAt ?? parseTimestamp(publishedAt);
   if (!effectiveDate) return null;
 
-  const ageInDays = Math.max(0, Math.floor((now - effectiveDate.getTime()) / 86_400_000));
+  const ageInMilliseconds = Math.max(0, now - effectiveDate.getTime());
+  const ageInDays = Math.floor(ageInMilliseconds / 86_400_000);
   const sourceLabel = updatedAt ? "Updated" : "Posted";
   const dateLabel = effectiveDate.toLocaleDateString();
   const tone: VacancyFreshnessTone =
@@ -36,7 +47,7 @@ export function getVacancyFreshness(
           : "Stale";
 
   return {
-    label: `${sourceLabel} ${dateLabel} · ${ageInDays} ${ageInDays === 1 ? "day" : "days"} ago`,
+    label: `${sourceLabel} ${dateLabel} · ${getAgeLabel(ageInMilliseconds)}`,
     tone,
     statusLabel,
   };
