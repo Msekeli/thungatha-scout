@@ -1,6 +1,6 @@
 # M4 — First-Wave ATS Adapter Expansion
 
-**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A accepted and M4-LEVER-B in progress  
+**Status:** In progress — Ashby deferred pending partner response; Lever M4-LEVER-A and M4-LEVER-B accepted; next adapter is Teamtailor  
 **Scope:** Six first-wave ATS adapters only: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable.  
 **Checkpoint model:** Twelve checkpoints total — one A and one B for each adapter.
 
@@ -78,7 +78,7 @@ Each adapter has exactly two checkpoints. Complete A before B, and complete/revi
 | Order | Adapter    | Checkpoint A — investigate, design, implement  | Checkpoint B — integrate, verify               | Employer test cohort and investigation focus                                                                                                                                            |
 | ----: | ---------- | ---------------------------------------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |     1 | Ashby      | **Deferred — enquiry sent; awaiting response** | **Deferred**                                   | Midnite, MyEdSpace, Tree Traction. Reopen only after Ashby confirms partner-feed eligibility, feed access and employer opt-in requirements; see the Ashby investigation report.         |
-|     2 | Lever      | **Accepted — 9 November 2026**                 | **In progress — integration and verification** | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
+|     2 | Lever      | **Accepted — 9 November 2026**                 | **Accepted — 10 November 2026**                 | Mama Money, Theodo, Wing Assistant. Verify public Postings API, regional host behavior, pagination and exact posting/apply URLs.                                                        |
 |     3 | Teamtailor | **M4-TEAMTAILOR-A**                            | **M4-TEAMTAILOR-B**                            | Root Platform, Footasylum, TeamViewer. Verify public RSS feed, custom-domain handling, feed completeness and destination URLs.                                                          |
 |     4 | Personio   | **M4-PERSONIO-A**                              | **M4-PERSONIO-B**                              | ottonova, Open, Openprovider. Verify XML feed availability, employer enablement requirements, fields and detail/application destinations.                                               |
 |     5 | Recruitee  | **M4-RECRUITEE-A**                             | **M4-RECRUITEE-B**                             | TransPerfect, Fastned, Tether. Verify current public XML offer feed availability, completeness, stable IDs and exact destinations; do not rely on the token-protected Careers Site API. |
@@ -144,3 +144,27 @@ M4-LEVER-B implementation now committed on `dev`:
 - Adds tests for registry configuration, shared adapter registration, source API creation, URL parsing and URL-only discovery.
 
 **B verification still required:** run the focused Lever tests, full backend unit suite, backend formatting/lint checks, frontend typecheck/build/lint, mandatory line-limit and naming checks, and representative live validation through the new API/admin flow. No local execution of these B checks is claimed yet. Confirm that the extraction endpoint persists Lever vacancies through the existing repositories, preserves incomplete-run semantics, and remains idempotent across repeated runs.
+
+
+## M4-LEVER-B acceptance — 10 November 2026
+
+The user reviewed the end-to-end admin results and accepted the Lever integration. Lever is closed for this milestone; proceed to Teamtailor M4-TEAMTAILOR-A.
+
+**Integration and live evidence confirmed by the user:**
+
+- Lever source discovery and employer onboarding work through the frontend, including automatic employer-name fallback for Lever boards.
+- Vacancy extraction completed and persisted jobs for companies registered directly through the admin UI and for a company configured through the backend/registry path.
+- The Companies directory displays the registered employers and their extracted vacancy counts. The Jobs workspace displays the extracted vacancy records.
+- The user confirmed the Lever workflow is working and approved closing the checkpoint.
+
+**Regression evidence supplied by the user:**
+
+- Backend: `pytest test-suites/unit-tests -q` — **160 passed**.
+- Frontend: `npm run typecheck` — passed.
+- Frontend: `npm run build` — passed.
+- Frontend: `npm run lint:size` — passed; all scanned source files satisfy the 100-physical-line limit.
+- Frontend: `npm run lint:naming` — passed; scanned files and directories satisfy naming standards.
+
+The earlier generic `npm run lint` command is not a defined frontend script; the two explicit repository checks above are the available size and naming checks. Backend unit tests and frontend checks were run after the geography line-limit correction.
+
+**Acceptance:** M4-LEVER-A and M4-LEVER-B are accepted. The Lever adapter is registered in the shared extraction service, available through admin onboarding, and verified with persisted live vacancy results. This acceptance does not claim that the full six-adapter M4 milestone is complete. Ashby remains deferred pending the partner response.
