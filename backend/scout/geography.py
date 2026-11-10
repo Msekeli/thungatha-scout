@@ -4,7 +4,8 @@ from typing import Any
 
 _SOUTH_AFRICAN_PLACES = (
     "south africa",
-    "za", "zaf",
+    "za",
+    "zaf",
     "western cape",
     "eastern cape",
     "northern cape",
