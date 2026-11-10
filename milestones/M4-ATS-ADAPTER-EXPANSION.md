@@ -208,6 +208,6 @@ GitHub Actions run `42797905496` completed successfully for implementation commi
 - Frontend TypeScript typecheck: passed.
 - Frontend production build: passed.
 
-The repository formatting workflow also completed successfully. Its formatting-only commit is on `dev`; the final documentation commit will trigger another architecture-compliance run. No Teamtailor code test currently depends on a live external feed. The three public RSS feeds were fetched manually by the user, and adapter behavior is covered by deterministic fixtures and mocked HTTP. A live end-to-end extraction from the running Scout API remains a post-pull validation step.
+The repository formatting workflow completed successfully. The final documentation commit was checked by GitHub Actions run `42798126678`, which passed the backend suite, repository-quality checks, TypeScript typecheck and frontend production build. No Teamtailor code test currently depends on a live external feed. The three public RSS feeds were fetched manually by the user, and adapter behavior is covered by deterministic fixtures and mocked HTTP. A live end-to-end extraction from the running Scout API remains a post-pull validation step.
 
 **Checkpoint state:** M4-TEAMTAILOR-A and M4-TEAMTAILOR-B are implemented and automated checks are green, but remain **awaiting user review/acceptance**. The three employer source configurations remain pending administrator verification and activation. Do not start Personio until the user accepts this checkpoint pair.
