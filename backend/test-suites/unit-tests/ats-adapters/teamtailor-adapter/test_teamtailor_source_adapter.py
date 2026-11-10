@@ -33,7 +33,9 @@ def test_maps_teamtailor_vacancy_and_preserves_advert_link() -> None:
     vacancy = result.vacancies[0]
     assert result.complete is True
     assert vacancy.external_job_id == "ae43e465-6807-4964-91b2-c8479023ae95"
-    assert vacancy.location_text == "Cape Town, South Africa; Johannesburg, South Africa"
+    assert (
+        vacancy.location_text == "Cape Town, South Africa; Johannesburg, South Africa"
+    )
     assert vacancy.department == "Product"
     assert vacancy.description == "<p>Support product</p>"
     assert len(vacancy.raw_payload["locations"]) == 2
