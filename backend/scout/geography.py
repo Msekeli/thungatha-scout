@@ -2,71 +2,8 @@ import re
 from collections.abc import Mapping
 from typing import Any
 
-_SOUTH_AFRICAN_PLACES = (
-    "south africa",
-    "za",
-    "zaf",
-    "western cape",
-    "eastern cape",
-    "northern cape",
-    "kwazulu natal",
-    "kwa zulu natal",
-    "free state",
-    "gauteng",
-    "north west",
-    "limpopo",
-    "mpumalanga",
-    "cape town",
-    "stellenbosch",
-    "durbanville",
-    "bellville",
-    "brackenfell",
-    "kraaifontein",
-    "kuils river",
-    "parow",
-    "goodwood",
-    "milnerton",
-    "century city",
-    "table view",
-    "blouberg",
-    "somerset west",
-    "gordons bay",
-    "paarl",
-    "wellington",
-    "franschhoek",
-    "worcester",
-    "george",
-    "mossel bay",
-    "oudtshoorn",
-    "knysna",
-    "hermanus",
-    "malmesbury",
-    "saldanha",
-    "johannesburg",
-    "joburg",
-    "pretoria",
-    "tshwane",
-    "sandton",
-    "midrand",
-    "centurion",
-    "randburg",
-    "soweto",
-    "durban",
-    "pietermaritzburg",
-    "richards bay",
-    "newcastle",
-    "port elizabeth",
-    "gqeberha",
-    "east london",
-    "mthatha",
-    "bloemfontein",
-    "kimberley",
-    "polokwane",
-    "nelspruit",
-    "mbombela",
-    "rustenburg",
-    "potchefstroom",
-)
+from scout.south_african_location_terms import SOUTH_AFRICAN_LOCATION_TERMS
+
 _NORMALIZE = re.compile(r"[^a-z0-9]+")
 
 
@@ -74,7 +11,7 @@ def is_south_african_location(location: str | None) -> bool:
     evidence = _NORMALIZE.sub(" ", location.lower() if location else "").strip()
     return bool(evidence) and any(
         re.search(rf"(^| ){re.escape(term)}( |$)", evidence)
-        for term in _SOUTH_AFRICAN_PLACES
+        for term in SOUTH_AFRICAN_LOCATION_TERMS
     )
 
 

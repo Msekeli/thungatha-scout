@@ -1,8 +1,8 @@
-import { Archive, CalendarDays, Building2, MapPin, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { CalendarDays, Building2, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
 import { getCompanyIconUrl } from "../company-management/company-icon-url";
 import { getVacancyFreshness } from "./vacancy-freshness";
+import { VacancyRecordCardActions } from "./vacancy-record-card-actions";
 
 type Props = {
   vacancy: Vacancy;
@@ -79,22 +79,12 @@ export function VacancyRecordCard({
             </span>
           </span>
         </button>
-        <Button
-          type="button"
-          size="sm"
-          variant="outline"
-          className="shrink-0"
-          disabled={saving}
-          onClick={archived ? onRestore : onArchive}
-          aria-label={archived ? "Reinstate vacancy" : "Archive vacancy"}
-        >
-          {archived ? (
-            <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-          ) : (
-            <Archive className="mr-1.5 h-3.5 w-3.5" />
-          )}
-          {archived ? "Reinstate" : "Archive"}
-        </Button>
+        <VacancyRecordCardActions
+          archived={archived}
+          saving={saving}
+          onArchive={onArchive}
+          onRestore={onRestore}
+        />
       </div>
     </article>
   );
