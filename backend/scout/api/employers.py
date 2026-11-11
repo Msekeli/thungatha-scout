@@ -61,15 +61,6 @@ async def discover_employer_branding(
     } and is_usable_employer_logo_url(employer.get("logo_url")):
         return employer
 
-    sources = service.list_sources(employer_id)
-    careers_url = next(
-        (
-            source["employer_careers_url"]
-            for source in sources
-            if source.get("employer_careers_url")
-        ),
-        None,
-    )
     result = await discover_employer_logo(None, employer.get("website_url"))
     if result is None:
         return employer
