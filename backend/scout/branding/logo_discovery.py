@@ -21,7 +21,11 @@ BLOCKED_LOGO_HOSTS = {
 
 def _blocked_logo_host(host: str) -> bool:
     normalized = host.casefold().rstrip(".")
-    return normalized in BLOCKED_LOGO_HOSTS or normalized.endswith(".teamtailor.com")
+    return (
+        normalized in BLOCKED_LOGO_HOSTS
+        or normalized in {"greenhouse.io", "lever.co"}
+        or normalized.endswith((".teamtailor.com", ".greenhouse.io", ".lever.co"))
+    )
 
 
 def is_usable_employer_logo_url(value: str | None) -> bool:
