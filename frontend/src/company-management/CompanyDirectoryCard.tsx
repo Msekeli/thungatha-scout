@@ -33,7 +33,6 @@ export function CompanyDirectoryCard({
     employer.logo_url,
     employer.logo_type,
     employer.logo_source_url,
-    employer.website_url,
   )
     ? employer.logo_url
     : null;
