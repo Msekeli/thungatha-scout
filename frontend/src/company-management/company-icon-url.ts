@@ -1,10 +1,12 @@
-export function getCompanyIconUrl(sourceUrl?: string | null): string | null {
-  if (!sourceUrl) return null;
+export function getCompanyIconUrl(websiteUrl?: string | null): string | null {
+  if (!websiteUrl) return null;
   try {
-    const parsed = new URL(sourceUrl);
+    const parsed = new URL(websiteUrl);
     if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
     return (
-      "https://www.google.com/s2/favicons?domain=" + encodeURIComponent(parsed.hostname) + "&sz=128"
+      "https://www.google.com/s2/favicons?domain=" +
+      encodeURIComponent(parsed.hostname) +
+      "&sz=128"
     );
   } catch {
     return null;
