@@ -64,15 +64,16 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
     onNotice("");
     let employer: Employer | null = null;
     try {
+      const websiteUrl = form.website_url.trim() || null;
       employer =
         duplicate?.kind === "employer"
           ? duplicate.employer
           : await scoutApi.createEmployer({
               ...form,
               name: companyName,
-              website_url: form.website_url.trim() || null,
-              logo_url: getCompanyIconUrl(sourceUrl),
-              logo_source_url: sourceUrl,
+              website_url: websiteUrl,
+              logo_url: getCompanyIconUrl(websiteUrl),
+              logo_source_url: websiteUrl,
             });
 
       const source = await scoutApi.createSource(employer.id, {
