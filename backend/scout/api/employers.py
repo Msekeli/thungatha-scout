@@ -70,9 +70,7 @@ async def discover_employer_branding(
     if result is None:
         return employer
     logo_url, source_url = result
-    updated = service.update_branding_if_unusable(
-        employer_id, logo_url, source_url
-    )
+    updated = service.update_branding_if_unusable(employer_id, logo_url, source_url)
     return updated or service.get_employer(employer_id)
 
 

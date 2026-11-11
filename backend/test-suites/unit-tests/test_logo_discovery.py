@@ -26,7 +26,9 @@ def test_uses_official_same_site_icon_when_no_logo_metadata_exists() -> None:
 
 
 def test_does_not_use_social_sharing_image_as_company_logo() -> None:
-    html = '<meta property="og:image" content="https://cdn.example.com/social-card.png">'
+    html = (
+        '<meta property="og:image" content="https://cdn.example.com/social-card.png">'
+    )
     assert extract_logo_url(html, "https://example.com/jobs") is None
 
 

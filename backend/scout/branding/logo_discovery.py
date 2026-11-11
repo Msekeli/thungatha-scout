@@ -116,7 +116,11 @@ def _same_site_icon(value: str, page_url: str) -> str | None:
         return None
     candidate_host = urlparse(candidate).hostname
     page_host = urlparse(page_url).hostname
-    return candidate if candidate_host and candidate_host.casefold() == (page_host or "").casefold() else None
+    return (
+        candidate
+        if candidate_host and candidate_host.casefold() == (page_host or "").casefold()
+        else None
+    )
 
 
 def _validate_public_host(url: str) -> None:
@@ -176,7 +180,10 @@ async def discover_employer_logo(
             ) as client:
                 response = await client.get(page_url)
                 response.raise_for_status()
-                if "text/html" not in response.headers.get("content-type", "").casefold():
+                if (
+                    "text/html"
+                    not in response.headers.get("content-type", "").casefold()
+                ):
                     continue
                 logo_url = extract_logo_url(response.text, str(response.url))
                 if logo_url:
