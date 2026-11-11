@@ -9,9 +9,10 @@ const BLOCKED_BRANDING_HOSTS = new Set([
   "teamtailor-cdn.com",
   "myworkdayjobs.com",
 ]);
+const CAREERS_PATH_SEGMENTS = new Set(["career", "careers", "job", "jobs", "recruitment", "recruiting"]);
 
 function isBlockedBrandingHost(host: string): boolean {
-  const normalized = host.toLowerCase().replace(/\\.$/, "");
+  const normalized = host.toLowerCase().replace(/\.$/, "");
   return (
     BLOCKED_BRANDING_HOSTS.has(normalized) ||
     normalized.endsWith(".greenhouse.io") ||
@@ -41,8 +42,10 @@ function parseSafeBrandingUrl(value: string): URL | null {
 }
 
 function isCareersOrJobsPath(value: string): boolean {
-  const path = new URL(value).pathname.toLowerCase();
-  return /(^|\\/)(careers?|jobs?|recruit(?:ment|ing)?)(\\/|$)/.test(path);
+  return new URL(value).pathname
+    .toLowerCase()
+    .split("/")
+    .some((segment) => CAREERS_PATH_SEGMENTS.has(segment));
 }
 
 export function isApprovedEmployerBranding(
