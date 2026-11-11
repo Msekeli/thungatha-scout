@@ -5,48 +5,11 @@ from scout.branding.logo_discovery import (
     discover_employer_logo,
     is_usable_employer_logo_url,
 )
+from scout.maintenance.employer_logo_refresh_policy import (
+    duplicate_employer_names,
+    verified_website_for,
+)
 from scout.persistence.database_connection import get_database_connection
-
-
-# Official company websites verified for employers whose website_url is missing.
-# Ambiguous employer names are intentionally excluded.
-VERIFIED_EMPLOYER_WEBSITES = {
-    "aleph": "https://getaleph.com/",
-    "aston holmes": "https://www.astonholmes.com/",
-    "bamboo": "https://investbamboo.co.za/",
-    "brafton": "https://www.brafton.com/",
-    "cyberone": "https://cyberonesecurity.co.za/",
-    "ekco": "https://www.ek.co/",
-    "footasylum": "https://www.footasylum.com/",
-    "impact.com": "https://impact.com/",
-    "lyrahealth": "https://www.lyrahealth.com/",
-    "moburst": "https://www.moburst.com/",
-    "network recruitment": "https://www.networkrecruitment.co.za/",
-    "paystack": "https://paystack.com/",
-    "sedna": "https://sedna.com/",
-    "takealot group": "https://www.takealot.com/",
-    "teamviewer": "https://www.teamviewer.com/",
-    "theodo": "https://www.theodo.com/",
-    "yassir": "https://yassir.com/",
-    "2u": "https://2u.com/",
-    "acacium group": "https://acaciumgroup.com/",
-    "anew hotels & resorts": "https://anewhotels.com/",
-    "biovac": "https://biovac.co.za/",
-    "burnt studios": "https://burnt.co.za/",
-    "bvnk": "https://www.bvnk.com/",
-    "cosmo central group": "https://www.cosmocentralgroup.co.za/",
-    "crosscountry consulting": "https://www.crosscountry-consulting.com/",
-    "currenciesdirectlimited": "https://www.currenciesdirect.com/",
-    "magentus": "https://www.magentus.com/",
-    "moonpay": "https://www.moonpay.com/",
-    "north star network": "https://north-star.network/",
-    "old mutual": "https://www.oldmutual.com/",
-    "olx": "https://www.olx.com/",
-    "onedayonly": "https://www.onedayonly.co.za/",
-    "ozow": "https://ozow.com/",
-    "parallelwireless": "https://www.parallelwireless.com/",
-    "payjoy": "https://www.payjoy.com/",
-}
 
 
 async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
@@ -61,31 +24,21 @@ async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
 
     updated = 0
     unresolved = 0
+    duplicate_names = duplicate_employer_names(employers)
+    for name in sorted(duplicate_names):
+        print(f"UNRESOLVED: duplicate employer records for {name}")
+
     for employer in employers:
+        if employer["name"].strip().casefold() in duplicate_names:
+            unresolved += 1
+            continue
         if employer["logo_type"] in {
             "official_logo",
             "official_favicon",
         } and is_usable_employer_logo_url(employer["logo_url"]):
             continue
 
-        website_url = employer["website_url"]
-        if website_url:
-            from urllib.parse import urlparse
-
-            hostname = (urlparse(website_url).hostname or "").casefold()
-            if (
-                hostname == "greenhouse.io"
-                or hostname.endswith(".greenhouse.io")
-                or hostname == "lever.co"
-                or hostname.endswith(".lever.co")
-                or hostname == "teamtailor.com"
-                or hostname.endswith(".teamtailor.com")
-            ):
-                website_url = None
-
-        website_url = website_url or VERIFIED_EMPLOYER_WEBSITES.get(
-            employer["name"].strip().casefold()
-        )
+        website_url = verified_website_for(employer)
         result = await discover_employer_logo(None, website_url)
         if result is None:
             unresolved += 1
