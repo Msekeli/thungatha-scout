@@ -1,25 +1,28 @@
-const ATS_HOSTS = new Set([
+const BLOCKED_LOGO_HOSTS = new Set([
   "boards.greenhouse.io",
   "job-boards.greenhouse.io",
+  "job-boards.eu.greenhouse.io",
   "jobs.lever.co",
   "jobs.eu.lever.co",
 ]);
 
-export function getCompanyIconUrl(websiteUrl?: string | null): string | null {
-  if (!websiteUrl) return null;
+export function isEmployerLogoUrl(value?: string | null): boolean {
+  if (!value) return false;
   try {
-    const parsed = new URL(websiteUrl);
-    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
+    const parsed = new URL(value);
+    const host = parsed.hostname.toLowerCase();
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return false;
     if (
-      ATS_HOSTS.has(parsed.hostname.toLowerCase()) ||
-      parsed.hostname.endsWith(".teamtailor.com")
+      host === "www.google.com" ||
+      host === "google.com" ||
+      host === "favicons.githubusercontent.com" ||
+      BLOCKED_LOGO_HOSTS.has(host) ||
+      host.endsWith(".teamtailor.com")
     ) {
-      return null;
+      return false;
     }
-    return (
-      "https://www.google.com/s2/favicons?domain=" + encodeURIComponent(parsed.hostname) + "&sz=128"
-    );
+    return true;
   } catch {
-    return null;
+    return false;
   }
 }
