@@ -138,7 +138,7 @@ def _validate_public_host(url: str) -> None:
         raise ValueError("Branding URL must resolve to a public internet host.")
 
 
-def extract_logo_url(html: str, page_url: str) -> str | None:
+def extract_logo_asset(html: str, page_url: str) -> tuple[str, str] | None:
     parser = BrandingMetadataParser()
     parser.feed(html)
 
@@ -157,12 +157,59 @@ def extract_logo_url(html: str, page_url: str) -> str | None:
         if candidate:
             result = _public_https_url(candidate, page_url)
             if result:
-                return result
+                return result, "official_logo"
 
     for icon in parser.icons:
         result = _same_site_icon(icon, page_url)
         if result:
-            return result
+            return result, "official_favicon"
+    return None
+
+
+def extract_logo_url(html: str, page_url: str) -> str | None:
+    asset = extract_logo_asset(html, page_url)
+    return asset[0] if asset else None
+
+
+async def discover_employer_logo(
+    careers_url: str | None,
+    website_url: str | None = None,
+) -> tuple[str, str, str] | None:
+    # Careers URLs are deliberately not discovery roots. They may be hosted by
+    # an ATS on a custom domain, so their favicon cannot establish employer identity.
+    del careers_url
+    if not website_url or _blocked_logo_host(urlparse(website_url).hostname or ""):
+        return None
+    try:
+        _validate_public_host(website_url)
+        async with httpx.AsyncClient(
+            timeout=12,
+            follow_redirects=True,
+            headers={
+                "User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"
+            },
+        ) as client:
+            response = await client.get(website_url)
+            response.raise_for_status()
+            if "text/html" not in response.headers.get("content-type", "").casefold():
+                return None
+            source_url = str(response.url)
+            asset = extract_logo_asset(response.text, source_url)
+            if asset:
+                asset_url, asset_type = asset
+                return asset_url, source_url, asset_type
+
+            favicon_url = _same_site_icon("/favicon.ico", source_url)
+            if favicon_url:
+                try:
+                    favicon_response = await client.get(favicon_url)
+                    favicon_response.raise_for_status()
+                    if favicon_response.headers.get("content-type", "").casefold().startswith("image/"):
+                        return favicon_url, source_url, "official_favicon"
+                except httpx.HTTPError:
+                    pass
+    except (httpx.HTTPError, OSError, ValueError):
+        return None
     return None
 
 
