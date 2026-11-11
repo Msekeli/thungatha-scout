@@ -63,8 +63,10 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
               ...form,
               name: companyName,
               website_url: form.website_url.trim() || null,
-              logo_url: getCompanyIconUrl(form.website_url.trim() || null),
-              logo_source_url: form.website_url.trim() || null,
+              logo_url: getCompanyIconUrl(form.website_url.trim() || sourceUrl),
+              logo_source_url: getCompanyIconUrl(form.website_url.trim() || sourceUrl)
+                ? form.website_url.trim() || sourceUrl
+                : null,
             });
 
       const source = await scoutApi.createSource(employer.id, {
