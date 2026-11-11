@@ -3,6 +3,7 @@ import { Building2 } from "lucide-react";
 type EmployerBrandMarkProps = {
   name: string;
   logoUrl?: string | null;
+  faviconUrl?: string | null;
   className: string;
   logoClassName: string;
 };
@@ -18,6 +19,7 @@ function getInitials(name: string): string {
 export function EmployerBrandMark({
   name,
   logoUrl,
+  faviconUrl,
   className,
   logoClassName,
 }: EmployerBrandMarkProps) {
@@ -30,6 +32,16 @@ export function EmployerBrandMark({
       >
         {initials || <Building2 className="h-5 w-5" />}
       </span>
+      {faviconUrl && (
+        <img
+          src={faviconUrl}
+          alt=""
+          className={logoClassName}
+          onError={(event) => {
+            event.currentTarget.style.display = "none";
+          }}
+        />
+      )}
       {logoUrl && (
         <img
           src={logoUrl}
