@@ -1,7 +1,5 @@
 const APPROVED_LOGO_TYPES = new Set(["official_logo", "official_favicon", "careers_favicon"]);
 const BLOCKED_BRANDING_HOSTS = new Set([
-  "google.com",
-  "www.google.com",
   "favicons.githubusercontent.com",
   "greenhouse.io",
   "lever.co",
@@ -9,10 +7,13 @@ const BLOCKED_BRANDING_HOSTS = new Set([
   "teamtailor-cdn.com",
   "myworkdayjobs.com",
 ]);
-const CAREERS_PATH_SEGMENTS = new Set(["career", "careers", "job", "jobs", "recruitment", "recruiting"]);
+
+function normalizeHost(host: string): string {
+  return host.toLowerCase().replace(/^www\\./, "").replace(/\\.$/, "");
+}
 
 function isBlockedBrandingHost(host: string): boolean {
-  const normalized = host.toLowerCase().replace(/\.$/, "");
+  const normalized = host.toLowerCase().replace(/\\.$/, "");
   return (
     BLOCKED_BRANDING_HOSTS.has(normalized) ||
     normalized.endsWith(".greenhouse.io") ||
@@ -41,32 +42,49 @@ function parseSafeBrandingUrl(value: string): URL | null {
   }
 }
 
-function isCareersOrJobsPath(value: string): boolean {
-  return new URL(value).pathname
-    .toLowerCase()
-    .split("/")
-    .some((segment) => CAREERS_PATH_SEGMENTS.has(segment));
+function isGoogleFaviconForWebsite(value: string, websiteUrl?: string | null): boolean {
+  if (!websiteUrl) return false;
+  try {
+    const favicon = new URL(value);
+    const website = new URL(websiteUrl);
+    if (
+      favicon.protocol !== "https:" ||
+      !["google.com", "www.google.com"].includes(favicon.hostname.toLowerCase()) ||
+      favicon.pathname !== "/s2/favicons"
+    ) {
+      return false;
+    }
+    const requestedDomain = favicon.searchParams.get("domain");
+    return Boolean(
+      requestedDomain &&
+      normalizeHost(requestedDomain) === normalizeHost(website.hostname),
+    );
+  } catch {
+    return false;
+  }
 }
 
 export function isApprovedEmployerBranding(
   value?: string | null,
   logoType?: string | null,
   sourceUrl?: string | null,
+  websiteUrl?: string | null,
 ): boolean {
   if (!value || !logoType) return false;
 
-  const logo = parseSafeBrandingUrl(value);
-  if (!logo) return false;
+  // Google's favicon endpoint is a valid domain-specific fallback only when its
+  // requested domain matches this employer's configured website.
+  const googleFavicon = isGoogleFaviconForWebsite(value, websiteUrl);
+  const logo = googleFavicon ? null : parseSafeBrandingUrl(value);
+  if (!googleFavicon && !logo) return false;
 
   if (APPROVED_LOGO_TYPES.has(logoType)) {
     return !sourceUrl || parseSafeBrandingUrl(sourceUrl) !== null;
   }
   if (logoType !== "unverified") return false;
 
-  // Legacy records predate provenance tracking. Keep their existing logo visible
-  // unless we have positive evidence that it came from a careers/ATS page.
+  // Legacy logos remain visible. A careers-page path alone does not prove that
+  // the asset belongs to an ATS; block only known ATS/unsafe hosts.
   if (!sourceUrl) return true;
-
-  const source = parseSafeBrandingUrl(sourceUrl);
-  return source !== null && !isCareersOrJobsPath(source.href);
+  return parseSafeBrandingUrl(sourceUrl) !== null;
 }
