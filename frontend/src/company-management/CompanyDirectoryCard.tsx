@@ -30,8 +30,7 @@ export function CompanyDirectoryCard({
   const displayedJobs = currentJobs > 0 ? currentJobs : previewCount;
   const jobLabel = currentJobs > 0 || !hasPreview ? "current" : "discovered";
   const logoUrl = isEmployerLogoUrl(employer.logo_url) ? employer.logo_url : null;
-  const careersUrl = sources.find((source) => source.employer_careers_url)?.employer_careers_url;
-  const faviconUrl = getCompanyFaviconUrl(employer.website_url || careersUrl);
+  const faviconUrl = getCompanyFaviconUrl(employer.website_url);
   return (
     <article className="scout-company-card relative" data-selected={selected}>
       <div className="scout-company-card__accent" />
