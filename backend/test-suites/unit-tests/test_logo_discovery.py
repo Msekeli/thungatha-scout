@@ -82,7 +82,7 @@ def test_classifies_same_site_icon_as_official_favicon() -> None:
     )
 
 
-def test_does_not_classify_custom_careers_domain_as_official_without_company_site_evidence() -> None:
+def test_extractor_classifies_page_local_icon_and_discovery_controls_allowed_roots() -> None:
     # Extraction is page-local; the discovery workflow must only invoke it for
     # the employer's configured official website, never a careers URL.
     html = '<link rel="icon" href="/favicon.ico">'
