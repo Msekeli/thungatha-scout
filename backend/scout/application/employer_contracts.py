@@ -46,7 +46,7 @@ class EmployerBrandingUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
     logo_url: HttpUrl | None = None
     logo_source_url: HttpUrl | None = None
-    logo_type: EmployerLogoType = "unverified"
+    logo_type: EmployerLogoType = "official_logo"
 
 
 class DiscoveryPreviewJob(BaseModel):
