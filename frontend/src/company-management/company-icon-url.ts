@@ -7,49 +7,63 @@ const BLOCKED_BRANDING_HOSTS = new Set([
   "lever.co",
   "teamtailor.com",
   "teamtailor-cdn.com",
+  "myworkdayjobs.com",
 ]);
 
-function isSafeEmployerBrandingUrl(value: string): boolean {
+function isBlockedBrandingHost(host: string): boolean {
+  const normalized = host.toLowerCase().replace(/\\.$/, "");
+  return (
+    BLOCKED_BRANDING_HOSTS.has(normalized) ||
+    normalized.endsWith(".greenhouse.io") ||
+    normalized.endsWith(".lever.co") ||
+    normalized.endsWith(".teamtailor.com") ||
+    normalized.endsWith(".teamtailor-cdn.com") ||
+    normalized.endsWith(".myworkdayjobs.com")
+  );
+}
+
+function parseSafeBrandingUrl(value: string): URL | null {
   try {
     const parsed = new URL(value);
-    const host = parsed.hostname.toLowerCase();
-    return (
-      (parsed.protocol === "https:" || parsed.protocol === "http:") &&
-      Boolean(parsed.hostname) &&
-      !BLOCKED_BRANDING_HOSTS.has(host) &&
-      !host.endsWith(".greenhouse.io") &&
-      !host.endsWith(".lever.co") &&
-      !host.endsWith(".teamtailor.com") &&
-      !host.endsWith(".teamtailor-cdn.com")
-    );
+    if (
+      (parsed.protocol !== "https:" && parsed.protocol !== "http:") ||
+      !parsed.hostname ||
+      parsed.username ||
+      parsed.password ||
+      isBlockedBrandingHost(parsed.hostname)
+    ) {
+      return null;
+    }
+    return parsed;
   } catch {
-    return false;
+    return null;
   }
 }
 
-function normalizedHost(value: string): string {
-  return new URL(value).hostname.toLowerCase().replace(/^www\./, "");
+function isCareersOrJobsPath(value: string): boolean {
+  const path = new URL(value).pathname.toLowerCase();
+  return /(^|\\/)(careers?|jobs?|recruit(?:ment|ing)?)(\\/|$)/.test(path);
 }
 
 export function isApprovedEmployerBranding(
   value?: string | null,
   logoType?: string | null,
   sourceUrl?: string | null,
-  websiteUrl?: string | null,
 ): boolean {
   if (!value || !logoType) return false;
-  if (logoType !== "unverified" && !APPROVED_LOGO_TYPES.has(logoType)) {
-    return false;
+
+  const logo = parseSafeBrandingUrl(value);
+  if (!logo) return false;
+
+  if (APPROVED_LOGO_TYPES.has(logoType)) {
+    return !sourceUrl || parseSafeBrandingUrl(sourceUrl) !== null;
   }
-  if (!isSafeEmployerBrandingUrl(value)) return false;
-  if (sourceUrl && !isSafeEmployerBrandingUrl(sourceUrl)) return false;
-  if (logoType !== "unverified") return true;
-  if (!sourceUrl || !isSafeEmployerBrandingUrl(sourceUrl)) return false;
-  if (websiteUrl && isSafeEmployerBrandingUrl(websiteUrl)) {
-    const sourceHost = normalizedHost(sourceUrl);
-    const websiteHost = normalizedHost(websiteUrl);
-    if (sourceHost !== websiteHost && !sourceHost.endsWith(`.${websiteHost}`)) return false;
-  }
-  const sourcePath = new URL(sourceUrl).pathname.toLowerCase();
-  return !/(^|\/)(careers?|jobs?|recruit(?:ment|ing)?)(\/|$)/.test(sourcePath);
+  if (logoType !== "unverified") return false;
+
+  // Legacy records predate provenance tracking. Keep their existing logo visible
+  // unless we have positive evidence that it came from a careers/ATS page.
+  if (!sourceUrl) return true;
+
+  const source = parseSafeBrandingUrl(sourceUrl);
+  return source !== null && !isCareersOrJobsPath(source.href);
 }
