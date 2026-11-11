@@ -41,8 +41,7 @@ export function EmployerOnboardingPanel({
   return (
     <>
       <p className="mb-3 text-xs scout-company-muted">
-        Add an employer from its official careers page. Scout will discover vacancies for preview;
-        extraction starts only after the source is verified and permission is allowed.
+        Add an employer using its official Greenhouse, Lever or Teamtailor board URL. Vacancy extraction starts after registration in the background.
       </p>
       <section className="scout-company-onboarding">
         <div className="mb-5">
