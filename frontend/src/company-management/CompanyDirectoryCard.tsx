@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource } from "../api";
 import { CompanyDirectoryLinks } from "./CompanyDirectoryLinks";
 import { EmployerBrandMark } from "./employer-brand-mark";
-import { isEmployerLogoUrl } from "./company-icon-url";
+import { getCompanyFaviconUrl, isEmployerLogoUrl } from "./company-icon-url";
 
 type Props = {
   employer: Employer;
@@ -30,6 +30,7 @@ export function CompanyDirectoryCard({
   const displayedJobs = currentJobs > 0 ? currentJobs : previewCount;
   const jobLabel = currentJobs > 0 || !hasPreview ? "current" : "discovered";
   const logoUrl = isEmployerLogoUrl(employer.logo_url) ? employer.logo_url : null;
+  const faviconUrl = getCompanyFaviconUrl(employer.website_url);
   return (
     <article className="scout-company-card relative" data-selected={selected}>
       <div className="scout-company-card__accent" />
@@ -64,6 +65,7 @@ export function CompanyDirectoryCard({
         <EmployerBrandMark
           name={employer.name}
           logoUrl={logoUrl}
+          faviconUrl={faviconUrl}
           className="scout-company-card__icon"
           logoClassName="scout-company-card__logo"
         />
