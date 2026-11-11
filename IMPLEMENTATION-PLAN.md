@@ -18,7 +18,7 @@ Scout is an unattended employer-sourced vacancy ingestion and publishing system 
 
 Human review is exception-based, not a mandatory approval step for every vacancy. Only records that pass deterministic publication gates are published. Uncertain or incomplete records are held for review.
 
-V1 ATS adapter: Greenhouse. Workday is deferred from active investigation and implementation until further notice. Initial geographic scope: Cape Town. No public job-search frontend or recruiter self-service.
+Greenhouse remains the proven reference adapter. South African employer careers-page coverage now determines the next platform investigation and adapter priorities. Initial geographic scope: South Africa for vacancy export, as recorded in the 9 November operating-model correction. No public job-search frontend or recruiter self-service.
 
 ## 3. Current architecture
 
@@ -65,7 +65,7 @@ Employer discovery and source verification continue in parallel with implementat
 | M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                                                            |
 | M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                                                       |
 | M3        | Greenhouse Vertical Slice                          | In progress — user confirms extraction-to-Thungatha flow has been exercised; remaining Greenhouse/admin acceptance evidence must be recorded |
-| M4        | ATS Adapter Expansion                              | In progress — Ashby deferred; Lever M4-LEVER-A and M4-LEVER-B accepted; next: Teamtailor                                                     |
+| M4        | South African Careers Crawling and Platform Coverage | Reprioritised — preserve Greenhouse/Lever/Teamtailor work; investigate South African enterprise and local platforms before more adapters |
 | M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                                                                   |
 | M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                                  |
 | M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                                                                  |
@@ -100,31 +100,24 @@ Checkpoints:
 
 Acceptance: adding another Greenhouse employer requires registry configuration, not employer-specific adapter code; supported URL forms, complete-board counts, full descriptions, meaningful vacancy data and failure outcomes are tested; the admin can complete source onboarding, extraction and vacancy inspection end to end.
 
-### M4 — First-wave ATS adapter expansion
+### M4 — South African careers crawling and platform coverage
 
-M4 is limited to the six first-wave adapters: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable. It contains exactly twelve checkpoints, two per adapter, as defined in `milestones/M4-ATS-ADAPTER-EXPANSION.md`.
+M4 is reprioritised around verified South African employer coverage. The previous Personio/Recruitee-first sequence is superseded. Existing Greenhouse, Lever and Teamtailor work is retained; do not delete accepted code, registry entries or historical evidence.
 
-For each adapter, complete the checkpoints in order:
+Read `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` for the detailed crawler architecture, platform candidates, evidence scorecard and acceptance criteria.
 
-- **A — Investigate, design and implement.** First inspect real employer sources and prove the public retrieval behavior. Record the evidence and file-by-file design before writing code; the investigation activity does not commit code. Once the method and design are established, implement the adapter and focused unit tests within the same A checkpoint. If no permitted, reliable method is established, record an evidence-backed blocked/deferred outcome.
-- **B — Integrate and verify.** Register generic adapter capabilities and employer-specific source configuration in the correct registries; connect the adapter to the shared extraction/persistence and existing API/admin workflow; add contract/integration coverage; run regression and mandatory repository checks; perform representative live validation; record exact evidence and results.
+M4 checkpoints:
 
-Complete and review both checkpoints for one adapter before starting the next adapter. Do not split these responsibilities into additional checkpoints.
+- **M4-SA-A — Crawler foundation and source fingerprinting.** Use Scrapy for bounded public careers-page discovery, redirects, link extraction, platform fingerprints and source observations. Route known ATS sources to existing adapters. Use generic HTML/JSON extraction only where no suitable adapter exists. Playwright is an evidence-driven fallback, not the default.
+- **M4-SA-B — Enterprise platform investigation.** Investigate SAP SuccessFactors (Sanlam and Capitec Bank leads), Workday (including Old Mutual and other verified employers), and Oracle Recruiting Cloud. Verify current official career URLs, actual request/response behavior, vacancy completeness, IDs and application destinations before coding.
+- **M4-SA-C — South African/local platform investigation.** Investigate Simplify.hr (Media24, homechoice), eRecruit (Shoprite Group, Boxer, CCBA, Clover), BambooHR, Breezy HR and Workable. Do not conflate eRecruit with Graylink Neptune.
+- **M4-SA-D — Evidence-ranked adapter implementation.** Implement only when employer coverage and a permitted, reliable public retrieval method are established. Use the existing adapter contract, registries, shared persistence, quality gates and publishing workflow.
 
-The six first-wave providers and target cohorts are:
+Greenhouse remains the architectural reference and is retained. Lever and Teamtailor implementation work remains in place. Ashby, Personio, Recruitee and other international candidates are deferred behind the South African investigation queue, not deleted. Workday is restored as an investigation candidate; SAP SuccessFactors is promoted to the first wave.
 
-- **Ashby:** Midnite, MyEdSpace, Tree Traction — public Job Postings API.
-- **Lever:** Mama Money, Theodo, Wing Assistant — public Postings API; verify regional host and pagination.
-- **Teamtailor:** Root Platform, Footasylum, TeamViewer — public RSS feed and custom-domain handling.
-- **Personio:** ottonova, Open, Openprovider — public XML feed when enabled by the employer.
-- **Recruitee:** TransPerfect, Fastned, Tether — verify current public XML offer feed availability; do not rely on the token-protected Careers Site API.
-- **Workable:** LekkeSlaap, Electrum, GoTyme Bank — validate observed public careers-widget JSON behavior.
+Scrapy Cloud (Zyte), available as a candidate through the GitHub Student Developer Pack, is not assumed to be unlimited or permanently free. Verify current eligibility, offer terms, usage limits, scheduling and retention before hosted execution. Keep spiders runnable locally and deployment portable. Do not enable paid/recurring workloads without approval.
 
-Greenhouse remains the existing architectural reference and is not part of M4 delivery. SmartRecruiters, BambooHR, Breezy HR, Simplify.hr, eRecruit/Neptune, Zoho Recruit and SAP SuccessFactors belong to later-wave planning, not this milestone. Placement Partner is a separate recruitment/staffing source pipeline and is not part of M4. Workday remains deferred.
-
-Across all adapters, keep provider HTTP, parsing, pagination and detail retrieval inside the adapter; keep quality gates, deduplication, lifecycle and publishing shared. Do not hardcode employer-specific slugs or tenant identifiers in adapter code. HTTP 200 alone is not acceptance: verify meaningful vacancy content, full descriptions where expected, complete-board counts, stable IDs and exact candidate destinations. Failed or partial runs must not imply that vacancies disappeared.
-
-**Acceptance:** all six adapters have completed their A/B checkpoints or have evidence-backed blocked/deferred outcomes; implemented adapters are registered and integrated through the shared workflow; relevant unit, contract, integration and regression tests pass; representative live evidence and gaps are recorded; adding another employer to a supported platform requires configuration rather than employer-specific adapter code. Follow the 100-physical-line limit and mandatory naming/line-limit checks for all handwritten source and test files.
+Acceptance: the crawler demonstrates bounded careers-page discovery and platform fingerprinting; known ATS sources route to existing adapters; generic pages use the shared extraction contract; source evidence and crawl completeness are persisted; representative South African employers establish useful unique-employer coverage; no second database or direct Thungatha writes are introduced. All adapter implementation requires evidence and tests, not platform-name popularity claims.
 
 ### M5 — Cross-cutting admin UI and API integration
 
@@ -219,3 +212,8 @@ Lever's M4-LEVER-A and M4-LEVER-B checkpoints are accepted. The user verified th
 Regression evidence supplied by the user: backend unit suite **160 passed**; frontend typecheck and production build passed; frontend source line-limit and naming checks passed. See `milestones/M4-ATS-ADAPTER-EXPANSION.md` for the checkpoint evidence.
 
 Continue M4 with **M4-TEAMTAILOR-A**. Ashby remains deferred pending its partner response. M4 as a whole remains in progress until the remaining first-wave adapters reach accepted or evidence-backed deferred outcomes.
+
+
+## South African coverage reprioritisation — 11 November 2026
+
+The former international-first M4 adapter sequence is superseded by M4-SA. The objective is to maximise verified unique South African direct-employer coverage, not the number of ATS integrations. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` for crawler responsibilities, platform candidates, employer leads, evidence scorecard and acceptance criteria. Existing Greenhouse, Lever and Teamtailor work is preserved. No adapter is removed by this decision.
