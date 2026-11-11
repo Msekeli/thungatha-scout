@@ -31,9 +31,7 @@ export function VacancyRecordCard({
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
   const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
-  const logoUrl = isEmployerLogoUrl(vacancy.employer_logo_url)
-    ? vacancy.employer_logo_url
-    : null;
+  const logoUrl = isEmployerLogoUrl(vacancy.employer_logo_url) ? vacancy.employer_logo_url : null;
   return (
     <article className="scout-vacancy-card" data-selected={selected}>
       <div className="flex min-w-0 items-center gap-3 px-4 py-4">
