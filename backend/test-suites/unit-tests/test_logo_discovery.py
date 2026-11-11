@@ -1,4 +1,5 @@
 from scout.branding.logo_discovery import (
+    extract_logo_asset,
     extract_logo_url,
     is_usable_employer_logo_url,
 )
@@ -58,3 +59,34 @@ def test_generic_favicon_services_are_not_usable_employer_logos() -> None:
 
 def test_legitimate_external_logo_hosts_are_accepted() -> None:
     assert is_usable_employer_logo_url("https://cdn.example.com/company-logo.svg")
+
+
+
+def test_classifies_structured_logo_as_official_logo() -> None:
+    html = """
+    <script type="application/ld+json">
+      {"@type":"Organization","logo":"https://cdn.example.com/logo.svg"}
+    </script>
+    """
+    assert extract_logo_asset(html, "https://example.com/about") == (
+        "https://cdn.example.com/logo.svg",
+        "official_logo",
+    )
+
+
+def test_classifies_same_site_icon_as_official_favicon() -> None:
+    html = '<link rel="icon" href="/favicon.ico">'
+    assert extract_logo_asset(html, "https://example.com/about") == (
+        "https://example.com/favicon.ico",
+        "official_favicon",
+    )
+
+
+def test_does_not_classify_custom_careers_domain_as_official_without_company_site_evidence() -> None:
+    # Extraction is page-local; the discovery workflow must only invoke it for
+    # the employer's configured official website, never a careers URL.
+    html = '<link rel="icon" href="/favicon.ico">'
+    assert extract_logo_asset(html, "https://careers.example.com/jobs") == (
+        "https://careers.example.com/favicon.ico",
+        "official_favicon",
+    )
