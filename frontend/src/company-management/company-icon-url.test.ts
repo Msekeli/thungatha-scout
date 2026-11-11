@@ -42,7 +42,7 @@ assert.equal(
     "unverified",
     "https://employer.example.com/careers",
   ),
-  false,
+  true,
 );
 assert.equal(
   isApprovedEmployerBranding(
@@ -73,4 +73,23 @@ assert.equal(
     "https://employer.example.com/about",
   ),
   true,
+);
+
+assert.equal(
+  isApprovedEmployerBranding(
+    "https://www.google.com/s2/favicons?domain=www.takealot.com&sz=128",
+    "unverified",
+    "https://www.takealot.com/",
+    "https://www.takealot.com",
+  ),
+  true,
+);
+assert.equal(
+  isApprovedEmployerBranding(
+    "https://www.google.com/s2/favicons?domain=other.example&sz=128",
+    "unverified",
+    "https://www.takealot.com/",
+    "https://www.takealot.com",
+  ),
+  false,
 );
