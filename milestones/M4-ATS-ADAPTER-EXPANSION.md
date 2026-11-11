@@ -1,6 +1,6 @@
-# M4 — First-Wave ATS Adapter Expansion
+# M4 — Historical First-Wave ATS Adapter Expansion (Superseded)
 
-**Status:** Teamtailor M4-TEAMTAILOR-A/B implemented and CI-verified; awaiting user review. Ashby remains deferred; Lever M4-LEVER-A and M4-LEVER-B accepted.  
+**Status:** Superseded on 11 November 2026 by M4-SA. Retained as historical checkpoint evidence; do not start the next Personio checkpoint under this sequence. Ashby remains deferred; Lever M4-LEVER-A and M4-LEVER-B accepted.  
 **Scope:** Six first-wave ATS adapters only: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable.  
 **Checkpoint model:** Twelve checkpoints total — one A and one B for each adapter.
 
@@ -225,3 +225,8 @@ A second blocker was found while tracing why the registered Teamtailor test targ
 3. Refresh Companies and select Teamtailor in the job-board filter. Root Platform, Footasylum and TeamViewer should then be listed, provided their records are not already present under conflicting normalized source URLs.
 
 The registry importer is repeat-safe. It does not approve employers or verify source permission; those states remain subject to the existing review workflow.
+
+
+## Supersession notice — 11 November 2026
+
+The remaining Personio and Recruitee-first sequence is superseded by the South African careers crawling and platform coverage plan in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and the active M4 section of `IMPLEMENTATION-PLAN.md`. Do not delete or rewrite accepted Lever/Teamtailor evidence or existing adapter code. Greenhouse remains the reference adapter. The next work is the M4-SA investigation/crawler sequence, not Personio. This historical document remains for traceability only.
