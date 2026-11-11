@@ -25,7 +25,6 @@ assert.equal(
     "https://cdn.example.com/logo.svg",
     "unverified",
     "https://employer.example.com/",
-    "https://employer.example.com/",
   ),
   true,
 );
@@ -42,7 +41,6 @@ assert.equal(
     "https://cdn.example.com/logo.svg",
     "unverified",
     "https://employer.example.com/careers",
-    "https://employer.example.com/",
   ),
   false,
 );
@@ -51,7 +49,6 @@ assert.equal(
     "https://images.external-cdn.example/logo.svg",
     "unverified",
     "https://employer.example.com/",
-    null,
   ),
   true,
 );
@@ -66,8 +63,14 @@ assert.equal(
   isApprovedEmployerBranding(
     "https://cdn.example.com/logo.svg",
     "unverified",
-    "https://other.example.com/",
-    "https://employer.example.com/",
   ),
-  false,
+  true,
+);
+assert.equal(
+  isApprovedEmployerBranding(
+    "https://cdn.example.com/logo.svg",
+    "unverified",
+    "https://employer.example.com/about",
+  ),
+  true,
 );
