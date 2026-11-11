@@ -4,18 +4,18 @@ WITH logo_candidates AS (
     SELECT
         e.id,
         COALESCE(
-            NULLIF(regexp_replace(e.website_url, '^https?://([^/:?#]+).*$', '\\1'), e.website_url),
+            NULLIF(regexp_replace(e.website_url, '^https?://([^/:?#]+).*$', '\1'), e.website_url),
             (
                 SELECT NULLIF(
-                    regexp_replace(s.employer_careers_url, '^https?://([^/:?#]+).*$', '\\1'),
+                    regexp_replace(s.employer_careers_url, '^https?://([^/:?#]+).*$', '\1'),
                     s.employer_careers_url
                 )
                 FROM employer_sources s
                 WHERE s.employer_id = e.id
                   AND s.employer_careers_url IS NOT NULL
-                  AND lower(regexp_replace(s.employer_careers_url, '^https?://([^/:?#]+).*$', '\\1'))
+                  AND lower(regexp_replace(s.employer_careers_url, '^https?://([^/:?#]+).*$', '\1'))
                       NOT IN ('boards.greenhouse.io', 'job-boards.greenhouse.io', 'jobs.lever.co', 'jobs.eu.lever.co')
-                  AND lower(regexp_replace(s.employer_careers_url, '^https?://([^/:?#]+).*$', '\\1'))
+                  AND lower(regexp_replace(s.employer_careers_url, '^https?://([^/:?#]+).*$', '\1'))
                       NOT LIKE '%.teamtailor.com'
                 ORDER BY s.created_at
                 LIMIT 1
