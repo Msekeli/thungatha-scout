@@ -31,3 +31,25 @@ export function isEmployerLogoUrl(value?: string | null): boolean {
     return false;
   }
 }
+
+export function getCompanyFaviconUrl(websiteUrl?: string | null): string | null {
+  if (!websiteUrl) return null;
+  try {
+    const parsed = new URL(websiteUrl);
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
+    const host = parsed.hostname.toLowerCase();
+    if (
+      host === "greenhouse.io" ||
+      host.endsWith(".greenhouse.io") ||
+      host === "lever.co" ||
+      host.endsWith(".lever.co") ||
+      host === "teamtailor.com" ||
+      host.endsWith(".teamtailor.com")
+    ) return null;
+
+    return "https://www.google.com/s2/favicons?domain=" +
+      encodeURIComponent(host) + "&sz=128";
+  } catch {
+    return null;
+  }
+}
