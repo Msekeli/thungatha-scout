@@ -38,7 +38,10 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
   });
 
   const duplicate = findEmployerDuplicate(
-    state.sourceUrl, state.form.name, jobs.employers, jobs.dashboardSources,
+    state.sourceUrl,
+    state.form.name,
+    jobs.employers,
+    jobs.dashboardSources,
   );
 
   const openExistingCompany = async (employerId: string) => {

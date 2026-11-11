@@ -15,17 +15,24 @@ type Props = {
 };
 
 export function CompaniesWorkspacePanel({
-  state, jobs, companies, onboarding, currentJobsByEmployer, jobChangesByEmployer,
+  state,
+  jobs,
+  companies,
+  onboarding,
+  currentJobsByEmployer,
+  jobChangesByEmployer,
 }: Props) {
   const selectCompany = (employer: Parameters<typeof companies.openCompany>[0]) => {
     void companies.openCompany(employer);
   };
   const hasSelection = Boolean(companies.employer);
   return (
-    <section className={
-      "grid min-h-0 flex-1 gap-4 overflow-hidden pt-4 " +
-      (hasSelection ? "lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.85fr)]" : "grid-cols-1")
-    }>
+    <section
+      className={
+        "grid min-h-0 flex-1 gap-4 overflow-hidden pt-4 " +
+        (hasSelection ? "lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.85fr)]" : "grid-cols-1")
+      }
+    >
       <CompanyDirectoryPanel
         employers={jobs.employers}
         sources={jobs.dashboardSources}

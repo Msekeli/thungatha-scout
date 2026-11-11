@@ -24,8 +24,15 @@ type EmployerRegistrationOptions = {
 
 export function useEmployerRegistration(options: EmployerRegistrationOptions) {
   const {
-    form, sourceUrl, employers, sources, loadWorkspace, setSaving,
-    onError, onNotice, onRegistered,
+    form,
+    sourceUrl,
+    employers,
+    sources,
+    loadWorkspace,
+    setSaving,
+    onError,
+    onNotice,
+    onRegistered,
   } = options;
 
   async function register(event: FormEvent<HTMLFormElement>, sourceInfo: CareersDiscovery) {
@@ -37,7 +44,9 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
     }
     const duplicate = findEmployerDuplicate(sourceUrl, companyName, employers, sources);
     if (duplicate?.kind === "source") {
-      onError("This recruitment source is already registered under " + duplicate.employer.name + ".");
+      onError(
+        "This recruitment source is already registered under " + duplicate.employer.name + ".",
+      );
       return;
     }
 
@@ -47,15 +56,16 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
     let employer: Employer | null = null;
     const isNewEmployer = duplicate?.kind !== "employer";
     try {
-      employer = duplicate?.kind === "employer"
-        ? duplicate.employer
-        : await scoutApi.createEmployer({
-            ...form,
-            name: companyName,
-            website_url: form.website_url.trim() || null,
-            logo_url: getCompanyIconUrl(form.website_url.trim() || null),
-            logo_source_url: form.website_url.trim() || null,
-          });
+      employer =
+        duplicate?.kind === "employer"
+          ? duplicate.employer
+          : await scoutApi.createEmployer({
+              ...form,
+              name: companyName,
+              website_url: form.website_url.trim() || null,
+              logo_url: getCompanyIconUrl(form.website_url.trim() || null),
+              logo_source_url: form.website_url.trim() || null,
+            });
 
       const source = await scoutApi.createSource(employer.id, {
         adapter_key: sourceInfo.detected_adapter,
@@ -68,7 +78,9 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
       onRegistered({ employer, source });
       onNotice(employer.name + " added. Vacancy extraction is running in the background.");
       void runEmployerVacancyImport(source.id, employer.name, {
-        loadWorkspace, onError, onNotice,
+        loadWorkspace,
+        onError,
+        onNotice,
       });
     } catch (reason) {
       const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
