@@ -192,8 +192,12 @@ async def discover_employer_logo(
             if "text/html" not in response.headers.get("content-type", "").casefold():
                 return None
             source_url = str(response.url)
-            original_host = (urlparse(website_url).hostname or "").casefold().removeprefix("www.")
-            final_host = (urlparse(source_url).hostname or "").casefold().removeprefix("www.")
+            original_host = (
+                (urlparse(website_url).hostname or "").casefold().removeprefix("www.")
+            )
+            final_host = (
+                (urlparse(source_url).hostname or "").casefold().removeprefix("www.")
+            )
             if _blocked_logo_host(final_host) or final_host != original_host:
                 return None
             asset = extract_logo_asset(response.text, source_url)
