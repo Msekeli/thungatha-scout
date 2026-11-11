@@ -18,10 +18,10 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
         return self._connection.execute(
             """
             INSERT INTO employers (
-                name, legal_name, website_url, logo_url, logo_source_url,
+                name, legal_name, website_url, logo_url, logo_source_url, logo_type,
                 organization_type, city, province, country
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             RETURNING *
             """,
             (
@@ -30,6 +30,7 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
                 values.get("website_url"),
                 values.get("logo_url"),
                 values.get("logo_source_url"),
+                values.get("logo_type", "unverified"),
                 values["organization_type"],
                 values.get("city"),
                 values.get("province"),
@@ -63,19 +64,19 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
     ) -> dict[str, Any] | None:
         return self._connection.execute(
             """
-            UPDATE employers SET logo_url = %s, logo_source_url = %s, updated_at = NOW()
+            UPDATE employers SET logo_url = %s, logo_source_url = %s, logo_type = %s, updated_at = NOW()
             WHERE id = %s RETURNING *
             """,
-            (logo_url, logo_source_url, employer_id),
+            (logo_url, logo_source_url, "unverified", employer_id),
         ).fetchone()
 
     def update_branding_if_unusable(
-        self, employer_id: UUID, logo_url: str, logo_source_url: str
+        self, employer_id: UUID, logo_url: str, logo_source_url: str, logo_type: str
     ) -> dict[str, Any] | None:
         return self._connection.execute(
             """
             UPDATE employers
-            SET logo_url = %s, logo_source_url = %s, updated_at = NOW()
+            SET logo_url = %s, logo_source_url = %s, logo_type = %s, updated_at = NOW()
             WHERE id = %s
               AND (
                   logo_url IS NULL
@@ -88,5 +89,5 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
               )
             RETURNING *
             """,
-            (logo_url, logo_source_url, employer_id),
+            (logo_url, logo_source_url, logo_type, employer_id),
         ).fetchone()
