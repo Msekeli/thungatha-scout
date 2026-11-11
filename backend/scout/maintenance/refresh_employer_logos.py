@@ -96,6 +96,7 @@ async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
 
         logo_url, source_url, logo_type = result
         if not apply:
+            updated += 1
             print(
                 f"DRY RUN: would update {employer['name']} with {logo_type} from {source_url}"
             )
