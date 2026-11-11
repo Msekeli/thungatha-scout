@@ -10,7 +10,7 @@ type EmployerRegistrationForm = {
   website_url: string;
   organization_type: string;
 };
-type UseEmployerRegistrationOptions = {
+type EmployerRegistrationOptions = {
   form: EmployerRegistrationForm;
   sourceUrl: string;
   employers: Employer[];
@@ -22,40 +22,22 @@ type UseEmployerRegistrationOptions = {
   onRegistered: (result: { employer: Employer; source: EmployerSource }) => void;
 };
 
-export function useEmployerRegistration(options: UseEmployerRegistrationOptions) {
+export function useEmployerRegistration(options: EmployerRegistrationOptions) {
   const {
-    form,
-    sourceUrl,
-    employers,
-    sources,
-    loadWorkspace,
-    setSaving,
-    onError,
-    onNotice,
-    onRegistered,
+    form, sourceUrl, employers, sources, loadWorkspace, setSaving,
+    onError, onNotice, onRegistered,
   } = options;
 
-  async function register(event: FormEvent<HTMLFormElement>, discovery: CareersDiscovery) {
+  async function register(event: FormEvent<HTMLFormElement>, sourceInfo: CareersDiscovery) {
     event.preventDefault();
-    const companyName = form.name.trim() || discovery.company_name;
+    const companyName = form.name.trim() || sourceInfo.company_name;
     if (!companyName) {
       onError("Enter the employer name before registering this recruitment source.");
       return;
     }
-    if (
-      ["lever", "teamtailor"].includes(discovery.detected_adapter) &&
-      ((discovery.outcome !== "success" && discovery.outcome !== "empty") ||
-        discovery.complete !== true)
-    ) {
-      onError(discovery.detail || "The ATS board could not be inspected completely.");
-      return;
-    }
-
     const duplicate = findEmployerDuplicate(sourceUrl, companyName, employers, sources);
     if (duplicate?.kind === "source") {
-      onError(
-        "This recruitment source is already registered under " + duplicate.employer.name + ".",
-      );
+      onError("This recruitment source is already registered under " + duplicate.employer.name + ".");
       return;
     }
 
@@ -63,54 +45,37 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
     onError("");
     onNotice("");
     let employer: Employer | null = null;
+    const isNewEmployer = duplicate?.kind !== "employer";
     try {
-      employer =
-        duplicate?.kind === "employer"
-          ? duplicate.employer
-          : await scoutApi.createEmployer({
-              ...form,
-              name: companyName,
-              website_url: form.website_url.trim() || null,
-              logo_url: getCompanyIconUrl(form.website_url.trim() || null),
-              logo_source_url: form.website_url.trim() || null,
-            });
+      employer = duplicate?.kind === "employer"
+        ? duplicate.employer
+        : await scoutApi.createEmployer({
+            ...form,
+            name: companyName,
+            website_url: form.website_url.trim() || null,
+            logo_url: getCompanyIconUrl(form.website_url.trim() || null),
+            logo_source_url: form.website_url.trim() || null,
+          });
 
       const source = await scoutApi.createSource(employer.id, {
-        adapter_key: discovery.detected_adapter,
-        source_url: discovery.board_url,
-        normalized_url: discovery.board_url,
+        adapter_key: sourceInfo.detected_adapter,
+        source_url: sourceInfo.board_url,
+        normalized_url: sourceInfo.board_url,
         employer_careers_url: sourceUrl,
-        adapter_config: discovery.adapter_config,
-        discovery_preview:
-          discovery.complete === true &&
-          (discovery.outcome === "success" || discovery.outcome === "empty")
-            ? {
-                total_vacancies: discovery.total_vacancies ?? discovery.jobs?.length ?? 0,
-                jobs: discovery.jobs ?? [],
-              }
-            : null,
+        adapter_config: sourceInfo.adapter_config,
+        discovery_preview: null,
       });
       onRegistered({ employer, source });
-      const previewCount = source.discovery_preview?.total_vacancies;
-      onNotice(
-        previewCount === undefined
-          ? employer.name + " added. Vacancy preview is not available yet."
-          : employer.name + " added. " + previewCount + " vacancies discovered.",
-      );
-      // Extraction runs in the background; registration must not wait for vacancy imports.
+      onNotice(employer.name + " added. Vacancy extraction is running in the background.");
       void runEmployerVacancyImport(source.id, employer.name, {
-        loadWorkspace,
-        onError,
-        onNotice,
+        loadWorkspace, onError, onNotice,
       });
     } catch (reason) {
       const detail = reason instanceof Error ? reason.message : "An unexpected error occurred.";
-      onError(
-        employer
-          ? employer.name + " was added, but source registration needs attention: " + detail
-          : "Could not add the company: " + detail,
-      );
-      if (employer) void loadWorkspace().catch(() => undefined);
+      if (employer && isNewEmployer) {
+        await scoutApi.deleteEmployer(employer.id).catch(() => undefined);
+      }
+      onError("Could not add " + (employer?.name ?? companyName) + ": " + detail);
     } finally {
       setSaving(false);
     }
