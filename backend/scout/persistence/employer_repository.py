@@ -83,7 +83,8 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
             SET logo_url = %s, logo_source_url = %s, logo_type = %s, updated_at = NOW()
             WHERE id = %s
               AND (
-                  logo_url IS NULL
+                  logo_type = 'unverified'
+                  OR logo_url IS NULL
                   OR logo_url !~* '^https?://'
                   OR logo_url ILIKE 'https://www.google.com/s2/favicons%'
                   OR logo_url ILIKE 'https://favicons.githubusercontent.com%'
