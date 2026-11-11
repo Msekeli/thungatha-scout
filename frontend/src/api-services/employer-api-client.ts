@@ -30,4 +30,8 @@ export const employerApiClient = {
         logo_source_url: logo_source_url || null,
       }),
     }),
+  discoverEmployerLogo: (employerId: string) =>
+    request<Employer | null>(`/api/v1/employers/${employerId}/branding/discover`, {
+      method: "POST",
+    }),
 };
