@@ -7,11 +7,43 @@ from scout.branding.logo_discovery import (
 from scout.persistence.database_connection import get_database_connection
 
 
+# Official company websites verified for employers whose website_url is missing.
+# Ambiguous employer names are intentionally excluded.
+VERIFIED_EMPLOYER_WEBSITES = {
+    "2u": "https://2u.com/",
+    "acacium group": "https://acaciumgroup.com/",
+    "anew hotels & resorts": "https://anewhotels.com/",
+    "aston holmes": "https://www.astonholmes.com/",
+    "biovac": "https://biovac.co.za/",
+    "burnt studios": "https://burnt.co.za/",
+    "bvnk": "https://www.bvnk.com/",
+    "cosmo central group": "https://www.cosmocentralgroup.co.za/",
+    "crosscountry consulting": "https://www.crosscountry-consulting.com/",
+    "currenciesdirectlimited": "https://www.currenciesdirect.com/",
+    "footasylum": "https://www.footasylum.com/",
+    "impact.com": "https://impact.com/",
+    "magentus": "https://www.magentus.com/",
+    "moonpay": "https://www.moonpay.com/",
+    "north star network": "https://north-star.network/",
+    "old mutual": "https://www.oldmutual.com/",
+    "olx": "https://www.olx.com/",
+    "onedayonly": "https://www.onedayonly.co.za/",
+    "ozow": "https://ozow.com/",
+    "parallelwireless": "https://www.parallelwireless.com/",
+    "payjoy": "https://www.payjoy.com/",
+    "paystack": "https://paystack.com/",
+    "takealot group": "https://www.takealot.com/",
+    "teamviewer": "https://www.teamviewer.com/",
+    "theodo": "https://www.theodo.com/",
+    "yassir": "https://yassir.com/",
+}
+
+
 async def refresh_employer_logos() -> tuple[int, int]:
     with get_database_connection() as connection:
         employers = connection.execute(
             """
-            SELECT e.id, e.website_url, e.logo_url,
+            SELECT e.id, e.name, e.website_url, e.logo_url,
                    (
                        SELECT s.employer_careers_url
                        FROM employer_sources s
@@ -29,13 +61,18 @@ async def refresh_employer_logos() -> tuple[int, int]:
     for employer in employers:
         if is_usable_employer_logo_url(employer["logo_url"]):
             continue
+
+        website_url = employer["website_url"] or VERIFIED_EMPLOYER_WEBSITES.get(
+            employer["name"].strip().casefold()
+        )
         result = await discover_employer_logo(
-            employer["careers_url"], employer["website_url"]
+            employer["careers_url"], website_url
         )
         if result is None:
             unresolved += 1
-            print(f"No official logo or website icon found: {employer['id']}")
+            print(f"No official logo or website icon found: {employer['name']} ({employer['id']})")
             continue
+
         logo_url, source_url = result
         with get_database_connection() as connection, connection.transaction():
             saved = connection.execute(
@@ -58,7 +95,8 @@ async def refresh_employer_logos() -> tuple[int, int]:
             ).fetchone()
         if saved:
             updated += 1
-            print(f"Updated logo: {employer['id']}")
+            print(f"Updated logo: {employer['name']} ({employer['id']})")
+
     return updated, unresolved
 
 
