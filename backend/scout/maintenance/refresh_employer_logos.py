@@ -52,7 +52,7 @@ async def refresh_employer_logos() -> tuple[int, int]:
     with get_database_connection() as connection:
         employers = connection.execute(
             """
-            SELECT e.id, e.name, e.website_url, e.logo_url,
+            SELECT e.id, e.name, e.website_url, e.logo_url, e.logo_type,
                    (
                        SELECT s.employer_careers_url
                        FROM employer_sources s
