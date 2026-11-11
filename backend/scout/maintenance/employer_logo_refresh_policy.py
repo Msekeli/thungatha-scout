@@ -60,7 +60,10 @@ def verified_website_for(employer: dict[str, Any]) -> str | None:
         _ATS_SUFFIXES
     ):
         return None
-    if any(segment.casefold() in _CAREERS_PATH_SEGMENTS for segment in parsed.path.split("/")):
+    if any(
+        segment.casefold() in _CAREERS_PATH_SEGMENTS
+        for segment in parsed.path.split("/")
+    ):
         return None
     return str(website)
 

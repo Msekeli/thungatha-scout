@@ -9,7 +9,10 @@ const BLOCKED_BRANDING_HOSTS = new Set([
 ]);
 
 function normalizeHost(host: string): string {
-  return host.toLowerCase().replace(/^www\./, "").replace(/\.$/, "");
+  return host
+    .toLowerCase()
+    .replace(/^www\./, "")
+    .replace(/\.$/, "");
 }
 
 function isBlockedBrandingHost(host: string): boolean {
@@ -56,8 +59,7 @@ function isGoogleFaviconForWebsite(value: string, websiteUrl?: string | null): b
     }
     const requestedDomain = favicon.searchParams.get("domain");
     return Boolean(
-      requestedDomain &&
-      normalizeHost(requestedDomain) === normalizeHost(website.hostname),
+      requestedDomain && normalizeHost(requestedDomain) === normalizeHost(website.hostname),
     );
   } catch {
     return false;
