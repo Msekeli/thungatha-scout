@@ -2,7 +2,7 @@ import { ArrowDownRight, ArrowUpRight, BriefcaseBusiness, Building2 } from "luci
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource } from "../api";
 import { CompanyDirectoryLinks } from "./CompanyDirectoryLinks";
-import { getCompanyIconUrl } from "./company-icon-url";
+import { isEmployerLogoUrl } from "./company-icon-url";
 
 type Props = {
   employer: Employer;
@@ -28,8 +28,7 @@ export function CompanyDirectoryCard({
   const hasPreview = sources.some((source) => source.discovery_preview);
   const displayedJobs = currentJobs > 0 ? currentJobs : previewCount;
   const jobLabel = currentJobs > 0 || !hasPreview ? "current" : "discovered";
-  const careersUrl = sources.find((source) => source.employer_careers_url)?.employer_careers_url;
-  const iconUrl = employer.logo_url || getCompanyIconUrl(employer.website_url || careersUrl);
+  const logoUrl = isEmployerLogoUrl(employer.logo_url) ? employer.logo_url : null;
   return (
     <article className="scout-company-card relative" data-selected={selected}>
       <div className="scout-company-card__accent" />
@@ -62,9 +61,9 @@ export function CompanyDirectoryCard({
         className="scout-company-card__trigger h-auto w-full items-start justify-start gap-3 rounded-none px-4 pb-3 pt-4 pr-20 text-left font-normal"
       >
         <span className="scout-company-card__icon">
-          {iconUrl ? (
+          {logoUrl ? (
             <img
-              src={iconUrl}
+              src={logoUrl}
               alt={employer.name + " logo"}
               className="scout-company-card__logo"
               onError={(event) => {
@@ -73,7 +72,7 @@ export function CompanyDirectoryCard({
               }}
             />
           ) : null}
-          <Building2 className={"h-5 w-5" + (iconUrl ? " hidden" : "")} />
+          <Building2 className={"h-5 w-5" + (logoUrl ? " hidden" : "")} />
         </span>
         <span className="min-w-0 flex-1">
           <strong className="block truncate text-sm font-semibold scout-company-card__name">
