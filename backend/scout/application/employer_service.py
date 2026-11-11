@@ -60,15 +60,15 @@ class EmployerService:
                 values[key] = str(values[key])
         with self._connection_factory() as connection, connection.transaction():
             return EmployerRepository(connection).update_branding(
-                employer_id, values["logo_url"], values["logo_source_url"]
+                employer_id, values["logo_url"], values["logo_source_url"], values["logo_type"]
             )
 
     def update_branding_if_unusable(
-        self, employer_id: UUID, logo_url: str, logo_source_url: str
+        self, employer_id: UUID, logo_url: str, logo_source_url: str, logo_type: str
     ) -> dict[str, Any] | None:
         with self._connection_factory() as connection, connection.transaction():
             return EmployerRepository(connection).update_branding_if_unusable(
-                employer_id, logo_url, logo_source_url
+                employer_id, logo_url, logo_source_url, logo_type
             )
 
     def create_source(self, payload: EmployerSourceCreate) -> dict[str, Any]:
