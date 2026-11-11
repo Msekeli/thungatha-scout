@@ -1,6 +1,7 @@
 import type { FormEvent } from "react";
 import { scoutApi } from "../api";
 import type { Employer } from "../api";
+import { useCareersDiscovery } from "./useCareersDiscovery";
 import { useEmployerRegistration } from "./useEmployerRegistration";
 import { resolveCareersSource } from "./resolveCareersSource";
 import { findEmployerDuplicate } from "./findEmployerDuplicate";
@@ -11,6 +12,7 @@ type AppState = ReturnType<typeof useScoutAppState>;
 type Jobs = ReturnType<typeof useJobsWorkspaceController>;
 
 export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
+  const discovery = useCareersDiscovery({ onError: state.setError });
   const registration = useEmployerRegistration({
     form: state.form,
     sourceUrl: state.sourceUrl,
@@ -64,12 +66,10 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
   return {
     duplicate,
     openExistingCompany,
-    inspection: null,
-    setInspection: () => undefined,
+    inspection: discovery.inspection,
+    setInspection: discovery.setInspection,
     inspecting: false,
-    inspectSource: async (url: string) => {
-      state.setError("Source inspection is not part of company registration.");
-    },
+    inspectSource: discovery.inspectSource,
     submit,
   };
 }
