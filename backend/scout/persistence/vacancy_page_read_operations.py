@@ -40,7 +40,8 @@ class VacancyPageReadOperations:
                    e.website_url AS employer_website_url,
                    s.employer_careers_url AS employer_careers_url,
                    e.logo_url AS employer_logo_url,
-                   e.logo_source_url AS employer_logo_source_url
+                   e.logo_source_url AS employer_logo_source_url,
+                   e.logo_type AS employer_logo_type
             FROM vacancies v
             JOIN employer_sources s ON s.id = v.source_id
             JOIN employers e ON e.id = v.employer_id
