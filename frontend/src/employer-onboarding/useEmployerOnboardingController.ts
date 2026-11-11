@@ -1,8 +1,8 @@
 import type { FormEvent } from "react";
 import { scoutApi } from "../api";
 import type { Employer } from "../api";
-import { useCareersDiscovery } from "./useCareersDiscovery";
 import { useEmployerRegistration } from "./useEmployerRegistration";
+import { resolveCareersSource } from "./resolveCareersSource";
 import { findEmployerDuplicate } from "./findEmployerDuplicate";
 import type { useScoutAppState } from "../app-state/useScoutAppState";
 import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
@@ -11,7 +11,6 @@ type AppState = ReturnType<typeof useScoutAppState>;
 type Jobs = ReturnType<typeof useJobsWorkspaceController>;
 
 export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
-  const discovery = useCareersDiscovery({ onError: state.setError });
   const registration = useEmployerRegistration({
     form: state.form,
     sourceUrl: state.sourceUrl,
@@ -22,8 +21,14 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     onError: state.setError,
     onNotice: state.setNotice,
     onRegistered: ({ employer, source }) => {
-      state.setSelectedCompanyId(employer.id);
-      state.setSources([source]);
+      jobs.setEmployers((items) =>
+        items.some((item) => item.id === employer.id) ? items : [...items, employer],
+      );
+      jobs.setDashboardSources((items) =>
+        items.some((item) => item.id === source.id) ? items : [...items, source],
+      );
+      state.setSelectedCompanyId(null);
+      state.setSources([]);
       state.setPage("companies");
       state.setSourceUrl("");
       state.setForm({ ...state.form, name: "", website_url: "" });
@@ -31,10 +36,7 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
   });
 
   const duplicate = findEmployerDuplicate(
-    state.sourceUrl,
-    state.form.name,
-    jobs.employers,
-    jobs.dashboardSources,
+    state.sourceUrl, state.form.name, jobs.employers, jobs.dashboardSources,
   );
 
   const openExistingCompany = async (employerId: string) => {
@@ -49,22 +51,25 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     }
   };
 
-  const fillDetectedCompany = (name: string) =>
-    state.setForm((current) => ({ ...current, name: current.name || name }));
-
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const result = await discovery.discover(state.sourceUrl, state.form.name, fillDetectedCompany);
-    if (result) await registration.register(event, result);
+    const source = resolveCareersSource(state.sourceUrl, state.form.name);
+    if (!source) {
+      state.setError("Use a supported Greenhouse, Lever or Teamtailor careers-board URL.");
+      return;
+    }
+    await registration.register(event, source);
   };
 
   return {
     duplicate,
     openExistingCompany,
-    inspection: discovery.inspection,
-    setInspection: discovery.setInspection,
-    inspecting: discovery.inspecting,
-    inspectSource: discovery.inspectSource,
+    inspection: null,
+    setInspection: () => undefined,
+    inspecting: false,
+    inspectSource: async (url: string) => {
+      state.setError("Source inspection is not part of company registration.");
+    },
     submit,
   };
 }
