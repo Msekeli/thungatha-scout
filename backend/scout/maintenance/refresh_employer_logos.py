@@ -68,7 +68,7 @@ async def refresh_employer_logos() -> tuple[int, int]:
     updated = 0
     unresolved = 0
     for employer in employers:
-        if is_usable_employer_logo_url(employer["logo_url"]):
+        if employer.get("logo_type") in {"official_logo", "official_favicon"} and is_usable_employer_logo_url(employer["logo_url"]):
             continue
 
         website_url = employer["website_url"]
@@ -89,7 +89,7 @@ async def refresh_employer_logos() -> tuple[int, int]:
         website_url = website_url or VERIFIED_EMPLOYER_WEBSITES.get(
             employer["name"].strip().casefold()
         )
-        result = await discover_employer_logo(employer["careers_url"], website_url)
+        result = await discover_employer_logo(None, website_url)
         if result is None:
             unresolved += 1
             print(
@@ -97,12 +97,12 @@ async def refresh_employer_logos() -> tuple[int, int]:
             )
             continue
 
-        logo_url, source_url = result
+        logo_url, source_url, logo_type = result
         with get_database_connection() as connection, connection.transaction():
             saved = connection.execute(
                 """
                 UPDATE employers
-                SET logo_url = %s, logo_source_url = %s, updated_at = NOW()
+                SET logo_url = %s, logo_source_url = %s, logo_type = %s, updated_at = NOW()
                 WHERE id = %s
                   AND (
                       logo_url IS NULL
@@ -115,7 +115,7 @@ async def refresh_employer_logos() -> tuple[int, int]:
                   )
                 RETURNING id
                 """,
-                (logo_url, source_url, employer["id"]),
+                (logo_url, source_url, logo_type, employer["id"]),
             ).fetchone()
         if saved:
             updated += 1
