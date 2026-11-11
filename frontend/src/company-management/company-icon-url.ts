@@ -10,7 +10,10 @@ export function getCompanyIconUrl(websiteUrl?: string | null): string | null {
   try {
     const parsed = new URL(websiteUrl);
     if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
-    if (ATS_HOSTS.has(parsed.hostname.toLowerCase()) || parsed.hostname.endsWith(".teamtailor.com")) {
+    if (
+      ATS_HOSTS.has(parsed.hostname.toLowerCase()) ||
+      parsed.hostname.endsWith(".teamtailor.com")
+    ) {
       return null;
     }
     return (
