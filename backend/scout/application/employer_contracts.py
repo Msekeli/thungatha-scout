@@ -3,7 +3,9 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
-EmployerLogoType = Literal["official_logo", "official_favicon", "careers_favicon", "unverified"]
+EmployerLogoType = Literal[
+    "official_logo", "official_favicon", "careers_favicon", "unverified"
+]
 
 OrganizationType = Literal[
     "direct_employer",

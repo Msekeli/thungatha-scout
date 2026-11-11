@@ -60,7 +60,11 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
         ).fetchall()
 
     def update_branding(
-        self, employer_id: UUID, logo_url: str | None, logo_source_url: str | None, logo_type: str
+        self,
+        employer_id: UUID,
+        logo_url: str | None,
+        logo_source_url: str | None,
+        logo_type: str,
     ) -> dict[str, Any] | None:
         return self._connection.execute(
             """

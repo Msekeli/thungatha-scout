@@ -185,9 +185,7 @@ async def discover_employer_logo(
         async with httpx.AsyncClient(
             timeout=12,
             follow_redirects=True,
-            headers={
-                "User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"
-            },
+            headers={"User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"},
         ) as client:
             response = await client.get(website_url)
             response.raise_for_status()
@@ -204,7 +202,11 @@ async def discover_employer_logo(
                 try:
                     favicon_response = await client.get(favicon_url)
                     favicon_response.raise_for_status()
-                    if favicon_response.headers.get("content-type", "").casefold().startswith("image/"):
+                    if (
+                        favicon_response.headers.get("content-type", "")
+                        .casefold()
+                        .startswith("image/")
+                    ):
                         return favicon_url, source_url, "official_favicon"
                 except httpx.HTTPError:
                     pass

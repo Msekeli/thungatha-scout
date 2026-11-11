@@ -60,7 +60,10 @@ class EmployerService:
                 values[key] = str(values[key])
         with self._connection_factory() as connection, connection.transaction():
             return EmployerRepository(connection).update_branding(
-                employer_id, values["logo_url"], values["logo_source_url"], values["logo_type"]
+                employer_id,
+                values["logo_url"],
+                values["logo_source_url"],
+                values["logo_type"],
             )
 
     def update_branding_if_unusable(

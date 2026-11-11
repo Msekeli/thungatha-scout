@@ -7,7 +7,9 @@ export function isApprovedEmployerBranding(
   if (!value || !logoType || !APPROVED_LOGO_TYPES.has(logoType)) return false;
   try {
     const parsed = new URL(value);
-    return (parsed.protocol === "https:" || parsed.protocol === "http:") && Boolean(parsed.hostname);
+    return (
+      (parsed.protocol === "https:" || parsed.protocol === "http:") && Boolean(parsed.hostname)
+    );
   } catch {
     return false;
   }

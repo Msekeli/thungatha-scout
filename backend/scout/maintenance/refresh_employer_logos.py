@@ -68,7 +68,10 @@ async def refresh_employer_logos() -> tuple[int, int]:
     updated = 0
     unresolved = 0
     for employer in employers:
-        if employer.get("logo_type") in {"official_logo", "official_favicon"} and is_usable_employer_logo_url(employer["logo_url"]):
+        if employer.get("logo_type") in {
+            "official_logo",
+            "official_favicon",
+        } and is_usable_employer_logo_url(employer["logo_url"]):
             continue
 
         website_url = employer["website_url"]

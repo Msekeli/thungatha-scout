@@ -54,7 +54,11 @@ async def discover_employer_branding(
     employer = service.get_employer(employer_id)
     if employer is None:
         raise HTTPException(status_code=404, detail="Employer not found.")
-    if employer.get("logo_type") in {"official_logo", "official_favicon", "careers_favicon"} and is_usable_employer_logo_url(employer.get("logo_url")):
+    if employer.get("logo_type") in {
+        "official_logo",
+        "official_favicon",
+        "careers_favicon",
+    } and is_usable_employer_logo_url(employer.get("logo_url")):
         return employer
 
     sources = service.list_sources(employer_id)
@@ -70,7 +74,9 @@ async def discover_employer_branding(
     if result is None:
         return employer
     logo_url, source_url, logo_type = result
-    updated = service.update_branding_if_unusable(employer_id, logo_url, source_url, logo_type)
+    updated = service.update_branding_if_unusable(
+        employer_id, logo_url, source_url, logo_type
+    )
     return updated or service.get_employer(employer_id)
 
 
