@@ -60,8 +60,7 @@ export default function App() {
           <DialogHeader>
             <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
             <DialogDescription className="scout-company-dialog-copy">
-              Paste the official careers page or ATS board URL. Scout will inspect the source before
-              registration.
+              Paste a supported Greenhouse, Lever or Teamtailor board URL. Scout registers it first, then extracts vacancies in the background.
             </DialogDescription>
           </DialogHeader>
           <EmployerOnboardingPanel
