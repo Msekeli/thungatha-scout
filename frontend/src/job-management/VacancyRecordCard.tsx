@@ -1,7 +1,7 @@
 import { CalendarDays, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
 import { EmployerBrandMark } from "../company-management/employer-brand-mark";
-import { getCompanyFaviconUrl, isEmployerLogoUrl } from "../company-management/company-icon-url";
+import { isApprovedEmployerBranding } from "../company-management/company-icon-url";
 import { getVacancyFreshness } from "./vacancy-freshness";
 import { VacancyRecordCardActions } from "./vacancy-record-card-actions";
 
@@ -32,10 +32,9 @@ export function VacancyRecordCard({
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
   const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
-  const logoUrl = isEmployerLogoUrl(vacancy.employer_logo_url) ? vacancy.employer_logo_url : null;
-  const faviconUrl = getCompanyFaviconUrl(
-    vacancy.employer_website_url || vacancy.employer_careers_url,
-  );
+  const logoUrl = isApprovedEmployerBranding(vacancy.employer_logo_url, vacancy.employer_logo_type)
+    ? vacancy.employer_logo_url
+    : null;
   return (
     <article className="scout-vacancy-card" data-selected={selected}>
       <div className="flex min-w-0 items-center gap-3 px-4 py-4">
@@ -50,7 +49,6 @@ export function VacancyRecordCard({
             <EmployerBrandMark
               name={vacancy.employer_name}
               logoUrl={logoUrl}
-              faviconUrl={faviconUrl}
               className="scout-vacancy-card__employer-logo"
               logoClassName="h-9 w-9 rounded-lg bg-white object-contain p-1"
             />
