@@ -12,6 +12,7 @@ from scout.application.employer_contracts import (
     EmployerUpdate,
 )
 from scout.application.employer_service import EmployerService
+from scout.branding.logo_discovery import discover_employer_logo
 
 router = APIRouter(prefix="/employers", tags=["employers"])
 router.include_router(source_router)
@@ -40,6 +41,29 @@ def create_employer(
     service: EmployerService = Depends(get_employer_service),
 ) -> dict[str, Any]:
     return service.create_employer(payload)
+
+
+@router.post("/{employer_id}/branding/discover")
+async def discover_employer_branding(
+    employer_id: UUID,
+    service: EmployerService = Depends(get_employer_service),
+) -> dict[str, Any] | None:
+    employer = service.get_employer(employer_id)
+    if employer is None:
+        raise HTTPException(status_code=404, detail="Employer not found.")
+    sources = service.list_sources(employer_id)
+    careers_url = next(
+        (source["employer_careers_url"] for source in sources if source.get("employer_careers_url")),
+        None,
+    )
+    result = await discover_employer_logo(careers_url, employer.get("website_url"))
+    if result is None:
+        return None
+    logo_url, source_url = result
+    return service.update_branding(
+        employer_id,
+        EmployerBrandingUpdate(logo_url=logo_url, logo_source_url=source_url),
+    )
 
 
 @router.get("/{employer_id}")
