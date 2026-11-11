@@ -184,7 +184,7 @@ async def discover_employer_logo(
         _validate_public_host(website_url)
         async with httpx.AsyncClient(
             timeout=12,
-            follow_redirects=True,
+            follow_redirects=False,
             headers={"User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"},
         ) as client:
             response = await client.get(website_url)
@@ -192,6 +192,8 @@ async def discover_employer_logo(
             if "text/html" not in response.headers.get("content-type", "").casefold():
                 return None
             source_url = str(response.url)
+            if _blocked_logo_host(urlparse(source_url).hostname or ""):
+                return None
             asset = extract_logo_asset(response.text, source_url)
             if asset:
                 asset_url, asset_type = asset
