@@ -68,7 +68,7 @@ async def refresh_employer_logos() -> tuple[int, int]:
     updated = 0
     unresolved = 0
     for employer in employers:
-        if employer.get("logo_type") in {
+        if employer["logo_type"] in {
             "official_logo",
             "official_favicon",
         } and is_usable_employer_logo_url(employer["logo_url"]):
@@ -108,7 +108,8 @@ async def refresh_employer_logos() -> tuple[int, int]:
                 SET logo_url = %s, logo_source_url = %s, logo_type = %s, updated_at = NOW()
                 WHERE id = %s
                   AND (
-                      logo_url IS NULL
+                      logo_type = 'unverified'
+                      OR logo_url IS NULL
                       OR logo_url !~* '^https?://'
                       OR logo_url ILIKE 'https://www.google.com/s2/favicons%%'
                       OR logo_url ILIKE 'https://favicons.githubusercontent.com%%'
