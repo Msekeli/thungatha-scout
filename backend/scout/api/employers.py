@@ -53,7 +53,11 @@ async def discover_employer_branding(
         raise HTTPException(status_code=404, detail="Employer not found.")
     sources = service.list_sources(employer_id)
     careers_url = next(
-        (source["employer_careers_url"] for source in sources if source.get("employer_careers_url")),
+        (
+            source["employer_careers_url"]
+            for source in sources
+            if source.get("employer_careers_url")
+        ),
         None,
     )
     result = await discover_employer_logo(careers_url, employer.get("website_url"))

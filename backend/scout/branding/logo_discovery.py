@@ -24,7 +24,10 @@ class BrandingMetadataParser(HTMLParser):
                 self.meta[key.casefold()] = content.strip()
         if tag == "link" and "image_src" in (values.get("rel") or "").casefold():
             self.image_src = values.get("href")
-        if tag == "script" and (values.get("type") or "").casefold() == "application/ld+json":
+        if (
+            tag == "script"
+            and (values.get("type") or "").casefold() == "application/ld+json"
+        ):
             self._json_ld = True
 
     def handle_endtag(self, tag: str) -> None:
@@ -60,7 +63,12 @@ def _structured_logo(value: object) -> str | None:
 def _public_https_url(value: str, base_url: str) -> str | None:
     candidate = urljoin(base_url, value.strip())
     parsed = urlparse(candidate)
-    if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+    if (
+        parsed.scheme != "https"
+        or not parsed.hostname
+        or parsed.username
+        or parsed.password
+    ):
         return None
     return candidate
 
@@ -116,11 +124,16 @@ async def discover_employer_logo(
             async with httpx.AsyncClient(
                 timeout=12,
                 follow_redirects=False,
-                headers={"User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"},
+                headers={
+                    "User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"
+                },
             ) as client:
                 response = await client.get(page_url)
                 response.raise_for_status()
-                if "text/html" not in response.headers.get("content-type", "").casefold():
+                if (
+                    "text/html"
+                    not in response.headers.get("content-type", "").casefold()
+                ):
                     continue
                 logo_url = extract_logo_url(response.text, str(response.url))
                 if logo_url:

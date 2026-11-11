@@ -75,8 +75,12 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
         discovery_preview: null,
       });
       onRegistered({ employer, source });
-      onNotice(employer.name + " added. Vacancy extraction and logo discovery are running in the background.");
-      void scoutApi.discoverEmployerLogo(employer.id)
+      onNotice(
+        employer.name +
+          " added. Vacancy extraction and logo discovery are running in the background.",
+      );
+      void scoutApi
+        .discoverEmployerLogo(employer.id)
         .then(() => loadWorkspace())
         .catch(() => undefined);
       void runEmployerVacancyImport(source.id, employer.name, {
