@@ -17,12 +17,7 @@ export function isEmployerLogoUrl(value?: string | null): boolean {
       host === "www.google.com" ||
       host === "google.com" ||
       host === "favicons.githubusercontent.com" ||
-      BLOCKED_LOGO_HOSTS.has(host) ||
-      host === "greenhouse.io" ||
-      host === "lever.co" ||
-      host.endsWith(".teamtailor.com") ||
-      host.endsWith(".greenhouse.io") ||
-      host.endsWith(".lever.co")
+      BLOCKED_LOGO_HOSTS.has(host)
     ) {
       return false;
     }
