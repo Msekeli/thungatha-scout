@@ -192,6 +192,21 @@ async def discover_employer_logo(
                 logo_url = extract_logo_url(response.text, str(response.url))
                 if logo_url:
                     return logo_url, str(response.url)
+
+                # Some legitimate company sites expose no icon metadata but still
+                # serve the conventional root favicon.
+                favicon_url = _same_site_icon("/favicon.ico", str(response.url))
+                if favicon_url:
+                    try:
+                        favicon_response = await client.get(favicon_url)
+                        favicon_response.raise_for_status()
+                        content_type = favicon_response.headers.get(
+                            "content-type", ""
+                        ).casefold()
+                        if content_type.startswith("image/"):
+                            return favicon_url, str(response.url)
+                    except httpx.HTTPError:
+                        pass
         except (httpx.HTTPError, OSError, ValueError):
             continue
     return None
