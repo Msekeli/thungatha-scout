@@ -79,6 +79,7 @@ Follow only relevant same-site careers links and explicitly linked external recr
 ### Stage C — source fingerprint
 
 Capture:
+
 - requested, final and canonical URL;
 - HTTP status, content type and retrieval timestamp;
 - page title and employer branding hints;
@@ -93,6 +94,7 @@ Do not persist full HTML by default. Store bounded diagnostic excerpts or hashes
 ### Stage D — extraction strategy
 
 Choose one route:
+
 - known supported ATS: invoke its existing adapter;
 - public feed/API with stable and permitted behavior: implement or extend a focused adapter;
 - ordinary public HTML/JSON: use the generic careers-page crawler/parser;
@@ -109,23 +111,23 @@ Priorities below determine investigation order, not implementation commitments. 
 
 ### Wave 1 — enterprise platforms and known South African employer leads
 
-| Candidate platform | Employer leads to inspect | Current evidence status |
-|---|---|---|
-| SAP SuccessFactors | Sanlam; Capitec Bank | User-identified South African examples. Sanlam has historical/variable SuccessFactors evidence in the registry. Reconfirm both current career portals, redirects and actual vacancy requests. |
-| Workday | Old Mutual; Pick n Pay; other major local employers discovered during research | Old Mutual mapping is present in the registry; Pick n Pay mapping is explicitly unverified. Verify each live site and vacancy endpoint. |
-| Oracle Recruiting Cloud | South African enterprise employers identified from official careers pages | Candidate only until employer-specific official-page and network evidence is recorded. |
-| Oracle Taleo | Legacy enterprise career portals discovered during employer research | Candidate for legacy compatibility; do not assume current adoption or prioritise over active platforms. |
-| SmartRecruiters | South African employers identified from official careers pages | Candidate; establish actual local employer coverage first. |
+| Candidate platform      | Employer leads to inspect                                                      | Current evidence status                                                                                                                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SAP SuccessFactors      | Sanlam; Capitec Bank                                                           | User-identified South African examples. Sanlam has historical/variable SuccessFactors evidence in the registry. Reconfirm both current career portals, redirects and actual vacancy requests. |
+| Workday                 | Old Mutual; Pick n Pay; other major local employers discovered during research | Old Mutual mapping is present in the registry; Pick n Pay mapping is explicitly unverified. Verify each live site and vacancy endpoint.                                                       |
+| Oracle Recruiting Cloud | South African enterprise employers identified from official careers pages      | Candidate only until employer-specific official-page and network evidence is recorded.                                                                                                        |
+| Oracle Taleo            | Legacy enterprise career portals discovered during employer research           | Candidate for legacy compatibility; do not assume current adoption or prioritise over active platforms.                                                                                       |
+| SmartRecruiters         | South African employers identified from official careers pages                 | Candidate; establish actual local employer coverage first.                                                                                                                                    |
 
 ### Wave 2 — locally relevant and mid-market platforms
 
-| Candidate platform | Employer leads to inspect | Current evidence status |
-|---|---|---|
-| Simplify.hr | Media24; homechoice; other South African employer portals | Existing research records Media24 and homechoice as hosted career pages; verify live vacancy extraction behavior. |
-| eRecruit | Shoprite Group; Boxer; CCBA; Clover | Existing registry records public eRecruit candidate portals. This identifies the portal technology, not Graylink Neptune. |
-| BambooHR | South African employers found through official career-page discovery | Candidate; public job-board behavior and local employer coverage need verification. |
-| Breezy HR | South African employers found through official career-page discovery | Candidate; public job-board behavior and local employer coverage need verification. |
-| Workable | South African employers found through official career-page discovery | Candidate; inspect public board/widget behavior and exact job destinations. |
+| Candidate platform | Employer leads to inspect                                            | Current evidence status                                                                                                   |
+| ------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Simplify.hr        | Media24; homechoice; other South African employer portals            | Existing research records Media24 and homechoice as hosted career pages; verify live vacancy extraction behavior.         |
+| eRecruit           | Shoprite Group; Boxer; CCBA; Clover                                  | Existing registry records public eRecruit candidate portals. This identifies the portal technology, not Graylink Neptune. |
+| BambooHR           | South African employers found through official career-page discovery | Candidate; public job-board behavior and local employer coverage need verification.                                       |
+| Breezy HR          | South African employers found through official career-page discovery | Candidate; public job-board behavior and local employer coverage need verification.                                       |
+| Workable           | South African employers found through official career-page discovery | Candidate; inspect public board/widget behavior and exact job destinations.                                               |
 
 ### Wave 3 — retain and extend where employer yield justifies it
 
@@ -136,6 +138,7 @@ Workday remains a valid enterprise candidate and should not be excluded merely b
 ## 6. Investigation scorecard
 
 For every employer/platform pair, record:
+
 - employer name and official website;
 - official careers entry URL and final URL after redirects;
 - platform detection evidence and confidence;

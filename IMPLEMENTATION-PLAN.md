@@ -59,19 +59,19 @@ Employer discovery and source verification continue in parallel with implementat
 
 ## 6. Milestones
 
-| Milestone | Name                                               | Status                                                                                                                                       |
-| --------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| M0        | Repository Audit and Scope Lock                    | Accepted                                                                                                                                     |
-| M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                                                            |
-| M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                                                       |
-| M3        | Greenhouse Vertical Slice                          | In progress — user confirms extraction-to-Thungatha flow has been exercised; remaining Greenhouse/admin acceptance evidence must be recorded |
-| M4        | South African Careers Crawling and Platform Coverage | Reprioritised — preserve Greenhouse/Lever/Teamtailor work; investigate South African enterprise and local platforms before more adapters |
-| M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                                                                   |
-| M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                                  |
-| M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                                                                  |
-| M8        | Scheduling and Thungatha Publishing                | Not started                                                                                                                                  |
-| M9        | Security, Hosting, Recovery and Release Acceptance | Not started                                                                                                                                  |
-| M10       | Docker Containerisation and Packaging              | Not started                                                                                                                                  |
+| Milestone | Name                                                 | Status                                                                                                                                       |
+| --------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| M0        | Repository Audit and Scope Lock                      | Accepted                                                                                                                                     |
+| M1        | Employer Discovery and Source Registry               | In progress; runs in parallel with implementation                                                                                            |
+| M2        | Backend Foundation and Scout Supabase Persistence    | In progress; checkpoint review/remaining contract work                                                                                       |
+| M3        | Greenhouse Vertical Slice                            | In progress — user confirms extraction-to-Thungatha flow has been exercised; remaining Greenhouse/admin acceptance evidence must be recorded |
+| M4        | South African Careers Crawling and Platform Coverage | Reprioritised — preserve Greenhouse/Lever/Teamtailor work; investigate South African enterprise and local platforms before more adapters     |
+| M5        | Cross-cutting Admin UI and API Integration           | In progress alongside M3 and M4 when its checkpoints begin                                                                                   |
+| M6        | Fourth-Employer Compatibility Test                   | Not started                                                                                                                                  |
+| M7        | Vacancy Quality, Lifecycle and Exception Review      | Not started                                                                                                                                  |
+| M8        | Scheduling and Thungatha Publishing                  | Not started                                                                                                                                  |
+| M9        | Security, Hosting, Recovery and Release Acceptance   | Not started                                                                                                                                  |
+| M10       | Docker Containerisation and Packaging                | Not started                                                                                                                                  |
 
 ### M2 — Backend foundation and Scout Supabase persistence
 
@@ -212,7 +212,6 @@ Lever's M4-LEVER-A and M4-LEVER-B checkpoints are accepted. The user verified th
 Regression evidence supplied by the user: backend unit suite **160 passed**; frontend typecheck and production build passed; frontend source line-limit and naming checks passed. See `milestones/M4-ATS-ADAPTER-EXPANSION.md` for the checkpoint evidence.
 
 Continue M4 with **M4-TEAMTAILOR-A**. Ashby remains deferred pending its partner response. M4 as a whole remains in progress until the remaining first-wave adapters reach accepted or evidence-backed deferred outcomes.
-
 
 ## South African coverage reprioritisation — 11 November 2026
 

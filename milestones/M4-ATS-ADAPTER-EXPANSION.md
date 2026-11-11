@@ -226,7 +226,6 @@ A second blocker was found while tracing why the registered Teamtailor test targ
 
 The registry importer is repeat-safe. It does not approve employers or verify source permission; those states remain subject to the existing review workflow.
 
-
 ## Supersession notice — 11 November 2026
 
 The remaining Personio and Recruitee-first sequence is superseded by the South African careers crawling and platform coverage plan in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and the active M4 section of `IMPLEMENTATION-PLAN.md`. Do not delete or rewrite accepted Lever/Teamtailor evidence or existing adapter code. Greenhouse remains the reference adapter. The next work is the M4-SA investigation/crawler sequence, not Personio. This historical document remains for traceability only.

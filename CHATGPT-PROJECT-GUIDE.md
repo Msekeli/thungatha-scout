@@ -73,7 +73,6 @@ Avoid retaining full HTML snapshots by default. Use bounded retention for any ra
 
 The user prefers concise, direct guidance, maintainable code, low operating cost and no unnecessary abstractions. Do not ask the user to repeat decisions already recorded here.
 
-
 ## South African careers crawler direction — 11 November 2026
 
 Read `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`. Scrapy is for bounded employer careers-page discovery, platform fingerprinting and generic public-page extraction; it complements ATS adapters. Known platforms route to their existing adapter. Scrapy Cloud via the GitHub Student Developer Pack is only a candidate runner until current eligibility and limits are verified. No second database, direct Thungatha writes or access-control bypasses.

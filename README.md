@@ -30,7 +30,6 @@ The Azure for Students credit is exhausted. Do not upgrade it, provision Azure r
 
 See `TECHNICAL-APPROACH.md` for the current architecture and pipeline, and `IMPLEMENTATION-PLAN.md` for milestone status.
 
-
 ## Careers-page crawling and South African platform priorities
 
 See [the crawler implementation plan](docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md) for how Scrapy discovers official careers pages, fingerprints ATS platforms, routes known platforms to existing adapters and extracts public non-standard career pages through Scout's existing pipeline. The plan prioritises investigation of SAP SuccessFactors, Workday, Oracle Recruiting Cloud, Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable based on South African employer leads. These remain candidates until live evidence is verified. Greenhouse, Lever and Teamtailor work is preserved.

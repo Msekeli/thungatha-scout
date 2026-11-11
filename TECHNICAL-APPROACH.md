@@ -249,7 +249,6 @@ The company/source approval workflow described elsewhere in this document is obs
 5. Admin actions are limited to permanent company deletion and vacancy archiving. Source previews and extraction history remain operational diagnostics.
 6. Keep the architecture adapter-based and shared. New employers on an existing ATS require configuration, not new adapter code.
 
-
 ## 13. Careers-page crawler and platform routing — 11 November 2026
 
 Scrapy is the default bounded HTTP crawler for employer careers-page discovery, redirect/link inspection, ATS fingerprinting and generic public HTML/JSON extraction. It is complementary to ATS adapters, not a replacement. When a known ATS is detected, route the source to its existing adapter. Do not scrape the same board through a parallel generic pipeline.
