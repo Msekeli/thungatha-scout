@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "test:branding": "node --experimental-strip-types src/company-management/company-icon-url.test.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint:size": "python3 ../scripts/check-file-line-limits.py",
