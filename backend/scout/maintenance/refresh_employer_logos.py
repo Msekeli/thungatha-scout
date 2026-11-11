@@ -17,6 +17,7 @@ async def refresh_employer_logos() -> tuple[int, int]:
                        LIMIT 1
                    ) AS careers_url
             FROM employers e
+            WHERE e.logo_url IS NULL
             ORDER BY e.name
             """
         ).fetchall()
