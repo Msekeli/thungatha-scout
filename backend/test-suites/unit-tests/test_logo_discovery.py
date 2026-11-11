@@ -61,7 +61,6 @@ def test_legitimate_external_logo_hosts_are_accepted() -> None:
     assert is_usable_employer_logo_url("https://cdn.example.com/company-logo.svg")
 
 
-
 def test_classifies_structured_logo_as_official_logo() -> None:
     html = """
     <script type="application/ld+json">
@@ -82,7 +81,9 @@ def test_classifies_same_site_icon_as_official_favicon() -> None:
     )
 
 
-def test_extractor_classifies_page_local_icon_and_discovery_controls_allowed_roots() -> None:
+def test_extractor_classifies_page_local_icon_and_discovery_controls_allowed_roots() -> (
+    None
+):
     # Extraction is page-local; the discovery workflow must only invoke it for
     # the employer's configured official website, never a careers URL.
     html = '<link rel="icon" href="/favicon.ico">'
