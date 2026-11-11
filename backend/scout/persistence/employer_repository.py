@@ -60,14 +60,14 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
         ).fetchall()
 
     def update_branding(
-        self, employer_id: UUID, logo_url: str | None, logo_source_url: str | None
+        self, employer_id: UUID, logo_url: str | None, logo_source_url: str | None, logo_type: str
     ) -> dict[str, Any] | None:
         return self._connection.execute(
             """
             UPDATE employers SET logo_url = %s, logo_source_url = %s, logo_type = %s, updated_at = NOW()
             WHERE id = %s RETURNING *
             """,
-            (logo_url, logo_source_url, "unverified", employer_id),
+            (logo_url, logo_source_url, logo_type, employer_id),
         ).fetchone()
 
     def update_branding_if_unusable(
