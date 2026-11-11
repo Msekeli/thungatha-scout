@@ -71,8 +71,8 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
               ...form,
               name: companyName,
               website_url: form.website_url.trim() || null,
-              logo_url: getCompanyIconUrl(sourceUrl),
-              logo_source_url: sourceUrl,
+              logo_url: getCompanyIconUrl(form.website_url.trim() || null),
+              logo_source_url: form.website_url.trim() || null,
             });
 
       const source = await scoutApi.createSource(employer.id, {
@@ -90,24 +90,15 @@ export function useEmployerRegistration(options: UseEmployerRegistrationOptions)
               }
             : null,
       });
-      let registeredSource = source;
-      if (!registeredSource.discovery_preview) {
-        try {
-          const preview = await scoutApi.previewSource(source.id);
-          if (preview.complete && ["success", "empty"].includes(preview.outcome))
-            registeredSource = { ...source, discovery_preview: preview.discovery_preview };
-        } catch {
-          // Registration remains successful when a read-only preview is unavailable.
-        }
-      }
-      onRegistered({ employer, source: registeredSource });
-      const previewCount = registeredSource.discovery_preview?.total_vacancies;
+      onRegistered({ employer, source });
+      const previewCount = source.discovery_preview?.total_vacancies;
       onNotice(
         previewCount === undefined
           ? employer.name + " added. Vacancy preview is not available yet."
           : employer.name + " added. " + previewCount + " vacancies discovered.",
       );
-      await runEmployerVacancyImport(source.id, employer.name, {
+      // Extraction runs in the background; registration must not wait for vacancy imports.
+      void runEmployerVacancyImport(source.id, employer.name, {
         loadWorkspace,
         onError,
         onNotice,
