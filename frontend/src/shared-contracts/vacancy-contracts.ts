@@ -31,6 +31,7 @@ export type Vacancy = {
   employer_careers_url?: string | null;
   employer_logo_url?: string | null;
   employer_logo_source_url?: string | null;
+  employer_logo_type?: "official_logo" | "official_favicon" | "careers_favicon" | "unverified";
 };
 
 export type ExtractionRun = {
