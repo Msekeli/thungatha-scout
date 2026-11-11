@@ -1,3 +1,4 @@
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import type { useScoutAppState } from "../app-state/useScoutAppState";
 import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
 import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceController";
@@ -25,14 +26,9 @@ export function CompaniesWorkspacePanel({
   const selectCompany = (employer: Parameters<typeof companies.openCompany>[0]) => {
     void companies.openCompany(employer);
   };
-  const hasSelection = Boolean(companies.employer);
+
   return (
-    <section
-      className={
-        "grid min-h-0 flex-1 gap-4 overflow-hidden pt-4 " +
-        (hasSelection ? "lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.85fr)]" : "grid-cols-1")
-      }
-    >
+    <section className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden pt-4">
       <CompanyDirectoryPanel
         employers={jobs.employers}
         sources={jobs.dashboardSources}
@@ -50,16 +46,30 @@ export function CompaniesWorkspacePanel({
           state.setPage("add-company");
         }}
       />
-      {hasSelection && (
-        <aside className="min-h-0 overflow-y-auto rounded-xl border p-4 scout-company-dialog">
+      <Dialog
+        open={!!companies.employer}
+        onOpenChange={(open) => {
+          if (!open) {
+            state.setSelectedCompanyId(null);
+            state.setSources([]);
+          }
+        }}
+      >
+        <DialogContent
+          className="scout-company-dialog !max-h-[70vh] !w-[95vw] !max-w-3xl"
+          overlayClassName="!bg-transparent !backdrop-blur-0"
+        >
+          <DialogHeader>
+            <DialogTitle className="scout-company-heading">Company details</DialogTitle>
+          </DialogHeader>
           <CompanyProfilePanel
             state={state}
             jobs={jobs}
             companies={companies}
             onboarding={onboarding}
           />
-        </aside>
-      )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
