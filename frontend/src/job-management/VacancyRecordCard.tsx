@@ -36,7 +36,6 @@ export function VacancyRecordCard({
     vacancy.employer_logo_url,
     vacancy.employer_logo_type,
     vacancy.employer_logo_source_url,
-    vacancy.employer_website_url,
   )
     ? vacancy.employer_logo_url
     : null;
