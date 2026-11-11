@@ -103,7 +103,9 @@ async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
 
         logo_url, source_url, logo_type = result
         if not apply:
-            print(f"DRY RUN: would update {employer['name']} with {logo_type} from {source_url}")
+            print(
+                f"DRY RUN: would update {employer['name']} with {logo_type} from {source_url}"
+            )
             continue
 
         with get_database_connection() as connection, connection.transaction():
