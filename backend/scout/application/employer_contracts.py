@@ -3,6 +3,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
+EmployerLogoType = Literal["official_logo", "official_favicon", "careers_favicon", "unverified"]
+
 OrganizationType = Literal[
     "direct_employer",
     "recruitment_agency",
@@ -20,6 +22,7 @@ class EmployerCreate(BaseModel):
     website_url: HttpUrl | None = None
     logo_url: HttpUrl | None = None
     logo_source_url: HttpUrl | None = None
+    logo_type: EmployerLogoType = "unverified"
     organization_type: OrganizationType = "unresolved"
     city: str | None = None
     province: str | None = None
@@ -41,6 +44,7 @@ class EmployerBrandingUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
     logo_url: HttpUrl | None = None
     logo_source_url: HttpUrl | None = None
+    logo_type: EmployerLogoType = "unverified"
 
 
 class DiscoveryPreviewJob(BaseModel):
