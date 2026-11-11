@@ -46,11 +46,11 @@ async def refresh_employer_logos() -> tuple[int, int]:
                   AND (
                       logo_url IS NULL
                       OR logo_url !~* '^https?://'
-                      OR logo_url ILIKE 'https://www.google.com/s2/favicons%'
-                      OR logo_url ILIKE 'https://favicons.githubusercontent.com%'
-                      OR lower(logo_url) LIKE '%greenhouse.io%'
-                      OR lower(logo_url) LIKE '%lever.co%'
-                      OR lower(logo_url) LIKE '%teamtailor.com%'
+                      OR logo_url ILIKE 'https://www.google.com/s2/favicons%%'
+                      OR logo_url ILIKE 'https://favicons.githubusercontent.com%%'
+                      OR lower(logo_url) LIKE '%%greenhouse.io%%'
+                      OR lower(logo_url) LIKE '%%lever.co%%'
+                      OR lower(logo_url) LIKE '%%teamtailor.com%%'
                   )
                 RETURNING id
                 """,
