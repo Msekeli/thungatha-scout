@@ -1,6 +1,6 @@
 import { CalendarDays, Building2, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
-import { getCompanyIconUrl } from "../company-management/company-icon-url";
+import { isEmployerLogoUrl } from "../company-management/company-icon-url";
 import { getVacancyFreshness } from "./vacancy-freshness";
 import { VacancyRecordCardActions } from "./vacancy-record-card-actions";
 
@@ -31,9 +31,9 @@ export function VacancyRecordCard({
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
   const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
-  const logoUrl =
-    vacancy.employer_logo_url ||
-    getCompanyIconUrl(vacancy.employer_website_url || vacancy.employer_careers_url);
+  const logoUrl = isEmployerLogoUrl(vacancy.employer_logo_url)
+    ? vacancy.employer_logo_url
+    : null;
   return (
     <article className="scout-vacancy-card" data-selected={selected}>
       <div className="flex min-w-0 items-center gap-3 px-4 py-4">
