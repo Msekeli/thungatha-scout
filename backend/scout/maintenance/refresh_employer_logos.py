@@ -30,15 +30,12 @@ VERIFIED_EMPLOYER_WEBSITES = {
     "2u": "https://2u.com/",
     "acacium group": "https://acaciumgroup.com/",
     "anew hotels & resorts": "https://anewhotels.com/",
-    "aston holmes": "https://www.astonholmes.com/",
     "biovac": "https://biovac.co.za/",
     "burnt studios": "https://burnt.co.za/",
     "bvnk": "https://www.bvnk.com/",
     "cosmo central group": "https://www.cosmocentralgroup.co.za/",
     "crosscountry consulting": "https://www.crosscountry-consulting.com/",
     "currenciesdirectlimited": "https://www.currenciesdirect.com/",
-    "footasylum": "https://www.footasylum.com/",
-    "impact.com": "https://impact.com/",
     "magentus": "https://www.magentus.com/",
     "moonpay": "https://www.moonpay.com/",
     "north star network": "https://north-star.network/",
@@ -48,11 +45,6 @@ VERIFIED_EMPLOYER_WEBSITES = {
     "ozow": "https://ozow.com/",
     "parallelwireless": "https://www.parallelwireless.com/",
     "payjoy": "https://www.payjoy.com/",
-    "paystack": "https://paystack.com/",
-    "takealot group": "https://www.takealot.com/",
-    "teamviewer": "https://www.teamviewer.com/",
-    "theodo": "https://www.theodo.com/",
-    "yassir": "https://yassir.com/",
 }
 
 
