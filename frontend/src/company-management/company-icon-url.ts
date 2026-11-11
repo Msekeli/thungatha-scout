@@ -9,11 +9,11 @@ const BLOCKED_BRANDING_HOSTS = new Set([
 ]);
 
 function normalizeHost(host: string): string {
-  return host.toLowerCase().replace(/^www\\./, "").replace(/\\.$/, "");
+  return host.toLowerCase().replace(/^www\./, "").replace(/\.$/, "");
 }
 
 function isBlockedBrandingHost(host: string): boolean {
-  const normalized = host.toLowerCase().replace(/\\.$/, "");
+  const normalized = host.toLowerCase().replace(/\.$/, "");
   return (
     BLOCKED_BRANDING_HOSTS.has(normalized) ||
     normalized.endsWith(".greenhouse.io") ||
