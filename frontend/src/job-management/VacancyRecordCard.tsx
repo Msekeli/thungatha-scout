@@ -32,7 +32,12 @@ export function VacancyRecordCard({
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
   const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
-  const logoUrl = isApprovedEmployerBranding(vacancy.employer_logo_url, vacancy.employer_logo_type)
+  const logoUrl = isApprovedEmployerBranding(
+    vacancy.employer_logo_url,
+    vacancy.employer_logo_type,
+    vacancy.employer_logo_source_url,
+    vacancy.employer_website_url,
+  )
     ? vacancy.employer_logo_url
     : null;
   return (

@@ -29,7 +29,12 @@ export function CompanyDirectoryCard({
   const hasPreview = sources.some((source) => source.discovery_preview);
   const displayedJobs = currentJobs > 0 ? currentJobs : previewCount;
   const jobLabel = currentJobs > 0 || !hasPreview ? "current" : "discovered";
-  const logoUrl = isApprovedEmployerBranding(employer.logo_url, employer.logo_type)
+  const logoUrl = isApprovedEmployerBranding(
+    employer.logo_url,
+    employer.logo_type,
+    employer.logo_source_url,
+    employer.website_url,
+  )
     ? employer.logo_url
     : null;
   return (

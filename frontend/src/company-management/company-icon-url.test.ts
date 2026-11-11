@@ -21,6 +21,53 @@ assert.equal(
   false,
 );
 assert.equal(
-  isApprovedEmployerBranding("https://cdn.example.com/logo.svg", "unverified"),
+  isApprovedEmployerBranding(
+    "https://cdn.example.com/logo.svg",
+    "unverified",
+    "https://employer.example.com/",
+    "https://employer.example.com/",
+  ),
   true,
+);
+assert.equal(
+  isApprovedEmployerBranding(
+    "https://cdn.example.com/logo.svg",
+    "unverified",
+    "https://employer.teamtailor.com/jobs",
+  ),
+  false,
+);
+assert.equal(
+  isApprovedEmployerBranding(
+    "https://cdn.example.com/logo.svg",
+    "unverified",
+    "https://employer.example.com/careers",
+    "https://employer.example.com/",
+  ),
+  false,
+);
+assert.equal(
+  isApprovedEmployerBranding(
+    "https://images.external-cdn.example/logo.svg",
+    "unverified",
+    "https://employer.example.com/",
+    null,
+  ),
+  true,
+);
+assert.equal(
+  isApprovedEmployerBranding(
+    "https://images.teamtailor-cdn.com/logo.svg",
+    "official_logo",
+  ),
+  false,
+);
+assert.equal(
+  isApprovedEmployerBranding(
+    "https://cdn.example.com/logo.svg",
+    "unverified",
+    "https://other.example.com/",
+    "https://employer.example.com/",
+  ),
+  false,
 );
