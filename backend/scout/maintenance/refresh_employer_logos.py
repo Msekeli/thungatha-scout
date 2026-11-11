@@ -65,12 +65,12 @@ async def refresh_employer_logos() -> tuple[int, int]:
         website_url = employer["website_url"] or VERIFIED_EMPLOYER_WEBSITES.get(
             employer["name"].strip().casefold()
         )
-        result = await discover_employer_logo(
-            employer["careers_url"], website_url
-        )
+        result = await discover_employer_logo(employer["careers_url"], website_url)
         if result is None:
             unresolved += 1
-            print(f"No official logo or website icon found: {employer['name']} ({employer['id']})")
+            print(
+                f"No official logo or website icon found: {employer['name']} ({employer['id']})"
+            )
             continue
 
         logo_url, source_url = result
