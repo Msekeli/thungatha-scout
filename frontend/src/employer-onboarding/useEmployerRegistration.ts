@@ -1,6 +1,5 @@
 import type { FormEvent } from "react";
 import { scoutApi } from "../api";
-import { getCompanyIconUrl } from "../company-management/company-icon-url";
 import { runEmployerVacancyImport } from "./runEmployerVacancyImport";
 import { findEmployerDuplicate } from "./findEmployerDuplicate";
 import type { CareersDiscovery, Employer, EmployerSource } from "../api";
@@ -63,10 +62,8 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
               ...form,
               name: companyName,
               website_url: form.website_url.trim() || null,
-              logo_url: getCompanyIconUrl(form.website_url.trim() || sourceUrl),
-              logo_source_url: getCompanyIconUrl(form.website_url.trim() || sourceUrl)
-                ? form.website_url.trim() || sourceUrl
-                : null,
+              logo_url: null,
+              logo_source_url: null,
             });
 
       const source = await scoutApi.createSource(employer.id, {
@@ -78,7 +75,10 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
         discovery_preview: null,
       });
       onRegistered({ employer, source });
-      onNotice(employer.name + " added. Vacancy extraction is running in the background.");
+      onNotice(employer.name + " added. Vacancy extraction and logo discovery are running in the background.");
+      void scoutApi.discoverEmployerLogo(employer.id)
+        .then(() => loadWorkspace())
+        .catch(() => undefined);
       void runEmployerVacancyImport(source.id, employer.name, {
         loadWorkspace,
         onError,
