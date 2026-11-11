@@ -1,3 +1,4 @@
+import argparse
 import asyncio
 
 from scout.branding.logo_discovery import (
@@ -48,7 +49,7 @@ VERIFIED_EMPLOYER_WEBSITES = {
 }
 
 
-async def refresh_employer_logos() -> tuple[int, int]:
+async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
     with get_database_connection() as connection:
         employers = connection.execute(
             """
@@ -101,6 +102,10 @@ async def refresh_employer_logos() -> tuple[int, int]:
             continue
 
         logo_url, source_url, logo_type = result
+        if not apply:
+            print(f"DRY RUN: would update {employer['name']} with {logo_type} from {source_url}")
+            continue
+
         with get_database_connection() as connection, connection.transaction():
             saved = connection.execute(
                 """
@@ -129,5 +134,15 @@ async def refresh_employer_logos() -> tuple[int, int]:
 
 
 if __name__ == "__main__":
-    updated, unresolved = asyncio.run(refresh_employer_logos())
-    print(f"Logo discovery complete. Updated: {updated}; unresolved: {unresolved}.")
+    parser = argparse.ArgumentParser(
+        description="Refresh employer branding from official websites."
+    )
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Persist discovered branding. Without this flag, only show proposed updates.",
+    )
+    arguments = parser.parse_args()
+    updated, unresolved = asyncio.run(refresh_employer_logos(apply=arguments.apply))
+    mode = "Applied" if arguments.apply else "Dry run"
+    print(f"{mode}. Updated: {updated}; unresolved: {unresolved}.")
