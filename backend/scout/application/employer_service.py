@@ -63,6 +63,14 @@ class EmployerService:
                 employer_id, values["logo_url"], values["logo_source_url"]
             )
 
+    def update_branding_if_unusable(
+        self, employer_id: UUID, logo_url: str, logo_source_url: str
+    ) -> dict[str, Any] | None:
+        with self._connection_factory() as connection, connection.transaction():
+            return EmployerRepository(connection).update_branding_if_unusable(
+                employer_id, logo_url, logo_source_url
+            )
+
     def create_source(self, payload: EmployerSourceCreate) -> dict[str, Any]:
         values = source_create_values(payload)
         with self._connection_factory() as connection, connection.transaction():

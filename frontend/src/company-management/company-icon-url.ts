@@ -4,6 +4,7 @@ const BLOCKED_LOGO_HOSTS = new Set([
   "job-boards.eu.greenhouse.io",
   "jobs.lever.co",
   "jobs.eu.lever.co",
+  "teamtailor.com",
 ]);
 
 export function isEmployerLogoUrl(value?: string | null): boolean {

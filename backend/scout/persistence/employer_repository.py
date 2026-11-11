@@ -68,3 +68,25 @@ class EmployerRepository(EmployerDeleteOperations, EmployerDetailsUpdateOperatio
             """,
             (logo_url, logo_source_url, employer_id),
         ).fetchone()
+
+    def update_branding_if_unusable(
+        self, employer_id: UUID, logo_url: str, logo_source_url: str
+    ) -> dict[str, Any] | None:
+        return self._connection.execute(
+            """
+            UPDATE employers
+            SET logo_url = %s, logo_source_url = %s, updated_at = NOW()
+            WHERE id = %s
+              AND (
+                  logo_url IS NULL
+                  OR logo_url !~* '^https?://'
+                  OR logo_url ILIKE 'https://www.google.com/s2/favicons%'
+                  OR logo_url ILIKE 'https://favicons.githubusercontent.com%'
+                  OR lower(logo_url) LIKE '%greenhouse.io%'
+                  OR lower(logo_url) LIKE '%lever.co%'
+                  OR lower(logo_url) LIKE '%teamtailor.com%'
+              )
+            RETURNING *
+            """,
+            (logo_url, logo_source_url, employer_id),
+        ).fetchone()

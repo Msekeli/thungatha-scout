@@ -1,5 +1,6 @@
-import { CalendarDays, Building2, MapPin } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
+import { EmployerBrandMark } from "../company-management/employer-brand-mark";
 import { isEmployerLogoUrl } from "../company-management/company-icon-url";
 import { getVacancyFreshness } from "./vacancy-freshness";
 import { VacancyRecordCardActions } from "./vacancy-record-card-actions";
@@ -31,7 +32,9 @@ export function VacancyRecordCard({
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
   const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
-  const logoUrl = isEmployerLogoUrl(vacancy.employer_logo_url) ? vacancy.employer_logo_url : null;
+  const logoUrl = isEmployerLogoUrl(vacancy.employer_logo_url)
+    ? vacancy.employer_logo_url
+    : null;
   return (
     <article className="scout-vacancy-card" data-selected={selected}>
       <div className="flex min-w-0 items-center gap-3 px-4 py-4">
@@ -43,19 +46,12 @@ export function VacancyRecordCard({
           disabled={opening}
         >
           <span className="flex items-center gap-3">
-            <span className="scout-vacancy-card__employer-logo">
-              {logoUrl ? (
-                <img
-                  src={logoUrl}
-                  alt=""
-                  onError={(event) => {
-                    event.currentTarget.style.display = "none";
-                  }}
-                />
-              ) : (
-                <Building2 aria-hidden="true" />
-              )}
-            </span>
+            <EmployerBrandMark
+              name={vacancy.employer_name}
+              logoUrl={logoUrl}
+              className="scout-vacancy-card__employer-logo"
+              logoClassName="h-9 w-9 rounded-lg bg-white object-contain p-1"
+            />
             <span className="min-w-0 flex-1">
               <strong className="scout-vacancy-card__title">{vacancy.title}</strong>
               <span className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">

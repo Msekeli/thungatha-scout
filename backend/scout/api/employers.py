@@ -12,7 +12,10 @@ from scout.application.employer_contracts import (
     EmployerUpdate,
 )
 from scout.application.employer_service import EmployerService
-from scout.branding.logo_discovery import discover_employer_logo
+from scout.branding.logo_discovery import (
+    discover_employer_logo,
+    is_usable_employer_logo_url,
+)
 
 router = APIRouter(prefix="/employers", tags=["employers"])
 router.include_router(source_router)
@@ -51,6 +54,9 @@ async def discover_employer_branding(
     employer = service.get_employer(employer_id)
     if employer is None:
         raise HTTPException(status_code=404, detail="Employer not found.")
+    if is_usable_employer_logo_url(employer.get("logo_url")):
+        return employer
+
     sources = service.list_sources(employer_id)
     careers_url = next(
         (
@@ -62,12 +68,12 @@ async def discover_employer_branding(
     )
     result = await discover_employer_logo(careers_url, employer.get("website_url"))
     if result is None:
-        return None
+        return employer
     logo_url, source_url = result
-    return service.update_branding(
-        employer_id,
-        EmployerBrandingUpdate(logo_url=logo_url, logo_source_url=source_url),
+    updated = service.update_branding_if_unusable(
+        employer_id, logo_url, source_url
     )
+    return updated or service.get_employer(employer_id)
 
 
 @router.get("/{employer_id}")

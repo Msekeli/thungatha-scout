@@ -1,7 +1,8 @@
-import { ArrowDownRight, ArrowUpRight, BriefcaseBusiness, Building2 } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource } from "../api";
 import { CompanyDirectoryLinks } from "./CompanyDirectoryLinks";
+import { EmployerBrandMark } from "./employer-brand-mark";
 import { isEmployerLogoUrl } from "./company-icon-url";
 
 type Props = {
@@ -60,20 +61,12 @@ export function CompanyDirectoryCard({
         onClick={() => onSelect(employer)}
         className="scout-company-card__trigger h-auto w-full items-start justify-start gap-3 rounded-none px-4 pb-3 pt-4 pr-20 text-left font-normal"
       >
-        <span className="scout-company-card__icon">
-          {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt={employer.name + " logo"}
-              className="scout-company-card__logo"
-              onError={(event) => {
-                event.currentTarget.style.display = "none";
-                event.currentTarget.parentElement?.querySelector("svg")?.classList.remove("hidden");
-              }}
-            />
-          ) : null}
-          <Building2 className={"h-5 w-5" + (logoUrl ? " hidden" : "")} />
-        </span>
+        <EmployerBrandMark
+          name={employer.name}
+          logoUrl={logoUrl}
+          className="scout-company-card__icon"
+          logoClassName="scout-company-card__logo"
+        />
         <span className="min-w-0 flex-1">
           <strong className="block truncate text-sm font-semibold scout-company-card__name">
             {employer.name}

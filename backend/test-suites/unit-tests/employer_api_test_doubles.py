@@ -10,6 +10,7 @@ class FakeEmployerService:
     def __init__(self) -> None:
         self.employers = []
         self.sources = []
+        self.branding_discovery_updates = 0
 
     def list_employers(self, limit: int, offset: int):
         return self.employers[offset : offset + limit]
@@ -40,6 +41,15 @@ class FakeEmployerService:
         employer["logo_source_url"] = (
             str(payload.logo_source_url) if payload.logo_source_url else None
         )
+        return employer
+
+    def update_branding_if_unusable(self, employer_id, logo_url, logo_source_url):
+        employer = self.get_employer(employer_id)
+        if employer is None:
+            return None
+        self.branding_discovery_updates += 1
+        employer["logo_url"] = logo_url
+        employer["logo_source_url"] = logo_source_url
         return employer
 
     def create_source(self, payload):

@@ -12,7 +12,7 @@ def test_employer_registry_api_creates_and_lists_employers() -> None:
             json={
                 "name": "Example Employer",
                 "website_url": "https://example.com",
-                "logo_url": "https://www.google.com/s2/favicons?domain=example.com&sz=128",
+                "logo_url": "https://example.com/brand/logo.svg",
                 "logo_source_url": "https://example.com/careers",
                 "city": "Cape Town",
                 "province": "Western Cape",
@@ -23,7 +23,7 @@ def test_employer_registry_api_creates_and_lists_employers() -> None:
     assert created.status_code == 201
     assert created.json()["name"] == "Example Employer"
     assert "status" not in created.json()
-    assert created.json()["logo_url"].endswith("domain=example.com&sz=128")
+    assert created.json()["logo_url"] == "https://example.com/brand/logo.svg"
     assert created.json()["logo_source_url"] == "https://example.com/careers"
     assert listed.status_code == 200
     assert listed.json()[0]["id"] == created.json()["id"]
