@@ -9,7 +9,8 @@ from scout.ats_adapters.ats_adapter_contracts import NormalizedVacancy
 
 
 def map_workday_vacancy(
-    listing: Mapping[str, Any], detail: Mapping[str, Any], host: str, site: str,\n    locale: str = "en-US"
+    listing: Mapping[str, Any], detail: Mapping[str, Any], host: str, site: str,
+    locale: str = "en-US"
 ) -> NormalizedVacancy:
     info = detail["jobPostingInfo"]
     path = required_text(listing, "externalPath")
