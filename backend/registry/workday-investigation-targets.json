@@ -24,9 +24,7 @@
       "site": "Cisco_Careers",
       "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
       "cape_town_evidence": false,
-      "evidence_urls": [
-        "https://deriverge.com/tools/data/ats/workday.json"
-      ]
+      "evidence_urls": ["https://deriverge.com/tools/data/ats/workday.json"]
     },
     {
       "employer_id": "accenture",
@@ -38,9 +36,7 @@
       "site": "AccentureCareers",
       "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
       "cape_town_evidence": false,
-      "evidence_urls": [
-        "https://deriverge.com/tools/data/ats/workday.json"
-      ]
+      "evidence_urls": ["https://deriverge.com/tools/data/ats/workday.json"]
     },
     {
       "employer_id": "salesforce",
@@ -52,9 +48,7 @@
       "site": "External_Career_Site",
       "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
       "cape_town_evidence": false,
-      "evidence_urls": [
-        "https://deriverge.com/tools/data/ats/workday.json"
-      ]
+      "evidence_urls": ["https://deriverge.com/tools/data/ats/workday.json"]
     },
     {
       "employer_id": "nvidia",
@@ -66,9 +60,7 @@
       "site": "NVIDIAExternalCareerSite",
       "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
       "cape_town_evidence": false,
-      "evidence_urls": [
-        "https://deriverge.com/tools/data/ats/workday.json"
-      ]
+      "evidence_urls": ["https://deriverge.com/tools/data/ats/workday.json"]
     },
     {
       "employer_id": "nike",
@@ -80,9 +72,7 @@
       "site": "nke",
       "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
       "cape_town_evidence": false,
-      "evidence_urls": [
-        "https://deriverge.com/tools/data/ats/workday.json"
-      ]
+      "evidence_urls": ["https://deriverge.com/tools/data/ats/workday.json"]
     },
     {
       "employer_id": "walmart",
@@ -94,9 +84,7 @@
       "site": "WalmartExternal",
       "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
       "cape_town_evidence": false,
-      "evidence_urls": [
-        "https://deriverge.com/tools/data/ats/workday.json"
-      ]
+      "evidence_urls": ["https://deriverge.com/tools/data/ats/workday.json"]
     },
     {
       "employer_id": "old_mutual",
@@ -151,9 +139,7 @@
       "site": "LindtSpruengliGroupCareers",
       "evidence_status": "board_and_site_observed",
       "cape_town_evidence": true,
-      "evidence_urls": [
-        "https://lumitra.io/company-intelligence/lindtusa.com"
-      ]
+      "evidence_urls": ["https://lumitra.io/company-intelligence/lindtusa.com"]
     },
     {
       "employer_id": "astron_energy",
@@ -165,9 +151,7 @@
       "site": "astronenergy",
       "evidence_status": "board_and_cape_town_job_observed",
       "cape_town_evidence": true,
-      "evidence_urls": [
-        "https://southafrica.mimusjobs.com/job/internal-controls-specialist/"
-      ]
+      "evidence_urls": ["https://southafrica.mimusjobs.com/job/internal-controls-specialist/"]
     },
     {
       "employer_id": "kimberly_clark",
@@ -179,9 +163,7 @@
       "site": null,
       "evidence_status": "host_observed_site_slug_pending",
       "cape_town_evidence": true,
-      "evidence_urls": [
-        "https://www.honde.co.za/vacancy/electrical-engineer-b928d991e6e6"
-      ]
+      "evidence_urls": ["https://www.honde.co.za/vacancy/electrical-engineer-b928d991e6e6"]
     },
     {
       "employer_id": "abbott",
@@ -207,9 +189,7 @@
       "site": "Zutari",
       "evidence_status": "board_and_cape_town_job_observed",
       "cape_town_evidence": true,
-      "evidence_urls": [
-        "https://www.earthnews365.co.za/job-list/"
-      ]
+      "evidence_urls": ["https://www.earthnews365.co.za/job-list/"]
     },
     {
       "employer_id": "pick_n_pay",
