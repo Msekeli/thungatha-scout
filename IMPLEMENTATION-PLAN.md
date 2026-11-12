@@ -108,7 +108,7 @@ Read `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` for the detailed crawler archi
 
 M4 checkpoints:
 
-- **M4-SA-A — Crawler foundation and source fingerprinting.** Use Scrapy for bounded public careers-page discovery, redirects, link extraction, platform fingerprints and source observations. Route known ATS sources to existing adapters. Use generic HTML/JSON extraction only where no suitable adapter exists. Playwright is an evidence-driven fallback, not the default.
+- **M4-SA-A — Crawler foundation and source fingerprinting.** Use Crawlee for bounded public careers-page discovery, redirects, link extraction, platform fingerprints and source observations. Start with HTTP crawling; use Crawlee's Playwright integration only when evidence requires a browser. Route known ATS sources to existing adapters. Use generic HTML/JSON extraction only where no suitable adapter exists.
 - **M4-SA-B — Enterprise platform investigation.** Investigate SAP SuccessFactors (Sanlam and Capitec Bank leads), Workday (including Old Mutual and other verified employers), and Oracle Recruiting Cloud. Verify current official career URLs, actual request/response behavior, vacancy completeness, IDs and application destinations before coding.
 - **M4-SA-C — South African/local platform investigation.** Investigate Simplify.hr (Media24, homechoice), eRecruit (Shoprite Group, Boxer, CCBA, Clover), BambooHR, Breezy HR and Workable. Do not conflate eRecruit with Graylink Neptune.
 - **M4-SA-D — Evidence-ranked adapter implementation.** Implement only when employer coverage and a permitted, reliable public retrieval method are established. Use the existing adapter contract, registries, shared persistence, quality gates and publishing workflow.
@@ -216,3 +216,14 @@ Continue M4 with **M4-TEAMTAILOR-A**. Ashby remains deferred pending its partner
 ## South African coverage reprioritisation — 11 November 2026
 
 The former international-first M4 adapter sequence is superseded by M4-SA. The objective is to maximise verified unique South African direct-employer coverage, not the number of ATS integrations. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` for crawler responsibilities, platform candidates, employer leads, evidence scorecard and acceptance criteria. Existing Greenhouse, Lever and Teamtailor work is preserved. No adapter is removed by this decision.
+
+
+## Crawlee and AI architecture update — 12 November 2026
+
+The user approved replacing the 11 November Scrapy proposal with Crawlee for Python. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and the 12 November decision record in the source of truth.
+
+M4-SA-A now uses Crawlee for bounded HTTP-first careers discovery, link/redirect inspection and source fingerprinting. Playwright is an evidence-driven fallback. Known ATS platforms route to existing adapters; generic extraction is used only for non-standard public pages. The crawler hands results to existing Scout services and persistence; it does not create another pipeline or write directly to Thungatha.
+
+Add a parallel **AI provider foundation** task: Gemini and Groq behind one replaceable interface, deterministic-first extraction, primary/fallback provider selection, content-hash and prompt/schema-version caching, strict structured-output validation, bounded tokens/timeouts/retries and mocked tests. AI is opt-in; it cannot approve sources, invent facts, override gates or publish.
+
+Backend dependency groups are `crawler` (Crawlee with Playwright integration) and `ai` (Google GenAI and Groq SDKs), alongside `dev`. Local setup installs `.[dev,crawler,ai]`. Environment settings are documented in `backend/.env.example`; credentials are never committed. Crawling and AI remain disabled until the user configures local settings and verifies them. No Apify hosting, paid services or recurring hosted workload is approved.
