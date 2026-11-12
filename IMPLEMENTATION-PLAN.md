@@ -28,7 +28,7 @@ Greenhouse remains the proven reference adapter. South African employer careers-
 | Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending                                                                             |
 | Scout operational database           | Dedicated Supabase PostgreSQL project                                                                                                         |
 | Thungatha publication destination    | Existing Thungatha Supabase PostgreSQL project                                                                                                |
-| ATS integrations                     | Greenhouse reference adapter; Lever integrated and accepted; Workday deferred                                                                 |
+| ATS integrations                     | Greenhouse reference adapter; Lever integrated and accepted; Workable next, Workday second                                                                 |
 | Admin authentication                 | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
 Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.
@@ -109,11 +109,12 @@ Read `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` for the detailed crawler archi
 M4 checkpoints:
 
 - **M4-SA-A — Crawler foundation and source fingerprinting.** Use Crawlee for bounded public careers-page discovery, redirects, link extraction, platform fingerprints and source observations. Start with HTTP crawling; use Crawlee's Playwright integration only when evidence requires a browser. Route known ATS sources to existing adapters. Use generic HTML/JSON extraction only where no suitable adapter exists.
-- **M4-SA-B — Enterprise platform investigation.** Investigate SAP SuccessFactors (Sanlam and Capitec Bank leads), Workday (including Old Mutual and other verified employers), and Oracle Recruiting Cloud. Verify current official career URLs, actual request/response behavior, vacancy completeness, IDs and application destinations before coding.
-- **M4-SA-C — South African/local platform investigation.** Investigate Simplify.hr (Media24, homechoice), eRecruit (Shoprite Group, Boxer, CCBA, Clover), BambooHR, Breezy HR and Workable. Do not conflate eRecruit with Graylink Neptune.
-- **M4-SA-D — Evidence-ranked adapter implementation.** Implement only when employer coverage and a permitted, reliable public retrieval method are established. Use the existing adapter contract, registries, shared persistence, quality gates and publishing workflow.
+- **M4-SA-B — Workable adapter implementation and live validation.** Implement the observed public widget retrieval path using the existing adapter contract. Test LekkeSlaap, Electrum and GoTyme Bank; verify board identity, list completeness, descriptions, locations, stable IDs, application URLs, response limits and failure semantics. Do not confuse the public widget with Workable's authenticated customer API.
+- **M4-SA-C — Workday adapter implementation and live validation.** Reactivate the observed public CXS JSON strategy after Workable. Start with the Old Mutual source mapping; validate host, tenant and site parsing, paginated listing, detail retrieval, result caps and exact application destinations. Pick n Pay remains an unverified mapping until its official career URL and site identifier are confirmed.
+- **M4-SA-D — SAP SuccessFactors employer-specific investigation.** Investigate Sanlam and Capitec Bank after Workable and Workday. Use Crawlee HTTP-first to inspect each official careers site, redirects, sitemaps, structured data, embedded JSON and public network requests; use bounded Playwright only when evidence requires it. Keep employer-specific retrieval profiles in source configuration. Generalise a reusable SuccessFactors adapter only if a stable permitted pattern is shared; otherwise use the generic crawler with explicit per-employer configuration. Do not build on the retiring legacy RSS/XML response.
+- **M4-SA-G — Additional platform investigation and evidence-ranked integration.** Continue with SmartRecruiters, BambooHR, Breezy HR, Simplify.hr, eRecruit and other candidates according to verified South African employer coverage. Implement only where a reliable, permitted retrieval path is demonstrated. Do not conflate eRecruit with Graylink Neptune.
 
-Greenhouse remains the architectural reference and is retained. Lever and Teamtailor implementation work remains in place. Ashby, Personio, Recruitee and other international candidates are deferred behind the South African investigation queue, not deleted. Workday is restored as an investigation candidate; SAP SuccessFactors is promoted to the first wave.
+Greenhouse remains the architectural reference. Existing Lever and Teamtailor work is retained. Workable is implementation priority 1, Workday priority 2, and SuccessFactors is the next employer-specific investigation. Other candidates remain in the registry without being represented as implemented.
 
 Crawlee is a local framework dependency, not a commitment to Apify hosting. Keep the worker portable and locally runnable. Do not enable hosted/recurring workloads or paid usage without explicit approval and cost review.
 
@@ -129,7 +130,7 @@ Deliver the private React admin incrementally:
 - Companies and sources list/detail workflows.
 - URL-first Add Company flow: paste URL, detect supported ATS, preview metadata/configuration, allow manual fallback, confirm employer/source relationship.
 - Source connection test, operational status and useful error feedback.
-- Progressive Greenhouse integration and first-wave ATS adapters as each API contract stabilises. Workday remains deferred.
+- Progressive Greenhouse integration and adapter workflows as each API contract stabilises. Workable is first, followed by Workday.
 - Dashboard, vacancies and exception/review views when their backend capabilities are ready.
 - Vacancy detail, review, and archive/restore controls integrated against the management API.
 
@@ -234,3 +235,13 @@ The user approved use of the one-free-unit Zyte Scrapy Cloud benefit included in
 Add a deployment checkpoint after M4-SA-A has produced a working local worker: package and deploy the worker; verify dependencies and Python compatibility on Zyte's supported stack; pass credentials through project/job environment settings without committing secrets; verify Scout database connectivity, bounded one-hour execution, single-unit memory limits, graceful shutdown, logs and job outcomes; then manually run one controlled job before configuring the 06:00/18:00 Africa/Johannesburg schedule. Do not enable recurring jobs until the manual run is accepted. The student entitlement authorizes use of its included unit only; no paid upgrade, extra unit or Zyte API spend is approved.
 
 Official deployment constraints and the implementation checkpoint are recorded in `milestones/M4-SA-CAREERS-CRAWLER.md`. This is hosting approval, not evidence of a successful deployment.
+
+
+## ATS implementation order update — 12 November 2026
+
+The user selected this sequence: **Workable → Workday → SAP SuccessFactors investigation**. This supersedes the earlier M4 ranking for the next implementation work without deleting historical research or existing adapters.
+
+- Workable is the immediate adapter target. Its public widget endpoint is observed and undocumented; validate representative South African employer boards and exact application destinations before production claims.
+- Workday is reactivated as the second adapter target. Its public CXS endpoint is also observed/undocumented; prove configuration-driven reuse across employers and understand pagination/result caps.
+- SuccessFactors follows as an employer-specific Crawlee investigation, starting with Sanlam and Capitec Bank. Do not assume one universal tenant endpoint. HTTP-first inspection and bounded browser fallback are discovery methods, not permission to bypass access restrictions. Only create a reusable adapter if the evidence demonstrates a stable common pattern; otherwise use generic crawler retrieval with explicit per-employer profiles.
+- Existing Greenhouse, Lever and Teamtailor work is preserved. All new retrieval continues through the common adapter contract and shared Scout persistence, quality, lifecycle and publishing pipeline.
