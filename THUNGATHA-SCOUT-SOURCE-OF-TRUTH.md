@@ -387,3 +387,17 @@ The 11 November Scrapy decision is superseded by this explicit user-approved dec
 - No hosted crawler, Apify account, recurring cloud workload or paid usage is approved. Hosting remains deferred pending measured workload and explicit cost review.
 
 The detailed design and M4-SA-A/AI-enrichment delivery sequence are maintained in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`.
+
+
+## Decision record — Zyte Scrapy Cloud hosting approval (12 November 2026)
+
+The user confirmed an active GitHub Student Developer Pack benefit for Zyte Scrapy Cloud: one free forever unit with unlimited crawl time and 120-day data retention. Zyte is approved as the target host for the Scout crawler, subject to implementation and deployment acceptance. This uses the user's student entitlement; it does not authorize paid upgrades, additional units, Zyte API usage charges, or other paid services.
+
+- Keep Crawlee for Python as the crawler framework and retain the existing Scout ATS adapters and ingestion pipeline.
+- Package the Crawlee worker as a standalone Python script inside the minimal Scrapy-compatible project structure required by Scrapy Cloud. Scrapy is a deployment compatibility wrapper, not a replacement crawler or a second ingestion pipeline.
+- The worker must call the existing Scout application services and persist through the dedicated Scout database. It must not treat Zyte job storage as the operational database or write directly to Thungatha.
+- Add the Scrapy Cloud project/deployment files only alongside the implemented worker. Validate dependency installation, Python/runtime compatibility, secrets configuration, bounded execution, graceful shutdown, one-unit resource limits, job logs/outcomes and scheduled execution before enabling a recurring job.
+- Keep the API hosting decision separate. Zyte is approved for the crawler worker only, not the FastAPI API or frontend.
+- The free student entitlement is not a reason to bypass robots.txt, source terms, rate limits, access controls or the existing one-hour maximum run policy.
+
+Official Zyte documentation confirms that Scrapy Cloud can run standalone Python scripts declared in a Scrapy project's `setup.py`, while the deployed package still needs to be a Scrapy project. The Crawlee-on-Scrapy-Cloud compatibility therefore remains a deployment checkpoint to prove, not a claim that deployment has already succeeded.
