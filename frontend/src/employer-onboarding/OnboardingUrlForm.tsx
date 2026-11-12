@@ -44,7 +44,8 @@ export function OnboardingUrlForm({
           className="scout-company-field h-11"
         />
         <span className="scout-company-form-help">
-          Used to find the company's real logo or favicon. ATS-hosted board icons are not company logos.
+          Used to find the company's real logo or favicon. ATS-hosted board icons are not company
+          logos.
         </span>
       </label>
 

@@ -86,9 +86,7 @@ def test_logo_discovery_uses_registered_employer_careers_url(monkeypatch) -> Non
 
     monkeypatch.setattr(employer_routes, "discover_employer_logo", fake_discover)
     with client_for(get_employer_service, service) as client:
-        response = client.post(
-            f"/api/v1/employers/{employer_id}/branding/discover"
-        )
+        response = client.post(f"/api/v1/employers/{employer_id}/branding/discover")
 
     assert response.status_code == 200
     assert discovered == [("https://careers.example.com/jobs", None)]

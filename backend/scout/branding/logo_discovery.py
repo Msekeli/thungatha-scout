@@ -202,14 +202,21 @@ async def discover_employer_logo(
                     _validate_public_host(page_url)
                     response = await client.get(page_url)
                     response.raise_for_status()
-                    if "text/html" not in response.headers.get("content-type", "").casefold():
+                    if (
+                        "text/html"
+                        not in response.headers.get("content-type", "").casefold()
+                    ):
                         continue
                     source_url = str(response.url)
                     original_host = (
-                        (urlparse(page_url).hostname or "").casefold().removeprefix("www.")
+                        (urlparse(page_url).hostname or "")
+                        .casefold()
+                        .removeprefix("www.")
                     )
                     final_host = (
-                        (urlparse(source_url).hostname or "").casefold().removeprefix("www.")
+                        (urlparse(source_url).hostname or "")
+                        .casefold()
+                        .removeprefix("www.")
                     )
                     if _blocked_logo_host(final_host) or final_host != original_host:
                         continue
