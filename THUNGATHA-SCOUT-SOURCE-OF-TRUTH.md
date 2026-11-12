@@ -370,3 +370,21 @@ The previous international-first ATS expansion order is superseded. Platform and
 - Crawlers use Scout's existing backend, PostgreSQL persistence, normalized vacancy contract, quality gates and publication ledger. No second database and no direct writes to Thungatha.
 - Preserve employer-first source verification, access restrictions, robots/terms, bounded concurrency, failure/completeness semantics and the current South African vacancy export rule.
 - The detailed implementation is in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`; the active M4 roadmap is M4-SA in `IMPLEMENTATION-PLAN.md`.
+
+
+## Decision record — Crawlee and dual-provider AI architecture (12 November 2026)
+
+The 11 November Scrapy decision is superseded by this explicit user-approved decision. Use **Crawlee for Python** as the careers-page crawling framework. This is a framework choice, not approval to use Apify-hosted infrastructure or any paid service.
+
+- Crawlee is the bounded discovery and generic public-page retrieval layer. Start with HTTP crawling; use its Playwright integration only when evidence proves a browser is required and no suitable public endpoint exists.
+- Existing ATS adapters remain authoritative for known platforms. Crawlee fingerprints and routes known ATS sources to their existing adapters; it must not scrape the same board through a parallel generic path.
+- Generic HTML/JSON/feed parsing is reserved for public non-standard careers pages with no suitable existing adapter.
+- Crawl output enters Scout's existing normalized vacancy contract, persistence, quality/lifecycle, exception and publication pipeline. No second database or direct Thungatha writes.
+- Keep crawling bounded by domain scope, depth, requests per run, concurrency, response size, timeouts and retries. Respect robots.txt, terms, access controls and rate limits. No login/CAPTCHA bypass or evasion. Partial/failed crawls cannot expire vacancies.
+- Gemini and Groq are the two replaceable AI providers behind one small interface. Deterministic extraction runs first; AI is reserved for difficult description structuring and genuinely ambiguous extraction/classification. Use a primary provider with optional failover, not duplicate calls to both providers on every vacancy.
+- Cache validated AI output by content/input hash plus prompt/schema version. Bound input/output, latency and retries. Validate structured output; low-confidence/malformed results remain unresolved or enter exception handling. Preserve original source content.
+- AI cannot invent evidence, approve employers/sources, change stable identity or lifecycle, override hard quality gates, or publish. API keys stay server-side as SecretStr environment settings.
+- AI and crawler are opt-in via configuration until local credentials, models and smoke tests are completed. Crawlee/Playwright and AI SDKs are declared as optional backend dependency groups.
+- No hosted crawler, Apify account, recurring cloud workload or paid usage is approved. Hosting remains deferred pending measured workload and explicit cost review.
+
+The detailed design and M4-SA-A/AI-enrichment delivery sequence are maintained in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`.
