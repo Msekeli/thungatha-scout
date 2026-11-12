@@ -38,7 +38,11 @@ def test_public_workday_tenant_listing_and_detail(board_url: str) -> None:
             )
             assert detail.posting is not None, detail.detail
             vacancy = map_workday_vacancy(
-                listing.postings[0], detail.posting, host, config["site"]
+                listing.postings[0],
+                detail.posting,
+                host,
+                config["site"],
+                config["locale"],
             )
             assert vacancy.description
             assert vacancy.application_url.startswith("https://")

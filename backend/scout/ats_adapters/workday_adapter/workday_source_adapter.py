@@ -20,6 +20,7 @@ class WorkdaySourceAdapter:
         listing = await self._client.list_jobs(source_config)
         host = f"{source_config['host_prefix']}.myworkdayjobs.com"
         site = source_config["site"]
+        locale = source_config.get("locale", "en-US")
         semaphore = asyncio.Semaphore(3)
 
         async def retrieve_one(job: dict[str, Any]):
@@ -31,7 +32,9 @@ class WorkdaySourceAdapter:
                 if detail.posting is None:
                     return None, detail.detail, detail.outcome
                 try:
-                    vacancy = map_workday_vacancy(job, detail.posting, host, site)
+                    vacancy = map_workday_vacancy(
+                        job, detail.posting, host, site, locale
+                    )
                     if not vacancy.description:
                         return None, "Missing job description.", "malformed"
                     return vacancy, None, None

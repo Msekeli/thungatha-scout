@@ -8,6 +8,11 @@ export type InspectionJob = {
   content?: string | null;
 };
 
+<<<<<<< HEAD
+=======
+export type SupportedAdapter = "greenhouse" | "lever" | "teamtailor" | "workable" | "workday";
+
+>>>>>>> origin/dev
 export type SourceInspection = {
   outcome: string;
   board_token: string;

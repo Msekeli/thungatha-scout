@@ -1,24 +1,10 @@
 import { request } from "./scout-http-client";
+import {
+  isLeverBoardUrl,
+  isWorkableBoardUrl,
+  isWorkdayBoardUrl,
+} from "./careers-board-url-detection";
 import type { CareersDiscovery, SourceInspection } from "../shared-contracts/discovery-contracts";
-
-function isLeverBoardUrl(value: string): boolean {
-  try {
-    return ["jobs.lever.co", "jobs.eu.lever.co"].includes(new URL(value).hostname);
-  } catch {
-    return false;
-  }
-}
-
-function isWorkableBoardUrl(value: string): boolean {
-  try {
-    const url = new URL(value);
-    return (
-      url.hostname === "apply.workable.com" && url.pathname.split("/").filter(Boolean).length === 1
-    );
-  } catch {
-    return false;
-  }
-}
 
 function displayNameFromSlug(slug: string): string {
   return slug
@@ -39,8 +25,15 @@ async function discoverGreenhouse(url: string, companyName: string) {
   );
 }
 
+async function discoverWorkday(url: string, companyName: string) {
+  return request<CareersDiscovery>(
+    `/api/v1/workday/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
+  );
+}
+
 export const discoveryApiClient = {
   discoverCareersPage: async (url: string, companyName: string) => {
+    if (isWorkdayBoardUrl(url)) return discoverWorkday(url, companyName);
     if (isWorkableBoardUrl(url)) {
       return request<CareersDiscovery>(
         `/api/v1/workable/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
@@ -68,6 +61,9 @@ export const discoveryApiClient = {
   },
 
   inspectSource: async (url: string): Promise<SourceInspection> => {
+    if (isWorkdayBoardUrl(url)) {
+      return request<SourceInspection>(`/api/v1/workday/inspect?url=${encodeURIComponent(url)}`);
+    }
     if (isWorkableBoardUrl(url)) {
       return request<SourceInspection>(`/api/v1/workable/inspect?url=${encodeURIComponent(url)}`);
     }

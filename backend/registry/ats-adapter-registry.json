@@ -377,7 +377,21 @@
       },
       "config_schema": ["host_prefix", "tenant", "site"],
       "endpoint_pattern": "https://{host_prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs",
-      "notes": "Configuration-driven public Workday CXS client is implemented and registered in the shared extraction/preview services. It POSTs listing requests with a page size of 20, retrieves each detail by externalPath, maps the detail description and externalUrl, and reports incomplete inventories as partial. The CXS endpoint is undocumented. The client stops at 2,000 results and reports partial when total exceeds that threshold. Mocked tests are committed; live DigiOutsource and Old Mutual smoke tests are opt-in and still require execution before source support is claimed."
+      "notes": "Configuration-driven public Workday CXS client is implemented and registered in the shared extraction/preview services. It POSTs listing requests with a page size of 20, retrieves each detail by externalPath, maps the detail description and externalUrl, and reports incomplete inventories as partial. The CXS endpoint is undocumented. The client stops at 2,000 results and reports partial when total exceeds that threshold. Mocked tests are committed; live DigiOutsource and Old Mutual smoke tests are opt-in and still require execution before source support is claimed.",
+      "employer_test_targets": [
+        {
+          "company": "DigiOutsource",
+          "careers_url": "https://myhcm.wd3.myworkdayjobs.com/digioutsource",
+          "evidence_status": "official_careers_link_confirmed",
+          "notes": "The official Super Group DigiOutsource careers page links to this Workday board. Public CXS smoke test is pending execution."
+        },
+        {
+          "company": "Old Mutual",
+          "careers_url": "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers",
+          "evidence_status": "existing_registry_mapping",
+          "notes": "Existing Workday source mapping retained from the V1 source registry. Public CXS smoke test is pending execution."
+        }
+      ]
     },
     "sap_successfactors": {
       "status": "investigation",

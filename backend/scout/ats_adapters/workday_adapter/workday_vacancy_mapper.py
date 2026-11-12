@@ -9,7 +9,11 @@ from scout.ats_adapters.ats_adapter_contracts import NormalizedVacancy
 
 
 def map_workday_vacancy(
-    listing: Mapping[str, Any], detail: Mapping[str, Any], host: str, site: str
+    listing: Mapping[str, Any],
+    detail: Mapping[str, Any],
+    host: str,
+    site: str,
+    locale: str = "en-US",
 ) -> NormalizedVacancy:
     info = detail["jobPostingInfo"]
     path = required_text(listing, "externalPath")
@@ -21,7 +25,7 @@ def map_workday_vacancy(
         raise ValueError("Workday vacancy has no title.")
     apply_url = info.get("externalUrl")
     if not _https_url(apply_url):
-        apply_url = f"https://{host}/en-US/{site}{path}"
+        apply_url = f"https://{host}/{locale}/{site}{path}"
     location = info.get("location") or listing.get("locationsText")
     locations = info.get("additionalLocations")
     if isinstance(locations, list):

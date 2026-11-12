@@ -3,16 +3,16 @@ from typing import Any
 
 import httpx
 
-from scout.ats_adapters.workday_adapter.workday_config import workday_cxs_base_url
+from scout.ats_adapters.workday_adapter.workday_config import (
+    MAX_LIST_BYTES,
+    PAGE_SIZE,
+    RESULT_CAP,
+    workday_cxs_base_url,
+)
 from scout.ats_adapters.workday_adapter.workday_contracts import WorkdayListResult
 from scout.ats_adapters.workday_adapter.workday_response_mapper import (
     map_list_response,
 )
-
-
-PAGE_SIZE = 20
-RESULT_CAP = 2000
-MAX_LIST_BYTES = 5_000_000
 
 
 async def retrieve_workday_listing(
@@ -67,23 +67,14 @@ async def retrieve_workday_listing(
                 page.outcome, postings, total, pages, False, page.detail
             )
         total = page.total
-        if len(page.postings) > PAGE_SIZE:
+        if len(page.postings) > PAGE_SIZE or (not page.postings and offset < total):
             return WorkdayListResult(
                 "partial",
                 postings,
                 total,
                 pages,
                 False,
-                "Workday exceeded the 20-item page size.",
-            )
-        if not page.postings and offset < total:
-            return WorkdayListResult(
-                "partial",
-                postings,
-                total,
-                pages,
-                False,
-                "Workday returned an empty page before total.",
+                "Workday returned an invalid page size or an empty page before total.",
             )
         postings.extend(page.postings)
         offset += PAGE_SIZE
