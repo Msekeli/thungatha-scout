@@ -63,3 +63,22 @@ def test_rate_limit_is_not_an_empty_board() -> None:
     result = asyncio.run(run())
     assert result.outcome == "rate_limited"
     assert result.complete is False
+
+
+def test_paginates_when_subsequent_pages_return_total_zero() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content)
+        offset = body["offset"]
+        count = 20 if offset == 0 else 5
+        jobs = [{"externalPath": f"/job/{i}"} for i in range(offset, offset + count)]
+        total = 25 if offset == 0 else 0
+        return httpx.Response(200, json={"total": total, "jobPostings": jobs})
+
+    async def run():
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            return await WorkdayCxsClient(client).list_jobs(CONFIG)
+
+    result = asyncio.run(run())
+    assert result.complete is True
+    assert result.total == 25
+    assert len(result.postings) == 25

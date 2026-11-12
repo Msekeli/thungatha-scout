@@ -54,3 +54,20 @@ def test_rejects_invalid_optional_locale_in_saved_config() -> None:
 def test_rejects_non_board_urls(url: str) -> None:
     with pytest.raises(ValueError):
         parse_workday_board_url(url)
+
+
+@pytest.mark.parametrize(
+    ("url", "prefix", "tenant", "site"),
+    [
+        ("https://solenis.wd1.myworkdayjobs.com/Solenis", "solenis.wd1", "solenis", "Solenis"),
+        ("https://levistraussandco.wd5.myworkdayjobs.com/External", "levistraussandco.wd5", "levistraussandco", "External"),
+        ("https://tigerbrands.wd103.myworkdayjobs.com/TigerBrands", "tigerbrands.wd103", "tigerbrands", "TigerBrands"),
+        ("https://mrisoftware.wd501.myworkdayjobs.com/External_CareerSite", "mrisoftware.wd501", "mrisoftware", "External_CareerSite"),
+    ],
+)
+def test_parses_various_workday_clusters(url, prefix, tenant, site) -> None:
+    config, canonical = parse_workday_board_url(url)
+    assert config["host_prefix"] == prefix
+    assert config["tenant"] == tenant
+    assert config["site"] == site
+    assert canonical.startswith(f"https://{prefix}.myworkdayjobs.com/en-US/{site}")

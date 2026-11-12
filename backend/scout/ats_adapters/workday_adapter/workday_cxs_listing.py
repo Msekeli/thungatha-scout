@@ -66,7 +66,8 @@ async def retrieve_workday_listing(
             return WorkdayListResult(
                 page.outcome, postings, total, pages, False, page.detail
             )
-        total = page.total
+        if offset == 0 or page.total > 0:
+            total = page.total
         if len(page.postings) > PAGE_SIZE or (not page.postings and offset < total):
             return WorkdayListResult(
                 "partial",
