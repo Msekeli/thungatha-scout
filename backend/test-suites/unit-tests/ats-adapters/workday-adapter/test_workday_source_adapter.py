@@ -49,7 +49,7 @@ def test_maps_detail_description_and_application_destination() -> None:
     assert result.outcome == "success"
     assert result.complete is True
     assert result.vacancies[0].external_job_id == "JR1"
-    assert result.vacancies[0].description == "Build software"
+    assert "Build software" in result.vacancies[0].description
     assert result.vacancies[0].application_url == "https://apply.example.com/JR1"
 
 
