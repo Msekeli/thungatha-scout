@@ -226,3 +226,12 @@ M4-SA-A now uses Crawlee for bounded HTTP-first careers discovery, link/redirect
 Add a parallel **AI provider foundation** task: Gemini and Groq behind one replaceable interface, deterministic-first extraction, primary/fallback provider selection, content-hash and prompt/schema-version caching, strict structured-output validation, bounded tokens/timeouts/retries and mocked tests. AI is opt-in; it cannot approve sources, invent facts, override gates or publish.
 
 Backend dependency groups are `crawler` (Crawlee with Playwright integration) and `ai` (Google GenAI and Groq SDKs), alongside `dev`. Local setup installs `.[dev,crawler,ai]`. Environment settings are documented in `backend/.env.example`; credentials are never committed. Crawling and AI remain disabled until the user configures local settings and verifies them. No Apify hosting, paid services or recurring hosted workload is approved.
+
+
+## Zyte crawler hosting approval — 12 November 2026
+
+The user approved use of the one-free-unit Zyte Scrapy Cloud benefit included in the GitHub Student Developer Pack. Zyte Scrapy Cloud is the selected hosting target for the crawler worker only; FastAPI and frontend hosting remain undecided. Keep Crawlee as the worker framework. The cloud package will be a minimal Scrapy-compatible project that declares a standalone Python entry script, as supported by Zyte documentation. Scrapy is a packaging/runtime compatibility layer only; do not port crawler logic or create a parallel pipeline.
+
+Add a deployment checkpoint after M4-SA-A has produced a working local worker: package and deploy the worker; verify dependencies and Python compatibility on Zyte's supported stack; pass credentials through project/job environment settings without committing secrets; verify Scout database connectivity, bounded one-hour execution, single-unit memory limits, graceful shutdown, logs and job outcomes; then manually run one controlled job before configuring the 06:00/18:00 Africa/Johannesburg schedule. Do not enable recurring jobs until the manual run is accepted. The student entitlement authorizes use of its included unit only; no paid upgrade, extra unit or Zyte API spend is approved.
+
+Official deployment constraints and the implementation checkpoint are recorded in `milestones/M4-SA-CAREERS-CRAWLER.md`. This is hosting approval, not evidence of a successful deployment.
