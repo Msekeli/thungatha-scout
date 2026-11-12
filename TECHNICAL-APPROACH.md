@@ -261,7 +261,6 @@ Scrapy Cloud (Zyte) is a candidate managed runner through the GitHub Student Dev
 
 South African platform investigation order and employer evidence are maintained in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`. SAP SuccessFactors (Sanlam and Capitec leads), Workday and Oracle Recruiting Cloud lead the enterprise investigation. Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable lead the local/mid-market investigation. These are candidates until current employer relationships and public retrieval behavior are independently verified. Greenhouse remains the proven reference adapter; existing Lever and Teamtailor work is retained.
 
-
 ## 14. Crawlee and AI enrichment architecture — 12 November 2026
 
 The user-approved crawler framework is **Crawlee for Python**, superseding the previous Scrapy proposal. Crawlee runs inside Scout's separately executable worker; it is not a new microservice or a commitment to Apify hosting.
