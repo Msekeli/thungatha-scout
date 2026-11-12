@@ -19,7 +19,10 @@ def test_workable_discovery_returns_shared_source_contract(monkeypatch) -> None:
     monkeypatch.setattr(workable_routes, "retrieve_adapter_result", retrieve)
     response = TestClient(app).get(
         "/api/v1/workable/discover",
-        params={"url": "https://apply.workable.com/electrum/", "company_name": "Electrum"},
+        params={
+            "url": "https://apply.workable.com/electrum/",
+            "company_name": "Electrum",
+        },
     )
 
     assert response.status_code == 200

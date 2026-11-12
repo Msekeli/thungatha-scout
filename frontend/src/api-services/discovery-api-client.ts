@@ -12,7 +12,9 @@ function isLeverBoardUrl(value: string): boolean {
 function isWorkableBoardUrl(value: string): boolean {
   try {
     const url = new URL(value);
-    return url.hostname === "apply.workable.com" && url.pathname.split("/").filter(Boolean).length === 1;
+    return (
+      url.hostname === "apply.workable.com" && url.pathname.split("/").filter(Boolean).length === 1
+    );
   } catch {
     return false;
   }
