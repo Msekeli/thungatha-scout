@@ -48,7 +48,7 @@ export function resolveCareersSource(url: string, name: string): CareersDiscover
       board_token: slug,
       board_name: companyName,
       detected_adapter: adapter,
-      adapter_config: { host_prefix: tenant + "." + cluster, tenant, site: slug },
+      adapter_config: { host_prefix: tenant + "." + cluster, tenant, site: slug, locale },
       company_name: companyName,
     };
   } else {
