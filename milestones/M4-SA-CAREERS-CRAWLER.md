@@ -86,6 +86,8 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 4. Distinguish the documented public careers endpoint from Workable's authenticated customer SPI API. Do not require employer credentials or imply the public widget is a vendor-supported API.
 5. Mocked tests cover public endpoint routing, redirects, invalid slugs, rate limits, normalization, malformed records and duplicate IDs. Expand fixture coverage for transient failures and live partial-board behavior. Partial retrieval must not expire missing vacancies.
 
+**Verification so far:** GitHub Actions ran the backend suite: 216 passed, 1 skipped. The run was marked failed by the repository-wide line-limit test because four unrelated existing files exceed 100 lines (`backend/scout/branding/logo_discovery.py`, `backend/scout/api/employers.py`, `frontend/src/employer-onboarding/useEmployerRegistration.ts`, `frontend/src/employer-onboarding/EmployerOnboardingPanel.tsx`). The dedicated line-limit and naming scripts were skipped after the test failure. The repository formatting workflow succeeded.
+
 **Acceptance:** code and mocked tests are present. Checkpoint remains open until live retrieval is validated against representative boards, vacancy counts/completeness and application destinations are reviewed, and repository quality checks pass. HTTP 200 alone is not acceptance.
 
 ### M4-SA-C — Workday adapter implementation
