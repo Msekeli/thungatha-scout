@@ -35,7 +35,10 @@ def test_fallback_identifier_and_constructed_apply_url() -> None:
     detail = {"jobPostingInfo": {"title": "Dev", "jobDescription": "<p>Code</p>"}}
     vac = map_workday_vacancy(listing, detail, "host.wd3.myworkdayjobs.com", "site")
     assert vac.external_job_id == "JR100"
-    assert vac.application_url == "https://host.wd3.myworkdayjobs.com/en-US/site/job/Cape-Town/Dev_JR100"
+    assert (
+        vac.application_url
+        == "https://host.wd3.myworkdayjobs.com/en-US/site/job/Cape-Town/Dev_JR100"
+    )
 
 
 def test_fallback_identifier_from_path_when_no_bullets() -> None:
@@ -61,8 +64,12 @@ def test_map_detail_response_classifies_errors() -> None:
     resp_404 = httpx.Response(404, request=httpx.Request("GET", "https://x.com"))
     assert map_detail_response(resp_404).outcome == "not_found"
 
-    resp_bad_json = httpx.Response(200, content=b"invalid json", request=httpx.Request("GET", "https://x.com"))
+    resp_bad_json = httpx.Response(
+        200, content=b"invalid json", request=httpx.Request("GET", "https://x.com")
+    )
     assert map_detail_response(resp_bad_json).outcome == "malformed"
 
-    resp_no_info = httpx.Response(200, json={}, request=httpx.Request("GET", "https://x.com"))
+    resp_no_info = httpx.Response(
+        200, json={}, request=httpx.Request("GET", "https://x.com")
+    )
     assert map_detail_response(resp_no_info).outcome == "malformed"

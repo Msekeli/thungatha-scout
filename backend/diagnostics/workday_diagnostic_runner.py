@@ -58,7 +58,13 @@ def main() -> None:
     results = asyncio.run(
         run_diagnostics(employer_id=args.target, sample_limit=args.samples)
     )
-    report_text = "\n" + "=" * 60 + "\nWORKDAY ATS EXTRACTION DIAGNOSTIC REPORT\n" + "=" * 60 + "\n\n"
+    report_text = (
+        "\n"
+        + "=" * 60
+        + "\nWORKDAY ATS EXTRACTION DIAGNOSTIC REPORT\n"
+        + "=" * 60
+        + "\n\n"
+    )
     for r in results:
         report_text += format_target_report(r) + "\n\n" + "-" * 40 + "\n\n"
     report_text += "\nSUMMARY TABLE\n\n" + format_summary_table(results) + "\n"

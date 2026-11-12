@@ -59,10 +59,30 @@ def test_rejects_non_board_urls(url: str) -> None:
 @pytest.mark.parametrize(
     ("url", "prefix", "tenant", "site"),
     [
-        ("https://solenis.wd1.myworkdayjobs.com/Solenis", "solenis.wd1", "solenis", "Solenis"),
-        ("https://levistraussandco.wd5.myworkdayjobs.com/External", "levistraussandco.wd5", "levistraussandco", "External"),
-        ("https://tigerbrands.wd103.myworkdayjobs.com/TigerBrands", "tigerbrands.wd103", "tigerbrands", "TigerBrands"),
-        ("https://mrisoftware.wd501.myworkdayjobs.com/External_CareerSite", "mrisoftware.wd501", "mrisoftware", "External_CareerSite"),
+        (
+            "https://solenis.wd1.myworkdayjobs.com/Solenis",
+            "solenis.wd1",
+            "solenis",
+            "Solenis",
+        ),
+        (
+            "https://levistraussandco.wd5.myworkdayjobs.com/External",
+            "levistraussandco.wd5",
+            "levistraussandco",
+            "External",
+        ),
+        (
+            "https://tigerbrands.wd103.myworkdayjobs.com/TigerBrands",
+            "tigerbrands.wd103",
+            "tigerbrands",
+            "TigerBrands",
+        ),
+        (
+            "https://mrisoftware.wd501.myworkdayjobs.com/External_CareerSite",
+            "mrisoftware.wd501",
+            "mrisoftware",
+            "External_CareerSite",
+        ),
     ],
 )
 def test_parses_various_workday_clusters(url, prefix, tenant, site) -> None:

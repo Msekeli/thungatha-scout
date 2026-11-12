@@ -42,8 +42,10 @@ def format_summary_table(results: list[TargetDiagnosticResult]) -> str:
     )
     rows = []
     for r in results:
-        status = "Supported" if r.pagination_complete and r.vacancies_normalized > 0 else (
-            "Partially Supported" if r.vacancies_normalized > 0 else "Failed"
+        status = (
+            "Supported"
+            if r.pagination_complete and r.vacancies_normalized > 0
+            else ("Partially Supported" if r.vacancies_normalized > 0 else "Failed")
         )
         if r.cap_reached and r.vacancies_normalized > 0:
             status = "Partially Supported (Capped)"

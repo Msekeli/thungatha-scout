@@ -22,7 +22,13 @@ class FakeClient:
             return WorkdayDetailResult("not_found", None, "Job not found")
         return WorkdayDetailResult(
             "success",
-            {"jobPostingInfo": {"jobReqId": "J1", "title": "Role", "jobDescription": "Text"}},
+            {
+                "jobPostingInfo": {
+                    "jobReqId": "J1",
+                    "title": "Role",
+                    "jobDescription": "Text",
+                }
+            },
         )
 
 
