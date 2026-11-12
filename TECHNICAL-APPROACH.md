@@ -260,3 +260,38 @@ Crawl observations and vacancies flow through the existing Scout backend and Pos
 Scrapy Cloud (Zyte) is a candidate managed runner through the GitHub Student Developer Pack, subject to verification of the current offer and limits. Spiders must run locally; keep scheduling and deployment configuration portable. Do not enable recurring hosted workloads or paid usage until eligibility, quotas and cost are confirmed.
 
 South African platform investigation order and employer evidence are maintained in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`. SAP SuccessFactors (Sanlam and Capitec leads), Workday and Oracle Recruiting Cloud lead the enterprise investigation. Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable lead the local/mid-market investigation. These are candidates until current employer relationships and public retrieval behavior are independently verified. Greenhouse remains the proven reference adapter; existing Lever and Teamtailor work is retained.
+
+
+## 14. Crawlee and AI enrichment architecture — 12 November 2026
+
+The user-approved crawler framework is **Crawlee for Python**, superseding the previous Scrapy proposal. Crawlee runs inside Scout's separately executable worker; it is not a new microservice or a commitment to Apify hosting.
+
+### Crawling responsibilities
+
+- HTTP-first bounded retrieval for official employer careers pages, redirects, relevant links, public HTML/JSON and platform fingerprints.
+- Playwright browser crawling only when evidence demonstrates that normal HTTP retrieval and a permitted public endpoint are insufficient.
+- Configurable domain/depth/request/concurrency/response-size/time limits, bounded retries and explicit crawl outcomes.
+- Respect robots.txt, applicable terms, access controls and rate limits. Do not bypass login walls, CAPTCHAs or blocks.
+- Known ATS sources route to the existing adapter selected from the registry. Never retrieve a known board twice through both an ATS adapter and generic crawler.
+- Generic extraction is restricted to public non-standard career pages without a suitable existing adapter.
+- Crawl observations enter existing Scout application services, PostgreSQL persistence, normalized vacancy contract, quality/lifecycle pipeline and publication ledger. No second database or direct Thungatha writes.
+
+### AI provider responsibilities
+
+Gemini and Groq are interchangeable implementations behind a small provider interface. Deterministic extraction and normalization run first. AI is used selectively for difficult description structuring or genuinely ambiguous extraction/classification.
+
+Configure one primary provider and optional fallback. Do not call both providers for every record. Cache validated results by input/content hash and prompt/schema version. Bound input characters, output tokens, timeouts and retries. Validate structured responses; preserve source content and send unresolved/low-confidence cases to existing exception handling.
+
+AI is not authoritative for source permission, employer approval, vacancy identity, lifecycle, quality-gate overrides or publishing. API keys are server-side secrets. AI and crawler are disabled by default until local configuration and smoke tests are completed.
+
+### Dependencies and configuration
+
+Backend optional dependency groups:
+
+- `crawler`: Crawlee with its Playwright integration.
+- `ai`: Google GenAI SDK and Groq SDK.
+- `dev`: existing pytest and Ruff tooling.
+
+Install the full local development set from `backend/` with `python -m pip install -e ".[dev,crawler,ai]"`. Copy/update the local `.env` from `.env.example`; never commit `.env` or API keys. Model identifiers are configured explicitly rather than silently assumed by code. Keep all runtime limits configurable and validated by Pydantic settings.
+
+Detailed routing, investigation waves and acceptance criteria live in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`. No Apify hosting, paid AI plan, paid crawler execution or recurring cloud workload is approved by this architecture decision.
