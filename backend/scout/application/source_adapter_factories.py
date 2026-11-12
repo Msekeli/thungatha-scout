@@ -11,6 +11,9 @@ from scout.ats_adapters.teamtailor_adapter.teamtailor_source_adapter import (
 from scout.ats_adapters.workable_adapter.workable_source_adapter import (
     WorkableSourceAdapter,
 )
+from scout.ats_adapters.workday_adapter.workday_source_adapter import (
+    WorkdaySourceAdapter,
+)
 
 
 def create_source_adapter_factories() -> dict[str, Callable[[], ATSAdapter]]:
@@ -18,5 +21,6 @@ def create_source_adapter_factories() -> dict[str, Callable[[], ATSAdapter]]:
         "greenhouse": GreenhouseSourceAdapter,
         "lever": LeverSourceAdapter,
         "teamtailor": TeamtailorSourceAdapter,
-        "workable": WorkableSourceAdapter,\n        "workday": WorkdaySourceAdapter,
+        "workable": WorkableSourceAdapter,
+        "workday": WorkdaySourceAdapter,
     }
