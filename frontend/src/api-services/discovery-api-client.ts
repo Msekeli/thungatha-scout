@@ -9,6 +9,15 @@ function isLeverBoardUrl(value: string): boolean {
   }
 }
 
+function isWorkableBoardUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.hostname === "apply.workable.com" && url.pathname.split("/").filter(Boolean).length === 1;
+  } catch {
+    return false;
+  }
+}
+
 function displayNameFromSlug(slug: string): string {
   return slug
     .replace(/[-_.]+/g, " ")
@@ -30,6 +39,11 @@ async function discoverGreenhouse(url: string, companyName: string) {
 
 export const discoveryApiClient = {
   discoverCareersPage: async (url: string, companyName: string) => {
+    if (isWorkableBoardUrl(url)) {
+      return request<CareersDiscovery>(
+        `/api/v1/workable/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
+      );
+    }
     if (isLeverBoardUrl(url)) {
       const result = await request<CareersDiscovery>(
         `/api/v1/lever/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
@@ -52,6 +66,9 @@ export const discoveryApiClient = {
   },
 
   inspectSource: async (url: string): Promise<SourceInspection> => {
+    if (isWorkableBoardUrl(url)) {
+      return request<SourceInspection>(`/api/v1/workable/inspect?url=${encodeURIComponent(url)}`);
+    }
     if (isLeverBoardUrl(url)) {
       return request<SourceInspection>(`/api/v1/lever/inspect?url=${encodeURIComponent(url)}`);
     }
