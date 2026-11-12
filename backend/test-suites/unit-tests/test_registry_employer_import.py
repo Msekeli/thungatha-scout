@@ -46,7 +46,10 @@ def test_existing_employer_with_different_website_is_preserved() -> None:
     )
     assert result["employers_created"] == 0
     assert result["employers_updated"] == 0
-    assert connection.employers[0]["website_url"] == "https://different.example.com/careers"
+    assert (
+        connection.employers[0]["website_url"]
+        == "https://different.example.com/careers"
+    )
 
 
 def test_existing_employer_without_website_gets_registry_careers_url() -> None:
