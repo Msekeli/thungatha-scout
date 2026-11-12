@@ -388,7 +388,6 @@ The 11 November Scrapy decision is superseded by this explicit user-approved dec
 
 The detailed design and M4-SA-A/AI-enrichment delivery sequence are maintained in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`.
 
-
 ## Decision record — Zyte Scrapy Cloud hosting approval (12 November 2026)
 
 The user confirmed an active GitHub Student Developer Pack benefit for Zyte Scrapy Cloud: one free forever unit with unlimited crawl time and 120-day data retention. Zyte is approved as the target host for the Scout crawler, subject to implementation and deployment acceptance. This uses the user's student entitlement; it does not authorize paid upgrades, additional units, Zyte API usage charges, or other paid services.

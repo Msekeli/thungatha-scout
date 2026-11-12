@@ -227,7 +227,6 @@ Add a parallel **AI provider foundation** task: Gemini and Groq behind one repla
 
 Backend dependency groups are `crawler` (Crawlee with Playwright integration) and `ai` (Google GenAI and Groq SDKs), alongside `dev`. Local setup installs `.[dev,crawler,ai]`. Environment settings are documented in `backend/.env.example`; credentials are never committed. Crawling and AI remain disabled until the user configures local settings and verifies them. No Apify hosting, paid services or recurring hosted workload is approved.
 
-
 ## Zyte crawler hosting approval — 12 November 2026
 
 The user approved use of the one-free-unit Zyte Scrapy Cloud benefit included in the GitHub Student Developer Pack. Zyte Scrapy Cloud is the selected hosting target for the crawler worker only; FastAPI and frontend hosting remain undecided. Keep Crawlee as the worker framework. The cloud package will be a minimal Scrapy-compatible project that declares a standalone Python entry script, as supported by Zyte documentation. Scrapy is a packaging/runtime compatibility layer only; do not port crawler logic or create a parallel pipeline.

@@ -13,13 +13,13 @@ V1 adapter target is the registry catalogue: Greenhouse, Workday, Lever, Breezy 
 
 ## 2. Deployment architecture
 
-| Component            | Technology                                                              | Hosting                          |
-| -------------------- | ----------------------------------------------------------------------- | -------------------------------- |
-| Admin UI             | React, TypeScript, Vite, Tailwind CSS v3                                | Hosting provider pending         |
-| Backend API          | FastAPI (Python)                                                        | Hosting provider pending         |
-| Crawler worker       | Crawlee for Python; standalone scheduled script                        | Zyte Scrapy Cloud (student unit) |
-| Operational database | PostgreSQL via Supabase                                                 | Dedicated Scout Supabase project |
-| Public destination   | Existing Thungatha Supabase/PostgreSQL                                  | Existing Thungatha project       |
+| Component            | Technology                                      | Hosting                          |
+| -------------------- | ----------------------------------------------- | -------------------------------- |
+| Admin UI             | React, TypeScript, Vite, Tailwind CSS v3        | Hosting provider pending         |
+| Backend API          | FastAPI (Python)                                | Hosting provider pending         |
+| Crawler worker       | Crawlee for Python; standalone scheduled script | Zyte Scrapy Cloud (student unit) |
+| Operational database | PostgreSQL via Supabase                         | Dedicated Scout Supabase project |
+| Public destination   | Existing Thungatha Supabase/PostgreSQL          | Existing Thungatha project       |
 
 Zyte Scrapy Cloud is approved for the crawler worker only under the user's GitHub Student Developer Pack entitlement. Keep Crawlee as the crawler framework. Scrapy Cloud requires a Scrapy-compatible project package for standalone Python scripts; Scrapy is only the deployment wrapper, not a replacement crawler. The worker must call existing Scout services and persist to the Scout database. API and frontend hosting remain undecided. Do not share Scout's operational schema/database with Thungatha or use MongoDB/Azure Table Storage in v1.
 
