@@ -9,7 +9,8 @@
       "Only populate Workday host, tenant and site when supported by observed official board evidence.",
       "A confirmed Workday board does not prove adapter compatibility; test listing, pagination, detail, mapping and persistence separately.",
       "Cape Town evidence means the employer has Cape Town/Western Cape presence or vacancy evidence; it does not mean every current vacancy is in Cape Town.",
-      "Pick n Pay PNP_Careers was observed in the user's browser; the older Pnet registry value conflicts and requires investigation."
+      "Pick n Pay PNP_Careers was observed in the user's browser; the older Pnet registry value conflicts and requires investigation.",
+      "Capitec is retained as a South African bank reference, but excluded from Workday adapter candidates: its official careers portal is careers.capitecbank.co.za and no Workday board has been verified."
     ]
   },
   "targets": [
@@ -37,7 +38,9 @@
       "site": "FRB",
       "evidence_status": "workday_board_confirmed_cape_town_jobs_observed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://firstrand.wd3.myworkdayjobs.com/en-US/FRB/job/Associate_R52904"]
+      "evidence_urls": [
+        "https://firstrand.wd3.myworkdayjobs.com/en-US/FRB/job/Associate_R52904"
+      ]
     },
     {
       "employer_id": "standard_bank",
@@ -49,7 +52,9 @@
       "site": null,
       "evidence_status": "career_portal_uses_smartrecruiters_workday_not_confirmed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://www.standardbank.com/sbg/standard-bank-group/contact-us/careers"]
+      "evidence_urls": [
+        "https://www.standardbank.com/sbg/standard-bank-group/contact-us/careers"
+      ]
     },
     {
       "employer_id": "nedbank",
@@ -61,7 +66,9 @@
       "site": null,
       "evidence_status": "official_jobs_portal_workday_not_confirmed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://jobs.nedbank.co.za/"]
+      "evidence_urls": [
+        "https://jobs.nedbank.co.za/"
+      ]
     },
     {
       "employer_id": "capitec",
@@ -71,9 +78,13 @@
       "host_prefix": null,
       "tenant": null,
       "site": null,
-      "evidence_status": "official_careers_portal_workday_not_confirmed",
+      "evidence_status": "excluded_from_workday_candidates_official_careers_portal_not_workday_domain",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://www.capitecbank.co.za/about-us/careers/"]
+      "evidence_urls": [
+        "https://www.capitecbank.co.za/about-us/careers/",
+        "https://careers.capitecbank.co.za/",
+        "https://www.capitecbank.co.za/globalassets/pages/investor-relations/financial-results/2026/annual-report/capitec.pdf"
+      ]
     },
     {
       "employer_id": "investec",
@@ -85,7 +96,9 @@
       "site": null,
       "evidence_status": "official_careers_portal_workday_not_confirmed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://careers.investec.co.za/jobs/home/"]
+      "evidence_urls": [
+        "https://careers.investec.co.za/jobs/home/"
+      ]
     },
     {
       "employer_id": "discovery_bank",
@@ -109,7 +122,9 @@
       "site": "Old_Mutual_Careers",
       "evidence_status": "workday_board_observed_existing_registry_live_test_pending",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers"]
+      "evidence_urls": [
+        "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers"
+      ]
     },
     {
       "employer_id": "pick_n_pay",
@@ -136,7 +151,9 @@
       "site": null,
       "evidence_status": "major_cape_town_employer_workday_not_confirmed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://shoprite.erecruit.co/candidateapp/jobs/categories/"]
+      "evidence_urls": [
+        "https://shoprite.erecruit.co/candidateapp/jobs/categories/"
+      ]
     },
     {
       "employer_id": "woolworths",
@@ -148,7 +165,9 @@
       "site": null,
       "evidence_status": "major_cape_town_employer_workday_not_confirmed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://woolworths.erecruit.co/candidateapp/jobs/browse"]
+      "evidence_urls": [
+        "https://woolworths.erecruit.co/candidateapp/jobs/browse"
+      ]
     },
     {
       "employer_id": "sanlam",
@@ -160,7 +179,9 @@
       "site": null,
       "evidence_status": "major_cape_town_financial_employer_workday_not_confirmed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://careers.sanlamcloud.co.za/"]
+      "evidence_urls": [
+        "https://careers.sanlamcloud.co.za/"
+      ]
     },
     {
       "employer_id": "astron_energy",
@@ -172,7 +193,9 @@
       "site": "astronenergy",
       "evidence_status": "workday_board_and_cape_town_job_observed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://glencore.wd3.myworkdayjobs.com/astronenergy"]
+      "evidence_urls": [
+        "https://glencore.wd3.myworkdayjobs.com/astronenergy"
+      ]
     },
     {
       "employer_id": "digioutsource",
@@ -184,7 +207,9 @@
       "site": "digioutsource",
       "evidence_status": "workday_board_and_cape_town_job_observed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://myhcm.wd3.myworkdayjobs.com/digioutsource"]
+      "evidence_urls": [
+        "https://myhcm.wd3.myworkdayjobs.com/digioutsource"
+      ]
     },
     {
       "employer_id": "betway_africa",
@@ -196,7 +221,9 @@
       "site": "Betway_Africa",
       "evidence_status": "workday_board_observed_cape_town_job_evidence_needs_direct_validation",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://myhcm.wd3.myworkdayjobs.com/Betway_Africa"]
+      "evidence_urls": [
+        "https://myhcm.wd3.myworkdayjobs.com/Betway_Africa"
+      ]
     }
   ]
 }
