@@ -5,12 +5,15 @@ from uuid import UUID
 from psycopg.connection import Connection
 
 from scout.application.adapter_retrieval import retrieve_adapter_result
-from scout.application.source_adapter_factories import create_source_adapter_factories
+from scout.application.source_adapter_factories import (
+    create_source_adapter_factories,
+)
 from scout.application.source_extraction_errors import (
     SourceNotFoundError,
     UnsupportedAdapterError,
 )
 from scout.application.vacancy_management_service import VacancyManagementService
+from scout.ats_adapters.ats_adapter_contracts import ATSAdapter
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.employer_source_repository import EmployerSourceRepository
 from scout.persistence.extraction_run_repository import ExtractionRunRepository
