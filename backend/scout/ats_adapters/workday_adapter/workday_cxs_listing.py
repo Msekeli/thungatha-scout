@@ -67,23 +67,10 @@ async def retrieve_workday_listing(
                 page.outcome, postings, total, pages, False, page.detail
             )
         total = page.total
-        if len(page.postings) > PAGE_SIZE:
+        if len(page.postings) > PAGE_SIZE or (not page.postings and offset < total):
             return WorkdayListResult(
-                "partial",
-                postings,
-                total,
-                pages,
-                False,
-                "Workday exceeded the 20-item page size.",
-            )
-        if not page.postings and offset < total:
-            return WorkdayListResult(
-                "partial",
-                postings,
-                total,
-                pages,
-                False,
-                "Workday returned an empty page before total.",
+                "partial", postings, total, pages, False,
+                "Workday returned an invalid page size or an empty page before total.",
             )
         postings.extend(page.postings)
         offset += PAGE_SIZE
