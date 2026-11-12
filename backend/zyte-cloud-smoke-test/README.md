@@ -13,7 +13,9 @@ From this directory, install the deployment client and authenticate with the
 Scrapy Cloud API key (not the separate Zyte API key):
 
 ```bash
-python3 -m pip install --user shub
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip shub
 shub login
 shub deploy 885015
 ```
