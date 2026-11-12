@@ -78,15 +78,15 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 
 ### M4-SA-B — Workable adapter implementation
 
-**Status:** Next adapter; not started.
+**Status:** Adapter code added; mocked tests added; live employer validation pending.
 
-1. Implement the documented public careers endpoint client behind the existing ATS adapter contract. Keep the board slug in employer/source configuration.
+1. Implemented the documented public careers endpoint client behind the existing ATS adapter contract. The board slug remains employer/source configuration.
 2. Test the South African cohort: LekkeSlaap, Electrum and GoTyme Bank.
 3. Verify board identity, response schema, complete vacancy counts, stable IDs, full descriptions, locations, exact advert/application URLs, redirects, rate limits and bounded failure behavior.
 4. Distinguish the documented public careers endpoint from Workable's authenticated customer SPI API. Do not require employer credentials or imply the public widget is a vendor-supported API.
-5. Add recorded fixtures and tests for empty, malformed, partial, rate-limited and transient responses. Partial retrieval must not expire missing vacancies.
+5. Mocked tests cover public endpoint routing, redirects, invalid slugs, rate limits, normalization, malformed records and duplicate IDs. Expand fixture coverage for transient failures and live partial-board behavior. Partial retrieval must not expire missing vacancies.
 
-**Acceptance:** one configuration-driven Workable adapter retrieves meaningful, sufficiently complete vacancies from representative boards and routes all results through the existing Scout pipeline. HTTP 200 alone is not acceptance.
+**Acceptance:** code and mocked tests are present. Checkpoint remains open until live retrieval is validated against representative boards, vacancy counts/completeness and application destinations are reviewed, and repository quality checks pass. HTTP 200 alone is not acceptance.
 
 ### M4-SA-C — Workday adapter implementation
 
