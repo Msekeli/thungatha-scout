@@ -60,8 +60,8 @@ export default function App() {
           <DialogHeader>
             <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
             <DialogDescription className="scout-company-dialog-copy">
-              Paste a supported Greenhouse, Lever or Teamtailor board URL. Scout registers it first,
-              then extracts vacancies in the background.
+              Paste a supported careers-board URL. Add the employer's official website to enable
+              logo discovery when the ATS hosts the careers page.
             </DialogDescription>
           </DialogHeader>
           <EmployerOnboardingPanel
@@ -71,6 +71,9 @@ export default function App() {
             form={state.form}
             onChangeCompanyName={(value) =>
               state.setForm((current) => ({ ...current, name: value }))
+            }
+            onChangeWebsiteUrl={(value) =>
+              state.setForm((current) => ({ ...current, website_url: value }))
             }
             saving={state.saving}
             onSubmit={onboarding.submit}
