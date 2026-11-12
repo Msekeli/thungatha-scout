@@ -8,6 +8,7 @@ from scout.api.greenhouse_routes import router as greenhouse_router
 from scout.api.lever_routes import router as lever_router
 from scout.api.teamtailor_routes import router as teamtailor_router
 from scout.api.vacancies import router as vacancies_router
+from scout.api.workable_routes import router as workable_router
 from scout.settings import get_settings
 
 settings = get_settings()
@@ -23,6 +24,7 @@ app.include_router(employers_router, prefix=settings.api_prefix)
 app.include_router(greenhouse_router, prefix=settings.api_prefix)
 app.include_router(lever_router, prefix=settings.api_prefix)
 app.include_router(teamtailor_router, prefix=settings.api_prefix)
+app.include_router(workable_router, prefix=settings.api_prefix)
 app.include_router(vacancies_router, prefix=settings.api_prefix)
 
 
