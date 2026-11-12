@@ -32,7 +32,9 @@ class WorkdaySourceAdapter:
                 if detail.posting is None:
                     return None, detail.detail, detail.outcome
                 try:
-                    vacancy = map_workday_vacancy(job, detail.posting, host, site, locale)
+                    vacancy = map_workday_vacancy(
+                        job, detail.posting, host, site, locale
+                    )
                     if not vacancy.description:
                         return None, "Missing job description.", "malformed"
                     return vacancy, None, None
