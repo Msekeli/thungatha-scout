@@ -20,20 +20,24 @@ async def retrieve_workday_detail(
 ) -> WorkdayDetailResult:
     base = workday_cxs_base_url(config)
     if not valid_external_path(external_path):
-        return WorkdayDetailResult("malformed", None,
-                                   "Workday externalPath is invalid.")
+        return WorkdayDetailResult(
+            "malformed", None, "Workday externalPath is invalid."
+        )
     try:
         response = await client.get(base + external_path)
     except httpx.TimeoutException:
-        return WorkdayDetailResult("transient_failure", None,
-                                   "Workday detail request timed out.")
+        return WorkdayDetailResult(
+            "transient_failure", None, "Workday detail request timed out."
+        )
     except httpx.TransportError:
-        return WorkdayDetailResult("transient_failure", None,
-                                   "Workday detail transport failed.")
+        return WorkdayDetailResult(
+            "transient_failure", None, "Workday detail transport failed."
+        )
     host = f"{config['host_prefix']}.myworkdayjobs.com"
     if response.url.host != host or len(response.content) > MAX_DETAIL_BYTES:
-        return WorkdayDetailResult("malformed", None,
-                                   "Workday detail host or size is invalid.")
+        return WorkdayDetailResult(
+            "malformed", None, "Workday detail host or size is invalid."
+        )
     return map_detail_response(response)
 
 

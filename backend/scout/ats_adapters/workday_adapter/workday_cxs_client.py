@@ -18,7 +18,9 @@ from scout.ats_adapters.workday_adapter.workday_cxs_listing import (
 class WorkdayCxsClient:
     def __init__(self, client: httpx.AsyncClient | None = None) -> None:
         self._client = client or httpx.AsyncClient(
-            timeout=20.0, follow_redirects=True, max_redirects=3,
+            timeout=20.0,
+            follow_redirects=True,
+            max_redirects=3,
             headers={"Accept": "application/json"},
         )
         self._owns_client = client is None

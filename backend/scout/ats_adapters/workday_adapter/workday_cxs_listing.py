@@ -26,34 +26,76 @@ async def retrieve_workday_listing(
         try:
             response = await client.post(
                 f"{base}/jobs",
-                json={"appliedFacets": {}, "limit": PAGE_SIZE,
-                      "offset": offset, "searchText": ""},
+                json={
+                    "appliedFacets": {},
+                    "limit": PAGE_SIZE,
+                    "offset": offset,
+                    "searchText": "",
+                },
             )
         except httpx.TimeoutException:
-            return WorkdayListResult("transient_failure", postings, total, pages,
-                                     False, "Workday listing timed out.")
+            return WorkdayListResult(
+                "transient_failure",
+                postings,
+                total,
+                pages,
+                False,
+                "Workday listing timed out.",
+            )
         except httpx.TransportError:
-            return WorkdayListResult("transient_failure", postings, total, pages,
-                                     False, "Workday listing transport failed.")
+            return WorkdayListResult(
+                "transient_failure",
+                postings,
+                total,
+                pages,
+                False,
+                "Workday listing transport failed.",
+            )
         pages += 1
         if response.url.host != host or len(response.content) > MAX_LIST_BYTES:
-            return WorkdayListResult("malformed", postings, total, pages, False,
-                                     "Workday listing host or size is invalid.")
+            return WorkdayListResult(
+                "malformed",
+                postings,
+                total,
+                pages,
+                False,
+                "Workday listing host or size is invalid.",
+            )
         page = map_list_response(response)
         if not page.complete:
-            return WorkdayListResult(page.outcome, postings, total, pages,
-                                     False, page.detail)
+            return WorkdayListResult(
+                page.outcome, postings, total, pages, False, page.detail
+            )
         total = page.total
         if len(page.postings) > PAGE_SIZE:
-            return WorkdayListResult("partial", postings, total, pages, False,
-                                     "Workday exceeded the 20-item page size.")
+            return WorkdayListResult(
+                "partial",
+                postings,
+                total,
+                pages,
+                False,
+                "Workday exceeded the 20-item page size.",
+            )
         if not page.postings and offset < total:
-            return WorkdayListResult("partial", postings, total, pages, False,
-                                     "Workday returned an empty page before total.")
+            return WorkdayListResult(
+                "partial",
+                postings,
+                total,
+                pages,
+                False,
+                "Workday returned an empty page before total.",
+            )
         postings.extend(page.postings)
         offset += PAGE_SIZE
     if total > RESULT_CAP or len(postings) != total:
-        return WorkdayListResult("partial", postings, total, pages, False,
-                                 "Workday listing is incomplete or reached its cap.")
-    return WorkdayListResult("success" if postings else "empty",
-                             postings, total, pages, True)
+        return WorkdayListResult(
+            "partial",
+            postings,
+            total,
+            pages,
+            False,
+            "Workday listing is incomplete or reached its cap.",
+        )
+    return WorkdayListResult(
+        "success" if postings else "empty", postings, total, pages, True
+    )
