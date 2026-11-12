@@ -1,3 +1,4 @@
+import argparse
 import json
 from collections.abc import Callable
 from pathlib import Path
@@ -17,6 +18,7 @@ from scout.registry_source_importer import (
 def import_registry(
     registry: dict[str, Any],
     connection: Connection,
+    adapter_key: str | None = None,
 ) -> dict[str, int]:
     counts = {
         "employers_created": 0,
@@ -26,12 +28,17 @@ def import_registry(
         "sources_skipped": 0,
     }
     for item in registry["employers"]:
+        registry_sources = item.get("sources", [])
+        if adapter_key:
+            registry_sources = [
+                source for source in registry_sources
+                if source.get("ats") == adapter_key
+            ]
         supported = [
-            source
-            for source in item.get("sources", [])
+            source for source in registry_sources
             if source.get("ats") in SUPPORTED_IMPORT_ADAPTERS
         ]
-        counts["sources_skipped"] += len(item.get("sources", [])) - len(supported)
+        counts["sources_skipped"] += len(registry_sources) - len(supported)
         if not supported:
             continue
         employer = import_employer(item, connection, counts)
@@ -48,15 +55,23 @@ def import_registry(
 def import_employer_registry(
     connection_factory: Callable[[], Connection] = get_database_connection,
     registry_path: Path | None = None,
+    adapter_key: str | None = None,
 ) -> dict[str, int]:
     path = registry_path or (REGISTRY_DIRECTORY / "employer-source-registry.json")
     registry = json.loads(path.read_text(encoding="utf-8"))
     with connection_factory() as connection, connection.transaction():
-        return import_registry(registry, connection)
+        return import_registry(registry, connection, adapter_key)
 
 
-if __name__ == "__main__":
-    result = import_employer_registry()
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Import registered employer sources.")
+    parser.add_argument(
+        "--adapter",
+        choices=sorted(SUPPORTED_IMPORT_ADAPTERS),
+        help="Import only sources for this ATS adapter.",
+    )
+    args = parser.parse_args()
+    result = import_employer_registry(adapter_key=args.adapter)
     print(
         "Registry import complete: "
         f"{result['employers_created']} employers created, "
@@ -65,3 +80,7 @@ if __name__ == "__main__":
         f"{result['sources_updated']} sources updated, "
         f"{result['sources_skipped']} unsupported sources skipped."
     )
+
+
+if __name__ == "__main__":
+    main()
