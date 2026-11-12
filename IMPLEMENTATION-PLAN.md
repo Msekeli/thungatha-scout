@@ -28,7 +28,7 @@ Greenhouse remains the proven reference adapter. South African employer careers-
 | Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending                                                                             |
 | Scout operational database           | Dedicated Supabase PostgreSQL project                                                                                                         |
 | Thungatha publication destination    | Existing Thungatha Supabase PostgreSQL project                                                                                                |
-| ATS integrations                     | Greenhouse reference adapter; Lever integrated and accepted; Workable next, Workday second                                                                 |
+| ATS integrations                     | Greenhouse reference adapter; Lever integrated and accepted; Workable next, Workday second                                                    |
 | Admin authentication                 | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
 Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.
@@ -236,7 +236,6 @@ Add a deployment checkpoint after M4-SA-A has produced a working local worker: p
 
 Official deployment constraints and the implementation checkpoint are recorded in `milestones/M4-SA-CAREERS-CRAWLER.md`. This is hosting approval, not evidence of a successful deployment.
 
-
 ## ATS implementation order update — 12 November 2026
 
 The user selected this sequence: **Workable → Workday → SAP SuccessFactors investigation**. This supersedes the earlier M4 ranking for the next implementation work without deleting historical research or existing adapters.
@@ -245,7 +244,6 @@ The user selected this sequence: **Workable → Workday → SAP SuccessFactors i
 - Workday is reactivated as the second adapter target. Its public CXS endpoint is also observed/undocumented; prove configuration-driven reuse across employers and understand pagination/result caps.
 - SuccessFactors follows as an employer-specific Crawlee investigation, starting with Sanlam and Capitec Bank. Do not assume one universal tenant endpoint. HTTP-first inspection and bounded browser fallback are discovery methods, not permission to bypass access restrictions. Only create a reusable adapter if the evidence demonstrates a stable common pattern; otherwise use generic crawler retrieval with explicit per-employer profiles.
 - Existing Greenhouse, Lever and Teamtailor work is preserved. All new retrieval continues through the common adapter contract and shared Scout persistence, quality, lifecycle and publishing pipeline.
-
 
 ## ATS implementation order update — 12 November 2026
 
