@@ -64,7 +64,7 @@ class SourceDiscoveryPreview(BaseModel):
 class EmployerSourceCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
     employer_id: UUID
-    adapter_key: Literal["greenhouse", "lever", "teamtailor", "workday"]
+    adapter_key: Literal["greenhouse", "lever", "teamtailor", "workable", "workday"]
     source_url: HttpUrl
     employer_careers_url: HttpUrl | None = None
     normalized_url: HttpUrl
