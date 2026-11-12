@@ -2,10 +2,7 @@ import { strict as assert } from "node:assert";
 import { resolveCareersSource } from "./resolveCareersSource.ts";
 import { ADAPTER_LABELS, SUPPORTED_ADAPTERS } from "../shared-contracts/adapter-contracts.ts";
 
-const source = resolveCareersSource(
-  "https://apply.workable.com/lekkeslaap/",
-  "LekkeSlaap",
-);
+const source = resolveCareersSource("https://apply.workable.com/lekkeslaap/", "LekkeSlaap");
 
 assert.deepEqual(source, {
   careers_url: "https://apply.workable.com/lekkeslaap/",
