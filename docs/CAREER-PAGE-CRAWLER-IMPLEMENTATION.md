@@ -98,9 +98,9 @@ AI cannot invent vacancy facts, establish source permission, approve employers, 
 
 These are research candidates, not verified integrations or claims of current employer adoption.
 
-**Enterprise wave:** SAP SuccessFactors (Sanlam and Capitec leads), Workday (including Old Mutual and verified additional employers), Oracle Recruiting Cloud, Oracle Taleo and SmartRecruiters.
+**Next adapter sequence:** Workable first, then Workday. **Following investigation:** SAP SuccessFactors (Sanlam and Capitec leads) using employer-specific Crawlee inspection; only generalise a shared adapter if common public retrieval behavior is demonstrated. Oracle Recruiting Cloud, Oracle Taleo and SmartRecruiters remain later candidates.
 
-**Local/mid-market wave:** Simplify.hr (Media24, homechoice), eRecruit (Shoprite Group, Boxer, CCBA, Clover), BambooHR, Breezy HR and Workable. Do not conflate eRecruit with Graylink Neptune.
+**Other local/mid-market candidates:** Simplify.hr (Media24, homechoice), eRecruit (Shoprite Group, Boxer, CCBA, Clover), BambooHR and Breezy HR. Workable has been promoted to the immediate implementation sequence. Do not conflate eRecruit with Graylink Neptune.
 
 **Retain and measure:** Greenhouse, Lever, Teamtailor and Ashby. Greenhouse remains the reference; existing Lever and Teamtailor work is retained. Prioritise by verified unique South African direct-employer coverage, completeness, reliability, permitted access and maintenance cost—not vendor popularity or raw vacancy count.
 
@@ -109,8 +109,10 @@ For each employer/platform pair record the official careers URL, final URL, fing
 ## 8. Delivery plan and acceptance
 
 - **M4-SA-A — Crawlee foundation and source fingerprinting:** dependency/configuration, bounded HTTP discovery, redirect/link extraction, evidence contract, known-ATS routing, generic public-page observation, persistence handoff and deterministic tests.
-- **M4-SA-B — Enterprise investigation:** SAP SuccessFactors, Workday and Oracle Recruiting Cloud against named official employer career pages; evidence and designs before adapter code.
-- **M4-SA-C — Local/mid-market investigation:** Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable.
+- **M4-SA-B — Workable adapter:** validate the observed public widget against LekkeSlaap, Electrum and GoTyme Bank.
+- **M4-SA-C — Workday adapter:** reactivate the observed public CXS route; start with Old Mutual and prove reusable host/tenant/site configuration.
+- **M4-SA-D — SuccessFactors investigation:** inspect Sanlam and Capitec Bank separately with Crawlee; use per-employer retrieval profiles and generalise only when a stable shared pattern is proven.
+- **Later candidates:** Simplify.hr, eRecruit, BambooHR, Breezy HR, Oracle Recruiting Cloud, Oracle Taleo and SmartRecruiters.
 - **M4-SA-D — Evidence-ranked integration:** implement only platforms with reliable, permitted public retrieval and useful verified employer coverage.
 - **AI-ENRICHMENT — Provider foundation:** settings, secret handling, provider interface, Gemini/Groq implementations, structured validation, cache contract, failover and mocked tests. AI stays disabled until credentials and models are configured locally.
 
