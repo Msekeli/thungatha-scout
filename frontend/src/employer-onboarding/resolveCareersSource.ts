@@ -34,6 +34,23 @@ export function resolveCareersSource(url: string, name: string): CareersDiscover
     adapter = "workable";
     slug = parts[0] ?? "";
     boardUrl = parsed.origin + "/" + slug;
+  } else if (/^[a-z0-9-]+\.wd[0-9]+\.myworkdayjobs\.com$/.test(host)) {
+    const [tenant, cluster] = host.split(".");
+    const locale = /^[a-z]{2}-[A-Z]{2}$/.test(parts[0] ?? "") ? parts.shift() : "en-US";
+    if (parts.length !== 1) return null;
+    adapter = "workday";
+    slug = parts[0];
+    boardUrl = parsed.origin + "/" + locale + "/" + slug;
+    const companyName = name.trim() || displayName(slug);
+    return {
+      careers_url: url.trim(),
+      board_url: boardUrl,
+      board_token: slug,
+      board_name: companyName,
+      detected_adapter: adapter,
+      adapter_config: { host_prefix: tenant + "." + cluster, tenant, site: slug },
+      company_name: companyName,
+    };
   } else {
     return null;
   }
