@@ -1,0 +1,481 @@
+{
+  "_metadata": {
+    "project": "Thungatha Scout",
+    "description": "Employer records and reusable ATS source configurations.",
+    "updated_at": "2026-11-12",
+    "rules": [
+      "Register a company with its careers or ATS URL; do not require employer-location checks.",
+      "Evaluate South African relevance from each vacancy's location, not the employer's country.",
+      "Only South African vacancies are eligible for export to Thungatha."
+    ]
+  },
+  "employers": [
+    {
+      "employer_id": "digioutsource",
+      "name": "DigiOutsource",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://supergroup.com/careers/search-jobs/digioutsource-careers/",
+      "website_url": "https://supergroup.com",
+      "sources": [
+        {
+          "source_id": "digioutsource_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "myhcm.wd3",
+            "tenant": "myhcm",
+            "site": "digioutsource",
+            "locale": "en-US"
+          },
+          "official_source_url": "https://myhcm.wd3.myworkdayjobs.com/digioutsource",
+          "notes": "The official Super Group DigiOutsource careers page links to this Workday board. Live CXS extraction verified (80 vacancies)."
+        }
+      ]
+    },
+    {
+      "employer_id": "takealot_group",
+      "name": "Takealot Group",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.takealot.com/careers",
+      "website_url": "https://www.takealot.com",
+      "sources": [
+        {
+          "source_id": "takealot_group_greenhouse",
+          "ats": "greenhouse",
+          "config": {
+            "slug": "takealotgroup"
+          },
+          "official_source_url": "https://job-boards.greenhouse.io/takealotgroup",
+          "notes": "Verified public Greenhouse board mapping."
+        }
+      ]
+    },
+    {
+      "employer_id": "old_mutual",
+      "name": "Old Mutual",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.oldmutual.com/careers",
+      "website_url": "https://www.oldmutual.com",
+      "sources": [
+        {
+          "source_id": "old_mutual_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "oldmutual.wd3",
+            "tenant": "oldmutual",
+            "site": "Old_Mutual_Careers"
+          },
+          "official_source_url": "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers",
+          "notes": "Verified Workday careers board on wd3 cluster (616 jobs, 31 pages). Normalization and detail extraction verified."
+        }
+      ]
+    },
+    {
+      "employer_id": "pick_n_pay",
+      "name": "Pick n Pay",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.pnp.co.za/careers",
+      "website_url": "https://www.pnp.co.za",
+      "sources": [
+        {
+          "source_id": "pick_n_pay_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "picknpay.wd3",
+            "tenant": "picknpay",
+            "site": "Pnet"
+          },
+          "official_source_url": "https://picknpay.wd3.myworkdayjobs.com/Pnet",
+          "notes": "Existing working Workday source associated with Pnet publication feed (19 jobs). Main careers site PNP_Careers (52 jobs) verified separately."
+        }
+      ]
+    },
+    {
+      "employer_id": "impact_com",
+      "name": "Impact.com",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://impact.com/careers/",
+      "website_url": "https://impact.com",
+      "sources": [
+        {
+          "source_id": "impact_com_greenhouse",
+          "ats": "greenhouse",
+          "config": {
+            "slug": "earlycareersct"
+          },
+          "official_source_url": "https://job-boards.greenhouse.io/earlycareersct",
+          "notes": "Candidate mapping for early careers Cape Town."
+        }
+      ]
+    },
+    {
+      "employer_id": "network_recruitment",
+      "name": "Network Recruitment",
+      "organization_classification": "recruitment_agency",
+      "careers_url": "https://www.networkrecruitment.co.za/",
+      "website_url": "https://www.networkrecruitment.co.za",
+      "sources": [
+        {
+          "source_id": "network_recruitment_placement_partner",
+          "ats": "placement_partner",
+          "config": {
+            "agency_id": "network"
+          },
+          "official_source_url": "https://placementpartner.co.za/live/agency.php?agency=network",
+          "notes": "Separate agency pipeline. Excluded from direct-employer coverage."
+        }
+      ]
+    },
+    {
+      "employer_id": "mama_money",
+      "name": "Mama Money",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://jobs.lever.co/mamamoney",
+      "website_url": "https://www.mamamoney.co.za/",
+      "sources": [
+        {
+          "source_id": "mama_money_lever",
+          "ats": "lever",
+          "config": {
+            "slug": "mamamoney",
+            "region": "global"
+          },
+          "official_source_url": "https://jobs.lever.co/mamamoney",
+          "notes": "Public Lever board and live vacancy snapshot verified."
+        }
+      ]
+    },
+    {
+      "employer_id": "theodo",
+      "name": "Theodo",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.theodo.com/en-uk/careers-at-theodo",
+      "website_url": "https://www.theodo.com/",
+      "sources": [
+        {
+          "source_id": "theodo_lever",
+          "ats": "lever",
+          "config": {
+            "slug": "theodo",
+            "region": "global"
+          },
+          "official_source_url": "https://jobs.lever.co/theodo",
+          "notes": "Public Lever board and live vacancy snapshot verified."
+        }
+      ]
+    },
+    {
+      "employer_id": "root_platform",
+      "name": "Root Platform",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://root.teamtailor.com/jobs",
+      "website_url": "https://rootplatform.com",
+      "sources": [
+        {
+          "source_id": "root_platform_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://root.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://root.teamtailor.com/jobs",
+          "notes": "Public RSS feed verified."
+        }
+      ]
+    },
+    {
+      "employer_id": "footasylum",
+      "name": "Footasylum",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://footasylum.teamtailor.com/jobs",
+      "website_url": "https://www.footasylum.com",
+      "sources": [
+        {
+          "source_id": "footasylum_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://footasylum.teamtailor.com/jobs"
+          },
+          "official_source_url": "https://footasylum.teamtailor.com/jobs",
+          "notes": "Public RSS feed verified."
+        }
+      ]
+    },
+    {
+      "employer_id": "teamviewer",
+      "name": "TeamViewer",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://careers.teamviewer.com/jobs",
+      "website_url": "https://www.teamviewer.com",
+      "sources": [
+        {
+          "source_id": "teamviewer_teamtailor",
+          "ats": "teamtailor",
+          "config": {
+            "careers_url": "https://careers.teamviewer.com/jobs"
+          },
+          "official_source_url": "https://careers.teamviewer.com/jobs",
+          "notes": "Custom-domain public RSS feed verified."
+        }
+      ]
+    },
+    {
+      "employer_id": "absa",
+      "name": "Absa",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.absa.africa/careers/",
+      "website_url": "https://www.absa.africa",
+      "sources": [
+        {
+          "source_id": "absa_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "absa.wd3",
+            "tenant": "absa",
+            "site": "ABSAcareersite"
+          },
+          "official_source_url": "https://absa.wd3.myworkdayjobs.com/ABSAcareersite",
+          "notes": "Live listing complete (69 jobs, 4 pages); three detail responses normalized successfully. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "firstrand",
+      "name": "FirstRand",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.firstrand.co.za/careers/",
+      "website_url": "https://www.firstrand.co.za",
+      "sources": [
+        {
+          "source_id": "firstrand_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "firstrand.wd3",
+            "tenant": "firstrand",
+            "site": "FRB"
+          },
+          "official_source_url": "https://firstrand.wd3.myworkdayjobs.com/FRB",
+          "notes": "Live listing complete (153 jobs, 8 pages); three detail responses normalized successfully. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "astron_energy",
+      "name": "Astron Energy",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.astronenergy.co.za/careers/",
+      "website_url": "https://www.astronenergy.co.za",
+      "sources": [
+        {
+          "source_id": "astron_energy_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "glencore.wd3",
+            "tenant": "glencore",
+            "site": "astronenergy"
+          },
+          "official_source_url": "https://glencore.wd3.myworkdayjobs.com/astronenergy",
+          "notes": "Live listing complete (3 jobs, 1 page); three detail responses normalized successfully. Cape Town refinery vacancy observed."
+        }
+      ]
+    },
+    {
+      "employer_id": "tiger_brands",
+      "name": "Tiger Brands",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.tigerbrands.com/careers",
+      "website_url": "https://www.tigerbrands.com",
+      "sources": [
+        {
+          "source_id": "tiger_brands_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "tigerbrands.wd103",
+            "tenant": "tigerbrands",
+            "site": "TigerBrands"
+          },
+          "official_source_url": "https://tigerbrands.wd103.myworkdayjobs.com/TigerBrands",
+          "notes": "Live listing complete (66 jobs, 4 pages); three detail responses normalized successfully. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "mondelez",
+      "name": "Mondelēz International",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.mondelezinternational.com/careers/",
+      "website_url": "https://www.mondelezinternational.com",
+      "sources": [
+        {
+          "source_id": "mondelez_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "mdlz.wd3",
+            "tenant": "mdlz",
+            "site": "External"
+          },
+          "official_source_url": "https://mdlz.wd3.myworkdayjobs.com/External",
+          "notes": "Live listing complete (1,423 jobs, 72 pages); three detail responses normalized successfully. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "pwc",
+      "name": "PwC",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.pwc.co.za/en/careers.html",
+      "website_url": "https://www.pwc.co.za",
+      "sources": [
+        {
+          "source_id": "pwc_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "pwc.wd3",
+            "tenant": "pwc",
+            "site": "Global_Experienced_Careers"
+          },
+          "official_source_url": "https://pwc.wd3.myworkdayjobs.com/Global_Experienced_Careers",
+          "notes": "Live listing is partial: 3,751 reported jobs and the adapter's 2,000-result safety cap; three detail responses normalized successfully. Not fully verified."
+        }
+      ]
+    },
+    {
+      "employer_id": "aig",
+      "name": "AIG",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.aig.com/careers",
+      "website_url": "https://www.aig.com",
+      "sources": [
+        {
+          "source_id": "aig_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "aig.wd1",
+            "tenant": "aig",
+            "site": "aig"
+          },
+          "official_source_url": "https://aig.wd1.myworkdayjobs.com/aig",
+          "notes": "Live listing complete (409 jobs, 21 pages); three detail responses normalized successfully. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "hogan_lovells",
+      "name": "Hogan Lovells",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.hoganlovells.com/en/careers",
+      "website_url": "https://www.hoganlovells.com",
+      "sources": [
+        {
+          "source_id": "hogan_lovells_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "hoganlovells.wd3",
+            "tenant": "hoganlovells",
+            "site": "Search"
+          },
+          "official_source_url": "https://hoganlovells.wd3.myworkdayjobs.com/Search",
+          "notes": "Live listing complete (235 jobs, 12 pages); three detail responses normalized successfully. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "levi_strauss",
+      "name": "Levi Strauss & Co.",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.levistrauss.com/careers/",
+      "website_url": "https://www.levistrauss.com",
+      "sources": [
+        {
+          "source_id": "levi_strauss_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "levistraussandco.wd5",
+            "tenant": "levistraussandco",
+            "site": "External"
+          },
+          "official_source_url": "https://levistraussandco.wd5.myworkdayjobs.com/External",
+          "notes": "Live listing is partial: 1,383 reported jobs, 1,376 unique paths, and one malformed posting without externalPath; three detail responses normalized successfully. Not fully verified."
+        }
+      ]
+    },
+    {
+      "employer_id": "mri_software",
+      "name": "MRI Software",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.mrisoftware.com/careers/",
+      "website_url": "https://www.mrisoftware.com",
+      "sources": [
+        {
+          "source_id": "mri_software_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "mrisoftware.wd501",
+            "tenant": "mrisoftware",
+            "site": "External_CareerSite"
+          },
+          "official_source_url": "https://mrisoftware.wd501.myworkdayjobs.com/External_CareerSite",
+          "notes": "Live listing complete (73 jobs, 4 pages); three detail responses normalized successfully and Cape Town office vacancies observed. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "damen",
+      "name": "Damen",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.damen.com/careers",
+      "website_url": "https://www.damen.com",
+      "sources": [
+        {
+          "source_id": "damen_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "damen.wd3",
+            "tenant": "damen",
+            "site": "Damen_Careers"
+          },
+          "official_source_url": "https://damen.wd3.myworkdayjobs.com/Damen_Careers",
+          "notes": "Live listing complete (171 jobs, 9 pages); three detail responses normalized successfully and Damen Shipyards Cape Town vacancy observed. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "capita",
+      "name": "Capita",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.capita.com/careers",
+      "website_url": "https://www.capita.com",
+      "sources": [
+        {
+          "source_id": "capita_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "capita.wd3",
+            "tenant": "capita",
+            "site": "CapitaGlobal"
+          },
+          "official_source_url": "https://capita.wd3.myworkdayjobs.com/CapitaGlobal",
+          "notes": "Live listing complete (121 jobs, 7 pages); three detail responses normalized successfully. Distinct from Capital. Full-board detail normalization remains sampled."
+        }
+      ]
+    },
+    {
+      "employer_id": "solenis",
+      "name": "Solenis",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://www.solenis.com/en/careers/",
+      "website_url": "https://www.solenis.com",
+      "sources": [
+        {
+          "source_id": "solenis_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "solenis.wd1",
+            "tenant": "solenis",
+            "site": "Solenis"
+          },
+          "official_source_url": "https://solenis.wd1.myworkdayjobs.com/Solenis",
+          "notes": "Live listing complete (484 jobs, 25 pages); three detail responses normalized successfully. Full-board detail normalization remains sampled."
+        }
+      ]
+    }
+  ]
+}

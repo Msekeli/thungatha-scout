@@ -26,8 +26,17 @@ def load_adapter_registry() -> dict[str, Any]:
     for key, definition in adapters.items():
         if not isinstance(definition, dict):
             raise RegistryValidationError(f"Adapter '{key}' must be an object.")
-        if not isinstance(definition.get("config_schema"), list):
+        schema = definition.get("config_schema") or definition.get("config")
+        if not isinstance(schema, list):
             raise RegistryValidationError(f"Adapter '{key}' has no config schema.")
+        definition["config_schema"] = schema
+        if "extraction_method" not in definition and "retrieval" in definition:
+            retrieval = definition["retrieval"]
+            if retrieval == "observed_public_cxs_json":
+                retrieval = "observed_public_cxs_json_post"
+            definition["extraction_method"] = retrieval
+        if key == "lever" and "config_values" not in definition:
+            definition["config_values"] = {"region": ["global", "eu"]}
     return adapters
 
 
