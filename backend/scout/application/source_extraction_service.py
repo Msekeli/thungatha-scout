@@ -5,22 +5,12 @@ from uuid import UUID
 from psycopg.connection import Connection
 
 from scout.application.adapter_retrieval import retrieve_adapter_result
+from scout.application.source_adapter_factories import create_source_adapter_factories
 from scout.application.source_extraction_errors import (
     SourceNotFoundError,
     UnsupportedAdapterError,
 )
 from scout.application.vacancy_management_service import VacancyManagementService
-from scout.ats_adapters.ats_adapter_contracts import ATSAdapter
-from scout.ats_adapters.greenhouse_adapter.greenhouse_source_adapter import (
-    GreenhouseSourceAdapter,
-)
-from scout.ats_adapters.lever_adapter.lever_source_adapter import LeverSourceAdapter
-from scout.ats_adapters.workable_adapter.workable_source_adapter import (
-    WorkableSourceAdapter,
-)
-from scout.ats_adapters.teamtailor_adapter.teamtailor_source_adapter import (
-    TeamtailorSourceAdapter,
-)
 from scout.persistence.database_connection import get_database_connection
 from scout.persistence.employer_source_repository import EmployerSourceRepository
 from scout.persistence.extraction_run_repository import ExtractionRunRepository
@@ -36,12 +26,7 @@ class SourceExtractionService(VacancyManagementService):
         factory = connection_factory or get_database_connection
         super().__init__(factory)
         self._connection_factory = factory
-        self._adapter_factories = adapter_factories or {
-            "greenhouse": GreenhouseSourceAdapter,
-            "lever": LeverSourceAdapter,
-            "teamtailor": TeamtailorSourceAdapter,
-            "workable": WorkableSourceAdapter,
-        }
+        self._adapter_factories = adapter_factories or create_source_adapter_factories()
 
     async def extract_source(self, source_id: UUID) -> dict[str, Any]:
         with self._connection_factory() as connection:
