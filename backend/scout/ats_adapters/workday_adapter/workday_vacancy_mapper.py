@@ -28,14 +28,20 @@ def map_workday_vacancy(
         names = [_location(item) for item in locations]
         extras = [name for name in names if name]
         if extras:
-            location = "; ".join(dict.fromkeys([str(location), *extras])) if location else "; ".join(extras)
+            location = (
+                "; ".join(dict.fromkeys([str(location), *extras]))
+                if location
+                else "; ".join(extras)
+            )
     department = info.get("jobFamily") or info.get("jobFamilyGroup")
     raw = {**dict(listing), **dict(detail), "application_url": apply_url}
     return NormalizedVacancy(
         external_job_id=identifier.strip(),
         title=title.strip(),
         description=sanitize_vacancy_description(info.get("jobDescription")),
-        location_text=location.strip() if isinstance(location, str) and location.strip() else None,
+        location_text=location.strip()
+        if isinstance(location, str) and location.strip()
+        else None,
         department=department if isinstance(department, str) else None,
         office=None,
         application_url=apply_url,
@@ -54,7 +60,11 @@ def required_text(value: Mapping[str, Any], field: str) -> str:
 
 def _bullet_id(listing: Mapping[str, Any]) -> str | None:
     bullets = listing.get("bulletFields")
-    return bullets[0] if isinstance(bullets, list) and bullets and isinstance(bullets[0], str) else None
+    return (
+        bullets[0]
+        if isinstance(bullets, list) and bullets and isinstance(bullets[0], str)
+        else None
+    )
 
 
 def _location(value: Any) -> str | None:

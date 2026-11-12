@@ -6,8 +6,7 @@ import httpx
 from scout.ats_adapters.workday_adapter.workday_cxs_client import WorkdayCxsClient
 
 
-CONFIG = {"host_prefix": "myhcm.wd3", "tenant": "myhcm",
-          "site": "digioutsource"}
+CONFIG = {"host_prefix": "myhcm.wd3", "tenant": "myhcm", "site": "digioutsource"}
 
 
 def test_posts_twenty_and_paginates_until_total() -> None:
@@ -18,8 +17,10 @@ def test_posts_twenty_and_paginates_until_total() -> None:
         offsets.append(body["offset"])
         assert body["limit"] == 20
         count = 20 if body["offset"] == 0 else 1
-        jobs = [{"externalPath": f"/job/{index}"} for index in
-                range(body["offset"], body["offset"] + count)]
+        jobs = [
+            {"externalPath": f"/job/{index}"}
+            for index in range(body["offset"], body["offset"] + count)
+        ]
         return httpx.Response(200, json={"total": 21, "jobPostings": jobs})
 
     async def run():
@@ -35,8 +36,10 @@ def test_posts_twenty_and_paginates_until_total() -> None:
 def test_reports_result_cap_as_partial() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         body = json.loads(request.content)
-        jobs = [{"externalPath": f"/job/{i}"} for i in
-                range(body["offset"], body["offset"] + 20)]
+        jobs = [
+            {"externalPath": f"/job/{i}"}
+            for i in range(body["offset"], body["offset"] + 20)
+        ]
         return httpx.Response(200, json={"total": 2001, "jobPostings": jobs})
 
     async def run():

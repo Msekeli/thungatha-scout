@@ -59,8 +59,14 @@ class WorkdaySourceAdapter:
             outcome = "partial"
         detail = listing.detail
         if errors:
-            detail = f"{len(errors)} Workday postings could not be normalized or detailed."
+            detail = (
+                f"{len(errors)} Workday postings could not be normalized or detailed."
+            )
         return ATSAdapterResult(
-            outcome, vacancies, listing.pages_fetched, complete, detail,
+            outcome,
+            vacancies,
+            listing.pages_fetched,
+            complete,
+            detail,
             total_vacancies=listing.total,
         )

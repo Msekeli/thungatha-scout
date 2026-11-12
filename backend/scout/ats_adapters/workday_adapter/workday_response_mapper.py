@@ -23,7 +23,11 @@ def map_list_response(response: httpx.Response) -> WorkdayListResult:
     failure = classify_http(response)
     if failure or not response.is_success:
         return WorkdayListResult(
-            failure or "malformed", [], 0, 1, False,
+            failure or "malformed",
+            [],
+            0,
+            1,
+            False,
             f"Workday listing returned HTTP {response.status_code}.",
         )
     try:
@@ -32,19 +36,24 @@ def map_list_response(response: httpx.Response) -> WorkdayListResult:
         return malformed_list("Workday listing returned invalid JSON.")
     postings = payload.get("jobPostings") if isinstance(payload, dict) else None
     total = payload.get("total") if isinstance(payload, dict) else None
-    if not isinstance(postings, list) or not all(
-        isinstance(item, dict) for item in postings
-    ) or not isinstance(total, int) or total < 0:
+    if (
+        not isinstance(postings, list)
+        or not all(isinstance(item, dict) for item in postings)
+        or not isinstance(total, int)
+        or total < 0
+    ):
         return malformed_list("Workday listing schema is invalid.")
-    return WorkdayListResult("success" if postings else "empty", postings,
-                             total, 1, True)
+    return WorkdayListResult(
+        "success" if postings else "empty", postings, total, 1, True
+    )
 
 
 def map_detail_response(response: httpx.Response) -> WorkdayDetailResult:
     failure = classify_http(response)
     if failure or not response.is_success:
         return WorkdayDetailResult(
-            failure or "malformed", None,
+            failure or "malformed",
+            None,
             f"Workday detail returned HTTP {response.status_code}.",
         )
     try:
@@ -53,7 +62,9 @@ def map_detail_response(response: httpx.Response) -> WorkdayDetailResult:
         return WorkdayDetailResult("malformed", None, "Workday detail is invalid JSON.")
     info = payload.get("jobPostingInfo") if isinstance(payload, dict) else None
     if not isinstance(info, dict):
-        return WorkdayDetailResult("malformed", None, "Workday detail schema is invalid.")
+        return WorkdayDetailResult(
+            "malformed", None, "Workday detail schema is invalid."
+        )
     return WorkdayDetailResult("success", payload)
 
 

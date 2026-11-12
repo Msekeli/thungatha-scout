@@ -18,8 +18,10 @@ LIVE_SOURCES = [
 ]
 
 
-@pytest.mark.skipif(os.getenv("WORKDAY_LIVE_TESTS") != "1",
-                    reason="Set WORKDAY_LIVE_TESTS=1 to call public Workday sites.")
+@pytest.mark.skipif(
+    os.getenv("WORKDAY_LIVE_TESTS") != "1",
+    reason="Set WORKDAY_LIVE_TESTS=1 to call public Workday sites.",
+)
 @pytest.mark.parametrize("board_url", LIVE_SOURCES)
 def test_public_workday_tenant_listing_and_detail(board_url: str) -> None:
     config, _ = parse_workday_board_url(board_url)
