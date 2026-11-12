@@ -11,7 +11,7 @@ def import_employer(
     employer = connection.execute(
         """
         SELECT id, website_url FROM employers
-        WHERE name = %s ORDER BY created_at, id LIMIT 1
+        WHERE lower(btrim(name)) = lower(btrim(%s)) ORDER BY created_at, id LIMIT 1
         """,
         (item["name"],),
     ).fetchone()
