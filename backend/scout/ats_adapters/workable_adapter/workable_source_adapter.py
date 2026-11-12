@@ -43,7 +43,7 @@ class WorkableSourceAdapter:
             result.pages_fetched,
             complete,
             detail,
-            total_vacancies=len(vacancies) if complete else None,
+            total_vacancies=None,
         )
 
     async def close(self) -> None:
