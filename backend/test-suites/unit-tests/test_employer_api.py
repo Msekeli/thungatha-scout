@@ -53,3 +53,42 @@ def test_employer_branding_api_updates_logo_metadata() -> None:
     assert response.status_code == 200
     assert response.json()["logo_url"] == "https://example.com/logo.png"
     assert response.json()["logo_source_url"] == "https://example.com/about"
+
+
+def test_logo_discovery_uses_registered_employer_careers_url(monkeypatch) -> None:
+    import asyncio
+
+    import scout.api.employers as employer_routes
+
+    service = FakeEmployerService()
+    employer_id = uuid4()
+    service.employers.append(
+        {
+            "id": str(employer_id),
+            "name": "Example",
+            "website_url": None,
+            "logo_type": "unverified",
+            "logo_url": None,
+        }
+    )
+    service.sources.append(
+        {
+            "id": str(uuid4()),
+            "employer_id": str(employer_id),
+            "employer_careers_url": "https://careers.example.com/jobs",
+        }
+    )
+    discovered = []
+
+    async def fake_discover(careers_url, website_url=None):
+        discovered.append((careers_url, website_url))
+        return None
+
+    monkeypatch.setattr(employer_routes, "discover_employer_logo", fake_discover)
+    with client_for(get_employer_service, service) as client:
+        response = client.post(
+            f"/api/v1/employers/{employer_id}/branding/discover"
+        )
+
+    assert response.status_code == 200
+    assert discovered == [("https://careers.example.com/jobs", None)]
