@@ -61,7 +61,7 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     const source = resolveCareersSource(state.sourceUrl, state.form.name);
     if (!source) {
       state.setError(
-        "Use a supported Greenhouse, Lever, Teamtailor or Workable careers-board URL.",
+        "Use a supported Greenhouse, Lever, Teamtailor, Workable or Workday careers-board URL.",
       );
       return;
     }
