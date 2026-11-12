@@ -30,22 +30,27 @@ def test_defaults_locale_when_board_url_has_no_locale() -> None:
 
 def test_rejects_invalid_optional_locale_in_saved_config() -> None:
     with pytest.raises(ValueError, match="locale"):
-        workday_cxs_base_url({
-            "host_prefix": "myhcm.wd3",
-            "tenant": "myhcm",
-            "site": "digioutsource",
-            "locale": "../invalid",
-        })
+        workday_cxs_base_url(
+            {
+                "host_prefix": "myhcm.wd3",
+                "tenant": "myhcm",
+                "site": "digioutsource",
+                "locale": "../invalid",
+            }
+        )
 
 
-@pytest.mark.parametrize("url", [
-    "http://myhcm.wd3.myworkdayjobs.com/digioutsource",
-    "https://example.com/digioutsource",
-    "https://myhcm.wd3.myworkdayjobs.com/job/Cape-Town/Role",
-    "https://myhcm.wd3.myworkdayjobs.com/en-US",
-    "https://user@myhcm.wd3.myworkdayjobs.com/digioutsource",
-    "https://myhcm.wd3.myworkdayjobs.com:8443/digioutsource",
-])
+@pytest.mark.parametrize(
+    "url",
+    [
+        "http://myhcm.wd3.myworkdayjobs.com/digioutsource",
+        "https://example.com/digioutsource",
+        "https://myhcm.wd3.myworkdayjobs.com/job/Cape-Town/Role",
+        "https://myhcm.wd3.myworkdayjobs.com/en-US",
+        "https://user@myhcm.wd3.myworkdayjobs.com/digioutsource",
+        "https://myhcm.wd3.myworkdayjobs.com:8443/digioutsource",
+    ],
+)
 def test_rejects_non_board_urls(url: str) -> None:
     with pytest.raises(ValueError):
         parse_workday_board_url(url)
