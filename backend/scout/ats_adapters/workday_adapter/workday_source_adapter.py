@@ -26,29 +26,35 @@ class WorkdaySourceAdapter:
             async with semaphore:
                 path = job.get("externalPath")
                 if not isinstance(path, str):
-                    return None, "Workday posting has no externalPath."
+                    return None, "Missing externalPath.", "malformed"
                 detail = await self._client.get_detail(source_config, path)
                 if detail.posting is None:
-                    return None, detail.detail or "Workday detail was unavailable."
+                    return None, detail.detail, detail.outcome
                 try:
-                    vacancy = map_workday_vacancy(job, detail.posting, host, site)\n                    if not vacancy.description:\n                        return None, "Workday detail has no job description."\n                    return vacancy, None
+                    vacancy = map_workday_vacancy(job, detail.posting, host, site)
+                    if not vacancy.description:
+                        return None, "Missing job description.", "malformed"
+                    return vacancy, None, None
                 except (KeyError, TypeError, ValueError) as error:
-                    return None, str(error)
+                    return None, str(error), "malformed"
 
         results = await asyncio.gather(*(retrieve_one(job) for job in listing.postings))
         vacancies = []
         seen = set()
         errors = []
-        for vacancy, error in results:
+        failures = []
+        for vacancy, error, failure in results:
             if error:
                 errors.append(error)
+                if failure in {"blocked", "rate_limited", "transient_failure"}:
+                    failures.append(failure)
             elif vacancy.external_job_id in seen:
                 errors.append("Duplicate Workday vacancy identifier.")
             else:
                 seen.add(vacancy.external_job_id)
                 vacancies.append(vacancy)
         complete = listing.complete and not errors
-        outcome = listing.outcome
+        outcome = failures[0] if failures else listing.outcome
         if errors and outcome in {"success", "empty"}:
             outcome = "partial"
         detail = listing.detail
