@@ -17,6 +17,7 @@ def workday_cxs_base_url(config: Mapping[str, Any]) -> str:
         raise ValueError("Workday site identifier is invalid.")
     return f"https://{prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}"
 
+
 PAGE_SIZE = 20
 RESULT_CAP = 2000
 MAX_LIST_BYTES = 5_000_000
