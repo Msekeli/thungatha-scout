@@ -61,9 +61,7 @@
       "tenant": "myhcm",
       "site": "digioutsource",
       "verification": "workday_board_observed",
-      "related_sites": [
-        "https://myhcm.wd3.myworkdayjobs.com/Betway_Africa"
-      ]
+      "related_sites": ["https://myhcm.wd3.myworkdayjobs.com/Betway_Africa"]
     },
     {
       "employer_id": "tiger_brands",
