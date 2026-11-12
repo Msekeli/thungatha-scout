@@ -33,9 +33,17 @@ async def audit_workday_details(
     host = f"{config['host_prefix']}.myworkdayjobs.com"
     site = config["site"]
     locale = config.get("locale", "en-US")
+    availability = {
+        "has_title": False,
+        "has_description": False,
+        "has_location": False,
+        "has_external_id": False,
+        "has_application_url": False,
+    }
     for job in postings[:sample_limit]:
         path = job.get("externalPath")
-        if not isinstance(path, str):
+        if not isinstance(path, str) or not path:
+            res.failures += 1
             res.errors.append("Posting missing externalPath.")
             continue
         res.attempts += 1
@@ -48,13 +56,11 @@ async def audit_workday_details(
         try:
             vac = map_workday_vacancy(job, detail.posting, host, site, locale)
             res.normalized_count += 1
-            res.field_audit = FieldAvailability(
-                has_title=bool(vac.title),
-                has_description=bool(vac.description),
-                has_location=bool(vac.location_text),
-                has_external_id=bool(vac.external_job_id),
-                has_application_url=bool(vac.application_url),
-            )
+            availability["has_title"] |= bool(vac.title)
+            availability["has_description"] |= bool(vac.description)
+            availability["has_location"] |= bool(vac.location_text)
+            availability["has_external_id"] |= bool(vac.external_job_id)
+            availability["has_application_url"] |= bool(vac.application_url)
             res.samples.append(
                 SampleVacancyAudit(
                     external_job_id=vac.external_job_id,
@@ -65,5 +71,7 @@ async def audit_workday_details(
                 )
             )
         except Exception as exc:
+            res.failures += 1
             res.errors.append(f"Normalization failed for {path}: {exc}")
+    res.field_audit = FieldAvailability(**availability)
     return res
