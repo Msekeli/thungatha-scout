@@ -1,5 +1,3 @@
-import pytest
-
 from scout.registry_importer import import_registry
 from registry_importer_test_connection import FakeConnection
 
