@@ -1,9 +1,9 @@
-import re
 from collections.abc import Mapping
 from typing import Any
 
 import httpx
 
+from scout.ats_adapters.workday_adapter.workday_config import workday_cxs_base_url
 from scout.ats_adapters.workday_adapter.workday_contracts import (
     WorkdayDetailResult,
     WorkdayListResult,
@@ -34,24 +34,8 @@ class WorkdayCxsClient:
         if self._owns_client:
             await self._client.aclose()
 
-    def _base_url(self, config: Mapping[str, Any]) -> str:
-        prefix, tenant, site = (
-            config.get(key) for key in ("host_prefix", "tenant", "site")
-        )
-        if not all(isinstance(v, str) and v for v in (prefix, tenant, site)):
-            raise ValueError("Workday config requires host_prefix, tenant and site.")
-        if not re.fullmatch(r"[a-z0-9-]+\.wd[0-9]+", prefix):
-            raise ValueError("Workday host_prefix is invalid.")
-        if prefix.split(".")[0] != tenant:
-            raise ValueError("Workday host tenant does not match host_prefix.")
-        if not re.fullmatch(r"[a-z0-9-]+", tenant):
-            raise ValueError("Workday tenant is invalid.")
-        if not re.fullmatch(r"[A-Za-z0-9_-]+", site):
-            raise ValueError("Workday site identifier is invalid.")
-        return f"https://{prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}"
-
     async def list_jobs(self, config: Mapping[str, Any]) -> WorkdayListResult:
-        base = self._base_url(config)
+        base = workday_cxs_base_url(config)
         host = f"{config['host_prefix']}.myworkdayjobs.com"
         postings: list[dict[str, Any]] = []
         total = offset = pages = 0
