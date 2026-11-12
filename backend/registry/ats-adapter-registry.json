@@ -29,7 +29,7 @@
     "next_platform_investigation": [
       "sap_successfactors"
     ],
-    "sequence_rationale": "User-approved order on 2026-11-12: implement and validate Workable first, then reactivate and implement Workday, then investigate SAP SuccessFactors using employer-specific Crawlee inspection before deciding whether a reusable adapter is justified."
+    "sequence_rationale": "User-approved order on 2026-11-12: implement and validate Workable first, then Workday, then investigate SAP SuccessFactors using employer-specific Crawlee inspection."
   },
   "adapters": {
     "greenhouse": {
@@ -244,7 +244,7 @@
         "slug"
       ],
       "endpoint_pattern": "https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true",
-      "notes": "Observed public widget endpoint, not the authenticated customer SPI API. Validate against real employer boards, response stability, throttling and exact application URL. Do not confuse this endpoint with /spi/v3/jobs, which requires an employer API token. Active implementation priority 1 from 12 November 2026. Validate the observed public widget against the South African test cohort before treating the endpoint as stable or production-ready.",
+      "notes": "Observed public widget endpoint, not the authenticated customer SPI API. Validate against real employer boards, response stability, throttling and exact application URL. Do not confuse this endpoint with /spi/v3/jobs, which requires an employer API token. Active implementation priority 1 from 12 November 2026. Validate the observed public widget against the South African test cohort before treating the endpoint as stable or production-ready. Active implementation priority 1 from 12 November 2026. Validate the observed public widget against the South African test cohort before treating the endpoint as stable or production-ready.",
       "employer_test_targets": [
         {
           "company": "LekkeSlaap",
@@ -439,13 +439,13 @@
         "retrieval_profile"
       ],
       "endpoint_pattern": "discovered_per_employer_after_public_site_inspection",
-      "notes": "No single general unauthenticated endpoint established for all tenants. Career Site Builder configuration and tenant-specific integrations matter. SAP's legacy RSS/XML career-site response is deprecated: end of development 14 November 2025 and deletion scheduled 14 May 2027. Do not build a new adapter around the retiring feed. Investigation follows Workable and Workday. Use Crawlee HTTP-first to inspect each employer's official public careers site, redirects, sitemaps, structured data, embedded payloads and public network endpoints; use bounded Playwright only when required by evidence. Store source-specific retrieval_profile in the employer/source registry. Generalise into one reusable SuccessFactors adapter only if multiple employers share a stable permitted retrieval pattern; otherwise use the generic careers-page crawler with explicit employer-specific configuration. Do not build on the retiring legacy RSS/XML response.",
+      "notes": "No single general unauthenticated endpoint established for all tenants. Career Site Builder configuration and tenant-specific integrations matter. SAP's legacy RSS/XML career-site response is deprecated: end of development 14 November 2025 and deletion scheduled 14 May 2027. Do not build a new adapter around the retiring feed. Investigation follows Workable and Workday. Use Crawlee HTTP-first to inspect each employer's official public careers site, redirects, sitemaps, structured data, embedded payloads and public network endpoints; use bounded Playwright only when required by evidence. Store source-specific retrieval_profile in the employer/source registry. Generalise into one reusable SuccessFactors adapter only if multiple employers share a stable permitted retrieval pattern; otherwise use the generic careers-page crawler with explicit employer-specific configuration. Do not build on the retiring legacy RSS/XML response. Investigate after Workable and Workday. Use Crawlee HTTP-first to inspect each employer's official public careers site, redirects, sitemaps, structured data, embedded payloads and public network requests; use bounded Playwright only when required by evidence. Store source-specific retrieval_profile in the employer/source registry. Generalise into one reusable SuccessFactors adapter only if multiple employers share a stable permitted retrieval pattern; otherwise use generic careers-page crawling with explicit employer-specific configuration. Do not build on the retiring legacy RSS/XML response.",
       "employer_test_targets": [
         {
           "company": "Sanlam",
           "careers_url": "https://www.sanlam.co.za/careers",
           "evidence_status": "historical_or_variable",
-          "notes": "Reconfirm the current official careers entry point and whether vacancies still route to SuccessFactors. Historical SuccessFactors URL remains recorded separately."
+          "notes": "Reconfirm the current official careers entry point and whether vacancies still route to SuccessFactors. Historical SuccessFactors URL remains a lead only."
         },
         {
           "company": "Capitec Bank",
