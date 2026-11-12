@@ -15,6 +15,9 @@ def workday_cxs_base_url(config: Mapping[str, Any]) -> str:
         raise ValueError("Workday tenant does not match host_prefix.")
     if not re.fullmatch(r"[A-Za-z0-9_-]+", site):
         raise ValueError("Workday site identifier is invalid.")
+    locale = config.get("locale")
+    if locale is not None and not re.fullmatch(r"[a-z]{2}-[A-Z]{2}", locale):
+        raise ValueError("Workday locale is invalid.")
     return f"https://{prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}"
 
 
