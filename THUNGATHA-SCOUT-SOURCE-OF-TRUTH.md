@@ -400,3 +400,17 @@ The user confirmed an active GitHub Student Developer Pack benefit for Zyte Scra
 - The free student entitlement is not a reason to bypass robots.txt, source terms, rate limits, access controls or the existing one-hour maximum run policy.
 
 Official Zyte documentation confirms that Scrapy Cloud can run standalone Python scripts declared in a Scrapy project's `setup.py`, while the deployed package still needs to be a Scrapy project. The Crawlee-on-Scrapy-Cloud compatibility therefore remains a deployment checkpoint to prove, not a claim that deployment has already succeeded.
+
+
+## Decision record — Workable, Workday and SuccessFactors sequence (12 November 2026)
+
+The user approved the next platform sequence: **Workable first, Workday second, then SAP SuccessFactors investigation**. This supersedes earlier adapter ordering and the 8 November Workday deferral. It does not remove existing adapters or historical evidence.
+
+- Workable is the next implementation target. Use its observed public careers widget only as an unauthenticated retrieval candidate; it is undocumented and must be live-validated against South African employer boards, including vacancy completeness and exact application destinations. Do not use or imply access to the authenticated customer SPI API.
+- Workday is reactivated as the second implementation target. Its observed public CXS JSON route is undocumented. The adapter must parse host, tenant and site independently, support bounded pagination and detail retrieval, and prove reusable behavior across employers. Old Mutual is the first test target; Pick n Pay remains unverified until its official board mapping is confirmed.
+- SAP SuccessFactors is investigated after Workable and Workday, initially using Sanlam and Capitec Bank as employer leads. Do not assume that all SuccessFactors career sites share one endpoint or configuration. Use Crawlee HTTP-first to inspect each employer's current official public careers site, redirects, sitemaps, structured JobPosting data, embedded JSON and public network requests. Use bounded Playwright only when the HTTP response is insufficient and browser access is permitted.
+- Store employer-specific retrieval profiles and verified board identifiers in `backend/registry/employer-source-registry.json`, not in adapter code. Build one reusable SuccessFactors adapter only if multiple employers demonstrate a stable common public retrieval pattern. Otherwise use the generic Crawlee careers-page path with explicit per-employer configuration; do not create one bespoke adapter per company.
+- Do not build a new integration around SAP's retiring legacy RSS/XML career-site response. Respect robots.txt, terms, access controls and rate limits; do not bypass login walls or CAPTCHAs.
+- All extracted records continue through the existing adapter contract and shared Scout persistence, normalization, deduplication, quality, lifecycle, exception and publication pipeline. No second database or direct Thungatha writes.
+
+The sequence prioritises measurable South African employer coverage and reusable retrieval over adapter count. Platform association, public access, source permission, vacancy completeness and production readiness remain separate claims requiring evidence.
