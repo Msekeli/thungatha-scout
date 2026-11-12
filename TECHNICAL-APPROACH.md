@@ -96,7 +96,7 @@ This is board-specific, not a global customer directory. Validate response shape
 
 ### Workable
 
-Use the observed public widget endpoint `GET https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true`. This is not Workable's authenticated customer SPI API and is not a documented public contract. Keep the slug in employer/source configuration. Validate list completeness, description/location fields, stable IDs, rate limits, redirects and exact apply URLs against LekkeSlaap, Electrum and GoTyme Bank before production use. Do not assume the endpoint is stable solely because it returns HTTP 200.
+Use Workable's documented public endpoint `GET https://www.workable.com/api/accounts/{slug}?details=true`; follow its redirect to the public widget route with a strict redirect bound. This is not the authenticated customer SPI API. Keep the slug in employer/source configuration. Validate list completeness, description/location fields, stable IDs, rate limits, redirects and exact apply URLs against LekkeSlaap, Electrum and GoTyme Bank before production use. Do not assume the endpoint is stable solely because it returns HTTP 200.
 
 ### Workday
 
@@ -302,7 +302,7 @@ Detailed routing, investigation waves and acceptance criteria live in `docs/CARE
 
 ## 15. Current ATS adapter sequence — 12 November 2026
 
-1. **Workable:** implement the public widget client behind the common adapter contract; observed/undocumented behavior requires live validation.
+1. **Workable:** implement the public widget client behind the common adapter contract; the documented public endpoint still requires live employer-board validation.
 2. **Workday:** implement the public CXS client after Workable; parse host, tenant and site from each employer's official careers URL and validate listing/detail completeness.
 3. **SAP SuccessFactors:** investigate Sanlam and Capitec Bank individually with Crawlee. Inspect public HTML, structured data, sitemaps, embedded data and network requests. Use Playwright only when the HTTP response is insufficient and browser access is permitted. Keep per-employer retrieval configuration outside adapter code. Generalise only after common behavior is demonstrated.
 
