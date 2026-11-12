@@ -35,7 +35,7 @@ export type SourceDiscoveryPreview = {
 export type EmployerSource = {
   id: string;
   employer_id: string;
-  adapter_key: "greenhouse" | "lever" | "teamtailor" | "workday";
+  adapter_key: "greenhouse" | "lever" | "teamtailor" | "workable" | "workday";
   source_url: string;
   employer_careers_url?: string | null;
   normalized_url: string;
