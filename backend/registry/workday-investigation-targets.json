@@ -2,16 +2,102 @@
   "_metadata": {
     "purpose": "Live investigation cohort for Workday adapter compatibility; not production source configuration.",
     "updated_at": "2026-11-12",
-    "target_count": 10,
-    "selection": "Prioritise South African and Cape Town vacancy evidence, with multiple tenants and career-site variants.",
+    "target_count": 15,
+    "selection": "Prioritise recognisable global Workday employers first, followed by South African employers with observed Workday boards or South African/Cape Town vacancy evidence. Global board presence does not establish South African hiring or adapter compatibility.",
     "rules": [
       "Do not copy these candidates into active employer sources until the exact official board and CXS behavior are verified.",
       "A Workday host does not prove the career-site slug is correct.",
       "Record listing, pagination, detail, mapping and persistence outcomes separately.",
-      "DigiOutsource and Betway Africa share a Workday tenant but use different site identifiers; retain both as a same-tenant comparison."
+      "DigiOutsource and Betway Africa share a Workday tenant but use different site identifiers; retain both as a same-tenant comparison.",
+      "For global employers added from the public Workday career-site index, South African and Cape Town job availability remains unverified until checked on the board.",
+      "Pick n Pay's PNP_Careers board is a candidate observed in the browser; the existing Pnet registry entry is a separate conflicting candidate and must not be treated as resolved."
     ]
   },
   "targets": [
+    {
+      "employer_id": "cisco",
+      "name": "Cisco",
+      "careers_url": "https://jobs.cisco.com/",
+      "board_url": "https://cisco.wd5.myworkdayjobs.com/Cisco_Careers",
+      "host_prefix": "cisco.wd5",
+      "tenant": "cisco",
+      "site": "Cisco_Careers",
+      "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
+      "cape_town_evidence": false,
+      "evidence_urls": [
+        "https://deriverge.com/tools/data/ats/workday.json"
+      ]
+    },
+    {
+      "employer_id": "accenture",
+      "name": "Accenture",
+      "careers_url": "https://www.accenture.com/careers",
+      "board_url": "https://accenture.wd103.myworkdayjobs.com/AccentureCareers",
+      "host_prefix": "accenture.wd103",
+      "tenant": "accenture",
+      "site": "AccentureCareers",
+      "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
+      "cape_town_evidence": false,
+      "evidence_urls": [
+        "https://deriverge.com/tools/data/ats/workday.json"
+      ]
+    },
+    {
+      "employer_id": "salesforce",
+      "name": "Salesforce",
+      "careers_url": "https://careers.salesforce.com/",
+      "board_url": "https://salesforce.wd12.myworkdayjobs.com/External_Career_Site",
+      "host_prefix": "salesforce.wd12",
+      "tenant": "salesforce",
+      "site": "External_Career_Site",
+      "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
+      "cape_town_evidence": false,
+      "evidence_urls": [
+        "https://deriverge.com/tools/data/ats/workday.json"
+      ]
+    },
+    {
+      "employer_id": "nvidia",
+      "name": "NVIDIA",
+      "careers_url": "https://www.nvidia.com/en-us/about-nvidia/careers/",
+      "board_url": "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite",
+      "host_prefix": "nvidia.wd5",
+      "tenant": "nvidia",
+      "site": "NVIDIAExternalCareerSite",
+      "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
+      "cape_town_evidence": false,
+      "evidence_urls": [
+        "https://deriverge.com/tools/data/ats/workday.json"
+      ]
+    },
+    {
+      "employer_id": "nike",
+      "name": "Nike",
+      "careers_url": "https://careers.nike.com/",
+      "board_url": "https://nike.wd1.myworkdayjobs.com/nke",
+      "host_prefix": "nike.wd1",
+      "tenant": "nike",
+      "site": "nke",
+      "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
+      "cape_town_evidence": false,
+      "evidence_urls": [
+        "https://deriverge.com/tools/data/ats/workday.json"
+      ]
+    },
+    {
+      "employer_id": "walmart",
+      "name": "Walmart",
+      "careers_url": "https://careers.walmart.com/",
+      "board_url": "https://walmart.wd504.myworkdayjobs.com/WalmartExternal",
+      "host_prefix": "walmart.wd504",
+      "tenant": "walmart",
+      "site": "WalmartExternal",
+      "evidence_status": "public_workday_board_observed_indexed_sa_jobs_unverified",
+      "cape_town_evidence": false,
+      "evidence_urls": [
+        "https://deriverge.com/tools/data/ats/workday.json"
+      ]
+    },
     {
       "employer_id": "old_mutual",
       "name": "Old Mutual",
@@ -65,21 +151,8 @@
       "site": "LindtSpruengliGroupCareers",
       "evidence_status": "board_and_site_observed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://lumitra.io/company-intelligence/lindtusa.com"]
-    },
-    {
-      "employer_id": "solenis",
-      "name": "Solenis",
-      "careers_url": "https://www.solenis.com/en/careers/",
-      "board_url": "https://solenis.wd1.myworkdayjobs.com/",
-      "host_prefix": "solenis.wd1",
-      "tenant": "solenis",
-      "site": null,
-      "evidence_status": "host_observed_site_slug_pending",
-      "cape_town_evidence": true,
       "evidence_urls": [
-        "https://rolivajobs.com/jobs/solenis-e3e42160-fe40-423f-9db2-d3f901bb5770",
-        "https://rolivajobs.com/jobs/territory-manager-solenis-04ce00d8-c36e-4b54-b8fd-7f490b90d4f8"
+        "https://lumitra.io/company-intelligence/lindtusa.com"
       ]
     },
     {
@@ -92,7 +165,9 @@
       "site": "astronenergy",
       "evidence_status": "board_and_cape_town_job_observed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://southafrica.mimusjobs.com/job/internal-controls-specialist/"]
+      "evidence_urls": [
+        "https://southafrica.mimusjobs.com/job/internal-controls-specialist/"
+      ]
     },
     {
       "employer_id": "kimberly_clark",
@@ -104,7 +179,9 @@
       "site": null,
       "evidence_status": "host_observed_site_slug_pending",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://www.honde.co.za/vacancy/electrical-engineer-b928d991e6e6"]
+      "evidence_urls": [
+        "https://www.honde.co.za/vacancy/electrical-engineer-b928d991e6e6"
+      ]
     },
     {
       "employer_id": "abbott",
@@ -130,7 +207,9 @@
       "site": "Zutari",
       "evidence_status": "board_and_cape_town_job_observed",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://www.earthnews365.co.za/job-list/"]
+      "evidence_urls": [
+        "https://www.earthnews365.co.za/job-list/"
+      ]
     },
     {
       "employer_id": "pick_n_pay",
