@@ -32,7 +32,7 @@ class FakeClient:
         )
 
 
-def test_scan_workday_listing_collects_and_detects_duplicates() -> None:
+def test_scan_workday_listing_marks_duplicate_inventory_incomplete() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(
             200,
@@ -54,7 +54,9 @@ def test_scan_workday_listing_collects_and_detects_duplicates() -> None:
     res = asyncio.run(run())
     assert res.reported_total == 2
     assert len(res.unique_paths) == 1
+    assert len(res.postings) == 1
     assert res.duplicates == 1
+    assert res.complete is False
 
 
 def test_audit_workday_details_handles_success_and_failure() -> None:
@@ -72,9 +74,10 @@ def test_audit_workday_details_handles_success_and_failure() -> None:
     assert res.failures == 1
     assert res.normalized_count == 1
     assert res.field_audit.has_title is True
+    assert res.field_audit.has_description is True
 
 
-def test_formats_reports_cleanly() -> None:
+def test_formats_reports_cleanly_and_does_not_claim_full_support() -> None:
     res = TargetDiagnosticResult(
         employer_id="emp1",
         name="Employer One",
@@ -97,5 +100,7 @@ def test_formats_reports_cleanly() -> None:
     report = format_target_report(res)
     assert "Employer One (`emp1`)" in report
     assert "**Unique Jobs Retrieved:** 10 (pages fetched: 1)" in report
+    assert "Detail Coverage:** Sampled only" in report
     table = format_summary_table([res])
-    assert "| Employer One | `wd3` | 10 | 10 | 1/0 | 1 | Yes | Supported |" in table
+    assert "Listing complete; details sampled" in table
+    assert "Supported" not in table
