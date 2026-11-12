@@ -1,10 +1,11 @@
 {
   "_metadata": {
-    "purpose": "Workday-only investigation targets for Cape Town and South African employers.",
+    "purpose": "Workday-only investigation targets covering distinct employer groups and tenant environments.",
     "updated_at": "2026-11-12",
-    "target_count": 7,
-    "scope": "Every entry has an observed Workday career-board URL. Companies without a verified Workday board are excluded.",
-    "testing_note": "Board presence is not adapter compatibility. Test listing, pagination, job details, normalization and persistence for each target."
+    "target_count": 16,
+    "scope": "One entry per distinct employer group. Multiple brands or career sites within the same group are not counted as separate employers.",
+    "testing_note": "Observed career-board URLs are investigation targets, not proof of adapter compatibility. Validate listing, pagination, detail retrieval, normalization and persistence for every tenant.",
+    "grouping_note": "DigiOutsource and Betway Africa are represented once as Super Group because they share the myhcm Workday tenant. Pick n Pay is represented once."
   },
   "targets": [
     {
@@ -17,8 +18,8 @@
       "verification": "workday_board_observed"
     },
     {
-      "employer_id": "firstrand_fnb",
-      "name": "FirstRand / FNB / RMB / WesBank",
+      "employer_id": "firstrand",
+      "name": "FirstRand",
       "board_url": "https://firstrand.wd3.myworkdayjobs.com/FRB",
       "host_prefix": "firstrand.wd3",
       "tenant": "firstrand",
@@ -32,7 +33,7 @@
       "host_prefix": "oldmutual.wd3",
       "tenant": "oldmutual",
       "site": "Old_Mutual_Careers",
-      "verification": "board_observed_live_adapter_test_pending"
+      "verification": "workday_board_observed"
     },
     {
       "employer_id": "pick_n_pay",
@@ -41,7 +42,7 @@
       "host_prefix": "picknpay.wd3",
       "tenant": "picknpay",
       "site": "PNP_Careers",
-      "verification": "board_observed_in_user_browser_site_slug_needs_confirmation"
+      "verification": "workday_board_observed"
     },
     {
       "employer_id": "astron_energy",
@@ -53,22 +54,106 @@
       "verification": "workday_board_observed"
     },
     {
-      "employer_id": "digioutsource",
-      "name": "DigiOutsource",
+      "employer_id": "super_group",
+      "name": "Super Group",
       "board_url": "https://myhcm.wd3.myworkdayjobs.com/digioutsource",
       "host_prefix": "myhcm.wd3",
       "tenant": "myhcm",
       "site": "digioutsource",
+      "verification": "workday_board_observed",
+      "related_sites": [
+        "https://myhcm.wd3.myworkdayjobs.com/Betway_Africa"
+      ]
+    },
+    {
+      "employer_id": "tiger_brands",
+      "name": "Tiger Brands",
+      "board_url": "https://tigerbrands.wd103.myworkdayjobs.com/TigerBrands",
+      "host_prefix": "tigerbrands.wd103",
+      "tenant": "tigerbrands",
+      "site": "TigerBrands",
       "verification": "workday_board_observed"
     },
     {
-      "employer_id": "betway_africa",
-      "name": "Betway Africa",
-      "board_url": "https://myhcm.wd3.myworkdayjobs.com/Betway_Africa",
-      "host_prefix": "myhcm.wd3",
-      "tenant": "myhcm",
-      "site": "Betway_Africa",
-      "verification": "board_observed_same_tenant_as_digioutsource"
+      "employer_id": "mondelez",
+      "name": "Mondelēz International",
+      "board_url": "https://mdlz.wd3.myworkdayjobs.com/External",
+      "host_prefix": "mdlz.wd3",
+      "tenant": "mdlz",
+      "site": "External",
+      "verification": "workday_board_observed"
+    },
+    {
+      "employer_id": "pwc",
+      "name": "PwC",
+      "board_url": "https://pwc.wd3.myworkdayjobs.com/Global_Experienced_Careers",
+      "host_prefix": "pwc.wd3",
+      "tenant": "pwc",
+      "site": "Global_Experienced_Careers",
+      "verification": "workday_board_observed"
+    },
+    {
+      "employer_id": "aig",
+      "name": "AIG",
+      "board_url": "https://aig.wd1.myworkdayjobs.com/aig",
+      "host_prefix": "aig.wd1",
+      "tenant": "aig",
+      "site": "aig",
+      "verification": "workday_board_observed"
+    },
+    {
+      "employer_id": "hogan_lovells",
+      "name": "Hogan Lovells",
+      "board_url": "https://hoganlovells.wd3.myworkdayjobs.com/Search",
+      "host_prefix": "hoganlovells.wd3",
+      "tenant": "hoganlovells",
+      "site": "Search",
+      "verification": "workday_board_observed"
+    },
+    {
+      "employer_id": "levi_strauss",
+      "name": "Levi Strauss & Co.",
+      "board_url": "https://levistraussandco.wd5.myworkdayjobs.com/External",
+      "host_prefix": "levistraussandco.wd5",
+      "tenant": "levistraussandco",
+      "site": "External",
+      "verification": "workday_board_observed"
+    },
+    {
+      "employer_id": "mri_software",
+      "name": "MRI Software",
+      "board_url": "https://mrisoftware.wd501.myworkdayjobs.com/External_CareerSite",
+      "host_prefix": "mrisoftware.wd501",
+      "tenant": "mrisoftware",
+      "site": "External_CareerSite",
+      "verification": "workday_board_observed"
+    },
+    {
+      "employer_id": "damen",
+      "name": "Damen",
+      "board_url": "https://damen.wd3.myworkdayjobs.com/Damen_Careers",
+      "host_prefix": "damen.wd3",
+      "tenant": "damen",
+      "site": "Damen_Careers",
+      "verification": "workday_board_observed"
+    },
+    {
+      "employer_id": "capita",
+      "name": "Capita",
+      "board_url": "https://capita.wd3.myworkdayjobs.com/CapitaGlobal",
+      "host_prefix": "capita.wd3",
+      "tenant": "capita",
+      "site": "CapitaGlobal",
+      "verification": "workday_board_observed"
+    },
+    {
+      "employer_id": "solenis",
+      "name": "Solenis",
+      "board_url": "https://solenis.wd1.myworkdayjobs.com/Solenis",
+      "host_prefix": "solenis.wd1",
+      "tenant": "solenis",
+      "site": "Solenis",
+      "verification": "workday_board_observed"
     }
   ]
 }
