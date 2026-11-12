@@ -17,11 +17,9 @@ def import_employer(
     ).fetchone()
     careers_url = item.get("website_url") or item.get("careers_url")
     existing_url = (employer.get("website_url") or "").strip() if employer else ""
-    if existing_url and careers_url and existing_url != careers_url:
-        raise ValueError(
-            f"Employer name already exists with another website: {item['name']}"
-        )
     if employer is not None:
+        # Preserve an established employer website; registry careers domains
+        # can differ because of regional or brand-domain changes.
         if not existing_url and careers_url:
             updated = connection.execute(
                 """
