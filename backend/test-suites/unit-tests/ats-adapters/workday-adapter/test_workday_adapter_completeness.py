@@ -29,13 +29,19 @@ def test_duplicate_requisition_ids_make_inventory_partial() -> None:
         {"title": "Developer", "externalPath": "/job/One", "bulletFields": ["JR1"]},
         {"title": "Developer", "externalPath": "/job/Two", "bulletFields": ["JR1"]},
     ]
-    detail = {"jobPostingInfo": {
-        "jobReqId": "JR1", "title": "Developer", "jobDescription": "<p>Build</p>"
-    }}
+    detail = {
+        "jobPostingInfo": {
+            "jobReqId": "JR1",
+            "title": "Developer",
+            "jobDescription": "<p>Build</p>",
+        }
+    }
 
-    result = asyncio.run(WorkdaySourceAdapter(
-        FakeWorkdayClient(postings, detail)
-    ).retrieve({"host_prefix": "oldmutual.wd3", "site": "Old_Mutual_Careers"}))
+    result = asyncio.run(
+        WorkdaySourceAdapter(FakeWorkdayClient(postings, detail)).retrieve(
+            {"host_prefix": "oldmutual.wd3", "site": "Old_Mutual_Careers"}
+        )
+    )
 
     assert result.outcome == "partial"
     assert result.complete is False
@@ -46,9 +52,11 @@ def test_missing_description_makes_inventory_partial() -> None:
     posting = {"title": "Developer", "externalPath": "/job/One"}
     detail = {"jobPostingInfo": {"jobReqId": "JR1", "title": "Developer"}}
 
-    result = asyncio.run(WorkdaySourceAdapter(
-        FakeWorkdayClient([posting], detail)
-    ).retrieve({"host_prefix": "oldmutual.wd3", "site": "Old_Mutual_Careers"}))
+    result = asyncio.run(
+        WorkdaySourceAdapter(FakeWorkdayClient([posting], detail)).retrieve(
+            {"host_prefix": "oldmutual.wd3", "site": "Old_Mutual_Careers"}
+        )
+    )
 
     assert result.outcome == "partial"
     assert result.complete is False
@@ -57,16 +65,24 @@ def test_missing_description_makes_inventory_partial() -> None:
 
 def test_fallback_job_url_preserves_source_locale() -> None:
     posting = {"title": "Developer", "externalPath": "/job/Cape-Town/Dev_JR1"}
-    detail = {"jobPostingInfo": {
-        "jobReqId": "JR1", "title": "Developer", "jobDescription": "<p>Build</p>"
-    }}
+    detail = {
+        "jobPostingInfo": {
+            "jobReqId": "JR1",
+            "title": "Developer",
+            "jobDescription": "<p>Build</p>",
+        }
+    }
 
-    result = asyncio.run(WorkdaySourceAdapter(
-        FakeWorkdayClient([posting], detail)
-    ).retrieve({
-        "host_prefix": "oldmutual.wd3", "site": "Old_Mutual_Careers",
-        "tenant": "oldmutual", "locale": "fr-FR",
-    }))
+    result = asyncio.run(
+        WorkdaySourceAdapter(FakeWorkdayClient([posting], detail)).retrieve(
+            {
+                "host_prefix": "oldmutual.wd3",
+                "site": "Old_Mutual_Careers",
+                "tenant": "oldmutual",
+                "locale": "fr-FR",
+            }
+        )
+    )
 
     assert result.vacancies[0].application_url.endswith(
         "/fr-FR/Old_Mutual_Careers/job/Cape-Town/Dev_JR1"

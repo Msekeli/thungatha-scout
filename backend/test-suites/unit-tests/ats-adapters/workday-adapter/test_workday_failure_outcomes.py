@@ -6,14 +6,18 @@ import pytest
 from scout.ats_adapters.workday_adapter.workday_cxs_client import WorkdayCxsClient
 
 
-CONFIG = {"host_prefix": "myhcm.wd3", "tenant": "myhcm",
-          "site": "digioutsource"}
+CONFIG = {"host_prefix": "myhcm.wd3", "tenant": "myhcm", "site": "digioutsource"}
 
 
 @pytest.mark.parametrize(
     ("status", "outcome"),
-    [(401, "blocked"), (403, "blocked"), (404, "not_found"),
-     (429, "rate_limited"), (503, "transient_failure")],
+    [
+        (401, "blocked"),
+        (403, "blocked"),
+        (404, "not_found"),
+        (429, "rate_limited"),
+        (503, "transient_failure"),
+    ],
 )
 def test_classifies_listing_http_failures(status: int, outcome: str) -> None:
     async def run():
