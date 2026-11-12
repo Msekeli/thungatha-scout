@@ -453,3 +453,16 @@ Implementation mapping: `guid` is the external vacancy ID; `link` is preserved e
 Pagination is bounded using `per_page=100` and increasing `offset`; a short page marks completion. A page failure after earlier pages yields a partial result and must not be used to expire missing vacancies. Exact total counts, snapshot consistency during pagination and GUID stability across vacancy edits were not independently established.
 
 Primary provider documentation: https://support.teamtailor.com/en/articles/11171756-rss-feed-how-to-guide
+
+
+## Decision update — active implementation order (12 November 2026)
+
+The user-approved execution sequence supersedes the earlier ranked order for the next platform work:
+
+1. **Workable — implement first.** Start with the observed public widget `GET https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true`. The route is undocumented and is not the authenticated Workable customer SPI API. Validate LekkeSlaap, Electrum and GoTyme Bank for meaningful vacancy data, stable IDs, description/location completeness, exact application URLs, redirects, rate limits and board totals before production use.
+2. **Workday — implement second.** Reactivate the observed public CXS listing/detail behavior. Start with Old Mutual; verify the current official board mapping, host cluster, tenant and site. Pick n Pay remains a lead until its official mapping is proven. The CXS endpoint is undocumented; test pagination, caps, detail completeness and application destinations across multiple employers.
+3. **SAP SuccessFactors — investigate third, employer by employer.** Start with Sanlam and Capitec Bank. Current platform relationships must be reconfirmed; the historical Sanlam URL is not sufficient proof, and Capitec is a user-supplied lead. Use Crawlee HTTP-first to inspect the official public careers site, redirects, sitemaps, structured JobPosting data, embedded payloads and publicly accessible network requests. Use bounded Playwright only when required by evidence and permitted by the site.
+
+For SuccessFactors, record a retrieval profile per employer. Generalise into one reusable adapter only if multiple employers share a stable, permitted retrieval pattern. If their career sites differ materially, keep the generic Crawlee retrieval path with explicit employer-specific configuration rather than creating a bespoke adapter per company. Do not build on the retiring legacy RSS/XML response, and do not bypass authentication, CAPTCHAs, robots/terms restrictions or anti-bot controls.
+
+All three platforms must use the existing adapter contract where applicable and the shared Scout ingestion/persistence/quality/lifecycle pipeline. Platform identification, public technical access, employer relationship, source permission, vacancy completeness and production readiness remain separate verification claims.
