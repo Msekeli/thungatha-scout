@@ -1,178 +1,112 @@
 # South African Careers-Page Crawling and ATS Adapter Strategy
 
-**Status:** Proposed implementation baseline for review  
-**Updated:** 11 November 2026  
+**Status:** Approved architecture direction; implementation pending checkpoint evidence  
+**Updated:** 12 November 2026  
 **Branch:** `dev`
 
-## 1. Decision and objective
+## 1. Objective and decision
 
-Reprioritise source-platform investigation around employers and career sites relevant to the South African market. Do not assume the current international-first adapter sequence maximises South African employer coverage.
+Use **Crawlee for Python** as Scout's reusable, bounded careers-page crawling framework. Crawlee complements ATS adapters; it does not replace them. Greenhouse remains the proven reference adapter. Existing Greenhouse, Lever and Teamtailor work is preserved.
 
-Greenhouse remains the proven reference adapter. Existing Greenhouse, Lever and Teamtailor work is retained; this decision does not delete or rewrite accepted integrations. Pause implementation of the remaining international-first M4 candidates until the South African investigation wave has been evaluated.
+The crawler discovers official employer careers pages, inspects redirects and linked pages, fingerprints platforms, and extracts public vacancies only when no supported ATS adapter is available. It is not a general-purpose whole-web crawler.
 
-Platform names in this document are investigation candidates, not claims that every named employer currently uses that platform or that a public extraction method is available.
+## 2. Responsibilities and boundaries
 
-## 2. What the crawler is for
+1. Discover relevant careers links from an employer's official website and configured seed URLs.
+2. Follow bounded, relevant links and record requested, final and canonical URLs.
+3. Fingerprint ATS/platform evidence from hostnames, redirects, metadata, structured data, scripts, embeds and public endpoint patterns.
+4. Route known platforms to their existing registered ATS adapters.
+5. Use generic HTML/JSON/feed extraction only for public career pages without a suitable adapter.
+6. Produce source observations, crawl outcomes and vacancy candidates for Scout's existing application pipeline.
+7. Measure unique employers, verified sources, platform detections and vacancies as separate metrics.
 
-The crawler complements ATS adapters. It is not a replacement for them.
+Crawlee must not create a second ingestion pipeline, database, or direct Thungatha writer. It must not approve employers/sources, bypass deterministic quality gates, or make publication decisions.
 
-1. **Employer-first careers discovery:** find official employer careers pages for the target South African employer cohort, including branded/custom-domain pages that do not expose an obvious ATS hostname.
-2. **Platform fingerprinting:** inspect redirects, canonical URLs, HTML, metadata, script references, structured data, embedded configuration and public network requests to identify the career-site platform with evidence.
-3. **Source mapping:** discover job-listing routes, board/site identifiers, pagination patterns and vacancy-detail links. Save evidence and confidence; do not infer an adapter solely from a URL pattern.
-4. **Non-standard careers extraction:** retrieve public HTML/JSON/RSS/XML career pages where no reliable supported ATS endpoint exists.
-5. **Change detection:** periodically check known careers pages for platform changes, new vacancy links and source health.
-6. **Adapter handoff:** when a known ATS is detected, hand the source URL/configuration to the matching adapter. The crawler must not duplicate that adapter's API/feed extraction.
-7. **Coverage measurement:** report unique employers and verified career sources separately from platform detections, boards and vacancy counts.
+## 3. Crawlee execution strategy
 
-The crawler must not crawl the whole web indiscriminately, search for personal data, bypass authentication/CAPTCHAs, evade rate limits, or ignore robots.txt and applicable site terms. Respect request budgets and identify Scout appropriately where practical.
+Use Crawlee's HTTP-oriented crawler first for ordinary public pages. This is the low-cost, low-overhead path and should handle redirects, HTML/JSON retrieval, link discovery and platform fingerprints.
 
-## 3. Crawler execution model
+Use Crawlee's Playwright integration only when investigation shows that browser execution is necessary. Before enabling browser fallback, inspect public network requests and prefer a stable, permitted JSON/feed endpoint where available. Browser concurrency, page count, execution time and response size must be tightly bounded.
 
-Use Scrapy as the default HTTP crawling framework for public HTML and linked resources. Use Playwright only for pages where inspection proves browser execution is required; first inspect browser network traffic for a public JSON/API endpoint that can be called directly.
+Crawlee is a library executed by Scout's own worker. It is not a commitment to Apify hosting or any paid managed platform. Local execution remains supported; hosting and scheduling remain deferred until workload verification and explicit cost review.
 
-Scrapy Cloud (Zyte) is the candidate managed execution/scheduling environment obtained through the GitHub Student Developer Pack. Before relying on it, verify the current Pack offer, account eligibility, credit/usage limits, retention and scheduling availability. Do not assume unlimited or permanently free execution. Keep spiders runnable locally and keep deployment configuration portable so Scout is not locked to Scrapy Cloud.
-
-The crawler should be a separately executable Scout worker, not a new microservice with its own database or a second ingestion pipeline.
-
-### Runtime flow
+## 4. Runtime flow
 
 ```text
-Employer cohort / official careers URL
-              |
-              v
-       Scrapy discovery spider
-              |
-              v
-  Redirect + page + platform evidence
-              |
-              v
-   Source classification and routing
-       /                    \
-Known ATS adapter       Generic careers page
-       |                    |
-       v                    v
-Existing adapter       Scrapy HTML/JSON parser
-       \                    /
-        v                  v
-       Shared extraction contract
-                  |
-                  v
-      Existing Scout persistence,
-      normalization and quality gates
-                  |
-                  v
-       Existing Thungatha publisher
+Official employer website / careers URL
+                 |
+                 v
+       Crawlee bounded discovery
+                 |
+                 v
+ Redirects, links and platform evidence
+                 |
+                 v
+        Source classification
+          /             \
+   Known ATS          Generic page
+      |                    |
+      v                    v
+Existing ATS adapter   Generic public parser
+      \                    /
+       v                  v
+      Shared normalized vacancy contract
+                    |
+                    v
+        Existing Scout persistence,
+        quality/lifecycle and exception rules
+                    |
+                    v
+          Existing Thungatha publisher
 ```
 
-The crawler submits observations to Scout's existing backend services. It must not write directly to Thungatha or create another database. Scout PostgreSQL remains the operational source of truth.
+## 5. Crawl stages and evidence
 
-## 4. Crawl stages and data captured
+### Seed and scope
+Seeds come from configured employer careers URLs, administrator input or the approved discovery workflow. Employer identity and source identity remain separate. Restrict crawling to relevant same-site careers paths and explicitly linked recruitment destinations.
 
-### Stage A — employer seed
+### Bounded retrieval
+Configure maximum concurrency, requests per run, link depth, per-request timeout and maximum response bytes. Respect robots.txt, terms, access controls and rate limits. Do not bypass authentication, CAPTCHAs, blocks or technical restrictions. Apply bounded retries and backoff; classify failures rather than hiding them.
 
-Input is an employer record and its official website/careers entry URL. Seeds can come from the existing employer registry, administrator input or a separately measured discovery list. Employer identity remains distinct from source/platform identity.
+### Source fingerprint
+Record requested/final/canonical URLs, status, content type, retrieval time, page title, platform clues, structured JobPosting data, careers/job links, observed public feed/API patterns, robots outcome and completeness. Preserve evidence references and confidence; a hostname or script match alone is not proof of employer ownership or source permission.
 
-### Stage B — bounded discovery
+### Extraction routing
+- Known configured ATS: existing adapter only; never scrape the same board again through the generic parser.
+- Stable, public, permitted feed/API without an existing adapter: investigate a focused adapter using the shared contract.
+- Public non-standard HTML/JSON page: generic parser and shared vacancy contract.
+- JavaScript-only page: inspect network traffic first; use bounded Playwright only if no suitable public endpoint exists.
+- Login wall, CAPTCHA, prohibited or unclear access: stop and record blocked/unsupported.
 
-Follow only relevant same-site careers links and explicitly linked external recruitment destinations. Apply per-domain depth, page-count, response-size, concurrency and timeout limits. Record redirects and canonical URLs. Avoid crawling unrelated corporate pages.
+### Persistence and lifecycle
+Crawl observations and vacancies flow through Scout's existing services and PostgreSQL repositories. Preserve source provenance, stable source-scoped identity and exact application destinations. Partial/failed crawls never imply vacancy removal or expiry. Do not retain full HTML snapshots by default; keep only bounded evidence required for diagnostics.
 
-### Stage C — source fingerprint
+## 6. AI enrichment boundary
 
-Capture:
+Gemini and Groq are interchangeable providers behind one small application-level interface. Deterministic parsing runs first. Invoke AI only for difficult description structuring or genuinely ambiguous extraction/classification, not for routine pages that deterministic rules can handle.
 
-- requested, final and canonical URL;
-- HTTP status, content type and retrieval timestamp;
-- page title and employer branding hints;
-- ATS/platform hostnames, script names and recognizable public endpoint patterns;
-- structured job data (for example JobPosting JSON-LD);
-- careers/job-listing links and discovered pagination controls;
-- public API/feed requests observed during browser inspection;
-- robots/terms review status and crawl outcome.
+Use one configured primary provider and optionally fail over to the other on retryable provider failures. Do not call both providers for every record. Cache validated results by normalized input/content hash and prompt/schema version. Bound input characters, output tokens, timeout and retries. Validate every response against a strict schema; malformed, low-confidence or incomplete output falls back to original source content and/or the exception workflow.
 
-Do not persist full HTML by default. Store bounded diagnostic excerpts or hashes only where needed; redact secrets and personal data.
+AI cannot invent vacancy facts, establish source permission, approve employers, alter stable identity, override quality gates, set lifecycle state or publish. Record provider/model and validation outcome without logging API keys or unnecessary personal data. AI enrichment is opt-in and must remain usable with both providers disabled or unavailable.
 
-### Stage D — extraction strategy
+## 7. South African investigation priorities
 
-Choose one route:
+These are research candidates, not verified integrations or claims of current employer adoption.
 
-- known supported ATS: invoke its existing adapter;
-- public feed/API with stable and permitted behavior: implement or extend a focused adapter;
-- ordinary public HTML/JSON: use the generic careers-page crawler/parser;
-- JavaScript-only page with no usable public endpoint: evaluate Playwright as an explicit, bounded exception;
-- login wall, CAPTCHA, blocked or unclear permission: mark unsupported/blocked and stop.
+**Enterprise wave:** SAP SuccessFactors (Sanlam and Capitec leads), Workday (including Old Mutual and verified additional employers), Oracle Recruiting Cloud, Oracle Taleo and SmartRecruiters.
 
-### Stage E — shared pipeline
+**Local/mid-market wave:** Simplify.hr (Media24, homechoice), eRecruit (Shoprite Group, Boxer, CCBA, Clover), BambooHR, Breezy HR and Workable. Do not conflate eRecruit with Graylink Neptune.
 
-Every extracted vacancy must use the existing normalized vacancy contract, source-scoped identity, persistence, duplicate detection, quality gates, lifecycle rules and publication ledger. Preserve source URL and exact vacancy/application destinations. Failed or partial crawls must never imply that unseen vacancies have expired.
+**Retain and measure:** Greenhouse, Lever, Teamtailor and Ashby. Greenhouse remains the reference; existing Lever and Teamtailor work is retained. Prioritise by verified unique South African direct-employer coverage, completeness, reliability, permitted access and maintenance cost—not vendor popularity or raw vacancy count.
 
-## 5. South African platform investigation priorities
+For each employer/platform pair record the official careers URL, final URL, fingerprint evidence, confidence, sample vacancies, public endpoint, pagination/completeness, stable ID, description, application URL, restrictions, retrieval approach, date and unresolved questions.
 
-Priorities below determine investigation order, not implementation commitments. Verify each employer's current official careers page and the live technical retrieval method before coding.
+## 8. Delivery plan and acceptance
 
-### Wave 1 — enterprise platforms and known South African employer leads
+- **M4-SA-A — Crawlee foundation and source fingerprinting:** dependency/configuration, bounded HTTP discovery, redirect/link extraction, evidence contract, known-ATS routing, generic public-page observation, persistence handoff and deterministic tests.
+- **M4-SA-B — Enterprise investigation:** SAP SuccessFactors, Workday and Oracle Recruiting Cloud against named official employer career pages; evidence and designs before adapter code.
+- **M4-SA-C — Local/mid-market investigation:** Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable.
+- **M4-SA-D — Evidence-ranked integration:** implement only platforms with reliable, permitted public retrieval and useful verified employer coverage.
+- **AI-ENRICHMENT — Provider foundation:** settings, secret handling, provider interface, Gemini/Groq implementations, structured validation, cache contract, failover and mocked tests. AI stays disabled until credentials and models are configured locally.
 
-| Candidate platform      | Employer leads to inspect                                                      | Current evidence status                                                                                                                                                                       |
-| ----------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SAP SuccessFactors      | Sanlam; Capitec Bank                                                           | User-identified South African examples. Sanlam has historical/variable SuccessFactors evidence in the registry. Reconfirm both current career portals, redirects and actual vacancy requests. |
-| Workday                 | Old Mutual; Pick n Pay; other major local employers discovered during research | Old Mutual mapping is present in the registry; Pick n Pay mapping is explicitly unverified. Verify each live site and vacancy endpoint.                                                       |
-| Oracle Recruiting Cloud | South African enterprise employers identified from official careers pages      | Candidate only until employer-specific official-page and network evidence is recorded.                                                                                                        |
-| Oracle Taleo            | Legacy enterprise career portals discovered during employer research           | Candidate for legacy compatibility; do not assume current adoption or prioritise over active platforms.                                                                                       |
-| SmartRecruiters         | South African employers identified from official careers pages                 | Candidate; establish actual local employer coverage first.                                                                                                                                    |
-
-### Wave 2 — locally relevant and mid-market platforms
-
-| Candidate platform | Employer leads to inspect                                            | Current evidence status                                                                                                   |
-| ------------------ | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Simplify.hr        | Media24; homechoice; other South African employer portals            | Existing research records Media24 and homechoice as hosted career pages; verify live vacancy extraction behavior.         |
-| eRecruit           | Shoprite Group; Boxer; CCBA; Clover                                  | Existing registry records public eRecruit candidate portals. This identifies the portal technology, not Graylink Neptune. |
-| BambooHR           | South African employers found through official career-page discovery | Candidate; public job-board behavior and local employer coverage need verification.                                       |
-| Breezy HR          | South African employers found through official career-page discovery | Candidate; public job-board behavior and local employer coverage need verification.                                       |
-| Workable           | South African employers found through official career-page discovery | Candidate; inspect public board/widget behavior and exact job destinations.                                               |
-
-### Wave 3 — retain and extend where employer yield justifies it
-
-Greenhouse, Lever, Teamtailor and Ashby remain in the adapter catalogue. Greenhouse is the reference implementation. Lever and Teamtailor already have implementation work recorded. Do not discard them; measure their verified South African employer yield before scheduling additional work.
-
-Workday remains a valid enterprise candidate and should not be excluded merely because it was previously deferred. SAP SuccessFactors is promoted to the first investigation wave.
-
-## 6. Investigation scorecard
-
-For every employer/platform pair, record:
-
-- employer name and official website;
-- official careers entry URL and final URL after redirects;
-- platform detection evidence and confidence;
-- sample live vacancy URLs and count observed;
-- public endpoint/feed and HTTP method;
-- pagination/completeness behavior;
-- detail/description retrieval;
-- stable external ID;
-- exact application destination;
-- rate limits, robots/terms and other access constraints;
-- extraction approach (existing adapter, new adapter, generic crawler, Playwright, blocked);
-- unique South African employer coverage contribution;
-- investigation date, evidence links and unresolved questions.
-
-Rank platforms by verified unique direct-employer coverage, relevant South African vacancies, retrieval reliability, completeness and maintenance cost. Do not rank by global vendor popularity, number of boards found or raw vacancy count alone. Keep recruitment agencies/staffing firms separate from direct employers.
-
-## 7. Delivery milestones
-
-- **M1 — Employer and platform evidence:** build and maintain the employer-first South African careers-page cohort and evidence scorecard.
-- **M4-SA-A — Crawler foundation and source fingerprinting:** prove Scrapy discovery against a small, diverse cohort; persist source observations through Scout's backend; test bounded crawling and failure semantics.
-- **M4-SA-B — South African enterprise platform investigations:** investigate SAP SuccessFactors, Workday and Oracle Recruiting Cloud against named employer career pages. Produce evidence and technical designs before adapter implementation.
-- **M4-SA-C — Local and mid-market platform investigations:** investigate Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable.
-- **M4-SA-D — Adapter implementation and integration:** implement only platforms with a permitted, reliable public retrieval method and meaningful verified employer coverage. Reuse the existing adapter contract and shared pipeline.
-- **M6 — Held-out employer compatibility:** use a South African employer not used to implement the selected integration to test generic URL discovery, platform detection and source configuration without employer-specific code.
-
-M4-SA checkpoints replace the previous planned Personio/Recruitee/Workable-first sequence. Existing accepted work and historical reports remain intact. The exact cohort and order can be adjusted from evidence, but no adapter is approved solely by appearing in this candidate list.
-
-## 8. Acceptance criteria
-
-- Scrapy can discover and fingerprint bounded public careers pages locally.
-- A detected known ATS is routed to its existing adapter rather than scraped redundantly.
-- Generic public career pages can yield structured vacancy observations with stable IDs or an explicit unresolved identity outcome.
-- Crawl observations include provenance, completeness and failure classifications.
-- The crawler uses Scout backend persistence and the existing quality/publication pipeline; no second database or direct Thungatha writes exist.
-- Unit/contract tests cover redirects, robots/terms outcomes, pagination, duplicates, blocked pages, malformed data, timeouts, partial crawls and safe shutdown.
-- Representative South African employer evidence demonstrates useful unique-employer coverage before platform adapter expansion proceeds.
-- Scrapy Cloud eligibility, limits and costs are verified before scheduled hosted execution is enabled.
+M4-SA-A acceptance requires bounded local crawling, explicit outcomes and provenance, known ATS handoff without duplicate retrieval, generic-page fixture coverage, shared persistence/pipeline integration, safe partial-run semantics, and mandatory repository quality checks. Live employer evidence is a separately recorded smoke test. No hosted recurring workload or paid usage is enabled by this plan.
