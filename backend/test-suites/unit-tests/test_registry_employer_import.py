@@ -33,7 +33,7 @@ def test_new_employer_import_does_not_create_presence_evidence() -> None:
     assert "location_evidence" not in connection.employers[0]
 
 
-def test_existing_employer_with_different_website_is_rejected() -> None:
+def test_existing_employer_with_different_website_is_preserved() -> None:
     connection = FakeConnection()
     connection.employers.append(
         {
@@ -42,11 +42,13 @@ def test_existing_employer_with_different_website_is_rejected() -> None:
             "website_url": "https://different.example.com/careers",
         }
     )
-    with pytest.raises(ValueError, match="another website"):
-        import_registry(
-            _employer_registry("Example Employer", "https://example.com/careers"),
-            connection,
-        )
+    result = import_registry(
+        _employer_registry("Example Employer", "https://example.com/careers"),
+        connection,
+    )
+    assert result["employers_created"] == 0
+    assert result["employers_updated"] == 0
+    assert connection.employers[0]["website_url"] == "https://different.example.com/careers"
 
 
 def test_existing_employer_without_website_gets_registry_careers_url() -> None:
