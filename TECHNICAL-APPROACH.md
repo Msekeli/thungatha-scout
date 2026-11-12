@@ -248,3 +248,15 @@ The company/source approval workflow described elsewhere in this document is obs
 4. South Africa is the default and publication scope. Export queries must explicitly filter South African vacancy locations; they must not treat south_africa as equivalent to all.
 5. Admin actions are limited to permanent company deletion and vacancy archiving. Source previews and extraction history remain operational diagnostics.
 6. Keep the architecture adapter-based and shared. New employers on an existing ATS require configuration, not new adapter code.
+
+## 13. Careers-page crawler and platform routing — 11 November 2026
+
+Scrapy is the default bounded HTTP crawler for employer careers-page discovery, redirect/link inspection, ATS fingerprinting and generic public HTML/JSON extraction. It is complementary to ATS adapters, not a replacement. When a known ATS is detected, route the source to its existing adapter. Do not scrape the same board through a parallel generic pipeline.
+
+Use Playwright only when inspection proves that browser execution is required; inspect public network requests first and prefer a stable, permitted JSON/feed endpoint. The crawler records requested/final/canonical URLs, content type, source fingerprint evidence, public job links, crawl timestamps, completeness and explicit outcomes. Bound domain depth, page count, response size, concurrency, timeouts and retries. Respect robots.txt, site terms, access controls and rate limits. Do not bypass login walls, CAPTCHAs or other restrictions.
+
+Crawl observations and vacancies flow through the existing Scout backend and PostgreSQL repositories, normalized vacancy contract, source-scoped identity, quality/lifecycle pipeline and publication ledger. The crawler never writes directly to Thungatha and does not introduce another database. Failed or partial crawls cannot imply vacancy expiry. Full HTML snapshots are not retained by default.
+
+Scrapy Cloud (Zyte) is a candidate managed runner through the GitHub Student Developer Pack, subject to verification of the current offer and limits. Spiders must run locally; keep scheduling and deployment configuration portable. Do not enable recurring hosted workloads or paid usage until eligibility, quotas and cost are confirmed.
+
+South African platform investigation order and employer evidence are maintained in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`. SAP SuccessFactors (Sanlam and Capitec leads), Workday and Oracle Recruiting Cloud lead the enterprise investigation. Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable lead the local/mid-market investigation. These are candidates until current employer relationships and public retrieval behavior are independently verified. Greenhouse remains the proven reference adapter; existing Lever and Teamtailor work is retained.

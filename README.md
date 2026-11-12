@@ -6,7 +6,7 @@ Thungatha Scout is an unattended employer-sourced vacancy ingestion and publishi
 
 The administrator mainly adds employers by pasting official careers/ATS URLs and confirming employer identity and source ownership. Scout then automatically retrieves, normalises, validates, deduplicates and publishes qualifying vacancies. Uncertain or incomplete records go to an exception-review queue; routine vacancy-by-vacancy approval is not required.
 
-V1 adapters: Greenhouse and Workday. Vacancy persistence scope: South Africa only; employers remain visible even when they have no qualifying vacancies. Scout is a private admin/operations system, not a public job-search frontend.
+Greenhouse remains the proven reference adapter. South African careers-page crawling and platform investigation now determine adapter priorities. Vacancy export scope: South Africa only; employers remain visible even when they have no qualifying vacancies. Scout is a private admin/operations system, not a public job-search frontend.
 
 ## Current architecture
 
@@ -29,3 +29,7 @@ Read `CHATGPT-PROJECT-GUIDE.md`, `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.m
 The Azure for Students credit is exhausted. Do not upgrade it, provision Azure resources or create paid infrastructure without explicit approval and a cost estimate. Supabase Free is for development/low-volume evaluation only until inactivity, backup and production availability requirements are resolved.
 
 See `TECHNICAL-APPROACH.md` for the current architecture and pipeline, and `IMPLEMENTATION-PLAN.md` for milestone status.
+
+## Careers-page crawling and South African platform priorities
+
+See [the crawler implementation plan](docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md) for how Scrapy discovers official careers pages, fingerprints ATS platforms, routes known platforms to existing adapters and extracts public non-standard career pages through Scout's existing pipeline. The plan prioritises investigation of SAP SuccessFactors, Workday, Oracle Recruiting Cloud, Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable based on South African employer leads. These remain candidates until live evidence is verified. Greenhouse, Lever and Teamtailor work is preserved.

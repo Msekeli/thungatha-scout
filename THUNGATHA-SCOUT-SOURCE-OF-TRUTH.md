@@ -356,3 +356,17 @@ This decision supersedes all earlier statements in this document requiring emplo
 - Admin vacancy action: archive a vacancy. Do not introduce per-vacancy approval or verification.
 - Keep source inspection/preview and extraction history as operational tools; they are not approval workflows.
 - Keep adapter-specific retrieval inside adapters and shared ingestion, location filtering, deduplication, and export behavior in shared services.
+
+## Decision record — South African employer coverage and careers crawling (11 November 2026)
+
+The previous international-first ATS expansion order is superseded. Platform and adapter priorities must be based on verified unique South African direct-employer coverage, vacancy relevance, reliable public retrieval, completeness and maintenance cost.
+
+- Greenhouse remains the proven reference adapter. Existing Greenhouse, Lever and Teamtailor work is preserved; this decision does not remove accepted integrations.
+- Promote SAP SuccessFactors to the first enterprise investigation wave, using Sanlam and Capitec Bank as employer leads supplied by the user. Sanlam's existing registry evidence is historical/variable and both current career portals and retrieval behavior must be reconfirmed before implementation claims are made.
+- Investigate Workday and Oracle Recruiting Cloud alongside SAP SuccessFactors. Also investigate locally relevant career platforms identified in the current research: Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable. Oracle Taleo and SmartRecruiters remain secondary candidates pending employer coverage evidence.
+- These are investigation candidates, not assertions of current platform usage, public API availability or permission to crawl.
+- Use Scrapy for bounded public careers-page discovery, platform fingerprinting and generic public HTML/JSON extraction. Route known supported ATS sources to their existing adapters; do not duplicate their retrieval. Use Playwright only when network inspection shows browser execution is genuinely required and no suitable public endpoint is available.
+- Scrapy Cloud (Zyte) is a candidate execution environment via the GitHub Student Developer Pack. Verify the current offer, eligibility, usage limits and scheduling/retention before relying on it. Keep local execution and provider portability.
+- Crawlers use Scout's existing backend, PostgreSQL persistence, normalized vacancy contract, quality gates and publication ledger. No second database and no direct writes to Thungatha.
+- Preserve employer-first source verification, access restrictions, robots/terms, bounded concurrency, failure/completeness semantics and the current South African vacancy export rule.
+- The detailed implementation is in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`; the active M4 roadmap is M4-SA in `IMPLEMENTATION-PLAN.md`.
