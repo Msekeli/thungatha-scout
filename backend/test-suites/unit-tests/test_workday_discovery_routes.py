@@ -21,7 +21,9 @@ def test_workday_discovery_returns_shared_source_contract(monkeypatch) -> None:
     payload = response.json()
     assert payload["detected_adapter"] == "workday"
     assert payload["adapter_config"] == {
-        "host_prefix": "myhcm.wd3", "tenant": "myhcm", "site": "digioutsource"
+        "host_prefix": "myhcm.wd3",
+        "tenant": "myhcm",
+        "site": "digioutsource",
     }
     assert payload["complete"] is True
     assert payload["total_vacancies"] == 3

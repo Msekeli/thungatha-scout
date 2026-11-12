@@ -7,8 +7,10 @@ import {
 import type { CareersDiscovery, SourceInspection } from "../shared-contracts/discovery-contracts";
 
 function displayNameFromSlug(slug: string): string {
-  return slug.replace(/[-_.]+/g, " ")
-    .replace(/\b\w/g, (character) => character.toUpperCase()).trim();
+  return slug
+    .replace(/[-_.]+/g, " ")
+    .replace(/\b\w/g, (character) => character.toUpperCase())
+    .trim();
 }
 
 async function discoverTeamtailor(url: string, companyName: string) {
@@ -42,8 +44,8 @@ export const discoveryApiClient = {
         `/api/v1/lever/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
       );
       const slug = result.board_token || new URL(url).pathname.split("/").filter(Boolean)[0] || "";
-      const detectedName = result.board_name?.trim() ||
-        result.company_name?.trim() || displayNameFromSlug(slug);
+      const detectedName =
+        result.board_name?.trim() || result.company_name?.trim() || displayNameFromSlug(slug);
       return {
         ...result,
         board_name: result.board_name || detectedName,
