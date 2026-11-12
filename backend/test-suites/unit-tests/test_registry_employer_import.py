@@ -68,3 +68,22 @@ def test_existing_employer_without_website_gets_registry_careers_url() -> None:
     assert result["employers_created"] == 0
     assert result["employers_updated"] == 1
     assert connection.employers[0]["website_url"] == "https://example.com/careers"
+
+def test_existing_employer_name_matching_ignores_case() -> None:
+    connection = FakeConnection()
+    connection.employers.append(
+        {
+            "id": "existing-digioutsource-id",
+            "name": "Digioutsource",
+            "website_url": "https://supergroup.com",
+        }
+    )
+    result = import_registry(
+        _employer_registry("DigiOutsource", "https://supergroup.com/careers"),
+        connection,
+    )
+    assert result["employers_created"] == 0
+    assert result["employers_updated"] == 0
+    assert len(connection.employers) == 1
+    assert connection.employers[0]["id"] == "existing-digioutsource-id"
+
