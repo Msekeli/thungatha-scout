@@ -22,7 +22,10 @@
       "site": "Old_Mutual_Careers",
       "evidence_status": "board_candidate_existing_registry",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://trylitos.com/companies/oldmutual", "https://www.metaintro.com/company/old-mutual-4a361c3d"]
+      "evidence_urls": [
+        "https://trylitos.com/companies/oldmutual",
+        "https://www.metaintro.com/company/old-mutual-4a361c3d"
+      ]
     },
     {
       "employer_id": "digioutsource",
@@ -34,7 +37,9 @@
       "site": "digioutsource",
       "evidence_status": "board_candidate_existing_registry",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://myhcm.wd3.myworkdayjobs.com/digioutsource/job/Cape-Town/IT-Support-Technician_JR13755"]
+      "evidence_urls": [
+        "https://myhcm.wd3.myworkdayjobs.com/digioutsource/job/Cape-Town/IT-Support-Technician_JR13755"
+      ]
     },
     {
       "employer_id": "betway_africa",
@@ -46,7 +51,9 @@
       "site": "Betway_Africa",
       "evidence_status": "site_candidate_same_tenant_as_digioutsource",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://app.careersaas.com/portal/job-search.html?search_job=AML+Specialist+Betway+Africa"]
+      "evidence_urls": [
+        "https://app.careersaas.com/portal/job-search.html?search_job=AML+Specialist+Betway+Africa"
+      ]
     },
     {
       "employer_id": "lindt",
@@ -70,7 +77,10 @@
       "site": null,
       "evidence_status": "host_observed_site_slug_pending",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://rolivajobs.com/jobs/solenis-e3e42160-fe40-423f-9db2-d3f901bb5770", "https://rolivajobs.com/jobs/territory-manager-solenis-04ce00d8-c36e-4b54-b8fd-7f490b90d4f8"]
+      "evidence_urls": [
+        "https://rolivajobs.com/jobs/solenis-e3e42160-fe40-423f-9db2-d3f901bb5770",
+        "https://rolivajobs.com/jobs/territory-manager-solenis-04ce00d8-c36e-4b54-b8fd-7f490b90d4f8"
+      ]
     },
     {
       "employer_id": "astron_energy",
@@ -106,7 +116,9 @@
       "site": null,
       "evidence_status": "host_observed_site_slug_pending",
       "cape_town_evidence": true,
-      "evidence_urls": ["https://rolivajobs.com/jobs/ambassador-cape-town-abbott-f2844b6f-bbe3-44a5-9675-12121ba39982"]
+      "evidence_urls": [
+        "https://rolivajobs.com/jobs/ambassador-cape-town-abbott-f2844b6f-bbe3-44a5-9675-12121ba39982"
+      ]
     },
     {
       "employer_id": "zutari",
