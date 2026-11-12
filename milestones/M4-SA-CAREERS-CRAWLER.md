@@ -76,17 +76,46 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 
 **Acceptance:** deterministic extraction works with AI disabled; both providers satisfy the same contract under mocked tests; fallback and caching are bounded; AI cannot affect hard gates or publish.
 
-### M4-SA-B — Enterprise platform investigation
+### M4-SA-B — Workable adapter implementation
 
-Investigate SAP SuccessFactors (Sanlam and Capitec leads), Workday and Oracle Recruiting Cloud. Verify official career URLs, redirects, public request/response behavior, completeness, stable IDs, descriptions and exact application URLs before designing an adapter.
+**Status:** Next adapter; not started.
 
-### M4-SA-C — Local and mid-market platform investigation
+1. Implement the observed public widget client behind the existing ATS adapter contract. Keep the board slug in employer/source configuration.
+2. Test the South African cohort: LekkeSlaap, Electrum and GoTyme Bank.
+3. Verify board identity, response schema, complete vacancy counts, stable IDs, full descriptions, locations, exact advert/application URLs, redirects, rate limits and bounded failure behavior.
+4. Distinguish the observed public widget from Workable's authenticated customer SPI API. Do not require employer credentials or imply the public widget is a vendor-supported API.
+5. Add recorded fixtures and tests for empty, malformed, partial, rate-limited and transient responses. Partial retrieval must not expire missing vacancies.
 
-Investigate Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable. Keep eRecruit distinct from Graylink Neptune. Record employer/platform evidence and source constraints.
+**Acceptance:** one configuration-driven Workable adapter retrieves meaningful, sufficiently complete vacancies from representative boards and routes all results through the existing Scout pipeline. HTTP 200 alone is not acceptance.
 
-### M4-SA-D — Evidence-ranked integration
+### M4-SA-C — Workday adapter implementation
 
-Implement only platforms with verified employer relevance and a reliable, permitted public retrieval method. Reuse the existing ATS contract, registries and shared pipeline. Do not implement based solely on vendor popularity or a successful HTTP 200.
+**Status:** Reactivated; follows Workable; not started.
+
+1. Start with the Old Mutual board mapping in the employer/source registry. Verify the current official careers URL and its Workday relationship.
+2. Parse host cluster, tenant, site and locale independently from the official board URL; do not hardcode employer values in adapter code.
+3. Implement bounded CXS listing POST requests, pagination and per-vacancy detail retrieval using the observed `externalPath` behavior.
+4. Verify result totals/caps, stable IDs, description completeness, locations, redirects and exact application URLs. Pick n Pay remains an unverified lead until its official site mapping is established.
+5. Add fixtures and tests for multiple tenants, page boundaries, caps, empty, malformed, blocked, rate-limited and partial outcomes.
+
+**Acceptance:** one configuration-driven Workday adapter works against at least two independently verified employer boards without employer-specific code changes. The observed CXS route remains labelled undocumented and is revalidated before production use.
+
+### M4-SA-D — SAP SuccessFactors employer-specific investigation
+
+**Status:** Planned after Workable and Workday; no adapter implementation is assumed.
+
+1. Reconfirm the current official careers entry points and SuccessFactors relationship for Sanlam and Capitec Bank. Treat historical mappings as leads, not current proof.
+2. Use Crawlee HTTP-first to inspect redirects, page HTML, canonical links, sitemaps, `JobPosting` structured data, embedded JSON/configuration and publicly accessible network requests.
+3. Record each employer's observed site type, request method, endpoint pattern, tenant/site identifiers, pagination, vacancy totals, detail route, stable IDs and application destination behavior in its source configuration and evidence.
+4. Use bounded Playwright only if the public page requires browser execution and access is permitted. Do not bypass authentication, CAPTCHA, robots/terms restrictions or anti-bot controls.
+5. Do not build on the retiring legacy SuccessFactors RSS/XML response.
+6. Compare the two employer implementations. Build one reusable SuccessFactors adapter only if they share a stable, permitted retrieval contract. If not, retain the generic Crawlee path with explicit per-employer retrieval profiles; do not create bespoke adapter code per employer.
+
+**Acceptance:** current employer/platform relationships and public retrieval behavior are evidenced separately. A reusable adapter is approved only if common behavior is demonstrated; otherwise the employer-specific generic crawler route is documented with its limits and test fixtures.
+
+### M4-SA-G — Additional platform investigation
+
+Continue with SmartRecruiters, BambooHR, Breezy HR, Simplify.hr, eRecruit and other candidates according to verified South African employer coverage. Keep eRecruit distinct from Graylink Neptune. Implement only when a reliable, permitted public retrieval method is demonstrated.
 
 ## Local configuration
 
