@@ -9,7 +9,7 @@ Scout is an unattended employer-sourced vacancy ingestion and publishing system 
 
 Routine human approval of every vacancy is not part of the operating model. Human attention is reserved for exceptions and administrative control.
 
-V1 adapter target is the registry catalogue: Greenhouse, Workday, Lever, Breezy HR and Ashby. Greenhouse is the reference flow already exercised through publication to Thungatha; M4 expands the same adapter contract to the remaining four. Initial geography is Cape Town. Scout is not a public job-search frontend and has no recruiter self-service.
+Greenhouse remains the reference adapter; Lever and Teamtailor work is retained. The next adapter sequence is Workable, then Workday, followed by an employer-specific SAP SuccessFactors investigation. Initial geography is Cape Town. Scout is not a public job-search frontend and has no recruiter self-service.
 
 ## 2. Deployment architecture
 
@@ -94,9 +94,13 @@ Use the documented public Job Board API for a known board token:
 
 This is board-specific, not a global customer directory. Validate response shape and pagination. Missing logo is not a blocker.
 
+### Workable
+
+Use the observed public widget endpoint `GET https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true`. This is not Workable's authenticated customer SPI API and is not a documented public contract. Keep the slug in employer/source configuration. Validate list completeness, description/location fields, stable IDs, rate limits, redirects and exact apply URLs against LekkeSlaap, Electrum and GoTyme Bank before production use. Do not assume the endpoint is stable solely because it returns HTTP 200.
+
 ### Workday
 
-Use observed public careers-site CXS JSON behavior, acknowledging it is undocumented and not guaranteed. Parse host, tenant and site separately. For `https://myhcm.wd3.myworkdayjobs.com/digioutsource`:
+Implementation priority 2 after Workable. Use observed public careers-site CXS JSON behavior, acknowledging it is undocumented and not guaranteed. Parse host, tenant and site separately. For `https://myhcm.wd3.myworkdayjobs.com/digioutsource`:
 
 - host: `myhcm.wd3.myworkdayjobs.com`
 - tenant: `myhcm`
@@ -252,7 +256,7 @@ The company/source approval workflow described elsewhere in this document is obs
 
 ## 13. Careers-page crawler and platform routing — 11 November 2026 (superseded 12 November 2026)
 
-Scrapy is the default bounded HTTP crawler for employer careers-page discovery, redirect/link inspection, ATS fingerprinting and generic public HTML/JSON extraction. It is complementary to ATS adapters, not a replacement. When a known ATS is detected, route the source to its existing adapter. Do not scrape the same board through a parallel generic pipeline.
+Crawlee for Python is the default bounded HTTP-first crawler for employer careers-page discovery, redirect/link inspection, ATS fingerprinting and generic public HTML/JSON extraction. It is complementary to ATS adapters, not a replacement. When a known ATS is detected, route the source to its existing adapter. Do not scrape the same board through a parallel generic pipeline.
 
 Use Playwright only when inspection proves that browser execution is required; inspect public network requests first and prefer a stable, permitted JSON/feed endpoint. The crawler records requested/final/canonical URLs, content type, source fingerprint evidence, public job links, crawl timestamps, completeness and explicit outcomes. Bound domain depth, page count, response size, concurrency, timeouts and retries. Respect robots.txt, site terms, access controls and rate limits. Do not bypass login walls, CAPTCHAs or other restrictions.
 
@@ -260,7 +264,7 @@ Crawl observations and vacancies flow through the existing Scout backend and Pos
 
 Scrapy Cloud (Zyte) is a candidate managed runner through the GitHub Student Developer Pack, subject to verification of the current offer and limits. Spiders must run locally; keep scheduling and deployment configuration portable. Do not enable recurring hosted workloads or paid usage until eligibility, quotas and cost are confirmed.
 
-South African platform investigation order and employer evidence are maintained in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`. SAP SuccessFactors (Sanlam and Capitec leads), Workday and Oracle Recruiting Cloud lead the enterprise investigation. Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable lead the local/mid-market investigation. These are candidates until current employer relationships and public retrieval behavior are independently verified. Greenhouse remains the proven reference adapter; existing Lever and Teamtailor work is retained.
+The current adapter sequence is Workable, then Workday. SAP SuccessFactors follows as an employer-specific investigation using Crawlee HTTP-first inspection of Sanlam and Capitec Bank's current official careers sites. A shared SuccessFactors adapter is justified only if multiple employers expose a stable, permitted common retrieval pattern; otherwise retain generic Crawlee retrieval with explicit employer-specific source profiles. Do not rely on the retiring legacy RSS/XML response. Other platform leads remain in `docs/ATS-PLATFORM-RESEARCH.md`.
 
 ## 14. Crawlee and AI enrichment architecture — 12 November 2026
 
@@ -295,3 +299,12 @@ Backend optional dependency groups:
 Install the full local development set from `backend/` with `python -m pip install -e ".[dev,crawler,ai]"`. Copy/update the local `.env` from `.env.example`; never commit `.env` or API keys. Model identifiers are configured explicitly rather than silently assumed by code. Keep all runtime limits configurable and validated by Pydantic settings.
 
 Detailed routing, investigation waves and acceptance criteria live in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`. No Apify hosting, paid AI plan, paid crawler execution or recurring cloud workload is approved by this architecture decision.
+
+
+## 15. Current ATS adapter sequence — 12 November 2026
+
+1. **Workable:** implement the public widget client behind the common adapter contract; observed/undocumented behavior requires live validation.
+2. **Workday:** implement the public CXS client after Workable; parse host, tenant and site from each employer's official careers URL and validate listing/detail completeness.
+3. **SAP SuccessFactors:** investigate Sanlam and Capitec Bank individually with Crawlee. Inspect public HTML, structured data, sitemaps, embedded data and network requests. Use Playwright only when the HTTP response is insufficient and browser access is permitted. Keep per-employer retrieval configuration outside adapter code. Generalise only after common behavior is demonstrated.
+
+All three must preserve provenance, completeness and explicit partial/blocked outcomes. No failed or partial retrieval may imply vacancy expiry. Existing adapters and the shared Scout ingestion pipeline remain unchanged.
