@@ -31,11 +31,13 @@ def import_registry(
         registry_sources = item.get("sources", [])
         if adapter_key:
             registry_sources = [
-                source for source in registry_sources
+                source
+                for source in registry_sources
                 if source.get("ats") == adapter_key
             ]
         supported = [
-            source for source in registry_sources
+            source
+            for source in registry_sources
             if source.get("ats") in SUPPORTED_IMPORT_ADAPTERS
         ]
         counts["sources_skipped"] += len(registry_sources) - len(supported)
