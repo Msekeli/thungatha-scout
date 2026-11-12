@@ -18,7 +18,7 @@ The ranking below estimates implementation effort for one reusable adapter after
 |    3 | Teamtailor         | RSS/XML at `/jobs.rss`                                   | Public, documented                                          | Easy                      | Implement early                                  |
 |    4 | Personio           | XML feed at `/xml?language=en`                           | Public, documented, employer must enable                    | Easy                      | Add to the scope                                 |
 |    5 | Recruitee          | Public XML offer feed                                    | Public feed; Careers Site API requires token                | Easy–moderate             | Implement XML, not token API                     |
-|    6 | Workable           | Public careers JSON endpoint (`/api/accounts/{slug}`)    | Officially documented public endpoint; no auth              | Easy                      | Implement first; validate live boards              |
+|    6 | Workable           | Public careers JSON endpoint (`/api/accounts/{slug}`)    | Officially documented public endpoint; no auth              | Easy                      | Implement first; validate live boards            |
 |    7 | Greenhouse         | Public JSON Job Board API                                | Unauthenticated, documented                                 | Easy; already implemented | Preserve as reference                            |
 |    8 | SmartRecruiters    | Public Posting API                                       | Officially public; listing/detail calls                     | Moderate                  | Implement after a live endpoint test             |
 |    9 | BambooHR           | Public careers list + per-job detail endpoints           | Observed public, undocumented                               | Moderate                  | Implement after employer-board validation        |
@@ -468,7 +468,6 @@ The user-approved execution sequence supersedes the earlier ranked order for the
 For SuccessFactors, record a retrieval profile per employer. Generalise into one reusable adapter only if multiple employers share a stable, permitted retrieval pattern. If their career sites differ materially, keep the generic Crawlee retrieval path with explicit employer-specific configuration rather than creating a bespoke adapter per company. Do not build on the retiring legacy RSS/XML response, and do not bypass authentication, CAPTCHAs, robots/terms restrictions or anti-bot controls.
 
 All three platforms must use the existing adapter contract where applicable and the shared Scout ingestion/persistence/quality/lifecycle pipeline. Platform identification, public technical access, employer relationship, source permission, vacancy completeness and production readiness remain separate verification claims.
-
 
 ## Workable endpoint clarification — 12 November 2026
 
