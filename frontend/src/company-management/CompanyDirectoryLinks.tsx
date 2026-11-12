@@ -1,15 +1,9 @@
 import { ExternalLink, Globe2 } from "lucide-react";
 import type { Employer, EmployerSource } from "../api";
+import { ADAPTER_LABELS } from "../shared-contracts/adapter-contracts";
 
 type Props = { employer: Employer; sources: EmployerSource[] };
 const visibleUrl = (value: string) => value.replace(/^https?:\/\//, "");
-const adapterLabels = {
-  greenhouse: { label: "Greenhouse", badge: "G" },
-  lever: { label: "Lever", badge: "L" },
-  teamtailor: { label: "Teamtailor", badge: "T" },
-  workday: { label: "Workday", badge: "W" },
-} as const;
-
 export function CompanyDirectoryLinks({ employer, sources }: Props) {
   const careersSource = sources.find((source) => source.employer_careers_url);
   const careersUrl = careersSource?.employer_careers_url ?? employer.website_url;
@@ -31,7 +25,7 @@ export function CompanyDirectoryLinks({ employer, sources }: Props) {
         </a>
       )}
       {sources.map((source) => {
-        const adapter = adapterLabels[source.adapter_key];
+        const adapter = ADAPTER_LABELS[source.adapter_key];
         return (
           <a
             key={source.id}

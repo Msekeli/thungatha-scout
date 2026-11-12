@@ -20,7 +20,6 @@ type EmployerRegistrationOptions = {
   onNotice: (message: string) => void;
   onRegistered: (result: { employer: Employer; source: EmployerSource }) => void;
 };
-
 export function useEmployerRegistration(options: EmployerRegistrationOptions) {
   const {
     form,
@@ -33,7 +32,6 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
     onNotice,
     onRegistered,
   } = options;
-
   async function register(event: FormEvent<HTMLFormElement>, sourceInfo: CareersDiscovery) {
     event.preventDefault();
     const companyName = form.name.trim() || sourceInfo.company_name;
@@ -48,12 +46,12 @@ export function useEmployerRegistration(options: EmployerRegistrationOptions) {
       );
       return;
     }
-
     setSaving(true);
     onError("");
     onNotice("");
     let employer: Employer | null = null;
     const isNewEmployer = duplicate?.kind !== "employer";
+
     try {
       employer =
         duplicate?.kind === "employer"

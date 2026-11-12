@@ -35,9 +35,10 @@ export type SourceDiscoveryPreview = {
 export type EmployerSource = {
   id: string;
   employer_id: string;
-  adapter_key: "greenhouse" | "lever" | "teamtailor" | "workable" | "workday";
+  adapter_key: SupportedAdapter;
   source_url: string;
   employer_careers_url?: string | null;
   normalized_url: string;
   discovery_preview?: SourceDiscoveryPreview | null;
 };
+import type { SupportedAdapter } from "./adapter-contracts";

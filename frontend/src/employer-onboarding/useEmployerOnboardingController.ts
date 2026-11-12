@@ -1,6 +1,5 @@
 import type { FormEvent } from "react";
 import { scoutApi } from "../api";
-import type { Employer } from "../api";
 import { useCareersDiscovery } from "./useCareersDiscovery";
 import { useEmployerRegistration } from "./useEmployerRegistration";
 import { resolveCareersSource } from "./resolveCareersSource";

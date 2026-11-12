@@ -73,12 +73,17 @@ async def request_validation_exception_handler(
     request: Request,
     exception: RequestValidationError,
 ) -> JSONResponse:
+    errors = exception.errors()
+    fields = "; ".join(
+        f"{'.'.join(str(part) for part in error['loc'])}: {error['msg']}"
+        for error in errors
+    )
     return _problem_response(
         request=request,
         status_code=422,
         title="Request validation failed",
-        detail="One or more request fields are invalid.",
-        extensions={"errors": exception.errors()},
+        detail=f"Request validation failed: {fields}",
+        extensions={"errors": errors},
     )
 
 

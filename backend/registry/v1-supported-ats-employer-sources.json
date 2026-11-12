@@ -1,6 +1,6 @@
 {
-  "description": "V1 employer sources supported by Scout ingestion. Only Greenhouse and Workday are permitted in this file.",
-  "supported_adapters": ["greenhouse", "workday"],
+  "description": "V1 employer sources supported by Scout ingestion.",
+  "supported_adapters": ["greenhouse", "lever", "teamtailor", "workable", "workday"],
   "employers": [
     {
       "name": "Takealot Group",

@@ -1,6 +1,7 @@
 import { ExternalLink, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { EmployerSource } from "../api";
+import { ADAPTER_LABELS } from "../shared-contracts/adapter-contracts";
 
 type Props = {
   source: EmployerSource;
@@ -13,7 +14,7 @@ export function EmployerSourceCard({ source, saving, onEdit }: Props) {
     <div className="scout-company-source-card">
       <div className="min-w-0">
         <p className="text-xs font-semibold capitalize scout-company-heading">
-          {source.adapter_key}
+          {ADAPTER_LABELS[source.adapter_key].label}
         </p>
         <a
           href={source.source_url}

@@ -1,3 +1,5 @@
+import type { SupportedAdapter } from "./adapter-contracts";
+
 export type InspectionJob = {
   id: string | number;
   title: string;
@@ -5,8 +7,6 @@ export type InspectionJob = {
   location?: { name?: string | null };
   content?: string | null;
 };
-
-export type SupportedAdapter = "greenhouse" | "lever" | "teamtailor" | "workable";
 
 export type SourceInspection = {
   outcome: string;

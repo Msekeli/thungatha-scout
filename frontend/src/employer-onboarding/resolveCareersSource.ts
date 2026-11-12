@@ -39,7 +39,7 @@ export function resolveCareersSource(url: string, name: string): CareersDiscover
   }
 
   if (!slug || (adapter === "workable" && parts.length !== 1)) return null;
-  const config =
+  const config: Record<string, string> =
     adapter === "greenhouse" || adapter === "workable"
       ? { slug }
       : adapter === "lever"

@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ADAPTER_LABELS, SUPPORTED_ADAPTERS } from "../shared-contracts/adapter-contracts";
 
 type Props = {
   searchQuery: string;
@@ -56,10 +57,11 @@ export function CompanyDirectoryToolbar(props: Props) {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All job boards</SelectItem>
-            <SelectItem value="greenhouse">Greenhouse</SelectItem>
-            <SelectItem value="lever">Lever</SelectItem>
-            <SelectItem value="teamtailor">Teamtailor</SelectItem>
-            <SelectItem value="workday">Workday</SelectItem>
+            {SUPPORTED_ADAPTERS.map((adapter) => (
+              <SelectItem key={adapter} value={adapter}>
+                {ADAPTER_LABELS[adapter].label}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
