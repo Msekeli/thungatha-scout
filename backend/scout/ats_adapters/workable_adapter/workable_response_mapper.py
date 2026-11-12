@@ -34,7 +34,10 @@ def map_http_failure(response: httpx.Response) -> WorkableJobsResponse | None:
     if outcome is None and response.is_success:
         return None
     return WorkableJobsResponse(
-        outcome or "malformed", [], 1, False,
+        outcome or "malformed",
+        [],
+        1,
+        False,
         f"Workable returned HTTP {response.status_code}.",
     )
 

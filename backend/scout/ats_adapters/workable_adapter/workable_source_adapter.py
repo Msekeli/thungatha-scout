@@ -38,7 +38,11 @@ class WorkableSourceAdapter:
             complete = False
             detail = f"{mapping_errors} Workable jobs failed normalization."
         return ATSAdapterResult(
-            outcome, vacancies, result.pages_fetched, complete, detail,
+            outcome,
+            vacancies,
+            result.pages_fetched,
+            complete,
+            detail,
             total_vacancies=len(vacancies) if complete else None,
         )
 

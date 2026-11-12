@@ -38,7 +38,10 @@ class WorkablePublicJobsClient:
             )
         except (httpx.TimeoutException, httpx.TransportError):
             return WorkableJobsResponse(
-                "transient_failure", [], 0, False,
+                "transient_failure",
+                [],
+                0,
+                False,
                 "Workable request failed or timed out.",
             )
         return map_workable_response(response)
