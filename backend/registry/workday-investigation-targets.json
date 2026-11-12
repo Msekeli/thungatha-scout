@@ -1,0 +1,136 @@
+{
+  "_metadata": {
+    "purpose": "Live investigation cohort for Workday adapter compatibility; not production source configuration.",
+    "updated_at": "2026-11-12",
+    "target_count": 10,
+    "selection": "Prioritise South African and Cape Town vacancy evidence, with multiple tenants and career-site variants.",
+    "rules": [
+      "Do not copy these candidates into active employer sources until the exact official board and CXS behavior are verified.",
+      "A Workday host does not prove the career-site slug is correct.",
+      "Record listing, pagination, detail, mapping and persistence outcomes separately.",
+      "DigiOutsource and Betway Africa share a Workday tenant but use different site identifiers; retain both as a same-tenant comparison."
+    ]
+  },
+  "targets": [
+    {
+      "employer_id": "old_mutual",
+      "name": "Old Mutual",
+      "careers_url": "https://www.oldmutual.com/careers",
+      "board_url": "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers",
+      "host_prefix": "oldmutual.wd3",
+      "tenant": "oldmutual",
+      "site": "Old_Mutual_Careers",
+      "evidence_status": "board_candidate_existing_registry",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://trylitos.com/companies/oldmutual", "https://www.metaintro.com/company/old-mutual-4a361c3d"]
+    },
+    {
+      "employer_id": "digioutsource",
+      "name": "DigiOutsource",
+      "careers_url": "https://supergroup.com/careers/search-jobs/digioutsource-careers/",
+      "board_url": "https://myhcm.wd3.myworkdayjobs.com/digioutsource",
+      "host_prefix": "myhcm.wd3",
+      "tenant": "myhcm",
+      "site": "digioutsource",
+      "evidence_status": "board_candidate_existing_registry",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://myhcm.wd3.myworkdayjobs.com/digioutsource/job/Cape-Town/IT-Support-Technician_JR13755"]
+    },
+    {
+      "employer_id": "betway_africa",
+      "name": "Betway Africa",
+      "careers_url": "https://www.betway.co.za/",
+      "board_url": "https://myhcm.wd3.myworkdayjobs.com/Betway_Africa",
+      "host_prefix": "myhcm.wd3",
+      "tenant": "myhcm",
+      "site": "Betway_Africa",
+      "evidence_status": "site_candidate_same_tenant_as_digioutsource",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://app.careersaas.com/portal/job-search.html?search_job=AML+Specialist+Betway+Africa"]
+    },
+    {
+      "employer_id": "lindt",
+      "name": "Lindt",
+      "careers_url": "https://www.lindt-spruengli.com/careers",
+      "board_url": "https://lindtspruengli.wd103.myworkdayjobs.com/LindtSpruengliGroupCareers",
+      "host_prefix": "lindtspruengli.wd103",
+      "tenant": "lindtspruengli",
+      "site": "LindtSpruengliGroupCareers",
+      "evidence_status": "board_and_site_observed",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://lumitra.io/company-intelligence/lindtusa.com"]
+    },
+    {
+      "employer_id": "solenis",
+      "name": "Solenis",
+      "careers_url": "https://www.solenis.com/en/careers/",
+      "board_url": "https://solenis.wd1.myworkdayjobs.com/",
+      "host_prefix": "solenis.wd1",
+      "tenant": "solenis",
+      "site": null,
+      "evidence_status": "host_observed_site_slug_pending",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://rolivajobs.com/jobs/solenis-e3e42160-fe40-423f-9db2-d3f901bb5770", "https://rolivajobs.com/jobs/territory-manager-solenis-04ce00d8-c36e-4b54-b8fd-7f490b90d4f8"]
+    },
+    {
+      "employer_id": "astron_energy",
+      "name": "Astron Energy",
+      "careers_url": "https://www.astronenergy.co.za/careers/",
+      "board_url": "https://glencore.wd3.myworkdayjobs.com/astronenergy",
+      "host_prefix": "glencore.wd3",
+      "tenant": "glencore",
+      "site": "astronenergy",
+      "evidence_status": "board_and_cape_town_job_observed",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://southafrica.mimusjobs.com/job/internal-controls-specialist/"]
+    },
+    {
+      "employer_id": "kimberly_clark",
+      "name": "Kimberly-Clark",
+      "careers_url": "https://www.kimberly-clark.com/en-us/company/careers",
+      "board_url": "https://kimberlyclark.wd1.myworkdayjobs.com/",
+      "host_prefix": "kimberlyclark.wd1",
+      "tenant": "kimberlyclark",
+      "site": null,
+      "evidence_status": "host_observed_site_slug_pending",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://www.honde.co.za/vacancy/electrical-engineer-b928d991e6e6"]
+    },
+    {
+      "employer_id": "abbott",
+      "name": "Abbott",
+      "careers_url": "https://www.jobs.abbott/",
+      "board_url": "https://abbott.wd5.myworkdayjobs.com/",
+      "host_prefix": "abbott.wd5",
+      "tenant": "abbott",
+      "site": null,
+      "evidence_status": "host_observed_site_slug_pending",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://rolivajobs.com/jobs/ambassador-cape-town-abbott-f2844b6f-bbe3-44a5-9675-12121ba39982"]
+    },
+    {
+      "employer_id": "zutari",
+      "name": "Zutari",
+      "careers_url": "https://www.zutari.com/careers/",
+      "board_url": "https://zutari.wd3.myworkdayjobs.com/Zutari",
+      "host_prefix": "zutari.wd3",
+      "tenant": "zutari",
+      "site": "Zutari",
+      "evidence_status": "board_and_cape_town_job_observed",
+      "cape_town_evidence": true,
+      "evidence_urls": ["https://www.earthnews365.co.za/job-list/"]
+    },
+    {
+      "employer_id": "pick_n_pay",
+      "name": "Pick n Pay",
+      "careers_url": "https://www.pnp.co.za/careers",
+      "board_url": "https://picknpay.wd3.myworkdayjobs.com/PNP_Careers",
+      "host_prefix": "picknpay.wd3",
+      "tenant": "picknpay",
+      "site": "PNP_Careers",
+      "evidence_status": "candidate_unverified",
+      "cape_town_evidence": true,
+      "evidence_urls": []
+    }
+  ]
+}
