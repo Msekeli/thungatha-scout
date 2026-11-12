@@ -41,8 +41,8 @@ export function EmployerOnboardingPanel({
   return (
     <>
       <p className="mb-3 text-xs scout-company-muted">
-        Add an employer using its official Greenhouse, Lever or Teamtailor board URL. Vacancy
-        extraction starts after registration in the background.
+        Add an employer using its official Greenhouse, Lever, Teamtailor or Workable board URL.
+        Vacancy extraction starts after registration in the background.
       </p>
       <section className="scout-company-onboarding">
         <div className="mb-5">
