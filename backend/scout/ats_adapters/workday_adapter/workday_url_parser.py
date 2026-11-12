@@ -6,7 +6,7 @@ def parse_workday_board_url(source_url: str) -> tuple[dict[str, str], str]:
     parsed = urlsplit(source_url.strip())
     host = parsed.hostname or ""
     labels = host.split(".")
-    if parsed.scheme != "https" or parsed.username or parsed.password or parsed.port:
+    if parsed.scheme != "https" or parsed.netloc.lower() != host:
         raise ValueError("Use a standard HTTPS Workday careers URL.")
     if len(labels) != 4:
         raise ValueError("URL is not hosted by myworkdayjobs.com.")
