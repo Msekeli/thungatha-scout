@@ -15,6 +15,9 @@ from scout.ats_adapters.greenhouse_adapter.greenhouse_source_adapter import (
     GreenhouseSourceAdapter,
 )
 from scout.ats_adapters.lever_adapter.lever_source_adapter import LeverSourceAdapter
+from scout.ats_adapters.workable_adapter.workable_source_adapter import (
+    WorkableSourceAdapter,
+)
 from scout.ats_adapters.teamtailor_adapter.teamtailor_source_adapter import (
     TeamtailorSourceAdapter,
 )
@@ -37,6 +40,7 @@ class SourceExtractionService(VacancyManagementService):
             "greenhouse": GreenhouseSourceAdapter,
             "lever": LeverSourceAdapter,
             "teamtailor": TeamtailorSourceAdapter,
+            "workable": WorkableSourceAdapter,
         }
 
     async def extract_source(self, source_id: UUID) -> dict[str, Any]:
