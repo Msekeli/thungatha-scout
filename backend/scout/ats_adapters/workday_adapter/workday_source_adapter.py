@@ -31,7 +31,7 @@ class WorkdaySourceAdapter:
                 if detail.posting is None:
                     return None, detail.detail or "Workday detail was unavailable."
                 try:
-                    return map_workday_vacancy(job, detail.posting, host, site), None
+                    vacancy = map_workday_vacancy(job, detail.posting, host, site)\n                    if not vacancy.description:\n                        return None, "Workday detail has no job description."\n                    return vacancy, None
                 except (KeyError, TypeError, ValueError) as error:
                     return None, str(error)
 
