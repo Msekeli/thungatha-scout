@@ -22,7 +22,9 @@ export function EmployerDuplicateNotice({
       }
     >
       <p className="font-semibold">
-        {isSource ? "This recruitment source has already been added." : "This company is already in Scout."}
+        {isSource
+          ? "This recruitment source has already been added."
+          : "This company is already in Scout."}
       </p>
       <p className="mt-1">
         {isSource
