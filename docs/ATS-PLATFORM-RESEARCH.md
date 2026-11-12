@@ -454,7 +454,6 @@ Pagination is bounded using `per_page=100` and increasing `offset`; a short page
 
 Primary provider documentation: https://support.teamtailor.com/en/articles/11171756-rss-feed-how-to-guide
 
-
 ## Decision update — active implementation order (12 November 2026)
 
 The user-approved execution sequence supersedes the earlier ranked order for the next platform work:

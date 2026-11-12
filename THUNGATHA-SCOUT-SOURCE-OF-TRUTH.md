@@ -401,7 +401,6 @@ The user confirmed an active GitHub Student Developer Pack benefit for Zyte Scra
 
 Official Zyte documentation confirms that Scrapy Cloud can run standalone Python scripts declared in a Scrapy project's `setup.py`, while the deployed package still needs to be a Scrapy project. The Crawlee-on-Scrapy-Cloud compatibility therefore remains a deployment checkpoint to prove, not a claim that deployment has already succeeded.
 
-
 ## Decision record — Workable, Workday and SuccessFactors sequence (12 November 2026)
 
 The user approved the next platform sequence: **Workable first, Workday second, then SAP SuccessFactors investigation**. This supersedes earlier adapter ordering and the 8 November Workday deferral. It does not remove existing adapters or historical evidence.

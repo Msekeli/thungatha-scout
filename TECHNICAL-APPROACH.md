@@ -300,7 +300,6 @@ Install the full local development set from `backend/` with `python -m pip insta
 
 Detailed routing, investigation waves and acceptance criteria live in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`. No Apify hosting, paid AI plan, paid crawler execution or recurring cloud workload is approved by this architecture decision.
 
-
 ## 15. Current ATS adapter sequence — 12 November 2026
 
 1. **Workable:** implement the public widget client behind the common adapter contract; observed/undocumented behavior requires live validation.
