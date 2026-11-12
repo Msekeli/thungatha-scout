@@ -115,7 +115,7 @@ M4 checkpoints:
 
 Greenhouse remains the architectural reference and is retained. Lever and Teamtailor implementation work remains in place. Ashby, Personio, Recruitee and other international candidates are deferred behind the South African investigation queue, not deleted. Workday is restored as an investigation candidate; SAP SuccessFactors is promoted to the first wave.
 
-Scrapy Cloud (Zyte), available as a candidate through the GitHub Student Developer Pack, is not assumed to be unlimited or permanently free. Verify current eligibility, offer terms, usage limits, scheduling and retention before hosted execution. Keep spiders runnable locally and deployment portable. Do not enable paid/recurring workloads without approval.
+Crawlee is a local framework dependency, not a commitment to Apify hosting. Keep the worker portable and locally runnable. Do not enable hosted/recurring workloads or paid usage without explicit approval and cost review.
 
 Acceptance: the crawler demonstrates bounded careers-page discovery and platform fingerprinting; known ATS sources route to existing adapters; generic pages use the shared extraction contract; source evidence and crawl completeness are persisted; representative South African employers establish useful unique-employer coverage; no second database or direct Thungatha writes are introduced. All adapter implementation requires evidence and tests, not platform-name popularity claims.
 
