@@ -16,9 +16,7 @@
             "inline_descriptions": true,
             "authentication_required": false
           },
-          "config_schema": [
-            "slug"
-          ],
+          "config_schema": ["slug"],
           "endpoint_pattern": "https://api.ashbyhq.com/posting-api/job-board/{slug}?includeCompensation=true",
           "notes": "Use the public Job Postings API only. Do not use jobPosting.list/job.list; those require jobsRead credentials and can include unlisted postings unless filtered. Board slug is taken from jobs.ashbyhq.com/{slug}. Adapter deferred on 2026-11-09 after user-confirmed partner enquiry email; awaiting Ashby's response on partner eligibility, feed provisioning, employer opt-in and permitted use. Revisit if Ashby responds.",
           "employer_test_targets": [
@@ -52,10 +50,7 @@
             "inline_descriptions": true,
             "authentication_required": false
           },
-          "config_schema": [
-            "slug",
-            "region"
-          ],
+          "config_schema": ["slug", "region"],
           "endpoint_pattern": "https://api.lever.co/v0/postings/{slug}?mode=json",
           "notes": "Official public Postings API; use api.eu.lever.co for EU-hosted boards. API supports skip/limit and job detail retrieval. Validate complete-board behavior and regional host from the actual employer board.",
           "employer_test_targets": [
@@ -89,9 +84,7 @@
             "inline_descriptions": true,
             "authentication_required": false
           },
-          "config_schema": [
-            "careers_url"
-          ],
+          "config_schema": ["careers_url"],
           "endpoint_pattern": "{careers_url}.rss",
           "notes": "Live public RSS feeds verified on 10 November 2026. Root Platform returned 3 items; Footasylum returned 80; TeamViewer returned the default first 100 and a separate offset=100&per_page=2 request returned later vacancies. The feed exposes global GUIDs, HTML-encoded descriptions, advert URLs, publication dates, remote status and namespaced location/department/role data. Custom TeamViewer careers domain works. The total number of TeamViewer vacancies was not established.",
           "employer_test_targets": [
@@ -125,10 +118,7 @@
             "inline_descriptions": true,
             "authentication_required": false
           },
-          "config_schema": [
-            "account_slug",
-            "host"
-          ],
+          "config_schema": ["account_slug", "host"],
           "endpoint_pattern": "https://{account_slug}.jobs.personio.com/xml?language=en",
           "notes": "Official Personio help states the XML feed is accessible without credentials once enabled by the employer. Host may be jobs.personio.com or jobs.personio.de. Some employers may not enable the feed. XML redirects candidates to the Personio job page for application.",
           "employer_test_targets": [
@@ -162,10 +152,7 @@
             "inline_descriptions": true,
             "authentication_required": false
           },
-          "config_schema": [
-            "slug",
-            "feed_format"
-          ],
+          "config_schema": ["slug", "feed_format"],
           "endpoint_pattern": "https://{slug}.recruitee.com/api/feeds/offers.xml",
           "notes": "Prefer the public XML offer feed or raw XML feed, not the Careers Site API. The Careers Site API now requires a company-generated token; unauthenticated /api/offers calls are scheduled to return 401 from 10 February 2027. Verify XML feed availability per employer and capture apply URLs.",
           "employer_test_targets": [
@@ -199,9 +186,7 @@
             "inline_descriptions": true,
             "authentication_required": false
           },
-          "config_schema": [
-            "slug"
-          ],
+          "config_schema": ["slug"],
           "endpoint_pattern": "https://www.workable.com/api/accounts/{slug}?details=true",
           "notes": "Workable's official API reference documents this public account-jobs endpoint. `details=true` includes descriptions; follow a bounded redirect if the request is routed to the apply.workable.com widget endpoint. This is distinct from the authenticated customer SPI API at /spi/v3/jobs. Adapter implementation and mocked tests are present; live employer retrieval and completeness validation are pending.",
           "employer_test_targets": [
@@ -235,11 +220,7 @@
             "inline_descriptions": false,
             "authentication_required": false
           },
-          "config_schema": [
-            "host_prefix",
-            "tenant",
-            "site"
-          ],
+          "config_schema": ["host_prefix", "tenant", "site"],
           "endpoint_pattern": "https://{host_prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs",
           "notes": "Reactivated on 12 November 2026 as implementation priority 2 after Workable. Undocumented public career-site CXS route; verify current official employer mapping, listing totals/caps, pagination, detail retrieval and exact application destinations across multiple employers.",
           "employer_test_targets": [
@@ -272,9 +253,7 @@
             "inline_descriptions": false,
             "authentication_required": false
           },
-          "config_schema": [
-            "company_identifier"
-          ],
+          "config_schema": ["company_identifier"],
           "endpoint_pattern": "https://api.smartrecruiters.com/v1/companies/{company_identifier}/postings",
           "notes": "Official documentation classifies the Posting API as public/no-auth for public postings. Listing is paginated and full posting content may require detail requests. Do not use internal postings or customer credential routes. Validate public endpoint behavior and application URLs.",
           "employer_test_targets": [
@@ -308,9 +287,7 @@
             "inline_descriptions": false,
             "authentication_required": false
           },
-          "config_schema": [
-            "subdomain"
-          ],
+          "config_schema": ["subdomain"],
           "endpoint_pattern": "https://{subdomain}.bamboohr.com/careers/list",
           "notes": "Undocumented public careers endpoints observed. /careers/list provides a lightweight list; /careers/{id}/detail is needed for full description and additional fields. Must verify real South African employer boards and per-job apply links before implementation.",
           "employer_test_targets": [
@@ -344,9 +321,7 @@
             "inline_descriptions": false,
             "authentication_required": false
           },
-          "config_schema": [
-            "slug"
-          ],
+          "config_schema": ["slug"],
           "endpoint_pattern": "https://{slug}.breezy.hr/json",
           "notes": "Undocumented public JSON feed lists published jobs but omits descriptions. Documented API requires an account token and is not a cross-employer public API. Detail-page behavior is inconsistent across third-party investigations; test actual employer boards and structured data. Missing detail must not be treated as a complete extraction.",
           "employer_test_targets": [
@@ -393,10 +368,7 @@
           "difficulty": "hard",
           "extraction_method": "pending_public_endpoint_verification",
           "capabilities": null,
-          "config_schema": [
-            "careers_url",
-            "company_identifier"
-          ],
+          "config_schema": ["careers_url", "company_identifier"],
           "endpoint_pattern": "pending_verification",
           "notes": "South African ATS with verified public employer career pages, including Media24 and homechoice. No documented public unauthenticated jobs API/feed established in this research. Inspect live page network/data and application destinations before selecting JSON, HTML or another method. Customer API/token access must not be assumed.",
           "employer_test_targets": [
@@ -432,10 +404,7 @@
           "difficulty": "hard",
           "extraction_method": "pending_public_endpoint_verification",
           "capabilities": null,
-          "config_schema": [
-            "careers_url",
-            "tenant"
-          ],
+          "config_schema": ["careers_url", "tenant"],
           "endpoint_pattern": "per_employer_career_site_configuration",
           "notes": "Do not conflate Graylink's Neptune ATS with the eRecruit-hosted Shoprite careers portal. Shoprite's live portal is on shoprite.erecruit.co; Graylink independently markets Neptune as its ATS. No evidence found that these are the same product or that Shoprite's portal is Graylink Neptune. Inspect each employer site and network calls independently.",
           "employer_test_targets": [
@@ -482,9 +451,7 @@
             "inline_descriptions": null,
             "authentication_required": false
           },
-          "config_schema": [
-            "tenant"
-          ],
+          "config_schema": ["tenant"],
           "endpoint_pattern": "https://{tenant}.zohorecruit.com/jobs/Careers",
           "notes": "No documented public vacancy API established. Public careers page may contain escaped job JSON in HTML. Requires robust parsing, tenant-specific validation and exact job/application link testing. Do not call this a supported API.",
           "employer_test_targets": [
@@ -507,11 +474,7 @@
             "inline_descriptions": null,
             "authentication_required": null
           },
-          "config_schema": [
-            "careers_url",
-            "career_site_type",
-            "retrieval_profile"
-          ],
+          "config_schema": ["careers_url", "career_site_type", "retrieval_profile"],
           "endpoint_pattern": "discovered_per_employer_after_public_site_inspection",
           "notes": "No single general unauthenticated endpoint established for all tenants. Career Site Builder configuration and tenant-specific integrations matter. SAP's legacy RSS/XML career-site response is deprecated: end of development 14 November 2025 and deletion scheduled 14 May 2027. Do not build a new adapter around the retiring feed. Investigate after Workable and Workday. Use Crawlee HTTP-first against each employer's current official public careers site; inspect redirects, sitemaps, JobPosting structured data, embedded payloads and publicly accessible network requests. Use bounded Playwright only when evidence requires it and access is permitted. Keep employer-specific retrieval profiles; generalise a reusable adapter only if a common stable permitted pattern is demonstrated. Do not use the retiring legacy RSS/XML response.",
           "employer_test_targets": [
