@@ -24,5 +24,5 @@ def parse_workday_board_url(source_url: str) -> tuple[dict[str, str], str]:
     if len(parts) != 1 or not re.fullmatch(r"[A-Za-z0-9_-]+", parts[0]):
         raise ValueError("Use a Workday board URL, not an individual job URL.")
     site = parts[0]
-    config = {"host_prefix": f"{tenant}.{cluster}", "tenant": tenant, "site": site}
+    config = {"host_prefix": f"{tenant}.{cluster}", "tenant": tenant, "site": site, "locale": locale}
     return config, f"https://{host}/{locale}/{site}"
