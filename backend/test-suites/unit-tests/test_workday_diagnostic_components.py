@@ -14,6 +14,8 @@ from diagnostics.workday_listing_scanner import scan_workday_listing
 from scout.ats_adapters.workday_adapter.workday_contracts import (
     WorkdayDetailResult,
 )
+
+
 class FakeClient:
     async def get_detail(self, config, path):
         if path == "/job/fail":
@@ -28,6 +30,8 @@ class FakeClient:
                 }
             },
         )
+
+
 def test_scan_workday_listing_marks_duplicate_inventory_incomplete() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(
@@ -40,17 +44,21 @@ def test_scan_workday_listing_marks_duplicate_inventory_incomplete() -> None:
                 ],
             },
         )
+
     async def run():
         async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as c:
             return await scan_workday_listing(
                 c, {"host_prefix": "a.wd1", "tenant": "a", "site": "s"}
             )
+
     res = asyncio.run(run())
     assert res.reported_total == 2
     assert len(res.unique_paths) == 1
     assert len(res.postings) == 1
     assert res.duplicates == 1
     assert res.complete is False
+
+
 def test_audit_workday_details_handles_success_and_failure() -> None:
     postings = [{"externalPath": "/job/ok"}, {"externalPath": "/job/fail"}]
     res = asyncio.run(
@@ -67,6 +75,8 @@ def test_audit_workday_details_handles_success_and_failure() -> None:
     assert res.normalized_count == 1
     assert res.field_audit.has_title is True
     assert res.field_audit.has_description is True
+
+
 def test_formats_reports_cleanly_and_does_not_claim_full_support() -> None:
     res = TargetDiagnosticResult(
         employer_id="emp1",
