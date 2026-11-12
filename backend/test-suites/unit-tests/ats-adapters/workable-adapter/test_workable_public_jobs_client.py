@@ -42,7 +42,11 @@ def test_follows_public_widget_redirect() -> None:
 
 def test_rejects_invalid_slug_before_request() -> None:
     async def run():
-        return await WorkablePublicJobsClient().retrieve("../private")
+        client = WorkablePublicJobsClient()
+        try:
+            await client.retrieve("../private")
+        finally:
+            await client.close()
 
     with pytest.raises(ValueError, match="valid slug"):
         asyncio.run(run())
@@ -58,4 +62,34 @@ def test_rate_limit_is_not_an_empty_board() -> None:
 
     result = asyncio.run(run())
     assert result.outcome == "rate_limited"
+    assert result.complete is False
+
+
+def test_transport_failure_is_reported_as_transient() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        raise httpx.ConnectError("offline", request=request)
+
+    async def run():
+        async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+            return await WorkablePublicJobsClient(client).retrieve("demo")
+
+    result = asyncio.run(run())
+    assert result.outcome == "transient_failure"
+    assert result.complete is False
+
+
+def test_redirect_loop_is_bounded() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(302, headers={"Location": str(request.url)})
+
+    async def run():
+        async with httpx.AsyncClient(
+            transport=httpx.MockTransport(handler),
+            follow_redirects=True,
+            max_redirects=3,
+        ) as client:
+            return await WorkablePublicJobsClient(client).retrieve("demo")
+
+    result = asyncio.run(run())
+    assert result.outcome == "malformed"
     assert result.complete is False
