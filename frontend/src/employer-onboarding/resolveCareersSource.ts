@@ -30,13 +30,17 @@ export function resolveCareersSource(url: string, name: string): CareersDiscover
     adapter = "teamtailor";
     slug = host.replace(/\.teamtailor\.com$/, "");
     boardUrl = parsed.origin + "/jobs";
+  } else if (host === "apply.workable.com") {
+    adapter = "workable";
+    slug = parts[0] ?? "";
+    boardUrl = parsed.origin + "/" + slug;
   } else {
     return null;
   }
 
-  if (!slug) return null;
+  if (!slug || (adapter === "workable" && parts.length !== 1)) return null;
   const config =
-    adapter === "greenhouse"
+    adapter === "greenhouse" || adapter === "workable"
       ? { slug }
       : adapter === "lever"
         ? { slug, region: host === "jobs.eu.lever.co" ? "eu" : "global" }
