@@ -113,7 +113,7 @@ For each employer/platform pair record the official careers URL, final URL, fing
 - **M4-SA-C — Workday adapter:** reactivate the observed public CXS route; start with Old Mutual and prove reusable host/tenant/site configuration.
 - **M4-SA-D — SuccessFactors investigation:** inspect Sanlam and Capitec Bank separately with Crawlee; use per-employer retrieval profiles and generalise only when a stable shared pattern is proven.
 - **Later candidates:** Simplify.hr, eRecruit, BambooHR, Breezy HR, Oracle Recruiting Cloud, Oracle Taleo and SmartRecruiters.
-- **M4-SA-D — Evidence-ranked integration:** implement only platforms with reliable, permitted public retrieval and useful verified employer coverage.
+- **M4-SA-G — Additional evidence-ranked integration:** implement later platform candidates only when reliable, permitted public retrieval and useful verified employer coverage are demonstrated.
 - **AI-ENRICHMENT — Provider foundation:** settings, secret handling, provider interface, Gemini/Groq implementations, structured validation, cache contract, failover and mocked tests. AI stays disabled until credentials and models are configured locally.
 
 M4-SA-A acceptance requires bounded local crawling, explicit outcomes and provenance, known ATS handoff without duplicate retrieval, generic-page fixture coverage, shared persistence/pipeline integration, safe partial-run semantics, and mandatory repository quality checks. Live employer evidence is a separately recorded smoke test. No hosted recurring workload or paid usage is enabled by this plan.
