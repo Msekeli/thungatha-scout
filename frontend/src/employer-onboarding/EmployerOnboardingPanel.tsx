@@ -19,6 +19,7 @@ type EmployerOnboardingPanelProps = {
   inspecting: boolean;
   form: EmployerRegistrationDraft;
   onChangeCompanyName: (value: string) => void;
+  onChangeWebsiteUrl: (value: string) => void;
   saving: boolean;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
@@ -32,6 +33,7 @@ export function EmployerOnboardingPanel({
   inspecting,
   form,
   onChangeCompanyName,
+  onChangeWebsiteUrl,
   saving,
   onSubmit,
   onCancel,
@@ -58,6 +60,8 @@ export function EmployerOnboardingPanel({
             onChangeCompanyName={onChangeCompanyName}
             sourceUrl={sourceUrl}
             onChangeSourceUrl={onChangeSourceUrl}
+            websiteUrl={form.website_url}
+            onChangeWebsiteUrl={onChangeWebsiteUrl}
           />
           <EmployerDuplicateNotice duplicate={duplicate} onOpenExisting={onOpenExisting} />
           <div className="scout-company-form-actions">
