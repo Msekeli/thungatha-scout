@@ -12,10 +12,23 @@
       "blocked_or_partner_dependent": "No established general public retrieval route; requires employer/agency credentials, partner access, or manual investigation."
     },
     "employer_verification_note": "Company examples are discovery leads unless an official company careers page or live source URL is explicitly recorded as evidence in the employer-source registry.",
-    "active_first_wave": ["workable", "workday"],
-    "deferred_platforms": ["ashby", "personio", "recruitee", "oracle_recruiting_cloud"],
-    "active_adapter_sequence": ["workable", "workday"],
-    "next_platform_investigation": ["sap_successfactors"],
+    "active_first_wave": [
+      "workable",
+      "workday"
+    ],
+    "deferred_platforms": [
+      "ashby",
+      "personio",
+      "recruitee",
+      "oracle_recruiting_cloud"
+    ],
+    "active_adapter_sequence": [
+      "workable",
+      "workday"
+    ],
+    "next_platform_investigation": [
+      "sap_successfactors"
+    ],
     "sequence_rationale": "User-approved order on 2026-11-12: implement and validate Workable first, then Workday, then investigate SAP SuccessFactors using employer-specific Crawlee inspection."
   },
   "adapters": {
@@ -28,7 +41,9 @@
         "inline_descriptions": true,
         "authentication_required": false
       },
-      "config_schema": ["slug"],
+      "config_schema": [
+        "slug"
+      ],
       "endpoint_pattern": "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true",
       "notes": "Reference implementation. Official Job Board GET endpoints expose public job data without authentication. Validate meta.total and completeness; this endpoint returns the board's published jobs in one response."
     },
@@ -41,7 +56,9 @@
         "inline_descriptions": true,
         "authentication_required": false
       },
-      "config_schema": ["slug"],
+      "config_schema": [
+        "slug"
+      ],
       "endpoint_pattern": "https://api.ashbyhq.com/posting-api/job-board/{slug}?includeCompensation=true",
       "notes": "Use the public Job Postings API only. Do not use jobPosting.list/job.list; those require jobsRead credentials and can include unlisted postings unless filtered. Board slug is taken from jobs.ashbyhq.com/{slug}. Adapter deferred on 2026-11-09 after user-confirmed partner enquiry email; awaiting Ashby's response on partner eligibility, feed provisioning, employer opt-in and permitted use.",
       "employer_test_targets": [
@@ -74,7 +91,10 @@
         "inline_descriptions": true,
         "authentication_required": false
       },
-      "config_schema": ["slug", "region"],
+      "config_schema": [
+        "slug",
+        "region"
+      ],
       "endpoint_pattern": "https://api.lever.co/v0/postings/{slug}?mode=json",
       "notes": "Implemented public published-postings adapter. Uses the documented unauthenticated Postings API with bounded skip/limit pagination; global and EU API hosts are selected from explicit source configuration. Only published public postings are retrieved. The observed createdAt field is not mapped to timestamps because its semantics are undocumented.",
       "employer_test_targets": [
@@ -98,7 +118,10 @@
         }
       ],
       "config_values": {
-        "region": ["global", "eu"]
+        "region": [
+          "global",
+          "eu"
+        ]
       }
     },
     "teamtailor": {
@@ -110,7 +133,9 @@
         "inline_descriptions": true,
         "authentication_required": false
       },
-      "config_schema": ["careers_url"],
+      "config_schema": [
+        "careers_url"
+      ],
       "endpoint_pattern": "{careers_url}.rss",
       "notes": "Implemented public Teamtailor RSS adapter. The supplied careers URL must identify its /jobs page; append .rss to that path. Feed supports offset/per_page pagination (default first 100), including custom careers domains. Maps GUID, title, sanitized HTML description, advert link, publication date, multiple locations and department; preserves remoteStatus, role, division and optional company metadata in raw_payload. The advert link opens the vacancy page containing the application action; it is not claimed to be a direct application-form URL. Incomplete pagination or mapping is reported as partial.",
       "employer_test_targets": [
@@ -143,7 +168,10 @@
         "inline_descriptions": true,
         "authentication_required": false
       },
-      "config_schema": ["account_slug", "host"],
+      "config_schema": [
+        "account_slug",
+        "host"
+      ],
       "endpoint_pattern": "https://{account_slug}.jobs.personio.com/xml?language=en",
       "notes": "Official Personio help states the XML feed is accessible without credentials once enabled by the employer. Host may be jobs.personio.com or jobs.personio.de. Some employers may not enable the feed. XML redirects candidates to the Personio job page for application.",
       "employer_test_targets": [
@@ -176,7 +204,10 @@
         "inline_descriptions": true,
         "authentication_required": false
       },
-      "config_schema": ["slug", "feed_format"],
+      "config_schema": [
+        "slug",
+        "feed_format"
+      ],
       "endpoint_pattern": "https://{slug}.recruitee.com/api/feeds/offers.xml",
       "notes": "Prefer the public XML offer feed or raw XML feed, not the Careers Site API. The Careers Site API now requires a company-generated token; unauthenticated /api/offers calls are scheduled to return 401 from 10 February 2027. Verify XML feed availability per employer and capture apply URLs.",
       "employer_test_targets": [
@@ -209,7 +240,9 @@
         "inline_descriptions": true,
         "authentication_required": false
       },
-      "config_schema": ["slug"],
+      "config_schema": [
+        "slug"
+      ],
       "endpoint_pattern": "https://www.workable.com/api/accounts/{slug}?details=true",
       "notes": "Workable's official API reference documents this unauthenticated public careers endpoint and its account/job fields. The endpoint may redirect to the apply.workable.com widget route; follow a bounded redirect chain. `details=true` includes descriptions. The response documents `url` as the application-form URL and `application_url`/`shortlink` as job-page URLs. Keep the slug in employer/source configuration. This is distinct from the authenticated customer SPI API at /spi/v3/jobs. Adapter code and mocked tests are present; live board validation, completeness comparison and operational rate behavior remain pending.",
       "employer_test_targets": [
@@ -242,7 +275,9 @@
         "inline_descriptions": false,
         "authentication_required": false
       },
-      "config_schema": ["company_identifier"],
+      "config_schema": [
+        "company_identifier"
+      ],
       "endpoint_pattern": "https://api.smartrecruiters.com/v1/companies/{company_identifier}/postings",
       "notes": "Official documentation classifies the Posting API as public/no-auth for public postings. Listing is paginated and full posting content may require detail requests. Do not use internal postings or customer credential routes. Validate public endpoint behavior and application URLs.",
       "employer_test_targets": [
@@ -275,7 +310,9 @@
         "inline_descriptions": false,
         "authentication_required": false
       },
-      "config_schema": ["subdomain"],
+      "config_schema": [
+        "subdomain"
+      ],
       "endpoint_pattern": "https://{subdomain}.bamboohr.com/careers/list",
       "notes": "Undocumented public careers endpoints observed. /careers/list provides a lightweight list; /careers/{id}/detail is needed for full description and additional fields. Must verify real South African employer boards and per-job apply links before implementation.",
       "employer_test_targets": [
@@ -308,7 +345,9 @@
         "inline_descriptions": false,
         "authentication_required": false
       },
-      "config_schema": ["slug"],
+      "config_schema": [
+        "slug"
+      ],
       "endpoint_pattern": "https://{slug}.breezy.hr/json",
       "notes": "Undocumented public JSON feed lists published jobs but omits descriptions. Documented API requires an account token and is not a cross-employer public API. Detail-page behavior is inconsistent across third-party investigations; test actual employer boards and structured data. Missing detail must not be treated as a complete extraction.",
       "employer_test_targets": [
@@ -353,7 +392,9 @@
         "inline_descriptions": null,
         "authentication_required": false
       },
-      "config_schema": ["tenant"],
+      "config_schema": [
+        "tenant"
+      ],
       "endpoint_pattern": "https://{tenant}.zohorecruit.com/jobs/Careers",
       "notes": "No documented public vacancy API established. Public careers page may contain escaped job JSON in HTML. Requires robust parsing, tenant-specific validation and exact job/application link testing. Do not call this a supported API.",
       "employer_test_targets": [
@@ -375,9 +416,27 @@
         "inline_descriptions": false,
         "authentication_required": false
       },
-      "config_schema": ["host_prefix", "tenant", "site"],
+      "config_schema": [
+        "host_prefix",
+        "tenant",
+        "site"
+      ],
       "endpoint_pattern": "https://{host_prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs",
-      "notes": "Configuration-driven public Workday CXS client is implemented and registered in the shared extraction/preview services. It POSTs listing requests with a page size of 20, retrieves each detail by externalPath, maps the detail description and externalUrl, and reports incomplete inventories as partial. The CXS endpoint is undocumented. The client stops at 2,000 results and reports partial when total exceeds that threshold. Mocked tests are committed; live DigiOutsource and Old Mutual smoke tests are opt-in and still require execution before source support is claimed."
+      "notes": "Configuration-driven public Workday CXS client is implemented and registered in the shared extraction/preview services. It POSTs listing requests with a page size of 20, retrieves each detail by externalPath, maps the detail description and externalUrl, and reports incomplete inventories as partial. The CXS endpoint is undocumented. The client stops at 2,000 results and reports partial when total exceeds that threshold. Mocked tests are committed; live DigiOutsource and Old Mutual smoke tests are opt-in and still require execution before source support is claimed.",
+      "employer_test_targets": [
+        {
+          "company": "DigiOutsource",
+          "careers_url": "https://myhcm.wd3.myworkdayjobs.com/digioutsource",
+          "evidence_status": "official_careers_link_confirmed",
+          "notes": "The official Super Group DigiOutsource careers page links to this Workday board. Public CXS smoke test is pending execution."
+        },
+        {
+          "company": "Old Mutual",
+          "careers_url": "https://oldmutual.wd3.myworkdayjobs.com/Old_Mutual_Careers",
+          "evidence_status": "existing_registry_mapping",
+          "notes": "Existing Workday source mapping retained from the V1 source registry. Public CXS smoke test is pending execution."
+        }
+      ]
     },
     "sap_successfactors": {
       "status": "investigation",
@@ -388,7 +447,11 @@
         "inline_descriptions": null,
         "authentication_required": null
       },
-      "config_schema": ["careers_url", "career_site_type", "retrieval_profile"],
+      "config_schema": [
+        "careers_url",
+        "career_site_type",
+        "retrieval_profile"
+      ],
       "endpoint_pattern": "discovered_per_employer_after_public_site_inspection",
       "notes": "No single general unauthenticated endpoint is established for all tenants; Career Site Builder configuration and tenant-specific integrations matter. SAP's legacy RSS/XML career-site response reached end of development on 14 November 2025 and is scheduled for deletion on 14 May 2027, so do not build on it. Investigate after Workable and Workday using Crawlee HTTP-first against each employer's current official public careers site. Inspect redirects, sitemaps, structured data, embedded payloads and public network requests; use bounded Playwright only when required by evidence and permitted. Store retrieval_profile in the employer/source registry. Generalise into one reusable adapter only if multiple employers share a stable permitted retrieval pattern; otherwise use generic Crawlee retrieval with explicit employer-specific configuration.",
       "employer_test_targets": [
@@ -418,7 +481,10 @@
       "difficulty": "hard",
       "extraction_method": "pending_public_endpoint_verification",
       "capabilities": null,
-      "config_schema": ["careers_url", "company_identifier"],
+      "config_schema": [
+        "careers_url",
+        "company_identifier"
+      ],
       "endpoint_pattern": "pending_verification",
       "notes": "South African ATS with verified public employer career pages, including Media24 and homechoice. No documented public unauthenticated jobs API/feed established in this research. Inspect live page network/data and application destinations before selecting JSON, HTML or another method. Customer API/token access must not be assumed.",
       "employer_test_targets": [
@@ -453,7 +519,10 @@
       "difficulty": "hard",
       "extraction_method": "pending_public_endpoint_verification",
       "capabilities": null,
-      "config_schema": ["careers_url", "tenant"],
+      "config_schema": [
+        "careers_url",
+        "tenant"
+      ],
       "endpoint_pattern": "per_employer_career_site_configuration",
       "notes": "Do not conflate Graylink's Neptune ATS with the eRecruit-hosted Shoprite careers portal. Shoprite's live portal is on shoprite.erecruit.co; Graylink independently markets Neptune as its ATS. No evidence found that these are the same product or that Shoprite's portal is Graylink Neptune. Inspect each employer site and network calls independently.",
       "employer_test_targets": [
@@ -495,7 +564,9 @@
       "difficulty": "blocked_or_partner_dependent",
       "extraction_method": "pending_public_jobs_endpoint_verification",
       "capabilities": null,
-      "config_schema": ["employer_or_campaign_identifier"],
+      "config_schema": [
+        "employer_or_campaign_identifier"
+      ],
       "endpoint_pattern": "pending_verification",
       "notes": "Available evidence describes Leaply as a recruitment engine/marketplace that sources, screens and verifies candidates, not a conventional employer ATS with a public vacancy board. No public job feed or employer-board URL pattern established. Keep as a discovery lead, not an ATS adapter, until candidate-facing job listings and retrieval are proven."
     },
@@ -508,21 +579,29 @@
         "inline_descriptions": null,
         "authentication_required": true
       },
-      "config_schema": ["oauth_client", "customer_authorization"],
+      "config_schema": [
+        "oauth_client",
+        "customer_authorization"
+      ],
       "endpoint_pattern": "https://api.jobadder.com",
       "notes": "API access requires OAuth2 and customer-authorized integration; partner documentation advises contacting the API team. Not a general unauthenticated cross-employer job-board API. A public agency widget or page can be investigated separately."
     },
     "placement_partner": {
       "status": "candidate",
       "difficulty": "hard",
-      "organization_scope": ["recruitment_agency", "staffing_company"],
+      "organization_scope": [
+        "recruitment_agency",
+        "staffing_company"
+      ],
       "extraction_method": "public_html_and_redirect_validation",
       "capabilities": {
         "pagination_supported": null,
         "inline_descriptions": null,
         "authentication_required": null
       },
-      "config_schema": ["agency_id"],
+      "config_schema": [
+        "agency_id"
+      ],
       "endpoint_pattern": "https://placementpartner.co.za/live/agency.php?agency={agency_id}",
       "notes": "Keep in scope as a separate agency-source adapter. Discover and verify agency IDs, parse vacancy cards/details and validate every job destination. Accept redirects only when the final destination is the exact vacancy/application flow; flag generic agency homepages, search pages, unrelated jobs, login walls and broken links. Do not count agencies as direct employers."
     }
