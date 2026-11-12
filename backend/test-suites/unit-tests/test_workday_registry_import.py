@@ -7,7 +7,9 @@ REGISTRY_PATH = (
     Path(__file__).resolve().parents[2] / "registry" / "employer-source-registry.json"
 )
 TARGETS_PATH = (
-    Path(__file__).resolve().parents[2] / "registry" / "workday-investigation-targets.json"
+    Path(__file__).resolve().parents[2]
+    / "registry"
+    / "workday-investigation-targets.json"
 )
 
 EXPECTED_MISSING_13 = {
@@ -33,9 +35,7 @@ def test_workday_registry_imports_all_13_missing_employers() -> None:
     conn = FakeConnection()
     counts = import_registry(data, conn)
 
-    assert sum(
-        source["adapter_key"] == "workday" for source in conn.sources
-    ) == 16
+    assert sum(source["adapter_key"] == "workday" for source in conn.sources) == 16
     emp_by_name = {e["name"]: e for e in conn.employers}
     for name in EXPECTED_MISSING_13:
         assert name in emp_by_name, f"Missing employer: {name}"
@@ -53,12 +53,21 @@ def test_workday_registry_imports_all_13_missing_employers() -> None:
     assert len(workday_sources) == len(targets) == 16
     assert len({s["normalized_url"] for s in workday_sources}) == 16
     expected_urls = {
-        target["board_url"] for target in targets if target["employer_id"] != "pick_n_pay"
+        target["board_url"]
+        for target in targets
+        if target["employer_id"] != "pick_n_pay"
     }
     expected_urls.add("https://picknpay.wd3.myworkdayjobs.com/Pnet")
     assert {s["normalized_url"] for s in workday_sources} == expected_urls
     assert all(
-        len([source for source in conn.sources if source["employer_id"] == employer["id"]]) == 1
+        len(
+            [
+                source
+                for source in conn.sources
+                if source["employer_id"] == employer["id"]
+            ]
+        )
+        == 1
         for employer in conn.employers
     )
 

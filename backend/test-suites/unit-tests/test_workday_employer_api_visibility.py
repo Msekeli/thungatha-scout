@@ -9,9 +9,19 @@ REGISTRY_PATH = (
 )
 
 EXPECTED_13 = [
-    "Absa", "FirstRand", "Astron Energy", "Tiger Brands",
-    "Mondelēz International", "PwC", "AIG", "Hogan Lovells",
-    "Levi Strauss & Co.", "MRI Software", "Damen", "Capita", "Solenis",
+    "Absa",
+    "FirstRand",
+    "Astron Energy",
+    "Tiger Brands",
+    "Mondelēz International",
+    "PwC",
+    "AIG",
+    "Hogan Lovells",
+    "Levi Strauss & Co.",
+    "MRI Software",
+    "Damen",
+    "Capita",
+    "Solenis",
 ]
 
 
@@ -22,26 +32,33 @@ def _build_service_from_registry():
         supported_sources = [
             source
             for source in item.get("sources", [])
-            if source.get("ats") in {"greenhouse", "lever", "teamtailor", "workday", "workable"}
+            if source.get("ats")
+            in {"greenhouse", "lever", "teamtailor", "workday", "workable"}
         ]
         if not supported_sources:
             continue
         emp_id = str(uuid4())
-        service.employers.append({
-            "id": emp_id,
-            "name": item["name"],
-            "website_url": item.get("website_url") or item.get("careers_url"),
-            "organization_type": item.get("organization_classification", "unresolved"),
-        })
+        service.employers.append(
+            {
+                "id": emp_id,
+                "name": item["name"],
+                "website_url": item.get("website_url") or item.get("careers_url"),
+                "organization_type": item.get(
+                    "organization_classification", "unresolved"
+                ),
+            }
+        )
         for s in supported_sources:
             if s["ats"] == "workday":
-                service.sources.append({
-                    "id": str(uuid4()),
-                    "employer_id": emp_id,
-                    "adapter_key": "workday",
-                    "source_url": s["official_source_url"],
-                    "adapter_config": s["config"],
-                })
+                service.sources.append(
+                    {
+                        "id": str(uuid4()),
+                        "employer_id": emp_id,
+                        "adapter_key": "workday",
+                        "source_url": s["official_source_url"],
+                        "adapter_config": s["config"],
+                    }
+                )
     return service
 
 
