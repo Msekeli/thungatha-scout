@@ -78,7 +78,7 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 
 ### M4-SA-B — Workable adapter implementation
 
-**Status:** Adapter code added; mocked tests added; live employer validation pending.
+**Status:** Adapter code and mocked tests added; live employer validation and frontend/API integration verification pending. On 12 November 2026, Workable URL detection, discovery/inspection routes, shared source preview registration and employer onboarding support were committed to `dev`. The user reported 12 focused adapter tests passing before these integration changes; new route/parser tests, frontend typecheck/build and repository quality gates are awaiting CI/local verification.
 
 1. Implemented the documented public careers endpoint client behind the existing ATS adapter contract. The board slug remains employer/source configuration.
 2. Test the South African cohort: LekkeSlaap, Electrum and GoTyme Bank.
