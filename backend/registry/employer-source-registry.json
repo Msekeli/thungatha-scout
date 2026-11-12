@@ -2,7 +2,7 @@
   "_metadata": {
     "project": "Thungatha Scout",
     "description": "Employer records and reusable ATS source configurations.",
-    "updated_at": "2026-11-10",
+    "updated_at": "2026-11-12",
     "rules": [
       "Register a company with its careers or ATS URL; do not require employer-location checks.",
       "Evaluate South African relevance from each vacancy's location, not the employer's country.",
@@ -22,7 +22,8 @@
           "config": {
             "host_prefix": "myhcm.wd3",
             "tenant": "myhcm",
-            "site": "digioutsource"
+            "site": "digioutsource",
+            "locale": "en-US"
           },
           "official_source_url": "https://myhcm.wd3.myworkdayjobs.com/digioutsource",
           "notes": "The official Super Group DigiOutsource careers page links to this Workday board. Live CXS listing/detail smoke test is included but remains to be executed; technical support is not claimed until that evidence is recorded."
