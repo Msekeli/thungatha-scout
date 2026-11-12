@@ -6,7 +6,7 @@ export type InspectionJob = {
   content?: string | null;
 };
 
-export type SupportedAdapter = "greenhouse" | "lever" | "teamtailor" | "workable";
+export type SupportedAdapter = "greenhouse" | "lever" | "teamtailor" | "workable" | "workday";
 
 export type SourceInspection = {
   outcome: string;
