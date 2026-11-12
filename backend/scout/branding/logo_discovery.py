@@ -175,39 +175,52 @@ async def discover_employer_logo(
     careers_url: str | None,
     website_url: str | None = None,
 ) -> tuple[str, str, str] | None:
-    # Careers URLs are deliberately not discovery roots. They may be hosted by
-    # an ATS on a custom domain, so their favicon cannot establish employer identity.
-    del careers_url
-    if not website_url or _blocked_logo_host(urlparse(website_url).hostname or ""):
+    # Prefer the employer's own website. A careers URL is a safe fallback only
+    # when it uses an employer-owned host, never a shared ATS host.
+    candidates = []
+    for value in (website_url, careers_url):
+        if not value:
+            continue
+        parsed = urlparse(value)
+        host = parsed.hostname or ""
+        if parsed.scheme != "https" or _blocked_logo_host(host):
+            continue
+        if value not in candidates:
+            candidates.append(value)
+
+    if not candidates:
         return None
+
     try:
-        _validate_public_host(website_url)
         async with httpx.AsyncClient(
             timeout=12,
             follow_redirects=True,
             headers={"User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"},
         ) as client:
-            response = await client.get(website_url)
-            response.raise_for_status()
-            if "text/html" not in response.headers.get("content-type", "").casefold():
-                return None
-            source_url = str(response.url)
-            original_host = (
-                (urlparse(website_url).hostname or "").casefold().removeprefix("www.")
-            )
-            final_host = (
-                (urlparse(source_url).hostname or "").casefold().removeprefix("www.")
-            )
-            if _blocked_logo_host(final_host) or final_host != original_host:
-                return None
-            asset = extract_logo_asset(response.text, source_url)
-            if asset:
-                asset_url, asset_type = asset
-                return asset_url, source_url, asset_type
-
-            favicon_url = _same_site_icon("/favicon.ico", source_url)
-            if favicon_url:
+            for page_url in candidates:
                 try:
+                    _validate_public_host(page_url)
+                    response = await client.get(page_url)
+                    response.raise_for_status()
+                    if "text/html" not in response.headers.get("content-type", "").casefold():
+                        continue
+                    source_url = str(response.url)
+                    original_host = (
+                        (urlparse(page_url).hostname or "").casefold().removeprefix("www.")
+                    )
+                    final_host = (
+                        (urlparse(source_url).hostname or "").casefold().removeprefix("www.")
+                    )
+                    if _blocked_logo_host(final_host) or final_host != original_host:
+                        continue
+                    asset = extract_logo_asset(response.text, source_url)
+                    if asset:
+                        asset_url, asset_type = asset
+                        return asset_url, source_url, asset_type
+
+                    favicon_url = _same_site_icon("/favicon.ico", source_url)
+                    if not favicon_url:
+                        continue
                     favicon_response = await client.get(favicon_url)
                     favicon_response.raise_for_status()
                     if (
@@ -216,8 +229,8 @@ async def discover_employer_logo(
                         .startswith("image/")
                     ):
                         return favicon_url, source_url, "official_favicon"
-                except httpx.HTTPError:
-                    pass
+                except (httpx.HTTPError, OSError, ValueError):
+                    continue
     except (httpx.HTTPError, OSError, ValueError):
         return None
     return None
