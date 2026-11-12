@@ -23,7 +23,7 @@ def test_workday_discovery_returns_shared_source_contract(monkeypatch) -> None:
     assert payload["adapter_config"] == {
         "host_prefix": "myhcm.wd3",
         "tenant": "myhcm",
-        "site": "digioutsource",
+        "site": "digioutsource", "locale": "en-US",
     }
     assert payload["complete"] is True
     assert payload["total_vacancies"] == 3
