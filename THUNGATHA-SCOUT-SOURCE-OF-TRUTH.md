@@ -357,7 +357,7 @@ This decision supersedes all earlier statements in this document requiring emplo
 - Keep source inspection/preview and extraction history as operational tools; they are not approval workflows.
 - Keep adapter-specific retrieval inside adapters and shared ingestion, location filtering, deduplication, and export behavior in shared services.
 
-## Decision record — South African employer coverage and careers crawling (11 November 2026)
+## Superseded decision record — South African employer coverage and Scrapy crawling (11 November 2026; crawler choice superseded 12 November 2026)
 
 The previous international-first ATS expansion order is superseded. Platform and adapter priorities must be based on verified unique South African direct-employer coverage, vacancy relevance, reliable public retrieval, completeness and maintenance cost.
 
