@@ -18,5 +18,5 @@ def create_source_adapter_factories() -> dict[str, Callable[[], ATSAdapter]]:
         "greenhouse": GreenhouseSourceAdapter,
         "lever": LeverSourceAdapter,
         "teamtailor": TeamtailorSourceAdapter,
-        "workable": WorkableSourceAdapter,
+        "workable": WorkableSourceAdapter,\n        "workday": WorkdaySourceAdapter,
     }
