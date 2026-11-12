@@ -91,3 +91,18 @@ def test_extractor_classifies_page_local_icon_and_discovery_controls_allowed_roo
         "https://careers.example.com/favicon.ico",
         "official_favicon",
     )
+
+
+def test_careers_page_icon_can_be_extracted_from_employer_owned_domain() -> None:
+    html = '<link rel="icon" href="/brand/favicon.svg">'
+    assert extract_logo_asset(html, "https://careers.example.com/jobs") == (
+        "https://careers.example.com/brand/favicon.svg",
+        "official_favicon",
+    )
+
+
+def test_workable_host_is_not_accepted_as_employer_branding_root() -> None:
+    from scout.branding.logo_discovery import _blocked_logo_host
+
+    assert _blocked_logo_host("apply.workable.com")
+    assert _blocked_logo_host("www.workable.com")
