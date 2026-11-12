@@ -3,7 +3,9 @@ from typing import Any
 
 import httpx
 
-from scout.ats_adapters.workday_adapter.workday_config import (\n    MAX_LIST_BYTES, PAGE_SIZE, RESULT_CAP, workday_cxs_base_url,\n)
+from scout.ats_adapters.workday_adapter.workday_config import (
+    MAX_LIST_BYTES, PAGE_SIZE, RESULT_CAP, workday_cxs_base_url,
+)
 from scout.ats_adapters.workday_adapter.workday_contracts import WorkdayListResult
 from scout.ats_adapters.workday_adapter.workday_response_mapper import (
     map_list_response,
