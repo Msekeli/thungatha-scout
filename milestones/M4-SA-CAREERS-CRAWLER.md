@@ -9,7 +9,7 @@
 
 Improve verified South African employer coverage through bounded discovery of official careers pages, evidence-based ATS fingerprinting and reusable generic extraction. Preserve the existing ATS adapter contract and shared Scout ingestion pipeline.
 
-This milestone does not approve a new employer/source, bypass source restrictions, deploy a hosted crawler, or provision paid infrastructure.
+This milestone does not approve a new employer/source or bypass source restrictions. The user has approved the GitHub Student Developer Pack's Zyte Scrapy Cloud unit for the crawler worker only; deployment is gated by M4-SA-E and must not incur paid charges.
 
 ## Required reading
 
@@ -43,6 +43,23 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 9. Run focused tests and mandatory repository line-limit/naming checks.
 
 **Acceptance:** local bounded crawler works; provenance and completeness are recorded; known ATS routing is tested; generic page observations enter the shared pipeline; failures are explicit and safe. Live employer smoke tests are recorded separately.
+
+### M4-SA-E — Zyte Scrapy Cloud worker packaging and deployment
+
+**Status:** Approved target; blocked until M4-SA-A produces a working local worker.
+
+1. Add the minimal Scrapy project metadata required by Zyte Cloud and declare a standalone Python worker entry script in `setup.py`. Do not implement crawler behavior in Scrapy.
+2. Keep Crawlee and the existing Scout services/persistence as the runtime and business-logic owners. The Zyte wrapper only starts the existing worker.
+3. Confirm the supported Zyte stack can install the pinned Crawlee/Playwright dependencies. Use Playwright only if the one-unit runtime and memory budget support the required browser fallback; otherwise keep browser fallback disabled in cloud jobs until measured.
+4. Configure the Scrapy Cloud project ID and deployment credentials outside source control. Use the Scrapy Cloud API key for `shub`, not a Zyte API key. Keep Scout database and AI provider credentials in protected job/project environment settings; never commit them.
+5. Deploy to the existing user-created Zyte project and run one manually triggered, bounded smoke job. Confirm the worker reaches the existing Scout ingestion services and writes only to the Scout database.
+6. Verify one-hour hard timeout, non-overlap, single-unit memory constraints, graceful shutdown, sanitized logs, explicit success/partial/failed outcomes and recovery behavior.
+7. Configure the approved 06:00 and 18:00 `Africa/Johannesburg` schedule only after the manual job and user review pass. Ensure failed/partial runs cannot expire vacancies.
+8. Record actual deployment/job IDs, runtime, resource use and acceptance evidence. Do not claim cloud deployment until a real job completes successfully.
+
+**Acceptance:** a deployed Crawlee worker runs as a standalone Python script in Zyte Scrapy Cloud without porting crawling to Scrapy; persists through the existing Scout pipeline; respects all source and execution limits; and has an accepted manual smoke run before recurring scheduling.
+
+**Cost boundary:** use only the user's GitHub Student Developer Pack free unit. No paid units, upgrades, Zyte API usage or other paid infrastructure are approved.
 
 ### AI-ENRICHMENT-A — Gemini/Groq provider foundation
 
@@ -95,4 +112,4 @@ Copy any missing variables from `.env.example` into the ignored local `.env`. Co
 - Record exact commands, results, source evidence, limitations and commits.
 - Do not claim adapter support without representative live validation.
 - Do not mark a checkpoint Accepted without explicit user review.
-- No Apify hosting, paid AI plan, scheduled cloud workload, production deployment or new database is approved.
+- No Apify hosting, paid AI plan, Zyte paid upgrade/API usage, production deployment or new database is approved. Zyte Scrapy Cloud's included student unit is approved for a manually verified worker deployment; recurring scheduling remains gated by M4-SA-E acceptance.
