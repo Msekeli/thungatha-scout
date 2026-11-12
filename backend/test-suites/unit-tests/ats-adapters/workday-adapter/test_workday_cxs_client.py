@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 import httpx
 
@@ -13,7 +14,7 @@ def test_posts_twenty_and_paginates_until_total() -> None:
     offsets = []
 
     def handler(request: httpx.Request) -> httpx.Response:
-        body = __import__("json").loads(request.content)
+        body = json.loads(request.content)
         offsets.append(body["offset"])
         assert body["limit"] == 20
         count = 20 if body["offset"] == 0 else 1
@@ -33,7 +34,7 @@ def test_posts_twenty_and_paginates_until_total() -> None:
 
 def test_reports_result_cap_as_partial() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
-        body = __import__("json").loads(request.content)
+        body = json.loads(request.content)
         jobs = [{"externalPath": f"/job/{i}"} for i in
                 range(body["offset"], body["offset"] + 20)]
         return httpx.Response(200, json={"total": 2001, "jobPostings": jobs})
