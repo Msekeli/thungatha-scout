@@ -20,7 +20,7 @@ class FakeConnection:
     def execute(self, query, params=()):
         if "SELECT id, website_url FROM employers" in query:
             row = next(
-                (item for item in self.employers if item["name"] == params[0]), None
+                (item for item in self.employers if item["name"].strip().casefold() == params[0].strip().casefold()), None
             )
             return FakeResult(row)
         if "UPDATE employers SET website_url" in query:
