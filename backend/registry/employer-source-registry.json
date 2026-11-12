@@ -11,6 +11,25 @@
   },
   "employers": [
     {
+      "employer_id": "digioutsource",
+      "name": "DigiOutsource",
+      "organization_classification": "direct_employer",
+      "careers_url": "https://supergroup.com/careers/search-jobs/digioutsource-careers/",
+      "sources": [
+        {
+          "source_id": "digioutsource_workday",
+          "ats": "workday",
+          "config": {
+            "host_prefix": "myhcm.wd3",
+            "tenant": "myhcm",
+            "site": "digioutsource"
+          },
+          "official_source_url": "https://myhcm.wd3.myworkdayjobs.com/digioutsource",
+          "notes": "The official Super Group DigiOutsource careers page links to this Workday board. Live CXS listing/detail smoke test is included but remains to be executed; technical support is not claimed until that evidence is recorded."
+        }
+      ]
+    },
+    {
       "employer_id": "takealot_group",
       "name": "Takealot Group",
       "organization_classification": "direct_employer",
