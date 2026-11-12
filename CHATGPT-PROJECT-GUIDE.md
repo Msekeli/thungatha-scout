@@ -6,7 +6,7 @@ Use this document as the operating brief for ChatGPT conversations and implement
 
 Build Thungatha Scout as an unattended employer-sourced vacancy ingestion and publishing system. The administrator's main routine action is to paste official employer careers/ATS URLs, confirm employer identity and source relationship, and activate sources. Scout should then run without routine vacancy-by-vacancy approval.
 
-V1 scope: Cape Town initial vacancy relevance; ATS adapter target catalogue is Greenhouse, Workday, Lever, Breezy HR and Ashby; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. Greenhouse is the reference flow already exercised through Thungatha publication. No public job-search frontend and no recruiter self-service.
+V1 scope: Cape Town initial vacancy relevance; Greenhouse reference adapter; existing Lever and Teamtailor work preserved; next adapter sequence is Workable then Workday, followed by employer-specific SuccessFactors investigation; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. Greenhouse is the reference flow already exercised through Thungatha publication. No public job-search frontend and no recruiter self-service.
 
 ## Current decisions — do not silently change
 
@@ -19,7 +19,7 @@ V1 scope: Cape Town initial vacancy relevance; ATS adapter target catalogue is G
 - Thungatha destination: the existing Thungatha Supabase PostgreSQL project.
 - Do not use MongoDB or Azure Table Storage in the current v1 architecture.
 - Do not put Scout's raw/uncleaned/exception/history data in Thungatha. Publish only clean records passing the deterministic gates.
-- Implement all ATS providers already recorded in `backend/registry/ats-adapter-registry.json`: Greenhouse, Workday, Lever, Breezy HR and Ashby. Do not silently add providers beyond this catalogue; update scope and registry when new providers are approved.
+- Follow the active ATS sequence in the source of truth and `IMPLEMENTATION-PLAN.md`: Workable first, Workday second, then investigate SuccessFactors employer by employer. Existing Greenhouse, Lever and Teamtailor work must be preserved. Do not silently add providers beyond the approved registry.
 - `placement_partner` is a separate recruitment/staffing pipeline, not a direct-employer ATS adapter.
 - The Azure for Students credit is exhausted. Never assume Azure hosting/storage is free. Do not upgrade subscriptions or provision paid Azure resources without explicit user approval and a cost estimate.
 - Supabase Free is suitable only for development/low-volume evaluation until inactivity pausing, backups, capacity and production reliability are addressed.
@@ -66,7 +66,7 @@ Avoid retaining full HTML snapshots by default. Use bounded retention for any ra
 1. Confirm the separate Scout Supabase project and inspect Thungatha's existing publishing schema.
 2. Define Scout's PostgreSQL schema and explicit Thungatha publishing contract.
 3. Implement the Python backend foundation and persistence.
-4. Keep Greenhouse as the proven reference adapter; expand support to Workday, Lever, Breezy HR and Ashby through the shared adapter contract. Revisit stored companies/sources using their configured adapters.
+4. Keep Greenhouse as the proven reference adapter. Implement Workable, then Workday, through the shared adapter contract. Investigate SuccessFactors with Crawlee per employer; generalise only if a common public retrieval pattern is proven.
 5. Build the React admin against the backend API.
 6. Implement deterministic quality gates and exception review.
 7. Add unattended scheduling, idempotent publishing, deployment and recovery.
@@ -79,4 +79,4 @@ Use **Crawlee for Python** for bounded employer careers-page discovery, platform
 
 Gemini and Groq are replaceable AI providers behind one small interface. Deterministic extraction runs first; AI is selective for difficult description structuring and ambiguous extraction/classification. Configure primary/fallback rather than calling both on every record. Cache by content hash and prompt/schema version; bound input, tokens, latency and retries; validate structured responses. AI cannot invent evidence, approve sources, override quality gates or publish. AI and crawler remain disabled until local configuration and smoke tests are complete.
 
-Backend optional groups: `crawler` (Crawlee + Playwright integration), `ai` (Google GenAI + Groq SDK), and `dev`. From `backend/`, install with `python -m pip install -e ".[dev,crawler,ai]"`. Configure credentials only in ignored `.env`; never commit secrets. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and `milestones/M4-SA-CAREERS-CRAWLER.md` for the architecture and execution plan. Hosting, Apify, paid usage and recurring cloud workloads remain unapproved.
+Backend optional groups: `crawler` (Crawlee + Playwright integration), `ai` (Google GenAI + Groq SDK), and `dev`. From `backend/`, install with `python -m pip install -e ".[dev,crawler,ai]"`. Configure credentials only in ignored `.env`; never commit secrets. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and `milestones/M4-SA-CAREERS-CRAWLER.md` for the architecture and execution plan. Zyte Scrapy Cloud is approved only as the target crawler-worker host using the included one-free-unit student benefit; actual production deployment and recurring schedules remain gated by local worker acceptance and a manual cloud smoke test. No paid usage or upgrades are approved.
