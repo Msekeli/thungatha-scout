@@ -371,7 +371,6 @@ The previous international-first ATS expansion order is superseded. Platform and
 - Preserve employer-first source verification, access restrictions, robots/terms, bounded concurrency, failure/completeness semantics and the current South African vacancy export rule.
 - The detailed implementation is in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`; the active M4 roadmap is M4-SA in `IMPLEMENTATION-PLAN.md`.
 
-
 ## Decision record — Crawlee and dual-provider AI architecture (12 November 2026)
 
 The 11 November Scrapy decision is superseded by this explicit user-approved decision. Use **Crawlee for Python** as the careers-page crawling framework. This is a framework choice, not approval to use Apify-hosted infrastructure or any paid service.

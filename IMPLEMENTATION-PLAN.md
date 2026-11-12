@@ -217,7 +217,6 @@ Continue M4 with **M4-TEAMTAILOR-A**. Ashby remains deferred pending its partner
 
 The former international-first M4 adapter sequence is superseded by M4-SA. The objective is to maximise verified unique South African direct-employer coverage, not the number of ATS integrations. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` for crawler responsibilities, platform candidates, employer leads, evidence scorecard and acceptance criteria. Existing Greenhouse, Lever and Teamtailor work is preserved. No adapter is removed by this decision.
 
-
 ## Crawlee and AI architecture update — 12 November 2026
 
 The user approved replacing the 11 November Scrapy proposal with Crawlee for Python. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and the 12 November decision record in the source of truth.

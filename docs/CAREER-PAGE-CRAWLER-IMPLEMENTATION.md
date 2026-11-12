@@ -63,15 +63,19 @@ Existing ATS adapter   Generic public parser
 ## 5. Crawl stages and evidence
 
 ### Seed and scope
+
 Seeds come from configured employer careers URLs, administrator input or the approved discovery workflow. Employer identity and source identity remain separate. Restrict crawling to relevant same-site careers paths and explicitly linked recruitment destinations.
 
 ### Bounded retrieval
+
 Configure maximum concurrency, requests per run, link depth, per-request timeout and maximum response bytes. Respect robots.txt, terms, access controls and rate limits. Do not bypass authentication, CAPTCHAs, blocks or technical restrictions. Apply bounded retries and backoff; classify failures rather than hiding them.
 
 ### Source fingerprint
+
 Record requested/final/canonical URLs, status, content type, retrieval time, page title, platform clues, structured JobPosting data, careers/job links, observed public feed/API patterns, robots outcome and completeness. Preserve evidence references and confidence; a hostname or script match alone is not proof of employer ownership or source permission.
 
 ### Extraction routing
+
 - Known configured ATS: existing adapter only; never scrape the same board again through the generic parser.
 - Stable, public, permitted feed/API without an existing adapter: investigate a focused adapter using the shared contract.
 - Public non-standard HTML/JSON page: generic parser and shared vacancy contract.
@@ -79,6 +83,7 @@ Record requested/final/canonical URLs, status, content type, retrieval time, pag
 - Login wall, CAPTCHA, prohibited or unclear access: stop and record blocked/unsupported.
 
 ### Persistence and lifecycle
+
 Crawl observations and vacancies flow through Scout's existing services and PostgreSQL repositories. Preserve source provenance, stable source-scoped identity and exact application destinations. Partial/failed crawls never imply vacancy removal or expiry. Do not retain full HTML snapshots by default; keep only bounded evidence required for diagnostics.
 
 ## 6. AI enrichment boundary
