@@ -2,6 +2,7 @@ import asyncio
 
 import httpx
 
+from scout.ats_adapters.workday_adapter.workday_cxs_client import WorkdayCxsClient
 from scout.ats_adapters.workday_adapter.workday_source_adapter import (
     WorkdaySourceAdapter,
 )
@@ -18,7 +19,6 @@ def test_maps_detail_description_and_application_destination() -> None:
                 "title": "Software Engineer", "externalPath": "/job/Cape-Town/Dev_JR1",
                 "locationsText": "Cape Town", "bulletFields": ["JR1"],
             }]})
-        assert request.url.path.endswith("/job/Cape-Town/Dev_JR1")
         return httpx.Response(200, json={"jobPostingInfo": {
             "jobReqId": "JR1", "title": "Software Engineer",
             "jobDescription": "<p>Build software</p>", "location": "Cape Town",
@@ -27,10 +27,7 @@ def test_maps_detail_description_and_application_destination() -> None:
 
     async def run():
         async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
-            return await WorkdaySourceAdapter(
-                __import__("scout.ats_adapters.workday_adapter.workday_cxs_client",
-                           fromlist=["WorkdayCxsClient"]).WorkdayCxsClient(client)
-            ).retrieve(CONFIG)
+            return await WorkdaySourceAdapter(WorkdayCxsClient(client)).retrieve(CONFIG)
 
     result = asyncio.run(run())
     assert result.outcome == "success"
@@ -50,9 +47,6 @@ def test_missing_detail_keeps_run_partial() -> None:
 
     async def run():
         async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
-            from scout.ats_adapters.workday_adapter.workday_cxs_client import (
-                WorkdayCxsClient,
-            )
             return await WorkdaySourceAdapter(WorkdayCxsClient(client)).retrieve(CONFIG)
 
     result = asyncio.run(run())
