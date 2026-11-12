@@ -18,7 +18,7 @@ The ranking below estimates implementation effort for one reusable adapter after
 |    3 | Teamtailor         | RSS/XML at `/jobs.rss`                                   | Public, documented                                          | Easy                      | Implement early                                  |
 |    4 | Personio           | XML feed at `/xml?language=en`                           | Public, documented, employer must enable                    | Easy                      | Add to the scope                                 |
 |    5 | Recruitee          | Public XML offer feed                                    | Public feed; Careers Site API requires token                | Easy–moderate             | Implement XML, not token API                     |
-|    6 | Workable           | Public careers widget JSON endpoint                      | Observed public, undocumented                               | Easy–moderate             | Validate then implement                          |
+|    6 | Workable           | Public careers JSON endpoint (`/api/accounts/{slug}`)    | Officially documented public endpoint; no auth              | Easy                      | Implement first; validate live boards              |
 |    7 | Greenhouse         | Public JSON Job Board API                                | Unauthenticated, documented                                 | Easy; already implemented | Preserve as reference                            |
 |    8 | SmartRecruiters    | Public Posting API                                       | Officially public; listing/detail calls                     | Moderate                  | Implement after a live endpoint test             |
 |    9 | BambooHR           | Public careers list + per-job detail endpoints           | Observed public, undocumented                               | Moderate                  | Implement after employer-board validation        |
@@ -176,19 +176,22 @@ Primary sources:
 - https://docs.recruitee.com/docs/feed
 - https://docs.recruitee.com/reference/authentication-1
 
-### 6. Workable — easy–moderate, undocumented public widget
+### 6. Workable — easy, documented public careers endpoint
 
-Observed public endpoint:
-`GET https://apply.workable.com/api/v1/widget/accounts/{slug}?details=true`
+Official public endpoint:
+`GET https://www.workable.com/api/accounts/{slug}?details=true`
 
-Independent live research reports that the widget returns employer name, job list, descriptions, locations and apply URLs without a key. This is distinct from Workable's documented customer API at `/spi/v3/jobs`, which requires an employer-generated API token and `r_jobs` scope.
+Workable's API reference documents this endpoint as returning public jobs for an account without describing a customer API token requirement. `details=true` includes descriptions. The documented job fields include `shortcode`, `title`, `city`, `state`, `country`, `department`, `telecommuting`, `published_on`, `url` (application form), `application_url` (job page), `shortlink`, `created_at` and `employment_type`. The public endpoint may redirect to the `apply.workable.com/api/v1/widget/accounts/{slug}` route; follow redirects with a strict bound.
 
-Implementation notes: the widget endpoint is not the same as the authenticated customer API and should be labelled observed/undocumented. Verify against actual employer boards, test throttling and redirects, and avoid aggressive probing.
+This is distinct from the authenticated customer SPI API at `/spi/v3/jobs`, which requires an employer-generated token and `r_jobs` scope. Keep the public endpoint as the primary retrieval contract and treat any redirect destination as transport behavior, not a second API implementation.
+
+Implementation notes: validate the documented field mapping against LekkeSlaap, Electrum and GoTyme Bank. Use `url` as the normalized application-form destination and retain `application_url`/`shortlink` as job-page provenance in the raw payload. Verify board completeness, rate limits, redirects and malformed/empty outcomes. Do not assume the public route has unlimited request capacity.
 
 Sources:
 
-- https://hwangbyeongseon.github.io/ats-job-feed-recipes/workable-api.html
+- https://workable.readme.io/reference/jobs-1
 - https://help.workable.com/hc/en-us/articles/115012771647-Using-the-Workable-API
+- https://adderleydata.com/guides/workable-job-board-api/
 
 ### 7. Greenhouse — existing reference
 
@@ -465,3 +468,8 @@ The user-approved execution sequence supersedes the earlier ranked order for the
 For SuccessFactors, record a retrieval profile per employer. Generalise into one reusable adapter only if multiple employers share a stable, permitted retrieval pattern. If their career sites differ materially, keep the generic Crawlee retrieval path with explicit employer-specific configuration rather than creating a bespoke adapter per company. Do not build on the retiring legacy RSS/XML response, and do not bypass authentication, CAPTCHAs, robots/terms restrictions or anti-bot controls.
 
 All three platforms must use the existing adapter contract where applicable and the shared Scout ingestion/persistence/quality/lifecycle pipeline. Platform identification, public technical access, employer relationship, source permission, vacancy completeness and production readiness remain separate verification claims.
+
+
+## Workable endpoint clarification — 12 November 2026
+
+The official Workable API reference documents `GET https://www.workable.com/api/accounts/{subdomain}?details=true` as a public account-jobs endpoint and documents the vacancy fields and application/job-page URL distinction. Use this documented route as the adapter's primary URL. It may redirect to the `apply.workable.com/api/v1/widget/accounts/{slug}` widget route; follow redirects with a strict maximum. The authenticated `/spi/v3/jobs` customer API is a separate interface and is not part of Scout's public retrieval strategy. Source: https://workable.readme.io/reference/jobs-1
