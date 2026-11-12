@@ -60,7 +60,9 @@ export function useEmployerOnboardingController(state: AppState, jobs: Jobs) {
     event.preventDefault();
     const source = resolveCareersSource(state.sourceUrl, state.form.name);
     if (!source) {
-      state.setError("Use a supported Greenhouse, Lever or Teamtailor careers-board URL.");
+      state.setError(
+        "Use a supported Greenhouse, Lever, Teamtailor or Workable careers-board URL.",
+      );
       return;
     }
     await registration.register(event, source);
