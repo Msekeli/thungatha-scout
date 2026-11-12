@@ -16,11 +16,12 @@ V1 adapter target is the registry catalogue: Greenhouse, Workday, Lever, Breezy 
 | Component            | Technology                                                              | Hosting                          |
 | -------------------- | ----------------------------------------------------------------------- | -------------------------------- |
 | Admin UI             | React, TypeScript, Vite, Tailwind CSS v3                                | Hosting provider pending         |
-| Backend              | FastAPI (Python); separately executable scheduled/background processing | Provider decision pending        |
+| Backend API          | FastAPI (Python)                                                        | Hosting provider pending         |
+| Crawler worker       | Crawlee for Python; standalone scheduled script                        | Zyte Scrapy Cloud (student unit) |
 | Operational database | PostgreSQL via Supabase                                                 | Dedicated Scout Supabase project |
 | Public destination   | Existing Thungatha Supabase/PostgreSQL                                  | Existing Thungatha project       |
 
-Do not share Scout's operational schema/database with Thungatha. Do not use MongoDB or Azure Table Storage in the v1 architecture. Hosting remains deferred until local implementation and workload verification are complete.
+Zyte Scrapy Cloud is approved for the crawler worker only under the user's GitHub Student Developer Pack entitlement. Keep Crawlee as the crawler framework. Scrapy Cloud requires a Scrapy-compatible project package for standalone Python scripts; Scrapy is only the deployment wrapper, not a replacement crawler. The worker must call existing Scout services and persist to the Scout database. API and frontend hosting remain undecided. Do not share Scout's operational schema/database with Thungatha or use MongoDB/Azure Table Storage in v1.
 
 The backend owns business rules and all privileged database writes. The React client uses Supabase Auth and calls protected backend endpoints. V1 permits only the administrator's explicitly configured email address; public registration is disabled. The backend independently validates Supabase access tokens and checks the authenticated email against a server-side allowlist on every protected operation. Frontend route guards are not a security boundary. The browser may contain only the Supabase URL and publishable/anon key, never a service-role key. Keep the allowlisted email in environment configuration, not source code. Use separate credentials for Scout and Thungatha.
 
