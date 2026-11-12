@@ -55,15 +55,21 @@ async def scan_workday_listing(
             res.reported_total = page.total
         for job in page.postings:
             path = job.get("externalPath")
-            if isinstance(path, str):
-                if path in res.unique_paths:
-                    res.duplicates += 1
-                else:
-                    res.unique_paths.add(path)
+            if not isinstance(path, str) or not path:
+                res.errors.append(f"Posting at offset {offset} has no externalPath.")
+                continue
+            if path in res.unique_paths:
+                res.duplicates += 1
+                continue
+            res.unique_paths.add(path)
             res.postings.append(job)
         if len(page.postings) < PAGE_SIZE:
             break
         offset += PAGE_SIZE
     res.cap_reached = res.reported_total > RESULT_CAP
-    res.complete = (len(res.postings) == res.reported_total) and not res.errors
+    res.complete = (
+        len(res.unique_paths) == res.reported_total
+        and not res.errors
+        and not res.cap_reached
+    )
     return res
