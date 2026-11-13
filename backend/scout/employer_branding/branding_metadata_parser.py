@@ -7,6 +7,8 @@ class BrandingMetadataParser(HTMLParser):
         self.meta: dict[str, list[str]] = {}
         self.icons: list[str] = []
         self.json_scripts: list[str] = []
+        self.image_candidates: list[tuple[str, str]] = []
+        self.branding_pages: list[str] = []
         self._active_script: int | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
@@ -21,12 +23,34 @@ class BrandingMetadataParser(HTMLParser):
             href = values.get("href")
             if href and rel.intersection({"icon", "apple-touch-icon"}):
                 self.icons.append(href)
-        if (
-            tag == "script"
-            and (values.get("type") or "").casefold() == "application/ld+json"
+        if tag in {"img", "source"}:
+            self._collect_image(values, tag)
+        if tag == "a":
+            href = values.get("href")
+            label = " ".join((values.get("aria-label") or "", values.get("title") or ""))
+            if href and any(word in (href + " " + label).casefold()
+                            for word in ("about", "company", "who-we-are")):
+                self.branding_pages.append(href)
+        if tag == "script" and (
+            (values.get("type") or "").casefold() == "application/ld+json"
         ):
             self.json_scripts.append("")
             self._active_script = len(self.json_scripts) - 1
+
+    def _collect_image(self, values: dict[str, str | None], tag: str) -> None:
+        keys = ("src", "data-src", "data-lazy-src", "data-original")
+        sources = [values.get(key) for key in keys]
+        srcset = values.get("srcset") or values.get("data-srcset")
+        if srcset:
+            sources.extend(item.strip().split()[0] for item in srcset.split(",") if item.strip())
+        hint = " ".join(str(values.get(key) or "") for key in (
+            "alt", "title", "class", "id", "itemprop", "aria-label"
+        ))
+        if tag == "source":
+            hint += " picture-source"
+        for source in sources:
+            if source:
+                self.image_candidates.append((source.strip(), hint.casefold()))
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "script":
