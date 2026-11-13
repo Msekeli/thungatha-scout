@@ -43,9 +43,22 @@ def _valid_public_https_url(value: str | None) -> bool:
         return False
 
 
+def _is_trusted_ats_logo_path(value: str) -> bool:
+    parsed = urlparse(value)
+    host = (parsed.hostname or "").casefold().rstrip(".")
+    path = parsed.path.rstrip("/")
+    if host.endswith(".myworkdayjobs.com"):
+        return path.endswith("/assets/logo")
+    return host == "recruiting.cdn.greenhouse.io" and (
+        "/external_greenhouse_job_boards/logos/" in path
+    )
+
+
 def is_usable_employer_logo_url(value: str | None) -> bool:
     if not _valid_public_https_url(value):
         return False
+    if _is_trusted_ats_logo_path(value or ""):
+        return True
     host = (urlparse(value).hostname or "").casefold().rstrip(".")
     blocked = host in BLOCKED_HOSTS or any(
         host.endswith(suffix)
@@ -80,14 +93,14 @@ def validate_public_logo_url(value: str) -> None:
 
 def is_valid_image_payload(content: bytes, content_type: str) -> bool:
     signatures = (
-        b"\x89PNG\r\n\x1a\n",
-        b"\xff\xd8\xff",
+        b"\\x89PNG\\r\\n\\x1a\\n",
+        b"\\xff\\xd8\\xff",
         b"GIF87a",
         b"GIF89a",
         b"BM",
-        b"II*\x00",
-        b"MM\x00*",
-        b"\x00\x00\x01\x00",
+        b"II*\\x00",
+        b"MM\\x00*",
+        b"\\x00\\x00\\x01\\x00",
     )
     if any(content.startswith(signature) for signature in signatures):
         return True
