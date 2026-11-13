@@ -24,6 +24,23 @@ export type Employer = {
 
 export type SourceDiscoveryPreview = {
   total_vacancies: number;
+  crawl_complete?: boolean;
+  pages_observed?: number;
+  vacancies_found?: number;
+  failed_urls?: string[];
+  skipped_urls?: string[];
+  pages?: {
+    requested_url: string;
+    final_url: string;
+    status_code: number;
+    content_type: string | null;
+    page_title: string | null;
+    platform_key: string | null;
+    outcome: string;
+    discovered_links: string[];
+    vacancies_found: number;
+    observed_at: string;
+  }[];
   jobs: {
     id: string | number;
     title: string;
