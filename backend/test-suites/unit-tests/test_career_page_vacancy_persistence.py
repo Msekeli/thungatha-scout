@@ -22,6 +22,7 @@ def _factory():
     @contextmanager
     def open_connection():
         yield _Connection()
+
     return open_connection
 
 
@@ -34,8 +35,12 @@ def _result(complete, failed=(), location="Cape Town"):
     )
     page = SimpleNamespace(outcome="success", vacancies=(vacancy,))
     return SimpleNamespace(
-        observations=(page,), complete=complete, failed_urls=failed,
-        skipped_urls=(), vacancies=(vacancy,), detail=None,
+        observations=(page,),
+        complete=complete,
+        failed_urls=failed,
+        skipped_urls=(),
+        vacancies=(vacancy,),
+        detail=None,
     )
 
 
@@ -61,8 +66,11 @@ def test_partial_crawl_persists_found_jobs_without_marking_complete(monkeypatch)
     monkeypatch.setattr(vacancies, "ExtractionRunRepository", RunStore)
     result = _result(False, failed=("https://employer.example/jobs",))
     outcome = vacancies.persist_crawl_vacancies(
-        _factory(), {"employer_id": uuid4(), "source_url": "https://employer.example/careers"},
-        uuid4(), uuid4(), result,
+        _factory(),
+        {"employer_id": uuid4(), "source_url": "https://employer.example/careers"},
+        uuid4(),
+        uuid4(),
+        result,
     )
     assert len(captured["upserted"]) == 1
     assert outcome == {"outcome": "partial", "complete": False}
@@ -86,7 +94,10 @@ def test_unlocated_vacancy_is_withheld_and_run_stays_partial(monkeypatch):
     monkeypatch.setattr(vacancies, "VacancyRepository", VacancyStore)
     monkeypatch.setattr(vacancies, "ExtractionRunRepository", RunStore)
     outcome = vacancies.persist_crawl_vacancies(
-        _factory(), {"employer_id": uuid4(), "source_url": "https://employer.example/careers"},
-        uuid4(), uuid4(), _result(True, location=None),
+        _factory(),
+        {"employer_id": uuid4(), "source_url": "https://employer.example/careers"},
+        uuid4(),
+        uuid4(),
+        _result(True, location=None),
     )
     assert outcome == {"outcome": "partial", "complete": False}

@@ -23,6 +23,7 @@ def _factory():
     @contextmanager
     def open_connection():
         yield _Connection()
+
     return open_connection
 
 
@@ -50,8 +51,11 @@ def test_preview_retains_completeness_and_page_evidence(monkeypatch):
         vacancies=(),
     )
     result = SimpleNamespace(
-        observations=(page,), complete=False, failed_urls=(),
-        skipped_urls=("https://employer.example/jobs",), vacancies=(),
+        observations=(page,),
+        complete=False,
+        failed_urls=(),
+        skipped_urls=("https://employer.example/jobs",),
+        vacancies=(),
     )
     monkeypatch.setattr(observations, "EmployerSourceRepository", Repository)
     observations.persist_crawl_observations(_factory(), uuid4(), result)
