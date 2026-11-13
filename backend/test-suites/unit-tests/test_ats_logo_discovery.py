@@ -36,7 +36,7 @@ def test_discovers_employer_logo_from_greenhouse_board_metadata(monkeypatch) -> 
         return httpx.Response(
             200,
             headers={"content-type": "image/svg+xml"},
-            content=b'<svg xmlns="http://www.w3.org/2000/svg"></svg>',
+            content=b'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"></svg>',
         )
 
     mock_http(monkeypatch, handler)
