@@ -29,10 +29,10 @@ def same_employer_host(first: str, second: str) -> bool:
     return root_domain(httpx.URL(first).host) == root_domain(httpx.URL(second).host)
 
 
-def registered_redirect(page_url: str, final_url: str, allowed_hosts: list[str]) -> bool:
+def registered_redirect(\n    page_url: str, final_url: str, allowed_hosts: list[str]\n) -> bool:
     final_host = httpx.URL(final_url).host.casefold()
     if is_ats_careers_host(final_url):
-        return any(httpx.URL(host).host.casefold() == final_host for host in allowed_hosts)
+        return any(\n            httpx.URL(host).host.casefold() == final_host for host in allowed_hosts\n        )
     final_root = root_domain(final_host)
     return any(root_domain(host) == final_root for host in allowed_hosts)
 
@@ -66,7 +66,7 @@ async def ai_accepts_image(image, employer_name, diagnostics):
     if not settings.ai_enabled or image.content_type == "image/svg+xml":
         return True
     try:
-        result = await assess_logo_image(image.content, image.content_type, employer_name)
+        result = await assess_logo_image(\n            image.content, image.content_type, employer_name\n        )
     except LogoAIUnavailable:
         diagnostics.append("AI_VERIFICATION_UNAVAILABLE")
         return False
