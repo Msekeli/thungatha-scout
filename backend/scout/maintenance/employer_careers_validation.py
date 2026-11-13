@@ -20,6 +20,7 @@ def careers_page_matches_employer(name: str, careers_url: str | None) -> bool:
         return any(
             compact_name in re.sub(r"[^a-z0-9]", "", value.casefold())
             or re.sub(r"[^a-z0-9]", "", value.casefold()) in compact_name
-            for value in identifiers if len(value) >= 4
+            for value in identifiers
+            if len(value) >= 4
         )
     return False
