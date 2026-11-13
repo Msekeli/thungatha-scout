@@ -25,13 +25,8 @@ export function AppShellHeader({
 }: AppShellHeaderProps) {
   const heading = pageHeading[activePage];
 
-  const navigationButtonClass = (isActive: boolean) =>
-    isActive
-      ? "bg-white text-scout-navy hover:bg-white/90 hover:text-scout-navy"
-      : "text-white/80 hover:bg-white/10 hover:text-white";
-
   return (
-    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-[#070d18] via-[#10152b] to-[#17122b] border-b border-cyan-400/20 px-4 py-[14px] text-white shadow-md md:-mx-8 md:px-8">
+    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 border-b border-border bg-card px-4 py-3 text-card-foreground shadow-sm md:-mx-8 md:px-8">
       <div className="flex min-w-0 items-center">
         <img
           src="/branding/logo.svg"
@@ -41,10 +36,10 @@ export function AppShellHeader({
       </div>
 
       <div className="flex-1 text-center">
-        <p className="text-[9px] font-bold uppercase tracking-[.2em] text-scout-cyan">
+        <p className="text-[9px] font-bold uppercase tracking-[.2em] text-muted-foreground">
           {heading.eyebrow}
         </p>
-        <h2 className="text-lg font-bold tracking-tight text-white">{heading.title}</h2>
+        <h2 className="font-semibold text-foreground">{heading.title}</h2>
       </div>
 
       <nav className="flex items-center gap-1.5" aria-label="Main navigation">
@@ -62,7 +57,7 @@ export function AppShellHeader({
           size="sm"
           variant="ghost"
           className={activePage === "operations" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}
-          onClick={() => onSelectPage("companies")}
+          onClick={() => onSelectPage("operations")}
         >
           Operations
         </Button>
