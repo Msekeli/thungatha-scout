@@ -13,13 +13,15 @@ SVG = b'<svg xmlns="http://www.w3.org/2000/svg"></svg>'
 def mock_http(monkeypatch, handler):
     original = httpx.AsyncClient
     monkeypatch.setattr(
-        httpx, "AsyncClient",
+        httpx,
+        "AsyncClient",
         lambda *args, **kwargs: original(
             *args, transport=httpx.MockTransport(handler), **kwargs
         ),
     )
     monkeypatch.setattr(
-        socket, "getaddrinfo",
+        socket,
+        "getaddrinfo",
         lambda *args, **kwargs: [(None, None, None, None, ("8.8.8.8", 443))],
     )
 
@@ -53,12 +55,14 @@ def test_about_page_is_checked_when_homepage_has_no_logo(monkeypatch):
     async def handler(request):
         if request.url.path == "/":
             return httpx.Response(
-                200, headers={"content-type": "text/html"},
+                200,
+                headers={"content-type": "text/html"},
                 text='<a href="/about-us">About us</a>',
             )
         if request.url.path == "/about-us":
             return httpx.Response(
-                200, headers={"content-type": "text/html"},
+                200,
+                headers={"content-type": "text/html"},
                 text='<img class="header-logo" src="/assets/brand.svg">',
             )
         return httpx.Response(

@@ -38,7 +38,9 @@ async def refresh_employer_logos(
         )
         if result is None:
             unresolved += 1
-            outcome = "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
+            outcome = (
+                "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
+            )
             print(f"{outcome}: {employer['name']} ({employer['id']})")
             continue
         logo_url, source_url, logo_type = result
@@ -67,7 +69,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
     parser.add_argument("--apply", action="store_true", help="Persist replacements.")
     parser.add_argument(
-        "--recheck-existing", action="store_true",
+        "--recheck-existing",
+        action="store_true",
         help="Discover replacements even when an existing image is reachable.",
     )
     args = parser.parse_args()
