@@ -52,18 +52,25 @@ def test_duplicate_names_are_reported_once() -> None:
 
 
 def test_rejects_parent_company_domain_for_different_employer() -> None:
-    assert verified_website_for(
-        employer("Digioutsource", "https://supergroup.com/")
-    ) is None
+    assert (
+        verified_website_for(employer("Digioutsource", "https://supergroup.com/"))
+        is None
+    )
 
 
 def test_accepts_domain_matching_employer_name() -> None:
-    assert verified_website_for(
-        employer("Astron Energy", "https://www.astronenergy.co.za/")
-    ) == "https://www.astronenergy.co.za/"
+    assert (
+        verified_website_for(
+            employer("Astron Energy", "https://www.astronenergy.co.za/")
+        )
+        == "https://www.astronenergy.co.za/"
+    )
 
 
 def test_rejects_generic_ats_domain_as_employer_website() -> None:
-    assert verified_website_for(
-        employer("Example Company", "https://boards.greenhouse.io/example")
-    ) is None
+    assert (
+        verified_website_for(
+            employer("Example Company", "https://boards.greenhouse.io/example")
+        )
+        is None
+    )
