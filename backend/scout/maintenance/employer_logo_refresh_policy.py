@@ -58,8 +58,8 @@ def _website_matches_employer(name: str, website: str) -> bool:
     employer_tokens = {token for token in _tokens(name) if len(token) >= 3}
     if not host_tokens or not employer_tokens:
         return False
-    host_compact = "".join(host_tokens)
-    name_compact = "".join(employer_tokens)
+    host_compact = re.sub(r"[^a-z0-9]", "", host)
+    name_compact = re.sub(r"[^a-z0-9]", "", name.casefold())
     return bool(host_tokens.intersection(employer_tokens)) or (
         len(name_compact) >= 5 and name_compact in host_compact
     )
