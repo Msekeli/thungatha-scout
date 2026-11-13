@@ -29,18 +29,27 @@ export function CompanyProfilePanel({ state, companies, onboarding }: Props) {
           saving={state.saving}
           onCancel={() => setEditing(false)}
           onSave={async (values) => {
-            const detailsSaved = await companies.updateDetails({
-              name: values.name,
-              legal_name: values.legal_name,
-              website_url: values.website_url,
-              organization_type: values.organization_type,
-              city: values.city,
-              province: values.province,
-              country: values.country,
-            });
-            if (!detailsSaved) return;
-            const brandingSaved = await companies.saveBranding(values.logo_url);
-            if (brandingSaved) setEditing(false);
+            const detailsChanged =
+              values.name !== employer.name ||
+              values.website_url !== (employer.website_url ?? null);
+            const logoChanged = values.logo_url !== (employer.logo_url ?? "");
+            if (detailsChanged) {
+              const detailsSaved = await companies.updateDetails({
+                name: values.name,
+                legal_name: values.legal_name,
+                website_url: values.website_url,
+                organization_type: values.organization_type,
+                city: values.city,
+                province: values.province,
+                country: values.country,
+              });
+              if (!detailsSaved) return;
+            }
+            if (logoChanged) {
+              const brandingSaved = await companies.saveBranding(values.logo_url);
+              if (!brandingSaved) return;
+            }
+            setEditing(false);
           }}
         />
       )}
