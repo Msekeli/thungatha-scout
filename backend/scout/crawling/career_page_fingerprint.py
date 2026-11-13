@@ -1,5 +1,5 @@
 import json
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 from scout.ats_adapters.ats_adapter_contracts import NormalizedVacancy
 
@@ -53,31 +53,32 @@ def _map_job_posting(
     item: dict, source_url: str
 ) -> NormalizedVacancy | None:
     title = item.get("title")
-    url = item.get("url") or source_url
+    url = urljoin(source_url, str(item.get("url") or source_url))
     if not isinstance(title, str) or not title.strip():
         return None
     identifier = item.get("identifier")
     external_id = identifier.get("value") if isinstance(identifier, dict) else identifier
-    external_id = str(external_id or url)
     description = item.get("description")
-    if not isinstance(description, str):
-        description = None
-    location = item.get("jobLocation")
-    if isinstance(location, list):
-        location = location[0] if location else None
-    address = location.get("address") if isinstance(location, dict) else None
-    locality = address.get("addressLocality") if isinstance(address, dict) else None
-    region = address.get("addressRegion") if isinstance(address, dict) else None
-    location_text = ", ".join(str(part) for part in (locality, region) if part)
     return NormalizedVacancy(
-        external_job_id=external_id,
+        external_job_id=str(external_id or url),
         title=title.strip(),
-        description=description,
-        location_text=location_text or None,
+        description=description if isinstance(description, str) else None,
+        location_text=_job_location(item.get("jobLocation")),
         department=None,
         office=None,
-        application_url=str(url),
+        application_url=url,
         published_at=item.get("datePosted"),
         source_updated_at=item.get("dateModified"),
         raw_payload=item,
     )
+
+
+def _job_location(location: object) -> str | None:
+    if isinstance(location, list):
+        location = location[0] if location else None
+    address = location.get("address") if isinstance(location, dict) else None
+    if not isinstance(address, dict):
+        return None
+    parts = (address.get("addressLocality"), address.get("addressRegion"))
+    value = ", ".join(str(part) for part in parts if part)
+    return value or None

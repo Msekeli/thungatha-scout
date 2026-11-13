@@ -1,18 +1,14 @@
 import re
-from datetime import UTC, datetime, timedelta
-from urllib.parse import urljoin
+from datetime import timedelta
 
 from crawlee import ConcurrencySettings
 from crawlee.crawlers import ParselCrawler, ParselCrawlingContext
 
-from scout.crawling.career_page_fingerprint import (
-    fingerprint_platform,
-    parse_job_postings,
-)
 from scout.crawling.career_page_observation import (
     CareerPageCrawlResult,
     CareerPageObservation,
 )
+from scout.crawling.career_page_observer import observe_page
 from scout.settings import Settings, get_settings
 
 
@@ -48,11 +44,10 @@ class CareerPageCrawler:
 
         @crawler.router.default_handler
         async def handle_page(context: ParselCrawlingContext) -> None:
-            observation = self._observe(context)
+            observation = observe_page(context, self._settings)
             observations.append(observation)
-            if observation.platform_key:
-                return
-            await context.enqueue_links(include=[_CAREER_LINK])
+            if not observation.platform_key:
+                await context.enqueue_links(include=[_CAREER_LINK])
 
         @crawler.failed_request_handler
         async def handle_failure(
@@ -73,42 +68,4 @@ class CareerPageCrawler:
             )
         return CareerPageCrawlResult(
             tuple(observations), not failed, tuple(failed), tuple(skipped)
-        )
-
-    def _observe(self, context: ParselCrawlingContext) -> CareerPageObservation:
-        selector = context.selector
-        requested = context.request.url
-        final_url = context.request.loaded_url or requested
-        response = context.http_response
-        status = response.status_code
-        headers = response.headers
-        content_type = headers.get("content-type")
-        markup = selector.get()
-        content_bytes = len(markup.encode("utf-8"))
-        maximum = self._settings.crawler_max_response_bytes
-        title = selector.css("title::text").get()
-        canonical = selector.css('link[rel="canonical"]::attr(href)').get()
-        canonical_url = urljoin(final_url, canonical) if canonical else None
-        platform = fingerprint_platform(final_url) or fingerprint_platform(requested)
-        links = tuple(
-            dict.fromkeys(
-                urljoin(final_url, link)
-                for link in selector.css("a[href]::attr(href)").getall()
-            )
-        )
-        outcome = "success" if 200 <= status < 300 else "http_failure"
-        detail = None
-        vacancies = []
-        if content_bytes > maximum:
-            outcome, detail = "response_too_large", "Response exceeded configured byte limit."
-        elif status in (401, 403, 429):
-            outcome = "blocked" if status != 429 else "rate_limited"
-        elif status >= 500:
-            outcome = "transient_failure"
-        elif outcome == "success" and not platform:
-            scripts = selector.css('script[type="application/ld+json"]::text').getall()
-            vacancies = parse_job_postings(scripts, final_url)
-        return CareerPageObservation(
-            requested, final_url, canonical_url, status, content_type, title,
-            platform, links, tuple(vacancies), datetime.now(UTC), outcome, detail
         )
