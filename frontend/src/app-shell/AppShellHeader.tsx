@@ -1,7 +1,7 @@
 import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export type AppPage = "jobs" | "companies" | "add-company";
+export type AppPage = "jobs" | "operations" | "companies" | "add-company";
 
 type AppShellHeaderProps = {
   activePage: AppPage;
@@ -11,7 +11,8 @@ type AppShellHeaderProps = {
 };
 
 const pageHeading: Record<AppPage, { eyebrow: string; title: string }> = {
-  jobs: { eyebrow: "Operations overview", title: "Ingestion Dashboard" },
+  jobs: { eyebrow: "Vacancy records", title: "Dashboard" },
+  operations: { eyebrow: "Operations overview", title: "Ingestion Operations" },
   companies: { eyebrow: "Employer directory", title: "Companies" },
   "add-company": { eyebrow: "Employer onboarding", title: "Add a company" },
 };
@@ -51,7 +52,7 @@ export function AppShellHeader({
           type="button"
           size="sm"
           variant="ghost"
-          className={navigationButtonClass(activePage === "jobs")}
+          className={activePage === "jobs" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}
           onClick={() => onSelectPage("jobs")}
         >
           Dashboard
@@ -60,17 +61,18 @@ export function AppShellHeader({
           type="button"
           size="sm"
           variant="ghost"
-          className={navigationButtonClass(activePage !== "jobs")}
+          className={activePage === "operations" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}
           onClick={() => onSelectPage("companies")}
         >
-          Companies
+          Operations
         </Button>
-        {activePage === "jobs" && (
+        <Button type="button" size="sm" variant="ghost" className={activePage === "companies" || activePage === "add-company" ? "bg-accent text-accent-foreground" : "text-muted-foreground"} onClick={() => onSelectPage("companies")}>Companies</Button>
+        {(activePage === "jobs" || activePage === "operations") && (
           <Button
             type="button"
             size="icon"
             variant="ghost"
-            className="text-white/80 hover:bg-white/10 hover:text-white"
+            className="text-muted-foreground"
             title="Refresh dashboard data"
             aria-label="Refresh dashboard data"
             onClick={onRefresh}
