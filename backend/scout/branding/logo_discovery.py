@@ -13,6 +13,7 @@ from scout.branding.logo_metadata import extract_logo_assets
 def _same_employer_host(first: str, second: str) -> bool:
     def normalize(value: str) -> str:
         return (value or "").casefold().removeprefix("www.")
+
     return normalize(httpx.URL(first).host) == normalize(httpx.URL(second).host)
 
 
@@ -26,7 +27,9 @@ async def _discover_from_page(
     html = page.content.decode("utf-8", errors="replace")
     for candidate, logo_type in extract_logo_assets(html, source_url):
         try:
-            image = await fetch_public_resource(client, candidate, "image/", MAX_IMAGE_BYTES)
+            image = await fetch_public_resource(
+                client, candidate, "image/", MAX_IMAGE_BYTES
+            )
             return image.url, source_url, logo_type
         except (InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError, OSError):
             if rejected is not None:
@@ -51,14 +54,24 @@ async def discover_employer_logo(
     if not candidates:
         return None
     async with httpx.AsyncClient(
-        timeout=12, follow_redirects=False, trust_env=False,
+        timeout=12,
+        follow_redirects=False,
+        trust_env=False,
         headers={"User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"},
     ) as client:
         for page_url in candidates:
             try:
-                result = await _discover_from_page(client, page_url, rejected_candidates)
+                result = await _discover_from_page(
+                    client, page_url, rejected_candidates
+                )
                 if result:
                     return result
-            except (InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError, OSError, ValueError):
+            except (
+                InvalidLogoAsset,
+                UnavailableLogoAsset,
+                httpx.HTTPError,
+                OSError,
+                ValueError,
+            ):
                 continue
     return None

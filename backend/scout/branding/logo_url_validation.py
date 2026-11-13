@@ -4,9 +4,16 @@ from urllib.parse import urlparse
 
 
 BLOCKED_HOSTS = {
-    "google.com", "www.google.com", "favicons.githubusercontent.com",
-    "greenhouse.io", "boards.greenhouse.io", "job-boards.greenhouse.io",
-    "jobs.lever.co", "lever.co", "teamtailor.com", "workable.com",
+    "google.com",
+    "www.google.com",
+    "favicons.githubusercontent.com",
+    "greenhouse.io",
+    "boards.greenhouse.io",
+    "job-boards.greenhouse.io",
+    "jobs.lever.co",
+    "lever.co",
+    "teamtailor.com",
+    "workable.com",
 }
 MAX_IMAGE_BYTES = 2_000_000
 
@@ -26,13 +33,21 @@ def is_usable_employer_logo_url(value: str | None) -> bool:
         parsed = urlparse(value)
         host = (parsed.hostname or "").casefold().rstrip(".")
         blocked = host in BLOCKED_HOSTS or host.endswith(
-            (".greenhouse.io", ".lever.co", ".teamtailor.com",
-             ".myworkdayjobs.com", ".workable.com")
+            (
+                ".greenhouse.io",
+                ".lever.co",
+                ".teamtailor.com",
+                ".myworkdayjobs.com",
+                ".workable.com",
+            )
         )
         return (
-            parsed.scheme == "https" and bool(host)
-            and not parsed.username and not parsed.password
-            and parsed.port in (None, 443) and not blocked
+            parsed.scheme == "https"
+            and bool(host)
+            and not parsed.username
+            and not parsed.password
+            and parsed.port in (None, 443)
+            and not blocked
         )
     except ValueError:
         return False
@@ -54,8 +69,14 @@ def validate_public_logo_url(value: str) -> None:
 
 def is_valid_image_payload(content: bytes, content_type: str) -> bool:
     signatures = (
-        b"\x89PNG\r\n\x1a\n", b"\xff\xd8\xff", b"GIF87a", b"GIF89a",
-        b"BM", b"II*\x00", b"MM\x00*", b"\x00\x00\x01\x00",
+        b"\x89PNG\r\n\x1a\n",
+        b"\xff\xd8\xff",
+        b"GIF87a",
+        b"GIF89a",
+        b"BM",
+        b"II*\x00",
+        b"MM\x00*",
+        b"\x00\x00\x01\x00",
     )
     if any(content.startswith(signature) for signature in signatures):
         return True

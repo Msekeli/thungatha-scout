@@ -25,8 +25,11 @@ async def discover_employer_branding(
         return employer
     sources = service.list_sources(employer_id)
     careers_url = next(
-        (item.get("employer_careers_url") for item in sources
-         if item.get("employer_careers_url")),
+        (
+            item.get("employer_careers_url")
+            for item in sources
+            if item.get("employer_careers_url")
+        ),
         None,
     )
     result = await discover_employer_logo(careers_url, employer.get("website_url"))

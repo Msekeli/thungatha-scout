@@ -9,7 +9,8 @@ def test_prefers_structured_logo_over_same_site_icon() -> None:
     </script>
     """
     assert extract_logo_asset(html, "https://example.com/careers") == (
-        "https://example.com/brand/logo.svg", "official_logo"
+        "https://example.com/brand/logo.svg",
+        "official_logo",
     )
 
 
@@ -21,14 +22,16 @@ def test_reads_multiple_json_ld_scripts_independently() -> None:
     </script>
     """
     assert extract_logo_asset(html, "https://example.com") == (
-        "https://cdn.example.com/logo.svg", "official_logo"
+        "https://cdn.example.com/logo.svg",
+        "official_logo",
     )
 
 
 def test_supports_external_cdn_for_explicit_logo_metadata() -> None:
     html = '<meta property="og:logo" content="https://cdn.example.net/brand.png">'
     assert extract_logo_asset(html, "https://example.com") == (
-        "https://cdn.example.net/brand.png", "official_logo"
+        "https://cdn.example.net/brand.png",
+        "official_logo",
     )
 
 

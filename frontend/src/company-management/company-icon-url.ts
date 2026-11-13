@@ -48,8 +48,14 @@ function parseSafeBrandingUrl(value: string): URL | null {
 }
 
 function isSafeBrandingSourceUrl(value: string): boolean {
-  try { const url = new URL(value); return ["https:", "http:"].includes(url.protocol) && !!url.hostname && !url.username && !url.password; }
-  catch { return false; }
+  try {
+    const url = new URL(value);
+    return (
+      ["https:", "http:"].includes(url.protocol) && !!url.hostname && !url.username && !url.password
+    );
+  } catch {
+    return false;
+  }
 }
 
 function isGoogleFaviconForWebsite(value: string, websiteUrl?: string | null): boolean {

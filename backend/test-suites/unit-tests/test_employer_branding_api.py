@@ -10,16 +10,22 @@ def test_valid_unverified_logo_is_preserved(monkeypatch) -> None:
     employer_id = uuid4()
     logo_url = "https://cdn.example.com/legacy-logo.png"
     employer = {
-        "id": str(employer_id), "name": "Example", "website_url": "https://example.com",
-        "logo_url": logo_url, "logo_type": "unverified",
+        "id": str(employer_id),
+        "name": "Example",
+        "website_url": "https://example.com",
+        "logo_url": logo_url,
+        "logo_type": "unverified",
     }
     service.employers.append(employer)
     discovered = []
+
     async def valid(url):
         return "valid"
+
     async def discover(*args):
         discovered.append(args)
         return None
+
     monkeypatch.setattr(routes, "inspect_existing_logo", valid)
     monkeypatch.setattr(routes, "discover_employer_logo", discover)
     with client_for(get_employer_service, service) as client:
@@ -33,14 +39,22 @@ def test_discovery_failure_does_not_clear_broken_legacy_url(monkeypatch) -> None
     service = FakeEmployerService()
     employer_id = uuid4()
     old_url = "https://cdn.example.com/missing.png"
-    service.employers.append({
-        "id": str(employer_id), "name": "Example", "website_url": "https://example.com",
-        "logo_url": old_url, "logo_type": "unverified",
-    })
+    service.employers.append(
+        {
+            "id": str(employer_id),
+            "name": "Example",
+            "website_url": "https://example.com",
+            "logo_url": old_url,
+            "logo_type": "unverified",
+        }
+    )
+
     async def invalid(url):
         return "invalid"
+
     async def no_candidate(*args):
         return None
+
     monkeypatch.setattr(routes, "inspect_existing_logo", invalid)
     monkeypatch.setattr(routes, "discover_employer_logo", no_candidate)
     with client_for(get_employer_service, service) as client:

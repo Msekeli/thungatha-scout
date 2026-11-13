@@ -25,7 +25,10 @@ class BrandingMetadataParser(HTMLParser):
             href = values.get("href")
             if href and rel.intersection({"icon", "apple-touch-icon"}):
                 self.icons.append(href)
-        if tag == "script" and (values.get("type") or "").casefold() == "application/ld+json":
+        if (
+            tag == "script"
+            and (values.get("type") or "").casefold() == "application/ld+json"
+        ):
             self.json_scripts.append("")
             self._active_script = len(self.json_scripts) - 1
 
@@ -40,7 +43,9 @@ class BrandingMetadataParser(HTMLParser):
 
 def _structured_logo(value: object) -> str | None:
     if isinstance(value, list):
-        return next((found for item in value if (found := _structured_logo(item))), None)
+        return next(
+            (found for item in value if (found := _structured_logo(item))), None
+        )
     if isinstance(value, dict):
         for key, item in value.items():
             if key.casefold() == "logo":
@@ -68,7 +73,9 @@ def extract_logo_assets(html: str, page_url: str) -> list[tuple[str, str]]:
         if logo:
             candidates.append((logo, "official_logo"))
     for key in ("og:logo", "logo"):
-        candidates.extend((value, "official_logo") for value in parser.meta.get(key, []))
+        candidates.extend(
+            (value, "official_logo") for value in parser.meta.get(key, [])
+        )
     page_host = (urlparse(page_url).hostname or "").casefold()
     candidates.extend((icon, "official_favicon") for icon in parser.icons)
     result: list[tuple[str, str]] = []
@@ -76,7 +83,10 @@ def extract_logo_assets(html: str, page_url: str) -> list[tuple[str, str]]:
         url = urljoin(page_url, value.strip())
         if not is_usable_employer_logo_url(url) or url in {item[0] for item in result}:
             continue
-        if kind == "official_favicon" and (urlparse(url).hostname or "").casefold() != page_host:
+        if (
+            kind == "official_favicon"
+            and (urlparse(url).hostname or "").casefold() != page_host
+        ):
             continue
         result.append((url, kind))
     return result

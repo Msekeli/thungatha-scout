@@ -67,8 +67,12 @@ class EmployerService:
             )
 
     def update_branding_if_unusable(
-        self, employer_id: UUID, expected_logo_url: str | None,
-        logo_url: str, logo_source_url: str, logo_type: str,
+        self,
+        employer_id: UUID,
+        expected_logo_url: str | None,
+        logo_url: str,
+        logo_source_url: str,
+        logo_type: str,
     ) -> dict[str, Any] | None:
         with self._connection_factory() as connection, connection.transaction():
             return EmployerRepository(connection).update_branding_if_unusable(

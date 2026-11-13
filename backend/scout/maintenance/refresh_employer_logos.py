@@ -64,7 +64,11 @@ async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
-    parser.add_argument("--apply", action="store_true", help="Persist safe replacements.")
+    parser.add_argument(
+        "--apply", action="store_true", help="Persist safe replacements."
+    )
     args = parser.parse_args()
     updated, unresolved = asyncio.run(refresh_employer_logos(apply=args.apply))
-    print(f"{'Applied' if args.apply else 'Dry run'}. Updated: {updated}; unresolved: {unresolved}.")
+    print(
+        f"{'Applied' if args.apply else 'Dry run'}. Updated: {updated}; unresolved: {unresolved}."
+    )

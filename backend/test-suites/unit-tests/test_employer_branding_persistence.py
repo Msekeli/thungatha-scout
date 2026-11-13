@@ -24,8 +24,11 @@ def test_branding_discovery_updates_only_the_logo_url_it_validated() -> None:
     old_url = "https://cdn.example.com/old-logo.png"
     repository = EmployerRepository(connection)
     repository.update_branding_if_unusable(
-        employer_id, old_url, "https://cdn.example.com/new.png",
-        "https://example.com/", "official_logo",
+        employer_id,
+        old_url,
+        "https://cdn.example.com/new.png",
+        "https://example.com/",
+        "official_logo",
     )
     assert "logo_url IS NOT DISTINCT FROM %s" in connection.query
     assert connection.params[-1] == old_url

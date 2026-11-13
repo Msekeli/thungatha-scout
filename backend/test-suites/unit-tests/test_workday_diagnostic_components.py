@@ -66,4 +66,3 @@ def test_audit_workday_details_handles_success_and_failure() -> None:
     assert res.normalized_count == 1
     assert res.field_audit.has_title is True
     assert res.field_audit.has_description is True
-
