@@ -1,8 +1,12 @@
 import ipaddress
 import socket
 
-from scout.employer_branding.logo_image_payload_validation import (\n    is_valid_image_payload,\n)
 from urllib.parse import urlparse
+
+from scout.employer_branding.logo_image_payload_validation import (
+    is_valid_image_payload,
+)
+
 
 
 BLOCKED_HOSTS = {
