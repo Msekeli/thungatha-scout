@@ -1,15 +1,10 @@
 import json
 import re
 from urllib.parse import urljoin, urlparse
-
 from scout.employer_branding.branding_metadata_parser import BrandingMetadataParser
 from scout.employer_branding.logo_http import is_usable_employer_logo_url
-
-
 _EXCLUDED = ("favicon", "apple-touch", "avatar", "social", "share", "banner")
 _HINTS = ("logo", "brandmark", "brand-mark", "wordmark", "brand mark")
-
-
 def _logo_values(value: object) -> list[str]:
     if isinstance(value, str):
         return [value]
@@ -32,11 +27,8 @@ def _logo_values(value: object) -> list[str]:
         return found
     return []
 
-
 def _tokens(value: str) -> set[str]:
     return {part.casefold() for part in re.findall(r"[a-zA-Z0-9]+", value)}
-
-
 def _conflicting_brand_name(url: str, employer_name: str) -> bool:
     path = urlparse(url).path.rsplit("/", 1)[-1].casefold()
     words = _tokens(re.sub(r"\.[a-z0-9]+$", "", path))
@@ -47,7 +39,6 @@ def _conflicting_brand_name(url: str, employer_name: str) -> bool:
         and len(brand_words) >= 1
         and not brand_words.intersection(employer_words)
     )
-
 
 def _score(value: str, hint: str, explicit: bool = False) -> int:
     text = (value + " " + hint).casefold()
@@ -63,8 +54,6 @@ def _score(value: str, hint: str, explicit: bool = False) -> int:
     if any(token in value.casefold() for token in ("og-image", "opengraph", "cover")):
         score -= 70
     return score
-
-
 def extract_logo_assets(
     html: str, page_url: str, employer_name: str = ""
 ) -> list[tuple[str, str]]:
@@ -101,13 +90,9 @@ def extract_logo_assets(
         seen.add(url)
         result.append((url, "official_logo"))
     return result
-
-
 def extract_logo_asset(html: str, page_url: str) -> tuple[str, str] | None:
     assets = extract_logo_assets(html, page_url)
     return assets[0] if assets else None
-
-
 def extract_logo_url(html: str, page_url: str) -> str | None:
     asset = extract_logo_asset(html, page_url)
     return asset[0] if asset else None
