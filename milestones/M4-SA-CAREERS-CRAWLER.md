@@ -55,6 +55,7 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 - Added generic careers-page discovery to the backend and onboarding UI. Known ATS board URLs now route directly to their adapters; generic HTTPS careers URLs use the Crawlee discovery endpoint. Detected ATS redirects are rejected from generic registration so the ATS board can be registered directly.
 - Moved public-HTTPS/DNS validation into the crawler boundary so both onboarding discovery and stored-source extraction validate their initial URL. Discovered links are revalidated before enqueueing, and an empty crawl is no longer reported complete.
 - URL validation rejects embedded credentials and non-standard ports. Its helper and tests remain independent of the optional Crawlee package, so base unit-test environments do not need the crawler extra merely to test URL safety.
+- Added mocked crawler tests for a successful page, failed request, skipped request and timeout interruption. These tests have not been run; they do not establish redirect-hop or robots-policy security.
 
 **Still open before acceptance:**
 
