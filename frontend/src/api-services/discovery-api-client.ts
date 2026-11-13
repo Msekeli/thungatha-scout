@@ -6,14 +6,10 @@ import {
   isWorkableBoardUrl,
   isWorkdayBoardUrl,
 } from "./careers-board-url-detection";
-import type {
-  CareersDiscovery,
-  SourceInspection,
-} from "../shared-contracts/discovery-contracts";
+import type { CareersDiscovery, SourceInspection } from "../shared-contracts/discovery-contracts";
 
 function discoverKnownBoard(url: string, companyName: string) {
-  const query =
-    `url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`;
+  const query = `url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`;
   if (isWorkdayBoardUrl(url)) {
     return request<CareersDiscovery>(`/api/v1/workday/discover?${query}`);
   }

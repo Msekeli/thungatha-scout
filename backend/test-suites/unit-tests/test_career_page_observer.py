@@ -46,6 +46,7 @@ def test_oversized_response_is_not_parsed() -> None:
     assert result.outcome == "response_too_large"
     assert result.vacancies == ()
 
+
 def test_discovered_links_are_bounded_per_page() -> None:
     anchors = "".join(
         f'<a href="/careers/{index}">Career {index}</a>' for index in range(30)
