@@ -1,10 +1,30 @@
 import asyncio
+import socket
 
 import httpx
 
 from scout.employer_branding.logo_discovery import discover_employer_logo
 
-from test_logo_discovery import mock_http, PNG
+
+PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 24
+
+
+def mock_http(monkeypatch, handler) -> None:
+    original = httpx.AsyncClient
+    monkeypatch.setattr(
+        httpx,
+        "AsyncClient",
+        lambda *args, **kwargs: original(
+            *args, transport=httpx.MockTransport(handler), **kwargs
+        ),
+    )
+    monkeypatch.setattr(
+        socket,
+        "getaddrinfo",
+        lambda *args, **kwargs: [
+            (None, None, None, None, ("8.8.8.8", 443))
+        ],
+    )
 
 
 def test_discovers_employer_logo_from_greenhouse_board_metadata(monkeypatch) -> None:
