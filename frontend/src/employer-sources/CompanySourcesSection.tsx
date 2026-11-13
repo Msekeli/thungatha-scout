@@ -26,7 +26,12 @@ export function CompanySourcesSection(props: Props) {
   return (
     <section className="scout-company-sources">
       <div className="mb-3 flex items-center justify-between border-b scout-company-divider pb-2">
-        <div><h4 className="text-sm font-semibold text-foreground">Recruitment sources</h4><p className="mt-1 text-xs text-muted-foreground">Register an additional careers-board URL, or edit an existing source from its card.</p></div>
+        <div>
+          <h4 className="text-sm font-semibold text-foreground">Recruitment sources</h4>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Register an additional careers-board URL, or edit an existing source from its card.
+          </p>
+        </div>
         {!formVisible && (
           <Button type="button" size="sm" variant="outline" onClick={() => setAddingSource(true)}>
             <Plus className="mr-1.5 h-3.5 w-3.5" /> Add source

@@ -60,7 +60,9 @@ export function CompaniesWorkspacePanel({
           overlayClassName="!bg-transparent !backdrop-blur-0"
         >
           <DialogHeader className="scout-company-dialog-header">
-            <DialogTitle className="text-base font-semibold tracking-tight text-foreground">Company details</DialogTitle>
+            <DialogTitle className="text-base font-semibold tracking-tight text-foreground">
+              Company details
+            </DialogTitle>
           </DialogHeader>
           <CompanyProfilePanel
             state={state}

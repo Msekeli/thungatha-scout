@@ -48,7 +48,9 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
       )}
       <CompanySourcesPanel state={state} companies={companies} onboarding={onboarding} />
       <footer className="flex flex-col gap-3 border-t border-border pt-4">
-        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Company actions</span>
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          Company actions
+        </span>
         <CompanyProfileActions
           companyName={employer.name}
           saving={state.saving}
