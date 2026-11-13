@@ -1,3 +1,4 @@
+from scout.maintenance.employer_careers_validation import careers_page_matches_employer
 from scout.maintenance.employer_logo_refresh_policy import (
     duplicate_employer_names,
     verified_website_for,
@@ -73,4 +74,22 @@ def test_rejects_generic_ats_domain_as_employer_website() -> None:
             employer("Example Company", "https://boards.greenhouse.io/example")
         )
         is None
+    )
+
+
+def test_rejects_parent_company_careers_page() -> None:
+    assert not careers_page_matches_employer(
+        "Digioutsource", "https://supergroup.com/careers/"
+    )
+
+
+def test_accepts_employer_named_ats_board() -> None:
+    assert careers_page_matches_employer(
+        "Digioutsource", "https://boards.greenhouse.io/digioutsource"
+    )
+
+
+def test_rejects_unrelated_ats_board() -> None:
+    assert not careers_page_matches_employer(
+        "Digioutsource", "https://boards.greenhouse.io/supergroup"
     )
