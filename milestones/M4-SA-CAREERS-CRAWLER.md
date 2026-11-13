@@ -61,6 +61,7 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 
 - Verify redirect safety, same-site/external ATS link boundaries, robots skip outcomes, malformed/empty responses, timeout behavior and duplicate routing with mocked tests.
 - Generic career-page onboarding now has a dedicated discovery route, HTTPS/public-DNS validation, frontend source resolution and inspection routing. This is implementation only; it has not been run locally.
+- Employer source cards now expose persisted crawler evidence in an expandable preview: completeness, pages observed, vacancy count, per-page status/outcome, discovered career-link counts, and failed/skipped URLs. This is display-only; results appear after a real extraction writes `discovery_preview`.
 - Initial and discovered-link DNS validation does not close redirect-hop SSRF or DNS-rebinding risks. Crawlee's HTTP client can follow redirects internally, so a dedicated worker egress policy blocking loopback, private, link-local and metadata ranges is still required before enabling untrusted source crawling. Do not treat final-URL validation as sufficient.
 - Restrict discovered links to HTTPS; same-host career links and explicitly career-related known ATS links remain the only enqueue candidates.
 - Review the existing Cape Town-only source-of-truth versus the current South Africa-wide ingestion gate before accepting generic vacancy coverage. No geography policy was changed here.
