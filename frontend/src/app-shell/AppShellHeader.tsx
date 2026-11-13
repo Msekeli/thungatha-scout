@@ -1,22 +1,18 @@
 import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 export type AppPage = "jobs" | "operations" | "companies" | "add-company";
-
 type AppShellHeaderProps = {
   activePage: AppPage;
   onSelectPage: (page: AppPage) => void;
   onRefresh: () => void;
   refreshing: boolean;
 };
-
 const pageHeading: Record<AppPage, { eyebrow: string; title: string }> = {
   jobs: { eyebrow: "Vacancy records", title: "Dashboard" },
   operations: { eyebrow: "Operations overview", title: "Ingestion Operations" },
   companies: { eyebrow: "Employer directory", title: "Companies" },
   "add-company": { eyebrow: "Employer onboarding", title: "Add a company" },
 };
-
 export function AppShellHeader({
   activePage,
   onSelectPage,
@@ -24,7 +20,6 @@ export function AppShellHeader({
   refreshing,
 }: AppShellHeaderProps) {
   const heading = pageHeading[activePage];
-
   return (
     <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 border-b border-border bg-card px-4 py-3 text-card-foreground shadow-sm md:-mx-8 md:px-8">
       <div className="flex min-w-0 items-center">
@@ -34,14 +29,12 @@ export function AppShellHeader({
           className="h-11 w-auto max-w-[180px] object-contain"
         />
       </div>
-
       <div className="flex-1 text-center">
         <p className="text-[9px] font-bold uppercase tracking-[.2em] text-muted-foreground">
           {heading.eyebrow}
         </p>
         <h2 className="font-semibold text-foreground">{heading.title}</h2>
       </div>
-
       <nav className="flex items-center gap-1.5" aria-label="Main navigation">
         <Button
           type="button"
