@@ -23,9 +23,15 @@ export function RecentRetrievalsPanel({ employers, sources, runs }: Props) {
         {recent.map((run) => {
           const source = sources.find((item) => item.id === run.source_id);
           const employer = employers.find((item) => item.id === source?.employer_id);
-          const failed = ["transient_failure", "persistence_failure", "failed", "http_failure"].includes(run.outcome);
+          const failed = [
+            "transient_failure",
+            "persistence_failure",
+            "failed",
+            "http_failure",
+          ].includes(run.outcome);
           const blocked = ["blocked", "rate_limited"].includes(run.outcome);
-          const partial = !failed && !blocked && (!run.complete || !["success", "empty"].includes(run.outcome));
+          const partial =
+            !failed && !blocked && (!run.complete || !["success", "empty"].includes(run.outcome));
           const unchanged = Math.max(0, run.jobs_received - run.jobs_inserted - run.jobs_updated);
           return (
             <div
@@ -42,7 +48,9 @@ export function RecentRetrievalsPanel({ employers, sources, runs }: Props) {
                 </p>
                 {run.detail && <p className="mt-1 text-xs text-muted-foreground">{run.detail}</p>}
               </div>
-              <Badge variant={failed ? "destructive" : partial || blocked ? "outline" : "secondary"}>
+              <Badge
+                variant={failed ? "destructive" : partial || blocked ? "outline" : "secondary"}
+              >
                 {run.outcome.replaceAll("_", " ")}
               </Badge>
             </div>
