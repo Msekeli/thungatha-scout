@@ -26,25 +26,25 @@ async def refresh_employer_logos(
     for name in sorted(duplicates):
         print(f"DUPLICATE_REQUIRES_REVIEW: {name}")
     for employer in employers:
-        if employer["name"].strip().casefold() in duplicates:
+        name = employer["name"]
+        if name.strip().casefold() in duplicates:
             unresolved += 1
             continue
         status = await inspect_existing_logo(employer["logo_url"])
         if status in {"valid", "unknown"} and not recheck_existing:
-            print(f"EXISTING_LOGO_RETAINED: {employer['name']} ({status})")
+            print(f"EXISTING_LOGO_RETAINED: {name} ({status})")
             continue
         result = await discover_employer_logo(
-            employer["careers_url"], verified_website_for(employer)
+            employer["careers_url"], verified_website_for(employer),
+            employer_name=name,
         )
         if result is None:
             unresolved += 1
-            outcome = (
-                "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
-            )
-            print(f"{outcome}: {employer['name']} ({employer['id']})")
+            outcome = "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
+            print(f"{outcome}: {name} ({employer['id']})")
             continue
         logo_url, source_url, logo_type = result
-        print(f"CANDIDATE_DISCOVERED: {employer['name']} {logo_type} {logo_url}")
+        print(f"CANDIDATE_DISCOVERED: {name} {logo_type} {logo_url}")
         if not apply:
             updated += 1
             continue
@@ -59,9 +59,9 @@ async def refresh_employer_logos(
             ).fetchone()
         if saved:
             updated += 1
-            print(f"UPDATED: {employer['name']} ({employer['id']})")
+            print(f"UPDATED: {name} ({employer['id']})")
         else:
-            print(f"RETAINED_CONCURRENT_CHANGE: {employer['name']} ({employer['id']})")
+            print(f"RETAINED_CONCURRENT_CHANGE: {name} ({employer['id']})")
     return updated, unresolved
 
 
@@ -69,8 +69,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
     parser.add_argument("--apply", action="store_true", help="Persist replacements.")
     parser.add_argument(
-        "--recheck-existing",
-        action="store_true",
+        "--recheck-existing", action="store_true",
         help="Discover replacements even when an existing image is reachable.",
     )
     args = parser.parse_args()
