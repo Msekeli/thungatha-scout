@@ -15,6 +15,22 @@ def test_rejects_non_https_and_local_urls() -> None:
             validate_public_career_url(value)
 
 
+def test_rejects_credentials_and_nonstandard_ports() -> None:
+    values = (
+        "https://user:pass@example.com/jobs",
+        "https://:pass@example.com/jobs",
+        "https://example.com:8443/jobs",
+    )
+    for value in values:
+        with pytest.raises(UnsafeCareerPageUrl):
+            validate_public_career_url(value)
+
+
+def test_rejects_invalid_ports() -> None:
+    with pytest.raises(UnsafeCareerPageUrl):
+        validate_public_career_url("https://example.com:invalid/jobs")
+
+
 def test_rejects_private_ip_literal() -> None:
     with pytest.raises(UnsafeCareerPageUrl):
         validate_public_career_url("https://10.0.0.8/careers")
