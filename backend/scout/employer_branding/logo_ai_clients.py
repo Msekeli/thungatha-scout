@@ -16,11 +16,11 @@ class LogoAssessment(BaseModel):
     reason: str = Field(max_length=240)
 
 
-def gemini_assessment(image, mime, prompt, model, key):
+def gemini_assessment(image, mime, prompt, model, key, timeout):
     from google import genai
     from google.genai import types
 
-    response = genai.Client(api_key=key).models.generate_content(
+    client = genai.Client(\n        api_key=key, http_options=types.HttpOptions(timeout=timeout * 1000)\n    )\n    response = client.models.generate_content(
         model=model,
         contents=[prompt, types.Part.from_bytes(data=image, mime_type=mime)],
         config=types.GenerateContentConfig(
@@ -33,11 +33,11 @@ def gemini_assessment(image, mime, prompt, model, key):
     return LogoAssessment.model_validate_json(response.text or "")
 
 
-def groq_assessment(image, mime, prompt, model, key):
+def groq_assessment(image, mime, prompt, model, key, timeout):
     from groq import Groq
 
     data = base64.b64encode(image).decode("ascii")
-    response = Groq(api_key=key).chat.completions.create(
+    response = Groq(api_key=key, timeout=timeout).chat.completions.create(
         model=model, temperature=0, max_tokens=256,
         response_format={"type": "json_object"},
         messages=[{"role": "user", "content": [
@@ -62,4 +62,4 @@ def classify_with_provider(name, image, mime, employer, settings):
         raise RuntimeError(f"{name} key/model is not configured")
     prompt = _PROMPT.format(employer=employer)
     call = gemini_assessment if name == "gemini" else groq_assessment
-    return call(image, mime, prompt, model, key.get_secret_value())
+    return call(\n        image, mime, prompt, model, key.get_secret_value(),\n        settings.ai_timeout_seconds,\n    )
