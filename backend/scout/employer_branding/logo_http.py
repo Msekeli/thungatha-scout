@@ -8,8 +8,8 @@ from scout.employer_branding.logo_page_url_validation import (
     validate_public_logo_page_url,
 )
 from scout.employer_branding.logo_url_validation import (
-    InvalidLogoAsset,
     MAX_IMAGE_BYTES,
+    InvalidLogoAsset,
     UnavailableLogoAsset,
     is_usable_employer_logo_url,
     is_valid_image_payload,
