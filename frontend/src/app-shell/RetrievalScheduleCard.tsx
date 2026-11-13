@@ -47,28 +47,28 @@ export function RetrievalScheduleCard({ runs }: Props) {
           <div className="flex items-center gap-2">
             <AlertTriangle className="h-4 w-4 text-destructive" />
             <div>
-              <p className="text-xl font-semibold tabular-nums">{failed}</p>
+              <p className="text-xl font-semibold tabular-nums text-destructive">{failed}</p>
               <p className="text-xs text-muted-foreground">Failed</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+            <AlertTriangle className="h-4 w-4 text-warning" />
             <div>
-              <p className="text-xl font-semibold tabular-nums">{blocked}</p>
+              <p className="text-xl font-semibold tabular-nums text-warning">{blocked}</p>
               <p className="text-xs text-muted-foreground">Blocked / limited</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Clock3 className="h-4 w-4 text-muted-foreground" />
+            <Clock3 className="h-4 w-4 text-warning" />
             <div>
-              <p className="text-xl font-semibold tabular-nums">{partial}</p>
+              <p className="text-xl font-semibold tabular-nums text-warning">{partial}</p>
               <p className="text-xs text-muted-foreground">Partial / unresolved</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
+            <CheckCircle2 className="h-4 w-4 text-success" />
             <div>
-              <p className="text-xl font-semibold tabular-nums">{noChanges}</p>
+              <p className="text-xl font-semibold tabular-nums text-success">{noChanges}</p>
               <p className="text-xs text-muted-foreground">Completed, no changes</p>
             </div>
           </div>
