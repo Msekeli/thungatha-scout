@@ -8,7 +8,10 @@ from scout.maintenance.employer_logo_refresh_policy import (
     duplicate_employer_names,
     verified_website_for,
 )
-from scout.maintenance.employer_logo_refresh_persistence import (\n    load_employers,\n    persist_logo,\n)
+from scout.maintenance.employer_logo_refresh_persistence import (
+    load_employers,
+    persist_logo,
+)
 
 
 async def refresh_employer_logos(
