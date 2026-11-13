@@ -31,7 +31,8 @@ function discoverKnownBoard(url: string, companyName: string) {
 
 async function discoverGenericPage(url: string, companyName: string) {
   return request<CareersDiscovery>(
-    `/api/v1/career-pages/discover?url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`,
+    `/api/v1/career-pages/discover?url=${encodeURIComponent(url)}` +
+      `&company_name=${encodeURIComponent(companyName)}`,
   );
 }
 
