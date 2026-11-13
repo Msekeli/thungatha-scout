@@ -24,6 +24,15 @@ async def discover_career_page(
     except RuntimeError as exception:
         raise HTTPException(status_code=503, detail=str(exception)) from exception
     host = urlparse(safe_url).hostname or ""
+    ats_page = next((item for item in result.observations if item.platform_key), None)
+    if ats_page:
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                f"Detected {ats_page.platform_key}. Register its ATS board directly: "
+                f"{ats_page.final_url}"
+            ),
+        )
     page = next(iter(result.observations), None)
     name = company_name.strip() or (page.page_title if page else None) or host
     jobs = [
