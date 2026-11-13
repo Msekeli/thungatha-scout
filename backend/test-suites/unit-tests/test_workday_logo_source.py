@@ -46,7 +46,7 @@ def test_registered_workday_source_precedes_employer_homepage(monkeypatch) -> No
     assert result == (
         "https://damen.wd3.myworkdayjobs.com/Damen_Careers/assets/logo",
         board, "official_ats_logo",
-    )
+    ), diagnostics
     assert requested[0] == board, diagnostics
 
 
