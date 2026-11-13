@@ -30,7 +30,7 @@ export function AppShellHeader({
         />
       </div>
       <div className="flex-1 text-center">
-        <p className="text-[9px] font-bold uppercase tracking-[.2em] text-muted-foreground">
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           {heading.eyebrow}
         </p>
         <h2 className="font-semibold text-foreground">{heading.title}</h2>
