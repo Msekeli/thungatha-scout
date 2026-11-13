@@ -26,3 +26,11 @@ def test_workday_is_registered_in_both_services() -> None:
     preview = SourcePreviewService(connection_factory=lambda: None)
     assert extraction._adapter_factories["workday"] is WorkdaySourceAdapter
     assert preview._adapter_factories["workday"] is WorkdaySourceAdapter
+
+
+def test_career_page_source_configuration_is_registered() -> None:
+    from scout.registry_loader import validate_source_config
+
+    validate_source_config(
+        "career_page", {"start_url": "https://example.com/careers"}
+    )

@@ -1,4 +1,5 @@
 export const SUPPORTED_ADAPTERS = [
+  "career_page",
   "greenhouse",
   "lever",
   "teamtailor",
@@ -9,6 +10,7 @@ export const SUPPORTED_ADAPTERS = [
 export type SupportedAdapter = (typeof SUPPORTED_ADAPTERS)[number];
 
 export const ADAPTER_LABELS: Record<SupportedAdapter, { label: string; badge: string }> = {
+  career_page: { label: "Career page", badge: "C" },
   greenhouse: { label: "Greenhouse", badge: "G" },
   lever: { label: "Lever", badge: "L" },
   teamtailor: { label: "Teamtailor", badge: "T" },

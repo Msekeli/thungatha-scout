@@ -36,6 +36,14 @@ class SourceExtractionService(VacancyManagementService):
             source = EmployerSourceRepository(connection).get_by_id(source_id)
         if source is None:
             raise SourceNotFoundError("Employer source not found.")
+        if source["adapter_key"] == "career_page":
+            from scout.application.career_page_extraction_service import (
+                CareerPageExtractionService,
+            )
+
+            return await CareerPageExtractionService(
+                self._connection_factory, self._adapter_factories
+            ).extract_source(source_id)
         adapter_factory = self._adapter_factories.get(source["adapter_key"])
         if adapter_factory is None:
             raise UnsupportedAdapterError("No adapter is registered for this source.")

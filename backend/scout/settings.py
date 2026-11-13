@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     crawler_request_timeout_seconds: int = Field(default=30, ge=1, le=120)
     crawler_max_response_bytes: int = Field(default=2000000, ge=10000, le=10000000)
     crawler_respect_robots_txt: bool = True
-    crawler_browser_fallback_enabled: bool = True
+    crawler_browser_fallback_enabled: bool = False
 
     model_config = SettingsConfigDict(
         env_file=".env",

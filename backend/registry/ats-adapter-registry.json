@@ -1,7 +1,7 @@
 {
   "_metadata": {
-    "purpose": "Implemented ATS adapter definitions only.",
-    "updated_at": "2026-11-12",
+    "purpose": "Implemented ATS adapters and generic public career-page retrieval definitions.",
+    "updated_at": "2026-11-13",
     "rule": "Employer-specific board identifiers and evidence belong in employer-source-registry.json."
   },
   "adapters": {
@@ -9,7 +9,9 @@
       "status": "implemented",
       "retrieval": "documented_public_json_api",
       "endpoint": "https://boards-api.greenhouse.io/v1/boards/{slug}/jobs?content=true",
-      "config": ["slug"],
+      "config": [
+        "slug"
+      ],
       "pagination": false,
       "inline_descriptions": true,
       "authentication": false
@@ -18,7 +20,10 @@
       "status": "implemented",
       "retrieval": "documented_public_json_api",
       "endpoint": "https://api.lever.co/v0/postings/{slug}?mode=json",
-      "config": ["slug", "region"],
+      "config": [
+        "slug",
+        "region"
+      ],
       "pagination": true,
       "inline_descriptions": true,
       "authentication": false
@@ -27,7 +32,9 @@
       "status": "implemented",
       "retrieval": "public_rss",
       "endpoint": "{careers_url}.rss",
-      "config": ["careers_url"],
+      "config": [
+        "careers_url"
+      ],
       "pagination": true,
       "inline_descriptions": true,
       "authentication": false
@@ -36,7 +43,9 @@
       "status": "implemented",
       "retrieval": "documented_public_json_api",
       "endpoint": "https://www.workable.com/api/accounts/{slug}?details=true",
-      "config": ["slug"],
+      "config": [
+        "slug"
+      ],
       "pagination": false,
       "inline_descriptions": true,
       "authentication": false
@@ -45,7 +54,11 @@
       "status": "implemented",
       "retrieval": "observed_public_cxs_json",
       "endpoint": "https://{host_prefix}.myworkdayjobs.com/wday/cxs/{tenant}/{site}/jobs",
-      "config": ["host_prefix", "tenant", "site"],
+      "config": [
+        "host_prefix",
+        "tenant",
+        "site"
+      ],
       "pagination": true,
       "inline_descriptions": false,
       "authentication": false,
@@ -53,6 +66,23 @@
         "Undocumented endpoint",
         "Job details require separate requests",
         "Live compatibility must be verified per employer"
+      ]
+    },
+    "career_page": {
+      "status": "implemented",
+      "retrieval": "crawlee_public_html",
+      "endpoint": "Configured official public careers URL",
+      "config": [
+        "start_url"
+      ],
+      "pagination": false,
+      "inline_descriptions": true,
+      "authentication": false,
+      "constraints": [
+        "Public pages only",
+        "Respect robots.txt, terms and access restrictions",
+        "Known ATS platforms route to an existing registered employer source",
+        "Generic extraction is limited to public JobPosting JSON-LD"
       ]
     }
   }

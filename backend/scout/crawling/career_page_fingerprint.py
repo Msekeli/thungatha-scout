@@ -26,7 +26,9 @@ def _job_types(value: object) -> bool:
     return any(str(item).rsplit("/", 1)[-1] == "JobPosting" for item in types)
 
 
-def parse_job_postings(scripts: list[str], source_url: str) -> list[NormalizedVacancy]:
+def parse_job_postings(
+    scripts: list[str], source_url: str
+) -> list[NormalizedVacancy]:
     vacancies: list[NormalizedVacancy] = []
     for script in scripts:
         try:
@@ -39,9 +41,7 @@ def parse_job_postings(scripts: list[str], source_url: str) -> list[NormalizedVa
                 graph = candidate["@graph"]
                 candidates.extend(graph if isinstance(graph, list) else [])
                 continue
-            if not isinstance(candidate, dict) or not _job_types(
-                candidate.get("@type")
-            ):
+            if not isinstance(candidate, dict) or not _job_types(candidate.get("@type")):
                 continue
             vacancy = _map_job_posting(candidate, source_url)
             if vacancy:
@@ -49,15 +49,15 @@ def parse_job_postings(scripts: list[str], source_url: str) -> list[NormalizedVa
     return vacancies
 
 
-def _map_job_posting(item: dict, source_url: str) -> NormalizedVacancy | None:
+def _map_job_posting(
+    item: dict, source_url: str
+) -> NormalizedVacancy | None:
     title = item.get("title")
     url = urljoin(source_url, str(item.get("url") or source_url))
     if not isinstance(title, str) or not title.strip():
         return None
     identifier = item.get("identifier")
-    external_id = (
-        identifier.get("value") if isinstance(identifier, dict) else identifier
-    )
+    external_id = identifier.get("value") if isinstance(identifier, dict) else identifier
     description = item.get("description")
     return NormalizedVacancy(
         external_job_id=str(external_id or url),

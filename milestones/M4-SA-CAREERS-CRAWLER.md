@@ -42,7 +42,25 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 8. Verify partial/failed crawls cannot mark vacancies removed or expired.
 9. Run focused tests and mandatory repository line-limit/naming checks.
 
-**Acceptance:** local bounded crawler works; provenance and completeness are recorded; known ATS routing is tested; generic page observations enter the shared pipeline; failures are explicit and safe. Live employer smoke tests are recorded separately.\n**Implementation progress (13 November 2026):**\n\n- Added a bounded Crawlee ParselCrawler with request/depth/concurrency/time limits, one retry, robots.txt enforcement and blocked-request bypass disabled.\n- Added in-memory page observations with requested/final/canonical URLs, response metadata, platform fingerprints, links and JSON-LD JobPosting candidates.\n- Added fingerprints for the five currently implemented ATS adapters and deterministic JSON-LD mapping into the existing NormalizedVacancy contract.\n- Added fixture tests for supported/unknown ATS hosts, malformed JSON-LD and JobPosting/graph parsing. Tests have not been run.\n- The crawler is not yet connected to persistence or explicit adapter dispatch. Existing source extraction and publishing remain unchanged.\n- Response-size enforcement currently happens after the Parsel parser has loaded the page; a transport-level response cap remains required.\n- Robots/skip classification, generic source persistence, failure completeness, redirect and link-scope behavior remain open acceptance work.
+**Acceptance:** local bounded crawler works; provenance and completeness are recorded; known ATS routing is tested; generic page observations enter the shared pipeline; failures are explicit and safe. Live employer smoke tests are recorded separately.\n**Implementation progress (13 November 2026):**
+
+- Implemented Crawlee's HTTP crawler with request/depth/concurrency/time limits, bounded streaming response reads, one retry, robots.txt enforcement and blocked-request bypass disabled.
+- Added URL, status, content type, title, canonical URL, platform, observation time, discovered-link and vacancy-count evidence. Observations are stored in the existing employer-source discovery preview; HTML bodies are not retained.
+- Added fingerprints for Greenhouse, Lever, Workday, Workable and Teamtailor, plus routing to a matching already-registered ATS source. Generic extraction runs only when no registered ATS source matches.
+- Added a generic `career_page` source type using the existing employer source table, extraction runs, normalized vacancy contract and vacancy repository. Migration `0016` adds the source type.
+- Generic JSON-LD vacancies without a location are withheld and make the run partial; partial/failed runs do not expire missing vacancies.
+- Added fixture tests for platform fingerprints, JSON-LD mapping and generic source configuration. Tests have not been run.
+
+**Still open before acceptance:**
+
+- Verify redirect safety, same-site/external ATS link boundaries, robots skip outcomes, malformed/empty responses, timeout behavior and duplicate routing with mocked tests.
+- Confirm the existing source registration UI accepts the new `career_page` source configuration end to end.
+- Review the existing Cape Town-only source-of-truth versus the current South Africa-wide ingestion gate before accepting generic vacancy coverage. No geography policy was changed here.
+- Run focused tests and mandatory line-limit/naming checks locally. Live employer smoke tests remain separate.
+
+## Branding follow-up after M4-SA-A
+
+Crawlee is not responsible for employer logo discovery or replacement. After M4-SA-A is completed and reviewed, revisit the existing deterministic employer-branding implementation. Preserve working official logos, repair provenance and frontend validation issues, and use discovery only as a fallback when the official logo is genuinely difficult to locate. Never use an ATS vendor favicon as the employer logo.
 
 ### M4-SA-E — Zyte Scrapy Cloud worker packaging and deployment
 
