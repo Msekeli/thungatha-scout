@@ -27,15 +27,17 @@ export default function App() {
         onDismissNotice={state.dismissNotice}
       />
       {state.page === "operations" && (
-        <IngestionOperationsPanel
-          employers={jobs.employers}
-          sources={jobs.dashboardSources}
-          runs={jobs.extractionRuns}
-          running={state.extracting}
-          refreshing={jobs.loading}
-          onRunNow={() => void jobs.fetchJobs()}
-          onRefresh={() => void jobs.loadWorkspace()}
-        />
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          <IngestionOperationsPanel
+            employers={jobs.employers}
+            sources={jobs.dashboardSources}
+            runs={jobs.extractionRuns}
+            running={state.extracting}
+            refreshing={jobs.loading}
+            onRunNow={() => void jobs.fetchJobs()}
+            onRefresh={() => void jobs.loadWorkspace()}
+          />
+        </div>
       )}
       {state.page === "jobs" && (
         <JobsWorkspacePanel jobs={jobs} state={state} vacancyChange={vacancyChange} />
