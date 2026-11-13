@@ -35,8 +35,8 @@ export function IngestionOperationsPanel({
     { label: "New vacancies from runs", value: newJobs, icon: BriefcaseBusiness },
   ];
   return (
-    <section className="flex flex-col gap-4 py-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <section className="flex min-h-0 flex-1 flex-col gap-4 py-4">
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-semibold">Ingestion operations</h2>
           <p className="text-sm text-muted-foreground">
@@ -53,7 +53,7 @@ export function IngestionOperationsPanel({
           </Button>
         </div>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid shrink-0 gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {metrics.map(({ label, value, icon: Icon }) => (
           <div key={label} className="rounded-lg border bg-card p-4">
             <div className="flex items-center justify-between text-muted-foreground">
@@ -64,8 +64,8 @@ export function IngestionOperationsPanel({
           </div>
         ))}
       </div>
-      <RetrievalScheduleCard runs={allRuns} />
-      <SourceStatusPanel employers={employers} sources={sources} runs={runs} />
+      <div className="shrink-0"><RetrievalScheduleCard runs={allRuns} /></div>
+      <div className="min-h-0 flex-1 overflow-y-auto"><SourceStatusPanel employers={employers} sources={sources} runs={runs} /></div>
     </section>
   );
 }
