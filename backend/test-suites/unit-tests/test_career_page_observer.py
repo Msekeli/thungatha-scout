@@ -45,3 +45,13 @@ def test_oversized_response_is_not_parsed() -> None:
     result = observe_page(context, body, True)
     assert result.outcome == "response_too_large"
     assert result.vacancies == ()
+
+def test_discovered_links_are_bounded_per_page() -> None:
+    anchors = "".join(
+        f'<a href="/careers/{index}">Career {index}</a>' for index in range(30)
+    )
+    context, body = _context(
+        "https://employer.example/careers",
+        anchors.encode(),
+    )
+    assert len(observe_page(context, body, False).discovered_links) == 20
