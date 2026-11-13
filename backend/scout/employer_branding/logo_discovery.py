@@ -17,10 +17,11 @@ async def discover_employer_logo(
     careers_url: str | None,
     website_url: str | None = None,
     rejected_candidates: list[str] | None = None,
+    employer_name: str = "",
 ) -> tuple[str, str, str] | None:
     del rejected_candidates
     page_urls = []
-    for value in (careers_url, website_url):
+    for value in (website_url, careers_url):
         if value and is_usable_employer_logo_page_url(value) and value not in page_urls:
             page_urls.append(value)
     if website_url:
@@ -45,15 +46,14 @@ async def discover_employer_logo(
                 continue
             inspected.add(page_url)
             try:
-                result = await discover_logo_on_page(client, page_url, discovered_pages)
+                result = await discover_logo_on_page(
+                    client, page_url, discovered_pages, employer_name
+                )
                 if result:
                     return result
             except (
-                InvalidLogoAsset,
-                UnavailableLogoAsset,
-                httpx.HTTPError,
-                OSError,
-                ValueError,
+                InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError,
+                OSError, ValueError,
             ):
                 continue
             page_urls.extend(url for url in discovered_pages if url not in inspected)
