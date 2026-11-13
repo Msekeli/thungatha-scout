@@ -35,7 +35,7 @@ export function useCompanyDetailsUpdate({
       onError("");
       try {
         const updated = await scoutApi.updateEmployer(employer.id, values);
-        setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
+        setEmployers((current) => current.map((item) => (item.id === updated.id ? { ...item, ...updated, vacancy_count: item.vacancy_count } : item)));
         onNotice(`${updated.name} details updated.`);
         return true;
       } catch (reason) {
