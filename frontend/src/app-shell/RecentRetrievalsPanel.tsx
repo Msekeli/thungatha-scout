@@ -32,7 +32,14 @@ export function RecentRetrievalsPanel({ employers, sources, runs }: Props) {
           const blocked = ["blocked", "rate_limited"].includes(run.outcome);
           const partial =
             !failed && !blocked && (!run.complete || !["success", "empty"].includes(run.outcome));
-          const unchanged = Math.max(0, run.jobs_received - run.jobs_inserted - run.jobs_updated);\n          const statusClass = failed\n            ? "border-destructive/30 bg-destructive/10 text-destructive"\n            : blocked || partial\n              ? "border-warning/30 bg-warning-surface text-warning"\n              : run.outcome === "empty"\n                ? "border-accent bg-accent text-accent-foreground"\n                : "border-success/30 bg-success-surface text-success";
+          const unchanged = Math.max(0, run.jobs_received - run.jobs_inserted - run.jobs_updated);
+          const statusClass = failed
+            ? "border-destructive/30 bg-destructive/10 text-destructive"
+            : blocked || partial
+              ? "border-warning/30 bg-warning-surface text-warning"
+              : run.outcome === "empty"
+                ? "border-accent bg-accent text-accent-foreground"
+                : "border-success/30 bg-success-surface text-success";
           return (
             <div
               key={run.id}
