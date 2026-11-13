@@ -32,8 +32,12 @@ def _tokens(value: str) -> set[str]:
 def _conflicting_brand_name(url: str, employer_name: str) -> bool:
     path = urlparse(url).path.rsplit("/", 1)[-1].casefold()
     words = _tokens(re.sub(r"\.[a-z0-9]+$", "", path))
-    brand_words = words - {"logo", "brand", "mark", "word", "white", "dark"}
+    ignored = {"logo", "brand", "mark", "word", "white", "dark"}
     employer_words = _tokens(employer_name)
+    brand_words = {
+        word for word in words - ignored
+        if (word.isalpha() and len(word) >= 3) or word in employer_words
+    }
     overlap = any(
         a == b or a.startswith(b) or b.startswith(a)
         for a in brand_words for b in employer_words
