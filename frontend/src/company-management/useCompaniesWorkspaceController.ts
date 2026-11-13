@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useCompanyProfileOperations } from "./useCompanyProfileOperations";
 import { useCompanyDetailsUpdate } from "./useCompanyDetailsUpdate";
 import { useCompanySelection } from "./useCompanySelection";
@@ -27,6 +28,13 @@ export function useCompaniesWorkspaceController(
     setPage: state.setPage,
     onError: state.setError,
   });
+  useEffect(() => {
+    if (!state.selectedCompanyId) return;
+    state.setSources(
+      jobs.dashboardSources.filter((source) => source.employer_id === state.selectedCompanyId),
+    );
+  }, [jobs.dashboardSources, state.selectedCompanyId, state.setSources]);
+
   const profile = useCompanyProfileOperations({
     employer,
     logoUrl: state.logoUrl,
