@@ -33,7 +33,7 @@ export const employerApiClient = {
       body: JSON.stringify({
         logo_url: logo_url || null,
         logo_source_url: logo_source_url || null,
-        logo_type,
+        logo_type: logo_type ?? "unverified",
       }),
     }),
   discoverEmployerLogo: (employerId: string) =>
