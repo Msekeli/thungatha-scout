@@ -4,18 +4,16 @@ import { CompanyProfileHeader } from "./CompanyProfileHeader";
 import { CompanyInlineEditor } from "./CompanyInlineEditor";
 import { CompanySourcesPanel } from "./CompanySourcesPanel";
 import type { useScoutAppState } from "../app-state/useScoutAppState";
-import type { useJobsWorkspaceController } from "../job-management/useJobsWorkspaceController";
 import type { useCompaniesWorkspaceController } from "./useCompaniesWorkspaceController";
 import type { useEmployerOnboardingController } from "../employer-onboarding/useEmployerOnboardingController";
 
 type Props = {
   state: ReturnType<typeof useScoutAppState>;
-  jobs: ReturnType<typeof useJobsWorkspaceController>;
   companies: ReturnType<typeof useCompaniesWorkspaceController>;
   onboarding: ReturnType<typeof useEmployerOnboardingController>;
 };
 
-export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Props) {
+export function CompanyProfilePanel({ state, companies, onboarding }: Props) {
   const employer = companies.employer;
   const [editing, setEditing] = useState(false);
   if (!employer) return null;
