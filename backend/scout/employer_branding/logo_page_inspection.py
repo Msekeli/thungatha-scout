@@ -53,7 +53,7 @@ async def discover_logo_on_page(
     )
     if not candidates:
         diagnostics.append("NO_BRANDING_CANDIDATES")
-    for candidate, logo_type in candidates:
+    for candidate, logo_type in candidates[:8]:
         try:
             image = await fetch_public_resource(
                 client, candidate, "image/", MAX_IMAGE_BYTES
