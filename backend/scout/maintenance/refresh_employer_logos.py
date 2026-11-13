@@ -16,7 +16,7 @@ async def refresh_employer_logos(
         employers = connection.execute(
             """SELECT e.id, e.name, e.website_url, e.logo_url,
                       (SELECT es.employer_careers_url FROM employer_sources es
-                       WHERE es.employer_id = e.id AND es.employer_careers_url IS NOT NULL
+                       WHERE es.employer_id = e.id\n                       AND es.employer_careers_url IS NOT NULL
                        ORDER BY es.created_at DESC LIMIT 1) AS careers_url,
                       (SELECT json_agg(es.source_url ORDER BY es.created_at DESC)
                        FROM employer_sources es WHERE es.employer_id = e.id
@@ -39,7 +39,7 @@ async def refresh_employer_logos(
         website_url = verified_website_for(employer)
         source_urls = employer["source_urls"] or []
         careers_url = employer["careers_url"]
-        if careers_url and not careers_page_matches_employer(name, careers_url, website_url):
+        if careers_url and not careers_page_matches_employer(\n            name, careers_url, website_url\n        ):
             print(f"UNVERIFIED_CAREERS_URL: {name} {careers_url}")
             careers_url = None
         if not website_url and not source_urls and not careers_url:
@@ -57,7 +57,7 @@ async def refresh_employer_logos(
         if result is None:
             unresolved += 1
             reason = ",".join(dict.fromkeys(diagnostics)) or "NO_CANDIDATE"
-            outcome = "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
+            outcome = (\n                "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"\n            )
             print(f"{outcome}: {name} ({employer['id']}) reason={reason}")
             continue
         logo_url, source_url, logo_type = result
