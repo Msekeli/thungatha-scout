@@ -55,7 +55,7 @@ def test_workday_registry_imports_all_13_missing_employers() -> None:
     expected_urls = {
         target["board_url"]
         for target in targets
-        if target["employer_id"] not in {"pick_n_pay", "digioutsource"}
+        if target["employer_id"] not in {"pick_n_pay", "super_group"}
     }
     expected_urls.add("https://picknpay.wd3.myworkdayjobs.com/Pnet")
     expected_urls.add("https://myhcm.wd3.myworkdayjobs.com/en-US/digioutsource")

@@ -46,7 +46,7 @@ def test_discovers_and_validates_external_cdn_logo(monkeypatch) -> None:
     result = asyncio.run(discover_employer_logo(None, "https://employer.example.com"))
     assert result == (
         "https://cdn.example.com/logo.png",
-        "https://employer.example.com/",
+        "https://employer.example.com",
         "official_logo",
     )
 
@@ -83,4 +83,4 @@ def test_redirect_to_private_network_is_blocked(monkeypatch) -> None:
     mock_http(monkeypatch, handler, private_hosts={"127.0.0.1"})
     result = asyncio.run(discover_employer_logo(None, "https://employer.example.com"))
     assert result is None
-    assert requested == ["https://employer.example.com/"]
+    assert requested == ["https://employer.example.com"]
