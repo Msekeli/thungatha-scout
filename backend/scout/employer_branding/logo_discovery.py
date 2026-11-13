@@ -55,8 +55,11 @@ async def _discover_from_page(client, page_url, discovered_pages):
     if not _same_employer_host(page_url, page.url) and not is_ats_careers_host(page.url):
         raise InvalidLogoAsset("Careers page redirected away from its employer host.")
     source_url = page.url
-    if result := await _fetch_workday_logo(client, source_url):
-        return result
+    try:
+        if result := await _fetch_workday_logo(client, source_url):
+            return result
+    except (InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError, OSError):
+        pass
     html = page.content.decode("utf-8", errors="replace")
     parser = BrandingMetadataParser()
     parser.feed(html)
