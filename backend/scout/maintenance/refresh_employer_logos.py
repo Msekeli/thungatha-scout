@@ -1,8 +1,8 @@
 import argparse
 import asyncio
 
-from scout.branding.logo_discovery import discover_employer_logo
-from scout.branding.logo_http import inspect_existing_logo
+from scout.employer_branding.logo_discovery import discover_employer_logo
+from scout.employer_branding.logo_http import inspect_existing_logo
 from scout.maintenance.employer_logo_refresh_policy import (
     duplicate_employer_names,
     verified_website_for,

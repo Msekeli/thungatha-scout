@@ -4,7 +4,7 @@ import socket
 import httpx
 import pytest
 
-from scout.branding.logo_http import (
+from scout.employer_branding.logo_http import (
     InvalidLogoAsset,
     fetch_public_resource,
 )

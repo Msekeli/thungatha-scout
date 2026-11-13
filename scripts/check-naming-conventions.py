@@ -14,7 +14,7 @@ DOCUMENTED_DIRECTORY_EXCEPTIONS = {
     "backend", "frontend", "scout", "domain", "adapters", "persistence",
     "components", "styles", "tests", "unit", "diagnostics", "maintenance",
     "test-suites", "unit-tests", "integration-tests", "registry",
-    "database-migrations", "application",
+    "database-migrations", "application", "bin",
 }
 
 DOCUMENTED_FILE_EXCEPTIONS = {
@@ -28,7 +28,7 @@ DOCUMENTED_FILE_EXCEPTIONS = {
     "select.tsx", "separator.tsx", "sheet.tsx", "skeleton.tsx",
     "table.tsx", "tabs.tsx", "tooltip.tsx", "utils.ts", "textarea.tsx", "alert.tsx",
     "geography.py", "authentication.py", "settings.py", "vacancies.py",
-    "employers.py", "api.ts", "supabase.ts",
+    "employers.py", "api.ts", "supabase.ts", "setup.py",
 }
 
 IGNORED_DIRECTORIES = {

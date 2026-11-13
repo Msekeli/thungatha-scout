@@ -1,13 +1,13 @@
 import httpx
 
-from scout.branding.logo_http import (
+from scout.employer_branding.logo_http import (
     InvalidLogoAsset,
     MAX_IMAGE_BYTES,
     UnavailableLogoAsset,
     fetch_public_resource,
     is_usable_employer_logo_url,
 )
-from scout.branding.logo_metadata import extract_logo_assets
+from scout.employer_branding.logo_metadata import extract_logo_assets
 
 
 def _same_employer_host(first: str, second: str) -> bool:

@@ -6,8 +6,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from scout.api.employer_api_dependencies import get_employer_service
 from scout.application.employer_contracts import EmployerBrandingUpdate
 from scout.application.employer_service import EmployerService
-from scout.branding.logo_discovery import discover_employer_logo
-from scout.branding.logo_http import inspect_existing_logo
+from scout.employer_branding.logo_discovery import discover_employer_logo
+from scout.employer_branding.logo_http import inspect_existing_logo
 
 router = APIRouter()
 

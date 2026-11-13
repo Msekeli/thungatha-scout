@@ -1,8 +1,8 @@
 import json
 from urllib.parse import urljoin, urlparse
 
-from scout.branding.branding_metadata_parser import BrandingMetadataParser
-from scout.branding.logo_http import is_usable_employer_logo_url
+from scout.employer_branding.branding_metadata_parser import BrandingMetadataParser
+from scout.employer_branding.logo_http import is_usable_employer_logo_url
 
 
 def _structured_logo(value: object) -> str | None:

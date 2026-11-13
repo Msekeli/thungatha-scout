@@ -3,8 +3,8 @@ import socket
 
 import httpx
 
-from scout.branding.logo_discovery import discover_employer_logo
-from scout.branding.logo_http import is_usable_employer_logo_url
+from scout.employer_branding.logo_discovery import discover_employer_logo
+from scout.employer_branding.logo_http import is_usable_employer_logo_url
 
 
 PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 24

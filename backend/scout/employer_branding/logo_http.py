@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 
 import httpx
 
-from scout.branding.logo_url_validation import (
+from scout.employer_branding.logo_url_validation import (
     InvalidLogoAsset,
     MAX_IMAGE_BYTES,
     UnavailableLogoAsset,
