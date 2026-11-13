@@ -9,8 +9,8 @@ from scout.crawling.career_page_observation import (
 )
 from scout.crawling.career_page_observer import observe_page
 from scout.crawling.career_page_url_validation import (
-    UnsafeCareerPageUrl,
     validate_public_career_url,
+    validated_discovered_links,
 )
 from scout.settings import Settings, get_settings
 
@@ -79,15 +79,6 @@ class CareerPageCrawler:
             tuple(observations), complete, tuple(failed), tuple(skipped)
         )
 
-
-def validated_discovered_links(links: tuple[str, ...]) -> list[str]:
-    safe_links = []
-    for link in links:
-        try:
-            safe_links.append(validate_public_career_url(link))
-        except UnsafeCareerPageUrl:
-            continue
-    return safe_links
 
 
 async def read_bounded_body(
