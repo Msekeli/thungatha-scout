@@ -22,12 +22,13 @@ export const employerApiClient = {
     }),
   deleteEmployer: (employerId: string) =>
     request<void>(`/api/v1/employers/${employerId}`, { method: "DELETE" }),
-  updateEmployerBranding: (employerId: string, logo_url: string, logo_source_url: string) =>
+  updateEmployerBranding: (employerId: string, logo_url: string, logo_source_url: string, logo_type: string) =>
     request<Employer>(`/api/v1/employers/${employerId}/branding`, {
       method: "PATCH",
       body: JSON.stringify({
         logo_url: logo_url || null,
         logo_source_url: logo_source_url || null,
+        logo_type,
       }),
     }),
   discoverEmployerLogo: (employerId: string) =>
