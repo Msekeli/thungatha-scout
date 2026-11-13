@@ -47,7 +47,9 @@ export function AppShellHeader({
           type="button"
           size="sm"
           variant="ghost"
-          className={activePage === "jobs" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}
+          className={
+            activePage === "jobs" ? "bg-accent text-accent-foreground" : "text-muted-foreground"
+          }
           onClick={() => onSelectPage("jobs")}
         >
           Dashboard
@@ -56,12 +58,28 @@ export function AppShellHeader({
           type="button"
           size="sm"
           variant="ghost"
-          className={activePage === "operations" ? "bg-accent text-accent-foreground" : "text-muted-foreground"}
+          className={
+            activePage === "operations"
+              ? "bg-accent text-accent-foreground"
+              : "text-muted-foreground"
+          }
           onClick={() => onSelectPage("operations")}
         >
           Operations
         </Button>
-        <Button type="button" size="sm" variant="ghost" className={activePage === "companies" || activePage === "add-company" ? "bg-accent text-accent-foreground" : "text-muted-foreground"} onClick={() => onSelectPage("companies")}>Companies</Button>
+        <Button
+          type="button"
+          size="sm"
+          variant="ghost"
+          className={
+            activePage === "companies" || activePage === "add-company"
+              ? "bg-accent text-accent-foreground"
+              : "text-muted-foreground"
+          }
+          onClick={() => onSelectPage("companies")}
+        >
+          Companies
+        </Button>
         {(activePage === "jobs" || activePage === "operations") && (
           <Button
             type="button"
