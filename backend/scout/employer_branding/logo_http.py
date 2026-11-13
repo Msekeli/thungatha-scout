@@ -23,7 +23,18 @@ class PublicResource:
 
 
 async def fetch_public_resource(
-    client: httpx.AsyncClient,\n    value: str,\n    content_prefix: str,\n    max_bytes: int,\n    allow_ats_page: bool = False,\n) -> PublicResource:\n    current = value\n    for _ in range(5):\n        if allow_ats_page and content_prefix == "text/html":\n            validate_public_logo_page_url(current)\n        else:\n            validate_public_logo_url(current)
+    client: httpx.AsyncClient,
+    value: str,
+    content_prefix: str,
+    max_bytes: int,
+    allow_ats_page: bool = False,
+) -> PublicResource:
+    current = value
+    for _ in range(5):
+        if allow_ats_page and content_prefix == "text/html":
+            validate_public_logo_page_url(current)
+        else:
+            validate_public_logo_url(current)
         async with client.stream("GET", current) as response:
             if response.status_code in {301, 302, 303, 307, 308}:
                 location = response.headers.get("location")
