@@ -27,7 +27,9 @@ async def _discover_from_page(
     page = await fetch_public_resource(
         client, page_url, "text/html", MAX_IMAGE_BYTES, allow_ats_page=True
     )
-    if not _same_employer_host(page_url, page.url) and not is_ats_careers_host(page.url):
+    if not _same_employer_host(page_url, page.url) and not is_ats_careers_host(
+        page.url
+    ):
         raise InvalidLogoAsset("Careers page redirected away from its employer host.")
     source_url = page.url
     html = page.content.decode("utf-8", errors="replace")
@@ -55,7 +57,11 @@ async def discover_employer_logo(
 ) -> tuple[str, str, str] | None:
     candidates = []
     for value in (website_url, careers_url):
-        if value and is_usable_employer_logo_page_url(value) and value not in candidates:
+        if (
+            value
+            and is_usable_employer_logo_page_url(value)
+            and value not in candidates
+        ):
             candidates.append(value)
     if not candidates:
         return None

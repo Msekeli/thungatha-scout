@@ -21,14 +21,14 @@ def mock_http(monkeypatch, handler) -> None:
     monkeypatch.setattr(
         socket,
         "getaddrinfo",
-        lambda *args, **kwargs: [
-            (None, None, None, None, ("8.8.8.8", 443))
-        ],
+        lambda *args, **kwargs: [(None, None, None, None, ("8.8.8.8", 443))],
     )
 
 
 def test_discovers_employer_logo_from_greenhouse_board_metadata(monkeypatch) -> None:
-    html = '<meta property="og:logo" content="https://cdn.example.com/employer-logo.svg">'
+    html = (
+        '<meta property="og:logo" content="https://cdn.example.com/employer-logo.svg">'
+    )
 
     async def handler(request):
         if request.url.host == "boards.greenhouse.io":
@@ -40,9 +40,7 @@ def test_discovers_employer_logo_from_greenhouse_board_metadata(monkeypatch) -> 
         )
 
     mock_http(monkeypatch, handler)
-    result = asyncio.run(
-        discover_employer_logo("https://boards.greenhouse.io/example")
-    )
+    result = asyncio.run(discover_employer_logo("https://boards.greenhouse.io/example"))
     assert result == (
         "https://cdn.example.com/employer-logo.svg",
         "https://boards.greenhouse.io/example",
@@ -57,16 +55,16 @@ def test_allows_official_careers_page_redirect_to_workday_board(monkeypatch) -> 
         if request.url.host == "careers.example.com":
             return httpx.Response(
                 302,
-                headers={"location": "https://example.wd5.myworkdayjobs.com/en-US/jobs"},
+                headers={
+                    "location": "https://example.wd5.myworkdayjobs.com/en-US/jobs"
+                },
             )
         if request.url.host == "example.wd5.myworkdayjobs.com":
             return httpx.Response(200, headers={"content-type": "text/html"}, text=html)
         return httpx.Response(200, headers={"content-type": "image/png"}, content=PNG)
 
     mock_http(monkeypatch, handler)
-    result = asyncio.run(
-        discover_employer_logo("https://careers.example.com/jobs")
-    )
+    result = asyncio.run(discover_employer_logo("https://careers.example.com/jobs"))
     assert result == (
         "https://cdn.example.com/brand.png",
         "https://example.wd5.myworkdayjobs.com/en-US/jobs",
