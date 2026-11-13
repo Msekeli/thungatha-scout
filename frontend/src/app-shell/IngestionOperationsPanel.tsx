@@ -31,8 +31,8 @@ export function IngestionOperationsPanel({
   const metrics = [
     { label: "Registered employers", value: employers.length, icon: BriefcaseBusiness },
     { label: "Registered sources", value: sources.length, icon: Activity },
-    { label: "Recorded retrievals", value: allRuns.length, icon: Clock3 },
-    { label: "New vacancies from runs", value: newJobs, icon: BriefcaseBusiness },
+    { label: "Recent retrieval runs", value: allRuns.length, icon: Clock3 },
+    { label: "New vacancies in history", value: newJobs, icon: BriefcaseBusiness },
   ];
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-4 py-4">
