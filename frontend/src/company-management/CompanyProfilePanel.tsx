@@ -23,19 +23,7 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
 
   return (
     <section className="flex min-h-0 min-w-0 flex-col gap-4 overflow-y-auto scout-company-profile">
-      {editing ? (
-        <CompanyInlineEditor
-          key={employer.id}
-          employer={employer}
-          saving={state.saving}
-          onCancel={() => setEditing(false)}
-          onSave={async (values) => {
-            if (await companies.updateDetails(values)) setEditing(false);
-          }}
-        />
-      ) : (
-        <CompanyProfileHeader employer={employer} jobsCount={jobsCount} />
-      )}
+      <CompanyProfileHeader employer={employer} jobsCount={jobsCount} />
       <CompanyProfileActions
         companyName={employer.name}
         saving={state.saving}
@@ -43,6 +31,28 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
         onEdit={() => setEditing((current) => !current)}
         onDelete={() => void companies.deleteCompany()}
       />
+      {editing && (
+        <CompanyInlineEditor
+          key={employer.id}
+          employer={employer}
+          saving={state.saving}
+          onCancel={() => setEditing(false)}
+          onSave={async (values) => {
+            const detailsSaved = await companies.updateDetails({
+              name: values.name,
+              legal_name: values.legal_name,
+              website_url: values.website_url,
+              organization_type: values.organization_type,
+              city: values.city,
+              province: values.province,
+              country: values.country,
+            });
+            if (!detailsSaved) return;
+            const brandingSaved = await companies.saveBranding(values.logo_url);
+            if (brandingSaved) setEditing(false);
+          }}
+        />
+      )}
       <CompanySourcesPanel state={state} companies={companies} onboarding={onboarding} />
     </section>
   );
