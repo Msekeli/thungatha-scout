@@ -26,7 +26,7 @@ def _logo_values(value: object) -> list[str]:
                         found.extend(_logo_values(item))
                 else:
                     found.extend(_logo_values(item))
-            else:
+            elif isinstance(item, (dict, list)):
                 found.extend(_logo_values(item))
         return found
     return []
