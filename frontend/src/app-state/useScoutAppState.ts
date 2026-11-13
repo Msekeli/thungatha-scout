@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import type { EmployerSource } from "../api";
 import type { VacancyLocationScope } from "../shared-contracts/vacancy-contracts";
 
-export type ScoutPage = "jobs" | "companies" | "add-company";
+export type ScoutPage = "jobs" | "operations" | "companies" | "add-company";
 
 export const emptyEmployer = {
   name: "",
