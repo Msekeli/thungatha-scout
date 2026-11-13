@@ -9,7 +9,10 @@ export const SUPPORTED_ADAPTERS = [
 
 export type SupportedAdapter = (typeof SUPPORTED_ADAPTERS)[number];
 
-export const ADAPTER_LABELS: Record<SupportedAdapter, { label: string; badge: string }> = {
+export const ADAPTER_LABELS: Record<
+  SupportedAdapter,
+  { label: string; badge: string }
+> = {
   career_page: { label: "Career page", badge: "C" },
   greenhouse: { label: "Greenhouse", badge: "G" },
   lever: { label: "Lever", badge: "L" },

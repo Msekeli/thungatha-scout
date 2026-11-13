@@ -42,7 +42,9 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 8. Verify partial/failed crawls cannot mark vacancies removed or expired.
 9. Run focused tests and mandatory repository line-limit/naming checks.
 
-**Acceptance:** local bounded crawler works; provenance and completeness are recorded; known ATS routing is tested; generic page observations enter the shared pipeline; failures are explicit and safe. Live employer smoke tests are recorded separately.\n**Implementation progress (13 November 2026):**
+**Acceptance:** local bounded crawler works; provenance and completeness are recorded; known ATS routing is tested; generic page observations enter the shared pipeline; failures are explicit and safe. Live employer smoke tests are recorded separately.
+
+**Implementation progress (13 November 2026):**
 
 - Implemented Crawlee's HTTP crawler with request/depth/concurrency/time limits, bounded streaming response reads, one retry, robots.txt enforcement and blocked-request bypass disabled.
 - Added URL, status, content type, title, canonical URL, platform, observation time, discovered-link and vacancy-count evidence. Observations are stored in the existing employer-source discovery preview; HTML bodies are not retained.
