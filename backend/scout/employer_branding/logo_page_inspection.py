@@ -36,8 +36,10 @@ def _workday_logo_url(page_url: str) -> str | None:
     ignored = {"jobs", "search", "wday", "cxs"}
     site = next(
         (
-            part for part in parsed.path.split("/")
-            if part and not re.fullmatch(r"(?i)en-[a-z]{2}", part)
+            part
+            for part in parsed.path.split("/")
+            if part
+            and not re.fullmatch(r"(?i)en-[a-z]{2}", part)
             and part.casefold() not in ignored
         ),
         None,
@@ -61,7 +63,9 @@ async def discover_logo_on_page(client, page_url, discovered_pages, employer_nam
     page = await fetch_public_resource(
         client, page_url, "text/html", MAX_IMAGE_BYTES, allow_ats_page=True
     )
-    if not _same_employer_host(page_url, page.url) and not is_ats_careers_host(page.url):
+    if not _same_employer_host(page_url, page.url) and not is_ats_careers_host(
+        page.url
+    ):
         raise InvalidLogoAsset("Careers page redirected away from its employer host.")
     source_url = page.url
     try:
@@ -74,10 +78,9 @@ async def discover_logo_on_page(client, page_url, discovered_pages, employer_nam
     parser.feed(html)
     for link in parser.branding_pages:
         candidate = urljoin(source_url, link)
-        if (
-            _same_employer_host(source_url, candidate)
-            and is_usable_employer_logo_page_url(candidate)
-        ):
+        if _same_employer_host(
+            source_url, candidate
+        ) and is_usable_employer_logo_page_url(candidate):
             discovered_pages.append(candidate)
     for candidate, logo_type in extract_logo_assets(html, source_url, employer_name):
         try:

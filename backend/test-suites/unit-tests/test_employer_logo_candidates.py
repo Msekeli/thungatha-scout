@@ -4,6 +4,7 @@ import httpx
 from scout.employer_branding.logo_discovery import discover_employer_logo
 from scout.employer_branding.logo_image_validation import has_usable_logo_dimensions
 from scout.employer_branding.logo_metadata import extract_logo_assets
+
 SVG = b'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"></svg>'
 
 
@@ -91,8 +92,10 @@ def test_rejects_logo_asset_named_for_another_brand():
 
 def test_rejects_tiny_icon_and_loading_gif():
     tiny_png = (
-        b"\x89PNG\r\n\x1a\n" + b"\x00" * 8
-        + (20).to_bytes(4, "big") + (20).to_bytes(4, "big")
+        b"\x89PNG\r\n\x1a\n"
+        + b"\x00" * 8
+        + (20).to_bytes(4, "big")
+        + (20).to_bytes(4, "big")
     )
     assert not has_usable_logo_dimensions(tiny_png, "image/png")
     assert not has_usable_logo_dimensions(b"GIF89a" + b"\x00" * 20, "image/gif")

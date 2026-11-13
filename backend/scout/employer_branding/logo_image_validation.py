@@ -3,7 +3,21 @@ import re
 
 def _jpeg_dimensions(data: bytes) -> tuple[int, int]:
     index = 2
-    markers = {0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF}
+    markers = {
+        0xC0,
+        0xC1,
+        0xC2,
+        0xC3,
+        0xC5,
+        0xC6,
+        0xC7,
+        0xC9,
+        0xCA,
+        0xCB,
+        0xCD,
+        0xCE,
+        0xCF,
+    }
     while index + 9 < len(data):
         if data[index] != 0xFF:
             index += 1
@@ -12,10 +26,10 @@ def _jpeg_dimensions(data: bytes) -> tuple[int, int]:
         index += 2
         if marker in {0xD8, 0xD9, 0x01} or 0xD0 <= marker <= 0xD7:
             continue
-        size = int.from_bytes(data[index:index + 2], "big")
+        size = int.from_bytes(data[index : index + 2], "big")
         if marker in markers and size >= 7:
-            height = int.from_bytes(data[index + 3:index + 5], "big")
-            width = int.from_bytes(data[index + 5:index + 7], "big")
+            height = int.from_bytes(data[index + 3 : index + 5], "big")
+            width = int.from_bytes(data[index + 5 : index + 7], "big")
             return width, height
         if size < 2:
             break
@@ -46,14 +60,16 @@ def has_usable_logo_dimensions(content: bytes, content_type: str) -> bool:
         svg = content[:8192].decode("utf-8", errors="ignore")
         viewbox = re.search(
             r'viewBox=["\']\s*[\d.]+[ ,]+[\d.]+[ ,]+([\d.]+)[ ,]+([\d.]+)',
-            svg, re.I,
+            svg,
+            re.I,
         )
         if viewbox:
             return min(float(viewbox.group(1)), float(viewbox.group(2))) >= 24
         width = re.search(r'width=["\']([\d.]+)', svg, re.I)
         height = re.search(r'height=["\']([\d.]+)', svg, re.I)
         return bool(
-            width and height
+            width
+            and height
             and min(float(width.group(1)), float(height.group(1))) >= 24
         )
     if content.startswith(b"\x89PNG") and len(content) >= 24:
