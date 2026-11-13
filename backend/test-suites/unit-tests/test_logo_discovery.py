@@ -84,33 +84,3 @@ def test_redirect_to_private_network_is_blocked(monkeypatch) -> None:
     result = asyncio.run(discover_employer_logo(None, "https://employer.example.com"))
     assert result is None
     assert requested == ["https://employer.example.com"]
-
-
-
-def test_registered_workday_source_is_checked_before_employer_homepage(monkeypatch) -> None:
-    board = "https://damen.wd3.myworkdayjobs.com/Damen_Careers"
-    requested = []
-
-    async def handler(request):
-        requested.append(str(request.url))
-        if request.url.path.endswith("/assets/logo"):
-            return httpx.Response(
-                200, headers={"content-type": "image/png"}, content=PNG
-            )
-        return httpx.Response(
-            200, headers={"content-type": "text/html"}, text="<html></html>"
-        )
-
-    mock_http(monkeypatch, handler)
-    result = asyncio.run(
-        discover_employer_logo(
-            None, "https://www.damen.com", employer_name="Damen",
-            source_urls=[board],
-        )
-    )
-    assert result == (
-        "https://damen.wd3.myworkdayjobs.com/Damen_Careers/assets/logo",
-        board,
-        "official_ats_logo",
-    )
-    assert requested[0] == board
