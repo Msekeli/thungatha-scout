@@ -3,14 +3,7 @@ import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { JobsWorkspacePanel } from "./job-management/JobsWorkspacePanel";
 import { IngestionOperationsPanel } from "./app-shell/IngestionOperationsPanel";
 import { CompaniesWorkspacePanel } from "./company-management/CompaniesWorkspacePanel";
-import { EmployerOnboardingPanel } from "./employer-onboarding/EmployerOnboardingPanel";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "./components/ui/dialog";
+import { AddCompanyDialog } from "./company-management/AddCompanyDialog";
 import { useScoutApplicationController } from "./useScoutApplicationController";
 import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges";
 import { useVacancyCountChange } from "./job-management/useVacancyCountChange";
@@ -57,45 +50,7 @@ export default function App() {
           jobChangesByEmployer={companyJobChanges.jobChangesByEmployer}
         />
       )}
-      <Dialog
-        open={addingCompany}
-        onOpenChange={(open) => {
-          if (!open) {
-            state.setPage("companies");
-            state.setSourceUrl("");
-          }
-        }}
-      >
-        <DialogContent className="scout-company-add-dialog">
-          <DialogHeader>
-            <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
-            <DialogDescription className="scout-company-dialog-copy">
-              Paste a supported careers-board URL. Add the employer's official website to enable
-              logo discovery when the ATS hosts the careers page.
-            </DialogDescription>
-          </DialogHeader>
-          <EmployerOnboardingPanel
-            sourceUrl={state.sourceUrl}
-            onChangeSourceUrl={state.setSourceUrl}
-            inspecting={onboarding.inspecting}
-            form={state.form}
-            onChangeCompanyName={(value) =>
-              state.setForm((current) => ({ ...current, name: value }))
-            }
-            onChangeWebsiteUrl={(value) =>
-              state.setForm((current) => ({ ...current, website_url: value }))
-            }
-            saving={state.saving}
-            onSubmit={onboarding.submit}
-            onCancel={() => {
-              state.setPage("companies");
-              state.setSourceUrl("");
-            }}
-            duplicate={onboarding.duplicate}
-            onOpenExisting={onboarding.openExistingCompany}
-          />
-        </DialogContent>
-      </Dialog>
+      <AddCompanyDialog state={state} onboarding={onboarding} />
       <footer className="scout-app-footer">
         Scout is a private operations workspace. Only verified, quality-checked records are eligible
         for publishing to Thungatha.
