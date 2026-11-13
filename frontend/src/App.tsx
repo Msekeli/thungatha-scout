@@ -1,6 +1,7 @@
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { JobsWorkspacePanel } from "./job-management/JobsWorkspacePanel";
+import { IngestionOperationsPanel } from "./app-shell/IngestionOperationsPanel";
 import { CompaniesWorkspacePanel } from "./company-management/CompaniesWorkspacePanel";
 import { EmployerOnboardingPanel } from "./employer-onboarding/EmployerOnboardingPanel";
 import {
@@ -34,6 +35,17 @@ export default function App() {
         onDismissError={state.dismissError}
         onDismissNotice={state.dismissNotice}
       />
+      {state.page === "operations" && (
+        <IngestionOperationsPanel
+          employers={jobs.employers}
+          sources={jobs.dashboardSources}
+          runs={jobs.extractionRuns}
+          running={state.extracting}
+          refreshing={jobs.loading}
+          onRunNow={() => void jobs.fetchJobs()}
+          onRefresh={() => void jobs.loadWorkspace()}
+        />
+      )}
       {state.page === "jobs" && (
         <JobsWorkspacePanel jobs={jobs} state={state} vacancyChange={vacancyChange} />
       )}
