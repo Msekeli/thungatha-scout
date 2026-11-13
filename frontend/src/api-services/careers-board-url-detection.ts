@@ -31,3 +31,20 @@ export function isWorkdayBoardUrl(value: string): boolean {
     return false;
   }
 }
+
+export function isGreenhouseBoardUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return ["boards.greenhouse.io", "job-boards.greenhouse.io"].includes(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
+export function isTeamtailorBoardUrl(value: string): boolean {
+  try {
+    return new URL(value).hostname.endsWith(".teamtailor.com");
+  } catch {
+    return false;
+  }
+}
