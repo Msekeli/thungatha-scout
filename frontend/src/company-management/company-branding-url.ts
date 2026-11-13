@@ -25,6 +25,17 @@ function normalizeHost(host: string): string {
     .replace(/\.$/, "");
 }
 
+function isTrustedAtsBrandingAsset(url: URL): boolean {
+  const host = url.hostname.toLowerCase();
+  const path = url.pathname;
+  return (
+    (host.endsWith(".myworkdayjobs.com") && path.endsWith("/assets/logo")) ||
+    (host === "recruiting.cdn.greenhouse.io" &&
+      path.includes("/external_greenhouse_job_boards/logos/")) ||
+    (host === "images.teamtailor-cdn.com" && path.includes("/logotype-v3/"))
+  );
+}
+
 function isBlockedBrandingHost(host: string): boolean {
   const normalized = host.toLowerCase().replace(/\.$/, "");
   return (
@@ -46,7 +57,7 @@ export function parseSafeBrandingUrl(value: string): URL | null {
       !parsed.hostname ||
       parsed.username ||
       parsed.password ||
-      isBlockedBrandingHost(parsed.hostname)
+      (isBlockedBrandingHost(parsed.hostname) && !isTrustedAtsBrandingAsset(parsed))
     ) {
       return null;
     }
