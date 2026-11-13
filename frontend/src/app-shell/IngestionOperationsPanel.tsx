@@ -64,8 +64,12 @@ export function IngestionOperationsPanel({
           </div>
         ))}
       </div>
-      <div className="shrink-0"><RetrievalScheduleCard runs={allRuns} /></div>
-      <div className="min-h-0 flex-1 overflow-y-auto"><SourceStatusPanel employers={employers} sources={sources} runs={runs} /></div>
+      <div className="shrink-0">
+        <RetrievalScheduleCard runs={allRuns} />
+      </div>
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <SourceStatusPanel employers={employers} sources={sources} runs={runs} />
+      </div>
     </section>
   );
 }
