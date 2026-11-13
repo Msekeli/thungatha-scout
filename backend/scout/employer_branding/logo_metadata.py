@@ -68,8 +68,12 @@ def extract_logo_assets(html: str, page_url: str) -> list[tuple[str, str]]:
     seen: set[str] = set()
     for score, value in sorted(ranked, reverse=True):
         url = urljoin(page_url, value.strip())
-        if (score <= 0 or url in seen or not is_usable_employer_logo_url(url)
-                or not urlparse(url).hostname):
+        if (
+            score <= 0
+            or url in seen
+            or not is_usable_employer_logo_url(url)
+            or not urlparse(url).hostname
+        ):
             continue
         seen.add(url)
         result.append((url, "official_logo"))
