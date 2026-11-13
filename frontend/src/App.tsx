@@ -4,13 +4,7 @@ import { JobsWorkspacePanel } from "./job-management/JobsWorkspacePanel";
 import { IngestionOperationsPanel } from "./app-shell/IngestionOperationsPanel";
 import { CompaniesWorkspacePanel } from "./company-management/CompaniesWorkspacePanel";
 import { EmployerOnboardingPanel } from "./employer-onboarding/EmployerOnboardingPanel";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "./components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./components/ui/dialog";
 import { useScoutApplicationController } from "./useScoutApplicationController";
 import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges";
 import { useVacancyCountChange } from "./job-management/useVacancyCountChange";
@@ -27,12 +21,7 @@ export default function App() {
         onRefresh={() => void jobs.loadWorkspace()}
         refreshing={jobs.loading}
       />
-      <OperationalAlerts
-        error={state.error}
-        notice={state.notice}
-        onDismissError={state.dismissError}
-        onDismissNotice={state.dismissNotice}
-      />
+      <OperationalAlerts error={state.error} notice={state.notice} onDismissError={state.dismissError} onDismissNotice={state.dismissNotice} />
       {state.page === "operations" && (
         <IngestionOperationsPanel
           employers={jobs.employers}
@@ -66,14 +55,10 @@ export default function App() {
           }
         }}
       >
-        <DialogContent className="scout-company-add-dialog">
-          <DialogHeader>
-            <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
-            <DialogDescription className="scout-company-dialog-copy">
-              Paste a supported careers-board URL. Add the employer's official website to enable
-              logo discovery when the ATS hosts the careers page.
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="scout-company-add-dialog"><DialogHeader>
+          <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
+          <DialogDescription className="scout-company-dialog-copy">Paste a supported careers-board URL. Add the employer's official website to enable logo discovery when the ATS hosts the careers page.</DialogDescription>
+        </DialogHeader>
           <EmployerOnboardingPanel
             sourceUrl={state.sourceUrl}
             onChangeSourceUrl={state.setSourceUrl}
@@ -96,10 +81,7 @@ export default function App() {
           />
         </DialogContent>
       </Dialog>
-      <footer className="scout-app-footer">
-        Scout is a private operations workspace. Only verified, quality-checked records are eligible
-        for publishing to Thungatha.
-      </footer>
+      <footer className="scout-app-footer">Scout is a private operations workspace. Only verified, quality-checked records are eligible for publishing to Thungatha.</footer>
     </main>
   );
 }
