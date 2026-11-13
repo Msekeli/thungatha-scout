@@ -102,7 +102,8 @@ export function CompanyInlineEditor({ employer, saving, onSave, onCancel }: Prop
               </p>
               {logoUrl.trim() && logoFailed && (
                 <p className="mt-1 text-xs text-destructive">
-                  This address could not be previewed. Check that it points to a publicly accessible image.
+                  This address could not be previewed. Check that it points to a publicly accessible
+                  image.
                 </p>
               )}
               {logoUrl.trim() && (
