@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from "react";
-import { ImagePlus, Link2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { Employer } from "../api";
+import { CompanyLogoUrlField } from "./CompanyLogoUrlField";
 
 type Props = {
   employer: Employer;
@@ -47,13 +47,11 @@ export function CompanyInlineEditor({ employer, saving, onSave, onCancel }: Prop
           Update the company name, official website and logo address.
         </p>
       </div>
-
       <div className="grid gap-4">
         <label className="grid gap-1.5 text-sm font-medium text-foreground">
           Company name
           <Input name="name" defaultValue={employer.name} required />
         </label>
-
         <label className="grid gap-1.5 text-sm font-medium text-foreground">
           Official website
           <Input
@@ -63,66 +61,19 @@ export function CompanyInlineEditor({ employer, saving, onSave, onCancel }: Prop
             placeholder="https://company.com"
           />
           <span className="text-xs font-normal text-muted-foreground">
-            The employer's main public website. You can change this if the domain has moved.
+            The employer's main public website. Change this if the domain has moved.
           </span>
         </label>
-
-        <div className="grid gap-2">
-          <label className="flex items-center gap-2 text-sm font-medium text-foreground">
-            <ImagePlus className="h-4 w-4 text-muted-foreground" />
-            Company logo URL
-          </label>
-          <div className="flex min-w-0 flex-col gap-3 sm:flex-row">
-            <div className="flex h-20 w-24 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/40 p-2">
-              {logoUrl.trim() && !logoFailed ? (
-                <img
-                  src={logoUrl.trim()}
-                  alt="Company logo preview"
-                  className="h-full w-full object-contain"
-                  onError={() => setLogoFailed(true)}
-                />
-              ) : (
-                <ImagePlus className="h-7 w-7 text-muted-foreground" />
-              )}
-            </div>
-            <div className="min-w-0 flex-1">
-              <Input
-                type="url"
-                value={logoUrl}
-                onChange={(event) => {
-                  setLogoUrl(event.target.value);
-                  setLogoFailed(false);
-                }}
-                placeholder="https://example.com/assets/logo"
-                aria-label="Company logo URL"
-              />
-              <p className="mt-1.5 flex items-start gap-1.5 text-xs font-normal text-muted-foreground">
-                <Link2 className="mt-0.5 h-3 w-3 shrink-0" />
-                Paste the direct public image address. Scout stores the URL, not the image file.
-              </p>
-              {logoUrl.trim() && logoFailed && (
-                <p className="mt-1 text-xs text-destructive">
-                  This address could not be previewed. Check that it points to a publicly accessible
-                  image.
-                </p>
-              )}
-              {logoUrl.trim() && (
-                <button
-                  type="button"
-                  className="mt-2 text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
-                  onClick={() => {
-                    setLogoUrl("");
-                    setLogoFailed(false);
-                  }}
-                >
-                  Clear logo URL
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
+        <CompanyLogoUrlField
+          value={logoUrl}
+          failed={logoFailed}
+          onChange={(value) => {
+            setLogoUrl(value);
+            setLogoFailed(false);
+          }}
+          onPreviewError={() => setLogoFailed(true)}
+        />
       </div>
-
       <div className="mt-5 flex justify-end gap-2 border-t border-border pt-4">
         <Button type="button" variant="outline" onClick={onCancel} disabled={saving}>
           Cancel
