@@ -43,7 +43,9 @@ def test_falls_back_when_primary_provider_fails(monkeypatch) -> None:
         return LogoAssessment(is_logo=False, confidence=0.99, reason="Photograph")
 
     monkeypatch.setattr(verification, "classify_with_provider", classify)
-    result = asyncio.run(\n        verification.assess_logo_image(b"photo", "image/jpeg", "Damen")\n    )
+    result = asyncio.run(
+        verification.assess_logo_image(b"photo", "image/jpeg", "Damen")
+    )
     assert not result.is_logo
     assert calls == ["gemini", "groq"]
 
