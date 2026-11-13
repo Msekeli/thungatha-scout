@@ -23,7 +23,7 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
 
   return (
     <section className="flex min-h-0 min-w-0 flex-col gap-4 overflow-y-auto scout-company-profile">
-      <CompanyProfileHeader employer={employer} jobsCount={jobsCount} />
+      <CompanyProfileHeader key={employer.id} employer={employer} jobsCount={jobsCount} />
       <CompanyProfileActions
         companyName={employer.name}
         saving={state.saving}
