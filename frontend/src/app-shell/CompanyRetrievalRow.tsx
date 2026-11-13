@@ -58,11 +58,13 @@ export function CompanyRetrievalRow({ employer, sources, runs }: Props) {
           : noChanges
             ? "No changes"
             : "Retrieved";
-  const variant = failed
-    ? "destructive"
-    : partial || blocked || !latest.length
-      ? "outline"
-      : "secondary";
+  const statusClass = failed
+    ? "border-destructive/30 bg-destructive/10 text-destructive"
+    : blocked || partial || !latest.length
+      ? "border-warning/30 bg-warning-surface text-warning"
+      : noChanges
+        ? "border-accent bg-accent text-accent-foreground"
+        : "border-success/30 bg-success-surface text-success";
   const lastAttempt = latest
     .map((run) => run.started_at ?? "")
     .sort()
@@ -84,7 +86,7 @@ export function CompanyRetrievalRow({ employer, sources, runs }: Props) {
         label="Observed jobs Δ"
         value={hasComparison ? `${observedDelta > 0 ? "+" : ""}${observedDelta}` : "—"}
       />
-      <Badge variant={variant}>{status}</Badge>
+      <Badge variant="outline" className={statusClass}>{status}</Badge>
     </div>
   );
 }
