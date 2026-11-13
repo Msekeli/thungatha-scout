@@ -3,15 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource, ExtractionRun } from "../api";
 import { SourceStatusPanel } from "./SourceStatusPanel";
-type Props = {
-  employers: Employer[];
-  sources: EmployerSource[];
-  runs: Record<string, ExtractionRun[]>;
-  running: boolean;
-  refreshing: boolean;
-  onRunNow: () => void;
-  onRefresh: () => void;
-};
+type Props = { employers: Employer[]; sources: EmployerSource[]; runs: Record<string, ExtractionRun[]>; running: boolean; refreshing: boolean; onRunNow: () => void; onRefresh: () => void };
 export function IngestionOperationsPanel({
   employers,
   sources,
@@ -86,7 +78,7 @@ export function IngestionOperationsPanel({
           </p>
           <p className="mt-2 text-sm text-muted-foreground">
             {allRuns.length
-              ? `Most recent attempt: ${new Date(allRuns[0].started_at ?? "").toLocaleString()}`
+              ? `Most recent attempt: ${allRuns[0].started_at ? new Date(allRuns[0].started_at).toLocaleString() : "Unknown"}`
               : "No extraction runs have been recorded."}
           </p>
           {failedRuns > 0 && (
