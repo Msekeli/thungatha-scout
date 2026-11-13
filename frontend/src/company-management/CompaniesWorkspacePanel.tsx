@@ -64,11 +64,7 @@ export function CompaniesWorkspacePanel({
               Company details
             </DialogTitle>
           </DialogHeader>
-          <CompanyProfilePanel
-            state={state}
-            companies={companies}
-            onboarding={onboarding}
-          />
+          <CompanyProfilePanel state={state} companies={companies} onboarding={onboarding} />
         </DialogContent>
       </Dialog>
     </section>
