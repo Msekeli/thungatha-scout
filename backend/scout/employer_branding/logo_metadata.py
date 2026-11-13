@@ -75,18 +75,19 @@ def extract_logo_assets(
     page_host = (urlparse(page_url).hostname or "").casefold().removeprefix("www.")
     result: list[tuple[str, str]] = []
     seen: set[str] = set()
-    for score, value in sorted(ranked, reverse=True):
+    ranked_urls = []
+    for score, value in ranked:
         url = urljoin(page_url, value.strip())
         host = (urlparse(url).hostname or "").casefold().removeprefix("www.")
         if (
-            score <= 0
-            or url in seen
-            or not is_usable_employer_logo_url(url)
-            or not host
+            score <= 0 or not is_usable_employer_logo_url(url) or not host
             or _conflicting_brand_name(url, employer_name)
         ):
             continue
-        score += 35 if host == page_host else 0
+        ranked_urls.append((score + (35 if host == page_host else 0), url))
+    for _, url in sorted(ranked_urls, reverse=True):
+        if url in seen:
+            continue
         seen.add(url)
         result.append((url, "official_logo"))
     return result
