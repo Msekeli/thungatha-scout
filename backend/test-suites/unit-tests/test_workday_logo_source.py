@@ -47,3 +47,21 @@ def test_registered_workday_source_precedes_employer_homepage(monkeypatch) -> No
         board, "official_ats_logo",
     )
     assert requested[0] == board
+
+
+
+def test_workday_source_page_and_logo_endpoint_are_allowed() -> None:
+    from scout.employer_branding.logo_page_helpers import (
+        registered_redirect,
+        workday_logo_url,
+    )
+    from scout.employer_branding.logo_page_url_validation import (
+        is_usable_employer_logo_page_url,
+    )
+
+    board = "https://damen.wd3.myworkdayjobs.com/Damen_Careers"
+    assert is_usable_employer_logo_page_url(board)
+    assert registered_redirect(board, ["damen.wd3.myworkdayjobs.com"])
+    assert workday_logo_url(board) == (
+        "https://damen.wd3.myworkdayjobs.com/Damen_Careers/assets/logo"
+    )
