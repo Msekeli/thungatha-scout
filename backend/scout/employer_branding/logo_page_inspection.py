@@ -46,7 +46,7 @@ async def discover_logo_on_page(
     parser.feed(page.content.decode("utf-8", errors="replace"))
     for link in parser.branding_pages:
         candidate = urljoin(source_url, link)
-        if same_employer_host(source_url, candidate) and is_usable_employer_logo_page_url(candidate):
+        if same_employer_host(source_url, candidate) and (\n            is_usable_employer_logo_page_url(candidate)\n        ):
             discovered_pages.append(candidate)
     candidates = extract_logo_assets(
         page.content.decode("utf-8", errors="replace"), source_url, employer_name
