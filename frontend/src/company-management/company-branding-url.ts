@@ -1,4 +1,6 @@
 const BLOCKED_BRANDING_HOSTS = new Set([
+  "google.com",
+  "www.google.com",
   "favicons.githubusercontent.com",
   "greenhouse.io",
   "lever.co",
