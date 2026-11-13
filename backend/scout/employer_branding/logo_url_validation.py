@@ -15,20 +15,6 @@ BLOCKED_HOSTS = {
     "teamtailor.com",
     "workable.com",
 }
-ATS_CAREERS_SUFFIXES = (
-    ".greenhouse.io",
-    ".lever.co",
-    ".teamtailor.com",
-    ".myworkdayjobs.com",
-    ".workable.com",
-)
-ATS_CAREERS_HOSTS = {
-    "boards.greenhouse.io",
-    "job-boards.greenhouse.io",
-    "job-boards.eu.greenhouse.io",
-    "jobs.lever.co",
-    "jobs.eu.lever.co",
-}
 MAX_IMAGE_BYTES = 2_000_000
 
 
@@ -55,22 +41,6 @@ def _valid_public_https_url(value: str | None) -> bool:
         )
     except ValueError:
         return False
-
-
-def is_ats_careers_host(value: str) -> bool:
-    try:
-        host = (urlparse(value).hostname or "").casefold().rstrip(".")
-    except ValueError:
-        return False
-    return host in ATS_CAREERS_HOSTS or any(
-        host.endswith(suffix) for suffix in ATS_CAREERS_SUFFIXES
-    )
-
-
-def is_usable_employer_logo_page_url(value: str | None) -> bool:
-    return _valid_public_https_url(value) and (
-        is_usable_employer_logo_url(value) or is_ats_careers_host(value or "")
-    )
 
 
 def is_usable_employer_logo_url(value: str | None) -> bool:
@@ -108,12 +78,6 @@ def validate_public_logo_url(value: str) -> None:
     _validate_public_host(value)
 
 
-def validate_public_logo_page_url(value: str) -> None:
-    if not is_usable_employer_logo_page_url(value):
-        raise InvalidLogoAsset("URL is not an allowed public careers-page URL.")
-    _validate_public_host(value)
-
-
 def is_valid_image_payload(content: bytes, content_type: str) -> bool:
     signatures = (
         b"\x89PNG\r\n\x1a\n",
@@ -123,7 +87,7 @@ def is_valid_image_payload(content: bytes, content_type: str) -> bool:
         b"BM",
         b"II*\x00",
         b"MM\x00*",
-        b"\x00\x00\x01\x00",
+        b"\x00\x01\x00",
     )
     if any(content.startswith(signature) for signature in signatures):
         return True
