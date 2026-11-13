@@ -31,12 +31,11 @@ def same_employer_host(first: str, second: str) -> bool:
 
 def registered_redirect(final_url: str, allowed_hosts: list[str]) -> bool:
     final_host = httpx.URL(final_url).host.casefold()
+    normalized_hosts = {host.casefold().removeprefix("www.") for host in allowed_hosts}
     if is_ats_careers_host(final_url):
-        return any(
-            httpx.URL(host).host.casefold() == final_host for host in allowed_hosts
-        )
+        return final_host in normalized_hosts
     final_root = root_domain(final_host)
-    return any(root_domain(host) == final_root for host in allowed_hosts)
+    return any(root_domain(host) == final_root for host in normalized_hosts)
 
 
 def workday_logo_url(page_url: str) -> str | None:
