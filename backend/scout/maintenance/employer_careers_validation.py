@@ -1,7 +1,10 @@
 import re
 from urllib.parse import urlparse
 
-ATS_SUFFIXES = (".greenhouse.io", ".lever.co", ".teamtailor.com")
+ATS_SUFFIXES = (
+    ".greenhouse.io", ".lever.co", ".teamtailor.com",
+    ".myworkdayjobs.com", ".workable.com",
+)
 
 
 def careers_page_matches_employer(name: str, careers_url: str | None) -> bool:
@@ -14,13 +17,13 @@ def careers_page_matches_employer(name: str, careers_url: str | None) -> bool:
         return False
     if compact_name in re.sub(r"[^a-z0-9]", "", host):
         return True
-    if host.endswith(ATS_SUFFIXES) or host.endswith(".myworkdayjobs.com"):
+    if host.endswith(ATS_SUFFIXES):
         parts = [part for part in parsed.path.split("/") if part]
-        identifiers = [host.split(".")[0], parts[0] if parts else ""]
+        identifiers = [host.split(".")[0], *parts[:2]]
         return any(
             compact_name in re.sub(r"[^a-z0-9]", "", value.casefold())
             or re.sub(r"[^a-z0-9]", "", value.casefold()) in compact_name
             for value in identifiers
-            if len(value) >= 4
+            if len(value) >= 2
         )
     return False
