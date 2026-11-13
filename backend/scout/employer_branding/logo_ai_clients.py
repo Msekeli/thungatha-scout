@@ -20,7 +20,10 @@ def gemini_assessment(image, mime, prompt, model, key, timeout):
     from google import genai
     from google.genai import types
 
-    client = genai.Client(\n        api_key=key, http_options=types.HttpOptions(timeout=timeout * 1000)\n    )\n    response = client.models.generate_content(
+    client = genai.Client(
+        api_key=key, http_options=types.HttpOptions(timeout=timeout * 1000)
+    )
+    response = client.models.generate_content(
         model=model,
         contents=[prompt, types.Part.from_bytes(data=image, mime_type=mime)],
         config=types.GenerateContentConfig(
@@ -62,4 +65,7 @@ def classify_with_provider(name, image, mime, employer, settings):
         raise RuntimeError(f"{name} key/model is not configured")
     prompt = _PROMPT.format(employer=employer)
     call = gemini_assessment if name == "gemini" else groq_assessment
-    return call(\n        image, mime, prompt, model, key.get_secret_value(),\n        settings.ai_timeout_seconds,\n    )
+    return call(
+        image, mime, prompt, model, key.get_secret_value(),
+        settings.ai_timeout_seconds,
+    )
