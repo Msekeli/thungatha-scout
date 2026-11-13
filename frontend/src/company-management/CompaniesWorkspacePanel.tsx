@@ -56,17 +56,16 @@ export function CompaniesWorkspacePanel({
         }}
       >
         <DialogContent
-          className="scout-company-dialog !max-h-[86vh] !w-[min(95vw,58rem)] !max-w-none !overflow-hidden !p-0"
+          className="!flex !max-h-[86vh] !w-[min(95vw,58rem)] !max-w-none !flex-col !gap-0 !overflow-hidden !rounded-xl !p-0"
           overlayClassName="!bg-transparent !backdrop-blur-0"
         >
-          <DialogHeader className="scout-company-dialog-header">
+          <DialogHeader className="relative z-10 shrink-0 border-b border-border bg-card px-6 py-5 pr-14">
             <DialogTitle className="text-base font-semibold tracking-tight text-foreground">
               Company details
             </DialogTitle>
           </DialogHeader>
           <CompanyProfilePanel
             state={state}
-            jobs={jobs}
             companies={companies}
             onboarding={onboarding}
           />
