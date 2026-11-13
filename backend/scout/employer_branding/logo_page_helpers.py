@@ -44,12 +44,21 @@ def workday_logo_url(page_url: str) -> str | None:
     if not host.endswith(".myworkdayjobs.com"):
         return None
     ignored = {"jobs", "search", "wday", "cxs"}
-    site = next((part for part in parsed.path.split("/") if part
-        and not re.fullmatch(r"(?i)en-[a-z]{2}", part)
-        and part.casefold() not in ignored), None)
-    return f"https://{host}/{site}/assets/logo" if site and re.fullmatch(
-        r"[A-Za-z0-9_-]+", site
-    ) else None
+    site = next(
+        (
+            part
+            for part in parsed.path.split("/")
+            if part
+            and not re.fullmatch(r"(?i)en-[a-z]{2}", part)
+            and part.casefold() not in ignored
+        ),
+        None,
+    )
+    return (
+        f"https://{host}/{site}/assets/logo"
+        if site and re.fullmatch(r"[A-Za-z0-9_-]+", site)
+        else None
+    )
 
 
 async def fetch_workday_logo(client, page_url):
@@ -64,7 +73,10 @@ async def fetch_workday_logo(client, page_url):
 
 async def ai_accepts_image(image, employer_name, diagnostics):
     settings = get_settings()
-    if not settings.ai_enabled or image.content_type == "image/svg+xml":
+    if image.content_type == "image/svg+xml":
+        return True
+    if not settings.ai_enabled:
+        diagnostics.append("AI_VERIFICATION_DISABLED")
         return True
     try:
         result = await assess_logo_image(
@@ -72,11 +84,13 @@ async def ai_accepts_image(image, employer_name, diagnostics):
         )
     except LogoAIUnavailable as error:
         reason = (
-            "AI_ASSESSMENT_LIMIT" if "limit" in str(error)
+            "AI_ASSESSMENT_LIMIT"
+            if "limit" in str(error)
             else "AI_VERIFICATION_UNAVAILABLE"
         )
         diagnostics.append(reason)
-        return False
+        diagnostics.append("DETERMINISTIC_FALLBACK_ACCEPTED")
+        return True
     if not result.is_logo or result.confidence < 0.82:
         diagnostics.append("AI_REJECTED_IMAGE")
         return False

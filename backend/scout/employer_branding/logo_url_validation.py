@@ -6,7 +6,6 @@ from scout.employer_branding.logo_image_payload_validation import (
     is_valid_image_payload,
 )
 
-
 __all__ = ["is_valid_image_payload"]
 
 BLOCKED_HOSTS = {

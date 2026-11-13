@@ -4,8 +4,8 @@ import httpx
 
 from scout.employer_branding.branding_metadata_parser import BrandingMetadataParser
 from scout.employer_branding.logo_http import (
-    InvalidLogoAsset,
     MAX_IMAGE_BYTES,
+    InvalidLogoAsset,
     UnavailableLogoAsset,
     fetch_public_resource,
 )
@@ -25,8 +25,12 @@ MAX_BRANDING_PAGES = 5
 
 
 async def discover_logo_on_page(
-    client, page_url, discovered_pages, employer_name="",
-    allowed_hosts=None, diagnostics=None,
+    client,
+    page_url,
+    discovered_pages,
+    employer_name="",
+    allowed_hosts=None,
+    diagnostics=None,
 ):
     diagnostics = diagnostics if diagnostics is not None else []
     allowed_hosts = allowed_hosts or [httpx.URL(page_url).host]

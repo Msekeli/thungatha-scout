@@ -61,12 +61,12 @@ def has_usable_logo_dimensions(content: bytes, content_type: str) -> bool:
         viewbox = re.search(
             r'viewBox=["\']\s*[\d.]+[ ,]+[\d.]+[ ,]+([\d.]+)[ ,]+([\d.]+)',
             svg,
-            re.I,
+            re.IGNORECASE,
         )
         if viewbox:
             return min(float(viewbox.group(1)), float(viewbox.group(2))) >= 24
-        width = re.search(r'width=["\']([\d.]+)', svg, re.I)
-        height = re.search(r'height=["\']([\d.]+)', svg, re.I)
+        width = re.search(r'width=["\']([\d.]+)', svg, re.IGNORECASE)
+        height = re.search(r'height=["\']([\d.]+)', svg, re.IGNORECASE)
         return bool(
             width
             and height

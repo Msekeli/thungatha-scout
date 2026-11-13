@@ -45,6 +45,6 @@ async def assess_logo_image(image: bytes, mime: str, employer: str) -> LogoAsses
             if len(_CACHE) > 128:
                 _CACHE.pop(next(iter(_CACHE)))
             return result
-        except Exception as error:
+        except Exception as error:  # noqa: BLE001 - provider SDK failures are fallbackable
             errors.append(f"{provider}: {type(error).__name__}")
     raise LogoAIUnavailable("; ".join(errors) or "No AI provider available")

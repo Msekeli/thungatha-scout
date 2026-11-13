@@ -1,8 +1,9 @@
 from uuid import uuid4
 
+from employer_api_test_doubles import FakeEmployerService, client_for
+
 import scout.api.employer_branding_routes as routes
 from scout.api.employers import get_employer_service
-from employer_api_test_doubles import FakeEmployerService, client_for
 
 
 def test_valid_unverified_logo_is_preserved(monkeypatch) -> None:
@@ -24,7 +25,6 @@ def test_valid_unverified_logo_is_preserved(monkeypatch) -> None:
 
     async def discover(*args):
         discovered.append(args)
-        return None
 
     monkeypatch.setattr(routes, "inspect_existing_logo", valid)
     monkeypatch.setattr(routes, "discover_employer_logo", discover)
@@ -52,7 +52,7 @@ def test_discovery_failure_does_not_clear_broken_legacy_url(monkeypatch) -> None
     async def invalid(url):
         return "invalid"
 
-    async def no_candidate(*args):
+    async def no_candidate(*args, **kwargs):
         return None
 
     monkeypatch.setattr(routes, "inspect_existing_logo", invalid)
