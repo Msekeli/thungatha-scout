@@ -34,7 +34,7 @@ async def discover_logo_on_page(
     page = await fetch_public_resource(
         client, page_url, "text/html", MAX_IMAGE_BYTES, allow_ats_page=True
     )
-    if not registered_redirect(page.url, allowed_hosts):
+    if not registered_redirect(page_url, page.url, allowed_hosts):
         raise InvalidLogoAsset("Careers page redirected away from registered domains.")
     source_url = page.url
     try:
