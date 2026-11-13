@@ -1,7 +1,8 @@
 from uuid import uuid4
 
 from scout.api.employer_api_dependencies import get_employer_source_update_service
-from employer_api_test_doubles import FakeEmployerSourceUpdateService, client_for
+from employer_api_test_doubles import client_for
+from employer_source_api_test_doubles import FakeEmployerSourceUpdateService
 
 
 def test_employer_source_api_updates_configuration() -> None:
