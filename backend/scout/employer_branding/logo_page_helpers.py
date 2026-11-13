@@ -71,8 +71,9 @@ async def ai_accepts_image(image, employer_name, diagnostics):
         result = await assess_logo_image(
             image.content, image.content_type, employer_name
         )
-    except LogoAIUnavailable:
-        diagnostics.append("AI_VERIFICATION_UNAVAILABLE")
+    except LogoAIUnavailable as error:
+        reason = "AI_ASSESSMENT_LIMIT" if "limit" in str(error) else "AI_VERIFICATION_UNAVAILABLE"
+        diagnostics.append(reason)
         return False
     if not result.is_logo or result.confidence < 0.82:
         diagnostics.append("AI_REJECTED_IMAGE")
