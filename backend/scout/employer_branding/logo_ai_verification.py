@@ -18,7 +18,7 @@ async def assess_logo_image(image: bytes, mime: str, employer: str) -> LogoAsses
     settings = get_settings()
     if not settings.ai_enabled:
         raise LogoAIUnavailable("AI logo verification is disabled")
-    digest = hashlib.sha256(employer.casefold().encode() + mime.encode() + image).hexdigest()
+    digest = hashlib.sha256(b"logo-vision-v1" + employer.casefold().encode() + mime.encode() + image).hexdigest()
     if digest in _CACHE:
         return _CACHE[digest]
     providers = [settings.ai_primary_provider]
