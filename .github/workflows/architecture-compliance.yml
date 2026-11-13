@@ -48,6 +48,9 @@ jobs:
       - name: Install frontend dependencies
         run: npm --prefix frontend ci
 
+      - name: Run employer branding regression tests
+        run: npm --prefix frontend run test:branding
+
       - name: Run TypeScript typecheck
         run: npm --prefix frontend run typecheck
 
