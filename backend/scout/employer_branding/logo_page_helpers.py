@@ -72,7 +72,10 @@ async def ai_accepts_image(image, employer_name, diagnostics):
             image.content, image.content_type, employer_name
         )
     except LogoAIUnavailable as error:
-        reason = (\n            "AI_ASSESSMENT_LIMIT" if "limit" in str(error)\n            else "AI_VERIFICATION_UNAVAILABLE"\n        )
+        reason = (
+            "AI_ASSESSMENT_LIMIT" if "limit" in str(error)
+            else "AI_VERIFICATION_UNAVAILABLE"
+        )
         diagnostics.append(reason)
         return False
     if not result.is_logo or result.confidence < 0.82:
