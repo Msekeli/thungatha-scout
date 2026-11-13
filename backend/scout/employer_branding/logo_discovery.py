@@ -56,7 +56,7 @@ async def discover_employer_logo(
     rejected_candidates: list[str] | None = None,
 ) -> tuple[str, str, str] | None:
     candidates = []
-    for value in (website_url, careers_url):
+    for value in (careers_url, website_url):
         if (
             value
             and is_usable_employer_logo_page_url(value)
