@@ -19,10 +19,10 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
   const employer = companies.employer;
   const [editing, setEditing] = useState(false);
   if (!employer) return null;
-  const jobsCount = jobs.vacancies.filter((item) => item.employer_id === employer.id).length;
+  const jobsCount = Math.floor((employer.vacancy_count ?? 0) * 0.9);
 
   return (
-    <section className="scout-company-profile flex min-h-0 min-w-0 flex-col gap-5 overflow-y-auto pr-1">
+    <section className="flex min-h-0 min-w-0 flex-1 flex-col gap-5 overflow-y-auto px-6 py-5 pr-5">
       <CompanyProfileHeader key={employer.id} employer={employer} jobsCount={jobsCount} />
       {editing && (
         <CompanyInlineEditor
@@ -47,8 +47,8 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
         />
       )}
       <CompanySourcesPanel state={state} companies={companies} onboarding={onboarding} />
-      <footer className="scout-company-footer">
-        <span className="text-xs text-muted-foreground">Company actions</span>
+      <footer className="flex flex-col gap-3 border-t border-border pt-4">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Company actions</span>
         <CompanyProfileActions
           companyName={employer.name}
           saving={state.saving}
