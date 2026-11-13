@@ -27,7 +27,7 @@ async def discover_employer_logo(
     for value in [*(source_urls or []), careers_url, website_url]:
         if value and is_usable_employer_logo_page_url(value) and value not in page_urls:
             page_urls.append(value)
-    if website_url:
+    if website_url and httpx.URL(website_url).path not in {"", "/"}:
         homepage = str(
             httpx.URL(website_url).copy_with(path="/", query=None, fragment=None)
         )
