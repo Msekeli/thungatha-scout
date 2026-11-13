@@ -38,6 +38,11 @@ export function SourceStatusPanel({ employers, sources, runs }: Props) {
                   <p className="text-xs text-muted-foreground">
                     Last attempt: {dateLabel(run?.started_at)}
                   </p>
+                  {typeof source.discovery_preview?.crawl_complete === "boolean" && (
+                    <p className="text-xs text-muted-foreground">
+                      Career page: {source.discovery_preview.pages_observed ?? 0} pages · {source.discovery_preview.vacancies_found ?? 0} vacancies · {source.discovery_preview.failed_urls?.length ?? 0} failed URLs · {source.discovery_preview.crawl_complete ? "complete" : "incomplete"}
+                    </p>
+                  )}
                 </div>
                 <Badge variant={!run ? "outline" : healthy ? "secondary" : "destructive"}>
                   {!run ? "Never retrieved" : run.outcome.replaceAll("_", " ")}
