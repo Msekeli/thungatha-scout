@@ -86,7 +86,9 @@ export function CompanyRetrievalRow({ employer, sources, runs }: Props) {
         label="Observed jobs Δ"
         value={hasComparison ? `${observedDelta > 0 ? "+" : ""}${observedDelta}` : "—"}
       />
-      <Badge variant="outline" className={statusClass}>{status}</Badge>
+      <Badge variant="outline" className={statusClass}>
+        {status}
+      </Badge>
     </div>
   );
 }
