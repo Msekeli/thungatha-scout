@@ -1,3 +1,6 @@
+import re
+from urllib.parse import urlparse
+
 import httpx
 
 from scout.employer_branding.logo_http import (
@@ -21,6 +24,36 @@ def _same_employer_host(first: str, second: str) -> bool:
     return normalize(httpx.URL(first).host) == normalize(httpx.URL(second).host)
 
 
+def _workday_logo_url(page_url: str) -> str | None:
+    parsed = urlparse(page_url)
+    host = (parsed.hostname or "").casefold()
+    if not host.endswith(".myworkdayjobs.com"):
+        return None
+    ignored = {"jobs", "search", "wday", "cxs"}
+    site = next(
+        (
+            part
+            for part in parsed.path.split("/")
+            if part and not re.fullmatch(r"(?i)en-[a-z]{2}", part)
+            and part.casefold() not in ignored
+        ),
+        None,
+    )
+    if not site or not re.fullmatch(r"[A-Za-z0-9_-]+", site):
+        return None
+    return f"https://{host}/{site}/assets/logo"
+
+
+async def _fetch_workday_logo(
+    client: httpx.AsyncClient, page_url: str
+) -> tuple[str, str, str] | None:
+    logo_url = _workday_logo_url(page_url)
+    if not logo_url:
+        return None
+    image = await fetch_public_resource(client, logo_url, "image/", MAX_IMAGE_BYTES)
+    return image.url, page_url, "official_ats_logo"
+
+
 async def _discover_from_page(
     client: httpx.AsyncClient, page_url: str, rejected: list[str] | None
 ) -> tuple[str, str, str] | None:
@@ -32,6 +65,8 @@ async def _discover_from_page(
     ):
         raise InvalidLogoAsset("Careers page redirected away from its employer host.")
     source_url = page.url
+    if result := await _fetch_workday_logo(client, source_url):
+        return result
     html = page.content.decode("utf-8", errors="replace")
     for candidate, logo_type in extract_logo_assets(html, source_url):
         try:
