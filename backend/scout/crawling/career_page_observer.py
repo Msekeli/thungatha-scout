@@ -81,4 +81,4 @@ def _career_links(selector: Selector, base_url: str) -> tuple[str, ...]:
             term in href.lower() or term in label for term in terms
         ):
             links.append(url)
-    return tuple(dict.fromkeys(links))
+    return tuple(dict.fromkeys(links))[:20]
