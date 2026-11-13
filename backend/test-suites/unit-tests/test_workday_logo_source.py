@@ -36,17 +36,18 @@ def test_registered_workday_source_precedes_employer_homepage(monkeypatch) -> No
         socket, "getaddrinfo",
         lambda *args, **kwargs: [(None, None, None, None, ("8.8.8.8", 443))],
     )
+    diagnostics = []
     result = asyncio.run(
         discover_employer_logo(
             None, "https://www.damen.com", employer_name="Damen",
-            source_urls=[board],
+            source_urls=[board], diagnostics=diagnostics,
         )
     )
     assert result == (
         "https://damen.wd3.myworkdayjobs.com/Damen_Careers/assets/logo",
         board, "official_ats_logo",
     )
-    assert requested[0] == board
+    assert requested[0] == board, diagnostics
 
 
 
