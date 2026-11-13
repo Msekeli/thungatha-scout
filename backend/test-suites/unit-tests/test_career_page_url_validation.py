@@ -2,10 +2,10 @@ import socket
 
 import pytest
 
-from scout.crawling.career_page_crawler import validated_discovered_links
 from scout.crawling.career_page_url_validation import (
     UnsafeCareerPageUrl,
     validate_public_career_url,
+    validated_discovered_links,
 )
 
 
