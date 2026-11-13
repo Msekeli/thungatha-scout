@@ -83,3 +83,40 @@ def test_does_not_use_generic_ats_favicon_as_employer_logo(monkeypatch) -> None:
         asyncio.run(discover_employer_logo("https://boards.greenhouse.io/example"))
         is None
     )
+
+
+def test_discovers_workday_logo_from_tenant_assets_endpoint(monkeypatch) -> None:
+    html = "<html><body>Careers</body></html>"
+
+    async def handler(request):
+        if request.url.path == "/SAB":
+            return httpx.Response(
+                200, headers={"content-type": "text/html"}, text=html
+            )
+        if request.url.path == "/SAB/assets/logo":
+            return httpx.Response(
+                200, headers={"content-type": "image/png"}, content=PNG
+            )
+        return httpx.Response(404)
+
+    mock_http(monkeypatch, handler)
+    result = asyncio.run(
+        discover_employer_logo("https://abinbev.wd1.myworkdayjobs.com/SAB")
+    )
+    assert result == (
+        "https://abinbev.wd1.myworkdayjobs.com/SAB/assets/logo",
+        "https://abinbev.wd1.myworkdayjobs.com/SAB",
+        "official_ats_logo",
+    )
+
+
+def test_allows_greenhouse_hosted_logo_asset_but_not_board_pages() -> None:
+    from scout.employer_branding.logo_http import is_usable_employer_logo_url
+
+    assert is_usable_employer_logo_url(
+        "https://recruiting.cdn.greenhouse.io/external_greenhouse_job_boards/"
+        "logos/000/001/614/original/group-logo.png?1733912049"
+    )
+    assert not is_usable_employer_logo_url(
+        "https://boards.greenhouse.io/example"
+    )
