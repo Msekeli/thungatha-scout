@@ -8,6 +8,8 @@ from scout.employer_branding.logo_ai_clients import (
 from scout.settings import get_settings
 
 _CACHE: dict[str, LogoAssessment] = {}
+_COUNTS: dict[str, int] = {}
+MAX_ASSESSMENTS_PER_EMPLOYER = 3
 
 
 class LogoAIUnavailable(RuntimeError):
@@ -23,6 +25,10 @@ async def assess_logo_image(image: bytes, mime: str, employer: str) -> LogoAsses
     ).hexdigest()
     if digest in _CACHE:
         return _CACHE[digest]
+    name = employer.casefold()
+    if _COUNTS.get(name, 0) >= MAX_ASSESSMENTS_PER_EMPLOYER:
+        raise LogoAIUnavailable("Per-employer AI assessment limit reached")
+    _COUNTS[name] = _COUNTS.get(name, 0) + 1
     providers = [settings.ai_primary_provider]
     if settings.ai_fallback_enabled:
         providers.append("groq" if providers[0] == "gemini" else "gemini")
