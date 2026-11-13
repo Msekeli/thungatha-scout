@@ -42,7 +42,11 @@ def _conflicting_brand_name(url: str, employer_name: str) -> bool:
     words = _tokens(re.sub(r"\.[a-z0-9]+$", "", path))
     brand_words = words - {"logo", "brand", "mark", "word", "white", "dark"}
     employer_words = _tokens(employer_name)
-    return bool(employer_name.strip()) and len(brand_words) >= 1 and not brand_words.intersection(employer_words)
+    return (
+        bool(employer_name.strip())
+        and len(brand_words) >= 1
+        and not brand_words.intersection(employer_words)
+    )
 
 
 def _score(value: str, hint: str, explicit: bool = False) -> int:
@@ -86,8 +90,11 @@ def extract_logo_assets(
         url = urljoin(page_url, value.strip())
         host = (urlparse(url).hostname or "").casefold().removeprefix("www.")
         if (
-            score <= 0 or url in seen or not is_usable_employer_logo_url(url)
-            or not host or _conflicting_brand_name(url, employer_name)
+            score <= 0
+            or url in seen
+            or not is_usable_employer_logo_url(url)
+            or not host
+            or _conflicting_brand_name(url, employer_name)
         ):
             continue
         score += 35 if host == page_host else 0

@@ -95,6 +95,11 @@ def test_rejects_logo_asset_named_for_another_brand():
 def test_rejects_tiny_icon_and_loading_gif(monkeypatch):
     from scout.employer_branding.logo_page_inspection import _has_usable_logo_dimensions
 
-    tiny_png = b"\\x89PNG\\r\\n\\x1a\\n" + b"\\x00" * 8 + (20).to_bytes(4, "big") + (20).to_bytes(4, "big")
+    tiny_png = (
+        b"\\x89PNG\\r\\n\\x1a\\n"
+        + b"\\x00" * 8
+        + (20).to_bytes(4, "big")
+        + (20).to_bytes(4, "big")
+    )
     assert not _has_usable_logo_dimensions(tiny_png, "image/png")
     assert not _has_usable_logo_dimensions(b"GIF89a" + b"\\x00" * 20, "image/gif")

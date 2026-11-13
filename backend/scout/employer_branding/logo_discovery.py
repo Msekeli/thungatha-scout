@@ -52,8 +52,11 @@ async def discover_employer_logo(
                 if result:
                     return result
             except (
-                InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError,
-                OSError, ValueError,
+                InvalidLogoAsset,
+                UnavailableLogoAsset,
+                httpx.HTTPError,
+                OSError,
+                ValueError,
             ):
                 continue
             page_urls.extend(url for url in discovered_pages if url not in inspected)
