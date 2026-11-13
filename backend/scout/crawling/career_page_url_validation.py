@@ -20,8 +20,12 @@ def validate_public_career_url(value: str) -> str:
         try:
             records = socket.getaddrinfo(host, 443, type=socket.SOCK_STREAM)
         except OSError as exception:
-            raise UnsafeCareerPageUrl("The careers host could not be resolved.") from exception
+            raise UnsafeCareerPageUrl(
+                "The careers host could not be resolved."
+            ) from exception
         addresses = {ipaddress.ip_address(record[4][0]) for record in records}
     if not addresses or any(not address.is_global for address in addresses):
-        raise UnsafeCareerPageUrl("The careers host must resolve only to public IP addresses.")
+        raise UnsafeCareerPageUrl(
+            "The careers host must resolve only to public IP addresses."
+        )
     return value.strip()

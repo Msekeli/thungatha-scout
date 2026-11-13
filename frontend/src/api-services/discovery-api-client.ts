@@ -11,10 +11,13 @@ import type { CareersDiscovery, SourceInspection } from "../shared-contracts/dis
 function discoverKnownBoard(url: string, companyName: string) {
   const query = `url=${encodeURIComponent(url)}&company_name=${encodeURIComponent(companyName)}`;
   if (isWorkdayBoardUrl(url)) return request<CareersDiscovery>(`/api/v1/workday/discover?${query}`);
-  if (isWorkableBoardUrl(url)) return request<CareersDiscovery>(`/api/v1/workable/discover?${query}`);
+  if (isWorkableBoardUrl(url))
+    return request<CareersDiscovery>(`/api/v1/workable/discover?${query}`);
   if (isLeverBoardUrl(url)) return request<CareersDiscovery>(`/api/v1/lever/discover?${query}`);
-  if (isGreenhouseBoardUrl(url)) return request<CareersDiscovery>(`/api/v1/greenhouse/discover?${query}`);
-  if (isTeamtailorBoardUrl(url)) return request<CareersDiscovery>(`/api/v1/teamtailor/discover?${query}`);
+  if (isGreenhouseBoardUrl(url))
+    return request<CareersDiscovery>(`/api/v1/greenhouse/discover?${query}`);
+  if (isTeamtailorBoardUrl(url))
+    return request<CareersDiscovery>(`/api/v1/teamtailor/discover?${query}`);
   return null;
 }
 

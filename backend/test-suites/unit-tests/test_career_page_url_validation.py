@@ -35,4 +35,6 @@ def test_accepts_host_resolving_only_to_public_addresses(monkeypatch) -> None:
         "getaddrinfo",
         lambda *args, **kwargs: [(None, None, None, None, ("93.184.216.34", 443))],
     )
-    assert validate_public_career_url("https://careers.example.com/jobs").endswith("/jobs")
+    assert validate_public_career_url("https://careers.example.com/jobs").endswith(
+        "/jobs"
+    )
