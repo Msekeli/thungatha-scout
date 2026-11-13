@@ -54,6 +54,7 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 - Added fixture tests for platform fingerprints, JSON-LD mapping, public URL validation, response outcomes, link scope and per-page link limits. Tests have not been run.
 - Added generic careers-page discovery to the backend and onboarding UI. Known ATS board URLs now route directly to their adapters; generic HTTPS careers URLs use the Crawlee discovery endpoint. Detected ATS redirects are rejected from generic registration so the ATS board can be registered directly.
 - Moved public-HTTPS/DNS validation into the crawler boundary so both onboarding discovery and stored-source extraction validate their initial URL. Discovered links are revalidated before enqueueing, and an empty crawl is no longer reported complete.
+- URL validation rejects embedded credentials and non-standard ports. Its helper and tests remain independent of the optional Crawlee package, so base unit-test environments do not need the crawler extra merely to test URL safety.
 
 **Still open before acceptance:**
 
@@ -62,7 +63,7 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 - Initial and discovered-link DNS validation does not close redirect-hop SSRF or DNS-rebinding risks. Crawlee's HTTP client can follow redirects internally, so a dedicated worker egress policy blocking loopback, private, link-local and metadata ranges is still required before enabling untrusted source crawling. Do not treat final-URL validation as sufficient.
 - Restrict discovered links to HTTPS; same-host career links and explicitly career-related known ATS links remain the only enqueue candidates.
 - Review the existing Cape Town-only source-of-truth versus the current South Africa-wide ingestion gate before accepting generic vacancy coverage. No geography policy was changed here.
-- Add mocked coverage for redirect-hop rejection, robots skips, malformed/empty responses, timeouts, link scope and duplicate routing; current URL-validation tests are added but unrun.
+- Add mocked coverage for redirect-hop rejection, robots skips, malformed/empty responses, timeouts, link scope and duplicate routing. URL-validation tests now cover credentials, non-standard/invalid ports, private DNS answers and revalidation of discovered links; they remain unrun.
 - Run focused tests and mandatory line-limit/naming checks locally. Live employer smoke tests remain separate.
 
 ## Branding follow-up after M4-SA-A
