@@ -50,8 +50,9 @@ export function useCompanyProfileOperations({
           employer.id,
           (nextLogoUrl ?? logoUrl).trim(),
           logoSourceUrl.trim(),
+          employer.logo_type ?? "unverified",
         );
-        setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
+        setEmployers((current) => current.map((item) => (item.id === updated.id ? { ...item, ...updated, vacancy_count: item.vacancy_count } : item)));
         onNotice("Company profile updated.");
         return true;
       } catch (reason) {
