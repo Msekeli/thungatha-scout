@@ -5,54 +5,75 @@ from scout.employer_branding.branding_metadata_parser import BrandingMetadataPar
 from scout.employer_branding.logo_http import is_usable_employer_logo_url
 
 
-def _structured_logo(value: object) -> str | None:
+_EXCLUDED_HINTS = ("favicon", "apple-touch", "avatar", "social", "share", "banner")
+_LOGO_HINTS = ("logo", "brandmark", "brand-mark", "wordmark", "brand mark")
+
+
+def _structured_logo(value: object) -> list[str]:
+    if isinstance(value, str):
+        return [value]
     if isinstance(value, list):
-        return next(
-            (found for item in value if (found := _structured_logo(item))), None
-        )
+        return [url for item in value for url in _structured_logo(item)]
     if isinstance(value, dict):
+        found = []
         for key, item in value.items():
             if key.casefold() == "logo":
-                if isinstance(item, str):
-                    return item
-                if isinstance(item, dict):
-                    candidate = item.get("url") or item.get("contentUrl")
-                    if isinstance(candidate, str):
-                        return candidate
-            found = _structured_logo(item)
-            if found:
-                return found
-    return None
+                found.extend(_structured_logo(item))
+            elif key.casefold() in {"url", "contenturl"} and isinstance(item, str):
+                found.append(item)
+            else:
+                found.extend(_structured_logo(item))
+        return found
+    return []
+
+
+def _score(value: str, hint: str, explicit: bool = False) -> int:
+    text = (value + " " + hint).casefold()
+    if any(token in text for token in _EXCLUDED_HINTS):
+        return -100
+    score = 100 if explicit else 0
+    if any(token in text for token in _LOGO_HINTS):
+        score += 80
+    if any(token in value.casefold() for token in ("logo", "wordmark", "brandmark")):
+        score += 45
+    if "header" in hint or "navbar" in hint or "navigation" in hint:
+        score += 20
+    if any(token in value.casefold() for token in ("og-image", "opengraph", "cover")):
+        score -= 70
+    return score
 
 
 def extract_logo_assets(html: str, page_url: str) -> list[tuple[str, str]]:
     parser = BrandingMetadataParser()
     parser.feed(html)
-    candidates: list[tuple[str, str]] = []
+    ranked: list[tuple[int, str]] = []
     for script in parser.json_scripts:
         try:
-            logo = _structured_logo(json.loads(script))
+            data = json.loads(script)
         except (ValueError, TypeError):
-            logo = None
-        if logo:
-            candidates.append((logo, "official_logo"))
-    for key in ("og:logo", "logo"):
-        candidates.extend(
-            (value, "official_logo") for value in parser.meta.get(key, [])
-        )
-    page_host = (urlparse(page_url).hostname or "").casefold()
-    candidates.extend((icon, "official_favicon") for icon in parser.icons)
-    result: list[tuple[str, str]] = []
-    for value, kind in candidates:
-        url = urljoin(page_url, value.strip())
-        if not is_usable_employer_logo_url(url) or url in {item[0] for item in result}:
             continue
+        ranked.extend((_score(url, "", True), url) for url in _structured_logo(data))
+    for key in ("og:logo", "logo"):
+        ranked.extend((_score(url, "", True), url) for url in parser.meta.get(key, []))
+    for value, hint in parser.image_candidates:
+        score = _score(value, hint)
+        if score > 0:
+            ranked.append((score, value))
+    page_host = (urlparse(page_url).hostname or "").casefold()
+    result: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for score, value in sorted(ranked, reverse=True):
+        url = urljoin(page_url, value.strip())
+        host = (urlparse(url).hostname or "").casefold()
         if (
-            kind == "official_favicon"
-            and (urlparse(url).hostname or "").casefold() != page_host
+            score <= 0
+            or url in seen
+            or not is_usable_employer_logo_url(url)
+            or not host
         ):
             continue
-        result.append((url, kind))
+        seen.add(url)
+        result.append((url, "official_logo"))
     return result
 
 
