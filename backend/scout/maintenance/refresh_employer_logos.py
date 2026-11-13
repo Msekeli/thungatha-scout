@@ -41,7 +41,7 @@ async def refresh_employer_logos(
         website_url = verified_website_for(employer)
         source_urls = employer["source_urls"] or []
         careers_url = employer["careers_url"]
-        if careers_url and not careers_page_matches_employer(name, careers_url):
+        if careers_url and not careers_page_matches_employer(name, careers_url, website_url):
             print(f"UNVERIFIED_CAREERS_URL: {name} {careers_url}")
             careers_url = None
         if not website_url and not source_urls and not careers_url:
