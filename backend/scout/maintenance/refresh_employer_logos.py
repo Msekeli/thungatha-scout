@@ -1,6 +1,5 @@
 import argparse
 import asyncio
-
 from scout.employer_branding.logo_discovery import discover_employer_logo
 from scout.employer_branding.logo_http import inspect_existing_logo
 from scout.maintenance.employer_careers_validation import careers_page_matches_employer
@@ -9,7 +8,6 @@ from scout.maintenance.employer_logo_refresh_policy import (
     verified_website_for,
 )
 from scout.persistence.database_connection import get_database_connection
-
 
 async def refresh_employer_logos(
     apply: bool = False, recheck_existing: bool = False
@@ -85,7 +83,6 @@ async def refresh_employer_logos(
         else:
             print(f"RETAINED_CONCURRENT_CHANGE: {name} ({employer['id']})")
     return updated, unresolved
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
