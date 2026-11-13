@@ -8,24 +8,13 @@ from scout.maintenance.employer_logo_refresh_policy import (
     duplicate_employer_names,
     verified_website_for,
 )
-from scout.persistence.database_connection import get_database_connection
+from scout.maintenance.employer_logo_refresh_persistence import (\n    load_employers,\n    persist_logo,\n)
 
 
 async def refresh_employer_logos(
     apply: bool = False, recheck_existing: bool = False
 ) -> tuple[int, int]:
-    with get_database_connection() as connection:
-        employers = connection.execute(
-            """SELECT e.id, e.name, e.website_url, e.logo_url,
-                      (SELECT es.employer_careers_url FROM employer_sources es
-                       WHERE es.employer_id = e.id
-                       AND es.employer_careers_url IS NOT NULL
-                       ORDER BY es.created_at DESC LIMIT 1) AS careers_url,
-                      (SELECT json_agg(es.source_url ORDER BY es.created_at DESC)
-                       FROM employer_sources es WHERE es.employer_id = e.id
-                       AND es.source_url IS NOT NULL) AS source_urls
-               FROM employers e ORDER BY e.name"""
-        ).fetchall()
+    employers = load_employers()
     updated = unresolved = 0
     duplicates = duplicate_employer_names(employers)
     for name in sorted(duplicates):
@@ -75,15 +64,7 @@ async def refresh_employer_logos(
         if not apply:
             updated += 1
             continue
-        with get_database_connection() as connection, connection.transaction():
-            saved = connection.execute(
-                """UPDATE employers
-                   SET logo_url = %s, logo_source_url = %s, logo_type = %s,
-                       updated_at = NOW()
-                   WHERE id = %s AND logo_url IS NOT DISTINCT FROM %s
-                   RETURNING id""",
-                (logo_url, source_url, logo_type, employer["id"], employer["logo_url"]),
-            ).fetchone()
+        saved = persist_logo(employer, logo_url, source_url, logo_type)
         if saved:
             updated += 1
             print(f"UPDATED: {name} ({employer['id']})")
