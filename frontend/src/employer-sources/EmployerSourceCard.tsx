@@ -2,6 +2,7 @@ import { ExternalLink, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { EmployerSource } from "../api";
 import { ADAPTER_LABELS } from "../shared-contracts/adapter-contracts";
+import { CareerPageCrawlPreview } from "./CareerPageCrawlPreview";
 
 type Props = {
   source: EmployerSource;
@@ -40,6 +41,7 @@ export function EmployerSourceCard({ source, saving, onEdit }: Props) {
                 )}
               </p>
             ))}
+            <CareerPageCrawlPreview preview={source.discovery_preview} />
           </div>
         )}
       </div>
