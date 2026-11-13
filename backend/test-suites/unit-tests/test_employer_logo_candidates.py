@@ -82,4 +82,4 @@ def test_rejects_tiny_icon_and_loading_gif(monkeypatch):
         + (20).to_bytes(4, "big")
     )
     assert not has_usable_logo_dimensions(tiny_png, "image/png")
-    assert not _has_usable_logo_dimensions(b"GIF89a" + b"\\x00" * 20, "image/gif")
+    assert not has_usable_logo_dimensions(b"GIF89a" + b"\\x00" * 20, "image/gif")
