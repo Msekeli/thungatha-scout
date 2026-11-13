@@ -67,9 +67,12 @@ def _career_links(selector: Selector, base_url: str) -> tuple[str, ...]:
     for anchor in selector.css("a[href]"):
         href = anchor.attrib.get("href", "")
         url = urljoin(base_url, href)
-        host = urlparse(url).hostname
+        parsed = urlparse(url)
+        host = parsed.hostname
         label = " ".join(anchor.css("::text").getall()).lower()
         terms = ("career", "job", "vacan", "position")
+        if parsed.scheme != "https" or not host:
+            continue
         if host == base_host and any(
             term in url.lower() or term in label for term in terms
         ):
