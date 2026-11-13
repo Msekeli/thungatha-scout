@@ -9,20 +9,25 @@ _EXCLUDED_HINTS = ("favicon", "apple-touch", "avatar", "social", "share", "banne
 _LOGO_HINTS = ("logo", "brandmark", "brand-mark", "wordmark", "brand mark")
 
 
-def _structured_logo(value: object) -> list[str]:
+def _logo_values(value: object) -> list[str]:
     if isinstance(value, str):
         return [value]
     if isinstance(value, list):
-        return [url for item in value for url in _structured_logo(item)]
+        return [url for item in value for url in _logo_values(item)]
     if isinstance(value, dict):
         found = []
         for key, item in value.items():
             if key.casefold() == "logo":
-                found.extend(_structured_logo(item))
-            elif key.casefold() in {"url", "contenturl"} and isinstance(item, str):
-                found.append(item)
+                if isinstance(item, dict):
+                    url = item.get("url") or item.get("contentUrl")
+                    if isinstance(url, str):
+                        found.append(url)
+                    else:
+                        found.extend(_logo_values(item))
+                else:
+                    found.extend(_logo_values(item))
             else:
-                found.extend(_structured_logo(item))
+                found.extend(_logo_values(item))
         return found
     return []
 
@@ -52,25 +57,19 @@ def extract_logo_assets(html: str, page_url: str) -> list[tuple[str, str]]:
             data = json.loads(script)
         except (ValueError, TypeError):
             continue
-        ranked.extend((_score(url, "", True), url) for url in _structured_logo(data))
+        ranked.extend((_score(url, "", True), url) for url in _logo_values(data))
     for key in ("og:logo", "logo"):
         ranked.extend((_score(url, "", True), url) for url in parser.meta.get(key, []))
     for value, hint in parser.image_candidates:
         score = _score(value, hint)
         if score > 0:
             ranked.append((score, value))
-    page_host = (urlparse(page_url).hostname or "").casefold()
     result: list[tuple[str, str]] = []
     seen: set[str] = set()
     for score, value in sorted(ranked, reverse=True):
         url = urljoin(page_url, value.strip())
-        host = (urlparse(url).hostname or "").casefold()
-        if (
-            score <= 0
-            or url in seen
-            or not is_usable_employer_logo_url(url)
-            or not host
-        ):
+        if (score <= 0 or url in seen or not is_usable_employer_logo_url(url)
+                or not urlparse(url).hostname):
             continue
         seen.add(url)
         result.append((url, "official_logo"))
