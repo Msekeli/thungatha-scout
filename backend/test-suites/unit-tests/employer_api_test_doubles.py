@@ -43,13 +43,14 @@ class FakeEmployerService:
         )
         return employer
 
-    def update_branding_if_unusable(self, employer_id, logo_url, logo_source_url):
+    def update_branding_if_unusable(self, employer_id, expected_logo_url, logo_url, logo_source_url, logo_type):
         employer = self.get_employer(employer_id)
-        if employer is None:
+        if employer is None or employer.get("logo_url") != expected_logo_url:
             return None
         self.branding_discovery_updates += 1
         employer["logo_url"] = logo_url
         employer["logo_source_url"] = logo_source_url
+        employer["logo_type"] = logo_type
         return employer
 
     def create_source(self, payload):

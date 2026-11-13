@@ -58,7 +58,7 @@ def test_employer_branding_api_updates_logo_metadata() -> None:
 def test_logo_discovery_uses_registered_employer_careers_url(monkeypatch) -> None:
     import asyncio
 
-    import scout.api.employers as employer_routes
+    import scout.api.employer_branding_routes as employer_routes
 
     service = FakeEmployerService()
     employer_id = uuid4()

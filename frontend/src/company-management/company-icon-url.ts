@@ -6,6 +6,7 @@ const BLOCKED_BRANDING_HOSTS = new Set([
   "teamtailor.com",
   "teamtailor-cdn.com",
   "myworkdayjobs.com",
+  "workable.com",
 ]);
 
 function normalizeHost(host: string): string {
@@ -23,7 +24,8 @@ function isBlockedBrandingHost(host: string): boolean {
     normalized.endsWith(".lever.co") ||
     normalized.endsWith(".teamtailor.com") ||
     normalized.endsWith(".teamtailor-cdn.com") ||
-    normalized.endsWith(".myworkdayjobs.com")
+    normalized.endsWith(".myworkdayjobs.com") ||
+    normalized.endsWith(".workable.com")
   );
 }
 
@@ -43,6 +45,11 @@ function parseSafeBrandingUrl(value: string): URL | null {
   } catch {
     return null;
   }
+}
+
+function isSafeBrandingSourceUrl(value: string): boolean {
+  try { const url = new URL(value); return ["https:", "http:"].includes(url.protocol) && !!url.hostname && !url.username && !url.password; }
+  catch { return false; }
 }
 
 function isGoogleFaviconForWebsite(value: string, websiteUrl?: string | null): boolean {
@@ -81,12 +88,12 @@ export function isApprovedEmployerBranding(
   if (!googleFavicon && !logo) return false;
 
   if (APPROVED_LOGO_TYPES.has(logoType)) {
-    return !sourceUrl || parseSafeBrandingUrl(sourceUrl) !== null;
+    return !sourceUrl || isSafeBrandingSourceUrl(sourceUrl);
   }
   if (logoType !== "unverified") return false;
 
   // Legacy logos remain visible. A careers-page path alone does not prove that
   // the asset belongs to an ATS; block only known ATS/unsafe hosts.
   if (!sourceUrl) return true;
-  return parseSafeBrandingUrl(sourceUrl) !== null;
+  return isSafeBrandingSourceUrl(sourceUrl);
 }

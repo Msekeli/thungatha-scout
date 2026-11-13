@@ -1,69 +1,10 @@
-import json
-from pathlib import Path
-from uuid import uuid4
-from employer_api_test_doubles import FakeEmployerService, client_for
+from employer_api_test_doubles import client_for
 from scout.api.employers import get_employer_service
-
-REGISTRY_PATH = (
-    Path(__file__).resolve().parents[2] / "registry" / "employer-source-registry.json"
-)
-
-EXPECTED_13 = [
-    "Absa",
-    "FirstRand",
-    "Astron Energy",
-    "Tiger Brands",
-    "Mondelēz International",
-    "PwC",
-    "AIG",
-    "Hogan Lovells",
-    "Levi Strauss & Co.",
-    "MRI Software",
-    "Damen",
-    "Capita",
-    "Solenis",
-]
-
-
-def _build_service_from_registry():
-    service = FakeEmployerService()
-    data = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
-    for item in data["employers"]:
-        supported_sources = [
-            source
-            for source in item.get("sources", [])
-            if source.get("ats")
-            in {"greenhouse", "lever", "teamtailor", "workday", "workable"}
-        ]
-        if not supported_sources:
-            continue
-        emp_id = str(uuid4())
-        service.employers.append(
-            {
-                "id": emp_id,
-                "name": item["name"],
-                "website_url": item.get("website_url") or item.get("careers_url"),
-                "organization_type": item.get(
-                    "organization_classification", "unresolved"
-                ),
-            }
-        )
-        for s in supported_sources:
-            if s["ats"] == "workday":
-                service.sources.append(
-                    {
-                        "id": str(uuid4()),
-                        "employer_id": emp_id,
-                        "adapter_key": "workday",
-                        "source_url": s["official_source_url"],
-                        "adapter_config": s["config"],
-                    }
-                )
-    return service
+from workday_registry_api_test_fixture import EXPECTED_13, build_service_from_registry
 
 
 def test_workday_employers_are_visible_through_api() -> None:
-    service = _build_service_from_registry()
+    service = build_service_from_registry()
     with client_for(get_employer_service, service) as client:
         resp = client.get("/api/v1/employers?limit=100")
         assert resp.status_code == 200
@@ -91,7 +32,7 @@ def test_workday_employers_are_visible_through_api() -> None:
 
 
 def test_existing_workday_employers_remain_visible_without_duplicates() -> None:
-    service = _build_service_from_registry()
+    service = build_service_from_registry()
     with client_for(get_employer_service, service) as client:
         employers = client.get("/api/v1/employers?limit=100").json()
         sources = client.get("/api/v1/employers/sources").json()

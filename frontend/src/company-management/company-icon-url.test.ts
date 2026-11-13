@@ -25,7 +25,7 @@ assert.equal(
     "unverified",
     "https://employer.teamtailor.com/jobs",
   ),
-  false,
+  true,
 );
 assert.equal(
   isApprovedEmployerBranding(
@@ -73,5 +73,10 @@ assert.equal(
     "https://www.takealot.com/",
     "https://www.takealot.com",
   ),
+  false,
+);
+
+assert.equal(
+  isApprovedEmployerBranding("https://apply.workable.com/logo.png", "official_logo"),
   false,
 );
