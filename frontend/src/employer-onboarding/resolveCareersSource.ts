@@ -52,7 +52,16 @@ export function resolveCareersSource(url: string, name: string): CareersDiscover
       company_name: companyName,
     };
   } else {
-    return null;
+    const companyName = name.trim() || displayName(host.split(".")[0]);
+    return {
+      careers_url: url.trim(),
+      board_url: parsed.origin + parsed.pathname,
+      board_token: host,
+      board_name: companyName,
+      detected_adapter: "career_page",
+      adapter_config: { start_url: url.trim() },
+      company_name: companyName,
+    };
   }
 
   if (!slug || (adapter === "workable" && parts.length !== 1)) return null;
