@@ -78,7 +78,6 @@ class CareerPageCrawler:
         )
 
 
-
 async def read_bounded_body(
     context: HttpCrawlingContext, maximum: int
 ) -> tuple[bytes, bool]:

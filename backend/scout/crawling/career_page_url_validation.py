@@ -40,6 +40,7 @@ def validate_public_career_url(value: str) -> str:
         )
     return value.strip()
 
+
 def validated_discovered_links(links: tuple[str, ...]) -> list[str]:
     safe_links = []
     for link in links:
