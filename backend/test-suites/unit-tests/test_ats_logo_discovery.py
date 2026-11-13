@@ -90,9 +90,7 @@ def test_discovers_workday_logo_from_tenant_assets_endpoint(monkeypatch) -> None
 
     async def handler(request):
         if request.url.path == "/SAB":
-            return httpx.Response(
-                200, headers={"content-type": "text/html"}, text=html
-            )
+            return httpx.Response(200, headers={"content-type": "text/html"}, text=html)
         if request.url.path == "/SAB/assets/logo":
             return httpx.Response(
                 200, headers={"content-type": "image/png"}, content=PNG
@@ -117,6 +115,4 @@ def test_allows_greenhouse_hosted_logo_asset_but_not_board_pages() -> None:
         "https://recruiting.cdn.greenhouse.io/external_greenhouse_job_boards/"
         "logos/000/001/614/original/group-logo.png?1733912049"
     )
-    assert not is_usable_employer_logo_url(
-        "https://boards.greenhouse.io/example"
-    )
+    assert not is_usable_employer_logo_url("https://boards.greenhouse.io/example")

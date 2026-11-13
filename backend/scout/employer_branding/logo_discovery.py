@@ -34,7 +34,8 @@ def _workday_logo_url(page_url: str) -> str | None:
         (
             part
             for part in parsed.path.split("/")
-            if part and not re.fullmatch(r"(?i)en-[a-z]{2}", part)
+            if part
+            and not re.fullmatch(r"(?i)en-[a-z]{2}", part)
             and part.casefold() not in ignored
         ),
         None,
