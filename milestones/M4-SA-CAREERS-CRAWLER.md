@@ -51,7 +51,8 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 - Added fingerprints for Greenhouse, Lever, Workday, Workable and Teamtailor, plus routing to a matching already-registered ATS source. Generic extraction runs only when no registered ATS source matches.
 - Added a generic `career_page` source type using the existing employer source table, extraction runs, normalized vacancy contract and vacancy repository. Migration `0016` adds the source type.
 - Generic JSON-LD vacancies without a location are withheld and make the run partial; partial/failed runs do not expire missing vacancies.
-- Added fixture tests for platform fingerprints, JSON-LD mapping and generic source configuration. Tests have not been run.
+- Added fixture tests for platform fingerprints, JSON-LD mapping, public URL validation, response outcomes, link scope and per-page link limits. Tests have not been run.
+- Added generic careers-page discovery to the backend and onboarding UI. Known ATS board URLs now route directly to their adapters; generic HTTPS careers URLs use the Crawlee discovery endpoint. Detected ATS redirects are rejected from generic registration so the ATS board can be registered directly.
 
 **Still open before acceptance:**
 
