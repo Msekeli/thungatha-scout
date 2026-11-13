@@ -34,10 +34,13 @@ async def refresh_employer_logos(
         if status in {"valid", "unknown"} and not recheck_existing:
             print(f"EXISTING_LOGO_RETAINED: {name} ({status})")
             continue
+        website_url = verified_website_for(employer)
+        if not website_url and not employer["careers_url"]:
+            unresolved += 1
+            print(f"UNVERIFIED_EMPLOYER_WEBSITE: {name} ({employer['id']})")
+            continue
         result = await discover_employer_logo(
-            employer["careers_url"],
-            verified_website_for(employer),
-            employer_name=name,
+            employer["careers_url"], website_url, employer_name=name,
         )
         if result is None:
             unresolved += 1
@@ -47,7 +50,10 @@ async def refresh_employer_logos(
             print(f"{outcome}: {name} ({employer['id']})")
             continue
         logo_url, source_url, logo_type = result
-        print(f"CANDIDATE_DISCOVERED: {name} {logo_type} {logo_url}")
+        print(
+            f"CANDIDATE_DISCOVERED: {name} {logo_type} "
+            f"source={source_url} image={logo_url}"
+        )
         if not apply:
             updated += 1
             continue
