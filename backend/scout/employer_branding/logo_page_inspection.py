@@ -1,8 +1,6 @@
 import re
 from urllib.parse import urljoin, urlparse
-
 import httpx
-
 from scout.employer_branding.branding_metadata_parser import BrandingMetadataParser
 from scout.employer_branding.logo_http import (
     InvalidLogoAsset,
@@ -15,18 +13,11 @@ from scout.employer_branding.logo_page_url_validation import (
     is_ats_careers_host,
     is_usable_employer_logo_page_url,
 )
-
-
 MAX_BRANDING_PAGES = 5
-
-
 def _same_employer_host(first: str, second: str) -> bool:
     def normalize(value: str) -> str:
         return (value or "").casefold().removeprefix("www.")
-
     return normalize(httpx.URL(first).host) == normalize(httpx.URL(second).host)
-
-
 def _workday_logo_url(page_url: str) -> str | None:
     parsed = urlparse(page_url)
     host = (parsed.hostname or "").casefold()
@@ -46,8 +37,6 @@ def _workday_logo_url(page_url: str) -> str | None:
     if not site or not re.fullmatch(r"[A-Za-z0-9_-]+", site):
         return None
     return f"https://{host}/{site}/assets/logo"
-
-
 def _has_usable_logo_dimensions(content: bytes, content_type: str) -> bool:
     if content.startswith((b"GIF87a", b"GIF89a")):
         return False
@@ -76,8 +65,6 @@ def _has_usable_logo_dimensions(content: bytes, content_type: str) -> bool:
     if content.startswith(b"\xff\xd8"):
         return len(content) >= 256
     return False
-
-
 async def _fetch_workday_logo(client, page_url):
     logo_url = _workday_logo_url(page_url)
     if not logo_url:
@@ -86,8 +73,6 @@ async def _fetch_workday_logo(client, page_url):
     if not _has_usable_logo_dimensions(image.content, image.content_type):
         return None
     return image.url, page_url, "official_ats_logo"
-
-
 async def discover_logo_on_page(client, page_url, discovered_pages, employer_name=""):
     page = await fetch_public_resource(
         client, page_url, "text/html", MAX_IMAGE_BYTES, allow_ats_page=True
