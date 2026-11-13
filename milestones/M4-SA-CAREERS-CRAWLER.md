@@ -53,12 +53,13 @@ Read `AGENTS.md`, `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md`, `IMPLEMENTATION-PLAN.md`
 - Generic JSON-LD vacancies without a location are withheld and make the run partial; partial/failed runs do not expire missing vacancies.
 - Added fixture tests for platform fingerprints, JSON-LD mapping, public URL validation, response outcomes, link scope and per-page link limits. Tests have not been run.
 - Added generic careers-page discovery to the backend and onboarding UI. Known ATS board URLs now route directly to their adapters; generic HTTPS careers URLs use the Crawlee discovery endpoint. Detected ATS redirects are rejected from generic registration so the ATS board can be registered directly.
+- Moved public-HTTPS/DNS validation into the crawler boundary so both onboarding discovery and stored-source extraction validate their initial URL. Discovered links are revalidated before enqueueing, and an empty crawl is no longer reported complete.
 
 **Still open before acceptance:**
 
 - Verify redirect safety, same-site/external ATS link boundaries, robots skip outcomes, malformed/empty responses, timeout behavior and duplicate routing with mocked tests.
 - Generic career-page onboarding now has a dedicated discovery route, HTTPS/public-DNS validation, frontend source resolution and inspection routing. This is implementation only; it has not been run locally.
-- Initial URL DNS validation does not close redirect-hop SSRF or DNS-rebinding risks. Crawlee's HTTP client can follow redirects internally, so a dedicated worker egress policy blocking loopback, private, link-local and metadata ranges is still required before enabling untrusted source crawling. Do not treat final-URL validation as sufficient.
+- Initial and discovered-link DNS validation does not close redirect-hop SSRF or DNS-rebinding risks. Crawlee's HTTP client can follow redirects internally, so a dedicated worker egress policy blocking loopback, private, link-local and metadata ranges is still required before enabling untrusted source crawling. Do not treat final-URL validation as sufficient.
 - Restrict discovered links to HTTPS; same-host career links and explicitly career-related known ATS links remain the only enqueue candidates.
 - Review the existing Cape Town-only source-of-truth versus the current South Africa-wide ingestion gate before accepting generic vacancy coverage. No geography policy was changed here.
 - Add mocked coverage for redirect-hop rejection, robots skips, malformed/empty responses, timeouts, link scope and duplicate routing; current URL-validation tests are added but unrun.
@@ -166,5 +167,5 @@ Copy any missing variables from `.env.example` into the ignored local `.env`. Co
 - Unit tests use fixtures/mocks; live site tests are separately identified.
 - Record exact commands, results, source evidence, limitations and commits.
 - Do not claim adapter support without representative live validation.
-- Do not mark a checkpoint Accepted without explicit user review.
+- Do not mark a checkpoint Accepted without tests/evidence and explicit user review.
 - No Apify hosting, paid AI plan, Zyte paid upgrade/API usage, production deployment or new database is approved. Zyte Scrapy Cloud's included student unit is approved for a manually verified worker deployment; recurring scheduling remains gated by M4-SA-E acceptance.
