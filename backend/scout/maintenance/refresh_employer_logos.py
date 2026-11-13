@@ -10,7 +10,9 @@ from scout.maintenance.employer_logo_refresh_policy import (
 from scout.persistence.database_connection import get_database_connection
 
 
-async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
+async def refresh_employer_logos(
+    apply: bool = False, recheck_existing: bool = False
+) -> tuple[int, int]:
     with get_database_connection() as connection:
         employers = connection.execute(
             """SELECT e.id, e.name, e.website_url, e.logo_url,
@@ -28,16 +30,15 @@ async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
             unresolved += 1
             continue
         status = await inspect_existing_logo(employer["logo_url"])
-        if status in {"valid", "unknown"}:
+        if status in {"valid", "unknown"} and not recheck_existing:
             print(f"EXISTING_LOGO_RETAINED: {employer['name']} ({status})")
             continue
-        rejected = []
         result = await discover_employer_logo(
-            employer["careers_url"], verified_website_for(employer), rejected
+            employer["careers_url"], verified_website_for(employer)
         )
         if result is None:
             unresolved += 1
-            outcome = "CANDIDATE_REJECTED" if rejected else "NO_LOGO_FOUND"
+            outcome = "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
             print(f"{outcome}: {employer['name']} ({employer['id']})")
             continue
         logo_url, source_url, logo_type = result
@@ -64,11 +65,14 @@ async def refresh_employer_logos(apply: bool = False) -> tuple[int, int]:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
+    parser.add_argument("--apply", action="store_true", help="Persist replacements.")
     parser.add_argument(
-        "--apply", action="store_true", help="Persist safe replacements."
+        "--recheck-existing", action="store_true",
+        help="Discover replacements even when an existing image is reachable.",
     )
     args = parser.parse_args()
-    updated, unresolved = asyncio.run(refresh_employer_logos(apply=args.apply))
-    print(
-        f"{'Applied' if args.apply else 'Dry run'}. Updated: {updated}; unresolved: {unresolved}."
+    updated, unresolved = asyncio.run(
+        refresh_employer_logos(apply=args.apply, recheck_existing=args.recheck_existing)
     )
+    mode = "Applied" if args.apply else "Dry run"
+    print(f"{mode}. Updated: {updated}; unresolved: {unresolved}.")
