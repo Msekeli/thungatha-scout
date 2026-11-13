@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+
 from scout.employer_branding.logo_discovery import discover_employer_logo
 from scout.employer_branding.logo_http import inspect_existing_logo
 from scout.maintenance.employer_careers_validation import careers_page_matches_employer
@@ -9,6 +10,7 @@ from scout.maintenance.employer_logo_refresh_policy import (
 )
 from scout.persistence.database_connection import get_database_connection
 
+
 async def refresh_employer_logos(
     apply: bool = False, recheck_existing: bool = False
 ) -> tuple[int, int]:
@@ -16,7 +18,8 @@ async def refresh_employer_logos(
         employers = connection.execute(
             """SELECT e.id, e.name, e.website_url, e.logo_url,
                       (SELECT es.employer_careers_url FROM employer_sources es
-                       WHERE es.employer_id = e.id\n                       AND es.employer_careers_url IS NOT NULL
+                       WHERE es.employer_id = e.id
+                       AND es.employer_careers_url IS NOT NULL
                        ORDER BY es.created_at DESC LIMIT 1) AS careers_url,
                       (SELECT json_agg(es.source_url ORDER BY es.created_at DESC)
                        FROM employer_sources es WHERE es.employer_id = e.id
@@ -39,7 +42,9 @@ async def refresh_employer_logos(
         website_url = verified_website_for(employer)
         source_urls = employer["source_urls"] or []
         careers_url = employer["careers_url"]
-        if careers_url and not careers_page_matches_employer(\n            name, careers_url, website_url\n        ):
+        if careers_url and not careers_page_matches_employer(
+            name, careers_url, website_url
+        ):
             print(f"UNVERIFIED_CAREERS_URL: {name} {careers_url}")
             careers_url = None
         if not website_url and not source_urls and not careers_url:
@@ -57,7 +62,9 @@ async def refresh_employer_logos(
         if result is None:
             unresolved += 1
             reason = ",".join(dict.fromkeys(diagnostics)) or "NO_CANDIDATE"
-            outcome = (\n                "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"\n            )
+            outcome = (
+                "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
+            )
             print(f"{outcome}: {name} ({employer['id']}) reason={reason}")
             continue
         logo_url, source_url, logo_type = result
@@ -83,6 +90,7 @@ async def refresh_employer_logos(
         else:
             print(f"RETAINED_CONCURRENT_CHANGE: {name} ({employer['id']})")
     return updated, unresolved
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
