@@ -87,7 +87,7 @@ def is_valid_image_payload(content: bytes, content_type: str) -> bool:
         b"BM",
         b"II*\x00",
         b"MM\x00*",
-        b"\x00\x01\x00",
+        b"\x00\x00\x01\x00",
     )
     if any(content.startswith(signature) for signature in signatures):
         return True
