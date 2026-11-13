@@ -78,8 +78,8 @@ class CareerPageCrawler:
     def _observe(self, context: ParselCrawlingContext) -> CareerPageObservation:
         selector = context.selector
         requested = context.request.url
+        final_url = context.request.loaded_url or requested
         response = context.http_response
-        final_url = str(response.url)
         status = response.status_code
         headers = response.headers
         content_type = headers.get("content-type")
