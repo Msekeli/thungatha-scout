@@ -17,7 +17,7 @@ export function CompanyProfilePanel({ state, companies, onboarding }: Props) {
   const employer = companies.employer;
   const [editing, setEditing] = useState(false);
   if (!employer) return null;
-  const jobsCount = Math.floor((employer.vacancy_count ?? 0) * 0.9);
+  const jobsCount = employer.vacancy_count ?? 0;
 
   return (
     <section className="flex min-h-0 min-w-0 flex-1 flex-col gap-5 overflow-y-auto px-6 py-5 pr-5">
