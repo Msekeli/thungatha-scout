@@ -14,13 +14,11 @@ import {
 import { useScoutApplicationController } from "./useScoutApplicationController";
 import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges";
 import { useVacancyCountChange } from "./job-management/useVacancyCountChange";
-
 export default function App() {
   const { state, jobs, companies, onboarding } = useScoutApplicationController();
   const companyJobChanges = useCompanyJobChanges(state.page, jobs.employers, jobs.vacancies);
   const vacancyChange = useVacancyCountChange(state.page, jobs.dashboardMetrics.new_last_24_hours);
   const addingCompany = state.page === "add-company";
-
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden scout-app-shell px-4 pb-3 pt-4 md:px-8">
       <AppShellHeader
