@@ -39,3 +39,12 @@ def validate_public_career_url(value: str) -> str:
             "The careers host must resolve only to public IP addresses."
         )
     return value.strip()
+
+def validated_discovered_links(links: tuple[str, ...]) -> list[str]:
+    safe_links = []
+    for link in links:
+        try:
+            safe_links.append(validate_public_career_url(link))
+        except UnsafeCareerPageUrl:
+            continue
+    return safe_links
