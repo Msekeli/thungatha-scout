@@ -6,16 +6,24 @@
     border-color: var(--scout-border);
     box-shadow: var(--scout-dialog-shadow);
   }
-  .scout-company-dialog > [data-slot="dialog-header"] {
-    @apply shrink-0 border-b px-6 py-5;
+  .scout-company-dialog-header {
+    @apply relative z-10 shrink-0 border-b px-6 py-5 pr-14;
     border-color: var(--scout-border);
     background: var(--scout-surface);
   }
   .scout-company-dialog [data-slot="dialog-title"] {
     @apply text-base font-semibold tracking-tight;
   }
+  .scout-company-dialog > button[aria-label="Close"] {
+    @apply z-20 rounded-md bg-muted/80 p-2 opacity-100;
+    top: 1rem;
+    right: 1.25rem;
+  }
+  .scout-company-dialog > button[aria-label="Close"]:hover {
+    @apply bg-muted;
+  }
   .scout-company-profile {
-    @apply min-h-0 flex-1 px-6 py-5;
+    @apply min-h-0 flex-1 overflow-y-auto px-6 py-5;
   }
   .scout-company-footer {
     @apply flex flex-col gap-3 border-t pt-4;
