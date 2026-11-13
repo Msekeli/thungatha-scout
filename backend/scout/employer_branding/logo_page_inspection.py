@@ -21,7 +21,6 @@ from scout.employer_branding.logo_page_url_validation import (
     is_usable_employer_logo_page_url,
 )
 
-
 MAX_BRANDING_PAGES = 5
 
 
@@ -34,7 +33,7 @@ async def discover_logo_on_page(
     page = await fetch_public_resource(
         client, page_url, "text/html", MAX_IMAGE_BYTES, allow_ats_page=True
     )
-    if not registered_redirect(page_url, page.url, allowed_hosts):
+    if not registered_redirect(page.url, allowed_hosts):
         raise InvalidLogoAsset("Careers page redirected away from registered domains.")
     source_url = page.url
     try:
@@ -42,15 +41,16 @@ async def discover_logo_on_page(
             return result
     except (InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError, OSError):
         diagnostics.append("WORKDAY_LOGO_ENDPOINT_UNAVAILABLE")
+    html = page.content.decode("utf-8", errors="replace")
     parser = BrandingMetadataParser()
-    parser.feed(page.content.decode("utf-8", errors="replace"))
+    parser.feed(html)
     for link in parser.branding_pages:
         candidate = urljoin(source_url, link)
-        if same_employer_host(source_url, candidate) and (\n            is_usable_employer_logo_page_url(candidate)\n        ):
+        if same_employer_host(source_url, candidate) and (
+            is_usable_employer_logo_page_url(candidate)
+        ):
             discovered_pages.append(candidate)
-    candidates = extract_logo_assets(
-        page.content.decode("utf-8", errors="replace"), source_url, employer_name
-    )
+    candidates = extract_logo_assets(html, source_url, employer_name)
     if not candidates:
         diagnostics.append("NO_BRANDING_CANDIDATES")
     for candidate, logo_type in candidates[:8]:
