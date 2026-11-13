@@ -3,8 +3,17 @@ from urllib.parse import urlparse
 
 
 _EXCLUDED = (
-    "favicon", "apple-touch", "avatar", "social", "share", "banner",
-    "preview", "hero", "loading", "loader", "spinner",
+    "favicon",
+    "apple-touch",
+    "avatar",
+    "social",
+    "share",
+    "banner",
+    "preview",
+    "hero",
+    "loading",
+    "loader",
+    "spinner",
 )
 _HINTS = ("logo", "brandmark", "brand-mark", "wordmark", "brand mark")
 
@@ -19,12 +28,14 @@ def conflicts_with_employer_name(url: str, employer_name: str) -> bool:
     ignored = {"logo", "brand", "mark", "word", "white", "dark"}
     employer_words = _tokens(employer_name)
     brand_words = {
-        word for word in words - ignored
+        word
+        for word in words - ignored
         if (word.isalpha() and len(word) >= 3) or word in employer_words
     }
     overlap = any(
         a == b or a.startswith(b) or b.startswith(a)
-        for a in brand_words for b in employer_words
+        for a in brand_words
+        for b in employer_words
     )
     return bool(employer_name.strip()) and bool(brand_words) and not overlap
 

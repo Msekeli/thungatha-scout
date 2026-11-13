@@ -48,7 +48,8 @@ def extract_logo_assets(
         )
     for key in ("og:logo", "logo"):
         ranked.extend(
-            (score_logo_candidate(url, "", True), url) for url in parser.meta.get(key, [])
+            (score_logo_candidate(url, "", True), url)
+            for url in parser.meta.get(key, [])
         )
     for value, hint in parser.image_candidates:
         score = score_logo_candidate(value, hint)
@@ -60,7 +61,9 @@ def extract_logo_assets(
         url = urljoin(page_url, value.strip())
         host = (urlparse(url).hostname or "").casefold().removeprefix("www.")
         if (
-            score <= 0 or not is_usable_employer_logo_url(url) or not host
+            score <= 0
+            or not is_usable_employer_logo_url(url)
+            or not host
             or conflicts_with_employer_name(url, employer_name)
         ):
             continue
@@ -77,4 +80,4 @@ def extract_logo_asset(html: str, page_url: str) -> tuple[str, str] | None:
 
 
 def extract_logo_url(html: str, page_url: str) -> str | None:
-    return (asset[0] if (asset := extract_logo_asset(html, page_url)) else None)
+    return asset[0] if (asset := extract_logo_asset(html, page_url)) else None

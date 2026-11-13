@@ -7,21 +7,25 @@ from scout.employer_branding.logo_discovery import discover_employer_logo
 
 
 PNG = (
-    b"\x89PNG\r\n\x1a\n" + b"\x00" * 8
-    + (120).to_bytes(4, "big") + (40).to_bytes(4, "big")
+    b"\x89PNG\r\n\x1a\n"
+    + b"\x00" * 8
+    + (120).to_bytes(4, "big")
+    + (40).to_bytes(4, "big")
 )
 
 
 def mock_http(monkeypatch, handler) -> None:
     original = httpx.AsyncClient
     monkeypatch.setattr(
-        httpx, "AsyncClient",
+        httpx,
+        "AsyncClient",
         lambda *args, **kwargs: original(
             *args, transport=httpx.MockTransport(handler), **kwargs
         ),
     )
     monkeypatch.setattr(
-        socket, "getaddrinfo",
+        socket,
+        "getaddrinfo",
         lambda *args, **kwargs: [(None, None, None, None, ("8.8.8.8", 443))],
     )
 
@@ -33,7 +37,9 @@ def test_allows_official_careers_page_redirect_to_workday_board(monkeypatch) -> 
         if request.url.host == "careers.example.com":
             return httpx.Response(
                 302,
-                headers={"location": "https://example.wd5.myworkdayjobs.com/en-US/jobs"},
+                headers={
+                    "location": "https://example.wd5.myworkdayjobs.com/en-US/jobs"
+                },
             )
         if request.url.host == "example.wd5.myworkdayjobs.com":
             return httpx.Response(200, headers={"content-type": "text/html"}, text=html)

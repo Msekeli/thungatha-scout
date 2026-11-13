@@ -4,7 +4,9 @@ import httpx
 from scout.employer_branding.logo_discovery import discover_employer_logo
 from scout.employer_branding.logo_image_validation import has_usable_logo_dimensions
 from scout.employer_branding.logo_metadata import extract_logo_assets
+
 SVG = b'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40"></svg>'
+
 
 def mock_http(monkeypatch, handler):
     original = httpx.AsyncClient
