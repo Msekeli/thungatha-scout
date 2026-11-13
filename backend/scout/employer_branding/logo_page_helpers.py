@@ -29,10 +29,11 @@ def same_employer_host(first: str, second: str) -> bool:
     return root_domain(httpx.URL(first).host) == root_domain(httpx.URL(second).host)
 
 
-def registered_redirect(final_url: str, allowed_hosts: list[str]) -> bool:
+def registered_redirect(page_url: str, final_url: str, allowed_hosts: list[str]) -> bool:
+    final_host = httpx.URL(final_url).host.casefold()
     if is_ats_careers_host(final_url):
-        return True
-    final_root = root_domain(httpx.URL(final_url).host)
+        return any(httpx.URL(host).host.casefold() == final_host for host in allowed_hosts)
+    final_root = root_domain(final_host)
     return any(root_domain(host) == final_root for host in allowed_hosts)
 
 
