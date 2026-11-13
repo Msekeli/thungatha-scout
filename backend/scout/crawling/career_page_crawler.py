@@ -63,7 +63,10 @@ class CareerPageCrawler:
             await crawler.run([start_url])
         except Exception as error:
             return CareerPageCrawlResult(
-                tuple(observations), False, tuple(failed), tuple(skipped),
+                tuple(observations),
+                False,
+                tuple(failed),
+                tuple(skipped),
                 f"Crawl interrupted ({type(error).__name__}).",
             )
         return CareerPageCrawlResult(

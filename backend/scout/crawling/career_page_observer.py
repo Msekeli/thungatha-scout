@@ -26,15 +26,20 @@ def observe_page(
     canonical = selector.css('link[rel="canonical"]::attr(href)').get()
     canonical_url = urljoin(final_url, canonical) if canonical else None
     platform = fingerprint_platform(final_url) or fingerprint_platform(requested)
-    links = tuple(dict.fromkeys(
-        urljoin(final_url, link)
-        for link in selector.css("a[href]::attr(href)").getall()
-    ))
+    links = tuple(
+        dict.fromkeys(
+            urljoin(final_url, link)
+            for link in selector.css("a[href]::attr(href)").getall()
+        )
+    )
     outcome = "success" if 200 <= status < 300 else "http_failure"
     detail = None
     vacancies = []
     if too_large:
-        outcome, detail = "response_too_large", "Response exceeded configured byte limit."
+        outcome, detail = (
+            "response_too_large",
+            "Response exceeded configured byte limit.",
+        )
     elif status in (401, 403, 429):
         outcome = "blocked" if status != 429 else "rate_limited"
     elif status >= 500:
@@ -43,6 +48,16 @@ def observe_page(
         scripts = selector.css('script[type="application/ld+json"]::text').getall()
         vacancies = parse_job_postings(scripts, final_url)
     return CareerPageObservation(
-        requested, final_url, canonical_url, status, content_type, title,
-        platform, links, tuple(vacancies), datetime.now(UTC), outcome, detail
+        requested,
+        final_url,
+        canonical_url,
+        status,
+        content_type,
+        title,
+        platform,
+        links,
+        tuple(vacancies),
+        datetime.now(UTC),
+        outcome,
+        detail,
     )
