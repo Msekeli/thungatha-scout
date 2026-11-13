@@ -19,7 +19,10 @@ async def refresh_employer_logos(
             """SELECT e.id, e.name, e.website_url, e.logo_url,
                       (SELECT es.employer_careers_url FROM employer_sources es
                        WHERE es.employer_id = e.id AND es.employer_careers_url IS NOT NULL
-                       ORDER BY es.created_at DESC LIMIT 1) AS careers_url
+                       ORDER BY es.created_at DESC LIMIT 1) AS careers_url,
+                      (SELECT json_agg(es.source_url ORDER BY es.created_at DESC)
+                       FROM employer_sources es WHERE es.employer_id = e.id
+                       AND es.source_url IS NOT NULL) AS source_urls
                FROM employers e ORDER BY e.name"""
         ).fetchall()
     updated = unresolved = 0
@@ -36,21 +39,28 @@ async def refresh_employer_logos(
             print(f"EXISTING_LOGO_RETAINED: {name} ({status})")
             continue
         website_url = verified_website_for(employer)
-        if not website_url and not employer["careers_url"]:
+        source_urls = employer["source_urls"] or []
+        careers_url = employer["careers_url"]
+        if careers_url and not careers_page_matches_employer(name, careers_url):
+            print(f"UNVERIFIED_CAREERS_URL: {name} {careers_url}")
+            careers_url = None
+        if not website_url and not source_urls and not careers_url:
             unresolved += 1
-            print(f"UNVERIFIED_EMPLOYER_WEBSITE: {name} ({employer['id']})")
+            print(f"NO_VERIFIED_DISCOVERY_SOURCE: {name} ({employer['id']})")
             continue
+        diagnostics: list[str] = []
         result = await discover_employer_logo(
-            employer["careers_url"],
+            careers_url,
             website_url,
             employer_name=name,
+            source_urls=source_urls,
+            diagnostics=diagnostics,
         )
         if result is None:
             unresolved += 1
-            outcome = (
-                "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
-            )
-            print(f"{outcome}: {name} ({employer['id']})")
+            reason = ",".join(dict.fromkeys(diagnostics)) or "NO_CANDIDATE"
+            outcome = "NO_REPLACEMENT_FOUND" if employer["logo_url"] else "NO_LOGO_FOUND"
+            print(f"{outcome}: {name} ({employer['id']}) reason={reason}")
             continue
         logo_url, source_url, logo_type = result
         print(
