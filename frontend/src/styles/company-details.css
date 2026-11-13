@@ -14,12 +14,12 @@
   .scout-company-dialog [data-slot="dialog-title"] {
     @apply text-base font-semibold tracking-tight;
   }
-  .scout-company-dialog > button[aria-label="Close"] {
+  .scout-company-dialog > button:last-child {
     @apply z-20 rounded-md bg-muted/80 p-2 opacity-100;
     top: 1rem;
     right: 1.25rem;
   }
-  .scout-company-dialog > button[aria-label="Close"]:hover {
+  .scout-company-dialog > button:last-child:hover {
     @apply bg-muted;
   }
   .scout-company-profile {
