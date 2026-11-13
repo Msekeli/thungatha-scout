@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Building2, BriefcaseBusiness, MapPin, Globe2 } from "lucide-react";
+import { Building2, Briefcase, MapPin, Globe2 } from "lucide-react";
 import type { Employer } from "../api";
 
 type Props = {
