@@ -29,7 +29,7 @@ class BrandingMetadataParser(HTMLParser):
         style = values.get("style") or ""
         hint = " ".join((values.get("class") or "", values.get("id") or ""))
         if style and any(token in hint.casefold() for token in ("logo", "brand")):
-            for image in re.findall(r"background(?:-image)?\\s*:[^;]*url\\(['\\"]?([^)'\\"]+)", style):
+            for image in re.findall(r"""url\\(["']?([^)"']+)""", style):
                 self.image_candidates.append((image, hint.casefold() + " background"))
         if tag == "a":
             href = values.get("href")
