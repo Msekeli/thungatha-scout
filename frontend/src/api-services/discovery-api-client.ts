@@ -30,7 +30,18 @@ export const discoveryApiClient = {
 
   inspectSource: async (url: string): Promise<SourceInspection> => {
     const known = discoverKnownBoard(url, "");
-    if (known) return known;
+    if (known) {
+      const result = await known;
+      return {
+        ...result,
+        source_url: url,
+        outcome: result.outcome ?? "success",
+        jobs: result.jobs ?? [],
+        pages_fetched: result.pages_fetched ?? 0,
+        complete: result.complete ?? false,
+        detail: result.detail ?? null,
+      };
+    }
     return request<SourceInspection>(
       `/api/v1/career-pages/discover?url=${encodeURIComponent(url)}`,
     );
