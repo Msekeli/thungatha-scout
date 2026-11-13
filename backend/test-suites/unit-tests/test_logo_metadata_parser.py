@@ -1,4 +1,7 @@
-from scout.employer_branding.logo_metadata import extract_logo_asset, extract_logo_assets
+from scout.employer_branding.logo_metadata import (
+    extract_logo_asset,
+    extract_logo_assets,
+)
 
 
 def test_prefers_structured_logo_over_same_site_icon() -> None:
