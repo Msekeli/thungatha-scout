@@ -24,7 +24,8 @@ export function RecentRetrievalsPanel({ employers, sources, runs }: Props) {
           const source = sources.find((item) => item.id === run.source_id);
           const employer = employers.find((item) => item.id === source?.employer_id);
           const failed = ["transient_failure", "persistence_failure", "failed", "http_failure"].includes(run.outcome);
-          const blocked = ["blocked", "rate_limited"].includes(run.outcome);\n          const partial = !failed && !blocked && (!run.complete || !["success", "empty"].includes(run.outcome));
+          const blocked = ["blocked", "rate_limited"].includes(run.outcome);
+          const partial = !failed && !blocked && (!run.complete || !["success", "empty"].includes(run.outcome));
           const unchanged = Math.max(0, run.jobs_received - run.jobs_inserted - run.jobs_updated);
           return (
             <div
