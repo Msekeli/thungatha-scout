@@ -1,3 +1,11 @@
+export function isGoogleFaviconHost(value: string): boolean {
+  try {
+    return ["google.com", "www.google.com"].includes(new URL(value).hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
 const BLOCKED_BRANDING_HOSTS = new Set([
   "google.com",
   "www.google.com",

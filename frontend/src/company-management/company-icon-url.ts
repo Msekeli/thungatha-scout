@@ -1,5 +1,6 @@
 import {
   isGoogleFaviconForWebsite,
+  isGoogleFaviconHost,
   isSafeBrandingSourceUrl,
   parseSafeBrandingUrl,
 } from "./company-branding-url.ts";
@@ -17,6 +18,7 @@ export function isApprovedEmployerBranding(
   // Google's favicon endpoint is a valid domain-specific fallback only when its
   // requested domain matches this employer's configured website.
   const googleFavicon = isGoogleFaviconForWebsite(value, websiteUrl);
+  if (isGoogleFaviconHost(value) && !googleFavicon) return false;
   const logo = googleFavicon ? null : parseSafeBrandingUrl(value);
   if (!googleFavicon && !logo) return false;
 
