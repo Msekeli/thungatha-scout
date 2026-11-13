@@ -1,6 +1,8 @@
 from collections import Counter
+import re
 from typing import Any
 from urllib.parse import urlparse
+
 
 VERIFIED_EMPLOYER_WEBSITES = {
     "aleph": "https://getaleph.com/",
@@ -38,11 +40,29 @@ VERIFIED_EMPLOYER_WEBSITES = {
     "onedayonly": "https://www.onedayonly.co.za/",
     "ozow": "https://ozow.com/",
     "parallelwireless": "https://www.parallelwireless.com/",
-    "payjoy": "https://www.payjoy.com/",
+    "payjoy": "https://www.payjoy.com/"
 }
+
 
 _ATS_SUFFIXES = (".greenhouse.io", ".lever.co", ".teamtailor.com")
 _CAREERS_PATH_SEGMENTS = {"careers", "career", "jobs", "job"}
+
+
+def _tokens(value: str) -> set[str]:
+    return set(re.findall(r"[a-z0-9]+", value.casefold()))
+
+
+def _website_matches_employer(name: str, website: str) -> bool:
+    host = (urlparse(website).hostname or "").casefold().removeprefix("www.")
+    host_tokens = _tokens(host)
+    employer_tokens = {token for token in _tokens(name) if len(token) >= 3}
+    if not host_tokens or not employer_tokens:
+        return False
+    host_compact = "".join(host_tokens)
+    name_compact = "".join(employer_tokens)
+    return bool(host_tokens.intersection(employer_tokens)) or (
+        len(name_compact) >= 5 and name_compact in host_compact
+    )
 
 
 def verified_website_for(employer: dict[str, Any]) -> str | None:
@@ -50,9 +70,8 @@ def verified_website_for(employer: dict[str, Any]) -> str | None:
     mapped = VERIFIED_EMPLOYER_WEBSITES.get(name)
     if mapped:
         return mapped
-
     website = employer.get("website_url")
-    if not website:
+    if not website or not _website_matches_employer(name, str(website)):
         return None
     parsed = urlparse(str(website))
     host = (parsed.hostname or "").casefold()
