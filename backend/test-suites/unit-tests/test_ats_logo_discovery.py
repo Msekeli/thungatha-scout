@@ -6,7 +6,10 @@ import httpx
 from scout.employer_branding.logo_discovery import discover_employer_logo
 
 
-PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 24
+PNG = (
+    b"\x89PNG\r\n\x1a\n" + b"\x00" * 8
+    + (120).to_bytes(4, "big") + (40).to_bytes(4, "big")
+)
 
 
 def mock_http(monkeypatch, handler) -> None:
