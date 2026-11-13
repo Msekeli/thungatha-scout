@@ -1,12 +1,10 @@
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import { scoutApi } from "../api";
-import type { Employer, EmployerSource, ExtractionRun } from "../api";
+import type { Employer, EmployerSource } from "../api";
 
 type UseCompanySelectionOptions = {
+  dashboardSources: EmployerSource[];
   setSources: Dispatch<SetStateAction<EmployerSource[]>>;
-  setDashboardSources: Dispatch<SetStateAction<EmployerSource[]>>;
-  setExtractionRuns: Dispatch<SetStateAction<Record<string, ExtractionRun[]>>>;
   setSelectedCompanyId: (id: string | null) => void;
   setLogoUrl: (url: string) => void;
   setLogoSourceUrl: (url: string) => void;
@@ -17,9 +15,8 @@ type UseCompanySelectionOptions = {
 };
 
 export function useCompanySelection({
+  dashboardSources,
   setSources,
-  setDashboardSources,
-  setExtractionRuns,
   setSelectedCompanyId,
   setLogoUrl,
   setLogoSourceUrl,
@@ -28,67 +25,27 @@ export function useCompanySelection({
   setPage,
   onError,
 }: UseCompanySelectionOptions) {
-  const requestId = useRef(0);
-
   const openCompany = useCallback(
-    async (employer: Employer) => {
-      const currentRequest = ++requestId.current;
+    (employer: Employer) => {
       setEditingSourceId(null);
       setSourceUrl("");
-      setSources([]);
+      setSources(dashboardSources.filter((source) => source.employer_id === employer.id));
       setSelectedCompanyId(employer.id);
       setLogoUrl(employer.logo_url ?? "");
       setLogoSourceUrl(employer.logo_source_url ?? "");
       setPage("companies");
       onError("");
-
-      try {
-        const nextSources = await scoutApi.listSources(employer.id);
-        const previewedSources = await Promise.all(
-          nextSources.map(async (source) => {
-            if (source.discovery_preview) return source;
-            try {
-              const preview = await scoutApi.previewSource(source.id);
-              if (!preview.complete || !["success", "empty"].includes(preview.outcome))
-                return source;
-              return { ...source, discovery_preview: preview.discovery_preview };
-            } catch {
-              return source;
-            }
-          }),
-        );
-        const runEntries = await Promise.all(
-          nextSources.map(
-            async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
-          ),
-        );
-
-        if (currentRequest !== requestId.current) return;
-
-        setSources(previewedSources);
-        setDashboardSources((current) =>
-          current.map((source) => previewedSources.find((item) => item.id === source.id) ?? source),
-        );
-        setExtractionRuns((current) => ({
-          ...current,
-          ...Object.fromEntries(runEntries),
-        }));
-      } catch (reason) {
-        if (currentRequest !== requestId.current) return;
-        onError(reason instanceof Error ? reason.message : "Could not load company sources.");
-      }
     },
     [
+      dashboardSources,
       onError,
       setEditingSourceId,
-      setExtractionRuns,
       setLogoSourceUrl,
       setLogoUrl,
       setPage,
       setSelectedCompanyId,
       setSourceUrl,
       setSources,
-      setDashboardSources,
     ],
   );
 
