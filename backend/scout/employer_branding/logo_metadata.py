@@ -26,7 +26,6 @@ def _logo_values(value: object) -> list[str]:
                 found.extend(_logo_values(item))
         return found
     return []
-
 def _tokens(value: str) -> set[str]:
     return {part.casefold() for part in re.findall(r"[a-zA-Z0-9]+", value)}
 def _conflicting_brand_name(url: str, employer_name: str) -> bool:
@@ -43,7 +42,6 @@ def _conflicting_brand_name(url: str, employer_name: str) -> bool:
         for a in brand_words for b in employer_words
     )
     return bool(employer_name.strip()) and bool(brand_words) and not overlap
-
 def _score(value: str, hint: str, explicit: bool = False) -> int:
     text = (value + " " + hint).casefold()
     if any(token in text for token in _EXCLUDED):
