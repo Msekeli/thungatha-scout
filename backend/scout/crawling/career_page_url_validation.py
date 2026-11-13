@@ -9,8 +9,18 @@ class UnsafeCareerPageUrl(ValueError):
 
 def validate_public_career_url(value: str) -> str:
     parsed = urlparse(value.strip())
-    if parsed.scheme != "https" or not parsed.hostname or parsed.username:
-        raise UnsafeCareerPageUrl("A public HTTPS careers URL is required.")
+    try:
+        port = parsed.port
+    except ValueError as exception:
+        raise UnsafeCareerPageUrl("The careers URL has an invalid port.") from exception
+    if (
+        parsed.scheme != "https"
+        or not parsed.hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or port not in (None, 443)
+    ):
+        raise UnsafeCareerPageUrl("A public HTTPS careers URL on port 443 is required.")
     host = parsed.hostname.rstrip(".").lower()
     if host == "localhost" or host.endswith(".localhost"):
         raise UnsafeCareerPageUrl("Local and private network targets are not allowed.")
