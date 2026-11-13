@@ -97,5 +97,4 @@ def extract_logo_asset(html: str, page_url: str) -> tuple[str, str] | None:
     assets = extract_logo_assets(html, page_url)
     return assets[0] if assets else None
 def extract_logo_url(html: str, page_url: str) -> str | None:
-    asset = extract_logo_asset(html, page_url)
-    return asset[0] if asset else None
+    return (asset[0] if (asset := extract_logo_asset(html, page_url)) else None)
