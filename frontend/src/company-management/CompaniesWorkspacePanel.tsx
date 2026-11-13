@@ -56,7 +56,7 @@ export function CompaniesWorkspacePanel({
         }}
       >
         <DialogContent
-          className="!flex !max-h-[86vh] !w-[min(95vw,58rem)] !max-w-none !flex-col !gap-0 !overflow-hidden !rounded-xl !p-0"
+          className="!flex !max-h-[77vh] !w-[min(95vw,52.2rem)] !max-w-none !flex-col !gap-0 !overflow-hidden !rounded-xl !p-0 [&>button:last-child]:absolute [&>button:last-child]:right-4 [&>button:last-child]:top-4 [&>button:last-child]:z-50 [&>button:last-child]:rounded-md [&>button:last-child]:bg-muted [&>button:last-child]:p-2 [&>button:last-child]:text-foreground [&>button:last-child]:opacity-100"
           overlayClassName="!bg-transparent !backdrop-blur-0"
         >
           <DialogHeader className="relative z-10 shrink-0 border-b border-border bg-card px-6 py-5 pr-14">
