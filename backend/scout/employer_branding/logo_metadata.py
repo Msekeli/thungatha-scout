@@ -34,11 +34,11 @@ def _conflicting_brand_name(url: str, employer_name: str) -> bool:
     words = _tokens(re.sub(r"\.[a-z0-9]+$", "", path))
     brand_words = words - {"logo", "brand", "mark", "word", "white", "dark"}
     employer_words = _tokens(employer_name)
-    return (
-        bool(employer_name.strip())
-        and len(brand_words) >= 1
-        and not brand_words.intersection(employer_words)
+    overlap = any(
+        a == b or a.startswith(b) or b.startswith(a)
+        for a in brand_words for b in employer_words
     )
+    return bool(employer_name.strip()) and bool(brand_words) and not overlap
 
 def _score(value: str, hint: str, explicit: bool = False) -> int:
     text = (value + " " + hint).casefold()
