@@ -3,10 +3,8 @@ from datetime import timedelta
 from crawlee import ConcurrencySettings
 from crawlee.crawlers import HttpCrawler, HttpCrawlingContext
 
-from scout.crawling.career_page_observation import (
-    CareerPageCrawlResult,
-    CareerPageObservation,
-)
+from scout.crawling.career_page_observation import CareerPageCrawlResult
+
 from scout.crawling.career_page_observer import observe_page
 from scout.crawling.career_page_url_validation import (
     validate_public_career_url,
