@@ -7,6 +7,8 @@ from scout.employer_branding.logo_image_payload_validation import (
 )
 
 
+__all__ = ["is_valid_image_payload"]
+
 BLOCKED_HOSTS = {
     "google.com",
     "www.google.com",
