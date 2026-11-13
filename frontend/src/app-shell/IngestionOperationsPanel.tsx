@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource, ExtractionRun } from "../api";
 import { SourceStatusPanel } from "./SourceStatusPanel";
-
 type Props = {
   employers: Employer[];
   sources: EmployerSource[];
@@ -13,7 +12,6 @@ type Props = {
   onRunNow: () => void;
   onRefresh: () => void;
 };
-
 export function IngestionOperationsPanel({
   employers,
   sources,
@@ -26,7 +24,7 @@ export function IngestionOperationsPanel({
   const allRuns = Object.values(runs)
     .flat()
     .sort((a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime());
-  const failedRuns = allRuns.filter((run) => !["success", "empty"].includes(run.outcome)).length;
+  const failedRuns = allRuns.filter((run) => !run.complete || !["success", "empty"].includes(run.outcome)).length;
   const newJobs = allRuns.reduce((total, run) => total + run.jobs_inserted, 0);
   const metrics = [
     { label: "Registered employers", value: employers.length, icon: BriefcaseBusiness },
