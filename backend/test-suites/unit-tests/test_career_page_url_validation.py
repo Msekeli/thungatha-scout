@@ -2,6 +2,7 @@ import socket
 
 import pytest
 
+from scout.crawling.career_page_crawler import validated_discovered_links
 from scout.crawling.career_page_url_validation import (
     UnsafeCareerPageUrl,
     validate_public_career_url,
@@ -38,3 +39,15 @@ def test_accepts_host_resolving_only_to_public_addresses(monkeypatch) -> None:
     assert validate_public_career_url("https://careers.example.com/jobs").endswith(
         "/jobs"
     )
+
+
+def test_discovered_links_are_revalidated(monkeypatch) -> None:
+    def resolve(host, *args, **kwargs):
+        address = "192.168.1.2" if host == "internal.example" else "93.184.216.34"
+        return [(None, None, None, None, (address, 443))]
+
+    monkeypatch.setattr(socket, "getaddrinfo", resolve)
+    links = validated_discovered_links(
+        ("https://public.example/jobs", "https://internal.example/jobs")
+    )
+    assert links == ["https://public.example/jobs"]
