@@ -40,7 +40,7 @@ VERIFIED_EMPLOYER_WEBSITES = {
     "onedayonly": "https://www.onedayonly.co.za/",
     "ozow": "https://ozow.com/",
     "parallelwireless": "https://www.parallelwireless.com/",
-    "payjoy": "https://www.payjoy.com/"
+    "payjoy": "https://www.payjoy.com/",
 }
 
 

@@ -40,7 +40,9 @@ async def refresh_employer_logos(
             print(f"UNVERIFIED_EMPLOYER_WEBSITE: {name} ({employer['id']})")
             continue
         result = await discover_employer_logo(
-            employer["careers_url"], website_url, employer_name=name,
+            employer["careers_url"],
+            website_url,
+            employer_name=name,
         )
         if result is None:
             unresolved += 1
