@@ -61,7 +61,7 @@ export function CompanyProfileHeader({ employer, jobsCount }: Props) {
 
       <div className="mt-5 grid grid-cols-1 gap-3 border-t border-border pt-4 sm:grid-cols-2">
         <div className="flex min-w-0 items-start gap-2.5">
-          <BriefcaseBusiness className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+          <Briefcase className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
           <div className="min-w-0">
             <p className="text-xs text-muted-foreground">Current vacancies</p>
             <p className="mt-0.5 text-sm font-medium text-foreground">
