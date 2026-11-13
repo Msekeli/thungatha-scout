@@ -4,7 +4,10 @@ from urllib.parse import urljoin, urlparse
 from scout.employer_branding.branding_metadata_parser import BrandingMetadataParser
 from scout.employer_branding.logo_http import is_usable_employer_logo_url
 
-_EXCLUDED = ("favicon", "apple-touch", "avatar", "social", "share", "banner")
+_EXCLUDED = (
+    "favicon", "apple-touch", "avatar", "social", "share", "banner",
+    "preview", "hero", "loading", "loader", "spinner",
+)
 _HINTS = ("logo", "brandmark", "brand-mark", "wordmark", "brand mark")
 
 
