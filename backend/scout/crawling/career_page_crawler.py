@@ -8,6 +8,10 @@ from scout.crawling.career_page_observation import (
     CareerPageObservation,
 )
 from scout.crawling.career_page_observer import observe_page
+from scout.crawling.career_page_url_validation import (
+    UnsafeCareerPageUrl,
+    validate_public_career_url,
+)
 from scout.settings import Settings, get_settings
 
 
@@ -18,6 +22,7 @@ class CareerPageCrawler:
     async def crawl(self, start_url: str) -> CareerPageCrawlResult:
         if not self._settings.crawler_enabled:
             raise RuntimeError("Career-page crawling is disabled.")
+        safe_start_url = validate_public_career_url(start_url)
         observations, failed, skipped = [], [], []
         crawler = HttpCrawler(
             max_requests_per_crawl=self._settings.crawler_max_requests_per_run,
@@ -44,7 +49,9 @@ class CareerPageCrawler:
             observation = observe_page(context, body, too_large)
             observations.append(observation)
             if observation.outcome == "success" and not observation.platform_key:
-                await context.add_requests(observation.discovered_links)
+                links = validated_discovered_links(observation.discovered_links)
+                if links:
+                    await context.add_requests(links)
 
         @crawler.failed_request_handler
         async def handle_failure(
@@ -57,7 +64,7 @@ class CareerPageCrawler:
             skipped.append(request.url)
 
         try:
-            await crawler.run([start_url])
+            await crawler.run([safe_start_url])
         except Exception as error:
             return CareerPageCrawlResult(
                 tuple(observations),
@@ -66,11 +73,21 @@ class CareerPageCrawler:
                 tuple(skipped),
                 f"Crawl interrupted ({type(error).__name__}).",
             )
-        complete = not failed and not skipped
+        complete = bool(observations) and not failed and not skipped
         complete = complete and all(item.outcome == "success" for item in observations)
         return CareerPageCrawlResult(
             tuple(observations), complete, tuple(failed), tuple(skipped)
         )
+
+
+def validated_discovered_links(links: tuple[str, ...]) -> list[str]:
+    safe_links = []
+    for link in links:
+        try:
+            safe_links.append(validate_public_career_url(link))
+        except UnsafeCareerPageUrl:
+            continue
+    return safe_links
 
 
 async def read_bounded_body(
