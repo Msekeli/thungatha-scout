@@ -3,6 +3,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from scout.api.career_page_routes import router as career_page_router
 from scout.api.employers import router as employers_router
 from scout.api.greenhouse_routes import router as greenhouse_router
 from scout.api.lever_routes import router as lever_router
@@ -22,6 +23,7 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 app.include_router(employers_router, prefix=settings.api_prefix)
+app.include_router(career_page_router, prefix=settings.api_prefix)
 app.include_router(greenhouse_router, prefix=settings.api_prefix)
 app.include_router(lever_router, prefix=settings.api_prefix)
 app.include_router(teamtailor_router, prefix=settings.api_prefix)
