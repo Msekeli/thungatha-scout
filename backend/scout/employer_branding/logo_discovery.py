@@ -8,7 +8,10 @@ from scout.employer_branding.logo_http import (
     is_usable_employer_logo_url,
 )
 from scout.employer_branding.logo_metadata import extract_logo_assets
-from scout.employer_branding.logo_page_url_validation import (\n    is_ats_careers_host,\n    is_usable_employer_logo_page_url,\n)
+from scout.employer_branding.logo_page_url_validation import (
+    is_ats_careers_host,
+    is_usable_employer_logo_page_url,
+)
 
 
 def _same_employer_host(first: str, second: str) -> bool:
