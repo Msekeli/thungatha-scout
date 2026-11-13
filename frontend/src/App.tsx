@@ -27,8 +27,7 @@ export default function App() {
         onDismissNotice={state.dismissNotice}
       />
       {state.page === "operations" && (
-        <div className="min-h-0 flex-1 overflow-y-auto">
-          <IngestionOperationsPanel
+        <IngestionOperationsPanel
             employers={jobs.employers}
             sources={jobs.dashboardSources}
             runs={jobs.extractionRuns}
@@ -37,7 +36,6 @@ export default function App() {
             onRunNow={() => void jobs.fetchJobs()}
             onRefresh={() => void jobs.loadWorkspace()}
           />
-        </div>
       )}
       {state.page === "jobs" && (
         <JobsWorkspacePanel jobs={jobs} state={state} vacancyChange={vacancyChange} />
