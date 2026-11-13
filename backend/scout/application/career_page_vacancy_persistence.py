@@ -22,8 +22,7 @@ def persist_crawl_vacancies(
     )
     vacancies = list(result.vacancies)
     located = [
-        item for item in vacancies
-        if item.location_text and item.location_text.strip()
+        item for item in vacancies if item.location_text and item.location_text.strip()
     ]
     if len(located) != len(vacancies):
         complete = False

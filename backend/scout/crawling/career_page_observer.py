@@ -46,8 +46,18 @@ def observe_page(
         scripts = selector.css('script[type="application/ld+json"]::text').getall()
         vacancies = parse_job_postings(scripts, final_url)
     return CareerPageObservation(
-        requested, final_url, canonical_url, status, content_type, title,
-        platform, links, tuple(vacancies), datetime.now(UTC), outcome, detail
+        requested,
+        final_url,
+        canonical_url,
+        status,
+        content_type,
+        title,
+        platform,
+        links,
+        tuple(vacancies),
+        datetime.now(UTC),
+        outcome,
+        detail,
     )
 
 

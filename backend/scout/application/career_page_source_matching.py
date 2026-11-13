@@ -19,8 +19,7 @@ def match_existing_source(sources: list[dict], pages: tuple) -> dict | None:
                 page.platform_key == source["adapter_key"]
                 and page_url.hostname == source_url.hostname
                 and (
-                    page_path == source_path
-                    or page_path.startswith(source_path + "/")
+                    page_path == source_path or page_path.startswith(source_path + "/")
                 )
             )
             if same_url or same_ats:
