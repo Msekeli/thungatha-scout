@@ -22,15 +22,8 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
   const jobsCount = jobs.vacancies.filter((item) => item.employer_id === employer.id).length;
 
   return (
-    <section className="flex min-h-0 min-w-0 flex-col gap-4 overflow-y-auto scout-company-profile">
+    <section className="scout-company-profile flex min-h-0 min-w-0 flex-col gap-5 overflow-y-auto pr-1">
       <CompanyProfileHeader key={employer.id} employer={employer} jobsCount={jobsCount} />
-      <CompanyProfileActions
-        companyName={employer.name}
-        saving={state.saving}
-        editing={editing}
-        onEdit={() => setEditing((current) => !current)}
-        onDelete={() => void companies.deleteCompany()}
-      />
       {editing && (
         <CompanyInlineEditor
           key={employer.id}
@@ -54,6 +47,16 @@ export function CompanyProfilePanel({ state, jobs, companies, onboarding }: Prop
         />
       )}
       <CompanySourcesPanel state={state} companies={companies} onboarding={onboarding} />
+      <footer className="scout-company-footer">
+        <span className="text-xs text-muted-foreground">Company actions</span>
+        <CompanyProfileActions
+          companyName={employer.name}
+          saving={state.saving}
+          editing={editing}
+          onEdit={() => setEditing((current) => !current)}
+          onDelete={() => void companies.deleteCompany()}
+        />
+      </footer>
     </section>
   );
 }
