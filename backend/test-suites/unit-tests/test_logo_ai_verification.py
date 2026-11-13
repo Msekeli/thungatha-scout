@@ -16,7 +16,8 @@ def settings() -> Settings:
 
 
 def test_uses_primary_provider_and_caches_result(monkeypatch) -> None:
-    verification._CACHE.clear()\n    verification._COUNTS.clear()
+    verification._CACHE.clear()
+    verification._COUNTS.clear()
     monkeypatch.setattr(verification, "get_settings", settings)
     calls = []
 
@@ -32,7 +33,8 @@ def test_uses_primary_provider_and_caches_result(monkeypatch) -> None:
 
 
 def test_falls_back_when_primary_provider_fails(monkeypatch) -> None:
-    verification._CACHE.clear()\n    verification._COUNTS.clear()
+    verification._CACHE.clear()
+    verification._COUNTS.clear()
     monkeypatch.setattr(verification, "get_settings", settings)
     calls = []
 
@@ -51,7 +53,8 @@ def test_falls_back_when_primary_provider_fails(monkeypatch) -> None:
 
 
 def test_disabled_ai_does_not_call_provider(monkeypatch) -> None:
-    verification._CACHE.clear()\n    verification._COUNTS.clear()
+    verification._CACHE.clear()
+    verification._COUNTS.clear()
     monkeypatch.setattr(verification, "get_settings", lambda: Settings())
     with pytest.raises(verification.LogoAIUnavailable):
         asyncio.run(verification.assess_logo_image(b"image", "image/png", "Damen"))
