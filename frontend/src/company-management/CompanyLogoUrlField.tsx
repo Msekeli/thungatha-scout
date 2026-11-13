@@ -42,7 +42,8 @@ export function CompanyLogoUrlField({ value, failed, onChange, onPreviewError }:
           </p>
           {value.trim() && failed && (
             <p className="mt-1 text-xs text-destructive">
-              This address could not be previewed. Check that it points to a publicly accessible image.
+              This address could not be previewed. Check that it points to a publicly accessible
+              image.
             </p>
           )}
           {value.trim() && (
