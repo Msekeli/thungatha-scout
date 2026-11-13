@@ -8,6 +8,7 @@ from scout.employer_branding.logo_http import (
     UnavailableLogoAsset,
     fetch_public_resource,
 )
+from scout.employer_branding.logo_image_validation import has_usable_logo_dimensions
 from scout.employer_branding.logo_metadata import extract_logo_assets
 from scout.employer_branding.logo_page_url_validation import (
     is_ats_careers_host,
@@ -37,7 +38,47 @@ def _workday_logo_url(page_url: str) -> str | None:
     if not site or not re.fullmatch(r"[A-Za-z0-9_-]+", site):
         return None
     return f"https://{host}/{site}/assets/logo"
-def _has_usable_logo_dimensions(content: bytes, content_type: str) -> bool:
+mport re
+from urllib.parse import urljoin, urlparse
+import httpx
+from scout.employer_branding.branding_metadata_parser import BrandingMetadataParser
+from scout.employer_branding.logo_http import (
+    InvalidLogoAsset,
+    MAX_IMAGE_BYTES,
+    UnavailableLogoAsset,
+    fetch_public_resource,
+)
+from scout.employer_branding.logo_image_validation import has_usable_logo_dimensions
+from scout.employer_branding.logo_metadata import extract_logo_assets
+from scout.employer_branding.logo_page_url_validation import (
+    is_ats_careers_host,
+    is_usable_employer_logo_page_url,
+)
+MAX_BRANDING_PAGES = 5
+def _same_employer_host(first: str, second: str) -> bool:
+    def normalize(value: str) -> str:
+        return (value or "").casefold().removeprefix("www.")
+    return normalize(httpx.URL(first).host) == normalize(httpx.URL(second).host)
+def _workday_logo_url(page_url: str) -> str | None:
+    parsed = urlparse(page_url)
+    host = (parsed.hostname or "").casefold()
+    if not host.endswith(".myworkdayjobs.com"):
+        return None
+    ignored = {"jobs", "search", "wday", "cxs"}
+    site = next(
+        (
+            part
+            for part in parsed.path.split("/")
+            if part
+            and not re.fullmatch(r"(?i)en-[a-z]{2}", part)
+            and part.casefold() not in ignored
+        ),
+        None,
+    )
+    if not site or not re.fullmatch(r"[A-Za-z0-9_-]+", site):
+        return None
+    return f"https://{host}/{site}/assets/logo"
+def has_usable_logo_dimensions(content: bytes, content_type: str) -> bool:
     if content.startswith((b"GIF87a", b"GIF89a")):
         return False
     if content_type == "image/svg+xml":
