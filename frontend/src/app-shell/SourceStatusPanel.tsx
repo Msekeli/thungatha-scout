@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import type { Employer, EmployerSource, ExtractionRun } from "../api";
+import { RecentRetrievalsPanel } from "./RecentRetrievalsPanel";
 
 type Props = {
   employers: Employer[];
@@ -58,7 +59,7 @@ function CompanyRow({ activity }: { activity: CompanyActivity }) {
   const hasPrior = previous.length > 0;
   const delta = received - priorReceived;
   const status = latest.length ? statusFor(latest) : { label: "Never retrieved", variant: "outline" as const };
-  const lastAttempt = latest.map((run) => run.started_at ?? "").sort().at(-1);
+  const lastAttempt = latest.map((run) => run.started_at ?? "").sort().slice(-1)[0];
   return (
     <div className="grid gap-3 border-b px-4 py-3 last:border-b-0 xl:grid-cols-[minmax(12rem,1.5fr)_repeat(5,minmax(5rem,.65fr))_auto] xl:items-center">
       <div className="min-w-0">
@@ -104,5 +105,6 @@ export function SourceStatusPanel({ employers, sources, runs }: Props) {
       {activities.map((activity) => <CompanyRow key={activity.employer.id} activity={activity} />)}
       {!activities.length && <p className="px-4 py-6 text-sm text-muted-foreground">No registered employers yet.</p>}
     </section>
+    <RecentRetrievalsPanel employers={employers} sources={sources} runs={runs} />
   );
 }
