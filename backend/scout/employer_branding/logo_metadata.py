@@ -42,7 +42,7 @@ def _conflicting_brand_name(url: str, employer_name: str) -> bool:
     words = _tokens(re.sub(r"\.[a-z0-9]+$", "", path))
     brand_words = words - {"logo", "brand", "mark", "word", "white", "dark"}
     employer_words = _tokens(employer_name)
-    return len(brand_words) >= 1 and not brand_words.intersection(employer_words)
+    return bool(employer_name.strip()) and len(brand_words) >= 1 and not brand_words.intersection(employer_words)
 
 
 def _score(value: str, hint: str, explicit: bool = False) -> int:
