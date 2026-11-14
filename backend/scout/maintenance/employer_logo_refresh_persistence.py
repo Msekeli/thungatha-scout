@@ -4,7 +4,7 @@ from scout.persistence.database_connection import get_database_connection
 def load_employers():
     with get_database_connection() as connection:
         return connection.execute(
-            """SELECT e.id, e.name, e.website_url, e.logo_url,
+            """SELECT e.id, e.name, e.website_url, e.logo_url, e.logo_type,
                       (SELECT es.employer_careers_url FROM employer_sources es
                        WHERE es.employer_id = e.id
                        AND es.employer_careers_url IS NOT NULL
