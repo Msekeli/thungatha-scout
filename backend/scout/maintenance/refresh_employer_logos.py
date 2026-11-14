@@ -30,7 +30,7 @@ async def refresh_employer_logos(apply=False, recheck_existing=False, only_needs
             print(f"OUTSIDE_TARGETED_REFRESH: {name}")
             continue
         status = await inspect_existing_logo(employer["logo_url"])
-        if status in {"valid", "unknown"} and not (recheck_existing or targeted):
+        if status in {"valid", "unknown"} and not (\n            recheck_existing or (only_needs_refresh and targeted)\n        ):
             print(f"EXISTING_LOGO_RETAINED: {name} ({status})")
             continue
         website_url = verified_website_for(employer)
