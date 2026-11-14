@@ -2,18 +2,18 @@ from types import SimpleNamespace
 
 import asyncio
 
-from scout.employer_branding import logo_page_helpers
+from scout.employer_branding import logo_ai_image_assessment
 from scout.employer_branding.logo_ai_clients import LogoAssessment
 from scout.employer_branding.logo_http import PublicResource
 
 
 def test_svg_is_rasterized_before_ai_assessment(monkeypatch) -> None:
     monkeypatch.setattr(
-        logo_page_helpers, "get_settings",
+        logo_ai_image_assessment, "get_settings",
         lambda: SimpleNamespace(ai_enabled=True),
     )
     monkeypatch.setattr(
-        logo_page_helpers, "rasterize_svg_for_ai",
+        logo_ai_image_assessment, "rasterize_svg_for_ai",
         lambda content: b"rasterized-png",
     )
     received = []
@@ -24,7 +24,7 @@ def test_svg_is_rasterized_before_ai_assessment(monkeypatch) -> None:
             is_logo=True, confidence=0.98, reason="Official wordmark"
         )
 
-    monkeypatch.setattr(logo_page_helpers, "assess_logo_image", assess)
+    monkeypatch.setattr(logo_ai_image_assessment, "assess_logo_image", assess)
     image = PublicResource(
         "https://cdn.example.com/logo.svg",
         "image/svg+xml",
@@ -33,7 +33,7 @@ def test_svg_is_rasterized_before_ai_assessment(monkeypatch) -> None:
     diagnostics = []
 
     accepted = asyncio.run(
-        logo_page_helpers.ai_accepts_image(image, "Example Ltd", diagnostics)
+        logo_ai_image_assessment.ai_accepts_image(image, "Example Ltd", diagnostics)
     )
 
     assert accepted is True
@@ -43,7 +43,7 @@ def test_svg_is_rasterized_before_ai_assessment(monkeypatch) -> None:
 
 def test_svg_rasterization_failure_uses_deterministic_fallback(monkeypatch) -> None:
     monkeypatch.setattr(
-        logo_page_helpers, "get_settings",
+        logo_ai_image_assessment, "get_settings",
         lambda: SimpleNamespace(ai_enabled=True),
     )
 
@@ -51,7 +51,7 @@ def test_svg_rasterization_failure_uses_deterministic_fallback(monkeypatch) -> N
         raise ValueError("unsupported SVG")
 
     monkeypatch.setattr(
-        logo_page_helpers, "rasterize_svg_for_ai", fail_rasterization
+        logo_ai_image_assessment, "rasterize_svg_for_ai", fail_rasterization
     )
     image = PublicResource(
         "https://cdn.example.com/logo.svg", "image/svg+xml", b"<svg/>"
@@ -59,7 +59,7 @@ def test_svg_rasterization_failure_uses_deterministic_fallback(monkeypatch) -> N
     diagnostics = []
 
     accepted = asyncio.run(
-        logo_page_helpers.ai_accepts_image(image, "Example Ltd", diagnostics)
+        logo_ai_image_assessment.ai_accepts_image(image, "Example Ltd", diagnostics)
     )
 
     assert accepted is True
