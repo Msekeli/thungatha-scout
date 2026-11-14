@@ -10,12 +10,15 @@ from scout.maintenance.employer_logo_refresh_persistence import (
 )
 from scout.maintenance.employer_logo_refresh_policy import (
     duplicate_employer_names,
+    needs_targeted_logo_refresh,
     verified_website_for,
 )
 
 
 async def refresh_employer_logos(
-    apply: bool = False, recheck_existing: bool = False
+    apply: bool = False,
+    recheck_existing: bool = False,
+    only_needs_refresh: bool = False,
 ) -> tuple[int, int]:
     employers = load_employers()
     updated = unresolved = 0
@@ -27,8 +30,12 @@ async def refresh_employer_logos(
         if name.strip().casefold() in duplicates:
             unresolved += 1
             continue
+        targeted = needs_targeted_logo_refresh(employer)
+        if only_needs_refresh and not targeted:
+            print(f"OUTSIDE_TARGETED_REFRESH: {name}")
+            continue
         status = await inspect_existing_logo(employer["logo_url"])
-        if status in {"valid", "unknown"} and not recheck_existing:
+        if status in {"valid", "unknown"} and not (recheck_existing or targeted):
             print(f"EXISTING_LOGO_RETAINED: {name} ({status})")
             continue
         website_url = verified_website_for(employer)
@@ -84,9 +91,18 @@ if __name__ == "__main__":
         action="store_true",
         help="Discover replacements even when an existing image is reachable.",
     )
+    parser.add_argument(
+        "--only-needs-refresh",
+        action="store_true",
+        help="Refresh only missing logos and logos sourced from ATS platforms.",
+    )
     args = parser.parse_args()
     updated, unresolved = asyncio.run(
-        refresh_employer_logos(apply=args.apply, recheck_existing=args.recheck_existing)
+        refresh_employer_logos(
+            apply=args.apply,
+            recheck_existing=args.recheck_existing,
+            only_needs_refresh=args.only_needs_refresh,
+        )
     )
     mode = "Applied" if args.apply else "Dry run"
     print(f"{mode}. Updated: {updated}; unresolved: {unresolved}.")
