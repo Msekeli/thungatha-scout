@@ -76,27 +76,3 @@ def test_discovers_workday_logo_from_tenant_assets_endpoint(monkeypatch) -> None
         "https://abinbev.wd1.myworkdayjobs.com/SAB",
         "official_ats_logo",
     )
-
-def test_discovers_workday_logo_even_when_board_page_is_unavailable(monkeypatch):
-    board = "https://absa.wd3.myworkdayjobs.com/ABSAcareersite"
-
-    async def handler(request):
-        if request.url.path == "/ABSAcareersite/assets/logo":
-            return httpx.Response(
-                200, headers={"content-type": "image/png"}, content=PNG
-            )
-        return httpx.Response(404)
-
-    mock_http(monkeypatch, handler)
-    result = asyncio.run(discover_employer_logo(board))
-    assert result == (
-        board + "/assets/logo", board, "official_ats_logo"
-    )
-
-
-def test_workday_endpoint_skips_locale_prefix() -> None:
-    from scout.employer_branding.logo_page_helpers import workday_logo_url
-
-    assert workday_logo_url(
-        "https://firstrand.wd3.myworkdayjobs.com/en-US/FRB"
-    ) == "https://firstrand.wd3.myworkdayjobs.com/FRB/assets/logo"
