@@ -73,7 +73,9 @@ async def discover_with_crawlee(
 
     @crawler.failed_request_handler
     async def handle_failure(context, error) -> None:
-        diagnostics.append(f"CRAWLER_REQUEST_FAILED:{type(error).__name__}")
+        diagnostics.append(
+            f"CRAWLER_REQUEST_FAILED:{type(error).__name__}:{str(error)[:160]}"
+        )
 
     await crawler.run(page_urls)
     return await validate_crawlee_candidates(candidates, employer_name, diagnostics)
@@ -83,7 +85,6 @@ async def _read_body(context) -> str:
     body = bytearray()
     async for chunk in context.http_response.read_stream():
         if len(body) + len(chunk) > MAX_IMAGE_BYTES:
-            diagnostics = "CRAWLER_RESPONSE_TOO_LARGE"
-            raise InvalidLogoAsset(diagnostics)
+            raise InvalidLogoAsset("Crawler response exceeds the size limit.")
         body.extend(chunk)
     return bytes(body).decode("utf-8", errors="replace")
