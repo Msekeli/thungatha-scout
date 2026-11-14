@@ -5,6 +5,10 @@ from scout.employer_branding.logo_http import (
     InvalidLogoAsset,
     UnavailableLogoAsset,
 )
+from scout.employer_branding.logo_page_helpers import (
+    fetch_workday_logo,
+    workday_logo_url,
+)
 from scout.employer_branding.logo_page_inspection import (
     MAX_BRANDING_PAGES,
     discover_logo_on_page,
@@ -47,6 +51,14 @@ async def discover_employer_logo(
         trust_env=False,
         headers={"User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"},
     ) as client:
+        for page_url in page_urls:
+            if not workday_logo_url(page_url):
+                continue
+            try:
+                if result := await fetch_workday_logo(client, page_url):
+                    return result
+            except (InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError, OSError):
+                diagnostics.append("WORKDAY_LOGO_ENDPOINT_UNAVAILABLE")
         inspected = set()
         while page_urls and len(inspected) < MAX_BRANDING_PAGES:
             page_url = page_urls.pop(0)
@@ -72,8 +84,8 @@ async def discover_employer_logo(
                 )
             except (UnavailableLogoAsset, httpx.HTTPError, OSError):
                 diagnostics.append("PAGE_UNAVAILABLE")
-            except ValueError:
-                diagnostics.append("PAGE_MALFORMED")
+            except ValueError as error:
+                diagnostics.append(f"PAGE_MALFORMED:{str(error)[:160]}")
             page_urls.extend(url for url in discovered_pages if url not in inspected)
             discovered_pages.clear()
     if len(inspected) >= MAX_BRANDING_PAGES and page_urls:
@@ -84,7 +96,7 @@ async def discover_employer_logo(
                 initial_page_urls, employer_name, diagnostics
             )
         except (OSError, RuntimeError, ValueError) as error:
-            diagnostics.append(f"CRAWLEE_FAILED:{type(error).__name__}")
+            diagnostics.append(f"CRAWLEE_FAILED:{type(error).__name__}:{str(error)[:200]}")
         else:
             if result:
                 diagnostics.append("CRAWLEE_CANDIDATE_ACCEPTED")
