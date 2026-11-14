@@ -10,8 +10,9 @@ from scout.maintenance.employer_logo_refresh_persistence import (
 )
 from scout.maintenance.employer_logo_refresh_policy import (
     duplicate_employer_names,
-    needs_targeted_logo_refresh,
     verified_website_for,
+)
+from scout.maintenance.employer_logo_refresh_targeting import needs_targeted_logo_refresh
 )
 
 
