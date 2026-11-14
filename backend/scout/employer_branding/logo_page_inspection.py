@@ -21,7 +21,7 @@ from scout.employer_branding.logo_page_url_validation import (
     is_usable_employer_logo_page_url,
 )
 
-MAX_BRANDING_PAGES = 5
+MAX_BRANDING_PAGES = 8
 
 
 async def discover_logo_on_page(
