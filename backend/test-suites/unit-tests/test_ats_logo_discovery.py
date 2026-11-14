@@ -79,7 +79,7 @@ def test_discovers_employer_logo_from_lever_board_og_image(monkeypatch) -> None:
         return httpx.Response(
             200,
             headers={"content-type": "image/png"},
-            content=b"\x89PNG\r\n\x1a\n" + b"0" * 64,
+            content=(\n                b"\x89PNG\r\n\x1a\n" + b"\x00\x00\x00\rIHDR"\n                + (64).to_bytes(4, "big") * 2 + b"\x08\x02\x00\x00\x00"\n            ),
         )
 
     mock_http(monkeypatch, handler)
