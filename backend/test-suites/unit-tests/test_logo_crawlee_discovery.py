@@ -63,3 +63,23 @@ def test_direct_discovery_does_not_start_crawler_without_diagnostics(
     )
 
     assert result is None
+
+def test_reports_crawlee_runtime_error_details(monkeypatch) -> None:
+    async def broken_fallback(*args):
+        raise ValueError("unsupported crawler option")
+
+    async def inspect_page(*args):
+        return None
+
+    monkeypatch.setattr(logo_discovery, "discover_with_crawlee", broken_fallback)
+    monkeypatch.setattr(logo_discovery, "discover_logo_on_page", inspect_page)
+    diagnostics = []
+    asyncio.run(
+        logo_discovery.discover_employer_logo(
+            None, "https://employer.example.com", diagnostics=diagnostics
+        )
+    )
+    assert any(
+        "CRAWLEE_FAILED:ValueError:unsupported crawler option" in item
+        for item in diagnostics
+    )
