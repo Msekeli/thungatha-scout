@@ -17,7 +17,12 @@ export type Employer = {
   country?: string | null;
   logo_url?: string | null;
   logo_source_url?: string | null;
-  logo_type?: "official_logo" | "official_favicon" | "careers_favicon" | "unverified";
+  logo_type?:
+    | "official_logo"
+    | "official_ats_logo"
+    | "official_favicon"
+    | "careers_favicon"
+    | "unverified";
   created_at?: string;
   vacancy_count?: number;
 };
