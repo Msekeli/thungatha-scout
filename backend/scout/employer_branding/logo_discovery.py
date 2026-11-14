@@ -87,7 +87,8 @@ async def discover_employer_logo(
                 initial_page_urls, employer_name, diagnostics
             )
         except (OSError, RuntimeError, ValueError) as error:
-            diagnostics.append(f"CRAWLEE_FAILED:{type(error).__name__}:{str(error)[:200]}")
+            reason = f"{type(error).__name__}:{str(error)[:200]}"
+            diagnostics.append(f"CRAWLEE_FAILED:{reason}")
         else:
             if result:
                 diagnostics.append("CRAWLEE_CANDIDATE_ACCEPTED")
