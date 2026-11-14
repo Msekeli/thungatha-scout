@@ -76,10 +76,14 @@ def test_discovers_employer_logo_from_lever_board_og_image(monkeypatch) -> None:
     async def handler(request):
         if request.url.host == "jobs.lever.co":
             return httpx.Response(200, headers={"content-type": "text/html"}, text=html)
+        png = (
+            b"\x89PNG\r\n\x1a\n"
+            + b"\x00\x00\x00\rIHDR"
+            + (64).to_bytes(4, "big") * 2
+            + b"\x08\x02\x00\x00\x00"
+        )
         return httpx.Response(
-            200,
-            headers={"content-type": "image/png"},
-            content=(\n                b"\x89PNG\r\n\x1a\n" + b"\x00\x00\x00\rIHDR"\n                + (64).to_bytes(4, "big") * 2 + b"\x08\x02\x00\x00\x00"\n            ),
+            200, headers={"content-type": "image/png"}, content=png
         )
 
     mock_http(monkeypatch, handler)
