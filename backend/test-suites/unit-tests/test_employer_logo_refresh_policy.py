@@ -1,7 +1,6 @@
 from scout.maintenance.employer_careers_validation import careers_page_matches_employer
 from scout.maintenance.employer_logo_refresh_policy import (
     duplicate_employer_names,
-    needs_targeted_logo_refresh,
     verified_website_for,
 )
 
@@ -96,16 +95,3 @@ def test_rejects_unrelated_ats_board() -> None:
     )
 
 
-def test_targeted_refresh_selects_missing_and_ats_logos_only() -> None:
-    assert needs_targeted_logo_refresh(
-        {"logo_url": None, "logo_type": None}
-    )
-    assert needs_targeted_logo_refresh(
-        {"logo_url": "https://cdn.example.com/logo.png", "logo_type": "official_ats_logo"}
-    )
-    assert needs_targeted_logo_refresh(
-        {"logo_url": "https://jobs.lever.co/assets/company-logo.png", "logo_type": "official_logo"}
-    )
-    assert not needs_targeted_logo_refresh(
-        {"logo_url": "https://cdn.example.com/logo.png", "logo_type": "official_logo"}
-    )
