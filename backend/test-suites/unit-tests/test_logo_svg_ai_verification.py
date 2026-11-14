@@ -1,6 +1,5 @@
-from types import SimpleNamespace
-
 import asyncio
+from types import SimpleNamespace
 
 from scout.employer_branding import logo_ai_image_assessment
 from scout.employer_branding.logo_ai_clients import LogoAssessment
