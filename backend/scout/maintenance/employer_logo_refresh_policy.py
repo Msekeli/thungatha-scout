@@ -90,3 +90,22 @@ def verified_website_for(employer: dict[str, Any]) -> str | None:
 def duplicate_employer_names(employers: list[dict[str, Any]]) -> set[str]:
     names = [employer["name"].strip().casefold() for employer in employers]
     return {name for name, count in Counter(names).items() if count > 1}
+
+
+_ATS_LOGO_HOSTS = (
+    ".greenhouse.io",
+    ".lever.co",
+    ".teamtailor.com",
+    ".myworkdayjobs.com",
+    ".workable.com",
+)
+
+
+def needs_targeted_logo_refresh(employer: dict[str, Any]) -> bool:
+    logo_url = employer.get("logo_url")
+    if not logo_url:
+        return True
+    if employer.get("logo_type") == "official_ats_logo":
+        return True
+    host = (urlparse(str(logo_url)).hostname or "").casefold().rstrip(".")
+    return any(host.endswith(suffix) for suffix in _ATS_LOGO_HOSTS)
