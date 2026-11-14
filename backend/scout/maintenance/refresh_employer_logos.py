@@ -14,11 +14,7 @@ from scout.maintenance.employer_logo_refresh_policy import (
 from scout.maintenance.employer_logo_refresh_targeting import (
     needs_targeted_logo_refresh,
 )
-async def refresh_employer_logos(
-    apply: bool = False,
-    recheck_existing: bool = False,
-    only_needs_refresh: bool = False,
-) -> tuple[int, int]:
+async def refresh_employer_logos(apply=False, recheck_existing=False, only_needs_refresh=False):
     employers = load_employers()
     updated = unresolved = 0
     duplicates = duplicate_employer_names(employers)
@@ -84,9 +80,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
     parser.add_argument("--apply", action="store_true", help="Persist replacements.")
     parser.add_argument(
-        "--recheck-existing",
-        action="store_true",
-        help="Discover replacements even when an existing image is reachable.",
+        "--recheck-existing", action="store_true", help="Recheck reachable logos."
     )
     parser.add_argument(
         "--only-needs-refresh",
