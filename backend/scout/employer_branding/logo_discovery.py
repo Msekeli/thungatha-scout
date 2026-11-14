@@ -1,5 +1,4 @@
 import httpx
-
 from scout.employer_branding.logo_crawlee_fallback import discover_with_crawlee
 from scout.employer_branding.logo_http import InvalidLogoAsset, UnavailableLogoAsset
 from scout.employer_branding.logo_page_helpers import (
