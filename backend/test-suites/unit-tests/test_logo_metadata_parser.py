@@ -51,3 +51,20 @@ def test_rejects_insecure_and_ats_logo_urls() -> None:
     assert extract_logo_asset(html, "https://example.com") is None
     html = '<meta property="og:logo" content="https://jobs.lever.co/favicon.ico">'
     assert extract_logo_asset(html, "https://example.com") is None
+
+
+def test_reads_lever_board_og_image_as_employer_branding() -> None:
+    html = (
+        '<meta property="og:image" content="https://cdn.example.net/acme-logo.png">'
+    )
+    assert extract_logo_asset(html, "https://jobs.lever.co/acme") == (
+        "https://cdn.example.net/acme-logo.png",
+        "official_ats_logo",
+    )
+
+
+def test_does_not_treat_lever_og_image_as_branding_on_other_sites() -> None:
+    html = (
+        '<meta property="og:image" content="https://cdn.example.net/acme-logo.png">'
+    )
+    assert extract_logo_assets(html, "https://example.com") == []
