@@ -66,3 +66,28 @@ def test_allows_greenhouse_hosted_logo_asset_but_not_board_pages() -> None:
         "logos/000/001/614/original/group-logo.png?1733912049"
     )
     assert not is_usable_employer_logo_url("https://boards.greenhouse.io/example")
+
+
+def test_discovers_employer_logo_from_lever_board_og_image(monkeypatch) -> None:
+    html = (
+        '<meta property="og:image" content="https://cdn.example.com/acme-logo.png">'
+    )
+
+    async def handler(request):
+        if request.url.host == "jobs.lever.co":
+            return httpx.Response(200, headers={"content-type": "text/html"}, text=html)
+        return httpx.Response(
+            200,
+            headers={"content-type": "image/png"},
+            content=b"\x89PNG\r\n\x1a\n" + b"0" * 64,
+        )
+
+    mock_http(monkeypatch, handler)
+    result = asyncio.run(
+        discover_employer_logo("https://jobs.lever.co/acme", employer_name="Acme")
+    )
+    assert result == (
+        "https://cdn.example.com/acme-logo.png",
+        "https://jobs.lever.co/acme",
+        "official_ats_logo",
+    )
