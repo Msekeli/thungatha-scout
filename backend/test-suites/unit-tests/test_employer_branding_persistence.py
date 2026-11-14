@@ -1,5 +1,6 @@
 from uuid import uuid4
 
+from scout.application.employer_contracts import EmployerBrandingUpdate
 from scout.persistence.employer_repository import EmployerRepository
 
 
@@ -32,3 +33,12 @@ def test_branding_discovery_updates_only_the_logo_url_it_validated() -> None:
     )
     assert "logo_url IS NOT DISTINCT FROM %s" in connection.query
     assert connection.params[-1] == old_url
+
+
+def test_branding_update_accepts_official_ats_logo_provenance() -> None:
+    payload = EmployerBrandingUpdate(
+        logo_url="https://careers.example.com/assets/logo",
+        logo_source_url="https://careers.example.com/",
+        logo_type="official_ats_logo",
+    )
+    assert payload.logo_type == "official_ats_logo"
