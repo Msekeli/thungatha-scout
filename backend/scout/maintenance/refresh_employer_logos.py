@@ -12,9 +12,9 @@ from scout.maintenance.employer_logo_refresh_policy import (
     duplicate_employer_names,
     verified_website_for,
 )
-from scout.maintenance.employer_logo_refresh_targeting import needs_targeted_logo_refresh
+from scout.maintenance.employer_logo_refresh_targeting import (
+    needs_targeted_logo_refresh,
 )
-
 
 async def refresh_employer_logos(
     apply: bool = False,
@@ -82,7 +82,6 @@ async def refresh_employer_logos(
         else:
             print(f"RETAINED_CONCURRENT_CHANGE: {name} ({employer['id']})")
     return updated, unresolved
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
