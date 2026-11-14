@@ -16,6 +16,21 @@ class LogoAssessment(BaseModel):
     reason: str = Field(max_length=240)
 
 
+def rasterize_svg_for_ai(image: bytes) -> bytes:
+    """Render an SVG into a bounded PNG for vision-provider compatibility."""
+    import cairosvg
+
+    def reject_external_resource(url, resource_type):
+        raise ValueError("External SVG resources are not allowed")
+
+    return cairosvg.svg2png(
+        bytestring=image,
+        output_width=512,
+        output_height=512,
+        url_fetcher=reject_external_resource,
+    )
+
+
 def gemini_assessment(image, mime, prompt, model, key, timeout):
     from google import genai
     from google.genai import types
