@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 
 import httpx
 
+from scout.employer_branding.logo_ai_clients import rasterize_svg_for_ai
 from scout.employer_branding.logo_ai_verification import (
     LogoAIUnavailable,
     assess_logo_image,
@@ -73,15 +74,19 @@ async def fetch_workday_logo(client, page_url):
 
 async def ai_accepts_image(image, employer_name, diagnostics):
     settings = get_settings()
-    if image.content_type == "image/svg+xml":
-        return True
     if not settings.ai_enabled:
         diagnostics.append("AI_VERIFICATION_DISABLED")
         return True
+    content, mime = image.content, image.content_type
+    if mime == "image/svg+xml":
+        try:
+            content, mime = rasterize_svg_for_ai(content), "image/png"
+        except Exception as error:
+            diagnostics.append(f"AI_SVG_RASTERIZATION_FAILED:{type(error).__name__}")
+            diagnostics.append("DETERMINISTIC_FALLBACK_ACCEPTED")
+            return True
     try:
-        result = await assess_logo_image(
-            image.content, image.content_type, employer_name
-        )
+        result = await assess_logo_image(content, mime, employer_name)
     except LogoAIUnavailable as error:
         reason = (
             "AI_ASSESSMENT_LIMIT"
