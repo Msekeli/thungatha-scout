@@ -55,7 +55,7 @@ export function useVacancyFetching({
       onNotice(
         failed
           ? `Fetch finished: ${completed.length} source(s) returned; ${failed} failed.`
-          : `Fetch finished: +${summary?.added ?? 0} added, −${summary?.missing ?? 0} missing, net ${summary?.net ?? 0}. Initial collections: ${summary?.baselineCount ?? 0}.`,
+          : `Fetch finished: +${summary?.added ?? 0} added, −${summary?.missing ?? 0} missing, net ${summary?.net ?? 0}. Initial baselines: ${summary?.baselineSources ?? 0} source(s).`,
       );
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not fetch jobs.");
