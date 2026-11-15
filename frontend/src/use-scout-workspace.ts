@@ -6,6 +6,7 @@ import type { VacancyDashboardMetrics } from "./api-services/vacancy-api-client"
 import { useArchivedVacancies } from "./use-archived-vacancies";
 import { useVacancyPagination } from "./use-vacancy-pagination";
 import { useScoutWorkspaceReferenceData } from "./use-scout-workspace-reference-data";
+
 type UseScoutWorkspaceResult = {
   employers: Employer[];
   setEmployers: Dispatch<SetStateAction<Employer[]>>;
@@ -23,36 +24,28 @@ type UseScoutWorkspaceResult = {
   loadWorkspace: () => Promise<void>;
   loadArchivedVacancies: (force?: boolean) => Promise<void>;
 };
-const EMPTY_METRICS: VacancyDashboardMetrics = {
-  total_active: 0,
-  companies_total: 0,
-  new_last_24_hours: 0,
-  fresh_vacancies: 0,
-  recent_vacancies: 0,
-  aging_vacancies: 0,
-  stale_vacancies: 0,
-  undated_vacancies: 0,
-};
+
 export function useScoutWorkspace(
   onError: (message: string) => void,
   showArchived: boolean,
   loadDashboardData: () => Promise<void>,
   filters: { employerId: string; locationScope: VacancyLocationScope; ageFilter: VacancyAgeFilter },
 ): UseScoutWorkspaceResult {
-  const [employers, setEmployers] = useState<Employer[]>([]);
-  const [dashboardMetrics, setDashboardMetrics] = useState(EMPTY_METRICS);
+  const [loading, setLoading] = useState(true);
+  const referenceData = useScoutWorkspaceReferenceData(onError, loadDashboardData, setLoading);
   const activeVacancies = useVacancyPagination(filters, onError);
   const archived = useArchivedVacancies(onError);
+
   const loadWorkspace = useCallback(async () => {
     setLoading(true);
     onError("");
     try {
-      const [nextEmployers, , metrics] = await Promise.all([
+      const [employers, , metrics] = await Promise.all([
         scoutApi.listEmployers(),
         activeVacancies.loadFirstPage(),
         scoutApi.getVacancyMetrics(),
       ]);
-      referenceData.setEmployers(nextEmployers);
+      referenceData.setEmployers(employers);
       referenceData.setDashboardMetrics(metrics);
       void loadDashboardData();
     } catch (reason) {
@@ -60,13 +53,16 @@ export function useScoutWorkspace(
     } finally {
       setLoading(false);
     }
-  }, [activeVacancies.loadFirstPage, onError, loadDashboardData]);
+  }, [activeVacancies.loadFirstPage, onError, loadDashboardData, referenceData.setEmployers, referenceData.setDashboardMetrics]);
+
   useEffect(() => {
     void activeVacancies.loadFirstPage();
   }, [activeVacancies.loadFirstPage]);
+
   useEffect(() => {
     if (showArchived) void archived.loadArchivedVacancies();
   }, [showArchived, archived.loadArchivedVacancies]);
+
   return {
     employers: referenceData.employers,
     setEmployers: referenceData.setEmployers,
