@@ -46,8 +46,8 @@ export function useVacancyFetching({
       await loadWorkspace();
       const failed = results.length - completed.length;
       onNotice(failed
-        ? \`Fetch finished: \${completed.length} source(s) returned; \${failed} failed.\`
-        : \`Fetch finished: +\${summary?.added ?? 0} added, −\${summary?.missing ?? 0} missing, net \${summary?.net ?? 0}. Initial collections: \${summary?.baselineCount ?? 0}.\`);
+        ? `Fetch finished: ${completed.length} source(s) returned; ${failed} failed.`
+        : `Fetch finished: +${summary?.added ?? 0} added, −${summary?.missing ?? 0} missing, net ${summary?.net ?? 0}. Initial collections: ${summary?.baselineCount ?? 0}.`);
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not fetch jobs.");
     } finally {
