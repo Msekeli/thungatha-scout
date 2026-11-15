@@ -15,7 +15,7 @@ Greenhouse remains the proven reference adapter. South African careers-page craw
 - **Scout operational data:** dedicated Supabase PostgreSQL project.
 - **Thungatha destination:** existing Thungatha Supabase PostgreSQL project.
 - **Admin authentication:** Supabase Auth, restricted to one configured administrator email; public registration is disabled and the backend enforces the allowlist.
-- **Hosting:** frontend/backend provider decisions remain separate. Backend hosting is intentionally deferred until local implementation and workload verification are complete.
+- **First deployment:** Vercel hosts the frontend and Heroku hosts the FastAPI backend. Use the existing manual extraction workflow; scheduling is deferred. Deploy with Heroku's Python build path; Docker is a later portability milestone.
 - **Data boundary:** Scout retains raw operational, rejected, exception and extraction-history records. Only records passing deterministic publication gates are sent to Thungatha.
 
 Do not use MongoDB or Azure Table Storage for the current v1 baseline. Do not share the operational database between Scout and Thungatha. The browser never receives privileged database credentials.
