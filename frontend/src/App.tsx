@@ -6,7 +6,9 @@ import { CompaniesWorkspacePanel } from "./company-management/CompaniesWorkspace
 import { AddCompanyDialog } from "./company-management/AddCompanyDialog";
 import { useScoutApplicationController } from "./useScoutApplicationController";
 import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges";
-export default function App() {
+type AppProps = { onSignOut: () => void; administratorEmail: string };
+
+export default function App({ onSignOut, administratorEmail }: AppProps) {
   const { state, jobs, companies, onboarding } = useScoutApplicationController();
   const companyJobChanges = useCompanyJobChanges(state.page, jobs.employers, jobs.vacancies);
   const addingCompany = state.page === "add-company";
@@ -20,6 +22,8 @@ export default function App() {
         onFetchJobs={() => void jobs.fetchJobs()}
         fetching={state.extracting}
         fetchDisabled={jobs.loading}
+        onSignOut={onSignOut}
+        administratorEmail={administratorEmail}
       />
       <OperationalAlerts
         error={state.error}
