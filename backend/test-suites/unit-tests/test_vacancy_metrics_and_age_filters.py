@@ -8,6 +8,18 @@ def test_filters_vacancies_by_age_category() -> None:
     assert response.json()["total"] == 201
 
 
+def test_accepts_fresh_vacancy_filter() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies?age_filter=fresh")
+    assert response.status_code == 200
+
+
+def test_rejects_obsolete_old_vacancy_filter() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies?age_filter=old")
+    assert response.status_code == 422
+
+
 def test_rejects_unknown_vacancy_age_filter() -> None:
     with vacancy_client() as client:
         response = client.get("/api/v1/vacancies?age_filter=verified")
