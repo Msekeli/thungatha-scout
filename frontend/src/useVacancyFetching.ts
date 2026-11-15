@@ -83,8 +83,6 @@ export function useVacancyFetching({
           baselineCount,
           companies: Array.from(companies.values()),
         });
-        } else {
-        setRunSummary(null);
       }
       await loadWorkspace();
       const failed = results.length - completed.length;
