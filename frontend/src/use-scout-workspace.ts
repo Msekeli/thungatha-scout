@@ -5,6 +5,7 @@ import type { Employer, Vacancy, VacancyAgeFilter, VacancyLocationScope } from "
 import type { VacancyDashboardMetrics } from "./api-services/vacancy-api-client";
 import { useArchivedVacancies } from "./use-archived-vacancies";
 import { useVacancyPagination } from "./use-vacancy-pagination";
+import { useScoutWorkspaceReferenceData } from "./use-scout-workspace-reference-data";
 type UseScoutWorkspaceResult = {
   employers: Employer[];
   setEmployers: Dispatch<SetStateAction<Employer[]>>;
@@ -40,7 +41,6 @@ export function useScoutWorkspace(
 ): UseScoutWorkspaceResult {
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [dashboardMetrics, setDashboardMetrics] = useState(EMPTY_METRICS);
-  const [loading, setLoading] = useState(true);
   const activeVacancies = useVacancyPagination(filters, onError);
   const archived = useArchivedVacancies(onError);
   const loadWorkspace = useCallback(async () => {
@@ -52,8 +52,8 @@ export function useScoutWorkspace(
         activeVacancies.loadFirstPage(),
         scoutApi.getVacancyMetrics(),
       ]);
-      setEmployers(nextEmployers);
-      setDashboardMetrics(metrics);
+      referenceData.setEmployers(nextEmployers);
+      referenceData.setDashboardMetrics(metrics);
       void loadDashboardData();
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not load Scout data.");
@@ -62,38 +62,15 @@ export function useScoutWorkspace(
     }
   }, [activeVacancies.loadFirstPage, onError, loadDashboardData]);
   useEffect(() => {
-    let cancelled = false;
-    setLoading(true);
-    onError("");
-    Promise.all([scoutApi.listEmployers(), scoutApi.getVacancyMetrics()])
-      .then(([nextEmployers, metrics]) => {
-        if (cancelled) return;
-        setEmployers(nextEmployers);
-        setDashboardMetrics(metrics);
-        void loadDashboardData();
-      })
-      .catch(
-        (reason: unknown) =>
-          !cancelled &&
-          onError(reason instanceof Error ? reason.message : "Could not load Scout data."),
-      )
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [onError, loadDashboardData]);
-  useEffect(() => {
     void activeVacancies.loadFirstPage();
   }, [activeVacancies.loadFirstPage]);
   useEffect(() => {
     if (showArchived) void archived.loadArchivedVacancies();
   }, [showArchived, archived.loadArchivedVacancies]);
   return {
-    employers,
-    setEmployers,
-    dashboardMetrics,
+    employers: referenceData.employers,
+    setEmployers: referenceData.setEmployers,
+    dashboardMetrics: referenceData.dashboardMetrics,
     ...activeVacancies,
     archivedVacancies: archived.archivedVacancies,
     setArchivedVacancies: archived.setArchivedVacancies,
