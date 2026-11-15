@@ -14,7 +14,7 @@ DOCUMENTED_DIRECTORY_EXCEPTIONS = {
     "backend", "frontend", "scout", "domain", "adapters", "persistence",
     "components", "styles", "tests", "unit", "diagnostics", "maintenance",
     "test-suites", "unit-tests", "integration-tests", "registry",
-    "database-migrations", "application", "bin",
+    "database-migrations", "application", "bin", "crawling",
 }
 
 DOCUMENTED_FILE_EXCEPTIONS = {
