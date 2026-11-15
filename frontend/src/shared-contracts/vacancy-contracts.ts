@@ -1,4 +1,5 @@
 export type VacancyLocationScope = "cape_town" | "western_cape" | "south_africa" | "all";
+export type VacancyAgeFilter = "all" | "new" | "old" | "8_14" | "15_30" | "over_30" | "undated";
 
 export type VacancyPage = {
   items: Vacancy[];
@@ -41,6 +42,9 @@ export type ExtractionRun = {
   jobs_received: number;
   jobs_inserted: number;
   jobs_updated: number;
+  jobs_added?: number;
+  jobs_missing?: number;
+  is_baseline?: boolean;
   complete: boolean;
   detail?: string | null;
   started_at?: string;
