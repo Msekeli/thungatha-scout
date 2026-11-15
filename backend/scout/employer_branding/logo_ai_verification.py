@@ -17,7 +17,7 @@ class LogoAIUnavailable(RuntimeError):
 
 
 def _provider_error(provider: str, error: Exception) -> str:
-    status = getattr(error, "status_code", None)
+    status = getattr(error, "status_code", None) or getattr(error, "code", None)
     suffix = f" HTTP {status}" if status else ""
     return f"{provider}: {type(error).__name__}{suffix}"
 
