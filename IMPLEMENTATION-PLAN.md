@@ -148,11 +148,15 @@ Implement normalisation, source-scoped identity, content hashing, vacancy versio
 
 Acceptance: qualifying records become auto-publish eligible; hard failures are suppressed; uncertain cases are held; unchanged records do not create versions; failed/partial runs do not expire vacancies; lifecycle reconciliation requires a sufficiently complete successful inventory.
 
-### M8 — Scheduling and Thungatha publishing
+### M8 — Scheduling and Thungatha publishing (deferred until after first hosting)
 
-Implement bounded recurring extraction at 06:00 and 18:00 `Africa/Johannesburg` time, with a maximum one-hour execution window per run (06:00–07:00 and 18:00–19:00). The one-hour limit is a ceiling, not a target: finish and exit as soon as assigned work completes. Add concurrency protection, per-source progress, bounded retries/backoff, run metrics, source health and idempotent publishing to Thungatha.
+The first production deployment uses the existing administrator-triggered manual retrieval workflow. Automated scheduling is not a release prerequisite. Preserve the target cadence of 06:00 and 18:00 Africa/Johannesburg, with a maximum one-hour execution window per run, for a later milestone.
 
-Acceptance: unattended run works; only records passing publication gates publish; duplicate publishing is prevented; failed publication recovers; destination receives only required clean fields. Keep Scout and Thungatha persistence isolated.
+Before first hosting, verify the manual extraction path end to end: authenticated admin trigger, run creation/status, source-level progress/outcomes, persistence, partial/failure visibility and idempotent downstream behavior. Do not imply that the scheduler is connected; the admin UI currently reports that scheduling is not active.
+
+After hosting, implement the scheduler/worker with overlap protection, per-source progress, bounded retries/backoff, run metrics, source health and idempotent publishing to Thungatha.
+
+Acceptance for the deferred scheduler checkpoint: unattended runs work at the configured local times; overlap is prevented; only records passing publication gates publish; duplicate publishing is prevented; failed publication recovers; destination receives only required clean fields. Keep Scout and Thungatha persistence isolated.
 
 ### M10 — Docker containerisation and packaging
 
@@ -167,13 +171,20 @@ This is a final packaging checkpoint, not an early development dependency. Start
 
 Acceptance: both API and worker run successfully from the same versioned image in local container tests; no credentials are embedded; application behavior matches the already accepted non-container local run. Docker packaging does not itself authorize cloud deployment or paid resources.
 
-### M9 — Security, hosting, recovery and release
+### M9 — Security, authentication, initial hosting and release
 
-Complete authentication/authorization, secret handling, hosting-provider evaluation, deployment, monitoring, retention, backup/recovery, rollback and end-to-end verification.
+This is the first-deployment gate. The order is manual retrieval verification, security hardening, single-admin authentication, then hosting.
 
-Hosting selection is intentionally deferred until the application is implemented and verified locally. Evaluate the actual API, scheduled-worker, scraping and runtime requirements before selecting a provider.
+1. Verify the existing manual extraction workflow end to end. Do not block first hosting on automated scheduling.
+2. Audit every API route and enforce backend administrator authorization on every admin operation. Keep machine-to-machine vacancy export authentication separate.
+3. Review production CORS, environment configuration, secret handling, input validation, error handling, logging and database permissions. Resolve redirect-hop/SSRF protections before enabling unrestricted user-supplied career-page crawling.
+4. Complete Supabase Auth for the one configured administrator email. Disable public registration. Verify token validation and the backend email allowlist; frontend route guards alone are insufficient.
+5. Deploy the frontend to Vercel and the FastAPI backend to Heroku using the Python deployment path. Keep the core backend provider-neutral and both Supabase projects separate.
+6. Verify production configuration, health checks, login, manual retrieval, persistence, admin views, protected export, failure behavior, cost and recovery basics. Obtain explicit user acceptance.
 
-Acceptance: one-email Supabase Auth restriction verified; public registration disabled; backend independently enforces the email allowlist; deployed frontend/backend; production configuration verified; critical flows tested; costs reviewed; user accepts release.
+Automated scheduling, broader ATS/crawler expansion and other unfinished product capabilities continue after hosting. Heroku is the initial backend host, not a permanent provider lock-in. Docker is not required for this deployment; retain it as a later packaging milestone.
+
+Acceptance: manual retrieval works in production; all admin routes are server-protected; the single-email Supabase Auth restriction is verified; public sign-up is disabled; production CORS/secrets/database settings are correct; critical flows pass; cost and recovery considerations are reviewed; user accepts release. Scheduler acceptance is not part of this gate.
 
 ## 7. Immediate execution sequence
 
@@ -184,9 +195,12 @@ Acceptance: one-email Supabase Auth restriction verified; public registration di
 5. Implement M4 in the ranked waves recorded in `docs/ATS-PLATFORM-RESEARCH.md`; start with the easy public feeds/endpoints, retain hard platforms and Placement Partner in the documented backlog, and use the shared adapter contract.
 6. Run the six-employer validation cohort, keeping each verification claim evidence-backed and pending where necessary.
 7. Run the held-out fourth-employer compatibility test through the admin UI.
-8. Build the quality/lifecycle/exception pipeline, then scheduling and idempotent publishing.
-9. Verify the complete application locally before evaluating hosting, cost, backups and deployment.
-10. Add Docker containerisation as a final packaging checkpoint after local application and worker acceptance; build one backend image with separate API and scheduled-worker commands, then verify both locally.
+8. Complete the quality/lifecycle/exception work required for a safe manual extraction workflow. Verify manual retrieval end to end; do not wait for automated scheduling.
+9. Complete the production security review and verify backend authorization on every admin route, export-key separation, CORS, secrets, input boundaries and crawler SSRF protections.
+10. Complete and verify single-admin Supabase authentication. Disable public registration and enforce the configured email allowlist in the backend.
+11. Deploy the frontend to Vercel and the FastAPI backend to Heroku using the Python deployment path. Verify the production manual workflow, login and critical data boundaries before release acceptance.
+12. After hosting, continue the remaining ATS/crawler, AI, lifecycle and quality work. Implement automated scheduling when ready and explicitly accepted.
+13. Keep Docker as a later packaging/portability checkpoint, not a first-deployment dependency.
 
 ## 8. Acceptance and evidence
 
