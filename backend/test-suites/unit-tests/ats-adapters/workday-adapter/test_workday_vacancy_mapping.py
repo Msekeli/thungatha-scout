@@ -41,9 +41,7 @@ def test_invalid_workday_start_date_is_not_stored_as_published_date() -> None:
             "startDate": "Posted 4 Days Ago",
         }
     }
-    vacancy = map_workday_vacancy(
-        listing, detail, "host.wd3.myworkdayjobs.com", "site"
-    )
+    vacancy = map_workday_vacancy(listing, detail, "host.wd3.myworkdayjobs.com", "site")
     assert vacancy.published_at is None
 
 
