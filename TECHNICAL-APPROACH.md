@@ -15,13 +15,13 @@ Greenhouse remains the reference adapter; Lever and Teamtailor work is retained.
 
 | Component            | Technology                                      | Hosting                          |
 | -------------------- | ----------------------------------------------- | -------------------------------- |
-| Admin UI             | React, TypeScript, Vite, Tailwind CSS v3        | Hosting provider pending         |
-| Backend API          | FastAPI (Python)                                | Hosting provider pending         |
-| Crawler worker       | Crawlee for Python; standalone scheduled script | Zyte Scrapy Cloud (student unit) |
+| Admin UI             | React, TypeScript, Vite, Tailwind CSS v3        | Vercel (first deployment)        |
+| Backend API          | FastAPI (Python)                                | Heroku (Python build path)       |
+| Extraction worker    | Existing manual API-triggered workflow; Crawlee where enabled | Same backend runtime initially; automated worker scheduling deferred |
 | Operational database | PostgreSQL via Supabase                         | Dedicated Scout Supabase project |
 | Public destination   | Existing Thungatha Supabase/PostgreSQL          | Existing Thungatha project       |
 
-Zyte Scrapy Cloud is approved for the crawler worker only under the user's GitHub Student Developer Pack entitlement. Keep Crawlee as the crawler framework. Scrapy Cloud requires a Scrapy-compatible project package for standalone Python scripts; Scrapy is only the deployment wrapper, not a replacement crawler. The worker must call existing Scout services and persist to the Scout database. API and frontend hosting remain undecided. Do not share Scout's operational schema/database with Thungatha or use MongoDB/Azure Table Storage in v1.
+Heroku is the selected initial FastAPI backend host and Vercel is the frontend host. Deploy the backend through Heroku's Python build path; Docker is not required for the first deployment. The first release uses the existing manual retrieval workflow. Automated scheduling and hosted crawler-worker execution are deferred until after hosting. Keep Crawlee provider-neutral and keep the core application independent of Heroku-specific APIs. Reconsider Zyte only if a later worker deployment need justifies it. Do not share Scout's operational schema/database with Thungatha or use MongoDB/Azure Table Storage in v1.
 
 The backend owns business rules and all privileged database writes. The React client uses Supabase Auth and calls protected backend endpoints. V1 permits only the administrator's explicitly configured email address; public registration is disabled. The backend independently validates Supabase access tokens and checks the authenticated email against a server-side allowlist on every protected operation. Frontend route guards are not a security boundary. The browser may contain only the Supabase URL and publishable/anon key, never a service-role key. Keep the allowlisted email in environment configuration, not source code. Use separate credentials for Scout and Thungatha.
 
@@ -125,7 +125,7 @@ The registry currently has a candidate slug configuration but no verified endpoi
 ## 6. Automated vacancy pipeline
 
 ```text
-Scheduled/source-triggered retrieval
+Administrator-triggered manual retrieval (first release); scheduled retrieval is deferred
         |
         v
 Persist source observation and run outcome
