@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, RefreshCw } from "lucide-react";
+import { BriefcaseBusiness, LogOut, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 export type AppPage = "jobs" | "operations" | "companies" | "add-company";
 type AppShellHeaderProps = {
@@ -9,6 +9,8 @@ type AppShellHeaderProps = {
   onFetchJobs: () => void;
   fetching: boolean;
   fetchDisabled: boolean;
+  onSignOut: () => void;
+  administratorEmail: string;
 };
 const pageHeading: Record<AppPage, { eyebrow: string; title: string }> = {
   jobs: { eyebrow: "Vacancy records", title: "Dashboard" },
@@ -24,6 +26,8 @@ export function AppShellHeader({
   onFetchJobs,
   fetching,
   fetchDisabled,
+  onSignOut,
+  administratorEmail,
 }: AppShellHeaderProps) {
   const heading = pageHeading[activePage];
   return (
@@ -105,6 +109,12 @@ export function AppShellHeader({
             <RefreshCw className={refreshing ? "h-4 w-4 animate-spin" : "h-4 w-4"} />
           </Button>
         )}
+        <div className="ml-2 hidden max-w-[180px] truncate border-l border-border pl-3 text-xs text-muted-foreground xl:block" title={administratorEmail}>
+          {administratorEmail}
+        </div>
+        <Button type="button" size="icon" variant="ghost" className="text-muted-foreground" title="Sign out" aria-label="Sign out" onClick={onSignOut}>
+          <LogOut className="h-4 w-4" />
+        </Button>
       </nav>
     </header>
   );
