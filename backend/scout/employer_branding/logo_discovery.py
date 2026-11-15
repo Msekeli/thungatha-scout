@@ -1,10 +1,8 @@
 import httpx
 from scout.employer_branding.logo_crawlee_fallback import discover_with_crawlee
 from scout.employer_branding.logo_http import InvalidLogoAsset, UnavailableLogoAsset
-from scout.employer_branding.logo_page_helpers import (
-    fetch_workday_logo,
-    workday_logo_url,
-)
+from scout.employer_branding.logo_workday_discovery import discover_workday_logo
+from scout.employer_branding.logo_page_helpers import workday_logo_url
 from scout.employer_branding.logo_page_inspection import (
     MAX_BRANDING_PAGES,
     discover_logo_on_page,
@@ -47,14 +45,8 @@ async def discover_employer_logo(
         trust_env=False,
         headers={"User-Agent": "ThungathaScout/1.0 (+employer branding discovery)"},
     ) as client:
-        for page_url in page_urls:
-            if not workday_logo_url(page_url):
-                continue
-            try:
-                if result := await fetch_workday_logo(client, page_url):
-                    return result
-            except (InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError, OSError):
-                diagnostics.append("WORKDAY_LOGO_ENDPOINT_UNAVAILABLE")
+        if result := await discover_workday_logo(client, page_urls, diagnostics):
+            return result
         inspected = set()
         while page_urls and len(inspected) < MAX_BRANDING_PAGES:
             page_url = page_urls.pop(0)
