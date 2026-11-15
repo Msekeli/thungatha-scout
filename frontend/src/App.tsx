@@ -48,7 +48,7 @@ export default function App() {
       )}
       <AddCompanyDialog state={state} onboarding={onboarding} />
       <footer className="scout-app-footer">
-        Scout is a private operations workspace. Only verified, quality-checked records are eligible
+        Scout is a private operations workspace. Only vacancies passing configured quality checks are eligible
         for publishing to Thungatha.
       </footer>
     </main>
