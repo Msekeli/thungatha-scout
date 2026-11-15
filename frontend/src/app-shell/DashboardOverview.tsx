@@ -1,4 +1,12 @@
-import { ArrowDownRight, ArrowUpRight, BriefcaseBusiness } from "lucide-react";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Building2,
+  CalendarX2,
+  Clock3,
+  Sparkles,
+} from "lucide-react";
 
 type RunSummary = {
   added: number;
@@ -18,6 +26,26 @@ type Props = {
   extracting: boolean;
 };
 
+type MetricCardProps = {
+  label: string;
+  value: number;
+  icon: typeof BriefcaseBusiness;
+};
+
+function MetricCard({ label, value, icon: Icon }: MetricCardProps) {
+  return (
+    <div className="scout-vacancy-count-card">
+      <span className="scout-vacancy-count-card__icon">
+        <Icon className="h-5 w-5" aria-hidden="true" />
+      </span>
+      <div className="min-w-0">
+        <p className="text-xs font-medium text-muted-foreground">{label}</p>
+        <p className="text-xl font-bold leading-tight text-primary">{value.toLocaleString()}</p>
+      </div>
+    </div>
+  );
+}
+
 export function DashboardOverview({
   vacancyCount,
   companyCount,
@@ -28,21 +56,13 @@ export function DashboardOverview({
   extracting,
 }: Props) {
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <div className="scout-vacancy-count-card">
-        <BriefcaseBusiness className="h-5 w-5" aria-hidden="true" />
-        <div>
-          <p className="text-xs text-muted-foreground">Collected vacancies</p>
-          <p className="text-xl font-bold text-primary">{vacancyCount.toLocaleString()}</p>
-        </div>
-      </div>
-      <span className="rounded-md bg-muted px-2 py-1 text-xs">
-        Registered companies: {companyCount}
-      </span>
-      <div className="flex flex-wrap gap-2 text-xs">
-        <span className="rounded-md bg-muted px-2 py-1">First seen (24h): {newCount}</span>
-        <span className="rounded-md bg-muted px-2 py-1">Old: {oldCount}</span>
-        <span className="rounded-md bg-muted px-2 py-1">No date: {undatedCount}</span>
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-stretch gap-3">
+        <MetricCard label="Collected vacancies" value={vacancyCount} icon={BriefcaseBusiness} />
+        <MetricCard label="Registered companies" value={companyCount} icon={Building2} />
+        <MetricCard label="First seen (24h)" value={newCount} icon={Sparkles} />
+        <MetricCard label="Old vacancies" value={oldCount} icon={Clock3} />
+        <MetricCard label="No publication date" value={undatedCount} icon={CalendarX2} />
       </div>
       {extracting ? (
         <span className="text-xs text-muted-foreground">Crawler running…</span>
