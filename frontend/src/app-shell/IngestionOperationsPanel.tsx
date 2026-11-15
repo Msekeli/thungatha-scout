@@ -1,4 +1,4 @@
-import { Activity, AlertTriangle, Building2, CheckCircle2, Play, RefreshCw } from "lucide-react";
+import { Activity, AlertTriangle, Building2, CheckCircle2, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource, ExtractionRun } from "../api";
 import { DashboardMetricCard } from "./DashboardMetricCard";
@@ -9,9 +9,7 @@ type Props = {
   sources: EmployerSource[];
   runs: Record<string, ExtractionRun[]>;
   running: boolean;
-  refreshing: boolean;
   onRunNow: () => void;
-  onRefresh: () => void;
 };
 
 const failedOutcomes = ["transient_failure", "persistence_failure", "failed", "http_failure"];
@@ -28,9 +26,7 @@ export function IngestionOperationsPanel({
   sources,
   runs,
   running,
-  refreshing,
   onRunNow,
-  onRefresh,
 }: Props) {
   const allRuns = Object.values(runs).flat();
   const successfulRuns = allRuns.filter(isSuccessful).length;
@@ -45,15 +41,6 @@ export function IngestionOperationsPanel({
           </p>
         </div>
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="border-input bg-background text-primary"
-            onClick={onRefresh}
-            disabled={refreshing || running}
-          >
-            <RefreshCw className={refreshing ? "mr-2 h-4 w-4 animate-spin" : "mr-2 h-4 w-4"} />
-            Refresh
-          </Button>
           <Button
             className="bg-scout-cyan text-scout-navy hover:brightness-95"
             onClick={onRunNow}
