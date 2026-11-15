@@ -6,7 +6,7 @@ from scout.persistence.vacancy_location_scope import location_scope_condition
 
 AGE_FILTERS = {
     "new": "v.first_seen_at >= NOW() - INTERVAL '24 hours'",
-    "old": "COALESCE(v.source_updated_at, v.published_at) < NOW() - INTERVAL '8 days'",
+    "fresh": "COALESCE(v.source_updated_at, v.published_at) > NOW() - INTERVAL '8 days'",
     "8_14": "COALESCE(v.source_updated_at, v.published_at) < NOW() - INTERVAL '15 days' AND COALESCE(v.source_updated_at, v.published_at) >= NOW() - INTERVAL '8 days'",
     "15_30": "COALESCE(v.source_updated_at, v.published_at) < NOW() - INTERVAL '31 days' AND COALESCE(v.source_updated_at, v.published_at) >= NOW() - INTERVAL '15 days'",
     "over_30": "COALESCE(v.source_updated_at, v.published_at) < NOW() - INTERVAL '31 days'",
