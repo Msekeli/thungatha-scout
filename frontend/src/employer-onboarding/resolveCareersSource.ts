@@ -36,7 +36,9 @@ export function resolveCareersSource(url: string, name: string): CareersDiscover
     boardUrl = parsed.origin + "/" + slug;
   } else if (/^[a-z0-9-]+\.wd[0-9]+\.myworkdayjobs\.com$/.test(host)) {
     const [tenant = "", cluster = ""] = host.split(".");
-    const locale = /^[a-z]{2}-[A-Z]{2}$/.test(parts[0] ?? "") ? (parts.shift() ?? "en-US") : "en-US";
+    const locale = /^[a-z]{2}-[A-Z]{2}$/.test(parts[0] ?? "")
+      ? (parts.shift() ?? "en-US")
+      : "en-US";
     if (parts.length !== 1) return null;
     adapter = "workday";
     slug = parts[0];
