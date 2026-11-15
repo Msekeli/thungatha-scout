@@ -53,7 +53,7 @@ export function VacancyRecordsToolbar({
         <SelectContent>
           <SelectItem value="all">All vacancies</SelectItem>
           <SelectItem value="new">New · last 24 hours</SelectItem>
-          <SelectItem value="old">Old · 8+ days</SelectItem>
+          <SelectItem value="fresh">Fresh · 0–7 days</SelectItem>
           <SelectItem value="8_14">8–14 days</SelectItem>
           <SelectItem value="15_30">15–30 days</SelectItem>
           <SelectItem value="over_30">Over 30 days</SelectItem>
