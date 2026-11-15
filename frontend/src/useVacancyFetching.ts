@@ -19,8 +19,14 @@ type Options = {
   onNotice: (message: string) => void;
 };
 
-export function useVacancyFetching({ dashboardSources, employers, setExtracting,
-  loadWorkspace, onError, onNotice }: Options) {
+export function useVacancyFetching({
+  dashboardSources,
+  employers,
+  setExtracting,
+  loadWorkspace,
+  onError,
+  onNotice,
+}: Options) {
   const [runSummary, setRunSummary] = useState<VacancyRunSummary | null>(null);
 
   async function fetchJobs() {
@@ -34,12 +40,17 @@ export function useVacancyFetching({ dashboardSources, employers, setExtracting,
     onNotice("");
     try {
       const results = await Promise.allSettled(
-        dashboardSources.map((source) => scoutApi.extractSource(source.id))
+        dashboardSources.map((source) => scoutApi.extractSource(source.id)),
       );
       const completed = results.flatMap((result, index) =>
-        result.status === "fulfilled" ? [{
-          run: result.value as ExtractionRun, source: dashboardSources[index]
-        }] : []
+        result.status === "fulfilled"
+          ? [
+              {
+                run: result.value as ExtractionRun,
+                source: dashboardSources[index],
+              },
+            ]
+          : [],
       );
       const added = completed.reduce((sum, item) => sum + (item.run.jobs_added ?? 0), 0);
       const missing = completed.reduce((sum, item) => sum + (item.run.jobs_missing ?? 0), 0);
@@ -53,13 +64,20 @@ export function useVacancyFetching({ dashboardSources, employers, setExtracting,
         entry.missing += run.jobs_missing ?? 0;
         companies.set(source.employer_id, entry);
       });
-      setRunSummary({ added, missing, net: added - missing, baselineCount,
-        companies: Array.from(companies.values()) });
+      setRunSummary({
+        added,
+        missing,
+        net: added - missing,
+        baselineCount,
+        companies: Array.from(companies.values()),
+      });
       await loadWorkspace();
       const failed = results.length - completed.length;
-      onNotice(failed
-        ? `Fetch finished: ${completed.length} source(s) returned; ${failed} failed.`
-        : `Fetch finished: +${added} added, −${missing} missing, net ${added - missing}. Initial collections: ${baselineCount}.`);
+      onNotice(
+        failed
+          ? `Fetch finished: ${completed.length} source(s) returned; ${failed} failed.`
+          : `Fetch finished: +${added} added, −${missing} missing, net ${added - missing}. Initial collections: ${baselineCount}.`,
+      );
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not fetch jobs.");
     } finally {

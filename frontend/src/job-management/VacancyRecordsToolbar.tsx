@@ -40,8 +40,14 @@ export function VacancyRecordsToolbar({
           {loadedVacancies.toLocaleString()}
         </p>
       </div>
-      <Select value={ageFilter} onValueChange={(value) => onAgeFilterChange(value as VacancyAgeFilter)}>
-        <SelectTrigger aria-label="Filter vacancies by age" className="h-8 w-[150px] border-input bg-background text-xs text-foreground">
+      <Select
+        value={ageFilter}
+        onValueChange={(value) => onAgeFilterChange(value as VacancyAgeFilter)}
+      >
+        <SelectTrigger
+          aria-label="Filter vacancies by age"
+          className="h-8 w-[150px] border-input bg-background text-xs text-foreground"
+        >
           <SelectValue placeholder="All vacancies" />
         </SelectTrigger>
         <SelectContent>

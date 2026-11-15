@@ -15,9 +15,14 @@ AGE_FILTERS = {
 
 
 class VacancyPageReadOperations:
-    def list_page(self, employer_id: UUID | None = None,
-                  location_scope: str = "south_africa", limit: int = 50,
-                  offset: int = 0, age_filter: str = "all") -> dict[str, Any]:
+    def list_page(
+        self,
+        employer_id: UUID | None = None,
+        location_scope: str = "south_africa",
+        limit: int = 50,
+        offset: int = 0,
+        age_filter: str = "all",
+    ) -> dict[str, Any]:
         conditions = ["v.status = 'active'", "v.archived_at IS NULL"]
         parameters: list[Any] = []
         if employer_id is not None:
@@ -33,15 +38,20 @@ class VacancyPageReadOperations:
             conditions.append(AGE_FILTERS[age_filter])
         where = " AND ".join(conditions)
         total = self._connection.execute(
-            f"SELECT COUNT(*) AS total FROM vacancies v WHERE {where}",
-            parameters
+            f"SELECT COUNT(*) AS total FROM vacancies v WHERE {where}", parameters
         ).fetchone()["total"]
         items = self._read_items(where, parameters, limit, offset)
-        return {"items": items, "total": total, "limit": limit,
-                "offset": offset, "has_more": offset + len(items) < total}
+        return {
+            "items": items,
+            "total": total,
+            "limit": limit,
+            "offset": offset,
+            "has_more": offset + len(items) < total,
+        }
 
-    def _read_items(self, where: str, values: list[Any],
-                    limit: int, offset: int) -> list[dict[str, Any]]:
+    def _read_items(
+        self, where: str, values: list[Any], limit: int, offset: int
+    ) -> list[dict[str, Any]]:
         return self._connection.execute(
             f"""
             SELECT v.id, v.employer_id, v.source_id, v.external_job_id,
@@ -59,5 +69,6 @@ class VacancyPageReadOperations:
             WHERE {where}
             ORDER BY v.source_updated_at DESC NULLS LAST, v.created_at DESC
             LIMIT %s OFFSET %s
-            """, [*values, limit, offset]
+            """,
+            [*values, limit, offset],
         ).fetchall()

@@ -35,9 +35,7 @@ export default function App() {
           onRefresh={() => void jobs.loadWorkspace()}
         />
       )}
-      {state.page === "jobs" && (
-        <JobsWorkspacePanel jobs={jobs} state={state} />
-      )}
+      {state.page === "jobs" && <JobsWorkspacePanel jobs={jobs} state={state} />}
       {(state.page === "companies" || addingCompany) && (
         <CompaniesWorkspacePanel
           state={state}

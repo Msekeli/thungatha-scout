@@ -13,6 +13,10 @@ class VacancyMetricsReadOperations:
             WHERE status = 'active' AND archived_at IS NULL
             """
         ).fetchone()
-        keys = ("total_active", "new_last_24_hours", "old_vacancies",
-                "undated_vacancies")
+        keys = (
+            "total_active",
+            "new_last_24_hours",
+            "old_vacancies",
+            "undated_vacancies",
+        )
         return {key: row[key] for key in keys}

@@ -14,7 +14,12 @@ type VacancyPageQuery = {
   ageFilter?: VacancyAgeFilter;
 };
 
-export type VacancyDashboardMetrics = { total_active: number; new_last_24_hours: number; old_vacancies: number; undated_vacancies: number };
+export type VacancyDashboardMetrics = {
+  total_active: number;
+  new_last_24_hours: number;
+  old_vacancies: number;
+  undated_vacancies: number;
+};
 
 export const vacancyApiClient = {
   getVacancyMetrics: () => request<VacancyDashboardMetrics>("/api/v1/vacancies/metrics"),
