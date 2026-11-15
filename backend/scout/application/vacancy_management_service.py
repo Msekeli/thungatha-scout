@@ -27,6 +27,7 @@ class VacancyManagementService:
         location_scope: str = "south_africa",
         limit: int = 50,
         offset: int = 0,
+        age_filter: str = "all",
     ) -> dict[str, Any]:
         with self._connection_factory() as connection:
             return VacancyRepository(connection).list_page(
@@ -34,6 +35,7 @@ class VacancyManagementService:
                 location_scope=location_scope,
                 limit=limit,
                 offset=offset,
+                age_filter=age_filter,
             )
 
     def export_vacancies(
