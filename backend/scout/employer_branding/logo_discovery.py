@@ -2,7 +2,6 @@ import httpx
 from scout.employer_branding.logo_crawlee_fallback import discover_with_crawlee
 from scout.employer_branding.logo_http import InvalidLogoAsset, UnavailableLogoAsset
 from scout.employer_branding.logo_workday_discovery import discover_workday_logo
-from scout.employer_branding.logo_page_helpers import workday_logo_url
 from scout.employer_branding.logo_page_inspection import (
     MAX_BRANDING_PAGES,
     discover_logo_on_page,
