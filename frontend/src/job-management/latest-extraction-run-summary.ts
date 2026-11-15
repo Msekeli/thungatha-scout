@@ -21,8 +21,10 @@ export function getLatestExtractionRunSummary(
   employers: Employer[],
 ): LatestRunSummary | null {
   const latest = sources.flatMap((source) => {
-    const run = runsBySource[source.id]?.[0];
-    return run?.complete && ["success", "empty"].includes(run.outcome) ? [{ source, run }] : [];
+    const run = runsBySource[source.id]?.find(
+      (item) => item.complete && ["success", "empty"].includes(item.outcome),
+    );
+    return run ? [{ source, run }] : [];
   });
   if (!latest.length) return null;
 
