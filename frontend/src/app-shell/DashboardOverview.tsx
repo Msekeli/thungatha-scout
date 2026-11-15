@@ -49,7 +49,7 @@ export function DashboardOverview({
       ) : (
         runSummary && (
           <div className="flex flex-wrap items-center gap-2 text-xs" aria-live="polite">
-            <span className="font-semibold">Latest run:</span>
+            <span className="font-semibold">Latest completed run:</span>
             <span className="inline-flex items-center gap-1 text-muted-foreground">
               <ArrowUpRight className="h-3 w-3" /> +{runSummary.added} added
             </span>
