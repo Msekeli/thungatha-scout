@@ -75,13 +75,17 @@ export function useVacancyFetching({
         entry.missing += run.jobs_missing ?? 0;
         companies.set(source.employer_id, entry);
       });
-      setRunSummary({
-        added,
-        missing,
-        net: added - missing,
-        baselineCount,
-        companies: Array.from(companies.values()),
-      });
+      if (completed.length) {
+        setRunSummary({
+          added,
+          missing,
+          net: added - missing,
+          baselineCount,
+          companies: Array.from(companies.values()),
+        });
+        } else {
+        setRunSummary(null);
+      }
       await loadWorkspace();
       const failed = results.length - completed.length;
       onNotice(
