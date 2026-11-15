@@ -3,6 +3,7 @@ class VacancyMetricsReadOperations:
         row = self._connection.execute(
             """
             SELECT COUNT(*) AS total_active,
+                (SELECT COUNT(*) FROM employers) AS companies_total,
                 COUNT(*) FILTER (WHERE first_seen_at >= NOW() - INTERVAL '24 hours')
                     AS new_last_24_hours,
                 COUNT(*) FILTER (WHERE COALESCE(source_updated_at, published_at)
