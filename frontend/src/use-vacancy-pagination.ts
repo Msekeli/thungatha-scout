@@ -1,12 +1,13 @@
 import { useCallback, useRef, useState } from "react";
 import { scoutApi } from "./api";
-import type { Vacancy, VacancyLocationScope } from "./api";
+import type { Vacancy, VacancyAgeFilter, VacancyLocationScope } from "./api";
 
 const PAGE_SIZE = 50;
 
 type VacancyFilters = {
   employerId: string;
   locationScope: VacancyLocationScope;
+  ageFilter: VacancyAgeFilter;
 };
 
 export function useVacancyPagination(filters: VacancyFilters, onError: (message: string) => void) {
