@@ -15,7 +15,12 @@ type Options = {
 };
 
 export function useVacancyFetching({
-  dashboardSources, employers, setExtracting, loadWorkspace, onError, onNotice,
+  dashboardSources,
+  employers,
+  setExtracting,
+  loadWorkspace,
+  onError,
+  onNotice,
 }: Options) {
   const [runSummary, setRunSummary] = useState<VacancyRunSummary>(null);
 
@@ -32,11 +37,13 @@ export function useVacancyFetching({
       const results = await Promise.allSettled(
         dashboardSources.map((source) => scoutApi.extractSource(source.id)),
       );
-      const completed = results.flatMap((result, index) =>
-        result.status === "fulfilled"
-          ? [{ run: result.value as ExtractionRun, source: dashboardSources[index] }]
-          : [],
-      ).filter(({ run }) => run.complete && ["success", "empty"].includes(run.outcome));
+      const completed = results
+        .flatMap((result, index) =>
+          result.status === "fulfilled"
+            ? [{ run: result.value as ExtractionRun, source: dashboardSources[index] }]
+            : [],
+        )
+        .filter(({ run }) => run.complete && ["success", "empty"].includes(run.outcome));
       const summary = getLatestExtractionRunSummary(
         completed.map(({ source }) => source),
         Object.fromEntries(completed.map(({ source, run }) => [source.id, [run]])),
@@ -45,9 +52,11 @@ export function useVacancyFetching({
       setRunSummary(summary);
       await loadWorkspace();
       const failed = results.length - completed.length;
-      onNotice(failed
-        ? `Fetch finished: ${completed.length} source(s) returned; ${failed} failed.`
-        : `Fetch finished: +${summary?.added ?? 0} added, −${summary?.missing ?? 0} missing, net ${summary?.net ?? 0}. Initial collections: ${summary?.baselineCount ?? 0}.`);
+      onNotice(
+        failed
+          ? `Fetch finished: ${completed.length} source(s) returned; ${failed} failed.`
+          : `Fetch finished: +${summary?.added ?? 0} added, −${summary?.missing ?? 0} missing, net ${summary?.net ?? 0}. Initial collections: ${summary?.baselineCount ?? 0}.`,
+      );
     } catch (reason) {
       onError(reason instanceof Error ? reason.message : "Could not fetch jobs.");
     } finally {
