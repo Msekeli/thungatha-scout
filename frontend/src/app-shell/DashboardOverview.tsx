@@ -60,7 +60,11 @@ export function DashboardOverview({
             </span>
             {runSummary.baselineCount > 0 && (
               <span className="text-muted-foreground">
-                Initial collection: {runSummary.companies.filter((item) => item.baseline).map((item) => item.name).join(", ")}
+                Initial collection:{" "}
+                {runSummary.companies
+                  .filter((item) => item.baseline)
+                  .map((item) => item.name)
+                  .join(", ")}
               </span>
             )}
             {runSummary.companies

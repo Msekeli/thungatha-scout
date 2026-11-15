@@ -42,24 +42,34 @@ export function useVacancyFetching({
       const results = await Promise.allSettled(
         dashboardSources.map((source) => scoutApi.extractSource(source.id)),
       );
-      const completed = results.flatMap((result, index) =>
-        result.status === "fulfilled"
-          ? [
-              {
-                run: result.value as ExtractionRun,
-                source: dashboardSources[index],
-              },
-            ]
-          : [],
-      ).filter(({ run }) => run.complete && ["success", "empty"].includes(run.outcome));
+      const completed = results
+        .flatMap((result, index) =>
+          result.status === "fulfilled"
+            ? [
+                {
+                  run: result.value as ExtractionRun,
+                  source: dashboardSources[index],
+                },
+              ]
+            : [],
+        )
+        .filter(({ run }) => run.complete && ["success", "empty"].includes(run.outcome));
       const added = completed.reduce((sum, item) => sum + (item.run.jobs_added ?? 0), 0);
       const missing = completed.reduce((sum, item) => sum + (item.run.jobs_missing ?? 0), 0);
       const baselineCount = completed.filter((item) => item.run.is_baseline).length;
-      const companies = new Map<string, { name: string; added: number; missing: number; baseline: boolean }>();
+      const companies = new Map<
+        string,
+        { name: string; added: number; missing: number; baseline: boolean }
+      >();
       completed.forEach(({ run, source }) => {
         const employer = employers.find((item) => item.id === source.employer_id);
         const name = employer?.name ?? "Unknown company";
-        const entry = companies.get(source.employer_id) ?? { name, added: 0, missing: 0, baseline: false };
+        const entry = companies.get(source.employer_id) ?? {
+          name,
+          added: 0,
+          missing: 0,
+          baseline: false,
+        };
         entry.baseline ||= Boolean(run.is_baseline);
         entry.added += run.jobs_added ?? 0;
         entry.missing += run.jobs_missing ?? 0;
