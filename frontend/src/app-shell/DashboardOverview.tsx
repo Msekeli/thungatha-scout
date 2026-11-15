@@ -40,7 +40,7 @@ export function DashboardOverview({
         Registered companies: {companyCount}
       </span>
       <div className="flex flex-wrap gap-2 text-xs">
-        <span className="rounded-md bg-muted px-2 py-1">New: {newCount}</span>
+        <span className="rounded-md bg-muted px-2 py-1">First seen (24h): {newCount}</span>
         <span className="rounded-md bg-muted px-2 py-1">Old: {oldCount}</span>
         <span className="rounded-md bg-muted px-2 py-1">No date: {undatedCount}</span>
       </div>
