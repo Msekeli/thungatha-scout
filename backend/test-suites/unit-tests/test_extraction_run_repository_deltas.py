@@ -31,9 +31,13 @@ class FakeConnection:
             self.missing_query = query
             return Result(rows=self.missing)
         if "UPDATE extraction_runs" in query:
-            return Result({"jobs_added": parameters[4],
-                           "jobs_missing": parameters[5],
-                           "is_baseline": parameters[6]})
+            return Result(
+                {
+                    "jobs_added": parameters[4],
+                    "jobs_missing": parameters[5],
+                    "is_baseline": parameters[6],
+                }
+            )
         raise AssertionError(query)
 
 
