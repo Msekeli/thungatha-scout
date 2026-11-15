@@ -22,7 +22,7 @@ export function JobsWorkspacePanel({ jobs, state }: Props) {
           newCount={jobs.dashboardMetrics.new_last_24_hours}
           oldCount={jobs.dashboardMetrics.old_vacancies}
           undatedCount={jobs.dashboardMetrics.undated_vacancies}
-          runSummary={jobs.runSummary}
+          runSummary={jobs.runSummary ?? jobs.latestRunSummary}
           extracting={state.extracting}
         />
         <div className="flex shrink-0 gap-2">
