@@ -51,8 +51,7 @@ async def discover_employer_logo(
             if not workday_logo_url(page_url):
                 continue
             try:
-                if result := await fetch_workday_logo(client, page_url):
-                    return result
+                if result := await fetch_workday_logo(client, page_url): return result
             except (InvalidLogoAsset, UnavailableLogoAsset, httpx.HTTPError, OSError):
                 diagnostics.append("WORKDAY_LOGO_ENDPOINT_UNAVAILABLE")
         inspected = set()
