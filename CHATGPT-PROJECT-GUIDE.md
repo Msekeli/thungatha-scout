@@ -23,7 +23,7 @@ V1 scope: Cape Town initial vacancy relevance; Greenhouse reference adapter; exi
 - `placement_partner` is a separate recruitment/staffing pipeline, not a direct-employer ATS adapter.
 - The Azure for Students credit is exhausted. Never assume Azure hosting/storage is free. Do not upgrade subscriptions or provision paid Azure resources without explicit user approval and a cost estimate.
 - Supabase Free is suitable only for development/low-volume evaluation until inactivity pausing, backups, capacity and production reliability are addressed.
-- Vacancy extraction schedule: 06:00 and 18:00 `Africa/Johannesburg` time. Each run has a maximum one-hour window and must stop as soon as its assigned work is complete; one hour is a ceiling, not a target. Do not force runs to consume the window. Prevent overlap and preserve per-source progress on partial/time-limited runs.
+- First deployment uses administrator-triggered manual extraction; automated scheduling is deferred until after hosting. Preserve the future target schedule of 06:00 and 18:00 `Africa/Johannesburg`, maximum one hour per run, with overlap prevention and per-source progress. Do not claim scheduling is active.
 - Work on branch `dev` only unless the user explicitly instructs otherwise.
 
 ## Product workflow
@@ -69,7 +69,7 @@ Avoid retaining full HTML snapshots by default. Use bounded retention for any ra
 4. Keep Greenhouse as the proven reference adapter. Implement Workable, then Workday, through the shared adapter contract. Investigate SuccessFactors with Crawlee per employer; generalise only if a common public retrieval pattern is proven.
 5. Build the React admin against the backend API.
 6. Implement deterministic quality gates and exception review.
-7. Add unattended scheduling, idempotent publishing, deployment and recovery.
+7. Verify the existing manual extraction workflow, complete security hardening and single-admin authentication, then deploy the frontend to Vercel and backend to Heroku. Defer automated scheduling and remaining product capabilities until after first hosting.
 
 The user prefers concise, direct guidance, maintainable code, low operating cost and no unnecessary abstractions. Do not ask the user to repeat decisions already recorded here.
 
@@ -79,4 +79,4 @@ Use **Crawlee for Python** for bounded employer careers-page discovery, platform
 
 Gemini and Groq are replaceable AI providers behind one small interface. Deterministic extraction runs first; AI is selective for difficult description structuring and ambiguous extraction/classification. Configure primary/fallback rather than calling both on every record. Cache by content hash and prompt/schema version; bound input, tokens, latency and retries; validate structured responses. AI cannot invent evidence, approve sources, override quality gates or publish. AI and crawler remain disabled until local configuration and smoke tests are complete.
 
-Backend optional groups: `crawler` (Crawlee + Playwright integration), `ai` (Google GenAI + Groq SDK), and `dev`. From `backend/`, install with `python -m pip install -e ".[dev,crawler,ai]"`. Configure credentials only in ignored `.env`; never commit secrets. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and `milestones/M4-SA-CAREERS-CRAWLER.md` for the architecture and execution plan. Zyte Scrapy Cloud is approved only as the target crawler-worker host using the included one-free-unit student benefit; actual production deployment and recurring schedules remain gated by local worker acceptance and a manual cloud smoke test. No paid usage or upgrades are approved.
+Backend optional groups: `crawler` (Crawlee + Playwright integration), `ai` (Google GenAI + Groq SDK), and `dev`. From `backend/`, install with `python -m pip install -e ".[dev,crawler,ai]"`. Configure credentials only in ignored `.env`; never commit secrets. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and `milestones/M4-SA-CAREERS-CRAWLER.md` for the architecture and execution plan. Heroku is the selected initial FastAPI backend host, deployed with the Python build path; Vercel hosts the frontend. Automated scheduling and Zyte hosting are deferred. Keep Crawlee provider-neutral. Docker is a later packaging milestone, not a first-deployment requirement. Verify current student-credit eligibility and cost before provisioning; do not incur unapproved paid usage.
