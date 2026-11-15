@@ -5,7 +5,6 @@ import type { Employer, Vacancy, VacancyAgeFilter, VacancyLocationScope } from "
 import type { VacancyDashboardMetrics } from "./api-services/vacancy-api-client";
 import { useArchivedVacancies } from "./use-archived-vacancies";
 import { useVacancyPagination } from "./use-vacancy-pagination";
-
 type UseScoutWorkspaceResult = {
   employers: Employer[];
   setEmployers: Dispatch<SetStateAction<Employer[]>>;
@@ -23,7 +22,6 @@ type UseScoutWorkspaceResult = {
   loadWorkspace: () => Promise<void>;
   loadArchivedVacancies: (force?: boolean) => Promise<void>;
 };
-
 export function useScoutWorkspace(
   onError: (message: string) => void,
   showArchived: boolean,
@@ -44,7 +42,6 @@ export function useScoutWorkspace(
   const [loading, setLoading] = useState(true);
   const activeVacancies = useVacancyPagination(filters, onError);
   const archived = useArchivedVacancies(onError);
-
   const loadWorkspace = useCallback(async () => {
     setLoading(true);
     onError("");
@@ -63,7 +60,6 @@ export function useScoutWorkspace(
       setLoading(false);
     }
   }, [activeVacancies.loadFirstPage, onError, loadDashboardData]);
-
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
@@ -87,14 +83,12 @@ export function useScoutWorkspace(
       cancelled = true;
     };
   }, [onError, loadDashboardData]);
-
   useEffect(() => {
     void activeVacancies.loadFirstPage();
   }, [activeVacancies.loadFirstPage]);
   useEffect(() => {
     if (showArchived) void archived.loadArchivedVacancies();
   }, [showArchived, archived.loadArchivedVacancies]);
-
   return {
     employers,
     setEmployers,
