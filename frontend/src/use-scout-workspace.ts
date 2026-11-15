@@ -34,7 +34,10 @@ export function useScoutWorkspace(
     total_active: 0,
     companies_total: 0,
     new_last_24_hours: 0,
-    old_vacancies: 0,
+    fresh_vacancies: 0,
+    recent_vacancies: 0,
+    aging_vacancies: 0,
+    stale_vacancies: 0,
     undated_vacancies: 0,
   });
   const [loading, setLoading] = useState(true);
