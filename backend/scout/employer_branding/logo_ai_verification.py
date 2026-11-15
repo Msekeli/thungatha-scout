@@ -16,6 +16,12 @@ class LogoAIUnavailable(RuntimeError):
     pass
 
 
+def _provider_error(provider: str, error: Exception) -> str:
+    status = getattr(error, "status_code", None)
+    suffix = f" HTTP {status}" if status else ""
+    return f"{provider}: {type(error).__name__}{suffix}"
+
+
 async def assess_logo_image(image: bytes, mime: str, employer: str) -> LogoAssessment:
     settings = get_settings()
     if not settings.ai_enabled:
@@ -46,5 +52,5 @@ async def assess_logo_image(image: bytes, mime: str, employer: str) -> LogoAsses
                 _CACHE.pop(next(iter(_CACHE)))
             return result
         except Exception as error:  # noqa: BLE001 - provider SDK failures are fallbackable
-            errors.append(f"{provider}: {type(error).__name__}")
+            errors.append(_provider_error(provider, error))
     raise LogoAIUnavailable("; ".join(errors) or "No AI provider available")
