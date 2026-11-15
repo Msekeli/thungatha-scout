@@ -6,12 +6,10 @@ import type { useJobsWorkspaceController } from "./useJobsWorkspaceController";
 import { VacancyDetailsPanel } from "./VacancyDetailsPanel";
 import { VacancyRecordList } from "./VacancyRecordList";
 import { VacancyRecordsToolbar } from "./VacancyRecordsToolbar";
-import type { VacancyAgeFilter } from "../shared-contracts/vacancy-contracts";
 
 type Props = {
   jobs: ReturnType<typeof useJobsWorkspaceController>;
   state: ReturnType<typeof useScoutAppState>;
-  vacancyChange: number;
 };
 
 export function JobsWorkspacePanel({ jobs, state }: Props) {
@@ -21,7 +19,11 @@ export function JobsWorkspacePanel({ jobs, state }: Props) {
         <DashboardOverview
           vacancyCount={jobs.dashboardMetrics.total_active}
           companyCount={jobs.employerCount}
-          vacancyChange={vacancyChange}
+          newCount={jobs.dashboardMetrics.new_last_24_hours}
+          oldCount={jobs.dashboardMetrics.old_vacancies}
+          undatedCount={jobs.dashboardMetrics.undated_vacancies}
+          runSummary={jobs.runSummary}
+          extracting={state.extracting}
         />
         <div className="flex shrink-0 gap-2">
           <Button
