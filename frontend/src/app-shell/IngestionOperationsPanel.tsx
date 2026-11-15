@@ -1,11 +1,4 @@
-import {
-  Activity,
-  AlertTriangle,
-  Building2,
-  CheckCircle2,
-  Play,
-  RefreshCw,
-} from "lucide-react";
+import { Activity, AlertTriangle, Building2, CheckCircle2, Play, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource, ExtractionRun } from "../api";
 import { SourceStatusPanel } from "./SourceStatusPanel";
@@ -26,12 +19,7 @@ type MetricCardProps = {
   icon: typeof Building2;
 };
 
-const failedOutcomes = [
-  "transient_failure",
-  "persistence_failure",
-  "failed",
-  "http_failure",
-];
+const failedOutcomes = ["transient_failure", "persistence_failure", "failed", "http_failure"];
 const blockedOutcomes = ["blocked", "rate_limited"];
 const isSuccessful = (run: ExtractionRun) =>
   run.complete && ["success", "empty"].includes(run.outcome);
@@ -48,9 +36,7 @@ function MetricCard({ label, value, icon: Icon }: MetricCardProps) {
       </span>
       <div className="min-w-0">
         <p className="text-xs font-medium text-muted-foreground">{label}</p>
-        <p className="text-xl font-bold leading-tight text-primary">
-          {value.toLocaleString()}
-        </p>
+        <p className="text-xl font-bold leading-tight text-primary">{value.toLocaleString()}</p>
       </div>
     </div>
   );
@@ -85,11 +71,7 @@ export function IngestionOperationsPanel({
             onClick={onRefresh}
             disabled={refreshing || running}
           >
-            <RefreshCw
-              className={
-                refreshing ? "mr-2 h-4 w-4 animate-spin" : "mr-2 h-4 w-4"
-              }
-            />
+            <RefreshCw className={refreshing ? "mr-2 h-4 w-4 animate-spin" : "mr-2 h-4 w-4"} />
             Refresh
           </Button>
           <Button
@@ -104,26 +86,10 @@ export function IngestionOperationsPanel({
       </div>
 
       <div className="grid shrink-0 grid-cols-2 gap-2 xl:grid-cols-4">
-        <MetricCard
-          label="Registered employers"
-          value={employers.length}
-          icon={Building2}
-        />
-        <MetricCard
-          label="Configured sources"
-          value={sources.length}
-          icon={Activity}
-        />
-        <MetricCard
-          label="Successful runs"
-          value={successfulRuns}
-          icon={CheckCircle2}
-        />
-        <MetricCard
-          label="Runs needing attention"
-          value={attentionRuns}
-          icon={AlertTriangle}
-        />
+        <MetricCard label="Registered employers" value={employers.length} icon={Building2} />
+        <MetricCard label="Configured sources" value={sources.length} icon={Activity} />
+        <MetricCard label="Successful runs" value={successfulRuns} icon={CheckCircle2} />
+        <MetricCard label="Runs needing attention" value={attentionRuns} icon={AlertTriangle} />
       </div>
       <p className="shrink-0 text-xs text-muted-foreground">
         Run metrics reflect the retrieval history currently loaded for each source.

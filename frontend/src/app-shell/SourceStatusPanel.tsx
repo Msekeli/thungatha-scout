@@ -22,8 +22,7 @@ export function SourceStatusPanel({ employers, sources, runs }: Props) {
         <div className="border-b border-[var(--scout-border)] px-4 py-4">
           <h3 className="font-semibold">Company retrieval activity</h3>
           <p className="mt-1 text-xs text-muted-foreground">
-            Latest attempt for each registered source, including job changes and
-            retrieval status.
+            Latest attempt for each registered source, including job changes and retrieval status.
           </p>
         </div>
         <div className="hidden border-b border-[var(--scout-border)] bg-[var(--scout-surface-raised)] px-4 py-3 text-xs font-semibold text-muted-foreground xl:grid xl:grid-cols-[minmax(11rem,1.5fr)_repeat(5,minmax(4.5rem,.65fr))_auto]">
@@ -45,9 +44,7 @@ export function SourceStatusPanel({ employers, sources, runs }: Props) {
             />
           ))}
           {!activities.length && (
-            <p className="px-4 py-8 text-sm text-muted-foreground">
-              No registered employers yet.
-            </p>
+            <p className="px-4 py-8 text-sm text-muted-foreground">No registered employers yet.</p>
           )}
         </div>
       </section>

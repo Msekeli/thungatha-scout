@@ -10,22 +10,13 @@ type Props = {
 const dateLabel = (value?: string | null) =>
   value ? new Date(value).toLocaleString() : "Not recorded";
 
-const failedOutcomes = [
-  "transient_failure",
-  "persistence_failure",
-  "failed",
-  "http_failure",
-];
+const failedOutcomes = ["transient_failure", "persistence_failure", "failed", "http_failure"];
 const blockedOutcomes = ["blocked", "rate_limited"];
 
 export function RecentRetrievalsPanel({ employers, sources, runs }: Props) {
   const recent = Object.values(runs)
     .flat()
-    .sort(
-      (a, b) =>
-        new Date(b.started_at ?? 0).getTime() -
-        new Date(a.started_at ?? 0).getTime(),
-    )
+    .sort((a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime())
     .slice(0, 10);
 
   return (
@@ -39,24 +30,13 @@ export function RecentRetrievalsPanel({ employers, sources, runs }: Props) {
       <div className="min-h-0 flex-1 divide-y divide-[var(--scout-border)] overflow-y-auto">
         {recent.map((run) => {
           const source = sources.find((item) => item.id === run.source_id);
-          const employer = employers.find(
-            (item) => item.id === source?.employer_id,
-          );
+          const employer = employers.find((item) => item.id === source?.employer_id);
           const failed = failedOutcomes.includes(run.outcome);
           const blocked = blockedOutcomes.includes(run.outcome);
           const partial =
-            !failed &&
-            !blocked &&
-            (!run.complete || !["success", "empty"].includes(run.outcome));
-          const unchanged = Math.max(
-            0,
-            run.jobs_received - run.jobs_inserted - run.jobs_updated,
-          );
-          const variant = failed
-            ? "destructive"
-            : blocked || partial
-              ? "outline"
-              : "secondary";
+            !failed && !blocked && (!run.complete || !["success", "empty"].includes(run.outcome));
+          const unchanged = Math.max(0, run.jobs_received - run.jobs_inserted - run.jobs_updated);
+          const variant = failed ? "destructive" : blocked || partial ? "outline" : "secondary";
 
           return (
             <div key={run.id} className="space-y-2 px-4 py-3">
@@ -66,13 +46,10 @@ export function RecentRetrievalsPanel({ employers, sources, runs }: Props) {
                     {employer?.name ?? "Unknown employer"}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    {source?.adapter_key ?? "Unknown source"} ·{" "}
-                    {dateLabel(run.started_at)}
+                    {source?.adapter_key ?? "Unknown source"} · {dateLabel(run.started_at)}
                   </p>
                 </div>
-                <Badge variant={variant}>
-                  {run.outcome.replaceAll("_", " ")}
-                </Badge>
+                <Badge variant={variant}>{run.outcome.replaceAll("_", " ")}</Badge>
               </div>
               <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
                 <span>{run.jobs_received} received</span>
@@ -80,9 +57,7 @@ export function RecentRetrievalsPanel({ employers, sources, runs }: Props) {
                 <span>{run.jobs_updated} updated</span>
                 <span>{unchanged} unchanged</span>
               </div>
-              {run.detail && (
-                <p className="text-xs text-muted-foreground">{run.detail}</p>
-              )}
+              {run.detail && <p className="text-xs text-muted-foreground">{run.detail}</p>}
             </div>
           );
         })}
