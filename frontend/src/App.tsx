@@ -17,6 +17,9 @@ export default function App() {
         onSelectPage={state.setPage}
         onRefresh={() => void jobs.loadWorkspace()}
         refreshing={jobs.loading}
+        onFetchJobs={() => void jobs.fetchJobs()}
+        fetching={state.extracting}
+        fetchDisabled={jobs.loading}
       />
       <OperationalAlerts
         error={state.error}
@@ -30,9 +33,7 @@ export default function App() {
           sources={jobs.dashboardSources}
           runs={jobs.extractionRuns}
           running={state.extracting}
-          refreshing={jobs.loading}
           onRunNow={() => void jobs.fetchJobs()}
-          onRefresh={() => void jobs.loadWorkspace()}
         />
       )}
       {state.page === "jobs" && <JobsWorkspacePanel jobs={jobs} state={state} />}
