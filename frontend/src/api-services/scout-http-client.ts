@@ -1,3 +1,5 @@
+import { supabase } from "./supabase-auth-client";
+
 export const API_BASE = (import.meta.env.VITE_SCOUT_API_URL ?? "http://127.0.0.1:8000").replace(
   /\/$/,
   "",
@@ -10,12 +12,15 @@ export type ProblemDetails = {
 };
 
 export async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const { data } = await supabase?.auth.getSession() ?? { data: { session: null } };
+  const accessToken = data.session?.access_token;
   let response: Response;
   try {
     response = await fetch(`${API_BASE}${path}`, {
       ...init,
       headers: {
         "Content-Type": "application/json",
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
         ...init?.headers,
       },
     });
