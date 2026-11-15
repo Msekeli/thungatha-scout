@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import type { EmployerSource } from "../api";
-import type { VacancyLocationScope } from "../shared-contracts/vacancy-contracts";
+import type { VacancyAgeFilter, VacancyLocationScope } from "../shared-contracts/vacancy-contracts";
 
 export type ScoutPage = "jobs" | "operations" | "companies" | "add-company";
 
@@ -17,6 +17,7 @@ export function useScoutAppState() {
   const [page, setPage] = useState<ScoutPage>("jobs");
   const [showArchived, setShowArchived] = useState(false);
   const [locationScope, setLocationScope] = useState<VacancyLocationScope>("south_africa");
+  const [vacancyAgeFilter, setVacancyAgeFilter] = useState<VacancyAgeFilter>("all");
   const [logoUrl, setLogoUrl] = useState("");
   const [logoSourceUrl, setLogoSourceUrl] = useState("");
   const [companyQuery, setCompanyQuery] = useState("");
@@ -41,6 +42,8 @@ export function useScoutAppState() {
     setShowArchived,
     locationScope,
     setLocationScope,
+    vacancyAgeFilter,
+    setVacancyAgeFilter,
     logoUrl,
     setLogoUrl,
     logoSourceUrl,
