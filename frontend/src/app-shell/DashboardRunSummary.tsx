@@ -22,17 +22,26 @@ export function DashboardRunSummary({ summary, extracting }: Props) {
       <span className="inline-flex items-center gap-1 text-muted-foreground">
         <ArrowDownRight className="h-3 w-3" /> −{summary.missing} missing
       </span>
-      <span className="text-muted-foreground">Net {summary.net >= 0 ? "+" : ""}{summary.net}</span>
+      <span className="text-muted-foreground">
+        Net {summary.net >= 0 ? "+" : ""}
+        {summary.net}
+      </span>
       {summary.baselineCount > 0 && (
         <span className="text-muted-foreground">
-          Initial collection: {summary.companies.filter((item) => item.baseline).map((item) => item.name).join(", ")}
+          Initial collection:{" "}
+          {summary.companies
+            .filter((item) => item.baseline)
+            .map((item) => item.name)
+            .join(", ")}
         </span>
       )}
-      {summary.companies.filter((item) => item.added || item.missing).map((item) => (
-        <span key={item.name} className="text-muted-foreground">
-          {item.name}: +{item.added}/−{item.missing}
-        </span>
-      ))}
+      {summary.companies
+        .filter((item) => item.added || item.missing)
+        .map((item) => (
+          <span key={item.name} className="text-muted-foreground">
+            {item.name}: +{item.added}/−{item.missing}
+          </span>
+        ))}
     </div>
   );
 }

@@ -38,7 +38,11 @@ export function DashboardOverview({
   return (
     <div className="min-w-0 flex-1 space-y-3">
       <div className="flex flex-wrap items-stretch gap-2">
-        <DashboardMetricCard label="Collected vacancies" value={vacancyCount} icon={BriefcaseBusiness} />
+        <DashboardMetricCard
+          label="Collected vacancies"
+          value={vacancyCount}
+          icon={BriefcaseBusiness}
+        />
         <DashboardMetricCard label="Registered companies" value={companyCount} icon={Building2} />
         <DashboardMetricCard label="First seen (24h)" value={newCount} icon={Sparkles} />
         <DashboardMetricCard label="Fresh (0–7 days)" value={freshCount} icon={Timer} />
