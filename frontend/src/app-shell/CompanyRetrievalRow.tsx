@@ -70,7 +70,7 @@ export function CompanyRetrievalRow({ employer, sources, runs }: Props) {
     .sort()
     .slice(-1)[0];
   return (
-    <div className="grid gap-3 border-b px-4 py-3 last:border-b-0 xl:grid-cols-[minmax(12rem,1.5fr)_repeat(5,minmax(5rem,.65fr))_auto] xl:items-center">
+    <div className="grid gap-3 border-b border-[var(--scout-border)] px-4 py-4 transition-colors last:border-b-0 hover:bg-[var(--scout-surface-hover)] xl:grid-cols-[minmax(11rem,1.5fr)_repeat(5,minmax(4.5rem,.65fr))_auto] xl:items-center">
       <div className="min-w-0">
         <p className="truncate font-medium">{employer.name}</p>
         <p className="truncate text-xs text-muted-foreground">
