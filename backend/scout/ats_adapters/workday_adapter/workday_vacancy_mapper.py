@@ -1,4 +1,5 @@
 from collections.abc import Mapping
+from datetime import date
 from typing import Any
 from urllib.parse import urlsplit
 
@@ -62,8 +63,6 @@ def _posting_date(value: Any) -> str | None:
     if len(candidate) != 10:
         return None
     try:
-        from datetime import date
-
         date.fromisoformat(candidate)
     except ValueError:
         return None
