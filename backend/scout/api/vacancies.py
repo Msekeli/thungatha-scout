@@ -7,13 +7,11 @@ from scout.api.source_extraction_routes import router as extraction_router
 from scout.api.source_preview_routes import router as preview_router
 from scout.api.vacancy_api_dependencies import get_extraction_service
 from scout.api.vacancy_archive_routes import router as archive_router
-from scout.api.vacancy_export_routes import router as export_router
 from scout.application.source_extraction_service import SourceExtractionService
 from scout.application.source_extraction_service import SourceNotFoundError
 
 router = APIRouter(tags=["vacancies"])
 router.include_router(archive_router)
-router.include_router(export_router)
 router.include_router(extraction_router)
 router.include_router(preview_router)
 
