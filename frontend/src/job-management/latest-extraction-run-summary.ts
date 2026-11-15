@@ -30,9 +30,14 @@ export function getLatestExtractionRunSummary(
 
   const companies = new Map<string, LatestRunSummary["companies"][number]>();
   latest.forEach(({ source, run }) => {
-    const name = employers.find((item) => item.id === source.employer_id)?.name ?? "Unknown company";
+    const name =
+      employers.find((item) => item.id === source.employer_id)?.name ?? "Unknown company";
     const item = companies.get(source.employer_id) ?? {
-      name, added: 0, missing: 0, baselineSources: 0, sourceCount: 0,
+      name,
+      added: 0,
+      missing: 0,
+      baselineSources: 0,
+      sourceCount: 0,
     };
     item.added += run.jobs_added ?? 0;
     item.missing += run.jobs_missing ?? 0;
@@ -50,7 +55,7 @@ export function getLatestExtractionRunSummary(
     baselineSources: latest.filter((item) => item.run.is_baseline).length,
     sourceCount: latest.length,
     companies: Array.from(companies.values()).sort(
-      (a, b) => (b.added + b.missing) - (a.added + a.missing) || a.name.localeCompare(b.name),
+      (a, b) => b.added + b.missing - (a.added + a.missing) || a.name.localeCompare(b.name),
     ),
   };
 }
