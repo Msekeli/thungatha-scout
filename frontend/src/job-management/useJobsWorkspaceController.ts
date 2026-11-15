@@ -14,8 +14,9 @@ export function useJobsWorkspaceController(state: AppState) {
     () => ({
       employerId: state.selectedEmployerId,
       locationScope: state.locationScope,
+      ageFilter: state.vacancyAgeFilter,
     }),
-    [state.selectedEmployerId, state.locationScope],
+    [state.selectedEmployerId, state.locationScope, state.vacancyAgeFilter],
   );
   const workspace = useScoutWorkspace(
     state.setError,
