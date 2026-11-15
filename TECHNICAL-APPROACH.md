@@ -13,13 +13,13 @@ Greenhouse remains the reference adapter; Lever and Teamtailor work is retained.
 
 ## 2. Deployment architecture
 
-| Component            | Technology                                      | Hosting                          |
-| -------------------- | ----------------------------------------------- | -------------------------------- |
-| Admin UI             | React, TypeScript, Vite, Tailwind CSS v3        | Vercel (first deployment)        |
-| Backend API          | FastAPI (Python)                                | Heroku (Python build path)       |
+| Component            | Technology                                                    | Hosting                                                              |
+| -------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Admin UI             | React, TypeScript, Vite, Tailwind CSS v3                      | Vercel (first deployment)                                            |
+| Backend API          | FastAPI (Python)                                              | Heroku (Python build path)                                           |
 | Extraction worker    | Existing manual API-triggered workflow; Crawlee where enabled | Same backend runtime initially; automated worker scheduling deferred |
-| Operational database | PostgreSQL via Supabase                         | Dedicated Scout Supabase project |
-| Public destination   | Existing Thungatha Supabase/PostgreSQL          | Existing Thungatha project       |
+| Operational database | PostgreSQL via Supabase                                       | Dedicated Scout Supabase project                                     |
+| Public destination   | Existing Thungatha Supabase/PostgreSQL                        | Existing Thungatha project                                           |
 
 Heroku is the selected initial FastAPI backend host and Vercel is the frontend host. Deploy the backend through Heroku's Python build path; Docker is not required for the first deployment. The first release uses the existing manual retrieval workflow. Automated scheduling and hosted crawler-worker execution are deferred until after hosting. Keep Crawlee provider-neutral and keep the core application independent of Heroku-specific APIs. Reconsider Zyte only if a later worker deployment need justifies it. Do not share Scout's operational schema/database with Thungatha or use MongoDB/Azure Table Storage in v1.
 

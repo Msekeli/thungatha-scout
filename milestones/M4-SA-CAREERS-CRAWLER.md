@@ -175,7 +175,6 @@ Copy any missing variables from `.env.example` into the ignored local `.env`. Co
 - Do not mark a checkpoint Accepted without tests/evidence and explicit user review.
 - No Apify hosting, paid AI plan, Zyte paid upgrade/API usage, production deployment or new database is approved. Zyte Scrapy Cloud's included student unit is approved for a manually verified worker deployment; recurring scheduling remains gated by M4-SA-E acceptance.
 
-
 ## Hosting decision update — 15 November 2026
 
 The 12 November Zyte Scrapy Cloud hosting approval is superseded for the first production release. The initial deployment will host the FastAPI backend on Heroku and the admin frontend on Vercel. The first release uses the existing administrator-triggered manual retrieval workflow; automated scheduling and a separately hosted crawler worker are deferred until after hosting.

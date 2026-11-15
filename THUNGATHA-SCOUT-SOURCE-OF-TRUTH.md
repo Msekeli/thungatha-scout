@@ -414,7 +414,6 @@ The user approved the next platform sequence: **Workable first, Workday second, 
 
 The sequence prioritises measurable South African employer coverage and reusable retrieval over adapter count. Platform association, public access, source permission, vacancy completeness and production readiness remain separate claims requiring evidence.
 
-
 ## Decision record — first deployment scope and Heroku hosting (15 November 2026)
 
 This decision narrows the first production release to a secure, manually operated Scout workflow. It supersedes the earlier assumption that scheduled extraction must be implemented before hosting, and supersedes Zyte Scrapy Cloud as the selected first-deployment worker host. It does not remove the future scheduler requirement or the Crawlee implementation.
