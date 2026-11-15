@@ -65,7 +65,7 @@ export function JobsWorkspacePanel({ jobs, state }: Props) {
           />
           <VacancyRecordList
             vacancies={jobs.filteredVacancies}
-            loading={jobs.loading}
+            loading={jobs.loading || jobs.loadingFirstPage}
             loadingMore={jobs.loadingMore}
             hasMore={jobs.hasMoreVacancies}
             onLoadMore={jobs.loadMoreVacancies}
