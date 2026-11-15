@@ -1,8 +1,15 @@
-import { Activity, BriefcaseBusiness, Clock3, Play, RefreshCw } from "lucide-react";
+import {
+  Activity,
+  AlertTriangle,
+  Building2,
+  CheckCircle2,
+  Play,
+  RefreshCw,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Employer, EmployerSource, ExtractionRun } from "../api";
 import { SourceStatusPanel } from "./SourceStatusPanel";
-import { RetrievalScheduleCard } from "./RetrievalScheduleCard";
+
 type Props = {
   employers: Employer[];
   sources: EmployerSource[];
@@ -12,6 +19,43 @@ type Props = {
   onRunNow: () => void;
   onRefresh: () => void;
 };
+
+type MetricCardProps = {
+  label: string;
+  value: number;
+  icon: typeof Building2;
+};
+
+const failedOutcomes = [
+  "transient_failure",
+  "persistence_failure",
+  "failed",
+  "http_failure",
+];
+const blockedOutcomes = ["blocked", "rate_limited"];
+const isSuccessful = (run: ExtractionRun) =>
+  run.complete && ["success", "empty"].includes(run.outcome);
+const needsAttention = (run: ExtractionRun) =>
+  failedOutcomes.includes(run.outcome) ||
+  blockedOutcomes.includes(run.outcome) ||
+  !isSuccessful(run);
+
+function MetricCard({ label, value, icon: Icon }: MetricCardProps) {
+  return (
+    <div className="scout-vacancy-count-card">
+      <span className="scout-vacancy-count-card__icon">
+        <Icon className="h-4 w-4" aria-hidden="true" />
+      </span>
+      <div className="min-w-0">
+        <p className="text-xs font-medium text-muted-foreground">{label}</p>
+        <p className="text-xl font-bold leading-tight text-primary">
+          {value.toLocaleString()}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function IngestionOperationsPanel({
   employers,
   sources,
@@ -21,52 +65,71 @@ export function IngestionOperationsPanel({
   onRunNow,
   onRefresh,
 }: Props) {
-  const allRuns = Object.values(runs)
-    .flat()
-    .sort((a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime());
-  const newJobs = allRuns.reduce((total, run) => total + run.jobs_inserted, 0);
-  const metrics = [
-    { label: "Registered employers", value: employers.length, icon: BriefcaseBusiness },
-    { label: "Registered sources", value: sources.length, icon: Activity },
-    { label: "Recent retrieval runs", value: allRuns.length, icon: Clock3 },
-    { label: "New vacancies in history", value: newJobs, icon: BriefcaseBusiness },
-  ];
+  const allRuns = Object.values(runs).flat();
+  const successfulRuns = allRuns.filter(isSuccessful).length;
+  const attentionRuns = allRuns.filter(needsAttention).length;
+
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-4 py-4">
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="font-semibold">Ingestion operations</h2>
+          <h2 className="text-lg font-semibold">Operations dashboard</h2>
           <p className="text-sm text-muted-foreground">
-            Monitor source retrievals and inspect recent extraction activity.
+            Monitor employer sources, retrieval health and recent activity.
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={onRefresh} disabled={refreshing || running}>
-            <RefreshCw className={refreshing ? "mr-2 h-4 w-4 animate-spin" : "mr-2 h-4 w-4"} />{" "}
+          <Button
+            variant="outline"
+            className="border-input bg-background text-primary"
+            onClick={onRefresh}
+            disabled={refreshing || running}
+          >
+            <RefreshCw
+              className={
+                refreshing ? "mr-2 h-4 w-4 animate-spin" : "mr-2 h-4 w-4"
+              }
+            />
             Refresh
           </Button>
-          <Button onClick={onRunNow} disabled={running || !sources.length}>
-            <Play className="mr-2 h-4 w-4" /> {running ? "Retrieval running…" : "Run retrieval now"}
+          <Button
+            className="bg-scout-cyan text-scout-navy hover:brightness-95"
+            onClick={onRunNow}
+            disabled={running || !sources.length}
+          >
+            <Play className="mr-2 h-4 w-4" />
+            {running ? "Retrieval running…" : "Run retrieval"}
           </Button>
         </div>
       </div>
-      <div className="grid shrink-0 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {metrics.map(({ label, value, icon: Icon }) => (
-          <div key={label} className="rounded-lg border bg-card p-4">
-            <div className="flex items-center justify-between text-muted-foreground">
-              <span className="text-sm">{label}</span>
-              <Icon className="h-4 w-4" />
-            </div>
-            <p className="mt-2 text-2xl font-semibold tabular-nums">{value}</p>
-          </div>
-        ))}
+
+      <div className="grid shrink-0 grid-cols-2 gap-2 xl:grid-cols-4">
+        <MetricCard
+          label="Registered employers"
+          value={employers.length}
+          icon={Building2}
+        />
+        <MetricCard
+          label="Configured sources"
+          value={sources.length}
+          icon={Activity}
+        />
+        <MetricCard
+          label="Successful runs"
+          value={successfulRuns}
+          icon={CheckCircle2}
+        />
+        <MetricCard
+          label="Runs needing attention"
+          value={attentionRuns}
+          icon={AlertTriangle}
+        />
       </div>
-      <div className="shrink-0">
-        <RetrievalScheduleCard runs={allRuns} />
-      </div>
-      <div className="min-h-0 flex-1 overflow-y-auto">
-        <SourceStatusPanel employers={employers} sources={sources} runs={runs} />
-      </div>
+      <p className="shrink-0 text-xs text-muted-foreground">
+        Run metrics reflect the retrieval history currently loaded for each source.
+      </p>
+
+      <SourceStatusPanel employers={employers} sources={sources} runs={runs} />
     </section>
   );
 }
