@@ -33,6 +33,7 @@ def list_vacancies(
     ),
     limit: int = Query(default=50, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
+    age_filter: str = Query(default="all", pattern="^(all|new|old|8_14|15_30|over_30|undated)$"),
     service: SourceExtractionService = Depends(get_extraction_service),
 ) -> dict[str, Any]:
     return service.list_vacancy_page(
@@ -40,6 +41,7 @@ def list_vacancies(
         location_scope=location_scope,
         limit=limit,
         offset=offset,
+        age_filter=age_filter,
     )
 
 
