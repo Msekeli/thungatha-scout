@@ -32,20 +32,42 @@ export function AdministratorLoginForm() {
             <LockKeyhole className="h-5 w-5" />
           </div>
           <h1 className="text-xl font-semibold">Administrator sign in</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Sign in with your authorised Scout account.</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Sign in with your authorised Scout account.
+          </p>
         </div>
         <form className="space-y-4" onSubmit={signIn}>
           <div className="space-y-1.5">
-            <label htmlFor="admin-email" className="text-sm font-medium">Email</label>
-            <Input id="admin-email" type="email" autoComplete="username" required
-              value={email} onChange={event => setEmail(event.target.value)} />
+            <label htmlFor="admin-email" className="text-sm font-medium">
+              Email
+            </label>
+            <Input
+              id="admin-email"
+              type="email"
+              autoComplete="username"
+              required
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
           </div>
           <div className="space-y-1.5">
-            <label htmlFor="admin-password" className="text-sm font-medium">Password</label>
-            <Input id="admin-password" type="password" autoComplete="current-password" required
-              value={password} onChange={event => setPassword(event.target.value)} />
+            <label htmlFor="admin-password" className="text-sm font-medium">
+              Password
+            </label>
+            <Input
+              id="admin-password"
+              type="password"
+              autoComplete="current-password"
+              required
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
           </div>
-          {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
+          {error && (
+            <p role="alert" className="text-sm text-destructive">
+              {error}
+            </p>
+          )}
           <Button className="w-full" type="submit" disabled={submitting}>
             {submitting ? "Signing in…" : "Sign in"}
           </Button>
