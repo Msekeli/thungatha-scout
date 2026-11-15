@@ -18,7 +18,7 @@ DOCUMENTED_DIRECTORY_EXCEPTIONS = {
 }
 
 DOCUMENTED_FILE_EXCEPTIONS = {
-    "main.tsx", "main.py", "App.tsx", "__init__.py", "__main__.py",
+    "main.tsx", "main.py", "App.tsx", "__init__.py", "__main__.py", "conftest.py",
     "README.md", "LICENSE", "index.html", "vite.config.ts",
     "tailwind.config.js", "postcss.config.js", "components.json",
     "pyproject.toml", "package.json", "package-lock.json",
