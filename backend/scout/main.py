@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -9,6 +9,8 @@ from scout.api.greenhouse_routes import router as greenhouse_router
 from scout.api.lever_routes import router as lever_router
 from scout.api.teamtailor_routes import router as teamtailor_router
 from scout.api.vacancies import router as vacancies_router
+from scout.api.vacancy_export_routes import router as vacancy_export_router
+from scout.authentication import require_admin
 from scout.api.workable_routes import router as workable_router
 from scout.api.workday_routes import router as workday_router
 from scout.settings import get_settings
@@ -20,16 +22,17 @@ app.add_middleware(
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=False,
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type"],
+    allow_headers=["Content-Type", "Authorization"],
 )
-app.include_router(employers_router, prefix=settings.api_prefix)
-app.include_router(career_page_router, prefix=settings.api_prefix)
-app.include_router(greenhouse_router, prefix=settings.api_prefix)
-app.include_router(lever_router, prefix=settings.api_prefix)
-app.include_router(teamtailor_router, prefix=settings.api_prefix)
-app.include_router(workable_router, prefix=settings.api_prefix)
-app.include_router(workday_router, prefix=settings.api_prefix)
-app.include_router(vacancies_router, prefix=settings.api_prefix)
+app.include_router(employers_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(career_page_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(greenhouse_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(lever_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(teamtailor_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(workable_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(workday_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(vacancies_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(vacancy_export_router, prefix=settings.api_prefix)
 
 
 def _problem_response(
