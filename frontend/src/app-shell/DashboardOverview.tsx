@@ -4,7 +4,7 @@ type RunSummary = {
   added: number;
   missing: number;
   net: number;
-  companies: { name: string; added: number; missing: number }[];
+  companies: { name: string; added: number; missing: number; baseline: boolean }[];
   baselineCount: number;
 };
 
@@ -60,7 +60,7 @@ export function DashboardOverview({
             </span>
             {runSummary.baselineCount > 0 && (
               <span className="text-muted-foreground">
-                {runSummary.baselineCount} initial collection(s)
+                Initial collection: {runSummary.companies.filter((item) => item.baseline).map((item) => item.name).join(", ")}
               </span>
             )}
             {runSummary.companies
