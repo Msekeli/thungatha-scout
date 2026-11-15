@@ -1,4 +1,4 @@
-import { RefreshCw } from "lucide-react";
+import { BriefcaseBusiness, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 export type AppPage = "jobs" | "operations" | "companies" | "add-company";
 type AppShellHeaderProps = {
@@ -6,6 +6,9 @@ type AppShellHeaderProps = {
   onSelectPage: (page: AppPage) => void;
   onRefresh: () => void;
   refreshing: boolean;
+  onFetchJobs: () => void;
+  fetching: boolean;
+  fetchDisabled: boolean;
 };
 const pageHeading: Record<AppPage, { eyebrow: string; title: string }> = {
   jobs: { eyebrow: "Vacancy records", title: "Dashboard" },
@@ -18,6 +21,9 @@ export function AppShellHeader({
   onSelectPage,
   onRefresh,
   refreshing,
+  onFetchJobs,
+  fetching,
+  fetchDisabled,
 }: AppShellHeaderProps) {
   const heading = pageHeading[activePage];
   return (
@@ -73,6 +79,18 @@ export function AppShellHeader({
         >
           Companies
         </Button>
+        {activePage === "jobs" && (
+          <Button
+            type="button"
+            size="sm"
+            className="bg-scout-cyan text-scout-navy hover:brightness-95"
+            onClick={onFetchJobs}
+            disabled={fetchDisabled || fetching}
+          >
+            <BriefcaseBusiness className="mr-1 h-3.5 w-3.5" />
+            {fetching ? "Fetching jobs…" : "Fetch jobs"}
+          </Button>
+        )}
         {(activePage === "jobs" || activePage === "operations") && (
           <Button
             type="button"
