@@ -72,11 +72,9 @@ export function useScoutWorkspace(
         setDashboardMetrics(metrics);
         void loadDashboardData();
       })
-      .catch((reason: unknown) => {
-        if (!cancelled) {
-          onError(reason instanceof Error ? reason.message : "Could not load Scout data.");
-        }
-      })
+      .catch((reason: unknown) => !cancelled && onError(
+        reason instanceof Error ? reason.message : "Could not load Scout data.",
+      ))
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
