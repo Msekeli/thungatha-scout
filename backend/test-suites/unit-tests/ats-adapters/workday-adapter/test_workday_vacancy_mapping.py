@@ -14,6 +14,7 @@ def test_maps_sanitized_workday_vacancy_with_all_fields() -> None:
         "jobPostingInfo": {
             "jobReqId": "R-159",
             "title": "Head of Compliance",
+            "startDate": "2026-11-11",
             "jobDescription": "<p>Lead advisory</p>",
             "location": "Ebene",
             "additionalLocations": ["Johannesburg", {"location": "Cape Town"}],
@@ -27,7 +28,23 @@ def test_maps_sanitized_workday_vacancy_with_all_fields() -> None:
     assert vac.description == "<p>Lead advisory</p>"
     assert vac.location_text == "Ebene; Johannesburg; Cape Town"
     assert vac.department == "Compliance"
+    assert vac.published_at == "2026-11-11"
+    assert vac.source_updated_at is None
     assert vac.application_url == "https://absa.wd3.myworkdayjobs.com/absa/job/R-159"
+
+
+def test_invalid_workday_start_date_is_not_stored_as_published_date() -> None:
+    listing = {"externalPath": "/job/Cape-Town/Dev_JR100"}
+    detail = {
+        "jobPostingInfo": {
+            "title": "Dev",
+            "startDate": "Posted 4 Days Ago",
+        }
+    }
+    vacancy = map_workday_vacancy(
+        listing, detail, "host.wd3.myworkdayjobs.com", "site"
+    )
+    assert vacancy.published_at is None
 
 
 def test_fallback_identifier_and_constructed_apply_url() -> None:
