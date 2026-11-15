@@ -48,10 +48,10 @@ export function DashboardOverview({
         runSummary && (
           <div className="flex flex-wrap items-center gap-2 text-xs" aria-live="polite">
             <span className="font-semibold">Latest run:</span>
-            <span className="inline-flex items-center gap-1 text-emerald-700">
+            <span className="inline-flex items-center gap-1 text-muted-foreground">
               <ArrowUpRight className="h-3 w-3" /> +{runSummary.added} added
             </span>
-            <span className="inline-flex items-center gap-1 text-destructive">
+            <span className="inline-flex items-center gap-1 text-muted-foreground">
               <ArrowDownRight className="h-3 w-3" /> −{runSummary.missing} missing
             </span>
             <span className="text-muted-foreground">
