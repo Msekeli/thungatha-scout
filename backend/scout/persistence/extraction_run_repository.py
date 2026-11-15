@@ -45,7 +45,7 @@ class ExtractionRunRepository:
         if successful and previous:
             rows = self._connection.execute(
                 "UPDATE vacancies SET status = 'possibly_expired', updated_at = NOW() "
-                "WHERE source_id = %s AND status = 'active' "
+                "WHERE source_id = %s AND status = 'active' AND archived_at IS NULL "
                 "AND last_seen_at < %s RETURNING id",
                 (run["source_id"], run["started_at"]),
             ).fetchall()
