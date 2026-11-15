@@ -16,6 +16,7 @@ class VacancyMetricsReadOperations:
         ).fetchone()
         keys = (
             "total_active",
+            "companies_total",
             "new_last_24_hours",
             "old_vacancies",
             "undated_vacancies",
