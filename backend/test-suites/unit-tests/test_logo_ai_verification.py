@@ -58,3 +58,21 @@ def test_disabled_ai_does_not_call_provider(monkeypatch) -> None:
     monkeypatch.setattr(verification, "get_settings", lambda: Settings())
     with pytest.raises(verification.LogoAIUnavailable):
         asyncio.run(verification.assess_logo_image(b"image", "image/png", "Damen"))
+
+
+def test_provider_failure_includes_http_status_without_response_body(monkeypatch) -> None:
+    verification._CACHE.clear()
+    verification._COUNTS.clear()
+    monkeypatch.setattr(verification, "get_settings", settings)
+
+    class ProviderError(RuntimeError):
+        status_code = 429
+
+    def classify(provider, image, mime, employer, config):
+        raise ProviderError("sensitive response body")
+
+    monkeypatch.setattr(verification, "classify_with_provider", classify)
+    with pytest.raises(verification.LogoAIUnavailable) as error:
+        asyncio.run(verification.assess_logo_image(b"image", "image/png", "Damen"))
+    assert "gemini: ProviderError HTTP 429" in str(error.value)
+    assert "sensitive response body" not in str(error.value)
