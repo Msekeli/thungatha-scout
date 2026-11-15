@@ -38,6 +38,7 @@ async def discover_with_crawlee(
     crawler_type = (
         PlaywrightCrawler if settings.crawler_browser_fallback_enabled else HttpCrawler
     )
+    concurrency = min(settings.crawler_max_concurrency, 3)
     crawler = crawler_type(
         max_requests_per_crawl=min(settings.crawler_max_requests_per_run, 20),
         max_crawl_depth=min(settings.crawler_max_depth, 2),
@@ -47,7 +48,7 @@ async def discover_with_crawlee(
             seconds=settings.crawler_request_timeout_seconds
         ),
         concurrency_settings=ConcurrencySettings(
-            max_concurrency=min(settings.crawler_max_concurrency, 3)
+            max_concurrency=concurrency, desired_concurrency=concurrency
         ),
         respect_robots_txt_file=settings.crawler_respect_robots_txt,
         retry_on_blocked=False,
