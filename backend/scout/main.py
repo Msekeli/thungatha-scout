@@ -24,14 +24,32 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization"],
 )
-app.include_router(employers_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
-app.include_router(career_page_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
-app.include_router(greenhouse_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
-app.include_router(lever_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
-app.include_router(teamtailor_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
-app.include_router(workable_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
-app.include_router(workday_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
-app.include_router(vacancies_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)])
+app.include_router(
+    employers_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)]
+)
+app.include_router(
+    career_page_router,
+    prefix=settings.api_prefix,
+    dependencies=[Depends(require_admin)],
+)
+app.include_router(
+    greenhouse_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)]
+)
+app.include_router(
+    lever_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)]
+)
+app.include_router(
+    teamtailor_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)]
+)
+app.include_router(
+    workable_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)]
+)
+app.include_router(
+    workday_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)]
+)
+app.include_router(
+    vacancies_router, prefix=settings.api_prefix, dependencies=[Depends(require_admin)]
+)
 app.include_router(vacancy_export_router, prefix=settings.api_prefix)
 
 
