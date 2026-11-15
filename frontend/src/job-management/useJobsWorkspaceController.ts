@@ -34,6 +34,7 @@ export function useJobsWorkspaceController(state: AppState) {
     onError: state.setError,
   });
   const fetching = useVacancyFetching({
+    employers: workspace.employers,
     dashboardSources: dashboard.dashboardSources,
     setExtracting: state.setExtracting,
     loadWorkspace,
