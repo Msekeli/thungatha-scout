@@ -56,18 +56,24 @@ def groq_assessment(image, mime, prompt, model, key, timeout):
 
     data = base64.b64encode(image).decode("ascii")
     response = Groq(api_key=key, timeout=timeout).chat.completions.create(
-        model=model, temperature=0, max_tokens=256,
+        model=model,
+        temperature=0,
+        max_tokens=256,
         response_format={"type": "json_object"},
-        messages=[{"role": "user", "content": [
-            {"type": "text", "text": prompt},
-            {"type": "image_url", "image_url": {
-                "url": f"data:{mime};base64,{data}"
-            }},
-        ]}],
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": prompt},
+                    {
+                        "type": "image_url",
+                        "image_url": {"url": f"data:{mime};base64,{data}"},
+                    },
+                ],
+            }
+        ],
     )
-    return LogoAssessment.model_validate_json(
-        response.choices[0].message.content or ""
-    )
+    return LogoAssessment.model_validate_json(response.choices[0].message.content or "")
 
 
 def classify_with_provider(name, image, mime, employer, settings):
@@ -81,6 +87,10 @@ def classify_with_provider(name, image, mime, employer, settings):
     prompt = _PROMPT.format(employer=employer)
     call = gemini_assessment if name == "gemini" else groq_assessment
     return call(
-        image, mime, prompt, model, key.get_secret_value(),
+        image,
+        mime,
+        prompt,
+        model,
+        key.get_secret_value(),
         settings.ai_timeout_seconds,
     )

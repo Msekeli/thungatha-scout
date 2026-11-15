@@ -3,7 +3,9 @@ import re
 from typing import Any
 from urllib.parse import urlparse
 
-from scout.maintenance.employer_logo_refresh_targeting import needs_targeted_logo_refresh
+from scout.maintenance.employer_logo_refresh_targeting import (
+    needs_targeted_logo_refresh,
+)
 
 
 VERIFIED_EMPLOYER_WEBSITES = {
@@ -92,4 +94,3 @@ def verified_website_for(employer: dict[str, Any]) -> str | None:
 def duplicate_employer_names(employers: list[dict[str, Any]]) -> set[str]:
     names = [employer["name"].strip().casefold() for employer in employers]
     return {name for name, count in Counter(names).items() if count > 1}
-

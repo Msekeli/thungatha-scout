@@ -9,9 +9,14 @@ from scout.settings import Settings
 
 def settings() -> Settings:
     return Settings(
-        ai_enabled=True, ai_primary_provider="gemini", ai_fallback_enabled=True,
-        ai_timeout_seconds=2, gemini_api_key="test", gemini_model="vision",
-        groq_api_key="test", groq_model="vision",
+        ai_enabled=True,
+        ai_primary_provider="gemini",
+        ai_fallback_enabled=True,
+        ai_timeout_seconds=2,
+        gemini_api_key="test",
+        gemini_model="vision",
+        groq_api_key="test",
+        groq_model="vision",
     )
 
 
@@ -60,7 +65,9 @@ def test_disabled_ai_does_not_call_provider(monkeypatch) -> None:
         asyncio.run(verification.assess_logo_image(b"image", "image/png", "Damen"))
 
 
-def test_provider_failure_includes_http_status_without_response_body(monkeypatch) -> None:
+def test_provider_failure_includes_http_status_without_response_body(
+    monkeypatch,
+) -> None:
     verification._CACHE.clear()
     verification._COUNTS.clear()
     monkeypatch.setattr(verification, "get_settings", settings)

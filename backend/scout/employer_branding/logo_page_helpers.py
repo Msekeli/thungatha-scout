@@ -65,4 +65,3 @@ async def fetch_workday_logo(client, page_url):
     if not has_usable_logo_dimensions(image.content, image.content_type):
         return None
     return image.url, page_url, "official_ats_logo"
-

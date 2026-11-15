@@ -93,5 +93,3 @@ def test_rejects_unrelated_ats_board() -> None:
     assert not careers_page_matches_employer(
         "Digioutsource", "https://boards.greenhouse.io/supergroup"
     )
-
-

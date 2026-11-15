@@ -64,6 +64,7 @@ def test_direct_discovery_does_not_start_crawler_without_diagnostics(
 
     assert result is None
 
+
 def test_reports_crawlee_runtime_error_details(monkeypatch) -> None:
     async def broken_fallback(*args):
         raise ValueError("unsupported crawler option")

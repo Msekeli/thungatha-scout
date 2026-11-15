@@ -69,9 +69,7 @@ def test_allows_greenhouse_hosted_logo_asset_but_not_board_pages() -> None:
 
 
 def test_discovers_employer_logo_from_lever_board_og_image(monkeypatch) -> None:
-    html = (
-        '<meta property="og:image" content="https://cdn.example.com/acme-logo.png">'
-    )
+    html = '<meta property="og:image" content="https://cdn.example.com/acme-logo.png">'
 
     async def handler(request):
         if request.url.host == "jobs.lever.co":
@@ -82,9 +80,7 @@ def test_discovers_employer_logo_from_lever_board_og_image(monkeypatch) -> None:
             + (64).to_bytes(4, "big") * 2
             + b"\x08\x02\x00\x00\x00"
         )
-        return httpx.Response(
-            200, headers={"content-type": "image/png"}, content=png
-        )
+        return httpx.Response(200, headers={"content-type": "image/png"}, content=png)
 
     mock_http(monkeypatch, handler)
     result = asyncio.run(

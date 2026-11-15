@@ -8,20 +8,20 @@ from scout.employer_branding.logo_http import PublicResource
 
 def test_svg_is_rasterized_before_ai_assessment(monkeypatch) -> None:
     monkeypatch.setattr(
-        logo_ai_image_assessment, "get_settings",
+        logo_ai_image_assessment,
+        "get_settings",
         lambda: SimpleNamespace(ai_enabled=True),
     )
     monkeypatch.setattr(
-        logo_ai_image_assessment, "rasterize_svg_for_ai",
+        logo_ai_image_assessment,
+        "rasterize_svg_for_ai",
         lambda content: b"rasterized-png",
     )
     received = []
 
     async def assess(content, mime, employer):
         received.append((content, mime, employer))
-        return LogoAssessment(
-            is_logo=True, confidence=0.98, reason="Official wordmark"
-        )
+        return LogoAssessment(is_logo=True, confidence=0.98, reason="Official wordmark")
 
     monkeypatch.setattr(logo_ai_image_assessment, "assess_logo_image", assess)
     image = PublicResource(
@@ -42,7 +42,8 @@ def test_svg_is_rasterized_before_ai_assessment(monkeypatch) -> None:
 
 def test_svg_rasterization_failure_uses_deterministic_fallback(monkeypatch) -> None:
     monkeypatch.setattr(
-        logo_ai_image_assessment, "get_settings",
+        logo_ai_image_assessment,
+        "get_settings",
         lambda: SimpleNamespace(ai_enabled=True),
     )
 

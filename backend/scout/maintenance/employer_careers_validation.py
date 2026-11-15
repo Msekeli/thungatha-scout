@@ -2,8 +2,11 @@ import re
 from urllib.parse import urlparse
 
 ATS_SUFFIXES = (
-    ".greenhouse.io", ".lever.co", ".teamtailor.com",
-    ".myworkdayjobs.com", ".workable.com",
+    ".greenhouse.io",
+    ".lever.co",
+    ".teamtailor.com",
+    ".myworkdayjobs.com",
+    ".workable.com",
 )
 
 
@@ -30,6 +33,7 @@ def careers_page_matches_employer(
         return any(
             compact_name in re.sub(r"[^a-z0-9]", "", value.casefold())
             or re.sub(r"[^a-z0-9]", "", value.casefold()) in compact_name
-            for value in identifiers if len(value) >= 2
+            for value in identifiers
+            if len(value) >= 2
         )
     return False

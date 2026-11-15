@@ -2,8 +2,11 @@ from scout.employer_branding.logo_image_validation import has_usable_logo_dimens
 from scout.employer_branding.logo_url_validation import is_valid_image_payload
 
 PNG = (
-    b"\x89PNG\r\n\x1a\n" + b"\x00" * 8
-    + (200).to_bytes(4, "big") + (80).to_bytes(4, "big") + b"\x00" * 8
+    b"\x89PNG\r\n\x1a\n"
+    + b"\x00" * 8
+    + (200).to_bytes(4, "big")
+    + (80).to_bytes(4, "big")
+    + b"\x00" * 8
 )
 
 

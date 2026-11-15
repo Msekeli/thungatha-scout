@@ -13,6 +13,7 @@ from scout.employer_branding.logo_page_url_validation import (
     is_usable_employer_logo_page_url,
 )
 
+
 async def discover_employer_logo(
     careers_url: str | None,
     website_url: str | None = None,

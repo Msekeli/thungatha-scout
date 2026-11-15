@@ -56,7 +56,11 @@ def extract_logo_assets(
         )
     if lever_page:
         ranked.extend(
-            (score_logo_candidate(url, "lever employer logo", True), url, "official_ats_logo")
+            (
+                score_logo_candidate(url, "lever employer logo", True),
+                url,
+                "official_ats_logo",
+            )
             for url in parser.meta.get("og:image", [])
         )
     for value, hint in parser.image_candidates:
