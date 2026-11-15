@@ -5,7 +5,6 @@ import type { VacancyDashboardMetrics } from "./api-services/vacancy-api-client"
 
 const EMPTY_METRICS: VacancyDashboardMetrics = {
   total_active: 0,
-  companies_total: 0,
   new_last_24_hours: 0,
   fresh_vacancies: 0,
   recent_vacancies: 0,
