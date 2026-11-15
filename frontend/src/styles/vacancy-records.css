@@ -7,7 +7,7 @@
   }
 
   .scout-vacancy-count-card {
-    @apply relative flex min-h-[68px] min-w-[220px] items-center gap-3 overflow-hidden rounded-2xl border px-4 py-3 shadow-sm;
+    @apply relative flex min-h-[64px] min-w-[150px] flex-1 items-center gap-2 overflow-hidden rounded-2xl border px-3 py-2 shadow-sm;
     background: var(--scout-card-gradient);
     border-color: var(--scout-border);
     box-shadow: var(--scout-shadow);
@@ -18,7 +18,7 @@
     background: var(--scout-brand-gradient);
   }
   .scout-vacancy-count-card__icon {
-    @apply grid h-11 w-11 shrink-0 place-items-center rounded-xl border;
+    @apply grid h-9 w-9 shrink-0 place-items-center rounded-lg border;
     color: var(--scout-accent);
     background: var(--scout-accent-soft);
     border-color: var(--scout-accent-border);
