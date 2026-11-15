@@ -6,6 +6,7 @@ import type { useJobsWorkspaceController } from "./useJobsWorkspaceController";
 import { VacancyDetailsPanel } from "./VacancyDetailsPanel";
 import { VacancyRecordList } from "./VacancyRecordList";
 import { VacancyRecordsToolbar } from "./VacancyRecordsToolbar";
+import type { VacancyAgeFilter } from "../shared-contracts/vacancy-contracts";
 
 type Props = {
   jobs: ReturnType<typeof useJobsWorkspaceController>;
@@ -50,6 +51,8 @@ export function JobsWorkspacePanel({ jobs, state, vacancyChange }: Props) {
             onEmployerChange={state.setSelectedEmployerId}
             employers={jobs.employers}
             locationScope={state.locationScope}
+            ageFilter={state.vacancyAgeFilter}
+            onAgeFilterChange={state.setVacancyAgeFilter}
             onLocationChange={state.setLocationScope}
             totalVacancies={jobs.totalVacancies}
             loadedVacancies={jobs.vacancies.length}
