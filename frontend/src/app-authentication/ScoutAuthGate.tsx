@@ -40,8 +40,9 @@ export function ScoutAuthGate() {
     );
   }
   if (!session?.user.email) return <AdministratorLoginForm />;
+  const authClient = supabase;
 
   return (
-    <App administratorEmail={session.user.email} onSignOut={() => void supabase.auth.signOut()} />
+    <App administratorEmail={session.user.email} onSignOut={() => void authClient.auth.signOut()} />
   );
 }
