@@ -1,5 +1,5 @@
 export type VacancyLocationScope = "cape_town" | "western_cape" | "south_africa" | "all";
-export type VacancyAgeFilter = "all" | "new" | "old" | "8_14" | "15_30" | "over_30" | "undated";
+export type VacancyAgeFilter = "all" | "new" | "fresh" | "8_14" | "15_30" | "over_30" | "undated";
 
 export type VacancyPage = {
   items: Vacancy[];
