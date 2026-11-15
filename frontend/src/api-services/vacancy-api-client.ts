@@ -17,7 +17,10 @@ type VacancyPageQuery = {
 export type VacancyDashboardMetrics = {
   total_active: number;
   new_last_24_hours: number;
-  old_vacancies: number;
+  fresh_vacancies: number;
+  recent_vacancies: number;
+  aging_vacancies: number;
+  stale_vacancies: number;
   undated_vacancies: number;
 };
 
