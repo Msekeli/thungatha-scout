@@ -37,27 +37,35 @@ def extract_logo_assets(
 ) -> list[tuple[str, str]]:
     parser = BrandingMetadataParser()
     parser.feed(html)
-    ranked: list[tuple[int, str]] = []
+    page_host = (urlparse(page_url).hostname or "").casefold()
+    lever_page = page_host in {"jobs.lever.co", "jobs.eu.lever.co"}
+    ranked: list[tuple[int, str, str]] = []
     for script in parser.json_scripts:
         try:
             data = json.loads(script)
         except (ValueError, TypeError):
             continue
         ranked.extend(
-            (score_logo_candidate(url, "", True), url) for url in _logo_values(data)
+            (score_logo_candidate(url, "", True), url, "official_logo")
+            for url in _logo_values(data)
         )
     for key in ("og:logo", "logo"):
         ranked.extend(
-            (score_logo_candidate(url, "", True), url)
+            (score_logo_candidate(url, "", True), url, "official_logo")
             for url in parser.meta.get(key, [])
+        )
+    if lever_page:
+        ranked.extend(
+            (score_logo_candidate(url, "lever employer logo", True), url, "official_ats_logo")
+            for url in parser.meta.get("og:image", [])
         )
     for value, hint in parser.image_candidates:
         score = score_logo_candidate(value, hint)
         if score > 0:
-            ranked.append((score, value))
-    page_host = (urlparse(page_url).hostname or "").casefold().removeprefix("www.")
+            ranked.append((score, value, "official_logo"))
+    page_host = page_host.removeprefix("www.")
     ranked_urls = []
-    for score, value in ranked:
+    for score, value, logo_type in ranked:
         url = urljoin(page_url, value.strip())
         host = (urlparse(url).hostname or "").casefold().removeprefix("www.")
         if (
@@ -67,10 +75,10 @@ def extract_logo_assets(
             or conflicts_with_employer_name(url, employer_name)
         ):
             continue
-        ranked_urls.append((score + (35 if host == page_host else 0), url))
+        ranked_urls.append((score + (35 if host == page_host else 0), url, logo_type))
     result = []
-    for _, url in sorted(set(ranked_urls), reverse=True):
-        result.append((url, "official_logo"))
+    for _, url, logo_type in sorted(set(ranked_urls), reverse=True):
+        result.append((url, logo_type))
     return result
 
 

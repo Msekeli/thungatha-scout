@@ -6,30 +6,25 @@ import httpx
 from scout.employer_branding.logo_discovery import discover_employer_logo
 from scout.employer_branding.logo_http import is_usable_employer_logo_url
 
-
-PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 24
+PNG = (
+    b"\x89PNG\r\n\x1a\n" + b"\x00" * 8
+    + (200).to_bytes(4, "big") + (80).to_bytes(4, "big") + b"\x00" * 8
+)
 
 
 def mock_http(monkeypatch, handler, private_hosts=()) -> None:
     original = httpx.AsyncClient
     monkeypatch.setattr(
-        httpx,
-        "AsyncClient",
+        httpx, "AsyncClient",
         lambda *args, **kwargs: original(
             *args, transport=httpx.MockTransport(handler), **kwargs
         ),
     )
     monkeypatch.setattr(
-        socket,
-        "getaddrinfo",
+        socket, "getaddrinfo",
         lambda host, *args, **kwargs: [
-            (
-                None,
-                None,
-                None,
-                None,
-                ("127.0.0.1" if host in private_hosts else "8.8.8.8", 443),
-            )
+            (None, None, None, None,
+             ("127.0.0.1" if host in private_hosts else "8.8.8.8", 443))
         ],
     )
 
@@ -57,15 +52,12 @@ def test_rejects_non_image_candidate(monkeypatch) -> None:
     async def handler(request):
         if request.url.host == "employer.example.com":
             return httpx.Response(200, headers={"content-type": "text/html"}, text=html)
-        return httpx.Response(
-            200, headers={"content-type": "text/html"}, text="not image"
-        )
+        return httpx.Response(200, headers={"content-type": "text/html"}, text="bad")
 
     mock_http(monkeypatch, handler)
-    assert (
-        asyncio.run(discover_employer_logo(None, "https://employer.example.com"))
-        is None
-    )
+    assert asyncio.run(
+        discover_employer_logo(None, "https://employer.example.com")
+    ) is None
 
 
 def test_blocks_workable_and_ats_logo_hosts() -> None:

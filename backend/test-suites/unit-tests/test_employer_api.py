@@ -1,7 +1,8 @@
 from uuid import uuid4
 
-from scout.api.employers import get_employer_service
 from employer_api_test_doubles import FakeEmployerService, client_for
+
+from scout.api.employers import get_employer_service
 
 
 def test_employer_registry_api_creates_and_lists_employers() -> None:
@@ -31,6 +32,7 @@ def test_employer_registry_api_creates_and_lists_employers() -> None:
 
 def test_employer_registry_api_validates_payloads() -> None:
     from fastapi.testclient import TestClient
+
     from scout.main import app
 
     response = TestClient(app).post("/api/v1/employers", json={"name": "   "})
@@ -56,7 +58,6 @@ def test_employer_branding_api_updates_logo_metadata() -> None:
 
 
 def test_logo_discovery_uses_registered_employer_careers_url(monkeypatch) -> None:
-    import asyncio
 
     import scout.api.employer_branding_routes as employer_routes
 
@@ -80,9 +81,8 @@ def test_logo_discovery_uses_registered_employer_careers_url(monkeypatch) -> Non
     )
     discovered = []
 
-    async def fake_discover(careers_url, website_url=None):
+    async def fake_discover(careers_url, website_url=None, **kwargs):
         discovered.append((careers_url, website_url))
-        return None
 
     monkeypatch.setattr(employer_routes, "discover_employer_logo", fake_discover)
     with client_for(get_employer_service, service) as client:

@@ -32,7 +32,14 @@ async def discover_employer_branding(
         ),
         None,
     )
-    result = await discover_employer_logo(careers_url, employer.get("website_url"))
+    source_urls = [item.get("source_url") for item in sources if item.get("source_url")]
+    result = await discover_employer_logo(
+        careers_url,
+        employer.get("website_url"),
+        source_urls=source_urls,
+        diagnostics=[],
+        employer_name=employer.get("name", ""),
+    )
     if result is None:
         return employer
     logo_url, source_url, logo_type = result

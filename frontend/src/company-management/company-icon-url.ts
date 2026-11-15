@@ -5,7 +5,12 @@ import {
   parseSafeBrandingUrl,
 } from "./company-branding-url.ts";
 
-const APPROVED_LOGO_TYPES = new Set(["official_logo", "official_favicon", "careers_favicon"]);
+const APPROVED_LOGO_TYPES = new Set([
+  "official_logo",
+  "official_favicon",
+  "careers_favicon",
+  "official_ats_logo",
+]);
 
 export function isApprovedEmployerBranding(
   value?: string | null,
