@@ -25,17 +25,23 @@ export function ScoutAuthGate() {
   }, []);
 
   if (!initialized) {
-    return <main className="grid min-h-screen place-items-center text-sm text-muted-foreground">Loading secure session…</main>;
+    return (
+      <main className="grid min-h-screen place-items-center text-sm text-muted-foreground">
+        Loading secure session…
+      </main>
+    );
   }
   if (!supabase) {
-    return <main className="grid min-h-screen place-items-center p-6 text-center text-sm text-muted-foreground">Authentication is not configured. Set the Scout Supabase URL and publishable key in the frontend environment.</main>;
+    return (
+      <main className="grid min-h-screen place-items-center p-6 text-center text-sm text-muted-foreground">
+        Authentication is not configured. Set the Scout Supabase URL and publishable key in the
+        frontend environment.
+      </main>
+    );
   }
   if (!session?.user.email) return <AdministratorLoginForm />;
 
   return (
-    <App
-      administratorEmail={session.user.email}
-      onSignOut={() => void supabase.auth.signOut()}
-    />
+    <App administratorEmail={session.user.email} onSignOut={() => void supabase.auth.signOut()} />
   );
 }
