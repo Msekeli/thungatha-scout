@@ -52,7 +52,7 @@ export function AppShellHeaderActions({
         </Button>
       )}
       <div
-        className="ml-2 hidden max-w-[180px] truncate border-l border-border pl-3 text-xs text-muted-foreground"
+        className="ml-2 hidden max-w-[180px] truncate border-l border-border pl-3 text-xs text-muted-foreground xl:block"
         title={administratorEmail}
       >
         {administratorEmail}

@@ -26,6 +26,6 @@ def register_application_routes(app: FastAPI, api_prefix: str) -> None:
     for router in routers:
         app.include_router(router, prefix=api_prefix, dependencies=protected)
 
-    # Keep server-to-server export authentication separate from administrator sessions.
+    # Keep the server-to-server export key independent of administrator sessions.
     app.include_router(vacancy_export_router, prefix=api_prefix)
     app.include_router(vacancies_router, prefix=api_prefix, dependencies=protected)
