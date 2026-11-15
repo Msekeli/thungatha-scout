@@ -10,6 +10,7 @@ type RunSummary = {
 
 type Props = {
   vacancyCount: number;
+  companyCount: number;
   newCount: number;
   oldCount: number;
   undatedCount: number;
@@ -17,7 +18,7 @@ type Props = {
   extracting: boolean;
 };
 
-export function DashboardOverview({ vacancyCount, newCount, oldCount,
+export function DashboardOverview({ vacancyCount, companyCount, newCount, oldCount,
   undatedCount, runSummary, extracting }: Props) {
   return (
     <div className="flex flex-wrap items-center gap-3">
@@ -26,6 +27,7 @@ export function DashboardOverview({ vacancyCount, newCount, oldCount,
         <div><p className="text-xs text-muted-foreground">Collected vacancies</p>
           <p className="text-xl font-bold text-primary">{vacancyCount.toLocaleString()}</p></div>
       </div>
+      <span className="rounded-md bg-muted px-2 py-1 text-xs">Companies: {companyCount}</span>
       <div className="flex flex-wrap gap-2 text-xs">
         <span className="rounded-md bg-muted px-2 py-1">New: {newCount}</span>
         <span className="rounded-md bg-muted px-2 py-1">Old: {oldCount}</span>
