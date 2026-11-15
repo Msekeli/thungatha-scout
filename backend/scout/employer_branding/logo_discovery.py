@@ -5,7 +5,10 @@ from scout.employer_branding.logo_page_helpers import (
     fetch_workday_logo,
     workday_logo_url,
 )
-from scout.employer_branding.logo_page_inspection import MAX_BRANDING_PAGES, discover_logo_on_page
+from scout.employer_branding.logo_page_inspection import (
+    MAX_BRANDING_PAGES,
+    discover_logo_on_page,
+)
 from scout.employer_branding.logo_page_url_validation import (
     is_usable_employer_logo_page_url,
 )

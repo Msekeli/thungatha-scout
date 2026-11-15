@@ -23,9 +23,14 @@ type UseScoutWorkspaceResult = {
   loadArchivedVacancies: (force?: boolean) => Promise<void>;
 };
 const EMPTY_METRICS: VacancyDashboardMetrics = {
-  total_active: 0, companies_total: 0, new_last_24_hours: 0,
-  fresh_vacancies: 0, recent_vacancies: 0, aging_vacancies: 0,
-  stale_vacancies: 0, undated_vacancies: 0,
+  total_active: 0,
+  companies_total: 0,
+  new_last_24_hours: 0,
+  fresh_vacancies: 0,
+  recent_vacancies: 0,
+  aging_vacancies: 0,
+  stale_vacancies: 0,
+  undated_vacancies: 0,
 };
 export function useScoutWorkspace(
   onError: (message: string) => void,
