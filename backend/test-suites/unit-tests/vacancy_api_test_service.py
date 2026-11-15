@@ -23,6 +23,7 @@ class FakeExtractionService:
         location_scope="cape_town",
         limit=50,
         offset=0,
+        age_filter="all",
     ):
         return {
             "items": [
