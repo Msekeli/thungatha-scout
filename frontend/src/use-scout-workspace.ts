@@ -14,6 +14,7 @@ type UseScoutWorkspaceResult = {
   totalVacancies: number;
   dashboardMetrics: VacancyDashboardMetrics;
   hasMoreVacancies: boolean;
+  loadingFirstPage: boolean;
   loadingMore: boolean;
   loadMoreVacancies: () => Promise<void>;
   archivedVacancies: Vacancy[];
@@ -64,8 +65,32 @@ export function useScoutWorkspace(
   }, [activeVacancies.loadFirstPage, onError, loadDashboardData]);
 
   useEffect(() => {
-    void loadWorkspace();
-  }, [loadWorkspace]);
+    let cancelled = false;
+    setLoading(true);
+    onError("");
+    Promise.all([scoutApi.listEmployers(), scoutApi.getVacancyMetrics()])
+      .then(([nextEmployers, metrics]) => {
+        if (cancelled) return;
+        setEmployers(nextEmployers);
+        setDashboardMetrics(metrics);
+        void loadDashboardData();
+      })
+      .catch((reason: unknown) => {
+        if (!cancelled) {
+          onError(reason instanceof Error ? reason.message : "Could not load Scout data.");
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [onError, loadDashboardData]);
+
+  useEffect(() => {
+    void activeVacancies.loadFirstPage();
+  }, [activeVacancies.loadFirstPage]);
   useEffect(() => {
     if (showArchived) void archived.loadArchivedVacancies();
   }, [showArchived, archived.loadArchivedVacancies]);
