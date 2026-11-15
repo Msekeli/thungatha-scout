@@ -18,7 +18,7 @@ export function JobsWorkspacePanel({ jobs, state }: Props) {
       <div className="flex flex-wrap items-center justify-between gap-4 px-1 py-1">
         <DashboardOverview
           vacancyCount={jobs.dashboardMetrics.total_active}
-          companyCount={jobs.employerCount}
+          companyCount={jobs.dashboardMetrics.companies_total}
           newCount={jobs.dashboardMetrics.new_last_24_hours}
           oldCount={jobs.dashboardMetrics.old_vacancies}
           undatedCount={jobs.dashboardMetrics.undated_vacancies}
