@@ -36,7 +36,7 @@ export function DashboardOverview({
           <p className="text-xl font-bold text-primary">{vacancyCount.toLocaleString()}</p>
         </div>
       </div>
-      <span className="rounded-md bg-muted px-2 py-1 text-xs">Companies: {companyCount}</span>
+      <span className="rounded-md bg-muted px-2 py-1 text-xs">Registered companies: {companyCount}</span>
       <div className="flex flex-wrap gap-2 text-xs">
         <span className="rounded-md bg-muted px-2 py-1">New: {newCount}</span>
         <span className="rounded-md bg-muted px-2 py-1">Old: {oldCount}</span>
