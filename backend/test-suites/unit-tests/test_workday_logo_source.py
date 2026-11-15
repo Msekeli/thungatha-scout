@@ -56,7 +56,7 @@ def test_registered_workday_source_precedes_employer_homepage(monkeypatch) -> No
         board,
         "official_ats_logo",
     ), diagnostics
-    assert requested[0] == board, diagnostics
+    assert requested[0] == f"{board}/assets/logo", diagnostics
 
 
 def test_workday_source_page_and_logo_endpoint_are_allowed() -> None:
