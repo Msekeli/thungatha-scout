@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "./api";
-import type { Employer, Vacancy, VacancyLocationScope } from "./api";
+import type { Employer, Vacancy, VacancyAgeFilter, VacancyLocationScope } from "./api";
 import type { VacancyDashboardMetrics } from "./api-services/vacancy-api-client";
 import { useArchivedVacancies } from "./use-archived-vacancies";
 import { useVacancyPagination } from "./use-vacancy-pagination";
@@ -27,12 +27,14 @@ export function useScoutWorkspace(
   onError: (message: string) => void,
   showArchived: boolean,
   loadDashboardData: () => Promise<void>,
-  filters: { employerId: string; locationScope: VacancyLocationScope },
+  filters: { employerId: string; locationScope: VacancyLocationScope; ageFilter: VacancyAgeFilter },
 ): UseScoutWorkspaceResult {
   const [employers, setEmployers] = useState<Employer[]>([]);
   const [dashboardMetrics, setDashboardMetrics] = useState<VacancyDashboardMetrics>({
     total_active: 0,
     new_last_24_hours: 0,
+    old_vacancies: 0,
+    undated_vacancies: 0,
   });
   const [loading, setLoading] = useState(true);
   const activeVacancies = useVacancyPagination(filters, onError);
