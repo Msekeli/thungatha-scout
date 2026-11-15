@@ -109,10 +109,21 @@ export function AppShellHeader({
             <RefreshCw className={refreshing ? "h-4 w-4 animate-spin" : "h-4 w-4"} />
           </Button>
         )}
-        <div className="ml-2 hidden max-w-[180px] truncate border-l border-border pl-3 text-xs text-muted-foreground xl:block" title={administratorEmail}>
+        <div
+          className="ml-2 hidden max-w-[180px] truncate border-l border-border pl-3 text-xs text-muted-foreground xl:block"
+          title={administratorEmail}
+        >
           {administratorEmail}
         </div>
-        <Button type="button" size="icon" variant="ghost" className="text-muted-foreground" title="Sign out" aria-label="Sign out" onClick={onSignOut}>
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          className="text-muted-foreground"
+          title="Sign out"
+          aria-label="Sign out"
+          onClick={onSignOut}
+        >
           <LogOut className="h-4 w-4" />
         </Button>
       </nav>

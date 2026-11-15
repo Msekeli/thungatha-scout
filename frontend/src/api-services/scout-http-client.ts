@@ -12,7 +12,7 @@ export type ProblemDetails = {
 };
 
 export async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const { data } = await supabase?.auth.getSession() ?? { data: { session: null } };
+  const { data } = (await supabase?.auth.getSession()) ?? { data: { session: null } };
   const accessToken = data.session?.access_token;
   let response: Response;
   try {
