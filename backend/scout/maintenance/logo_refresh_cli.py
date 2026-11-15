@@ -5,7 +5,9 @@ import asyncio
 def run_cli(refresh_employer_logos):
     parser = argparse.ArgumentParser(description="Refresh employer branding safely.")
     parser.add_argument("--apply", action="store_true", help="Persist replacements.")
-    parser.add_argument("--recheck-existing", action="store_true", help="Recheck reachable logos.")
+    parser.add_argument(
+        "--recheck-existing", action="store_true", help="Recheck reachable logos."
+    )
     parser.add_argument(
         "--only-needs-refresh",
         action="store_true",

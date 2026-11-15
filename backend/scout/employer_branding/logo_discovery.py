@@ -73,7 +73,11 @@ async def discover_employer_logo(
                 if result:
                     return result
             except InvalidLogoAsset as error:
-                reason = "REDIRECT_IDENTITY_MISMATCH" if "redirect" in str(error).casefold() else "PAGE_REJECTED"
+                reason = (
+                    "REDIRECT_IDENTITY_MISMATCH"
+                    if "redirect" in str(error).casefold()
+                    else "PAGE_REJECTED"
+                )
                 diagnostics.append(reason)
             except (UnavailableLogoAsset, httpx.HTTPError, OSError):
                 diagnostics.append("PAGE_UNAVAILABLE")

@@ -74,5 +74,3 @@ def test_about_page_is_checked_when_homepage_has_no_logo(monkeypatch):
         "https://company.example/about-us",
         "official_logo",
     )
-
-

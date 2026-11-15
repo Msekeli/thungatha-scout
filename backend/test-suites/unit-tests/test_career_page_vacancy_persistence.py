@@ -74,5 +74,3 @@ def test_partial_crawl_persists_found_jobs_without_marking_complete(monkeypatch)
     )
     assert len(captured["upserted"]) == 1
     assert outcome == {"outcome": "partial", "complete": False}
-
-
