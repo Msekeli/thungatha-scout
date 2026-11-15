@@ -1,0 +1,27 @@
+@layer components {
+  .scout-company-form-section {
+    @apply mt-4 grid gap-3 rounded-xl border p-4;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+    color: hsl(var(--foreground));
+  }
+  .scout-company-source-card {
+    @apply grid gap-3 rounded-xl border p-3 sm:flex sm:items-center sm:justify-between;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+  }
+  .scout-company-inline-editor {
+    @apply grid gap-3 rounded-xl border p-4;
+    background: var(--scout-surface);
+    border-color: var(--scout-border);
+  }
+  .scout-company-muted {
+    color: hsl(var(--muted-foreground));
+  }
+  .scout-metric-positive {
+    color: var(--scout-success-text);
+  }
+  .scout-metric-negative {
+    color: var(--scout-warning-text);
+  }
+}
