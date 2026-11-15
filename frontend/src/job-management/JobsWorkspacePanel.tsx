@@ -20,7 +20,10 @@ export function JobsWorkspacePanel({ jobs, state }: Props) {
           vacancyCount={jobs.dashboardMetrics.total_active}
           companyCount={jobs.dashboardMetrics.companies_total}
           newCount={jobs.dashboardMetrics.new_last_24_hours}
-          oldCount={jobs.dashboardMetrics.old_vacancies}
+          freshCount={jobs.dashboardMetrics.fresh_vacancies}
+          recentCount={jobs.dashboardMetrics.recent_vacancies}
+          agingCount={jobs.dashboardMetrics.aging_vacancies}
+          staleCount={jobs.dashboardMetrics.stale_vacancies}
           undatedCount={jobs.dashboardMetrics.undated_vacancies}
           runSummary={jobs.runSummary ?? jobs.latestRunSummary}
           extracting={state.extracting}
