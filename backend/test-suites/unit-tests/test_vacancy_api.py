@@ -80,3 +80,16 @@ def test_rejects_unknown_export_location_scope() -> None:
     with vacancy_client() as client:
         response = client.get("/api/v1/vacancies/export?location_scope=sweden")
     assert response.status_code == 422
+
+
+def test_filters_vacancies_by_age_category() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies?age_filter=undated")
+    assert response.status_code == 200
+    assert response.json()["total"] == 201
+
+
+def test_rejects_unknown_vacancy_age_filter() -> None:
+    with vacancy_client() as client:
+        response = client.get("/api/v1/vacancies?age_filter=verified")
+    assert response.status_code == 422
