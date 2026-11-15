@@ -413,3 +413,27 @@ The user approved the next platform sequence: **Workable first, Workday second, 
 - All extracted records continue through the existing adapter contract and shared Scout persistence, normalization, deduplication, quality, lifecycle, exception and publication pipeline. No second database or direct Thungatha writes.
 
 The sequence prioritises measurable South African employer coverage and reusable retrieval over adapter count. Platform association, public access, source permission, vacancy completeness and production readiness remain separate claims requiring evidence.
+
+
+## Decision record — first deployment scope and Heroku hosting (15 November 2026)
+
+This decision narrows the first production release to a secure, manually operated Scout workflow. It supersedes the earlier assumption that scheduled extraction must be implemented before hosting, and supersedes Zyte Scrapy Cloud as the selected first-deployment worker host. It does not remove the future scheduler requirement or the Crawlee implementation.
+
+### First-deployment priorities
+
+1. **Manual extraction reliability:** retain the existing admin-initiated retrieval workflow. Verify that an administrator can trigger retrieval, that the existing extraction pipeline completes and persists run outcomes and vacancies correctly, and that partial/failure states are visible. Manual extraction is the required operating mode for the first deployment.
+2. **Security hardening:** before public deployment, review every API route and ensure all admin operations require backend-enforced administrator authorization. Keep the vacancy export machine credential separate from browser/admin authentication. Validate CORS, production environment configuration, secrets handling, request boundaries and error responses. Resolve the crawler's redirect-hop/SSRF risk before enabling arbitrary user-supplied career-page crawling in production.
+3. **Single-admin authentication:** complete and verify Supabase Auth for the one configured administrator email. Disable public sign-up. The backend must independently validate access tokens and enforce the email allowlist on every protected admin operation; frontend route guards are not authorization.
+4. **Initial hosting and release:** deploy the React/Vite frontend to Vercel and the FastAPI backend to Heroku. Use Heroku's Python deployment path initially; do not make Docker a prerequisite. Keep the backend provider-neutral and keep Scout Supabase and Thungatha Supabase separate. Verify production login, manual retrieval, persistence, vacancy views and protected export end to end before accepting release.
+
+### Explicitly deferred after first hosting
+
+- Automated scheduling is not a first-deployment requirement. Keep the target schedule of 06:00 and 18:00 Africa/Johannesburg, maximum one hour per run, as the future operating target. Do not configure recurring jobs until the scheduler/worker has been implemented, tested and explicitly accepted.
+- Broader ATS expansion, additional crawler coverage, AI enrichment, automated lifecycle reconciliation and other unfinished product capabilities continue after hosting according to the implementation plan. Do not represent them as production-ready merely because the API is deployed.
+- Docker remains a later packaging/portability milestone. Add one backend image supporting separate API and worker commands only when there is a demonstrated need or before a later provider migration; no database container is required.
+- Zyte Scrapy Cloud is no longer the first-deployment worker host. Preserve the Crawlee framework and its provider-neutral worker design. Reconsider Zyte only if a later measured workload or deployment requirement justifies it. This does not authorize paid Zyte usage.
+- Heroku is the selected initial backend host, not a permanent lock-in. Keep provider-specific deployment concerns outside core application services. Verify current student credit eligibility and projected cost before provisioning; no unapproved paid plan upgrade or additional spend is authorized.
+
+### First-release acceptance boundary
+
+The first release is accepted only after manual retrieval works in the deployed environment, all admin routes are protected server-side, the single-admin sign-in flow is verified, secrets are configured only in hosting environment settings, the frontend can reach the backend through production CORS, and the critical production workflow is exercised successfully. Scheduler acceptance is explicitly excluded from this first-release gate.
