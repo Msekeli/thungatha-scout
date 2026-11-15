@@ -6,7 +6,7 @@ class VacancyMetricsReadOperations:
                 COUNT(*) FILTER (WHERE first_seen_at >= NOW() - INTERVAL '24 hours')
                     AS new_last_24_hours,
                 COUNT(*) FILTER (WHERE COALESCE(source_updated_at, published_at)
-                    < NOW() - INTERVAL '7 days') AS old_vacancies,
+                    < NOW() - INTERVAL '8 days') AS old_vacancies,
                 COUNT(*) FILTER (WHERE source_updated_at IS NULL
                     AND published_at IS NULL) AS undated_vacancies
             FROM vacancies
