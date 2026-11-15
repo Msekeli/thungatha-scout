@@ -49,10 +49,25 @@ def map_workday_vacancy(
         department=department if isinstance(department, str) else None,
         office=None,
         application_url=apply_url,
-        published_at=None,
+        published_at=_posting_date(info.get("startDate")),
         source_updated_at=None,
         raw_payload=raw,
     )
+
+
+def _posting_date(value: Any) -> str | None:
+    if not isinstance(value, str):
+        return None
+    candidate = value.strip()
+    if len(candidate) != 10:
+        return None
+    try:
+        from datetime import date
+
+        date.fromisoformat(candidate)
+    except ValueError:
+        return None
+    return candidate
 
 
 def required_text(value: Mapping[str, Any], field: str) -> str:
