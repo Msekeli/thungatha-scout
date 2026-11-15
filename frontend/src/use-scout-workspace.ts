@@ -53,7 +53,13 @@ export function useScoutWorkspace(
     } finally {
       setLoading(false);
     }
-  }, [activeVacancies.loadFirstPage, onError, loadDashboardData, referenceData.setEmployers, referenceData.setDashboardMetrics]);
+  }, [
+    activeVacancies.loadFirstPage,
+    onError,
+    loadDashboardData,
+    referenceData.setEmployers,
+    referenceData.setDashboardMetrics,
+  ]);
 
   useEffect(() => {
     void activeVacancies.loadFirstPage();

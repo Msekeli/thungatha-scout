@@ -4,9 +4,14 @@ import type { Employer } from "./api";
 import type { VacancyDashboardMetrics } from "./api-services/vacancy-api-client";
 
 const EMPTY_METRICS: VacancyDashboardMetrics = {
-  total_active: 0, companies_total: 0, new_last_24_hours: 0,
-  fresh_vacancies: 0, recent_vacancies: 0, aging_vacancies: 0,
-  stale_vacancies: 0, undated_vacancies: 0,
+  total_active: 0,
+  companies_total: 0,
+  new_last_24_hours: 0,
+  fresh_vacancies: 0,
+  recent_vacancies: 0,
+  aging_vacancies: 0,
+  stale_vacancies: 0,
+  undated_vacancies: 0,
 };
 
 export function useScoutWorkspaceReferenceData(
@@ -28,11 +33,15 @@ export function useScoutWorkspaceReferenceData(
         setDashboardMetrics(metrics);
         void loadDashboardData();
       })
-      .catch((reason: unknown) => !cancelled && onError(
-        reason instanceof Error ? reason.message : "Could not load Scout data.",
-      ))
+      .catch(
+        (reason: unknown) =>
+          !cancelled &&
+          onError(reason instanceof Error ? reason.message : "Could not load Scout data."),
+      )
       .finally(() => !cancelled && setLoading(false));
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [onError, loadDashboardData, setLoading]);
 
   return { employers, setEmployers, dashboardMetrics, setDashboardMetrics };
