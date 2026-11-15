@@ -21,13 +21,7 @@ const needsAttention = (run: ExtractionRun) =>
   blockedOutcomes.includes(run.outcome) ||
   !isSuccessful(run);
 
-export function IngestionOperationsPanel({
-  employers,
-  sources,
-  runs,
-  running,
-  onRunNow,
-}: Props) {
+export function IngestionOperationsPanel({ employers, sources, runs, running, onRunNow }: Props) {
   const allRuns = Object.values(runs).flat();
   const successfulRuns = allRuns.filter(isSuccessful).length;
   const attentionRuns = allRuns.filter(needsAttention).length;
