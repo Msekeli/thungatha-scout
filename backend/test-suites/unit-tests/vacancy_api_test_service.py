@@ -4,8 +4,13 @@ from uuid import uuid4
 
 class FakeExtractionService:
     def get_dashboard_metrics(self):
-        return dict(total_active=201, companies_total=24, new_last_24_hours=12,
-                    old_vacancies=45, undated_vacancies=8)
+        return dict(
+            total_active=201,
+            companies_total=24,
+            new_last_24_hours=12,
+            old_vacancies=45,
+            undated_vacancies=8,
+        )
 
     async def extract_source(self, source_id):
         return {
