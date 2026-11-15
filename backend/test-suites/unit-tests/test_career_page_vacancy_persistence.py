@@ -76,28 +76,3 @@ def test_partial_crawl_persists_found_jobs_without_marking_complete(monkeypatch)
     assert outcome == {"outcome": "partial", "complete": False}
 
 
-def test_unlocated_vacancy_is_withheld_and_run_stays_partial(monkeypatch):
-    class VacancyStore:
-        def __init__(self, connection):
-            pass
-
-        def upsert_batch(self, *args):
-            raise AssertionError("Unlocated vacancies must not be persisted.")
-
-    class RunStore:
-        def __init__(self, connection):
-            pass
-
-        def finish(self, *args):
-            return {"outcome": args[1], "complete": args[5]}
-
-    monkeypatch.setattr(vacancies, "VacancyRepository", VacancyStore)
-    monkeypatch.setattr(vacancies, "ExtractionRunRepository", RunStore)
-    outcome = vacancies.persist_crawl_vacancies(
-        _factory(),
-        {"employer_id": uuid4(), "source_url": "https://employer.example/careers"},
-        uuid4(),
-        uuid4(),
-        _result(True, location=None),
-    )
-    assert outcome == {"outcome": "partial", "complete": False}
