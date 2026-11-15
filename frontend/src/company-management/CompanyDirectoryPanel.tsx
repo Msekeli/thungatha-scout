@@ -18,7 +18,10 @@ type Props = {
 };
 
 export const CompanyDirectoryPanel: FC<Props> = (props) => {
-  const visible = props.employers.filter(
+  const directEmployers = props.employers.filter(
+    (item) => !["recruitment_agency", "staffing_company"].includes(item.organization_type),
+  );
+  const visible = directEmployers.filter(
     (item) =>
       item.name.toLowerCase().includes(props.searchQuery.toLowerCase()) &&
       (props.sourceFilter === "all" ||
@@ -38,7 +41,7 @@ export const CompanyDirectoryPanel: FC<Props> = (props) => {
       <div className="mb-3 flex items-center justify-between text-xs scout-company-muted">
         <span>
           Showing <strong className="scout-company-count">{visible.length}</strong> of{" "}
-          {props.employers.length} employers
+          {directEmployers.length} employers
         </span>
         <span className="hidden sm:inline">Select a card to manage its sources and details</span>
       </div>
@@ -51,9 +54,9 @@ export const CompanyDirectoryPanel: FC<Props> = (props) => {
           selectedEmployerId={props.selectedEmployerId}
           onSelectEmployer={props.onSelectEmployer}
           emptyMessage={
-            props.employers.length
+            directEmployers.length
               ? "No companies match your search."
-              : "No companies registered yet."
+              : "No direct employers registered yet."
           }
         />
       </div>

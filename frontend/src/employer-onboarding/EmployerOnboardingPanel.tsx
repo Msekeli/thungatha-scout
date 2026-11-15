@@ -1,6 +1,8 @@
 import type { FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { OnboardingUrlForm } from "./OnboardingUrlForm";
+import { EmployerDuplicateNotice } from "./EmployerDuplicateNotice";
+import type { EmployerDuplicateMatch } from "./findEmployerDuplicate";
 
 type EmployerRegistrationDraft = {
   name: string;
@@ -17,9 +19,12 @@ type EmployerOnboardingPanelProps = {
   inspecting: boolean;
   form: EmployerRegistrationDraft;
   onChangeCompanyName: (value: string) => void;
+  onChangeWebsiteUrl: (value: string) => void;
   saving: boolean;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
+  duplicate: EmployerDuplicateMatch | null;
+  onOpenExisting: (employerId: string) => void;
 };
 
 export function EmployerOnboardingPanel({
@@ -28,16 +33,20 @@ export function EmployerOnboardingPanel({
   inspecting,
   form,
   onChangeCompanyName,
+  onChangeWebsiteUrl,
   saving,
   onSubmit,
   onCancel,
+  duplicate,
+  onOpenExisting,
 }: EmployerOnboardingPanelProps) {
   const busy = inspecting || saving;
   return (
     <>
       <p className="mb-3 text-xs scout-company-muted">
-        Add an employer from its official careers page. Scout will configure the source and import
-        its vacancies.
+        Add an employer using its official careers page or a supported Greenhouse, Lever,
+        Teamtailor, Workable or Workday board. Vacancy extraction starts after registration in the
+        background.
       </p>
       <section className="scout-company-onboarding">
         <div className="mb-5">
@@ -52,7 +61,10 @@ export function EmployerOnboardingPanel({
             onChangeCompanyName={onChangeCompanyName}
             sourceUrl={sourceUrl}
             onChangeSourceUrl={onChangeSourceUrl}
+            websiteUrl={form.website_url}
+            onChangeWebsiteUrl={onChangeWebsiteUrl}
           />
+          <EmployerDuplicateNotice duplicate={duplicate} onOpenExisting={onOpenExisting} />
           <div className="scout-company-form-actions">
             <Button
               type="button"
@@ -66,9 +78,15 @@ export function EmployerOnboardingPanel({
             <Button
               type="submit"
               className="scout-company-add-button"
-              disabled={busy || !sourceUrl.trim()}
+              disabled={busy || !sourceUrl.trim() || duplicate?.kind === "source"}
             >
-              {inspecting ? "Checking careers page…" : saving ? "Adding company…" : "Add Company"}
+              {inspecting
+                ? "Checking careers page…"
+                : saving
+                  ? "Adding company…"
+                  : duplicate?.kind === "employer"
+                    ? "Add source to existing company"
+                    : "Add Company"}
             </Button>
           </div>
         </form>

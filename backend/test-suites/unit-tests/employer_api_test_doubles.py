@@ -10,6 +10,7 @@ class FakeEmployerService:
     def __init__(self) -> None:
         self.employers = []
         self.sources = []
+        self.branding_discovery_updates = 0
 
     def list_employers(self, limit: int, offset: int):
         return self.employers[offset : offset + limit]
@@ -18,7 +19,6 @@ class FakeEmployerService:
         row = {
             "id": str(uuid4()),
             "name": payload.name,
-            "status": "discovered",
             "organization_type": payload.organization_type,
             "logo_url": str(payload.logo_url) if payload.logo_url else None,
             "logo_source_url": str(payload.logo_source_url)
@@ -43,13 +43,28 @@ class FakeEmployerService:
         )
         return employer
 
+    def update_branding_if_unusable(
+        self, employer_id, expected_logo_url, logo_url, logo_source_url, logo_type
+    ):
+        employer = self.get_employer(employer_id)
+        if employer is None or employer.get("logo_url") != expected_logo_url:
+            return None
+        self.branding_discovery_updates += 1
+        employer["logo_url"] = logo_url
+        employer["logo_source_url"] = logo_source_url
+        employer["logo_type"] = logo_type
+        return employer
+
     def create_source(self, payload):
         row = {
             "id": str(uuid4()),
             "employer_id": str(payload.employer_id),
             "adapter_key": payload.adapter_key,
-            "status": "discovered",
-            "permission_status": "unknown",
+            "discovery_preview": (
+                payload.discovery_preview.model_dump(mode="json")
+                if payload.discovery_preview
+                else None
+            ),
         }
         self.sources.append(row)
         return row
@@ -59,24 +74,6 @@ class FakeEmployerService:
 
     def list_all_sources(self):
         return self.sources
-
-
-class FakeEmployerSourceUpdateService:
-    def __init__(self) -> None:
-        self.updated = None
-
-    def update_configuration(self, employer_id, source_id, payload):
-        self.updated = (employer_id, source_id, payload)
-        return {
-            "id": str(source_id),
-            "employer_id": str(employer_id),
-            "adapter_key": payload.adapter_key,
-            "source_url": str(payload.source_url),
-            "normalized_url": str(payload.normalized_url),
-            "adapter_config": payload.adapter_config,
-            "status": "discovered",
-            "permission_status": "unknown",
-        }
 
 
 @contextmanager

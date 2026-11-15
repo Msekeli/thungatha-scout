@@ -1,10 +1,9 @@
-import pytest
-
 from registry_importer_test_connection import FakeConnection
+
 from scout.registry_importer import import_registry
 
 
-def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
+def test_registry_import_is_repeat_safe_for_supported_adapters() -> None:
     registry = {
         "employers": [
             {
@@ -13,9 +12,7 @@ def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
                 "sources": [
                     {
                         "ats": "greenhouse",
-                        "official_source_url": (
-                            "https://job-boards.greenhouse.io/example"
-                        ),
+                        "official_source_url": "https://job-boards.greenhouse.io/example",
                         "config": {"slug": "example"},
                     }
                 ],
@@ -25,9 +22,7 @@ def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
                 "sources": [
                     {
                         "ats": "workday",
-                        "official_source_url": (
-                            "https://example.wd3.myworkdayjobs.com/Careers"
-                        ),
+                        "official_source_url": "https://example.wd3.myworkdayjobs.com/Careers",
                         "config": {
                             "host_prefix": "example.wd3",
                             "tenant": "example",
@@ -36,40 +31,65 @@ def test_registry_import_is_repeat_safe_for_greenhouse_and_workday() -> None:
                     }
                 ],
             },
+            {
+                "name": "Root Platform",
+                "careers_url": "https://root.teamtailor.com/jobs",
+                "sources": [
+                    {
+                        "ats": "teamtailor",
+                        "official_source_url": "https://root.teamtailor.com/jobs",
+                        "config": {"careers_url": "https://root.teamtailor.com/jobs"},
+                    }
+                ],
+            },
+            {
+                "name": "Mama Money",
+                "sources": [
+                    {
+                        "ats": "lever",
+                        "official_source_url": "https://jobs.lever.co/mamamoney",
+                        "config": {"slug": "mamamoney", "region": "global"},
+                    }
+                ],
+            },
         ]
     }
     connection = FakeConnection()
-
     first = import_registry(registry, connection)
     second = import_registry(registry, connection)
-
     assert first == {
-        "employers_created": 2,
+        "employers_created": 4,
         "employers_updated": 0,
-        "sources_created": 2,
+        "sources_created": 4,
         "sources_updated": 0,
+        "sources_skipped": 0,
     }
     assert second == {
         "employers_created": 0,
         "employers_updated": 0,
         "sources_created": 0,
         "sources_updated": 0,
+        "sources_skipped": 0,
     }
 
 
-def test_registry_import_rejects_adapters_outside_v1_scope() -> None:
+def test_registry_import_skips_unsupported_only_employers() -> None:
     registry = {
         "employers": [
             {
-                "name": "Unsupported",
+                "name": "Network Recruitment",
+                "organization_classification": "recruitment_agency",
                 "sources": [
                     {
-                        "ats": "lever",
-                        "official_source_url": "https://jobs.example.com",
+                        "ats": "placement_partner",
+                        "official_source_url": "https://placementpartner.co.za/live/agency.php?agency=network",
+                        "config": {"agency_id": "network"},
                     }
                 ],
             }
         ]
     }
-    with pytest.raises(ValueError, match="Greenhouse/Workday registry"):
-        import_registry(registry, FakeConnection())
+    result = import_registry(registry, FakeConnection())
+    assert result["employers_created"] == 0
+    assert result["sources_created"] == 0
+    assert result["sources_skipped"] == 1

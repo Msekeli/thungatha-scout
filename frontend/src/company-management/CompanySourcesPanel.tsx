@@ -27,7 +27,7 @@ export function CompanySourcesPanel({ state, companies, onboarding }: Props) {
         state.setSourceUrl(value);
         onboarding.setInspection(null);
       }}
-      onInspect={() => void onboarding.inspectGreenhouseBoard(state.sourceUrl)}
+      onInspect={() => void onboarding.inspectSource(state.sourceUrl)}
       onSaveSource={companies.saveSource}
       onCancelEdit={() => {
         state.setEditingSourceId(null);

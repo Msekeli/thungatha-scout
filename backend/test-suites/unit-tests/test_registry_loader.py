@@ -10,8 +10,9 @@ from scout.registry_loader import (
 def test_adapter_registry_contains_greenhouse_and_workday() -> None:
     adapters = load_adapter_registry()
 
-    assert adapters["greenhouse"]["extraction_method"] == "json_api"
-    assert adapters["workday"]["extraction_method"] == "json_api_post"
+    assert adapters["greenhouse"]["extraction_method"] == "documented_public_json_api"
+    assert adapters["workday"]["extraction_method"] == "observed_public_cxs_json_post"
+    assert adapters["lever"]["status"] == "implemented"
 
 
 def test_greenhouse_source_requires_slug() -> None:
@@ -27,3 +28,22 @@ def test_workday_source_requires_host_tenant_and_site() -> None:
 def test_registry_rejects_unknown_adapter() -> None:
     with pytest.raises(RegistryValidationError, match="Unknown adapter"):
         validate_source_config("unknown", {})
+
+
+def test_lever_source_requires_slug_and_region() -> None:
+    with pytest.raises(RegistryValidationError, match="region"):
+        validate_source_config("lever", {"slug": "mamamoney"})
+
+    validate_source_config("lever", {"slug": "mamamoney", "region": "global"})
+
+
+def test_workable_source_requires_slug() -> None:
+    with pytest.raises(RegistryValidationError, match="slug"):
+        validate_source_config("workable", {})
+
+    validate_source_config("workable", {"slug": "lekkeslaap"})
+
+
+def test_lever_source_rejects_unknown_region() -> None:
+    with pytest.raises(RegistryValidationError, match="global, eu"):
+        validate_source_config("lever", {"slug": "mamamoney", "region": "us"})

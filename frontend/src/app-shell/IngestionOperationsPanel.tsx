@@ -1,0 +1,68 @@
+import { Activity, AlertTriangle, Building2, CheckCircle2, Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import type { Employer, EmployerSource, ExtractionRun } from "../api";
+import { DashboardMetricCard } from "./DashboardMetricCard";
+import { SourceStatusPanel } from "./SourceStatusPanel";
+
+type Props = {
+  employers: Employer[];
+  sources: EmployerSource[];
+  runs: Record<string, ExtractionRun[]>;
+  running: boolean;
+  onRunNow: () => void;
+};
+
+const failedOutcomes = ["transient_failure", "persistence_failure", "failed", "http_failure"];
+const blockedOutcomes = ["blocked", "rate_limited"];
+const isSuccessful = (run: ExtractionRun) =>
+  run.complete && ["success", "empty"].includes(run.outcome);
+const needsAttention = (run: ExtractionRun) =>
+  failedOutcomes.includes(run.outcome) ||
+  blockedOutcomes.includes(run.outcome) ||
+  !isSuccessful(run);
+
+export function IngestionOperationsPanel({ employers, sources, runs, running, onRunNow }: Props) {
+  const allRuns = Object.values(runs).flat();
+  const successfulRuns = allRuns.filter(isSuccessful).length;
+  const attentionRuns = allRuns.filter(needsAttention).length;
+  return (
+    <section className="flex min-h-0 flex-1 flex-col gap-4 py-4">
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-semibold">Operations dashboard</h2>
+          <p className="text-sm text-muted-foreground">
+            Monitor employer sources, retrieval health and recent activity.
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <Button
+            className="bg-scout-cyan text-scout-navy hover:brightness-95"
+            onClick={onRunNow}
+            disabled={running || !sources.length}
+          >
+            <Play className="mr-2 h-4 w-4" />
+            {running ? "Retrieval running…" : "Run retrieval"}
+          </Button>
+        </div>
+      </div>
+      <div className="grid shrink-0 grid-cols-2 gap-2 xl:grid-cols-4">
+        <DashboardMetricCard
+          label="Registered employers"
+          value={employers.length}
+          icon={Building2}
+        />
+        <DashboardMetricCard label="Configured sources" value={sources.length} icon={Activity} />
+        <DashboardMetricCard label="Successful runs" value={successfulRuns} icon={CheckCircle2} />
+        <DashboardMetricCard
+          label="Runs needing attention"
+          value={attentionRuns}
+          icon={AlertTriangle}
+        />
+      </div>
+      <p className="shrink-0 text-xs text-muted-foreground">
+        Run metrics reflect the retrieval history currently loaded for each source.
+      </p>
+      <SourceStatusPanel employers={employers} sources={sources} runs={runs} />
+    </section>
+  );
+}

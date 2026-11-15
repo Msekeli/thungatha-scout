@@ -1,0 +1,44 @@
+from dataclasses import asdict
+
+from fastapi import APIRouter, HTTPException, Query
+import httpx
+
+from scout.ats_adapters.greenhouse_adapter.greenhouse_career_site_discovery import (
+    discover_greenhouse,
+)
+from scout.ats_adapters.greenhouse_adapter.greenhouse_adapter import GreenhouseAdapter
+from scout.ats_adapters.greenhouse_adapter.greenhouse_contracts import (
+    GreenhouseUrlError,
+    parse_board_token,
+)
+
+router = APIRouter(prefix="/greenhouse", tags=["greenhouse"])
+
+
+@router.get("/inspect")
+async def inspect_greenhouse_source(
+    url: str = Query(min_length=1, max_length=2048),
+) -> dict:
+    try:
+        board_token = parse_board_token(url)
+    except GreenhouseUrlError as exception:
+        raise HTTPException(status_code=422, detail=str(exception)) from exception
+
+    adapter = GreenhouseAdapter()
+    try:
+        result = await adapter.retrieve(board_token)
+        return asdict(result) | {"source_url": url}
+    finally:
+        await adapter.close()
+
+
+@router.get("/discover")
+async def discover_careers_source(
+    url: str = Query(min_length=1, max_length=2048),
+    company_name: str = Query(default="", max_length=200),
+) -> dict:
+    try:
+        discovery = await discover_greenhouse(url, company_name)
+        return discovery
+    except (ValueError, httpx.HTTPError) as exception:
+        raise HTTPException(status_code=422, detail=str(exception)) from exception

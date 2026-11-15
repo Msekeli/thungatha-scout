@@ -1,8 +1,10 @@
 from datetime import UTC, datetime
 from uuid import uuid4
 
+from vacancy_api_metrics_test_service import VacancyMetricsTestService
 
-class FakeExtractionService:
+
+class FakeExtractionService(VacancyMetricsTestService):
     async def extract_source(self, source_id):
         return {
             "id": str(uuid4()),
@@ -23,6 +25,7 @@ class FakeExtractionService:
         location_scope="cape_town",
         limit=50,
         offset=0,
+        age_filter="all",
     ):
         return {
             "items": [

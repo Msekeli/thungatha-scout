@@ -20,22 +20,24 @@ export const employerApiClient = {
       method: "PATCH",
       body: JSON.stringify(payload),
     }),
-  updateEmployerStatus: (
-    employerId: string,
-    status: "approved" | "needs_review" | "rejected" | "inactive",
-  ) =>
-    request<Employer>(`/api/v1/employers/${employerId}/status`, {
-      method: "PATCH",
-      body: JSON.stringify({ status }),
-    }),
   deleteEmployer: (employerId: string) =>
     request<void>(`/api/v1/employers/${employerId}`, { method: "DELETE" }),
-  updateEmployerBranding: (employerId: string, logo_url: string, logo_source_url: string) =>
+  updateEmployerBranding: (
+    employerId: string,
+    logo_url: string,
+    logo_source_url: string,
+    logo_type: string,
+  ) =>
     request<Employer>(`/api/v1/employers/${employerId}/branding`, {
       method: "PATCH",
       body: JSON.stringify({
         logo_url: logo_url || null,
         logo_source_url: logo_source_url || null,
+        logo_type: logo_type ?? "unverified",
       }),
+    }),
+  discoverEmployerLogo: (employerId: string) =>
+    request<Employer | null>(`/api/v1/employers/${employerId}/branding/discover`, {
+      method: "POST",
     }),
 };

@@ -1,43 +1,57 @@
-import { ArrowDownRight, ArrowUpRight, BriefcaseBusiness } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  Building2,
+  CalendarX2,
+  Clock3,
+  Hourglass,
+  Sparkles,
+  Timer,
+} from "lucide-react";
+import { DashboardMetricCard } from "./DashboardMetricCard";
+import { DashboardRunSummary, type RunSummary } from "./DashboardRunSummary";
 
 type Props = {
   vacancyCount: number;
-  vacancyChange: number;
+  companyCount: number;
+  newCount: number;
+  freshCount: number;
+  recentCount: number;
+  agingCount: number;
+  staleCount: number;
+  undatedCount: number;
+  runSummary: RunSummary | null;
+  extracting: boolean;
 };
 
-export function DashboardOverview({ vacancyCount, vacancyChange }: Props) {
+export function DashboardOverview({
+  vacancyCount,
+  companyCount,
+  newCount,
+  freshCount,
+  recentCount,
+  agingCount,
+  staleCount,
+  undatedCount,
+  runSummary,
+  extracting,
+}: Props) {
   return (
-    <div className="scout-vacancy-count-card">
-      <span className="scout-vacancy-count-card__icon">
-        <BriefcaseBusiness className="h-5 w-5" aria-hidden="true" />
-      </span>
-      <div className="min-w-0">
-        <p className="text-xs font-medium text-muted-foreground">Collected vacancies</p>
-        <p className="text-xl font-bold leading-tight text-primary">{vacancyCount}</p>
+    <div className="min-w-0 flex-1 space-y-3">
+      <div className="flex flex-wrap items-stretch gap-2">
+        <DashboardMetricCard
+          label="Collected vacancies"
+          value={vacancyCount}
+          icon={BriefcaseBusiness}
+        />
+        <DashboardMetricCard label="Registered companies" value={companyCount} icon={Building2} />
+        <DashboardMetricCard label="First seen (24h)" value={newCount} icon={Sparkles} />
+        <DashboardMetricCard label="Fresh (0–7 days)" value={freshCount} icon={Timer} />
+        <DashboardMetricCard label="Recent (8–14 days)" value={recentCount} icon={Clock3} />
+        <DashboardMetricCard label="Aging (15–30 days)" value={agingCount} icon={Hourglass} />
+        <DashboardMetricCard label="Stale (over 30 days)" value={staleCount} icon={Clock3} />
+        <DashboardMetricCard label="Date unavailable" value={undatedCount} icon={CalendarX2} />
       </div>
-      {vacancyChange !== 0 && (
-        <span
-          className={
-            "ml-auto inline-flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold " +
-            (vacancyChange > 0
-              ? "scout-vacancy-change--positive"
-              : "scout-vacancy-change--negative")
-          }
-          aria-label={
-            vacancyChange > 0
-              ? vacancyChange + " new vacancies in the last 24 hours"
-              : Math.abs(vacancyChange) + " vacancies removed from active inventory"
-          }
-        >
-          {vacancyChange > 0 ? (
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          ) : (
-            <ArrowDownRight className="h-3.5 w-3.5" />
-          )}
-          {vacancyChange > 0 ? "+" : ""}
-          {vacancyChange}
-        </span>
-      )}
+      <DashboardRunSummary summary={runSummary} extracting={extracting} />
     </div>
   );
 }

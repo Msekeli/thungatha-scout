@@ -1,15 +1,21 @@
 export type VacancyFreshnessTone = "fresh" | "recent" | "aging" | "stale";
 
-export type VacancyFreshness = {
-  label: string;
-  tone: VacancyFreshnessTone;
-  statusLabel: string;
-};
+export type VacancyFreshness = { dateLabel: string; ageLabel: string; tone: VacancyFreshnessTone };
 
 function parseTimestamp(value?: string | null): Date | null {
   if (!value) return null;
   const timestamp = new Date(value);
   return Number.isNaN(timestamp.getTime()) ? null : timestamp;
+}
+
+function getAgeLabel(age: number): string {
+  if (age < 3_600_000) return "less than 1 hour ago";
+  if (age < 86_400_000) {
+    const hours = Math.floor(age / 3_600_000);
+    return hours + " " + (hours === 1 ? "hour" : "hours") + " ago";
+  }
+  const days = Math.floor(age / 86_400_000);
+  return days + " " + (days === 1 ? "day" : "days") + " ago";
 }
 
 export function getVacancyFreshness(
@@ -20,24 +26,13 @@ export function getVacancyFreshness(
   const updatedAt = parseTimestamp(sourceUpdatedAt);
   const effectiveDate = updatedAt ?? parseTimestamp(publishedAt);
   if (!effectiveDate) return null;
-
-  const ageInDays = Math.max(0, Math.floor((now - effectiveDate.getTime()) / 86_400_000));
-  const sourceLabel = updatedAt ? "Updated" : "Posted";
-  const dateLabel = effectiveDate.toLocaleDateString();
+  const age = Math.max(0, now - effectiveDate.getTime());
+  const days = Math.floor(age / 86_400_000);
   const tone: VacancyFreshnessTone =
-    ageInDays <= 7 ? "fresh" : ageInDays <= 14 ? "recent" : ageInDays <= 30 ? "aging" : "stale";
-  const statusLabel =
-    tone === "fresh"
-      ? "Fresh"
-      : tone === "recent"
-        ? "Recent"
-        : tone === "aging"
-          ? "Aging"
-          : "Stale";
-
+    days <= 7 ? "fresh" : days <= 14 ? "recent" : days <= 30 ? "aging" : "stale";
   return {
-    label: `${sourceLabel} ${dateLabel} · ${ageInDays} ${ageInDays === 1 ? "day" : "days"} ago`,
+    dateLabel: (updatedAt ? "Updated " : "Posted ") + effectiveDate.toLocaleDateString(),
+    ageLabel: getAgeLabel(age),
     tone,
-    statusLabel,
   };
 }

@@ -1,5 +1,5 @@
 import type { Employer } from "../api";
-import type { VacancyLocationScope } from "../shared-contracts/vacancy-contracts";
+import type { VacancyAgeFilter, VacancyLocationScope } from "../shared-contracts/vacancy-contracts";
 import {
   Select,
   SelectContent,
@@ -12,6 +12,8 @@ type VacancyRecordsToolbarProps = {
   selectedEmployerId: string;
   onEmployerChange: (value: string) => void;
   employers: Employer[];
+  ageFilter: VacancyAgeFilter;
+  onAgeFilterChange: (value: VacancyAgeFilter) => void;
   locationScope: VacancyLocationScope;
   onLocationChange: (value: VacancyLocationScope) => void;
   totalVacancies: number;
@@ -23,6 +25,8 @@ export function VacancyRecordsToolbar({
   onEmployerChange,
   employers,
   locationScope,
+  ageFilter,
+  onAgeFilterChange,
   onLocationChange,
   totalVacancies,
   loadedVacancies,
@@ -36,6 +40,26 @@ export function VacancyRecordsToolbar({
           {loadedVacancies.toLocaleString()}
         </p>
       </div>
+      <Select
+        value={ageFilter}
+        onValueChange={(value) => onAgeFilterChange(value as VacancyAgeFilter)}
+      >
+        <SelectTrigger
+          aria-label="Filter vacancies by age"
+          className="h-8 w-[150px] border-input bg-background text-xs text-foreground"
+        >
+          <SelectValue placeholder="All vacancies" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All vacancies</SelectItem>
+          <SelectItem value="new">New · last 24 hours</SelectItem>
+          <SelectItem value="fresh">Fresh · 0–7 days</SelectItem>
+          <SelectItem value="8_14">8–14 days</SelectItem>
+          <SelectItem value="15_30">15–30 days</SelectItem>
+          <SelectItem value="over_30">Over 30 days</SelectItem>
+          <SelectItem value="undated">No date available</SelectItem>
+        </SelectContent>
+      </Select>
       <Select
         value={locationScope}
         onValueChange={(value) => onLocationChange(value as VacancyLocationScope)}

@@ -7,11 +7,7 @@ def registry_for(url: str, config: dict) -> dict:
             {
                 "name": "Example Employer",
                 "sources": [
-                    {
-                        "ats": "greenhouse",
-                        "official_source_url": url,
-                        "config": config,
-                    }
+                    {"ats": "greenhouse", "official_source_url": url, "config": config}
                 ],
             }
         ]
@@ -28,8 +24,6 @@ def add_source(connection: FakeConnection, slug: str) -> dict:
         "source_url": url,
         "normalized_url": url,
         "adapter_config": {"slug": slug},
-        "status": "discovered",
-        "permission_status": "unknown",
     }
     connection.sources.append(source)
     return source

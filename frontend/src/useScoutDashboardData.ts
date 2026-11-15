@@ -23,5 +23,11 @@ export function useScoutDashboardData(onError: (message: string) => void) {
     }
   }, [onError]);
 
-  return { dashboardSources, extractionRuns, loadDashboardData };
+  return {
+    dashboardSources,
+    setDashboardSources,
+    extractionRuns,
+    setExtractionRuns,
+    loadDashboardData,
+  };
 }

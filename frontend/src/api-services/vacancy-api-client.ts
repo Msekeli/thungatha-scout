@@ -2,6 +2,7 @@ import { request } from "./scout-http-client";
 import type {
   Vacancy,
   VacancyLocationScope,
+  VacancyAgeFilter,
   VacancyPage,
 } from "../shared-contracts/vacancy-contracts";
 
@@ -10,9 +11,18 @@ type VacancyPageQuery = {
   locationScope: VacancyLocationScope;
   limit?: number;
   offset?: number;
+  ageFilter?: VacancyAgeFilter;
 };
 
-export type VacancyDashboardMetrics = { total_active: number; new_last_24_hours: number };
+export type VacancyDashboardMetrics = {
+  total_active: number;
+  new_last_24_hours: number;
+  fresh_vacancies: number;
+  recent_vacancies: number;
+  aging_vacancies: number;
+  stale_vacancies: number;
+  undated_vacancies: number;
+};
 
 export const vacancyApiClient = {
   getVacancyMetrics: () => request<VacancyDashboardMetrics>("/api/v1/vacancies/metrics"),
@@ -21,6 +31,7 @@ export const vacancyApiClient = {
       location_scope: query.locationScope,
       limit: String(query.limit ?? 50),
       offset: String(query.offset ?? 0),
+      age_filter: query.ageFilter ?? "all",
     });
     if (query.employerId && query.employerId !== "all") params.set("employer_id", query.employerId);
     return request<VacancyPage>(`/api/v1/vacancies?${params.toString()}`);

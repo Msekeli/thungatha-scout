@@ -26,6 +26,7 @@ export function CompaniesWorkspacePanel({
   const selectCompany = (employer: Parameters<typeof companies.openCompany>[0]) => {
     void companies.openCompany(employer);
   };
+
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden pt-4">
       <CompanyDirectoryPanel
@@ -48,19 +49,24 @@ export function CompaniesWorkspacePanel({
       <Dialog
         open={!!companies.employer}
         onOpenChange={(open) => {
-          if (!open) state.setSelectedCompanyId(null);
+          if (!open) {
+            state.setSelectedCompanyId(null);
+            state.setSources([]);
+          }
         }}
       >
         <DialogContent
-          className="scout-company-dialog !max-h-[70vh] !w-[95vw] !max-w-3xl"
+          className="!flex !max-h-[77vh] !w-[min(95vw,52.2rem)] !max-w-none !flex-col !gap-0 !overflow-hidden !rounded-xl !p-0 [&>button:last-child]:absolute [&>button:last-child]:right-4 [&>button:last-child]:top-4 [&>button:last-child]:z-50 [&>button:last-child]:rounded-md [&>button:last-child]:bg-muted [&>button:last-child]:p-2 [&>button:last-child]:text-foreground [&>button:last-child]:opacity-100"
           overlayClassName="!bg-transparent !backdrop-blur-0"
         >
-          <DialogHeader>
-            <DialogTitle className="scout-company-heading">Company details</DialogTitle>
+          <DialogHeader className="relative z-10 shrink-0 border-b border-border bg-card px-6 py-5 pr-14">
+            <DialogTitle className="text-base font-semibold tracking-tight text-foreground">
+              Company details
+            </DialogTitle>
           </DialogHeader>
           <CompanyProfilePanel
+            key={companies.employer?.id}
             state={state}
-            jobs={jobs}
             companies={companies}
             onboarding={onboarding}
           />

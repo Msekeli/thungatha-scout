@@ -1,7 +1,7 @@
 # Thungatha Scout — Implementation Plan
 
 **Status:** Active delivery roadmap  
-**Updated:** 8 November 2026  
+**Updated:** 10 November 2026  
 **Branch:** `dev`
 
 ## 1. Authority
@@ -18,7 +18,7 @@ Scout is an unattended employer-sourced vacancy ingestion and publishing system 
 
 Human review is exception-based, not a mandatory approval step for every vacancy. Only records that pass deterministic publication gates are published. Uncertain or incomplete records are held for review.
 
-V1 ATS adapter: Greenhouse. Workday is deferred from active investigation and implementation until further notice. Initial geographic scope: Cape Town. No public job-search frontend or recruiter self-service.
+Greenhouse remains the proven reference adapter. South African employer careers-page coverage now determines the next platform investigation and adapter priorities. Initial geographic scope: South Africa for vacancy export, as recorded in the 9 November operating-model correction. No public job-search frontend or recruiter self-service.
 
 ## 3. Current architecture
 
@@ -28,7 +28,7 @@ V1 ATS adapter: Greenhouse. Workday is deferred from active investigation and im
 | Backend API and scheduled processing | FastAPI (Python), separately executable workers; provider pending                                                                             |
 | Scout operational database           | Dedicated Supabase PostgreSQL project                                                                                                         |
 | Thungatha publication destination    | Existing Thungatha Supabase PostgreSQL project                                                                                                |
-| ATS integrations                     | Greenhouse adapter; Workday deferred                                                                                                          |
+| ATS integrations                     | Greenhouse reference adapter; Lever integrated and accepted; Workable next, Workday second                                                    |
 | Admin authentication                 | Supabase Auth; one configured administrator email only, public registration disabled; backend validates JWTs and enforces the email allowlist |
 
 Azure Table Storage is not a v1 requirement. Keep the backend provider-portable and defer hosting selection until local implementation and workload verification are complete. Do not provision paid resources or upgrade the exhausted student subscription without explicit approval.
@@ -59,19 +59,19 @@ Employer discovery and source verification continue in parallel with implementat
 
 ## 6. Milestones
 
-| Milestone | Name                                               | Status                                                                                                                                       |
-| --------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| M0        | Repository Audit and Scope Lock                    | Accepted                                                                                                                                     |
-| M1        | Employer Discovery and Source Registry             | In progress; runs in parallel with implementation                                                                                            |
-| M2        | Backend Foundation and Scout Supabase Persistence  | In progress; checkpoint review/remaining contract work                                                                                       |
-| M3        | Greenhouse Vertical Slice                          | In progress — user confirms extraction-to-Thungatha flow has been exercised; remaining Greenhouse/admin acceptance evidence must be recorded |
-| M4        | ATS Adapter Expansion                              | Not started                                                                                                                                  |
-| M5        | Cross-cutting Admin UI and API Integration         | In progress alongside M3 and M4 when its checkpoints begin                                                                                   |
-| M6        | Fourth-Employer Compatibility Test                 | Not started                                                                                                                                  |
-| M7        | Vacancy Quality, Lifecycle and Exception Review    | Not started                                                                                                                                  |
-| M8        | Scheduling and Thungatha Publishing                | Not started                                                                                                                                  |
-| M9        | Security, Hosting, Recovery and Release Acceptance | Not started                                                                                                                                  |
-| M10       | Docker Containerisation and Packaging              | Not started                                                                                                                                  |
+| Milestone | Name                                                 | Status                                                                                                                                       |
+| --------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| M0        | Repository Audit and Scope Lock                      | Accepted                                                                                                                                     |
+| M1        | Employer Discovery and Source Registry               | In progress; runs in parallel with implementation                                                                                            |
+| M2        | Backend Foundation and Scout Supabase Persistence    | In progress; checkpoint review/remaining contract work                                                                                       |
+| M3        | Greenhouse Vertical Slice                            | In progress — user confirms extraction-to-Thungatha flow has been exercised; remaining Greenhouse/admin acceptance evidence must be recorded |
+| M4        | South African Careers Crawling and Platform Coverage | Reprioritised — preserve Greenhouse/Lever/Teamtailor work; investigate South African enterprise and local platforms before more adapters     |
+| M5        | Cross-cutting Admin UI and API Integration           | In progress alongside M3 and M4 when its checkpoints begin                                                                                   |
+| M6        | Fourth-Employer Compatibility Test                   | Not started                                                                                                                                  |
+| M7        | Vacancy Quality, Lifecycle and Exception Review      | Not started                                                                                                                                  |
+| M8        | Scheduling and Thungatha Publishing                  | Not started                                                                                                                                  |
+| M9        | Security, Hosting, Recovery and Release Acceptance   | Not started                                                                                                                                  |
+| M10       | Docker Containerisation and Packaging                | Not started                                                                                                                                  |
 
 ### M2 — Backend foundation and Scout Supabase persistence
 
@@ -100,31 +100,25 @@ Checkpoints:
 
 Acceptance: adding another Greenhouse employer requires registry configuration, not employer-specific adapter code; supported URL forms, complete-board counts, full descriptions, meaningful vacancy data and failure outcomes are tested; the admin can complete source onboarding, extraction and vacancy inspection end to end.
 
-### M4 — First-wave ATS adapter expansion
+### M4 — South African careers crawling and platform coverage
 
-M4 is limited to the six first-wave adapters: Ashby, Lever, Teamtailor, Personio, Recruitee and Workable. It contains exactly twelve checkpoints, two per adapter, as defined in `milestones/M4-ATS-ADAPTER-EXPANSION.md`.
+M4 is reprioritised around verified South African employer coverage. The previous Personio/Recruitee-first sequence is superseded. Existing Greenhouse, Lever and Teamtailor work is retained; do not delete accepted code, registry entries or historical evidence.
 
-For each adapter, complete the checkpoints in order:
+Read `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` for the detailed crawler architecture, platform candidates, evidence scorecard and acceptance criteria.
 
-- **A — Investigate, design and implement.** First inspect real employer sources and prove the public retrieval behavior. Record the evidence and file-by-file design before writing code; the investigation activity does not commit code. Once the method and design are established, implement the adapter and focused unit tests within the same A checkpoint. If no permitted, reliable method is established, record an evidence-backed blocked/deferred outcome.
-- **B — Integrate and verify.** Register generic adapter capabilities and employer-specific source configuration in the correct registries; connect the adapter to the shared extraction/persistence and existing API/admin workflow; add contract/integration coverage; run regression and mandatory repository checks; perform representative live validation; record exact evidence and results.
+M4 checkpoints:
 
-Complete and review both checkpoints for one adapter before starting the next adapter. Do not split these responsibilities into additional checkpoints.
+- **M4-SA-A — Crawler foundation and source fingerprinting.** Use Crawlee for bounded public careers-page discovery, redirects, link extraction, platform fingerprints and source observations. Start with HTTP crawling; use Crawlee's Playwright integration only when evidence requires a browser. Route known ATS sources to existing adapters. Use generic HTML/JSON extraction only where no suitable adapter exists.
+- **M4-SA-B — Workable adapter implementation and live validation.** Implement the documented public careers endpoint retrieval path using the existing adapter contract. Test LekkeSlaap, Electrum and GoTyme Bank; verify board identity, list completeness, descriptions, locations, stable IDs, application URLs, response limits and failure semantics. Do not confuse the public widget with Workable's authenticated customer API.
+- **M4-SA-C — Workday adapter implementation and live validation.** Reactivate the observed public CXS JSON strategy after Workable. Start with the Old Mutual source mapping; validate host, tenant and site parsing, paginated listing, detail retrieval, result caps and exact application destinations. Pick n Pay remains an unverified mapping until its official career URL and site identifier are confirmed.
+- **M4-SA-D — SAP SuccessFactors employer-specific investigation.** Investigate Sanlam and Capitec Bank after Workable and Workday. Use Crawlee HTTP-first to inspect each official careers site, redirects, sitemaps, structured data, embedded JSON and public network requests; use bounded Playwright only when evidence requires it. Keep employer-specific retrieval profiles in source configuration. Generalise a reusable SuccessFactors adapter only if a stable permitted pattern is shared; otherwise use the generic crawler with explicit per-employer configuration. Do not build on the retiring legacy RSS/XML response.
+- **M4-SA-G — Additional platform investigation and evidence-ranked integration.** Continue with SmartRecruiters, BambooHR, Breezy HR, Simplify.hr, eRecruit and other candidates according to verified South African employer coverage. Implement only where a reliable, permitted retrieval path is demonstrated. Do not conflate eRecruit with Graylink Neptune.
 
-The six first-wave providers and target cohorts are:
+Greenhouse remains the architectural reference. Existing Lever and Teamtailor work is retained. Workable is implementation priority 1, Workday priority 2, and SuccessFactors is the next employer-specific investigation. Other candidates remain in the registry without being represented as implemented.
 
-- **Ashby:** Midnite, MyEdSpace, Tree Traction — public Job Postings API.
-- **Lever:** Mama Money, Theodo, Wing Assistant — public Postings API; verify regional host and pagination.
-- **Teamtailor:** Root Platform, Footasylum, TeamViewer — public RSS feed and custom-domain handling.
-- **Personio:** ottonova, Open, Openprovider — public XML feed when enabled by the employer.
-- **Recruitee:** TransPerfect, Fastned, Tether — verify current public XML offer feed availability; do not rely on the token-protected Careers Site API.
-- **Workable:** LekkeSlaap, Electrum, GoTyme Bank — validate observed public careers-widget JSON behavior.
+Crawlee is a local framework dependency, not a commitment to Apify hosting. Keep the worker portable and locally runnable. Do not enable hosted/recurring workloads or paid usage without explicit approval and cost review.
 
-Greenhouse remains the existing architectural reference and is not part of M4 delivery. SmartRecruiters, BambooHR, Breezy HR, Simplify.hr, eRecruit/Neptune, Zoho Recruit and SAP SuccessFactors belong to later-wave planning, not this milestone. Placement Partner is a separate recruitment/staffing source pipeline and is not part of M4. Workday remains deferred.
-
-Across all adapters, keep provider HTTP, parsing, pagination and detail retrieval inside the adapter; keep quality gates, deduplication, lifecycle and publishing shared. Do not hardcode employer-specific slugs or tenant identifiers in adapter code. HTTP 200 alone is not acceptance: verify meaningful vacancy content, full descriptions where expected, complete-board counts, stable IDs and exact candidate destinations. Failed or partial runs must not imply that vacancies disappeared.
-
-**Acceptance:** all six adapters have completed their A/B checkpoints or have evidence-backed blocked/deferred outcomes; implemented adapters are registered and integrated through the shared workflow; relevant unit, contract, integration and regression tests pass; representative live evidence and gaps are recorded; adding another employer to a supported platform requires configuration rather than employer-specific adapter code. Follow the 100-physical-line limit and mandatory naming/line-limit checks for all handwritten source and test files.
+Acceptance: the crawler demonstrates bounded careers-page discovery and platform fingerprinting; known ATS sources route to existing adapters; generic pages use the shared extraction contract; source evidence and crawl completeness are persisted; representative South African employers establish useful unique-employer coverage; no second database or direct Thungatha writes are introduced. All adapter implementation requires evidence and tests, not platform-name popularity claims.
 
 ### M5 — Cross-cutting admin UI and API integration
 
@@ -136,7 +130,7 @@ Deliver the private React admin incrementally:
 - Companies and sources list/detail workflows.
 - URL-first Add Company flow: paste URL, detect supported ATS, preview metadata/configuration, allow manual fallback, confirm employer/source relationship.
 - Source connection test, operational status and useful error feedback.
-- Progressive Greenhouse integration and first-wave ATS adapters as each API contract stabilises. Workday remains deferred.
+- Progressive Greenhouse integration and adapter workflows as each API contract stabilises. Workable is first, followed by Workday.
 - Dashboard, vacancies and exception/review views when their backend capabilities are ready.
 - Vacancy detail, review, and archive/restore controls integrated against the management API.
 
@@ -154,11 +148,15 @@ Implement normalisation, source-scoped identity, content hashing, vacancy versio
 
 Acceptance: qualifying records become auto-publish eligible; hard failures are suppressed; uncertain cases are held; unchanged records do not create versions; failed/partial runs do not expire vacancies; lifecycle reconciliation requires a sufficiently complete successful inventory.
 
-### M8 — Scheduling and Thungatha publishing
+### M8 — Scheduling and Thungatha publishing (deferred until after first hosting)
 
-Implement bounded recurring extraction at 06:00 and 18:00 `Africa/Johannesburg` time, with a maximum one-hour execution window per run (06:00–07:00 and 18:00–19:00). The one-hour limit is a ceiling, not a target: finish and exit as soon as assigned work completes. Add concurrency protection, per-source progress, bounded retries/backoff, run metrics, source health and idempotent publishing to Thungatha.
+The first production deployment uses the existing administrator-triggered manual retrieval workflow. Automated scheduling is not a release prerequisite. Preserve the target cadence of 06:00 and 18:00 Africa/Johannesburg, with a maximum one-hour execution window per run, for a later milestone.
 
-Acceptance: unattended run works; only records passing publication gates publish; duplicate publishing is prevented; failed publication recovers; destination receives only required clean fields. Keep Scout and Thungatha persistence isolated.
+Before first hosting, verify the manual extraction path end to end: authenticated admin trigger, run creation/status, source-level progress/outcomes, persistence, partial/failure visibility and idempotent downstream behavior. Do not imply that the scheduler is connected; the admin UI currently reports that scheduling is not active.
+
+After hosting, implement the scheduler/worker with overlap protection, per-source progress, bounded retries/backoff, run metrics, source health and idempotent publishing to Thungatha.
+
+Acceptance for the deferred scheduler checkpoint: unattended runs work at the configured local times; overlap is prevented; only records passing publication gates publish; duplicate publishing is prevented; failed publication recovers; destination receives only required clean fields. Keep Scout and Thungatha persistence isolated.
 
 ### M10 — Docker containerisation and packaging
 
@@ -173,13 +171,20 @@ This is a final packaging checkpoint, not an early development dependency. Start
 
 Acceptance: both API and worker run successfully from the same versioned image in local container tests; no credentials are embedded; application behavior matches the already accepted non-container local run. Docker packaging does not itself authorize cloud deployment or paid resources.
 
-### M9 — Security, hosting, recovery and release
+### M9 — Security, authentication, initial hosting and release
 
-Complete authentication/authorization, secret handling, hosting-provider evaluation, deployment, monitoring, retention, backup/recovery, rollback and end-to-end verification.
+This is the first-deployment gate. The order is manual retrieval verification, security hardening, single-admin authentication, then hosting.
 
-Hosting selection is intentionally deferred until the application is implemented and verified locally. Evaluate the actual API, scheduled-worker, scraping and runtime requirements before selecting a provider.
+1. Verify the existing manual extraction workflow end to end. Do not block first hosting on automated scheduling.
+2. Audit every API route and enforce backend administrator authorization on every admin operation. Keep machine-to-machine vacancy export authentication separate.
+3. Review production CORS, environment configuration, secret handling, input validation, error handling, logging and database permissions. Resolve redirect-hop/SSRF protections before enabling unrestricted user-supplied career-page crawling.
+4. Complete Supabase Auth for the one configured administrator email. Disable public registration. Verify token validation and the backend email allowlist; frontend route guards alone are insufficient.
+5. Deploy the frontend to Vercel and the FastAPI backend to Heroku using the Python deployment path. Keep the core backend provider-neutral and both Supabase projects separate.
+6. Verify production configuration, health checks, login, manual retrieval, persistence, admin views, protected export, failure behavior, cost and recovery basics. Obtain explicit user acceptance.
 
-Acceptance: one-email Supabase Auth restriction verified; public registration disabled; backend independently enforces the email allowlist; deployed frontend/backend; production configuration verified; critical flows tested; costs reviewed; user accepts release.
+Automated scheduling, broader ATS/crawler expansion and other unfinished product capabilities continue after hosting. Heroku is the initial backend host, not a permanent provider lock-in. Docker is not required for this deployment; retain it as a later packaging milestone.
+
+Acceptance: manual retrieval works in production; all admin routes are server-protected; the single-email Supabase Auth restriction is verified; public sign-up is disabled; production CORS/secrets/database settings are correct; critical flows pass; cost and recovery considerations are reviewed; user accepts release. Scheduler acceptance is not part of this gate.
 
 ## 7. Immediate execution sequence
 
@@ -190,10 +195,67 @@ Acceptance: one-email Supabase Auth restriction verified; public registration di
 5. Implement M4 in the ranked waves recorded in `docs/ATS-PLATFORM-RESEARCH.md`; start with the easy public feeds/endpoints, retain hard platforms and Placement Partner in the documented backlog, and use the shared adapter contract.
 6. Run the six-employer validation cohort, keeping each verification claim evidence-backed and pending where necessary.
 7. Run the held-out fourth-employer compatibility test through the admin UI.
-8. Build the quality/lifecycle/exception pipeline, then scheduling and idempotent publishing.
-9. Verify the complete application locally before evaluating hosting, cost, backups and deployment.
-10. Add Docker containerisation as a final packaging checkpoint after local application and worker acceptance; build one backend image with separate API and scheduled-worker commands, then verify both locally.
+8. Complete the quality/lifecycle/exception work required for a safe manual extraction workflow. Verify manual retrieval end to end; do not wait for automated scheduling.
+9. Complete the production security review and verify backend authorization on every admin route, export-key separation, CORS, secrets, input boundaries and crawler SSRF protections.
+10. Complete and verify single-admin Supabase authentication. Disable public registration and enforce the configured email allowlist in the backend.
+11. Deploy the frontend to Vercel and the FastAPI backend to Heroku using the Python deployment path. Verify the production manual workflow, login and critical data boundaries before release acceptance.
+12. After hosting, continue the remaining ATS/crawler, AI, lifecycle and quality work. Implement automated scheduling when ready and explicitly accepted.
+13. Keep Docker as a later packaging/portability checkpoint, not a first-deployment dependency.
 
 ## 8. Acceptance and evidence
 
 Use statuses: Not started, In progress, Blocked, In review, Accepted. Never mark work accepted without recorded checks/evidence and explicit user acceptance. Record exactly which commands were run; do not claim tests or deployments that were not performed. Keep each checkpoint bounded, reviewable and reversible.
+
+## Operating-model correction — 9 November 2026
+
+The older implementation steps requiring employer/source verification, source permission decisions, company approval, Cape Town presence checks, or vacancy-by-vacancy approval are superseded.
+
+Current acceptance requirements:
+
+- Company and source registration is direct, without approval/verification states.
+- Greenhouse and Lever URLs are detected from pasted careers/board URLs and register employers outside the static registry.
+- South African relevance is evaluated per vacancy location, never from employer country or headquarters.
+- Only South African vacancies are exported to Thungatha; all is an internal unfiltered view and must not be the publication default.
+- Admin can permanently delete a company and archive a vacancy. No other approval workflow is required.
+- Preserve source previews and extraction-run history as operational diagnostics.
+- Keep provider adapters isolated and the shared ingestion/export pipeline maintainable.
+
+## M4 status update — 10 November 2026
+
+Lever's M4-LEVER-A and M4-LEVER-B checkpoints are accepted. The user verified the live admin workflow: Lever employers registered through both the frontend and backend configuration paths have extracted vacancies persisted and visible in the Companies and Jobs views.
+
+Regression evidence supplied by the user: backend unit suite **160 passed**; frontend typecheck and production build passed; frontend source line-limit and naming checks passed. See `milestones/M4-ATS-ADAPTER-EXPANSION.md` for the checkpoint evidence.
+
+Continue M4 with **M4-TEAMTAILOR-A**. Ashby remains deferred pending its partner response. M4 as a whole remains in progress until the remaining first-wave adapters reach accepted or evidence-backed deferred outcomes.
+
+## South African coverage reprioritisation — 11 November 2026
+
+The former international-first M4 adapter sequence is superseded by M4-SA. The objective is to maximise verified unique South African direct-employer coverage, not the number of ATS integrations. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` for crawler responsibilities, platform candidates, employer leads, evidence scorecard and acceptance criteria. Existing Greenhouse, Lever and Teamtailor work is preserved. No adapter is removed by this decision.
+
+## Crawlee and AI architecture update — 12 November 2026
+
+The user approved replacing the 11 November Scrapy proposal with Crawlee for Python. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and the 12 November decision record in the source of truth.
+
+M4-SA-A now uses Crawlee for bounded HTTP-first careers discovery, link/redirect inspection and source fingerprinting. Playwright is an evidence-driven fallback. Known ATS platforms route to existing adapters; generic extraction is used only for non-standard public pages. The crawler hands results to existing Scout services and persistence; it does not create another pipeline or write directly to Thungatha.
+
+Add a parallel **AI provider foundation** task: Gemini and Groq behind one replaceable interface, deterministic-first extraction, primary/fallback provider selection, content-hash and prompt/schema-version caching, strict structured-output validation, bounded tokens/timeouts/retries and mocked tests. AI is opt-in; it cannot approve sources, invent facts, override gates or publish.
+
+Backend dependency groups are `crawler` (Crawlee with Playwright integration) and `ai` (Google GenAI and Groq SDKs), alongside `dev`. Local setup installs `.[dev,crawler,ai]`. Environment settings are documented in `backend/.env.example`; credentials are never committed. Crawling and AI remain disabled until the user configures local settings and verifies them. No Apify hosting, paid services or recurring hosted workload is approved.
+
+## Zyte crawler hosting approval — 12 November 2026
+
+The user approved use of the one-free-unit Zyte Scrapy Cloud benefit included in the GitHub Student Developer Pack. Zyte Scrapy Cloud is the selected hosting target for the crawler worker only; FastAPI and frontend hosting remain undecided. Keep Crawlee as the worker framework. The cloud package will be a minimal Scrapy-compatible project that declares a standalone Python entry script, as supported by Zyte documentation. Scrapy is a packaging/runtime compatibility layer only; do not port crawler logic or create a parallel pipeline.
+
+Add a deployment checkpoint after M4-SA-A has produced a working local worker: package and deploy the worker; verify dependencies and Python compatibility on Zyte's supported stack; pass credentials through project/job environment settings without committing secrets; verify Scout database connectivity, bounded one-hour execution, single-unit memory limits, graceful shutdown, logs and job outcomes; then manually run one controlled job before configuring the 06:00/18:00 Africa/Johannesburg schedule. Do not enable recurring jobs until the manual run is accepted. The student entitlement authorizes use of its included unit only; no paid upgrade, extra unit or Zyte API spend is approved.
+
+Official deployment constraints and the implementation checkpoint are recorded in `milestones/M4-SA-CAREERS-CRAWLER.md`. This is hosting approval, not evidence of a successful deployment.
+
+## ATS implementation order update — 12 November 2026
+
+The user selected this sequence: **Workable → Workday → SAP SuccessFactors investigation**. This supersedes the earlier M4 ranking for the next implementation work without deleting historical research or existing adapters.
+
+- Workable is the immediate adapter target. Its public careers endpoint is documented; validate its live behavior and redirects; validate representative South African employer boards and exact application destinations before production claims.
+- Workday is reactivated as the second adapter target. Its public CXS endpoint is also observed/undocumented; prove configuration-driven reuse across employers and understand pagination/result caps.
+- SuccessFactors follows as an employer-specific Crawlee investigation, starting with Sanlam and Capitec Bank. Do not assume one universal tenant endpoint. HTTP-first inspection and bounded browser fallback are discovery methods, not permission to bypass access restrictions. Only create a reusable adapter if the evidence demonstrates a stable common pattern; otherwise use generic crawler retrieval with explicit per-employer profiles.
+- Existing Greenhouse, Lever and Teamtailor work is preserved. All new retrieval continues through the common adapter contract and shared Scout persistence, quality, lifecycle and publishing pipeline.
+  \n\n## M4-SA-C progress — 12 November 2026\n\nThe Workday adapter implementation and mocked tests are committed to `dev`. It uses the common `ATSAdapter` contract and is registered in shared extraction and preview. URL parsing derives host cluster, tenant and site from the supplied Workday board URL. Listing retrieval uses bounded 20-item CXS pages and marks inventories partial at the 2,000-result ceiling; detail requests provide descriptions and application destinations. DigiOutsource is recorded from its official Super Group careers link. Opt-in live smoke tests cover DigiOutsource and Old Mutual, but have not yet been run. On the latest recorded CI run, 253 tests passed and 3 were skipped; 2 unrelated repository failures remain (the Workable logo-host assertion and five pre-existing line-limit violations outside Workday). The failed test job prevented naming and frontend typecheck/build steps from running. Repository formatting succeeded. Do not claim live Workday support until both tenant tests pass and the results are reviewed.\n

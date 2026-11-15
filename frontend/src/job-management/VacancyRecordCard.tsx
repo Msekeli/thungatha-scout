@@ -1,8 +1,9 @@
-import { Archive, CalendarDays, Building2, MapPin, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { CalendarDays, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
-import { getCompanyIconUrl } from "../company-management/company-icon-url";
+import { EmployerBrandMark } from "../company-management/employer-brand-mark";
+import { isApprovedEmployerBranding } from "../company-management/company-icon-url";
 import { getVacancyFreshness } from "./vacancy-freshness";
+import { VacancyRecordCardActions } from "./vacancy-record-card-actions";
 
 type Props = {
   vacancy: Vacancy;
@@ -12,6 +13,12 @@ type Props = {
   onOpen: () => void;
   onArchive: () => void;
   onRestore: () => void;
+};
+const freshnessColor = {
+  fresh: "text-emerald-400",
+  recent: "text-yellow-300",
+  aging: "text-amber-400",
+  stale: "text-red-400",
 };
 
 export function VacancyRecordCard({
@@ -25,9 +32,14 @@ export function VacancyRecordCard({
 }: Props) {
   const archived = Boolean(vacancy.archived_at);
   const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
-  const logoUrl =
-    vacancy.employer_logo_url ||
-    getCompanyIconUrl(vacancy.employer_website_url || vacancy.employer_careers_url);
+  const logoUrl = isApprovedEmployerBranding(
+    vacancy.employer_logo_url,
+    vacancy.employer_logo_type,
+    vacancy.employer_logo_source_url,
+    vacancy.employer_website_url,
+  )
+    ? vacancy.employer_logo_url
+    : null;
   return (
     <article className="scout-vacancy-card" data-selected={selected}>
       <div className="flex min-w-0 items-center gap-3 px-4 py-4">
@@ -39,19 +51,12 @@ export function VacancyRecordCard({
           disabled={opening}
         >
           <span className="flex items-center gap-3">
-            <span className="scout-vacancy-card__employer-logo">
-              {logoUrl ? (
-                <img
-                  src={logoUrl}
-                  alt=""
-                  onError={(event) => {
-                    event.currentTarget.style.display = "none";
-                  }}
-                />
-              ) : (
-                <Building2 aria-hidden="true" />
-              )}
-            </span>
+            <EmployerBrandMark
+              name={vacancy.employer_name}
+              logoUrl={logoUrl}
+              className="scout-vacancy-card__employer-logo"
+              logoClassName="h-9 w-9 rounded-lg bg-white object-contain p-1"
+            />
             <span className="min-w-0 flex-1">
               <strong className="scout-vacancy-card__title">{vacancy.title}</strong>
               <span className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
@@ -60,37 +65,25 @@ export function VacancyRecordCard({
                   <MapPin aria-hidden="true" />
                   {vacancy.location_text || "Location unknown"}
                 </span>
-                <span className="scout-vacancy-card__metadata">
-                  <CalendarDays aria-hidden="true" />
-                  {freshness?.label ?? "Date unavailable"}
+                <span className="inline-flex items-center gap-1.5">
+                  <CalendarDays aria-hidden="true" className="h-3.5 w-3.5 text-muted-foreground" />
+                  <span>{freshness?.dateLabel ?? "Date not stated"}</span>
+                  {freshness && (
+                    <strong className={"font-semibold " + freshnessColor[freshness.tone]}>
+                      {freshness.ageLabel}
+                    </strong>
+                  )}
                 </span>
-                {freshness && (
-                  <span
-                    className={`scout-vacancy-freshness scout-vacancy-freshness--${freshness.tone}`}
-                  >
-                    {freshness.statusLabel}
-                  </span>
-                )}
               </span>
             </span>
           </span>
         </button>
-        <Button
-          type="button"
-          size="sm"
-          variant="outline"
-          className="shrink-0"
-          disabled={saving}
-          onClick={archived ? onRestore : onArchive}
-          aria-label={archived ? "Reinstate vacancy" : "Archive vacancy"}
-        >
-          {archived ? (
-            <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-          ) : (
-            <Archive className="mr-1.5 h-3.5 w-3.5" />
-          )}
-          {archived ? "Reinstate" : "Archive"}
-        </Button>
+        <VacancyRecordCardActions
+          archived={archived}
+          saving={saving}
+          onArchive={onArchive}
+          onRestore={onRestore}
+        />
       </div>
     </article>
   );

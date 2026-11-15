@@ -19,59 +19,57 @@ class FakeConnection:
 
     def execute(self, query, params=()):
         if "SELECT id, website_url FROM employers" in query:
-            employer = next(
-                (row for row in self.employers if row["name"] == params[0]),
+            row = next(
+                (
+                    item
+                    for item in self.employers
+                    if item["name"].strip().casefold() == params[0].strip().casefold()
+                ),
                 None,
             )
-            return FakeResult(employer)
+            return FakeResult(row)
         if "UPDATE employers SET website_url" in query:
-            employer = next(row for row in self.employers if row["id"] == params[1])
-            employer["website_url"] = params[0]
-            return FakeResult(employer)
+            row = next(item for item in self.employers if item["id"] == params[1])
+            row["website_url"] = params[0]
+            return FakeResult(row)
         if "INSERT INTO employers" in query:
-            employer = {
-                "id": uuid4(),
-                "name": params[0],
-                "website_url": params[1],
-                "location_evidence": params[3].obj,
-            }
-            self.employers.append(employer)
-            return FakeResult(employer)
+            row = {"id": uuid4(), "name": params[0], "website_url": params[1]}
+            self.employers.append(row)
+            return FakeResult(row)
         if "SELECT id, employer_id, adapter_key" in query:
-            source = next(
-                (row for row in self.sources if row["normalized_url"] == params[0]),
+            row = next(
+                (item for item in self.sources if item["normalized_url"] == params[0]),
                 None,
             )
-            return FakeResult(source)
+            return FakeResult(row)
         if "SELECT id, normalized_url" in query:
-            matches = [
-                row
-                for row in self.sources
-                if row["employer_id"] == params[0] and row["adapter_key"] == params[1]
+            rows = [
+                item
+                for item in self.sources
+                if item["employer_id"] == params[0] and item["adapter_key"] == params[1]
             ]
-            return FakeResult(matches)
+            return FakeResult(rows)
         if "UPDATE employer_sources" in query:
-            source_id = params[3] if len(params) == 4 else params[2]
-            source = next(row for row in self.sources if row["id"] == source_id)
-            source["source_url"] = params[0]
-            if len(params) == 4:
-                source["normalized_url"] = params[1]
-                source["adapter_config"] = params[2].obj
-            else:
-                source["adapter_config"] = params[1].obj
-            return FakeResult(source)
+            row = next(item for item in self.sources if item["id"] == params[4])
+            row.update(
+                {
+                    "source_url": params[0],
+                    "employer_careers_url": params[1],
+                    "normalized_url": params[2] or row["normalized_url"],
+                    "adapter_config": params[3].obj,
+                }
+            )
+            return FakeResult(row)
         if "INSERT INTO employer_sources" in query:
-            source = {
+            row = {
                 "id": uuid4(),
                 "employer_id": params[0],
                 "adapter_key": params[1],
                 "source_url": params[2],
+                "employer_careers_url": params[3],
                 "normalized_url": params[4],
                 "adapter_config": params[5].obj,
-                "status": "discovered",
-                "permission_status": "unknown",
-                "relationship_evidence": params[6].obj,
             }
-            self.sources.append(source)
-            return FakeResult(source)
+            self.sources.append(row)
+            return FakeResult(row)
         raise AssertionError(f"Unexpected SQL: {query}")

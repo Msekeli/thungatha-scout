@@ -6,14 +6,13 @@ from psycopg.types.json import Jsonb
 
 class EmployerSourceCreateOperations:
     def create(self, values: Mapping[str, Any]) -> dict[str, Any]:
-        row = self._connection.execute(
+        return self._connection.execute(
             """
             INSERT INTO employer_sources (
                 employer_id, adapter_key, source_url, employer_careers_url,
-                normalized_url, adapter_config, status, permission_status,
-                relationship_evidence
+                normalized_url, adapter_config, discovery_preview
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
             RETURNING *
             """,
             (
@@ -23,12 +22,11 @@ class EmployerSourceCreateOperations:
                 values.get("employer_careers_url"),
                 values["normalized_url"],
                 Jsonb(values.get("adapter_config", {})),
-                values["status"],
-                values["permission_status"],
-                Jsonb(values.get("relationship_evidence", [])),
+                Jsonb(values["discovery_preview"])
+                if values.get("discovery_preview")
+                else None,
             ),
         ).fetchone()
-        return row
 
     def update_configuration(
         self, employer_id: Any, source_id: Any, values: Mapping[str, Any]

@@ -1,36 +1,22 @@
-import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AppShellHeaderActions, type AppShellHeaderActionsProps } from "./AppShellHeaderActions";
 
-export type AppPage = "jobs" | "companies" | "add-company";
-
-type AppShellHeaderProps = {
+export type AppPage = "jobs" | "operations" | "companies" | "add-company";
+type AppShellHeaderProps = Omit<AppShellHeaderActionsProps, "activePage"> & {
   activePage: AppPage;
   onSelectPage: (page: AppPage) => void;
-  onRefresh: () => void;
-  refreshing: boolean;
 };
-
 const pageHeading: Record<AppPage, { eyebrow: string; title: string }> = {
-  jobs: { eyebrow: "Operations overview", title: "Ingestion Dashboard" },
+  jobs: { eyebrow: "Vacancy records", title: "Dashboard" },
+  operations: { eyebrow: "Operations overview", title: "Ingestion Operations" },
   companies: { eyebrow: "Employer directory", title: "Companies" },
   "add-company": { eyebrow: "Employer onboarding", title: "Add a company" },
 };
 
-export function AppShellHeader({
-  activePage,
-  onSelectPage,
-  onRefresh,
-  refreshing,
-}: AppShellHeaderProps) {
+export function AppShellHeader({ activePage, onSelectPage, ...actions }: AppShellHeaderProps) {
   const heading = pageHeading[activePage];
-
-  const navigationButtonClass = (isActive: boolean) =>
-    isActive
-      ? "bg-white text-scout-navy hover:bg-white/90 hover:text-scout-navy"
-      : "text-white/80 hover:bg-white/10 hover:text-white";
-
   return (
-    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-[#070d18] via-[#10152b] to-[#17122b] border-b border-cyan-400/20 px-4 py-[14px] text-white shadow-md md:-mx-8 md:px-8">
+    <header className="-mx-4 -mt-4 flex min-h-[76px] flex-wrap items-center justify-between gap-3 border-b border-border bg-card px-4 py-3 text-card-foreground shadow-sm md:-mx-8 md:px-8">
       <div className="flex min-w-0 items-center">
         <img
           src="/branding/logo.svg"
@@ -38,20 +24,20 @@ export function AppShellHeader({
           className="h-11 w-auto max-w-[180px] object-contain"
         />
       </div>
-
       <div className="flex-1 text-center">
-        <p className="text-[9px] font-bold uppercase tracking-[.2em] text-scout-cyan">
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           {heading.eyebrow}
         </p>
-        <h2 className="text-lg font-bold tracking-tight text-white">{heading.title}</h2>
+        <h2 className="font-semibold text-foreground">{heading.title}</h2>
       </div>
-
       <nav className="flex items-center gap-1.5" aria-label="Main navigation">
         <Button
           type="button"
           size="sm"
           variant="ghost"
-          className={navigationButtonClass(activePage === "jobs")}
+          className={
+            activePage === "jobs" ? "bg-accent text-accent-foreground" : "text-muted-foreground"
+          }
           onClick={() => onSelectPage("jobs")}
         >
           Dashboard
@@ -60,25 +46,29 @@ export function AppShellHeader({
           type="button"
           size="sm"
           variant="ghost"
-          className={navigationButtonClass(activePage !== "jobs")}
+          className={
+            activePage === "operations"
+              ? "bg-accent text-accent-foreground"
+              : "text-muted-foreground"
+          }
+          onClick={() => onSelectPage("operations")}
+        >
+          Operations
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant="ghost"
+          className={
+            activePage === "companies" || activePage === "add-company"
+              ? "bg-accent text-accent-foreground"
+              : "text-muted-foreground"
+          }
           onClick={() => onSelectPage("companies")}
         >
           Companies
         </Button>
-        {activePage === "jobs" && (
-          <Button
-            type="button"
-            size="icon"
-            variant="ghost"
-            className="text-white/80 hover:bg-white/10 hover:text-white"
-            title="Refresh dashboard data"
-            aria-label="Refresh dashboard data"
-            onClick={onRefresh}
-            disabled={refreshing}
-          >
-            <RefreshCw className={refreshing ? "h-4 w-4 animate-spin" : "h-4 w-4"} />
-          </Button>
-        )}
+        <AppShellHeaderActions activePage={activePage} {...actions} />
       </nav>
     </header>
   );

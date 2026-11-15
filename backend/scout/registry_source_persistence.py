@@ -10,26 +10,19 @@ def update_source(
     source_id: UUID,
     source_url: str,
     adapter_config: dict[str, Any],
+    careers_url: str | None = None,
     update_normalized_url: bool = False,
 ) -> None:
-    if update_normalized_url:
-        connection.execute(
-            """
-            UPDATE employer_sources
-            SET source_url = %s, normalized_url = %s,
-                adapter_config = %s, updated_at = NOW()
-            WHERE id = %s
-            """,
-            (source_url, source_url, Jsonb(adapter_config), source_id),
-        )
-        return
+    normalized_url = source_url if update_normalized_url else None
     connection.execute(
         """
         UPDATE employer_sources
-        SET source_url = %s, adapter_config = %s, updated_at = NOW()
+        SET source_url = %s, employer_careers_url = %s,
+            normalized_url = COALESCE(%s, normalized_url),
+            adapter_config = %s, updated_at = NOW()
         WHERE id = %s
         """,
-        (source_url, Jsonb(adapter_config), source_id),
+        (source_url, careers_url, normalized_url, Jsonb(adapter_config), source_id),
     )
 
 
@@ -39,18 +32,13 @@ def create_source(
     careers_url: str | None,
     connection: Connection,
 ) -> None:
-    evidence = [
-        {"url": url, "status": "claimed"}
-        for url in source.get("verification_evidence", [])
-    ]
     connection.execute(
         """
         INSERT INTO employer_sources (
             employer_id, adapter_key, source_url, employer_careers_url,
-            normalized_url, adapter_config, status, permission_status,
-            relationship_evidence
+            normalized_url, adapter_config
         )
-        VALUES (%s, %s, %s, %s, %s, %s, 'discovered', 'unknown', %s)
+        VALUES (%s, %s, %s, %s, %s, %s)
         """,
         (
             employer["id"],
@@ -59,6 +47,5 @@ def create_source(
             careers_url,
             source["official_source_url"],
             Jsonb(source.get("config", {})),
-            Jsonb(evidence),
         ),
     )

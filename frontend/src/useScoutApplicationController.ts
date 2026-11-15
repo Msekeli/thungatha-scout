@@ -6,7 +6,7 @@ import { useEmployerOnboardingController } from "./employer-onboarding/useEmploy
 export function useScoutApplicationController() {
   const state = useScoutAppState();
   const jobs = useJobsWorkspaceController(state);
-  const companies = useCompaniesWorkspaceController(state, jobs);
   const onboarding = useEmployerOnboardingController(state, jobs);
+  const companies = useCompaniesWorkspaceController(state, jobs, onboarding);
   return { state, jobs, companies, onboarding };
 }

@@ -26,7 +26,7 @@ jobs:
 
       - name: Install backend and test dependencies
         working-directory: backend
-        run: python -m pip install -e ".[dev]"
+        run: python -m pip install -e ".[dev,crawler]"
 
       - name: Run backend unit and integration test suites
         working-directory: backend
@@ -47,6 +47,9 @@ jobs:
 
       - name: Install frontend dependencies
         run: npm --prefix frontend ci
+
+      - name: Run employer branding regression tests
+        run: npm --prefix frontend run test:branding
 
       - name: Run TypeScript typecheck
         run: npm --prefix frontend run typecheck

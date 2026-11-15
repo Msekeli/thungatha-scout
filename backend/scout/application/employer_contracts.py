@@ -3,6 +3,14 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, HttpUrl
 
+EmployerLogoType = Literal[
+    "official_logo",
+    "official_ats_logo",
+    "official_favicon",
+    "careers_favicon",
+    "unverified",
+]
+
 OrganizationType = Literal[
     "direct_employer",
     "recruitment_agency",
@@ -15,23 +23,20 @@ OrganizationType = Literal[
 
 class EmployerCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
-
     name: str = Field(min_length=1)
     legal_name: str | None = None
     website_url: HttpUrl | None = None
     logo_url: HttpUrl | None = None
     logo_source_url: HttpUrl | None = None
+    logo_type: EmployerLogoType = "unverified"
     organization_type: OrganizationType = "unresolved"
     city: str | None = None
     province: str | None = None
     country: str | None = None
-    identity_evidence: list[dict[str, Any]] = Field(default_factory=list)
-    location_evidence: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class EmployerUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
-
     name: str = Field(min_length=1)
     legal_name: str | None = None
     website_url: HttpUrl | None = None
@@ -43,33 +48,31 @@ class EmployerUpdate(BaseModel):
 
 class EmployerBrandingUpdate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
-
     logo_url: HttpUrl | None = None
     logo_source_url: HttpUrl | None = None
+    logo_type: EmployerLogoType = "official_logo"
+
+
+class DiscoveryPreviewJob(BaseModel):
+    id: str | int
+    title: str = Field(min_length=1, max_length=300)
+    absolute_url: HttpUrl | None = None
+    location: dict[str, str | None] | None = None
+
+
+class SourceDiscoveryPreview(BaseModel):
+    total_vacancies: int = Field(ge=0)
+    jobs: list[DiscoveryPreviewJob] = Field(default_factory=list, max_length=5)
 
 
 class EmployerSourceCreate(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True)
-
     employer_id: UUID
-    adapter_key: Literal["greenhouse", "workday"]
+    adapter_key: Literal[
+        "career_page", "greenhouse", "lever", "teamtailor", "workable", "workday"
+    ]
     source_url: HttpUrl
     employer_careers_url: HttpUrl | None = None
     normalized_url: HttpUrl
     adapter_config: dict[str, Any] = Field(default_factory=dict)
-    relationship_evidence: list[dict[str, Any]] = Field(default_factory=list)
-
-
-class EmployerSourceReviewUpdate(BaseModel):
-    status: Literal[
-        "discovered",
-        "pending_verification",
-        "verified",
-        "temporarily_unavailable",
-        "invalid",
-        "needs_review",
-        "inactive",
-    ]
-    permission_status: Literal["unknown", "allowed", "restricted", "needs_review"]
-    evidence_url: str | None = Field(default=None, max_length=2048)
-    reason: str | None = Field(default=None, max_length=2000)
+    discovery_preview: SourceDiscoveryPreview | None = None

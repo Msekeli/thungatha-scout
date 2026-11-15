@@ -39,7 +39,8 @@ class VacancyArchiveOperations:
                    v.last_checked_at, v.status, v.created_at, v.updated_at,
                    v.archived_at, v.archived_reason,
                    s.adapter_key, e.name AS employer_name,
-                   e.logo_url AS employer_logo_url
+                   e.logo_url AS employer_logo_url,
+                   e.logo_type AS employer_logo_type
             FROM vacancies v
             JOIN employer_sources s ON s.id = v.source_id
             JOIN employers e ON e.id = v.employer_id

@@ -14,8 +14,9 @@ export function useJobsWorkspaceController(state: AppState) {
     () => ({
       employerId: state.selectedEmployerId,
       locationScope: state.locationScope,
+      ageFilter: state.vacancyAgeFilter,
     }),
-    [state.selectedEmployerId, state.locationScope],
+    [state.selectedEmployerId, state.locationScope, state.vacancyAgeFilter],
   );
   const workspace = useScoutWorkspace(
     state.setError,
@@ -33,6 +34,7 @@ export function useJobsWorkspaceController(state: AppState) {
     onError: state.setError,
   });
   const fetching = useVacancyFetching({
+    employers: workspace.employers,
     dashboardSources: dashboard.dashboardSources,
     setExtracting: state.setExtracting,
     loadWorkspace,

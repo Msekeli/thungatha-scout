@@ -1,6 +1,7 @@
 export * from "./shared-contracts/employer-contracts";
 export * from "./shared-contracts/vacancy-contracts";
 export * from "./shared-contracts/discovery-contracts";
+export * from "./shared-contracts/adapter-contracts";
 export * from "./api-services/scout-http-client";
 
 import { employerApiClient } from "./api-services/employer-api-client";

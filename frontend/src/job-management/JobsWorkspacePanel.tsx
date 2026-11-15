@@ -1,5 +1,3 @@
-import { BriefcaseBusiness, RefreshCw } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { DashboardOverview } from "../app-shell/DashboardOverview";
 import type { useScoutAppState } from "../app-state/useScoutAppState";
 import type { useJobsWorkspaceController } from "./useJobsWorkspaceController";
@@ -10,38 +8,24 @@ import { VacancyRecordsToolbar } from "./VacancyRecordsToolbar";
 type Props = {
   jobs: ReturnType<typeof useJobsWorkspaceController>;
   state: ReturnType<typeof useScoutAppState>;
-  vacancyChange: number;
 };
 
-export function JobsWorkspacePanel({ jobs, state, vacancyChange }: Props) {
+export function JobsWorkspacePanel({ jobs, state }: Props) {
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-3 pt-4">
-      <div className="flex flex-wrap items-center justify-between gap-4 px-1 py-1">
+      <div className="px-1 py-1">
         <DashboardOverview
           vacancyCount={jobs.dashboardMetrics.total_active}
-          vacancyChange={vacancyChange}
+          companyCount={jobs.employers.length}
+          newCount={jobs.dashboardMetrics.new_last_24_hours}
+          freshCount={jobs.dashboardMetrics.fresh_vacancies}
+          recentCount={jobs.dashboardMetrics.recent_vacancies}
+          agingCount={jobs.dashboardMetrics.aging_vacancies}
+          staleCount={jobs.dashboardMetrics.stale_vacancies}
+          undatedCount={jobs.dashboardMetrics.undated_vacancies}
+          runSummary={jobs.runSummary ?? jobs.latestRunSummary}
+          extracting={state.extracting}
         />
-        <div className="flex shrink-0 gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-9 border-input bg-background text-primary hover:bg-accent hover:text-accent-foreground"
-            onClick={() => void jobs.loadWorkspace()}
-            disabled={jobs.loading || state.extracting}
-          >
-            <RefreshCw className={"mr-1 h-3.5 w-3.5 " + (jobs.loading ? "animate-spin" : "")} />
-            Refresh
-          </Button>
-          <Button
-            size="sm"
-            className="h-9 bg-scout-cyan text-scout-navy hover:brightness-95"
-            onClick={() => void jobs.fetchJobs()}
-            disabled={jobs.loading || state.extracting}
-          >
-            <BriefcaseBusiness className="mr-1 h-3.5 w-3.5" />
-            {state.extracting ? "Fetching jobs…" : "Fetch jobs"}
-          </Button>
-        </div>
       </div>
       <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
         <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm">
@@ -50,13 +34,15 @@ export function JobsWorkspacePanel({ jobs, state, vacancyChange }: Props) {
             onEmployerChange={state.setSelectedEmployerId}
             employers={jobs.employers}
             locationScope={state.locationScope}
+            ageFilter={state.vacancyAgeFilter}
+            onAgeFilterChange={state.setVacancyAgeFilter}
             onLocationChange={state.setLocationScope}
             totalVacancies={jobs.totalVacancies}
             loadedVacancies={jobs.vacancies.length}
           />
           <VacancyRecordList
             vacancies={jobs.filteredVacancies}
-            loading={jobs.loading}
+            loading={jobs.loading || jobs.loadingFirstPage}
             loadingMore={jobs.loadingMore}
             hasMore={jobs.hasMoreVacancies}
             onLoadMore={jobs.loadMoreVacancies}

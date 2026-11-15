@@ -5,7 +5,7 @@ from scout.registry_importer import import_registry
 from scout.registry_loader import RegistryValidationError
 
 
-def test_new_source_is_discovered_and_permission_remains_unknown() -> None:
+def test_new_source_is_registered_without_verification_state() -> None:
     connection = FakeConnection()
     registry = {
         "employers": [
@@ -14,11 +14,8 @@ def test_new_source_is_discovered_and_permission_remains_unknown() -> None:
                 "sources": [
                     {
                         "ats": "greenhouse",
-                        "official_source_url": (
-                            "https://job-boards.greenhouse.io/example"
-                        ),
+                        "official_source_url": "https://job-boards.greenhouse.io/example",
                         "config": {"slug": "example"},
-                        "verification_evidence": ["https://example.com/careers"],
                     }
                 ],
             }
@@ -29,11 +26,9 @@ def test_new_source_is_discovered_and_permission_remains_unknown() -> None:
 
     assert result["sources_created"] == 1
     source = connection.sources[0]
-    assert source["status"] == "discovered"
-    assert source["permission_status"] == "unknown"
-    assert source["relationship_evidence"] == [
-        {"url": "https://example.com/careers", "status": "claimed"}
-    ]
+    assert source["adapter_config"] == {"slug": "example"}
+    assert "status" not in source
+    assert "permission_status" not in source
 
 
 def test_source_import_rejects_missing_required_adapter_config() -> None:
@@ -44,15 +39,12 @@ def test_source_import_rejects_missing_required_adapter_config() -> None:
                 "sources": [
                     {
                         "ats": "greenhouse",
-                        "official_source_url": (
-                            "https://job-boards.greenhouse.io/example"
-                        ),
+                        "official_source_url": "https://job-boards.greenhouse.io/example",
                         "config": {},
                     }
                 ],
             }
         ]
     }
-
     with pytest.raises(RegistryValidationError, match="slug"):
         import_registry(registry, FakeConnection())

@@ -1,11 +1,10 @@
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import { scoutApi } from "../api";
-import type { Employer, EmployerSource, ExtractionRun } from "../api";
+import type { Employer, EmployerSource } from "../api";
 
 type UseCompanySelectionOptions = {
+  dashboardSources: EmployerSource[];
   setSources: Dispatch<SetStateAction<EmployerSource[]>>;
-  setExtractionRuns: Dispatch<SetStateAction<Record<string, ExtractionRun[]>>>;
   setSelectedCompanyId: (id: string | null) => void;
   setLogoUrl: (url: string) => void;
   setLogoSourceUrl: (url: string) => void;
@@ -16,8 +15,8 @@ type UseCompanySelectionOptions = {
 };
 
 export function useCompanySelection({
+  dashboardSources,
   setSources,
-  setExtractionRuns,
   setSelectedCompanyId,
   setLogoUrl,
   setLogoSourceUrl,
@@ -26,44 +25,21 @@ export function useCompanySelection({
   setPage,
   onError,
 }: UseCompanySelectionOptions) {
-  const requestId = useRef(0);
-
   const openCompany = useCallback(
-    async (employer: Employer) => {
-      const currentRequest = ++requestId.current;
+    (employer: Employer) => {
       setEditingSourceId(null);
       setSourceUrl("");
-      setSources([]);
+      setSources(dashboardSources.filter((source) => source.employer_id === employer.id));
       setSelectedCompanyId(employer.id);
       setLogoUrl(employer.logo_url ?? "");
       setLogoSourceUrl(employer.logo_source_url ?? "");
       setPage("companies");
       onError("");
-
-      try {
-        const nextSources = await scoutApi.listSources(employer.id);
-        const runEntries = await Promise.all(
-          nextSources.map(
-            async (source) => [source.id, await scoutApi.listExtractionRuns(source.id)] as const,
-          ),
-        );
-
-        if (currentRequest !== requestId.current) return;
-
-        setSources(nextSources);
-        setExtractionRuns((current) => ({
-          ...current,
-          ...Object.fromEntries(runEntries),
-        }));
-      } catch (reason) {
-        if (currentRequest !== requestId.current) return;
-        onError(reason instanceof Error ? reason.message : "Could not load company sources.");
-      }
     },
     [
+      dashboardSources,
       onError,
       setEditingSourceId,
-      setExtractionRuns,
       setLogoSourceUrl,
       setLogoUrl,
       setPage,

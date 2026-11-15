@@ -37,12 +37,12 @@ export default {
         },
         destructive: "hsl(var(--destructive))",
         success: {
-          DEFAULT: "var(--success-text)",
-          surface: "var(--success-surface)",
+          DEFAULT: "var(--scout-success-text)",
+          surface: "var(--scout-success-surface)",
         },
         warning: {
-          DEFAULT: "var(--warning-text)",
-          surface: "var(--warning-surface)",
+          DEFAULT: "var(--scout-warning-text)",
+          surface: "var(--scout-warning-surface)",
         },
         scout: {
           navy: "var(--scout-navy-2)",

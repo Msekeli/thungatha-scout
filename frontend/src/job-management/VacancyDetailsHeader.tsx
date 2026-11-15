@@ -3,6 +3,13 @@ import { CalendarDays, MapPin } from "lucide-react";
 import type { Vacancy } from "../api";
 import { getVacancyFreshness } from "./vacancy-freshness";
 
+const freshnessColor = {
+  fresh: "text-emerald-400",
+  recent: "text-yellow-300",
+  aging: "text-amber-400",
+  stale: "text-red-400",
+};
+
 export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
   const freshness = getVacancyFreshness(vacancy.source_updated_at, vacancy.published_at);
   return (
@@ -18,14 +25,14 @@ export function VacancyDetailsHeader({ vacancy }: { vacancy: Vacancy }) {
             {vacancy.location_text || "Location unknown"}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <CalendarDays className="h-3.5 w-3.5 text-scout-cyan" />
-            {freshness?.label ?? "Date unavailable"}
+            <CalendarDays className="h-3.5 w-3.5 text-muted-foreground" />
+            <span>{freshness?.dateLabel ?? "Date not stated"}</span>
+            {freshness && (
+              <strong className={"font-semibold " + freshnessColor[freshness.tone]}>
+                {freshness.ageLabel}
+              </strong>
+            )}
           </span>
-          {freshness && (
-            <span className={`scout-vacancy-freshness scout-vacancy-freshness--${freshness.tone}`}>
-              {freshness.statusLabel}
-            </span>
-          )}
         </div>
         <div className="min-w-[260px] flex-1 border-l border-border pl-6">
           <p className="text-xs font-semibold text-muted-foreground">Position</p>

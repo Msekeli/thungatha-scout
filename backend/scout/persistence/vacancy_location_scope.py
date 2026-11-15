@@ -14,7 +14,7 @@ def _location_terms() -> dict[str, tuple[str, ...]]:
 
 
 def location_scope_condition(scope: str) -> tuple[str, list[str]]:
-    if scope in {"all", "south_africa"}:
+    if scope == "all":
         return "", []
     terms = _location_terms().get(scope)
     if terms is None:

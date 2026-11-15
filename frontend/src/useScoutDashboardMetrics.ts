@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import type { Employer, EmployerSource, ExtractionRun, Vacancy } from "./api";
+import { getLatestExtractionRunSummary } from "./job-management/latest-extraction-run-summary";
 
-type UseScoutDashboardMetricsOptions = {
+type Options = {
   employers: Employer[];
   vacancies: Vacancy[];
   archivedVacancies: Vacancy[];
@@ -19,37 +20,35 @@ export function useScoutDashboardMetrics({
   extractionRuns,
   showArchived,
   selectedEmployerId,
-}: UseScoutDashboardMetricsOptions) {
+}: Options) {
   const newVacancies24h = vacancies.filter(
     (item) => item.first_seen_at && Date.now() - new Date(item.first_seen_at).getTime() < 86400000,
   ).length;
-
   const atsPerformance = useMemo(
     () =>
       Array.from(
         new Set(["greenhouse", ...dashboardSources.map((source) => source.adapter_key)]),
       ).map((adapter) => {
-        const adapterSources = dashboardSources.filter((source) => source.adapter_key === adapter);
-        const runs = adapterSources.flatMap((source) => extractionRuns[source.id] ?? []);
+        const sources = dashboardSources.filter((source) => source.adapter_key === adapter);
+        const runs = sources.flatMap((source) => extractionRuns[source.id] ?? []);
         const latest = [...runs].sort(
           (a, b) => new Date(b.started_at ?? 0).getTime() - new Date(a.started_at ?? 0).getTime(),
         )[0];
         return {
           adapter,
-          sourceCount: adapterSources.length,
-          verified: adapterSources.filter(
-            (source) => source.status === "verified" && source.permission_status === "allowed",
-          ).length,
-          jobCount: vacancies.filter((job) =>
-            adapterSources.some((source) => source.id === job.source_id),
-          ).length,
+          sourceCount: sources.length,
+          jobCount: vacancies.filter((job) => sources.some((source) => source.id === job.source_id))
+            .length,
           latest,
           failed: runs.filter((run) => !["success", "empty"].includes(run.outcome)).length,
         };
       }),
     [dashboardSources, extractionRuns, vacancies],
   );
-
+  const latestRunSummary = useMemo(
+    () => getLatestExtractionRunSummary(dashboardSources, extractionRuns, employers),
+    [dashboardSources, extractionRuns, employers],
+  );
   const visibleVacancies = showArchived ? archivedVacancies : vacancies;
   const filteredVacancies = useMemo(
     () =>
@@ -58,9 +57,9 @@ export function useScoutDashboardMetrics({
       ),
     [visibleVacancies, selectedEmployerId],
   );
-
   return {
     newVacancies24h,
+    latestRunSummary,
     atsPerformance,
     visibleVacancies,
     filteredVacancies,

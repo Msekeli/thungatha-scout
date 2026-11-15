@@ -3,9 +3,7 @@ import type { Dispatch, SetStateAction } from "react";
 import { scoutApi } from "../api";
 import type { Employer } from "../api";
 
-type EmployerStatus = "approved" | "needs_review" | "rejected" | "inactive";
-
-type UseCompanyProfileOperationsOptions = {
+type Options = {
   employer: Employer | null;
   logoUrl: string;
   logoSourceUrl: string;
@@ -25,26 +23,7 @@ export function useCompanyProfileOperations({
   setSaving,
   onNotice,
   onError,
-}: UseCompanyProfileOperationsOptions) {
-  const updateStatus = useCallback(
-    async (status: EmployerStatus) => {
-      if (!employer) return;
-
-      setSaving(true);
-      onError("");
-      try {
-        const updated = await scoutApi.updateEmployerStatus(employer.id, status);
-        setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
-        onNotice(`${updated.name} marked ${status.replaceAll("_", " ")}.`);
-      } catch (reason) {
-        onError(reason instanceof Error ? reason.message : "Could not update company status.");
-      } finally {
-        setSaving(false);
-      }
-    },
-    [employer, setEmployers, setSaving, onNotice, onError],
-  );
-
+}: Options) {
   const deleteCompany = useCallback(async () => {
     if (!employer) return;
     setSaving(true);
@@ -61,25 +40,36 @@ export function useCompanyProfileOperations({
     }
   }, [employer, setEmployers, onDeleted, setSaving, onNotice, onError]);
 
-  const saveBranding = useCallback(async () => {
-    if (!employer) return;
+  const saveBranding = useCallback(
+    async (nextLogoUrl?: string) => {
+      if (!employer) return false;
+      setSaving(true);
+      onError("");
+      try {
+        const updated = await scoutApi.updateEmployerBranding(
+          employer.id,
+          (nextLogoUrl ?? logoUrl).trim(),
+          logoSourceUrl.trim(),
+          employer.logo_type ?? "unverified",
+        );
+        setEmployers((current) =>
+          current.map((item) =>
+            item.id === updated.id
+              ? { ...item, ...updated, vacancy_count: item.vacancy_count }
+              : item,
+          ),
+        );
+        onNotice("Company profile updated.");
+        return true;
+      } catch (reason) {
+        onError(reason instanceof Error ? reason.message : "Could not save company logo details.");
+        return false;
+      } finally {
+        setSaving(false);
+      }
+    },
+    [employer, logoUrl, logoSourceUrl, setEmployers, setSaving, onNotice, onError],
+  );
 
-    setSaving(true);
-    onError("");
-    try {
-      const updated = await scoutApi.updateEmployerBranding(
-        employer.id,
-        logoUrl.trim(),
-        logoSourceUrl.trim(),
-      );
-      setEmployers((current) => current.map((item) => (item.id === updated.id ? updated : item)));
-      onNotice("Company logo details saved.");
-    } catch (reason) {
-      onError(reason instanceof Error ? reason.message : "Could not save company logo details.");
-    } finally {
-      setSaving(false);
-    }
-  }, [employer, logoUrl, logoSourceUrl, setEmployers, setSaving, onNotice, onError]);
-
-  return { updateStatus, deleteCompany, saveBranding };
+  return { deleteCompany, saveBranding };
 }

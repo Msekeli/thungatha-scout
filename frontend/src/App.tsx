@@ -1,25 +1,17 @@
 import { AppShellHeader } from "./app-shell/AppShellHeader";
 import { OperationalAlerts } from "./app-shell/OperationalAlerts";
 import { JobsWorkspacePanel } from "./job-management/JobsWorkspacePanel";
+import { IngestionOperationsPanel } from "./app-shell/IngestionOperationsPanel";
 import { CompaniesWorkspacePanel } from "./company-management/CompaniesWorkspacePanel";
-import { EmployerOnboardingPanel } from "./employer-onboarding/EmployerOnboardingPanel";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "./components/ui/dialog";
+import { AddCompanyDialog } from "./company-management/AddCompanyDialog";
 import { useScoutApplicationController } from "./useScoutApplicationController";
 import { useCompanyJobChanges } from "./company-management/useCompanyJobChanges";
-import { useVacancyCountChange } from "./job-management/useVacancyCountChange";
+type AppProps = { onSignOut: () => void; administratorEmail: string };
 
-export default function App() {
+export default function App({ onSignOut, administratorEmail }: AppProps) {
   const { state, jobs, companies, onboarding } = useScoutApplicationController();
   const companyJobChanges = useCompanyJobChanges(state.page, jobs.employers, jobs.vacancies);
-  const vacancyChange = useVacancyCountChange(state.page, jobs.dashboardMetrics.new_last_24_hours);
   const addingCompany = state.page === "add-company";
-
   return (
     <main className="mx-auto flex h-screen max-w-[1600px] flex-col overflow-hidden scout-app-shell px-4 pb-3 pt-4 md:px-8">
       <AppShellHeader
@@ -27,18 +19,28 @@ export default function App() {
         onSelectPage={state.setPage}
         onRefresh={() => void jobs.loadWorkspace()}
         refreshing={jobs.loading}
+        onFetchJobs={() => void jobs.fetchJobs()}
+        fetching={state.extracting}
+        fetchDisabled={jobs.loading}
+        onSignOut={onSignOut}
+        administratorEmail={administratorEmail}
       />
       <OperationalAlerts
         error={state.error}
         notice={state.notice}
-        canUndo={jobs.canUndoDecision}
-        onUndo={() => void jobs.undoLastDecision()}
         onDismissError={state.dismissError}
         onDismissNotice={state.dismissNotice}
       />
-      {state.page === "jobs" && (
-        <JobsWorkspacePanel jobs={jobs} state={state} vacancyChange={vacancyChange} />
+      {state.page === "operations" && (
+        <IngestionOperationsPanel
+          employers={jobs.employers}
+          sources={jobs.dashboardSources}
+          runs={jobs.extractionRuns}
+          running={state.extracting}
+          onRunNow={() => void jobs.fetchJobs()}
+        />
       )}
+      {state.page === "jobs" && <JobsWorkspacePanel jobs={jobs} state={state} />}
       {(state.page === "companies" || addingCompany) && (
         <CompaniesWorkspacePanel
           state={state}
@@ -49,43 +51,10 @@ export default function App() {
           jobChangesByEmployer={companyJobChanges.jobChangesByEmployer}
         />
       )}
-      <Dialog
-        open={addingCompany}
-        onOpenChange={(open) => {
-          if (!open) {
-            state.setPage("companies");
-            state.setSourceUrl("");
-          }
-        }}
-      >
-        <DialogContent className="scout-company-add-dialog">
-          <DialogHeader>
-            <DialogTitle className="scout-company-heading">Add a company</DialogTitle>
-            <DialogDescription className="scout-company-dialog-copy">
-              Paste the official careers page or ATS board URL. Scout will inspect the source before
-              registration.
-            </DialogDescription>
-          </DialogHeader>
-          <EmployerOnboardingPanel
-            sourceUrl={state.sourceUrl}
-            onChangeSourceUrl={state.setSourceUrl}
-            inspecting={onboarding.inspecting}
-            form={state.form}
-            onChangeCompanyName={(value) =>
-              state.setForm((current) => ({ ...current, name: value }))
-            }
-            saving={state.saving}
-            onSubmit={onboarding.submit}
-            onCancel={() => {
-              state.setPage("companies");
-              state.setSourceUrl("");
-            }}
-          />
-        </DialogContent>
-      </Dialog>
+      <AddCompanyDialog state={state} onboarding={onboarding} />
       <footer className="scout-app-footer">
-        Scout is a private operations workspace. Only verified, quality-checked records are eligible
-        for publishing to Thungatha.
+        Scout is a private operations workspace. Only vacancies passing configured quality checks
+        are eligible for publishing to Thungatha.
       </footer>
     </main>
   );

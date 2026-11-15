@@ -319,7 +319,7 @@ The supported vacancy catalogue is South Africa-wide. This supersedes earlier Ca
 The earlier five-platform M4 scope is superseded by the research catalogue in `docs/ATS-PLATFORM-RESEARCH.md` and `backend/registry/ats-adapter-registry.json`.
 
 - Keep all researched platforms and candidate employer sources in scope. Implementation difficulty changes sequencing, not employer eligibility or discovery coverage.
-- First-wave priorities are Ashby, Lever, Teamtailor RSS, Personio XML, Recruitee XML and Workable's observed public widget. Greenhouse remains the proven reference adapter and receives reliability/evidence closure.
+- First-wave priorities are Ashby, Lever, Teamtailor RSS, Personio XML, Recruitee XML and Workable's documented public careers endpoint. Greenhouse remains the proven reference adapter and receives reliability/evidence closure.
 - Second wave: SmartRecruiters, BambooHR and Breezy HR. Third wave: Simplify.hr, eRecruit/Neptune investigation, Zoho Recruit and SAP SuccessFactors. Workday is deferred from active investigation and implementation until further notice.
 - Placement Partner remains in scope as a separate recruitment-agency source pipeline. Validate redirect chains and final candidate destinations; accept redirects only when they preserve the exact vacancy/application journey.
 - JobAdder is partner/customer-authorised unless a separate public source is verified. Leaply is a discovery lead, not a confirmed public ATS adapter.
@@ -343,3 +343,96 @@ The earlier five-platform M4 scope is superseded by the research catalogue in `d
 - Ashby is the first new adapter to investigate. The first next-chat task is M4-C01 investigation only; no application code changes until the evidence and design have been reviewed.
 - Greenhouse is the implemented architectural reference. Inspect its URL parsing, adapter contract, HTTP retrieval, response mapping, extraction orchestration, API route, registry configuration and tests. Reuse responsibilities and shared pipeline boundaries where appropriate, but do not copy provider-specific behavior blindly.
 - Every handwritten source-code file and test remains at or below 100 physical lines. Separate URL/config validation, provider transport, response mapping, extraction orchestration, persistence and API routing by single responsibility.
+
+## Decision record — simplified company/source workflow (9 November 2026)
+
+This decision supersedes all earlier statements in this document requiring employer approval, source verification, source permission checks, Cape Town presence, or vacancy approval.
+
+- Admin registers a company and its careers/ATS source. No company approval status, source verification status, permission status, evidence workflow, or approval queue is required.
+- Greenhouse and Lever URL registration must detect the ATS and derive the board configuration from the URL. Registration must work for companies not present in a predefined employer registry. Adding an employer to an implemented ATS must not require employer-specific adapter code.
+- Employer headquarters/country and Cape Town presence do not determine vacancy relevance. Assess each vacancy using its own job-location data.
+- South Africa is the default vacancy scope. Only vacancies located in South Africa may be exported/published to Thungatha. This is a vacancy-location rule, not an employer-location rule.
+- Admin company actions: permanently delete a company. Deletion removes its dependent Scout sources, extraction runs, and vacancies.
+- Admin vacancy action: archive a vacancy. Do not introduce per-vacancy approval or verification.
+- Keep source inspection/preview and extraction history as operational tools; they are not approval workflows.
+- Keep adapter-specific retrieval inside adapters and shared ingestion, location filtering, deduplication, and export behavior in shared services.
+
+## Superseded decision record — South African employer coverage and Scrapy crawling (11 November 2026; crawler choice superseded 12 November 2026)
+
+The previous international-first ATS expansion order is superseded. Platform and adapter priorities must be based on verified unique South African direct-employer coverage, vacancy relevance, reliable public retrieval, completeness and maintenance cost.
+
+- Greenhouse remains the proven reference adapter. Existing Greenhouse, Lever and Teamtailor work is preserved; this decision does not remove accepted integrations.
+- Promote SAP SuccessFactors to the first enterprise investigation wave, using Sanlam and Capitec Bank as employer leads supplied by the user. Sanlam's existing registry evidence is historical/variable and both current career portals and retrieval behavior must be reconfirmed before implementation claims are made.
+- Investigate Workday and Oracle Recruiting Cloud alongside SAP SuccessFactors. Also investigate locally relevant career platforms identified in the current research: Simplify.hr, eRecruit, BambooHR, Breezy HR and Workable. Oracle Taleo and SmartRecruiters remain secondary candidates pending employer coverage evidence.
+- These are investigation candidates, not assertions of current platform usage, public API availability or permission to crawl.
+- Use Scrapy for bounded public careers-page discovery, platform fingerprinting and generic public HTML/JSON extraction. Route known supported ATS sources to their existing adapters; do not duplicate their retrieval. Use Playwright only when network inspection shows browser execution is genuinely required and no suitable public endpoint is available.
+- Scrapy Cloud (Zyte) is a candidate execution environment via the GitHub Student Developer Pack. Verify the current offer, eligibility, usage limits and scheduling/retention before relying on it. Keep local execution and provider portability.
+- Crawlers use Scout's existing backend, PostgreSQL persistence, normalized vacancy contract, quality gates and publication ledger. No second database and no direct writes to Thungatha.
+- Preserve employer-first source verification, access restrictions, robots/terms, bounded concurrency, failure/completeness semantics and the current South African vacancy export rule.
+- The detailed implementation is in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`; the active M4 roadmap is M4-SA in `IMPLEMENTATION-PLAN.md`.
+
+## Decision record — Crawlee and dual-provider AI architecture (12 November 2026)
+
+The 11 November Scrapy decision is superseded by this explicit user-approved decision. Use **Crawlee for Python** as the careers-page crawling framework. This is a framework choice, not approval to use Apify-hosted infrastructure or any paid service.
+
+- Crawlee is the bounded discovery and generic public-page retrieval layer. Start with HTTP crawling; use its Playwright integration only when evidence proves a browser is required and no suitable public endpoint exists.
+- Existing ATS adapters remain authoritative for known platforms. Crawlee fingerprints and routes known ATS sources to their existing adapters; it must not scrape the same board through a parallel generic path.
+- Generic HTML/JSON/feed parsing is reserved for public non-standard careers pages with no suitable existing adapter.
+- Crawl output enters Scout's existing normalized vacancy contract, persistence, quality/lifecycle, exception and publication pipeline. No second database or direct Thungatha writes.
+- Keep crawling bounded by domain scope, depth, requests per run, concurrency, response size, timeouts and retries. Respect robots.txt, terms, access controls and rate limits. No login/CAPTCHA bypass or evasion. Partial/failed crawls cannot expire vacancies.
+- Gemini and Groq are the two replaceable AI providers behind one small interface. Deterministic extraction runs first; AI is reserved for difficult description structuring and genuinely ambiguous extraction/classification. Use a primary provider with optional failover, not duplicate calls to both providers on every vacancy.
+- Cache validated AI output by content/input hash plus prompt/schema version. Bound input/output, latency and retries. Validate structured output; low-confidence/malformed results remain unresolved or enter exception handling. Preserve original source content.
+- AI cannot invent evidence, approve employers/sources, change stable identity or lifecycle, override hard quality gates, or publish. API keys stay server-side as SecretStr environment settings.
+- AI and crawler are opt-in via configuration until local credentials, models and smoke tests are completed. Crawlee/Playwright and AI SDKs are declared as optional backend dependency groups.
+- No hosted crawler, Apify account, recurring cloud workload or paid usage is approved. Hosting remains deferred pending measured workload and explicit cost review.
+
+The detailed design and M4-SA-A/AI-enrichment delivery sequence are maintained in `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md`.
+
+## Decision record — Zyte Scrapy Cloud hosting approval (12 November 2026)
+
+The user confirmed an active GitHub Student Developer Pack benefit for Zyte Scrapy Cloud: one free forever unit with unlimited crawl time and 120-day data retention. Zyte is approved as the target host for the Scout crawler, subject to implementation and deployment acceptance. This uses the user's student entitlement; it does not authorize paid upgrades, additional units, Zyte API usage charges, or other paid services.
+
+- Keep Crawlee for Python as the crawler framework and retain the existing Scout ATS adapters and ingestion pipeline.
+- Package the Crawlee worker as a standalone Python script inside the minimal Scrapy-compatible project structure required by Scrapy Cloud. Scrapy is a deployment compatibility wrapper, not a replacement crawler or a second ingestion pipeline.
+- The worker must call the existing Scout application services and persist through the dedicated Scout database. It must not treat Zyte job storage as the operational database or write directly to Thungatha.
+- Add the Scrapy Cloud project/deployment files only alongside the implemented worker. Validate dependency installation, Python/runtime compatibility, secrets configuration, bounded execution, graceful shutdown, one-unit resource limits, job logs/outcomes and scheduled execution before enabling a recurring job.
+- Keep the API hosting decision separate. Zyte is approved for the crawler worker only, not the FastAPI API or frontend.
+- The free student entitlement is not a reason to bypass robots.txt, source terms, rate limits, access controls or the existing one-hour maximum run policy.
+
+Official Zyte documentation confirms that Scrapy Cloud can run standalone Python scripts declared in a Scrapy project's `setup.py`, while the deployed package still needs to be a Scrapy project. The Crawlee-on-Scrapy-Cloud compatibility therefore remains a deployment checkpoint to prove, not a claim that deployment has already succeeded.
+
+## Decision record — Workable, Workday and SuccessFactors sequence (12 November 2026)
+
+The user approved the next platform sequence: **Workable first, Workday second, then SAP SuccessFactors investigation**. This supersedes earlier adapter ordering and the 8 November Workday deferral. It does not remove existing adapters or historical evidence.
+
+- Workable is the next implementation target. Use Workable's documented unauthenticated public careers endpoint `https://www.workable.com/api/accounts/{slug}?details=true`. Follow redirects with a strict bound, distinguish the application-form URL from the job-page URL, and validate vacancy completeness and exact destinations against South African employer boards. Do not use or imply access to the authenticated customer SPI API.
+- Workday is reactivated as the second implementation target. Its observed public CXS JSON route is undocumented. The adapter must parse host, tenant and site independently, support bounded pagination and detail retrieval, and prove reusable behavior across employers. Old Mutual is the first test target; Pick n Pay remains unverified until its official board mapping is confirmed.
+- SAP SuccessFactors is investigated after Workable and Workday, initially using Sanlam and Capitec Bank as employer leads. Do not assume that all SuccessFactors career sites share one endpoint or configuration. Use Crawlee HTTP-first to inspect each employer's current official public careers site, redirects, sitemaps, structured JobPosting data, embedded JSON and public network requests. Use bounded Playwright only when the HTTP response is insufficient and browser access is permitted.
+- Store employer-specific retrieval profiles and verified board identifiers in `backend/registry/employer-source-registry.json`, not in adapter code. Build one reusable SuccessFactors adapter only if multiple employers demonstrate a stable common public retrieval pattern. Otherwise use the generic Crawlee careers-page path with explicit per-employer configuration; do not create one bespoke adapter per company.
+- Do not build a new integration around SAP's retiring legacy RSS/XML career-site response. Respect robots.txt, terms, access controls and rate limits; do not bypass login walls or CAPTCHAs.
+- All extracted records continue through the existing adapter contract and shared Scout persistence, normalization, deduplication, quality, lifecycle, exception and publication pipeline. No second database or direct Thungatha writes.
+
+The sequence prioritises measurable South African employer coverage and reusable retrieval over adapter count. Platform association, public access, source permission, vacancy completeness and production readiness remain separate claims requiring evidence.
+
+## Decision record — first deployment scope and Heroku hosting (15 November 2026)
+
+This decision narrows the first production release to a secure, manually operated Scout workflow. It supersedes the earlier assumption that scheduled extraction must be implemented before hosting, and supersedes Zyte Scrapy Cloud as the selected first-deployment worker host. It does not remove the future scheduler requirement or the Crawlee implementation.
+
+### First-deployment priorities
+
+1. **Manual extraction reliability:** retain the existing admin-initiated retrieval workflow. Verify that an administrator can trigger retrieval, that the existing extraction pipeline completes and persists run outcomes and vacancies correctly, and that partial/failure states are visible. Manual extraction is the required operating mode for the first deployment.
+2. **Security hardening:** before public deployment, review every API route and ensure all admin operations require backend-enforced administrator authorization. Keep the vacancy export machine credential separate from browser/admin authentication. Validate CORS, production environment configuration, secrets handling, request boundaries and error responses. Resolve the crawler's redirect-hop/SSRF risk before enabling arbitrary user-supplied career-page crawling in production.
+3. **Single-admin authentication:** complete and verify Supabase Auth for the one configured administrator email. Disable public sign-up. The backend must independently validate access tokens and enforce the email allowlist on every protected admin operation; frontend route guards are not authorization.
+4. **Initial hosting and release:** deploy the React/Vite frontend to Vercel and the FastAPI backend to Heroku. Use Heroku's Python deployment path initially; do not make Docker a prerequisite. Keep the backend provider-neutral and keep Scout Supabase and Thungatha Supabase separate. Verify production login, manual retrieval, persistence, vacancy views and protected export end to end before accepting release.
+
+### Explicitly deferred after first hosting
+
+- Automated scheduling is not a first-deployment requirement. Keep the target schedule of 06:00 and 18:00 Africa/Johannesburg, maximum one hour per run, as the future operating target. Do not configure recurring jobs until the scheduler/worker has been implemented, tested and explicitly accepted.
+- Broader ATS expansion, additional crawler coverage, AI enrichment, automated lifecycle reconciliation and other unfinished product capabilities continue after hosting according to the implementation plan. Do not represent them as production-ready merely because the API is deployed.
+- Docker remains a later packaging/portability milestone. Add one backend image supporting separate API and worker commands only when there is a demonstrated need or before a later provider migration; no database container is required.
+- Zyte Scrapy Cloud is no longer the first-deployment worker host. Preserve the Crawlee framework and its provider-neutral worker design. Reconsider Zyte only if a later measured workload or deployment requirement justifies it. This does not authorize paid Zyte usage.
+- Heroku is the selected initial backend host, not a permanent lock-in. Keep provider-specific deployment concerns outside core application services. Verify current student credit eligibility and projected cost before provisioning; no unapproved paid plan upgrade or additional spend is authorized.
+
+### First-release acceptance boundary
+
+The first release is accepted only after manual retrieval works in the deployed environment, all admin routes are protected server-side, the single-admin sign-in flow is verified, secrets are configured only in hosting environment settings, the frontend can reach the backend through production CORS, and the critical production workflow is exercised successfully. Scheduler acceptance is explicitly excluded from this first-release gate.

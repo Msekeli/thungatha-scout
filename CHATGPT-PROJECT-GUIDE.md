@@ -6,7 +6,7 @@ Use this document as the operating brief for ChatGPT conversations and implement
 
 Build Thungatha Scout as an unattended employer-sourced vacancy ingestion and publishing system. The administrator's main routine action is to paste official employer careers/ATS URLs, confirm employer identity and source relationship, and activate sources. Scout should then run without routine vacancy-by-vacancy approval.
 
-V1 scope: Cape Town initial vacancy relevance; ATS adapter target catalogue is Greenhouse, Workday, Lever, Breezy HR and Ashby; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. Greenhouse is the reference flow already exercised through Thungatha publication. No public job-search frontend and no recruiter self-service.
+V1 scope: Cape Town initial vacancy relevance; Greenhouse reference adapter; existing Lever and Teamtailor work preserved; next adapter sequence is Workable then Workday, followed by employer-specific SuccessFactors investigation; private admin UI; automated extraction, validation, deduplication, exception handling and publishing. Greenhouse is the reference flow already exercised through Thungatha publication. No public job-search frontend and no recruiter self-service.
 
 ## Current decisions — do not silently change
 
@@ -19,11 +19,11 @@ V1 scope: Cape Town initial vacancy relevance; ATS adapter target catalogue is G
 - Thungatha destination: the existing Thungatha Supabase PostgreSQL project.
 - Do not use MongoDB or Azure Table Storage in the current v1 architecture.
 - Do not put Scout's raw/uncleaned/exception/history data in Thungatha. Publish only clean records passing the deterministic gates.
-- Implement all ATS providers already recorded in `backend/registry/ats-adapter-registry.json`: Greenhouse, Workday, Lever, Breezy HR and Ashby. Do not silently add providers beyond this catalogue; update scope and registry when new providers are approved.
+- Follow the active ATS sequence in the source of truth and `IMPLEMENTATION-PLAN.md`: Workable first, Workday second, then investigate SuccessFactors employer by employer. Existing Greenhouse, Lever and Teamtailor work must be preserved. Do not silently add providers beyond the approved registry.
 - `placement_partner` is a separate recruitment/staffing pipeline, not a direct-employer ATS adapter.
 - The Azure for Students credit is exhausted. Never assume Azure hosting/storage is free. Do not upgrade subscriptions or provision paid Azure resources without explicit user approval and a cost estimate.
 - Supabase Free is suitable only for development/low-volume evaluation until inactivity pausing, backups, capacity and production reliability are addressed.
-- Vacancy extraction schedule: 06:00 and 18:00 `Africa/Johannesburg` time. Each run has a maximum one-hour window and must stop as soon as its assigned work is complete; one hour is a ceiling, not a target. Do not force runs to consume the window. Prevent overlap and preserve per-source progress on partial/time-limited runs.
+- First deployment uses administrator-triggered manual extraction; automated scheduling is deferred until after hosting. Preserve the future target schedule of 06:00 and 18:00 `Africa/Johannesburg`, maximum one hour per run, with overlap prevention and per-source progress. Do not claim scheduling is active.
 - Work on branch `dev` only unless the user explicitly instructs otherwise.
 
 ## Product workflow
@@ -66,9 +66,17 @@ Avoid retaining full HTML snapshots by default. Use bounded retention for any ra
 1. Confirm the separate Scout Supabase project and inspect Thungatha's existing publishing schema.
 2. Define Scout's PostgreSQL schema and explicit Thungatha publishing contract.
 3. Implement the Python backend foundation and persistence.
-4. Keep Greenhouse as the proven reference adapter; expand support to Workday, Lever, Breezy HR and Ashby through the shared adapter contract. Revisit stored companies/sources using their configured adapters.
+4. Keep Greenhouse as the proven reference adapter. Implement Workable, then Workday, through the shared adapter contract. Investigate SuccessFactors with Crawlee per employer; generalise only if a common public retrieval pattern is proven.
 5. Build the React admin against the backend API.
 6. Implement deterministic quality gates and exception review.
-7. Add unattended scheduling, idempotent publishing, deployment and recovery.
+7. Verify the existing manual extraction workflow, complete security hardening and single-admin authentication, then deploy the frontend to Vercel and backend to Heroku. Defer automated scheduling and remaining product capabilities until after first hosting.
 
 The user prefers concise, direct guidance, maintainable code, low operating cost and no unnecessary abstractions. Do not ask the user to repeat decisions already recorded here.
+
+## South African careers crawler and AI direction — 12 November 2026
+
+Use **Crawlee for Python** for bounded employer careers-page discovery, platform fingerprinting and generic public-page extraction. This supersedes the 11 November Scrapy proposal. Start with HTTP crawling; use Crawlee's Playwright integration only when evidence proves browser execution is necessary. Known ATS sources route to their existing adapters; never scrape the same board twice. No second database, direct Thungatha writes, or access-control bypasses.
+
+Gemini and Groq are replaceable AI providers behind one small interface. Deterministic extraction runs first; AI is selective for difficult description structuring and ambiguous extraction/classification. Configure primary/fallback rather than calling both on every record. Cache by content hash and prompt/schema version; bound input, tokens, latency and retries; validate structured responses. AI cannot invent evidence, approve sources, override quality gates or publish. AI and crawler remain disabled until local configuration and smoke tests are complete.
+
+Backend optional groups: `crawler` (Crawlee + Playwright integration), `ai` (Google GenAI + Groq SDK), and `dev`. From `backend/`, install with `python -m pip install -e ".[dev,crawler,ai]"`. Configure credentials only in ignored `.env`; never commit secrets. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and `milestones/M4-SA-CAREERS-CRAWLER.md` for the architecture and execution plan. Heroku is the selected initial FastAPI backend host, deployed with the Python build path; Vercel hosts the frontend. Automated scheduling and Zyte hosting are deferred. Keep Crawlee provider-neutral. Docker is a later packaging milestone, not a first-deployment requirement. Verify current student-credit eligibility and cost before provisioning; do not incur unapproved paid usage.

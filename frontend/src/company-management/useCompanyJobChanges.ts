@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Employer } from "../api";
+import type { Employer, Vacancy } from "../api";
 
 const STORAGE_KEY = "thungatha-scout-company-job-snapshot";
 type Snapshot = Record<string, number>;

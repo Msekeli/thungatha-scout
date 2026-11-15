@@ -3,9 +3,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from scout.api.employers import router as employers_router
-from scout.api.greenhouse import router as greenhouse_router
-from scout.api.vacancies import router as vacancies_router
+from scout.api.router_registration import register_application_routes
 from scout.settings import get_settings
 
 settings = get_settings()
@@ -15,11 +13,9 @@ app.add_middleware(
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=False,
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type"],
+    allow_headers=["Content-Type", "Authorization"],
 )
-app.include_router(employers_router, prefix=settings.api_prefix)
-app.include_router(greenhouse_router, prefix=settings.api_prefix)
-app.include_router(vacancies_router, prefix=settings.api_prefix)
+register_application_routes(app, settings.api_prefix)
 
 
 def _problem_response(
@@ -67,12 +63,17 @@ async def request_validation_exception_handler(
     request: Request,
     exception: RequestValidationError,
 ) -> JSONResponse:
+    errors = exception.errors()
+    fields = "; ".join(
+        f"{'.'.join(str(part) for part in error['loc'])}: {error['msg']}"
+        for error in errors
+    )
     return _problem_response(
         request=request,
         status_code=422,
         title="Request validation failed",
-        detail="One or more request fields are invalid.",
-        extensions={"errors": exception.errors()},
+        detail=f"Request validation failed: {fields}",
+        extensions={"errors": errors},
     )
 
 
