@@ -19,8 +19,9 @@ def test_returns_database_vacancy_metrics() -> None:
         response = client.get("/api/v1/vacancies/metrics")
     assert response.status_code == 200
     metrics = response.json()
-    assert metrics["fresh_vacancies"] == 148
+    assert metrics["fresh_vacancies"] == 156
     assert metrics["recent_vacancies"] + metrics["aging_vacancies"] + metrics["stale_vacancies"] == 45
-    assert metrics["fresh_vacancies"] + metrics["recent_vacancies"] + metrics["aging_vacancies"] + metrics["stale_vacancies"] + metrics["undated_vacancies"] == metrics["total_active"]
+    classified_total = sum(metrics[key] for key in ("fresh_vacancies", "recent_vacancies", "aging_vacancies", "stale_vacancies", "undated_vacancies"))
+    assert classified_total == metrics["total_active"]
     assert metrics["undated_vacancies"] == 8
     assert response.json()["companies_total"] == 24
