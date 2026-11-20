@@ -436,3 +436,59 @@ This decision narrows the first production release to a secure, manually operate
 ### First-release acceptance boundary
 
 The first release is accepted only after manual retrieval works in the deployed environment, all admin routes are protected server-side, the single-admin sign-in flow is verified, secrets are configured only in hosting environment settings, the frontend can reach the backend through production CORS, and the critical production workflow is exercised successfully. Scheduler acceptance is explicitly excluded from this first-release gate.
+
+## Decision record — first-class AI strategy across Thungatha and Scout (20 November 2026)
+
+### Objective
+
+AI must be a meaningful product capability in both Thungatha and Thungatha Scout, rather than a marketing label or an optional future experiment. Each application must expose useful AI-assisted workflows, while ordinary deterministic application behavior remains reliable when AI providers are unavailable or disabled.
+
+This is an approved product direction. It does not claim that the integrations below are already implemented or enabled.
+
+### AI technology roles
+
+| Technology | Role | Thungatha | Thungatha Scout |
+|---|---|---|---|
+| Google Gemini | Primary hosted AI provider | Job-fit analysis (CV against vacancy), CV improvement and career-related assistance | Difficult career-page extraction, job-description structuring, vacancy classification and ambiguous-data resolution |
+| Groq | Alternative hosted AI provider and optional fallback | Alternative/fallback for supported AI assistance | Alternative/fallback for extraction, classification and normalization |
+| Ollama | Local model runtime for development and testing | Test AI integration locally before using a hosted provider | Test extraction prompts, structured JSON output and classification locally |
+| Qwen 3.5 4B | Initial local model candidate, run through Ollama | Local testing of Thungatha AI workflows | Local testing of Scout extraction and normalization workflows |
+| Camber | Candidate cloud agent/workspace and compute environment; not assumed to be an LLM API provider | Potential future workspace for AI experiments or heavier processing where useful | Assist company/job discovery and crawler work by analysing crawler results, testing extraction workflows and processing datasets |
+
+### Application responsibilities
+
+**Thungatha**
+- Analyse how well a user's CV aligns with a selected vacancy, explain the evidence behind the assessment and identify missing or weak requirements.
+- Suggest targeted CV improvements based on the user's actual experience and the selected vacancy; do not fabricate skills, qualifications or employment history.
+- Provide relevant career-related assistance grounded in the user's supplied information and the vacancy context.
+
+**Thungatha Scout**
+- Use AI where public career pages are difficult to interpret or deterministic extraction is insufficient.
+- Structure and clean vacancy descriptions while preserving source meaning.
+- Classify vacancy content and help resolve ambiguous extracted fields, retaining the original source evidence and uncertainty.
+- Support company/job discovery and crawler analysis through bounded Camber-assisted agent workflows when the environment is available and approved.
+
+### Runtime and safety architecture
+
+- Gemini and Groq are hosted provider implementations behind a small replaceable application interface. Configure one primary provider and an optional fallback; do not call both for every request.
+- Ollama is a local inference runtime, not another hosted provider. Qwen 3.5 4B is the initial local model candidate, not a production model commitment.
+- Camber is a separate agent/workspace/compute capability. Its exact APIs, model access, data handling, cost, retention and operational limits must be verified before integration. Do not treat it as a drop-in Gemini/Groq provider.
+- Select the model/provider by task quality, structured-output reliability, latency, privacy, context limits and cost. Do not assume one model is suitable for every task.
+- Cache repeatable enrichment by normalized input/content hash plus prompt and schema version. Bound input size, output tokens, timeout, concurrency and retries. Validate every structured response against a strict schema.
+- Preserve source text and provenance. AI may propose extracted or normalized values, but it must not invent evidence or silently overwrite source facts.
+- Deterministic code remains authoritative for URL handling, employer/source identity, deduplication, freshness, lifecycle transitions, hard quality gates, authorization, persistence and publication.
+- AI cannot approve a source, grant access permission, bypass a quality gate, determine vacancy expiry from an incomplete run, or publish a record by itself. Uncertain output must remain reviewable or fall back safely.
+- Do not send unnecessary personal data from Thungatha CVs to providers. Minimize prompts and retain provider/model and validation metadata without logging secrets or unnecessary personal information.
+- Local development must remain possible with Ollama/Qwen. Hosted providers are enabled only through explicit server-side configuration. Secrets must never enter frontend bundles or source control.
+
+### Delivery and implementation status
+
+1. Audit the existing Thungatha and Scout AI code, configuration, tests and provider SDK versions before implementing new integrations.
+2. Build and test the provider abstraction and structured-output contract in Scout; verify Gemini and Groq independently with mocked tests and opt-in live smoke tests.
+3. Integrate the local Ollama/Qwen workflow for prompt and schema development. Record model limitations rather than assuming parity with hosted models.
+4. Implement Scout AI enrichment in bounded crawler/extraction stages and measure when it improves on deterministic extraction.
+5. Define and implement Thungatha's user-facing AI workflows: job-fit analysis, CV improvement and career assistance.
+6. Investigate Camber's supported agent/workspace interfaces, security boundaries, data handling, quotas and costs before selecting a concrete integration.
+7. Record per-feature status (planned, implemented, locally tested, provider-tested, accepted) and evidence. Do not advertise a feature as available until its end-to-end behavior has been tested.
+
+The backend currently contains optional Gemini/Groq dependency declarations and AI environment placeholders, with `AI_ENABLED=false` in the example configuration. These are scaffolding/configuration, not proof of a working AI feature. The initial local Qwen and Camber workflows also remain to be verified and integrated. No paid AI plan, recurring cloud workload or additional cloud spend is approved by this decision.
