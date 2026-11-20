@@ -80,3 +80,32 @@ Use **Crawlee for Python** for bounded employer careers-page discovery, platform
 Gemini and Groq are replaceable AI providers behind one small interface. Deterministic extraction runs first; AI is selective for difficult description structuring and ambiguous extraction/classification. Configure primary/fallback rather than calling both on every record. Cache by content hash and prompt/schema version; bound input, tokens, latency and retries; validate structured responses. AI cannot invent evidence, approve sources, override quality gates or publish. AI and crawler remain disabled until local configuration and smoke tests are complete.
 
 Backend optional groups: `crawler` (Crawlee + Playwright integration), `ai` (Google GenAI + Groq SDK), and `dev`. From `backend/`, install with `python -m pip install -e ".[dev,crawler,ai]"`. Configure credentials only in ignored `.env`; never commit secrets. See `docs/CAREER-PAGE-CRAWLER-IMPLEMENTATION.md` and `milestones/M4-SA-CAREERS-CRAWLER.md` for the architecture and execution plan. Heroku is the selected initial FastAPI backend host, deployed with the Python build path; Vercel hosts the frontend. Automated scheduling and Zyte hosting are deferred. Keep Crawlee provider-neutral. Docker is a later packaging milestone, not a first-deployment requirement. Verify current student-credit eligibility and cost before provisioning; do not incur unapproved paid usage.
+
+## First-class AI strategy across Thungatha and Scout — 20 November 2026
+
+AI is a product capability to implement in both applications, not a marketing label. This is the target direction; do not claim that any feature is available until its end-to-end implementation and tests are verified.
+
+| Technology | Role | Thungatha | Thungatha Scout |
+|---|---|---|---|
+| Google Gemini | Primary hosted AI provider | CV-to-vacancy fit analysis, CV improvement and career assistance | Difficult careers-page extraction, job-description structuring, vacancy classification and ambiguous-data resolution |
+| Groq | Alternative hosted provider / optional fallback | Alternative for supported AI features | Alternative for extraction, classification and normalization |
+| Ollama | Local model runtime | Local development and testing of AI workflows | Local testing of extraction prompts, structured JSON and classification |
+| Qwen 3.5 4B | Initial local model candidate through Ollama | Test Thungatha AI integration locally | Test Scout extraction and normalization locally |
+| Camber | Candidate cloud agent/workspace and compute environment | Potential workspace for AI experiments and heavier processing | Assist company/job discovery and crawler analysis, extraction workflow testing and dataset processing |
+
+### Architecture rules
+
+- Gemini and Groq are hosted provider implementations behind one replaceable interface. Configure one primary provider and optional fallback; do not call both on every task.
+- Ollama is a local runtime; Qwen 3.5 4B is a model candidate, not a hosted provider.
+- Camber is a separate agent/workspace/compute capability, not assumed to be an LLM API. Verify its interfaces, data handling, quotas and cost before integration.
+- Scout runs deterministic extraction first and invokes AI for difficult or ambiguous content. AI output is schema-validated and evidence-backed before entering the existing quality pipeline.
+- Thungatha exposes user-facing job-fit analysis, CV improvement and career assistance grounded in the user's actual profile and vacancy. AI must not invent qualifications or work history.
+- Deterministic code owns identity, URLs, deduplication, lifecycle, hard quality gates, authorization, persistence and publishing. AI cannot approve sources, override gates or publish.
+- Cache by content hash plus prompt/schema version; bound tokens, inputs, timeouts, concurrency and retries. Keep provider keys server-side and minimize personal data sent to hosted providers.
+- Provider outage, invalid output or disabled AI must not corrupt data or break deterministic workflows.
+
+### Current implementation truth
+
+Scout's optional dependency list and environment template contain Gemini/Groq scaffolding, but `AI_ENABLED=false` and model identifiers/API keys are unset in the example configuration. This is not a working AI integration. Ollama/Qwen and Camber workflows also require validation and implementation. Track each feature as planned, implemented, locally tested, provider-tested or accepted with evidence. Do not describe the applications as AI-powered based only on SDK dependencies or configuration placeholders.
+
+See the dated AI strategy decision in `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` and the runtime design in `TECHNICAL-APPROACH.md`.
