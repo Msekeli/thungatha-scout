@@ -307,3 +307,46 @@ Detailed routing, investigation waves and acceptance criteria live in `docs/CARE
 3. **SAP SuccessFactors:** investigate Sanlam and Capitec Bank individually with Crawlee. Inspect public HTML, structured data, sitemaps, embedded data and network requests. Use Playwright only when the HTTP response is insufficient and browser access is permitted. Keep per-employer retrieval configuration outside adapter code. Generalise only after common behavior is demonstrated.
 
 All three must preserve provenance, completeness and explicit partial/blocked outcomes. No failed or partial retrieval may imply vacancy expiry. Existing adapters and the shared Scout ingestion pipeline remain unchanged.
+
+## 16. First-class AI integration across Thungatha and Scout — 20 November 2026
+
+The product direction is to make AI a meaningful capability in both applications. This section expands the 12 November AI enrichment boundary; it does not mean the features are already implemented or enabled. The source of truth contains the full dated decision and responsibility matrix.
+
+### Technology responsibilities
+
+- **Google Gemini:** primary hosted AI provider. Thungatha uses it for CV-to-vacancy fit analysis, CV improvement and career assistance. Scout uses it for difficult careers-page extraction, job-description structuring, vacancy classification and ambiguous-data resolution.
+- **Groq:** alternative hosted provider and optional fallback for supported Thungatha and Scout AI tasks. It is not called for every request; configure provider priority and failover behavior.
+- **Ollama:** local inference runtime for development and testing, not a hosted provider.
+- **Qwen 3.5 4B:** initial local model candidate to run through Ollama for testing Thungatha workflows and Scout extraction, structured JSON and classification. Validate its actual quality and resource use on the development machine before relying on it.
+- **Camber:** candidate cloud agent/workspace and compute environment. Its proposed Scout role is to assist company/job discovery and crawler work by analysing crawl results, testing extraction workflows and processing datasets. It is not assumed to be a Gemini/Groq-compatible model API. Verify interfaces, model access, data handling, quotas, retention and costs before integration.
+
+### Scout runtime flow
+
+1. Crawlee or a configured ATS adapter retrieves public source content and records provenance.
+2. Deterministic parsers and normalizers process content first.
+3. A task router invokes AI only when the content is difficult to extract, structure or classify, or when deterministic confidence is insufficient.
+4. The configured primary provider generates schema-constrained candidate data. A fallback provider is used only for configured retryable failures.
+5. Application code validates the response, checks evidence and confidence, and either accepts candidate fields for downstream deterministic validation or routes the case to existing exception handling.
+6. The existing quality, deduplication, lifecycle and publication pipeline remains authoritative.
+
+Camber-assisted analysis is a separate bounded discovery/engineering workflow. It must hand validated findings back through Scout's existing contracts; it must not create a second crawler pipeline, independent source of truth or direct Thungatha writer.
+
+### Thungatha runtime flow
+
+AI features are exposed as explicit user-facing workflows: job-fit analysis against a selected vacancy, evidence-based CV improvement and career-related assistance. Responses must be grounded in the user's CV/profile and vacancy data. The system must distinguish observed user experience from suggested wording and must never fabricate qualifications, skills or employment history.
+
+### Provider and model controls
+
+- Keep hosted provider integrations behind one small application interface and keep provider-specific SDKs out of domain logic.
+- Configure provider/model identifiers explicitly. Keep API keys server-side.
+- Support Ollama as a development provider/runtime without making local model availability a production dependency.
+- Select providers/models per task based on quality, structured-output reliability, latency, context size, privacy and cost.
+- Cache deterministic enrichment using content hash plus prompt/schema version. Bound prompt size, output tokens, timeouts, concurrency and retries.
+- Validate every structured response. Preserve original source content and evidence references; log provider/model and validation outcome, not secrets.
+- Deterministic code owns identity, URLs, deduplication, timestamps, state transitions, hard quality gates, authorization, persistence and publishing.
+- AI cannot approve sources, grant permission, override hard gates, infer removal from failed/partial extraction, or publish records directly.
+- Keep a safe no-AI path: provider outage, malformed output, quota exhaustion or disabled configuration must not corrupt records or prevent deterministic workflows from operating.
+
+### Implementation status and next work
+
+The current Scout backend declares optional Gemini/Groq SDK dependencies and AI-related environment settings, but the example environment sets `AI_ENABLED=false`; these declarations are not evidence of a working feature. Audit the current code and tests before implementation. Deliver the provider foundation, local Ollama/Qwen validation, Scout enrichment use cases, Thungatha user-facing AI use cases and Camber feasibility as separate reviewable checkpoints. No paid plan or recurring cloud workload is authorized by this design.
