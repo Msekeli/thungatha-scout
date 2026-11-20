@@ -56,7 +56,7 @@ Company discovery: weekly while coverage is growing; reduce to monthly/on-demand
 
 ## AI principles
 
-Gemini and Groq are replaceable provider options. Use AI selectively for ambiguous classification and difficult extraction/normalization. Use deterministic code for URLs, deduplication, status changes, scheduling, and database writes. Validate structured AI output; low-confidence results go to human review. AI alone cannot approve or publish records. Check current models, quotas, and free-tier terms before enabling.
+Ollama is the default local inference runtime during development and testing. Qwen 3.5 4B is the initial local model candidate; validate output quality, structured-JSON reliability, latency and local resource use. Gemini and Groq are hosted providers used occasionally during development for comparison and provider-integration tests, then evaluated for hosted workloads. Keep provider priority configurable. Use AI selectively for ambiguous classification and difficult extraction/normalization. Deterministic code remains authoritative for URLs, identity, deduplication, lifecycle/status changes, scheduling, hard quality gates, database writes and publishing. Validate structured AI output against schemas and source evidence; low-confidence results go to exception review. AI alone cannot approve or publish records. Verify current models, API quotas, student/free-tier eligibility, data-use terms and costs before enabling hosted usage.
 
 ## Cost and security
 
@@ -494,3 +494,15 @@ This is an approved product direction. It does not claim that the integrations b
 7. Record per-feature status (planned, implemented, locally tested, provider-tested, accepted) and evidence. Do not advertise a feature as available until its end-to-end behavior has been tested.
 
 The backend currently contains optional Gemini/Groq dependency declarations and AI environment placeholders, with `AI_ENABLED=false` in the example configuration. These are scaffolding/configuration, not proof of a working AI feature. The initial local Qwen and Camber workflows also remain to be verified and integrated. No paid AI plan, recurring cloud workload or additional cloud spend is approved by this decision.
+
+
+## Decision record — clarified AI development and hosted-runtime strategy (20 November 2026)
+
+- **Local development/testing:** Ollama is the default and most-used inference runtime for both applications. Qwen 3.5 4B is the initial local model candidate.
+- **Hosted development checks:** Gemini and Groq may be used occasionally for comparison and hosted-provider integration tests.
+- **Hosted applications:** Gemini and Groq are the intended hosted providers behind configurable primary/fallback routing. Choose routing by task quality, privacy, quota, latency and cost; do not assume unlimited free usage.
+- **Camber:** Retain as a development tool, not an application inference provider. The Camber Student offer shown by the user describes a cloud coding agent for data/scientific work, PostgreSQL/Trino/S3 connectivity, code execution and cloud compute. Evaluate it for coding assistance, debugging, PostgreSQL/crawler-result analysis, extraction experiments and long-running development jobs. Do not add it as a runtime dependency or send production user data without security/privacy review.
+- **Student benefits:** The user reports free Camber Student and Gemini student access. This is not proof of unlimited Gemini Developer API quota or free production inference. Verify the relevant API tier/model, rate limits and data-use terms.
+- **Role boundary:** Camber supports development work; Ollama runs local models; Gemini and Groq provide hosted inference. These roles are distinct.
+
+This tooling/runtime clarification does not assert that any AI workflow or provider integration is implemented or production-ready.
