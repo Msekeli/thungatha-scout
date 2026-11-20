@@ -89,15 +89,15 @@ AI is a product capability to implement in both applications, not a marketing la
 | ------------- | ------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | Google Gemini | Primary hosted AI provider                              | CV-to-vacancy fit analysis, CV improvement and career assistance | Difficult careers-page extraction, job-description structuring, vacancy classification and ambiguous-data resolution |
 | Groq          | Alternative hosted provider / optional fallback         | Alternative for supported AI features                            | Alternative for extraction, classification and normalization                                                         |
-| Ollama        | Local model runtime                                     | Local development and testing of AI workflows                    | Local testing of extraction prompts, structured JSON and classification                                              |
+| Ollama        | Default local model runtime for development and testing | Main local test path for Thungatha AI workflows                  | Main local test path for extraction prompts, structured JSON and classification                                      |
 | Qwen 3.5 4B   | Initial local model candidate through Ollama            | Test Thungatha AI integration locally                            | Test Scout extraction and normalization locally                                                                      |
-| Camber        | Candidate cloud agent/workspace and compute environment | Potential workspace for AI experiments and heavier processing    | Assist company/job discovery and crawler analysis, extraction workflow testing and dataset processing                |
+| Camber        | Cloud coding agent and data/scientific-work workload     | Development assistance; not an application inference dependency  | Development assistance, PostgreSQL/crawl-result analysis, extraction experiments and long-running jobs              |
 
 ### Architecture rules
 
-- Gemini and Groq are hosted provider implementations behind one replaceable interface. Configure one primary provider and optional fallback; do not call both on every task.
-- Ollama is a local runtime; Qwen 3.5 4B is a model candidate, not a hosted provider.
-- Camber is a separate agent/workspace/compute capability, not assumed to be an LLM API. Verify its interfaces, data handling, quotas and cost before integration.
+- Ollama is the default local inference runtime during development and testing; Qwen 3.5 4B is the initial model candidate. Use it for most local prompt, extraction and structured-output testing.
+- Gemini and Groq are hosted provider implementations behind one replaceable interface. Use them occasionally during development for comparison; once hosted, they are the intended application providers with configurable primary/fallback routing.
+- Camber is a cloud coding agent for development assistance and data/scientific work, including PostgreSQL analysis and long-running jobs. It is not an inference provider or application runtime dependency. Review access and data handling before connecting project data.
 - Scout runs deterministic extraction first and invokes AI for difficult or ambiguous content. AI output is schema-validated and evidence-backed before entering the existing quality pipeline.
 - Thungatha exposes user-facing job-fit analysis, CV improvement and career assistance grounded in the user's actual profile and vacancy. AI must not invent qualifications or work history.
 - Deterministic code owns identity, URLs, deduplication, lifecycle, hard quality gates, authorization, persistence and publishing. AI cannot approve sources, override gates or publish.
@@ -106,6 +106,6 @@ AI is a product capability to implement in both applications, not a marketing la
 
 ### Current implementation truth
 
-Scout's optional dependency list and environment template contain Gemini/Groq scaffolding, but `AI_ENABLED=false` and model identifiers/API keys are unset in the example configuration. This is not a working AI integration. Ollama/Qwen and Camber workflows also require validation and implementation. Track each feature as planned, implemented, locally tested, provider-tested or accepted with evidence. Do not describe the applications as AI-powered based only on SDK dependencies or configuration placeholders.
+Scout's optional dependency list and environment template contain Gemini/Groq scaffolding, but `AI_ENABLED=false` and model identifiers/API keys are unset in the example configuration. This is not a working AI integration. Ollama/Qwen workflows and any Camber-assisted development workflow also require validation. Track each feature as planned, implemented, locally tested, provider-tested or accepted with evidence. Do not describe the applications as AI-powered based only on SDK dependencies or configuration placeholders.
 
 See the dated AI strategy decision in `THUNGATHA-SCOUT-SOURCE-OF-TRUTH.md` and the runtime design in `TECHNICAL-APPROACH.md`.
