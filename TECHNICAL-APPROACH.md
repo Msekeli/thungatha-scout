@@ -282,11 +282,11 @@ The user-approved crawler framework is **Crawlee for Python**, superseding the p
 
 ### AI provider responsibilities
 
-Gemini and Groq are interchangeable implementations behind a small provider interface. Deterministic extraction and normalization run first. AI is used selectively for difficult description structuring or genuinely ambiguous extraction/classification.
+Ollama is the default local inference runtime during development and testing. Qwen 3.5 4B is the initial local model candidate; validate extraction quality, schema adherence, latency and resource use. Use Gemini and Groq occasionally during development to compare results and test hosted integration. For hosted workloads, Gemini and Groq are the intended provider implementations behind one small interface, with configurable primary/fallback routing. Deterministic extraction and normalization run first. AI is reserved for difficult description structuring or genuinely ambiguous extraction/classification.
 
 Configure one primary provider and optional fallback. Do not call both providers for every record. Cache validated results by input/content hash and prompt/schema version. Bound input characters, output tokens, timeouts and retries. Validate structured responses; preserve source content and send unresolved/low-confidence cases to existing exception handling.
 
-AI is not authoritative for source permission, employer approval, vacancy identity, lifecycle, quality-gate overrides or publishing. API keys are server-side secrets. AI and crawler are disabled by default until local configuration and smoke tests are completed.
+Camber is a separate cloud coding agent/workspace for development assistance, PostgreSQL/crawler-result analysis, extraction experiments and long-running development jobs. It is not an inference provider or Scout runtime dependency. Verify its MCP/tool interfaces and data handling before connecting development databases. AI is not authoritative for source permission, employer approval, vacancy identity, lifecycle, quality-gate overrides or publishing. API keys are server-side secrets. AI and crawler remain disabled by default until local configuration and smoke tests are completed. Student/free access does not imply unlimited API quota or free production usage; verify Gemini API tier, model limits and data terms.
 
 ### Dependencies and configuration
 
