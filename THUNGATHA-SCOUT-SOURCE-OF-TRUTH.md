@@ -447,22 +447,24 @@ This is an approved product direction. It does not claim that the integrations b
 
 ### AI technology roles
 
-| Technology | Role | Thungatha | Thungatha Scout |
-|---|---|---|---|
-| Google Gemini | Primary hosted AI provider | Job-fit analysis (CV against vacancy), CV improvement and career-related assistance | Difficult career-page extraction, job-description structuring, vacancy classification and ambiguous-data resolution |
-| Groq | Alternative hosted AI provider and optional fallback | Alternative/fallback for supported AI assistance | Alternative/fallback for extraction, classification and normalization |
-| Ollama | Local model runtime for development and testing | Test AI integration locally before using a hosted provider | Test extraction prompts, structured JSON output and classification locally |
-| Qwen 3.5 4B | Initial local model candidate, run through Ollama | Local testing of Thungatha AI workflows | Local testing of Scout extraction and normalization workflows |
-| Camber | Candidate cloud agent/workspace and compute environment; not assumed to be an LLM API provider | Potential future workspace for AI experiments or heavier processing where useful | Assist company/job discovery and crawler work by analysing crawler results, testing extraction workflows and processing datasets |
+| Technology    | Role                                                                                           | Thungatha                                                                           | Thungatha Scout                                                                                                                  |
+| ------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Google Gemini | Primary hosted AI provider                                                                     | Job-fit analysis (CV against vacancy), CV improvement and career-related assistance | Difficult career-page extraction, job-description structuring, vacancy classification and ambiguous-data resolution              |
+| Groq          | Alternative hosted AI provider and optional fallback                                           | Alternative/fallback for supported AI assistance                                    | Alternative/fallback for extraction, classification and normalization                                                            |
+| Ollama        | Local model runtime for development and testing                                                | Test AI integration locally before using a hosted provider                          | Test extraction prompts, structured JSON output and classification locally                                                       |
+| Qwen 3.5 4B   | Initial local model candidate, run through Ollama                                              | Local testing of Thungatha AI workflows                                             | Local testing of Scout extraction and normalization workflows                                                                    |
+| Camber        | Candidate cloud agent/workspace and compute environment; not assumed to be an LLM API provider | Potential future workspace for AI experiments or heavier processing where useful    | Assist company/job discovery and crawler work by analysing crawler results, testing extraction workflows and processing datasets |
 
 ### Application responsibilities
 
 **Thungatha**
+
 - Analyse how well a user's CV aligns with a selected vacancy, explain the evidence behind the assessment and identify missing or weak requirements.
 - Suggest targeted CV improvements based on the user's actual experience and the selected vacancy; do not fabricate skills, qualifications or employment history.
 - Provide relevant career-related assistance grounded in the user's supplied information and the vacancy context.
 
 **Thungatha Scout**
+
 - Use AI where public career pages are difficult to interpret or deterministic extraction is insufficient.
 - Structure and clean vacancy descriptions while preserving source meaning.
 - Classify vacancy content and help resolve ambiguous extracted fields, retaining the original source evidence and uncertainty.

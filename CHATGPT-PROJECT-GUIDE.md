@@ -85,13 +85,13 @@ Backend optional groups: `crawler` (Crawlee + Playwright integration), `ai` (Goo
 
 AI is a product capability to implement in both applications, not a marketing label. This is the target direction; do not claim that any feature is available until its end-to-end implementation and tests are verified.
 
-| Technology | Role | Thungatha | Thungatha Scout |
-|---|---|---|---|
-| Google Gemini | Primary hosted AI provider | CV-to-vacancy fit analysis, CV improvement and career assistance | Difficult careers-page extraction, job-description structuring, vacancy classification and ambiguous-data resolution |
-| Groq | Alternative hosted provider / optional fallback | Alternative for supported AI features | Alternative for extraction, classification and normalization |
-| Ollama | Local model runtime | Local development and testing of AI workflows | Local testing of extraction prompts, structured JSON and classification |
-| Qwen 3.5 4B | Initial local model candidate through Ollama | Test Thungatha AI integration locally | Test Scout extraction and normalization locally |
-| Camber | Candidate cloud agent/workspace and compute environment | Potential workspace for AI experiments and heavier processing | Assist company/job discovery and crawler analysis, extraction workflow testing and dataset processing |
+| Technology    | Role                                                    | Thungatha                                                        | Thungatha Scout                                                                                                      |
+| ------------- | ------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Google Gemini | Primary hosted AI provider                              | CV-to-vacancy fit analysis, CV improvement and career assistance | Difficult careers-page extraction, job-description structuring, vacancy classification and ambiguous-data resolution |
+| Groq          | Alternative hosted provider / optional fallback         | Alternative for supported AI features                            | Alternative for extraction, classification and normalization                                                         |
+| Ollama        | Local model runtime                                     | Local development and testing of AI workflows                    | Local testing of extraction prompts, structured JSON and classification                                              |
+| Qwen 3.5 4B   | Initial local model candidate through Ollama            | Test Thungatha AI integration locally                            | Test Scout extraction and normalization locally                                                                      |
+| Camber        | Candidate cloud agent/workspace and compute environment | Potential workspace for AI experiments and heavier processing    | Assist company/job discovery and crawler analysis, extraction workflow testing and dataset processing                |
 
 ### Architecture rules
 
