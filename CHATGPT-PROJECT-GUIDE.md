@@ -91,7 +91,7 @@ AI is a product capability to implement in both applications, not a marketing la
 | Groq          | Alternative hosted provider / optional fallback         | Alternative for supported AI features                            | Alternative for extraction, classification and normalization                                                         |
 | Ollama        | Default local model runtime for development and testing | Main local test path for Thungatha AI workflows                  | Main local test path for extraction prompts, structured JSON and classification                                      |
 | Qwen 3.5 4B   | Initial local model candidate through Ollama            | Test Thungatha AI integration locally                            | Test Scout extraction and normalization locally                                                                      |
-| Camber        | Cloud coding agent and data/scientific-work workload     | Development assistance; not an application inference dependency  | Development assistance, PostgreSQL/crawl-result analysis, extraction experiments and long-running jobs              |
+| Camber        | Cloud coding agent and data/scientific-work workload    | Development assistance; not an application inference dependency  | Development assistance, PostgreSQL/crawl-result analysis, extraction experiments and long-running jobs               |
 
 ### Architecture rules
 

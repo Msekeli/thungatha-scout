@@ -495,7 +495,6 @@ This is an approved product direction. It does not claim that the integrations b
 
 The backend currently contains optional Gemini/Groq dependency declarations and AI environment placeholders, with `AI_ENABLED=false` in the example configuration. These are scaffolding/configuration, not proof of a working AI feature. The initial local Qwen and Camber workflows also remain to be verified and integrated. No paid AI plan, recurring cloud workload or additional cloud spend is approved by this decision.
 
-
 ## Decision record — clarified AI development and hosted-runtime strategy (20 November 2026)
 
 - **Local development/testing:** Ollama is the default and most-used inference runtime for both applications. Qwen 3.5 4B is the initial local model candidate.
